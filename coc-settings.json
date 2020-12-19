@@ -160,10 +160,10 @@
     }
   ],
   "java.maven.downloadSources": true,
-  "java.implementationsCodeLens.enabled": true,
+  "java.implementationsCodeLens.enabled": false,
+  "java.referencesCodeLens.enabled": false,
   "java.signatureHelp.enabled": true,
   "java.autobuild.enabled": false,
-  "java.referencesCodeLens.enabled": true,
   "java.errors.incompleteClasspath.severity": "error",
   "java.completion.enabled": true,
   "java.completion.overwrite": false,
