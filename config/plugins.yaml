@@ -1,0 +1,575 @@
+# why use yaml to manage plugins
+# see http://genkisugimoto.com/blog/manage-vim-plugins-via-yaml/
+# hook_source:  executed after the plugins are sourced
+# hook_add:     executed after the line is parsed
+
+# Normal Loaded Plugins
+# ==========================================
+
+# Startup {{{
+# Package Manager
+# ----------------------------------------
+- repo: Shougo/dein.vim
+
+# Completion
+# ----------------------------------------
+- repo: neoclide/coc.nvim
+  merged: 0
+  rev: release
+  hook_add: source $VIM_PATH/config/plugins/coc.vim
+
+- repo: SirVer/ultisnips
+  hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
+
+- repo: honza/vim-snippets
+  depends: ultisnips
+
+# UI
+# ----------------------------------------
+- repo: ryanoasis/vim-devicons
+  hook_add: |
+    let g:webdevicons_enable_denite = 1
+    let g:webdevicons_enable_startify = 1
+
+- repo: itchyny/lightline.vim
+  hook_add: source $VIM_PATH/config/plugins/lightline.vim
+
+- repo: bagrat/vim-buffet
+  on_event: [ VimEnter, BufEnter ]
+  hook_source: source $VIM_PATH/config/plugins/buffet.vim
+  depends: lightline.vim
+
+# Tools
+# ----------------------------------------
+- repo: christoomey/vim-tmux-navigator
+  if: "! (has('win32') || has('win64'))"
+  hook_add: |
+    let g:tmux_navigator_disable_when_zoomed = 1
+
+- repo: tpope/vim-unimpaired
+- repo: tpope/vim-eunuch
+- repo: Shougo/context_filetype.vim
+- repo: itchyny/vim-parenmatch
+- repo: andymass/vim-matchup
+- repo: sgur/vim-editorconfig
+  hook_source: |
+    let g:editorconfig_verbose = 1
+    let g:editorconfig_blacklist = {
+      \ 'filetype': [
+      \   'git.*', 'fugitive', 'help', 'defx', 'denite.*', 'startify',
+      \   'vista.*', 'tagbar', 'lsp-.*', 'clap_.*', 'any-jump', 'gina-.*'
+      \  ],
+      \ 'pattern': ['\.un~$']
+      \ }
+
+# Fix neovim cursorhold bug. Suggested by Fern.vim
+- repo: antoinemadec/FixCursorHold.nvim
+# }}}
+
+
+# Lazy Loading
+# ==========================================
+
+# Completion{{{
+
+# HTML
+# -----
+- repo: mattn/emmet-vim
+  on_event: InsertEnter
+  on_ft: [ html,css,javascript,javascriptreact,vue,typescript,typescriptreact ]
+  hook_source: |
+    let g:user_emmet_complete_tag = 0
+    let g:user_emmet_install_global = 0
+    let g:user_emmet_install_command = 0
+    let g:user_emmet_mode = 'i'
+    let g:user_emmet_leader_key = '<C-;>'
+
+# Vim Commandline
+# -----
+- repo: Shougo/echodoc.vim
+  on_event: CompleteDone
+  hook_source: |
+    call echodoc#enable()
+    let g:echodoc#type = "virtual"
+# }}}
+
+# Syntax{{{
+
+# Linters & Formaters
+# ----------------------------------------
+
+# Syntax
+# ----------------------------------------
+- repo: tmux-plugins/vim-tmux
+
+- repo: luochen1990/rainbow
+  on_ft: [python, javascript, javascriptreact, java, html, css, go, vim, toml]
+  hook_source: |
+    let g:rainbow_active = 0
+
+- repo: KabbAmine/vCoolor.vim
+  if: has('nvim') && has('nvim-0.4.0')
+  on_cmd: [VCoolor, VCoolIns]
+  hook_add: |
+    let g:vcoolor_disable_mappings = 1
+    let g:vcoolor_lowercase = 1
+
+- repo: amadeus/vim-convert-color-to
+  on_cmd: ConvertColorTo
+
+# Coding tools
+# ----------------------------------------
+- repo: puremourning/vimspector
+  hook_add: |
+    let g:vimspector_enable_mappings = 'HUMAN'
+- repo: junegunn/vim-easy-align
+  on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
+  hook_source: source $VIM_PATH/config/plugins/vim-easy-align.vim
+
+- repo: AndrewRadev/splitjoin.vim
+  on_map: { n: <Plug>Splitjoin }
+
+- repo: AndrewRadev/linediff.vim
+  on_cmd: Linediff
+  hook_add: |
+    let g:linediff_indent = 1
+    let g:linediff_first_buffer_command  = 'leftabove new'
+    let g:linediff_further_buffer_command = 'rightbelow vertical new'
+    let g:linediff_diffopt = 'filler,iwhite'
+
+- repo: kana/vim-niceblock
+  on_map: { x: <Plug> }
+  hook_add: let g:niceblock_no_default_key_mappings = 0
+
+- repo: tyru/caw.vim
+  on_map: { nx: <Plug> }
+- repo: machakann/vim-sandwich
+  on_map: { vonx: <Plug>(operator-sandwich- }
+  hook_add: |
+    let g:sandwich_no_default_key_mappings = 1
+    let g:operator_sandwich_no_default_key_mappings = 1
+    let g:textobj_sandwich_no_default_key_mappings = 1
+- repo: Raimondi/delimitMate
+  on_event: FileType
+  hook_source: source $VIM_PATH/config/plugins/delimitMate.vim
+# }}}
+
+
+# Git{{{
+- repo: lambdalisue/gina.vim
+  on_cmd: Gina
+
+- repo: rhysd/committia.vim
+  on_event: BufReadPost
+  hook_add: |
+    let g:committia_hooks = {}
+    function! g:committia_hooks.edit_open(info)
+      " Additional settings
+      setlocal spell
+
+      " If no commit message, start with insert mode
+      if a:info.vcs ==# 'git' && getline(1) ==# ''
+          startinsert
+      endif
+
+      " Scroll the diff window from insert mode
+      " Map <C-n> and <C-p>
+      imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
+      imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
+    endfunction
+
+- repo: tpope/vim-fugitive
+  on_cmd: [G, Git, Gfetch, Gpush, Gstatus, Glog, Gclog, Gllog, Gdiffsplit, Gvdiffsplit]
+# }}}
+
+# Javascript
+# ----------------------------------------
+# - repo: chemzqm/vim-jsx-improve
+#   on_ft: [javascript, javascriptreact]
+
+# JSON
+# ----------------------------------------
+# - repo: elzr/vim-json
+#   on_ft: json
+#   hook_add: let g:vim_json_syntax_conceal = 0
+
+# Markdown
+# ---------------------------------------
+- repo: plasticboy/vim-markdown
+  on_ft: markdown
+  hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
+
+- repo: iamcco/markdown-preview.nvim
+  on_ft: [markdown, pandoc.markdown, rmd]
+  build: 'cd app & yarn install'
+  hook_source: source $VIM_PATH/config/plugins/markdown-preview.vim
+
+- repo: mzlogin/vim-markdown-toc
+  hook_source: |
+    let g:vmt_fence_text = 'TOC'
+    let g:vmt_fence_closing_text = '/TOC'
+  on_ft: markdown
+
+- repo: junegunn/vim-emoji
+  on_ft: [markdown, vim]
+
+
+# Python
+# ----------------------------------------
+- repo: vim-python/python-syntax
+  on_ft: python
+  hook_add: let g:python_highlight_all = 1
+
+- repo: Vimjas/vim-python-pep8-indent
+  on_ft: python
+
+- repo: tmhedberg/SimpylFold
+  on_ft: python
+
+- repo: vim-scripts/python_match.vim
+  on_ft: python
+
+- repo: raimon49/requirements.txt.vim
+  on_ft: requirements
+
+# TOML
+# ----------------------------------------
+# - repo: cespare/vim-toml
+#   on_ft: toml
+
+# Typescript
+# ----------------------------------------
+# - repo: leafgarland/typescript-vim
+#   on_ft: [typescriptreact, typescript]
+
+# - repo: peitalin/vim-jsx-typescript
+#   on_ft: [typescriptreact]
+
+# XML
+# ----------------------------------------
+# - repo: vim-scripts/xml.vim
+#   on_ft: xml
+
+# YAML
+# ----------------------------------------
+- repo: pearofducks/ansible-vim
+  on_ft: [yaml.ansible, ansible_hosts]
+# }}}
+
+
+# Tools{{{
+# To setup Google Calendar with calenar.vim
+# https://github.com/itchyny/calendar.vim#important-notice
+- repo: itchyny/calendar.vim
+  on_cmd: Calendar
+  hook_source: source $VIM_PATH/config/plugins/calendar.vim
+
+- repo: t9md/vim-choosewin
+  on_map: {n: <Plug>}
+  hook_source: source  $VIM_PATH/config/plugins/choosewin.vim
+
+- repo: junegunn/goyo.vim
+  on_cmd: Goyo
+  hook_source: source $VIM_PATH/config/plugins/goyo.vim
+
+- repo: junegunn/Limelight.vim
+  on_cmd: Limelight
+  depends: Goyo
+  hook_source: source $VIM_PATH/config/plugins/limelight.vim
+
+- repo: liuchengxu/vim-clap
+  merged: 0
+  build: call clap#installer#build_all()
+  on_map: { n: <Plug> }
+  hook_source: source $VIM_PATH/config/plugins/vim-clap.vim
+
+- repo: vn-ki/coc-clap
+  on_source: vim-clap
+
+- repo: junegunn/gv.vim
+  depends: vim-fugitive
+  on_cmd: GV
+
+- repo: ludovicchabant/vim-gutentags
+  if: executable('ctags')
+  on_event: [BufReadPost, BufWritePost]
+  hook_source: source $VIM_PATH/config/plugins/vim-gutentags.vim
+
+- repo: liuchengxu/vista.vim
+  on_cmd: Vista
+  hook_source: source $VIM_PATH/config/plugins/vista.vim
+
+- repo: wfxr/minimap.vim
+  if: executable('cargo')
+  build: 'cargo install --locked code-minimap'
+  on_cmd: [ Minimap, MinimapToggle ]
+  hook_source: |-
+    let g:minimap_block_filetypes = ['fugitive', 'nerdtree', 'fern', 'defx', 'vista']
+
+- repo: liuchengxu/vim-which-key
+  on_cmd: [Whichkey, Whichkey!]
+  hook_add: source $VIM_PATH/config/plugins/whichkey.vim
+  hook_post_source: |
+    call which_key#register('<Space>', 'g:which_key_map')
+    call which_key#register(';', 'g:which_key_localmap')
+    call which_key#register(']', 'g:which_key_rsbgmap')
+    call which_key#register('[', 'g:which_key_lsbgmap')
+    call which_key#register('s', 'g:which_key_smap')
+    call which_key#register('d', 'g:which_key_dmap')
+    call which_key#register('g', 'g:which_key_gmap')
+
+- repo: metakirby5/codi.vim
+  on_cmd: Codi
+  hook_source: source $VIM_PATH/config/plugins/codi.vim
+
+- repo: benmills/vimux
+  on_cmd:
+    - VimuxPromptCommand
+    - VimuxRunLastCommand
+    - VimuxInspectRunner
+    - VimuxCloseRunner
+    - VimuxInterruptRunner
+    - VimuxZoomRunner
+  hook_source: |
+    let g:VimuxPromptString = "Shell command? $ "
+    let g:VimuxUseNearest = 1
+    let g:VimuxOrientation = 'v'
+
+- repo: voldikss/vim-floaterm
+  on_cmd: [FloatermNew, FloatermToggle, FloatermPrev, FloatermNext, FloatermSend]
+  hook_source: source  $VIM_PATH/config/plugins/floaterm.vim
+
+# Only load when in wiki directory
+- repo: vimwiki/vimwiki
+  on_if: (getcwd() =~ $HOME . "/Docs/wiki.\*" && &filetype == 'markdown')
+  on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
+  hook_add: |
+    let g:vimwiki_use_calendar = 1
+    let g:vimwiki_hl_headers = 1
+    let g:vimwiki_hl_cb_checked = 1
+    let g:vimwiki_autowriteall = 0
+    let g:vimwiki_map_prefix = '<LocalLeader>w'
+    let g:vimwiki_folding = 'custom'
+    let g:vimwiki_table_mappings = 0
+  hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
+
+# Only load when in wiki diary sub directory
+- repo: tbabej/taskwiki
+  on_if: (expand('%:p') =~ $HOME . "/Docs/wiki/wiki/md/diary/.\*" && &filetype == 'vimwiki')
+  depends: vimwiki
+  hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
+
+- repo: xarthurx/taskwarrior.vim
+  on_event: FileType
+
+- repo: honza/dockerfile.vim
+  on_ft: Dockerfile
+
+- repo: thinca/vim-quickrun
+  on_cmd: QuickRun
+  hook_add: |
+        let g:quickrun_config = {
+            \   "_" : {
+            \       "outputter" : "message",
+            \   },
+            \}
+        let g:quickrun_no_default_key_mappings = 1
+
+# TODO: Fix conflict when using Codi on python
+- repo: kshenoy/vim-signature
+  on_event: FileType
+  hook_add: |
+    let g:SignatureForceRemoveGlobal = 1
+    let g:SignatureUnconditionallyRecycleMarks = 1
+    let g:SignatureErrorIfNoAvailableMarks = 0
+    let g:SignaturePurgeConfirmation = 0
+    let g:SignatureMarkTextHLDynamic = 1
+    let g:SignatureMarkerTextHLDynamic = 1
+    let g:SignatureIncludeMarkers = repeat('⚐', 10)
+
+- repo: Ron89/thesaurus_query.vim
+  on_cmd:
+    - Thesaurus
+    - ThesaurusQueryReplaceCurrentWord
+    - ThesaurusQueryLookupCurrentWord
+  hook_add: |
+    let g:tq_map_keys = 0
+    let g:tq_use_vim_autocomplete = 0
+
+- repo: reedes/vim-wordy
+  on_cmd: [Wordy, NextWordy, PrevWordy]
+
+- repo: tpope/vim-abolish
+  on_event: FileType
+
+- repo: arthurxavierx/vim-caser
+  on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
+
+- repo: simnalamburt/vim-mundo
+  on_map: {n: <Plug>}
+
+- repo: tpope/vim-repeat
+  on_map: .*
+
+- repo: easymotion/vim-easymotion
+  on_map: {n: <Plug>}
+  hook_source: |
+    let g:EasyMotion_do_mapping = 0
+    let g:EasyMotion_prompt = 'Jump to → '
+    let g:EasyMotion_smartcase = 1
+    let g:EasyMotion_use_smartsign_us = 1
+    let g:EasyMotion_startofline = 0
+
+- repo: t9md/vim-quickhl
+  on_map: { nv: <Plug> }
+
+- repo: brooth/far.vim
+  on_cmd: [F, Far, Farr, Farf, Refar, Farundo]
+  hook_source: |
+    let g:far#enable_undo=1
+    if executable('rg')
+      let g:far#source = 'rg'
+    elseif executable('ag')
+      let g:far#source = 'ag'
+    elseif executable('ack')
+      let g:far#source = 'ack'
+    endif
+
+- repo: pechorin/any-jump.vim
+  on_cmd: AnyJump
+  hook_add: |
+    let g:any_jump_disable_default_keybindings = 1
+    let g:any_jump_window_width_ratio  = 0.8
+    let g:any_jump_window_height_ratio = 0.8
+    let g:any_jump_window_top_offset   = 5
+    let g:any_jump_search_prefered_engine = 'rg'
+    autocmd user_events FileType any-jump setlocal cursorline
+
+- repo: mhinz/vim-grepper
+  on_map: { nx: <Plug> }
+  on_cmd: Grepper
+  hook_add: |
+    let g:grepper = {
+      \ 'tools': ['rg', 'git', 'fd'],
+      \ 'fd': {
+        \   'grepprg':    'fd',
+        \   'grepformat': '%f',
+        \   'escape':     '\+*^$()[]',
+        \ }}
+# }}}
+
+# UI{{{
+- repo: nathanaelkane/vim-indent-guides
+  on_event: FileType
+  hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
+
+- repo: tweekmonster/braceless.vim
+  on_event: FileType
+  hook_source: |
+    let g:braceless_jump_prev_key = ""
+    let g:braceless_jump_next_key = ""
+    let g:braceless_segment_prev_key = ""
+    let g:braceless_segment_next_key = ""
+    let g:braceless_enable_easymotion = 0
+    let g:braceless_enable_jump_indent = 0
+    autocmd FileType python,html
+    \ BracelessEnable +highlight
+
+- repo: mhinz/vim-startify
+  on_cmd: [ Startify, SSave, SLoad, SDelete ]
+  depends: vim-devicons
+  hook_source: source $VIM_PATH/config/plugins/startify.vim
+  hook_post_source: |
+      function! StartifyEntryFormat()
+        return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+      endfunction
+
+- repo: norcalli/nvim-colorizer.lua
+  if: has('nvim') && has('nvim-0.4.0')
+  on_event: FileType
+  hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
+
+- repo: itchyny/vim-cursorword
+  on_event: FileType
+  hook_source: |
+    augroup user_plugin_cursorword
+      autocmd!
+      autocmd FileType defx,denite,fern,qf let b:cursorword = 0
+      autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif
+      autocmd InsertEnter * let b:cursorword = 0
+      autocmd InsertLeave * let b:cursorword = 1
+    augroup END
+
+- repo: psliwka/vim-smoothie
+  on_func: smoothie#
+  hook_add: |
+    let g:smoothie_no_default_mappings = v:true
+
+- repo: romainl/vim-qf
+  on_ft: qf
+  on_event: QuickFixCmdPost
+  on_map: { n: <Plug> }
+  hook_add: |
+    let g:qf_bufname_or_text = 1
+    let g:qf_auto_open_quickfix = 0
+    let g:qf_auto_open_loclist = 0
+    let g:qf_auto_resize = 0
+    autocmd User preview_open_pre
+    \  let g:vim_markdown_no_default_key_mappings = 1
+    \| let g:vim_markdown_emphasis_multiline = 0
+    autocmd User preview_open_post
+    \  unlet! g:vim_markdown_no_default_key_mappings
+    \| unlet! g:vim_markdown_emphasis_multiline
+
+- repo: dhruvasagar/vim-zoom
+  on_map: { n: <Plug> }
+  hook_add: |
+    let g:zoom#statustext = '🔍'
+
+- repo: lambdalisue/fern.vim
+  on_cmd: Fern
+  hook_source: source $VIM_PATH/config/plugins/fern.vim
+
+- repo: lambdalisue/fern-renderer-nerdfont.vim
+  on_source: fern.vim
+
+- repo: lambdalisue/nerdfont.vim
+  on_source: fern.vim
+
+- repo: lambdalisue/glyph-palette.vim
+  on_source: fern.vim
+
+- repo: lambdalisue/fern-git-status.vim
+  on_source: fern.vim
+
+- repo:  lambdalisue/fern-mapping-project-top.vim
+  on_source: fern.vim
+# }}}
+
+# Operators {{{
+- repo: kana/vim-operator-user  # only autoload functions, lazy by nature
+- repo: kana/vim-operator-replace
+# }}}
+
+# Text Objects {{{
+- repo: terryma/vim-expand-region
+  on_map: { x: <Plug> }
+- repo: kana/vim-textobj-user  # only autoload functions, lazy by nature
+- repo: kana/vim-textobj-function
+  on_map: { ox: <Plug> }
+  hook_add: let g:textobj_function_no_default_key_mappings = 1
+# }}}
+
+# ETC {{{
+- repo: ThePrimeagen/vim-be-good
+  on_cmd: VimBeGood
+
+- repo: dstein64/vim-startuptime
+  on_event: VimEnter
+
+- repo:  ianding1/leetcode.vim
+  on_cmd: [ LeetCodeList, LeetCodeTest, LeetCodeSubmit, LeetCodeSignIn ]
+  hook_add: |
+    let g:leetcode_browser = 'chrome'
+    let g:leetcode_solution_filetype = 'java'
+# }}}

@@ -1,0 +1,276 @@
+{
+  "suggest.triggerAfterInsertEnter": false,
+  "suggest.minTriggerInputLength": 1,
+  "suggest.timeout": 500,
+  "suggest.noselect": false,
+  "suggest.detailField":"abbr",
+  "suggest.snippetIndicator": " ",
+  "suggest.triggerCompletionWait": 50,
+  "suggest.echodocSupport": true,
+  "suggest.completionItemKindLabels": {
+      "keyword": "\uf1de",
+      "variable": "\ue79b",
+      "value": "\uf89f",
+      "operator": "\u03a8",
+      "function": "\u2A15",
+      "reference": "\ufa46",
+      "constant": "\uf8fe",
+      "method": "\uf09a",
+      "struct": "\ufb44",
+      "class": "\uf0e8",
+      "interface": "\uf417",
+      "text": "\u2663",
+      "enum": "\uf435",
+      "enumMember": "\uf02b",
+      "module": "\uf530",
+      "color": "\ue22b",
+      "property": "\ue624",
+      "field": "\uf6a6",
+      "unit": "\uf475",
+      "event": "\ufacd",
+      "file": "\uf723",
+      "folder": "\uf114",
+      "snippet": "\ue60b",
+      "typeParameter": "\uf728",
+      "default": "\uf29c"
+  },
+
+  // coc-explorer
+  "explorer.icon.expanded": "▾",
+  "explorer.icon.collapsed": "▸",
+  "explorer.width": 30,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.quitOnOpen": true,
+  "explorer.floating.width": -20,
+  "explorer.floating.height": -10,
+  "explorer.openAction.strategy": "sourceWindow",
+
+  //diagnostic
+  "diagnostic.enableSign": true,
+  "diagnostic.enableHighlightLineNumber": true,
+  "diagnostic.signOffset": 9999999,
+  "diagnostic.hintSign": "⊹",
+  "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.errorSign": "",
+  "diagnostic.messageDelay": 150,
+  "diagnostic.displayByAle": false,
+  "diagnostic.refreshOnInsertMode": true,
+
+  //git
+  "git.enableGutters": true,
+  "git.branchCharacter":"\uf408",
+  //"git.addGBlameToBufferVar": true,
+  //"git.addGBlameToVirtualText": true,
+  //"git.virtualTextPrefix": " ❯❯❯ ",
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "git.addedSign.text":"▎",
+  "git.changedSign.text":"▎",
+  "git.removedSign.text":"▏",
+  "git.topRemovedSign.text": "▔",
+  "git.changeRemovedSign.text": "▋",
+
+  //Snippet
+  "coc.preferences.snippetStatusText": "Ⓢ ",
+
+  //CocList
+  "list.source.files.defaultOptions": ["--auto-preview"],
+  "list.source.outline.defaultOptions": ["--auto-preview"],
+
+  //prettier
+  "coc.preferences.formatOnSaveFiletypes": ["css", "scss"],
+  "prettier.statusItemText": "ⓟ",
+  "prettier.eslintIntegration": true,
+  "prettier.tslintIntegration": true,
+
+  // css
+  "css.enable": true,
+
+  // Markdown
+  "markdownlint.config": {
+    "default": true,
+    "line_length": false
+  },
+  "markdownlint.onOpen": true,
+  "markdownlint.onSave": true,
+  "markdownlint.onChange": false,
+
+  "coc.source.emoji.filetypes": [
+    "markdown",
+    "vimwiki"
+  ],
+
+  "coc.source.dictionary.filetypes": [
+    "markdown",
+    "vimwiki"
+  ],
+
+  "coc.source.word.filetypes": [
+    "markdown",
+    "vimwiki"
+  ],
+
+  // html/emmet
+  "html.enable": true,
+  "html.filetypes": [
+      "htmldjango",
+      "html",
+      "handlebars"
+  ],
+
+  "html.format.enable": true,
+  "html.validate.styles": true,
+  "html.validate.scripts": true,
+  "html.validate.html": true,
+  "emmet.includeLanguages": {
+    "htmldjango": "html",
+    "handlebars": "html",
+    "vue-html": "html"
+  },
+
+  //multiple curssors
+  "cursors.nextKey": "<C-n>",
+  "cursors.previousKey": "<C-p>",
+  "cursors.cancelKey": "<Esc>",
+  //sessions
+  "session.directory": "~/.cache/vim/session",
+
+  // eslint
+  "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
+  "eslint.autoFix": false,
+  "eslint.autoFixOnSave": false,
+  // python
+  "python.jediEnabled": false,
+  // javascript
+  // "tsserver.npm": "/usr/bin/npm",  // `nvm deactivate` to make this work
+
+  // java
+  "java.enabled": true,
+  "java.import.maven.enabled": true,
+  "java.import.gradle.enabled": true,
+  "java.import.gradle.wrapper.enabled": true,
+  "java.imports.gradle.wrapper.checksums": [
+    {
+      "sha256": "34dfac25b0eb5b075f489dde2eb9d2c3224dba3d830d064cc5689a9080c2eddf",
+      "allowed": true
+    }
+  ],
+  "java.maven.downloadSources": true,
+  "java.implementationsCodeLens.enabled": true,
+  "java.signatureHelp.enabled": true,
+  "java.autobuild.enabled": false,
+  "java.referencesCodeLens.enabled": true,
+  "java.errors.incompleteClasspath.severity": "error",
+  "java.completion.enabled": true,
+  "java.completion.overwrite": false,
+  "java.completion.importOrder": [
+    "java",
+    "javafx",
+    "javax",
+    "com",
+    "org"
+  ],
+
+  // Bash language server
+  "sh.enable": true,
+
+  //-------- Code Spell Checker Configuration --------
+  // Enable / Disable the spell checker.
+  "cSpell.enabled": true,
+  // The Language local to use when spell checking. "en" and "en-GB" are currently supported.
+  "cSpell.language": "en",
+  "cSpell.diagnosticLevel": "Hint",
+  // Specify file types to spell check.
+  "cSpell.enabledLanguageIds": [
+    "csharp",
+    "css",
+    "go",
+    "html",
+    "java",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "markdown",
+    "php",
+    "plaintext",
+    "python",
+    "scss",
+    "sh",
+    "text",
+    "typescript",
+    "typescriptreact",
+    "vim",
+    "vimwiki",
+    "yml",
+    "zsh"
+  ],
+  "cSpell.fixSpellingWithRenameProvider": true,
+  // Controls the maximum number of spelling errors per document.
+  "cSpell.maxNumberOfProblems": 100,
+  // Controls the number of suggestions shown.
+  "cSpell.numSuggestions": 8,
+  // The minimum length of a word before checking it against a dictionary.
+  "cSpell.minWordLength": 4,
+  // Display the spell checker status on the status bar.
+  "cSpell.showStatus": true,
+  // Words to add to dictionary for a workspace.
+  "cSpell.words": [],
+  // Enable / Disable compound words like 'errormessage'
+  "cSpell.allowCompoundWords": true,
+  // Words to be ignored and not suggested.
+  "cSpell.ignoreWords": [
+    "colour",
+    "behaviour"
+  ],
+  // User words to add to dictionary.  Should only be in the user settings.
+  "cSpell.userWords": [
+    "Lucernas",
+    "Mindfuck",
+    "nums"
+  ],
+  // Specify paths/files to ignore.
+  "cSpell.ignorePaths": [
+    "node_modules",        // this will ignore anything the node_modules directory
+    "**/node_modules",     // the same for this one
+    "**/node_modules/**",  // the same for this one
+    "node_modules/**",     // Doesn't currently work due to how the current working directory is determined.
+    "vscode-extension",
+    ".git",                // Ignore the .git directory
+    "*.dll",               // Ignore all .dll files.
+    "**/*.dll"             // Ignore all .dll files
+  ],
+  // flagWords - list of words to be always considered incorrect
+  // This is useful for offensive words and common spelling errors.
+  // For example "hte" should be "the"`
+  "cSpell.flagWords": ["hte"],
+  // Set the delay before spell checking the document. Default is 50.
+  "cSpell.spellCheckDelayMs": 50,
+
+  // Coc-yank
+  "yank.highlight.enable": true,
+  "yank.highlight.duration": 100,
+  "yank.enableCompletion": false,
+
+  // Auto generated by coc-clangd
+  "clangd.path": "/home/markl/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd"
+
+  // DEPRECATED BY coc-clangd
+  // add your languageServer into this list
+  // "languageserver": {
+  //   // https://github.com/Maxattax97/coc-ccls
+  //   "ccls": {
+  //     "command": "ccls",
+  //     "filetypes": ["c", "cpp", "objc", "objcpp"],
+  //     "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+  //     "initializationOptions": {
+  //        "cache": {
+  //          "directory": "/tmp/ccls"
+  //        }
+  //      }
+  //   }
+  // }
+}
