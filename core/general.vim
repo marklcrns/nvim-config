@@ -217,7 +217,6 @@ endif
 " }}}
 
 " Editor UI {{{
-set termguicolors       " Enable true color
 set number              " Show number
 set relativenumber      " Show relative number
 set noshowmode          " Don't show mode on bottom

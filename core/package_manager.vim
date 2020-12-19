@@ -53,29 +53,6 @@ function! s:main()
         call mkdir(s:path, 'p')
       endif
     endfor
-
-    " Python interpreter settings
-    if has('nvim')
-      " Try using pyenv virtualenv called 'neovim'
-      let l:virtualenv = ''
-      if ! empty($PYENV_ROOT)
-        let l:virtualenv = $PYENV_ROOT . '/versions/neovim/bin/python'
-      endif
-      if empty(l:virtualenv) || ! filereadable(l:virtualenv)
-        " Fallback to old virtualenv location
-        let l:virtualenv = $DATA_PATH . '/venv/neovim3/bin/python'
-      endif
-      if filereadable(l:virtualenv)
-        let g:python3_host_prog = l:virtualenv
-      endif
-
-    elseif has('pythonx')
-      if has('python3')
-        set pyxversion=3
-      elseif has('python')
-        set pyxversion=2
-      endif
-    endif
   endif
 
   " Initializes chosen package manager

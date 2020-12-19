@@ -16,6 +16,22 @@ let g:python3_host_prog = expand($VIM_PATH.'/env/python3/env/bin/python3')
 " Set the secondary user config file
 let s:user_init_config = expand($CUSTOM_VIM_PATH.'/init.vim')
 
+" Enables 24-bit RGB color in the terminal
+if has('termguicolors')
+	if empty($COLORTERM) || $COLORTERM =~# 'truecolor\|24bit'
+		set termguicolors
+	endif
+endif
+
+if ! has('nvim')
+	set t_Co=256
+	" Set Vim-specific sequences for RGB colors
+	" Fixes 'termguicolors' usage in vim+tmux
+	" :h xterm-true-color
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 " Disable vim distribution plugins
 let g:loaded_gzip = 1
 let g:loaded_tar = 1
