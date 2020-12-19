@@ -287,7 +287,7 @@ if dein#tap('vimagit')
 endif
 
 if dein#tap('vim-mundo')
-  nnoremap <silent> <leader>m :MundoToggle<CR>
+  nnoremap <silent> <LocalLeader>u :MundoToggle<CR>
 endif
 
 if dein#tap('vim-choosewin')

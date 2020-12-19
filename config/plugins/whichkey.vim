@@ -316,7 +316,6 @@ let g:which_key_map = {
                       \ },
                 \ },
           \ },
-    \ 'm' : 'Mundotree toggle' ,
     \ 'o' : {
           \ 'name' : '+open',
              \ 'g' : 'Open file in google chrome',
@@ -512,6 +511,7 @@ let g:which_key_localmap = {
             \ 'U' : 'Custom Taskkwiki tasks update',
             \ 'W' : 'Open taskwarrior',
             \ },
+      \ 'u' : 'Mundotree toggle' ,
       \ 'v' : {
             \ 'name' : '+vista',
                \ 'v' : 'Vista toggle',
