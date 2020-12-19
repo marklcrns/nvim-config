@@ -1,10 +1,10 @@
 " Plugin key settings
 
 if dein#tap('dein.vim')
-	nnoremap <silent> <Leader>pu  :call dein#update()<CR>
-	nnoremap <silent> <Leader>pr  :call dein#recache_runtimepath()<CR>
-	nnoremap <silent> <Leader>pl  :echo dein#get_updates_log()<CR>
-	nnoremap <silent> <Leader>pd  :call map(dein#check_clean(), "delete(v:val, \"rf\")")<CR>
+  nnoremap <silent> <Leader>pu  :call dein#update()<CR>
+  nnoremap <silent> <Leader>pr  :call dein#recache_runtimepath()<CR>
+  nnoremap <silent> <Leader>pl  :echo dein#get_updates_log()<CR>
+  nnoremap <silent> <Leader>pd  :call map(dein#check_clean(), "delete(v:val, \"rf\")")<CR>
 endif
 
 if dein#tap('any-jump.vim')
@@ -144,12 +144,6 @@ if dein#tap('coc.nvim')
 
   nmap <leader>cr <Plug>(coc-refactor)
 
-  " coc-explorer
-  noremap <silent> <leader>ec :execute 'CocCommand explorer' .
-        \ ' --toggle' .
-        \ ' --position=floating' .
-        \ ' --sources=file+'<CR>
-
   " Movement within 'ins-completion-menu'
   imap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
   imap <expr><C-k> pumvisible() ? "\<Up>" : "\<ESC>d$a"
@@ -228,25 +222,25 @@ if dein#tap('vim-clap')
   "like emacs counsel-find-file
   nnoremap <silent> <C-x><C-f> :<C-u>Clap filer<CR>
 
-	autocmd user_events FileType clap_input call s:clap_mappings()
+  autocmd user_events FileType clap_input call s:clap_mappings()
 
-	function! s:clap_mappings()
-		nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>
-		nnoremap <silent> <buffer> <nowait>' :call clap#handler#tab_action()<CR>
-		inoremap <silent> <buffer> <Tab>   <C-R>=clap#navigation#linewise('down')<CR>
-		inoremap <silent> <buffer> <S-Tab> <C-R>=clap#navigation#linewise('up')<CR>
-		nnoremap <silent> <buffer> <C-j> :<C-u>call clap#navigation#linewise('down')<CR>
-		nnoremap <silent> <buffer> <C-k> :<C-u>call clap#navigation#linewise('up')<CR>
-		nnoremap <silent> <buffer> <C-n> :<C-u>call clap#navigation#linewise('down')<CR>
-		nnoremap <silent> <buffer> <C-p> :<C-u>call clap#navigation#linewise('up')<CR>
-		nnoremap <silent> <buffer> <C-f> :<c-u>call clap#navigation#scroll('down')<CR>
-		nnoremap <silent> <buffer> <C-b> :<c-u>call clap#navigation#scroll('up')<CR>
+  function! s:clap_mappings()
+    nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>
+    nnoremap <silent> <buffer> <nowait>' :call clap#handler#tab_action()<CR>
+    inoremap <silent> <buffer> <Tab>   <C-R>=clap#navigation#linewise('down')<CR>
+    inoremap <silent> <buffer> <S-Tab> <C-R>=clap#navigation#linewise('up')<CR>
+    nnoremap <silent> <buffer> <C-j> :<C-u>call clap#navigation#linewise('down')<CR>
+    nnoremap <silent> <buffer> <C-k> :<C-u>call clap#navigation#linewise('up')<CR>
+    nnoremap <silent> <buffer> <C-n> :<C-u>call clap#navigation#linewise('down')<CR>
+    nnoremap <silent> <buffer> <C-p> :<C-u>call clap#navigation#linewise('up')<CR>
+    nnoremap <silent> <buffer> <C-f> :<c-u>call clap#navigation#scroll('down')<CR>
+    nnoremap <silent> <buffer> <C-b> :<c-u>call clap#navigation#scroll('up')<CR>
 
-		nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
-		nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
-		inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-		inoremap <silent> <buffer> jj    <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-	endfunction
+    nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
+    nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
+    inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
+    inoremap <silent> <buffer> jj    <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
+  endfunction
 endif
 
 if dein#tap('coc-clap')
@@ -258,12 +252,6 @@ if dein#tap('coc-clap')
   nnoremap <silent> <Leader>cfo :<C-u>Clap coc_outline<Cr>
   nnoremap <silent> <Leader>cfs :<C-u>Clap coc_symbols<Cr>
   nnoremap <silent> <Leader>cfv :<C-u>Clap coc_services<Cr>
-endif
-
-if dein#tap('dashboard-nvim')
-  nmap <Leader>sS :<C-u>SessionSave<CR>
-  nmap <Leader>sL :<C-u>SessionLoad<CR>
-  nnoremap <silent> <Leader>sO  :<C-u>Dashboard<CR>
 endif
 
 if dein#tap('codi.vim')
@@ -280,10 +268,6 @@ if dein#tap('vim-easy-align')
   xmap <Leader>rAA <Plug>(LiveEasyAlign)
   " Start Live-interactive EasyAlign for a motion/text object
   nmap <Leader>rAA <Plug>(LiveEasyAlign)
-endif
-
-if dein#tap('vimagit')
-  nnoremap <silent> <Leader>gm :Magit<CR>
 endif
 
 if dein#tap('vim-mundo')
@@ -707,10 +691,6 @@ if dein#tap('calendar.vim')
   nnoremap <LocalLeader>ct :Calendar -view=clock<CR>
   nnoremap <LocalLeader>cv :Calendar -view=year -split=vertical -width=27 -first_day=sunday<CR>
   nnoremap <LocalLeader>cw :Calendar -view=week<CR>
-endif
-
-if dein#tap('vim-rooter')
-  nnoremap <Leader>frr :Rooter<CR>
 endif
 
 if dein#tap('nvim-colorizer.lua')

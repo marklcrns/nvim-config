@@ -444,18 +444,6 @@
     let g:any_jump_window_top_offset   = 5
     let g:any_jump_search_prefered_engine = 'rg'
     autocmd user_events FileType any-jump setlocal cursorline
-
-- repo: mhinz/vim-grepper
-  on_map: { nx: <Plug> }
-  on_cmd: Grepper
-  hook_add: |
-    let g:grepper = {
-      \ 'tools': ['rg', 'git', 'fd'],
-      \ 'fd': {
-        \   'grepprg':    'fd',
-        \   'grepformat': '%f',
-        \   'escape':     '\+*^$()[]',
-        \ }}
 # }}}
 
 # UI{{{

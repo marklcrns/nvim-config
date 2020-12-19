@@ -1,6 +1,3 @@
-" Don't load the defx-git plugin file, not needed
-let b:defx_git_loaded = 1
-
 " CoC config
 let g:coc_status_error_sign = ''
 let g:coc_status_warning_sign = ' '
@@ -11,7 +8,6 @@ let g:coc_global_extensions = [
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
-      \ 'coc-explorer',
       \ 'coc-floaterm',
       \ 'coc-git',
       \ 'coc-gitignore',
@@ -32,15 +28,12 @@ let g:coc_global_extensions = [
       \ 'coc-tag',
       \ 'coc-template',
       \ 'coc-tsserver',
-      \ 'coc-vetur',
       \ 'coc-vimlsp',
       \ 'coc-vimtex',
-      \ 'coc-word',
       \ 'coc-xml',
       \ 'coc-yaml',
       \ 'coc-yank',
       \ ]
-      "\ 'coc-tabnine',
 
 augroup CocAutoCmd
   autocmd!

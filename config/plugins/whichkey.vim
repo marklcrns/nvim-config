@@ -210,7 +210,6 @@ let g:which_key_map = {
              \ 'G' : 'Git log grep current file',
              \ 'l' : 'Git log quickfix',
              \ 'L' : 'Git log current file quickfix',
-             \ 'm' : 'Magit status',
              \ 'o' : 'Gina log',
              \ 'p' : 'Git push',
              \ 'P' : 'Terminal git push',
@@ -459,14 +458,6 @@ let g:which_key_localmap = {
                \ 't' : 'Calendar clock',
                \ 'v' : 'Calendar vertical yearly',
                \ 'w' : 'Calendar weekly',
-            \ },
-      \ 'g' : {
-            \ 'name' : '+golang-toolkit',
-               \ 'c' : 'Go callees',
-               \ 'C' : 'Go callers',
-               \ 'd' : 'Go describe',
-               \ 'i' : 'Go impl',
-               \ 's' : 'Go callstack',
             \ },
       \ 'l'    : 'toggle-locationlist',
       \ 'm' : {
