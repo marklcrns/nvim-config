@@ -1,7 +1,4 @@
-" version info of thinkvim
-let g:thinkvim_version = "2.6.5"
-
-" Plugin Mangae
+" Plugin Manager
 
 " Set custom augroup
 augroup user_events
