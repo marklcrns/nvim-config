@@ -271,15 +271,23 @@ function! WindowsManagementMappings()
   nnoremap  [Window]   <Nop>
   nmap      s [Window]
 
+  " Background dark/light toggle and contrasts
+  nmap <silent> [Window]H :<C-u>call <SID>toggle_background()<CR>
+  nmap <silent> [Window]- :<c-u>call <SID>toggle_contrast(-v:count1)<cr>
+  nmap <silent> [Window]= :<c-u>call <SID>toggle_contrast(+v:count1)<cr>
+
   " Splits
-  nnoremap [Window]H :split<CR>
-  nnoremap [Window]V :vsplit<CR>
-  nnoremap [Window]q :close<CR>
+  nnoremap <silent> [Window]v  :<C-u>split<CR>
+  nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
+  " Split current buffer, go to previous window and previous buffer
+  nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
+  nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
   " Resize splits
   nnoremap [Window]k :resize -3<CR>
   nnoremap [Window]j :resize +3<CR>
   nnoremap [Window]h :vertical resize -3<CR>
   nnoremap [Window]l :vertical resize +3<CR>
+  nnoremap [Window]q :close<CR>
   nnoremap <Up>      :resize -1<CR>
   nnoremap <Down>    :resize +1<CR>
   nnoremap <Left>    :vertical resize -1<CR>
@@ -756,6 +764,51 @@ function! VimConvertImportFiles(repeat)
   endwhile
 endfunction
 nmap <Leader>;wi :call VimConvertImportFiles()<Left>
+
+function! s:toggle_background()
+  if ! exists('g:colors_name')
+    echomsg 'No colorscheme set'
+    return
+  endif
+  let l:scheme = g:colors_name
+
+  if l:scheme =~# 'dark' || l:scheme =~# 'light'
+    " Rotate between different theme backgrounds
+    execute 'colorscheme' (l:scheme =~# 'dark'
+          \ ? substitute(l:scheme, 'dark', 'light', '')
+          \ : substitute(l:scheme, 'light', 'dark', ''))
+  else
+    execute 'set background='.(&background ==# 'dark' ? 'light' : 'dark')
+    if ! exists('g:colors_name')
+      execute 'colorscheme' l:scheme
+      echomsg 'The colorscheme `'.l:scheme
+            \ .'` doesn''t have background variants!'
+    else
+      echo 'Set colorscheme to '.&background.' mode'
+    endif
+  endif
+endfunction
+
+function! s:toggle_contrast(delta)
+  let l:scheme = ''
+  if g:colors_name =~# 'solarized8'
+    let l:schemes = map(['_low', '_flat', '', '_high'],
+          \ '"solarized8_".(&background).v:val')
+    let l:contrast = ((a:delta + index(l:schemes, g:colors_name)) % 4 + 4) % 4
+    let l:scheme = l:schemes[l:contrast]
+  endif
+  if l:scheme !=# ''
+    execute 'colorscheme' l:scheme
+  endif
+endfunction
+
+function! s:window_empty_buffer()
+  let l:current = bufnr('%')
+  if ! getbufvar(l:current, '&modified')
+    enew
+    silent! execute 'bdelete '.l:current
+  endif
+endfunction
 
 " Simple zoom toggle
 function! s:zoom()

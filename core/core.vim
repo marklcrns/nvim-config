@@ -1,7 +1,7 @@
 if &compatible
-	" vint: -ProhibitSetNoCompatible
-	set nocompatible
-	" vint: +ProhibitSetNoCompatible
+  " vint: -ProhibitSetNoCompatible
+  set nocompatible
+  " vint: +ProhibitSetNoCompatible
 endif
 
 " Set main configuration directory as parent directory
@@ -18,18 +18,18 @@ let s:user_init_config = expand($CUSTOM_VIM_PATH.'/init.vim')
 
 " Enables 24-bit RGB color in the terminal
 if has('termguicolors')
-	if empty($COLORTERM) || $COLORTERM =~# 'truecolor\|24bit'
-		set termguicolors
-	endif
+  if empty($COLORTERM) || $COLORTERM =~# 'truecolor\|24bit'
+    set termguicolors
+  endif
 endif
 
 if ! has('nvim')
-	set t_Co=256
-	" Set Vim-specific sequences for RGB colors
-	" Fixes 'termguicolors' usage in vim+tmux
-	" :h xterm-true-color
-	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set t_Co=256
+  " Set Vim-specific sequences for RGB colors
+  " Fixes 'termguicolors' usage in vim+tmux
+  " :h xterm-true-color
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
 " Disable vim distribution plugins
@@ -89,10 +89,7 @@ if get(g:, 'tabline_plugin_enable', 1)
   call utils#source_file($VIM_PATH,'core/tabline.vim')
 endif
 
-" Initialize user favorite colorscheme
 call theme#init()
-call utils#source_file($VIM_PATH,'core/color.vim')
 
 set secure
 
-" vim: set ts=2 sw=2 tw=80 noet :

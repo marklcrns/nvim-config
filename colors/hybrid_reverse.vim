@@ -1,74 +1,9 @@
 " File:       hybrid_reverse.vim
-" Maintainer: Kristijan Husak (kristijanhusak)
-" URL:        https://github.com/kristijanhusak/vim-hybrid-material
 " BASED ON:   https://github.com/w0ng/vim-hybrid
-" Modified:   16 Apr 2016
-" License:    MIT
+"             https://github.com/kristijanhusak/vim-hybrid-material
 
-" Description:"{{{
+" Initialization: {{{
 " ----------------------------------------------------------------------------
-" The default RGB colour palette is taken from Tomorrow-Night.vim:
-" https://github.com/chriskempson/vim-tomorrow-theme
-"
-" The reduced RGB colour palette is taken from Codecademy's online editor:
-" https://www.codecademy.com/learn
-"
-" The syntax highlighting scheme is taken from jellybeans.vim:
-" https://github.com/nanotech/jellybeans.vim
-"
-" The is code taken from solarized.vim:
-" https://github.com/altercation/vim-colors-solarized
-
-"}}}
-" Requirements And Recommendations:"{{{
-" ----------------------------------------------------------------------------
-" Requirements
-"   - gVim 7.3+ on Linux, Mac and Windows.
-"   - Vim 7.3+ on Linux and Mac, using a terminal that supports 256 colours.
-"
-" Due to the limited 256 palette, colours in Vim and gVim will still be slightly
-" different.
-"
-" In order to have Vim use the same colours as gVim (the way this colour scheme
-" is intended), it is recommended that you define the basic 16 colours in your
-" terminal.
-"
-" For Linux users (rxvt-unicode, xterm):
-"
-" 1.  Add the default palette to ~/.Xresources:
-"
-"         https://gist.github.com/3278077
-"
-"     or alternatively, add the reduced contrast palette to ~/.Xresources:
-"
-"         https://gist.github.com/w0ng/16e33902508b4a0350ae
-"
-" 2.  Add to ~/.vimrc:
-"
-"         let g:hybrid_custom_term_colors = 1
-"         let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
-"         colorscheme hybrid
-"
-" For OSX users (iTerm):
-"
-" 1.  Import the default colour preset into iTerm:
-"
-"         https://raw.githubusercontent.com/w0ng/dotfiles/master/iterm2/hybrid.itermcolors
-"
-"     or alternatively, import the reduced contrast color preset into iTerm:
-"
-"         https://raw.githubusercontent.com/w0ng/dotfiles/master/iterm2/hybrid-reduced-contrast.itermcolors
-"
-" 2.  Add to ~/.vimrc:
-"
-"         let g:hybrid_custom_term_colors = 1
-"         let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
-"         colorscheme hybrid
-
-"}}}
-" Initialisation:"{{{
-" ----------------------------------------------------------------------------
-
 hi clear
 
 if exists("syntax_on")
@@ -76,11 +11,10 @@ if exists("syntax_on")
 endif
 
 let s:style = &background
-
 let g:colors_name = "hybrid_reverse"
+" }}}
 
-"}}}
-" GUI And Cterm Palettes:"{{{
+" GUI And Cterm Palettes: {{{
 " ----------------------------------------------------------------------------
 
 let s:palette = {'gui' : {} , 'cterm' : {}}
@@ -166,8 +100,9 @@ let s:palette.cterm.darkcyan   = { 'dark' : "24"               , 'light' : "22" 
 let s:palette.cterm.darkred    = { 'dark' : "52"               , 'light' : "189" }
 let s:palette.cterm.darkpurple = { 'dark' : "53"               , 'light' : "53"  }
 
-"}}}
-" Formatting Options:"{{{
+" }}}
+
+" Formatting Options: {{{
 " ----------------------------------------------------------------------------
 let s:none   = "NONE"
 let s:t_none = "NONE"
@@ -179,8 +114,8 @@ let s:b      = ",bold"
 let s:u      = ",underline"
 let s:i      = ",italic"
 
-"}}}
-" Highlighting Primitives:"{{{
+" }}}
+" Highlighting Primitives: {{{
 " ----------------------------------------------------------------------------
 function! s:build_prim(hi_elem, field)
   " Given a:hi_elem = bg, a:field = comment
@@ -289,8 +224,8 @@ else
     let s:fg_italic = s:fmt_none
 endif
 
-"}}}
-" Vim Highlighting: (see :help highlight-groups)"{{{
+" }}}
+" Vim Highlighting: (see :help highlight-groups) {{{
 " ----------------------------------------------------------------------------
 exe "hi! ColorColumn"   .s:fg_none        .s:bg_line        .s:fmt_none
 "   Conceal"
@@ -354,8 +289,9 @@ endif
 
 exe "hi! Normal"        .s:fg_foreground  .s:normal_bg      .s:fmt_none
 
-"}}}
-" Generic Syntax Highlighting: (see :help group-name)"{{{
+" }}}
+
+" Generic Syntax Highlighting: (see :help group-name) {{{
 " ----------------------------------------------------------------------------
 exe "hi! Comment"         .s:fg_comment     .s:bg_none        .s:fg_italic
 
@@ -409,8 +345,9 @@ exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 "   qfLineNr"
 "   qfError"
 
-"}}}
-" Diff Syntax Highlighting:"{{{
+" }}}
+
+" Diff Syntax Highlighting: {{{
 " ----------------------------------------------------------------------------
 " Diff
 "   diffOldFile
@@ -430,40 +367,112 @@ hi! link diffAdded String
 "   diffSubname
 "   diffComment
 
-"}}}
-"
+" }}}
+
 " This is needed for some reason: {{{
-
 let &background = s:style
-
 " }}}
-" Legal:"{{{
+
+" Highlights: Tabline {{{
 " ----------------------------------------------------------------------------
-" Copyright (c) 2011 Ethan Schoonover
-" Copyright (c) 2009-2012 NanoTech
-" Copyright (c) 2012 w0ng
-"
-" Permission is hereby granted, free of charge, to any per‐
-" son obtaining a copy of this software and associated doc‐
-" umentation files (the “Software”), to deal in the Soft‐
-" ware without restriction, including without limitation
-" the rights to use, copy, modify, merge, publish, distrib‐
-" ute, sublicense, and/or sell copies of the Software, and
-" to permit persons to whom the Software is furnished to do
-" so, subject to the following conditions:
-"
-" The above copyright notice and this permission notice
-" shall be included in all copies or substantial portions
-" of the Software.
-"
-" THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY
-" KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
-" THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICU‐
-" LAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-" AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-" DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CON‐
-" TRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CON‐
-" NECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-" THE SOFTWARE.
-
+" TabLineFill: Tab pages line, where there are no labels
+hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gui=NONE
+" TabLine: Not-active tab page label
+hi TabLine     ctermfg=243 ctermbg=236 guifg=#767676 guibg=#303030 cterm=NONE gui=NONE
+" TabLineSel: Active tab page label
+hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C cterm=NONE gui=NONE
+" Custom
+highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
+highlight TabLineAlt       ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
+highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 " }}}
+
+" Highlights: Statusline {{{
+highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897 cterm=reverse gui=reverse
+highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656 cterm=reverse gui=reverse
+
+" Filepath color
+highlight User1 guifg=#D7D7BC guibg=#30302c ctermfg=251 ctermbg=236
+" Line and column information
+highlight User2 guifg=#a8a897 guibg=#4e4e43 ctermfg=248 ctermbg=239
+" Line and column corner arrow
+highlight User3 guifg=#4e4e43 guibg=#30302c ctermfg=239 ctermbg=236
+" Buffer # symbol and whitespace or syntax errors
+highlight User4 guifg=#666656 guibg=#30302c ctermfg=242 ctermbg=236
+" Write symbol
+highlight User6 guifg=#cf6a4c guibg=#30302c ctermfg=167 ctermbg=236
+" Paste symbol
+highlight User7 guifg=#99ad6a guibg=#30302c ctermfg=107 ctermbg=236
+" Syntax and whitespace
+highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
+" }}}
+
+" Highlights: General GUI {{{
+" ----------------------------------------------------------------------------
+" Ref: https://github.com/mhinz/vim-janah
+highlight Comment guifg=#585858 ctermfg=240 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+" Transparent bg
+" highlight Normal guibg=NONE ctermbg=NONE
+" }}}
+
+" Plugin: vim-gitgutter {{{
+" ----------------------------------------------------------------------------
+highlight! GitGutterAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
+highlight! GitGutterChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
+highlight! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
+highlight! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
+" }}}
+
+" Plugin: Vim-indent-guides {{{
+" NOTE: g:indent_guides_auto_colors must be 0
+" ----------------------------------------------------------------------------
+highlight IndentGuidesOdd  guibg=#262626 ctermbg=235
+highlight IndentGuidesEven guibg=#303030 ctermbg=236
+" }}}
+
+" Plugin: vim-highlightedyank {{{
+" ----------------------------------------------------------------------------
+highlight! link HighlightedyankRegion DiffText
+" }}}
+
+" Plugin: vim-signature {{{
+highlight! SignatureMarkText    ctermfg=11 guifg=#756207 ctermbg=234 guibg=#1c1c1c
+highlight! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c
+" }}}
+
+" Plugin: vim-choosewin {{{
+" ----------------------------------------------------------------------------
+let g:choosewin_color_label = {
+      \ 'cterm': [  75, 233 ], 'gui': [ '#7f99cd', '#000000' ] }
+let g:choosewin_color_label_current = {
+      \ 'cterm': [ 228, 233 ], 'gui': [ '#D7D17C', '#000000' ] }
+let g:choosewin_color_other = {
+      \ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
+" }}}
+
+" Plugin: Fern.vim {{{
+" ----------------------------------------------------------------------------
+highlight FernGitStatusBracket guifg=#6c7a80 ctermfg=NONE
+highlight FernGitStatusIndex guifg=#b5bd68 guibg=NONE
+highlight FernGitStatusWorktree guifg=#cc6666 guibg=NONE
+highlight FernGitStatusUnmerged guifg=#232c31 guibg=NONE
+highlight FernGitStatusUntracked guifg=#6c7a80 guibg=NONE
+highlight FernGitStatusIgnored guifg=#6c7a80 guibg=NONE
+" }}}
+
+" Plugins: Coc {{{
+" ----------------------------------------------------------------------------
+highlight CocCursorRange guibg=#b16286 guifg=#ebdbb2
+highlight default CocHighlightText  guibg=#725972 ctermbg=96
+highlight CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
+
+" Coc-yank highlight
+highlight HighlightedyankRegion term=bold ctermbg=0 guibg=#d0d0d0
+" }}}
+
+" GetColorSynatxGroup
+" ---------------------------------------------------------
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
+      \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
