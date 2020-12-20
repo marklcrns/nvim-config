@@ -31,17 +31,19 @@ function! ImprovedDefaultMappings()
   noremap X "_X
   " Prevent selecting and pasting from overwriting what you originally copied.
   xnoremap p pgvy
-  " Keep selection while indenting
-  vnoremap <silent> > ><cr>gv
-  vnoremap <silent> < <<cr>gv
-  " Select blocks after indenting in visual/select mode
+  " Re-select blocks after indenting in visual/select mode
   xnoremap < <gv
-  xnoremap > >gv
+  xnoremap > >gv|
   " Keep cursor at the bottom of the visual selection after you yank it.
   vnoremap y ygv<Esc>
   " Fixes `[c` and `]c` not working
   nnoremap [c [c
   nnoremap ]c ]c
+  " Scroll step sideways
+  nnoremap zl z4l
+  nnoremap zh z4h
+  " Open file under the cursor in a vsplit
+  nnoremap gf :vertical wincmd f<CR>
   " Makes Relative Number jumps work with text wrap
   noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
   noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
@@ -83,6 +85,10 @@ function! ExtendedBasicMappings()
 	" Easier line-wise movement
 	nnoremap gh g^
 	nnoremap gl g$
+  inoremap <S-Return> <C-o>o
+  " Resize tab windows after top/bottom window movement
+  nnoremap <C-w>K <C-w>K<C-w>=
+  nnoremap <C-w>J <C-w>J<C-w>=
   " Select last paste
   nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
   " Increment/Decrement next searcheable number by one. Wraps at end of file.
@@ -139,7 +145,7 @@ endfunction
 function! FileManagementMappings()
   nnoremap <Leader>fD :echohl WarningMsg<bar> echom "File " . expand("%:p") . " deleting..."<bar>echohl None<bar>call delete(expand("%"))<bar>bdelete!<CR>
   " Set working directory to current file location for all windows
-  nnoremap <Leader>frc :cd %:p:h<CR>:pwd<CR>
+  nnoremap <Leader>frd :cd %:p:h<CR>:pwd<CR>
   " Set working directory to current file location only for the current window
   nnoremap <Leader>frl :lcd %:p:h<CR>:pwd<CR>
   " Open current file with xdg-open and disown
@@ -214,13 +220,13 @@ function! WindowsManagementMappings()
       echo 'Exited ' . curBufName
     endfor
     " Close buffer, restore active tab
-    silent execute 'bdelete' . curBuf
-    silent execute 'tabnext ' . curTab
+    silent execute 'silent! bdelete' . curBuf
+    silent execute 'silent! tabnext ' . curTab
     " if only one buffer remains, and a split/s exists close all extra splits
     " Ref: https://superuser.com/questions/345520/vim-number-of-total-buffers
     if len(getbufinfo({'buflisted':1})) ==# 1 && winnr('$') !=# 1
       for i in range(winnr('$') - 0)
-        execute "close"
+        execute "silent! close"
       endfor
     endif
   endfunction
@@ -243,15 +249,17 @@ function! WindowsManagementMappings()
   nmap <silent> <Leader>bW <Plug>BufKillBangBw
 
   " Tab operation
-  nnoremap <leader>tn :tabnew<cr>
-  nnoremap <leader>tq :tabclose<cr>
-  nnoremap <leader>te :tabedit
-  nnoremap <leader>tm :tabmove
-  " Move between tabs
+  nnoremap <silent> <Leader>1 :<C-u>tabfirst<CR>
+  nnoremap <silent> <Leader>5 :<C-u>tabprevious<CR>
+  nnoremap <silent> <Leader>9 :<C-u>tablast<CR>
+  nnoremap <silent> <Leader>tn :tabnew<cr>
+  nnoremap <silent> <Leader>tq :tabclose<cr>
+  nnoremap <silent> <Leader>te :tabedit
+  nnoremap <silent> <Leader>tm :tabmove
   nnoremap <silent> [t :tabprevious<CR>
   nnoremap <silent> ]t :tabnext<CR>
-  nnoremap <silent> ]T :tablast<CR>
-  nnoremap <silent> [T :tabfirst<CR>
+  nnoremap <silent> ]T :tabmove+<CR>
+  nnoremap <silent> [T :tabmove-<CR>
 
   " Move between buffers
   nnoremap <silent> ]b :bnext<CR>
@@ -259,28 +267,33 @@ function! WindowsManagementMappings()
   nnoremap <silent> ]B :blast<CR>
   nnoremap <silent> [B :bfirst<CR>
 
+  " Window-control prefix
+  nnoremap  [Window]   <Nop>
+  nmap      s [Window]
+
   " Splits
-  nnoremap <Leader>wH :split<CR>
-  nnoremap <Leader>wV :vsplit<CR>
-  nnoremap <Leader>wq :close<CR>
-  " Deletes buffer but keeps the split
-  " Ref: https://stackoverflow.com/a/19619038/11850077
-  noremap <Leader>wd :b#<bar>bd#<CR>
-  " Resize splits vertically
-  nnoremap <Leader>wh :vertical resize -3<CR>
-  nnoremap <Leader>wl :vertical resize +3<CR>
-  nnoremap <Left>     :vertical resize -3<CR>
-  nnoremap <Right>    :vertical resize +3<CR>
-  " Resize splits horizontally
-  nnoremap <Leader>wk :resize -3<CR>
-  nnoremap <Leader>wj :resize +3<CR>
-  nnoremap <Up>       :resize -3<CR>
-  nnoremap <Down>     :resize +3<CR>
+  nnoremap [Window]H :split<CR>
+  nnoremap [Window]V :vsplit<CR>
+  nnoremap [Window]q :close<CR>
+  " Resize splits
+  nnoremap [Window]k :resize -3<CR>
+  nnoremap [Window]j :resize +3<CR>
+  nnoremap [Window]h :vertical resize -3<CR>
+  nnoremap [Window]l :vertical resize +3<CR>
+  nnoremap <Up>      :resize -1<CR>
+  nnoremap <Down>    :resize +1<CR>
+  nnoremap <Left>    :vertical resize -1<CR>
+  nnoremap <Right>   :vertical resize +1<CR>
   " Switch between splits
   nnoremap <M-h> <C-w>h
   nnoremap <M-l> <C-w>l
   nnoremap <M-j> <C-w>j
   nnoremap <M-k> <C-w>k
+
+  " Deletes buffer but keeps the split
+  " Ref: https://stackoverflow.com/a/19619038/11850077
+  noremap [Window]d :b#<bar>bd#<CR>
+  nnoremap <silent> [Window]z  :<C-u>call <SID>zoom()<CR>
 endfunction
 " }}} FILE AND WINDOWS MAPPINGS
 
@@ -648,8 +661,9 @@ function! SettingsToggleMappings()
   nmap <LocalLeader>sv :<C-u>call ToggleVirtualedit()<CR>
   " Toggle spell check
   nmap <LocalLeader>ss :set spell!<CR>
-  " Toggle text wrap
-  nnoremap <LocalLeader>sw :set wrap!<CR>
+  " Smart wrap toggle (breakindent and colorcolumn toggle as-well)
+  nmap <LocalLeader>sw :execute('setlocal wrap! breakindent! colorcolumn=' .
+        \ (&colorcolumn == '' ? &textwidth : ''))<CR>
 endfunction
 " }}} SETTINGS TOGGLE MAPPINGS
 
@@ -742,6 +756,19 @@ function! VimConvertImportFiles(repeat)
   endwhile
 endfunction
 nmap <Leader>;wi :call VimConvertImportFiles()<Left>
+
+" Simple zoom toggle
+function! s:zoom()
+  if exists('t:zoomed')
+    unlet t:zoomed
+    wincmd =
+  else
+    let t:zoomed = { 'nr': bufnr('%') }
+    vertical resize
+    resize
+    normal! ze
+  endif
+endfunction
 
 " ==================== Mappings Function Calls ==================== "
 

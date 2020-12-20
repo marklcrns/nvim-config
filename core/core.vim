@@ -82,6 +82,13 @@ call utils#source_file($VIM_PATH,'core/mappings.vim')
 " Load user init config
 call utils#check_source(s:user_init_config)
 
+if get(g:, 'statusline_plugin_enable', 1)
+  call utils#source_file($VIM_PATH,'core/statusline.vim')
+endif
+if get(g:, 'tabline_plugin_enable', 1)
+  call utils#source_file($VIM_PATH,'core/tabline.vim')
+endif
+
 " Initialize user favorite colorscheme
 call theme#init()
 call utils#source_file($VIM_PATH,'core/color.vim')

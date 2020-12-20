@@ -36,16 +36,6 @@ let g:which_key_map = {
                 \ 't' : 'Jump before any char forward',
                 \ 'w' : 'Jump to beginning of a word forward',
        \ },
-       \ '1' : 'To buffer 1',
-       \ '2' : 'To buffer 2',
-       \ '3' : 'To buffer 3',
-       \ '4' : 'To buffer 4',
-       \ '5' : 'To buffer 5',
-       \ '6' : 'To buffer 6',
-       \ '7' : 'To buffer 7',
-       \ '8' : 'To buffer 8',
-       \ '9' : 'To buffer 9',
-       \ '0' : 'To buffer 10',
        \ ';' : {
              \ 'name' : '+single-purpose',
              \ 'w' : {
@@ -168,7 +158,7 @@ let g:which_key_map = {
           \ 'r' : {
                 \ 'name' : '+change-directory',
                 \ 'r' : 'Change working directory to root',
-                \ 'c' : 'Change working directory to current file',
+                \ 'd' : 'Change working directory to current file',
                 \ 'l' : 'Change working directory to current file (window only)',
                 \ },
           \ 's' : 'Save buffer',
@@ -540,8 +530,6 @@ let g:which_key_localmap = {
             \ 'W' : 'Vimwiki index',
             \ 'I' : 'Vimwiki diary index',
             \ },
-      \ '<Tab>' : 'Wipe current buffer',
-      \ '<S-Tab>' : 'Wipe all except current buffer',
       \ 'z' : {
             \ 'name' : '+folds',
               \ 'f' : 'Toggle fold',

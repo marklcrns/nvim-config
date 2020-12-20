@@ -31,14 +31,6 @@
     let g:webdevicons_enable_denite = 1
     let g:webdevicons_enable_startify = 1
 
-- repo: itchyny/lightline.vim
-  hook_add: source $VIM_PATH/config/plugins/lightline.vim
-
-- repo: bagrat/vim-buffet
-  on_event: [ VimEnter, BufEnter ]
-  hook_source: source $VIM_PATH/config/plugins/buffet.vim
-  depends: lightline.vim
-
 # Tools
 # ----------------------------------------
 - repo: christoomey/vim-tmux-navigator
@@ -318,6 +310,24 @@
     call which_key#register('d', 'g:which_key_dmap')
     call which_key#register('g', 'g:which_key_gmap')
 
+- repo: airblade/vim-rooter
+  on_event: FileType
+  hook_add: |
+    let g:rooter_change_directory_for_non_project_files = 'current'
+    let g:rooter_manual_only = 1
+    let g:rooter_patterns = [
+        \ '.git/',
+        \ 'README.*',
+        \ 'node_modules/',
+        \ 'pom.xml',
+        \ 'env/',
+        \ '.root',
+        \ '.editorconfig',
+        \ ]
+    let g:rooter_silent_chdir = 1
+    let g:rooter_resolve_links = 1
+    let g:rooter_cd_cmd = 'lcd'
+
 - repo: metakirby5/codi.vim
   on_cmd: Codi
   hook_source: source $VIM_PATH/config/plugins/codi.vim
@@ -375,7 +385,6 @@
             \}
         let g:quickrun_no_default_key_mappings = 1
 
-# TODO: Fix conflict when using Codi on python
 - repo: kshenoy/vim-signature
   on_event: FileType
   hook_add: |
