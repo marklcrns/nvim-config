@@ -423,18 +423,6 @@ let g:which_key_map = {
              \ 'q' : 'Vimux close runner',
              \ 'x' : 'Vimux interrupt runner',
           \ },
-    \ 'w' : {
-          \ 'name' : '+window',
-             \ 'd' : 'Delete buffer keep split',
-             \ 'f' : 'Zoom split toggle',
-             \ 'H' : 'Horizontal split',
-             \ 'h' : 'Vertical resize minus',
-             \ 'j' : 'Horizontal resize minus',
-             \ 'k' : 'Horizontal resize plus',
-             \ 'l' : 'Vertical resize plus',
-             \ 'V' : 'Vertical split',
-             \ 'q' : 'Close split',
-          \ },
     \ }
 
 let g:which_key_localmap = {
@@ -529,14 +517,6 @@ let g:which_key_localmap = {
             \ 'name' : '+vimwiki-init',
             \ 'W' : 'Vimwiki index',
             \ 'I' : 'Vimwiki diary index',
-            \ },
-      \ 'z' : {
-            \ 'name' : '+folds',
-              \ 'f' : 'Toggle fold',
-              \ 'F' : 'Close all folds except current',
-              \ 'j' : 'Next closed fold',
-              \ 'k' : 'Prev closed fold',
-              \ 'm' : 'Toggle fold all',
             \ },
       \ }
 

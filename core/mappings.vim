@@ -493,11 +493,11 @@ endfunction
 
 function! FoldsMappings()
   " Toggle fold
-  nnoremap <LocalLeader>zf za
+  nnoremap <CR> za
   " Focus the current fold by closing all others
-  nnoremap <LocalLeader>zF zMzvzt
+  nnoremap <S-CR> zMzvzt
   " Toggle fold all
-  nnoremap <expr> <LocalLeader>zm &foldlevel ? 'zM' :'zR'
+  nnoremap <expr> zm &foldlevel ? 'zM' :'zR'
   " Jumping to next closed fold
   " Ref: https://stackoverflow.com/a/9407015/11850077
   function! NextClosedFold(dir)
