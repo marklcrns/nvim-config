@@ -248,7 +248,6 @@
   on_ft: [yaml.ansible, ansible_hosts]
 # }}}
 
-
 # Tools{{{
 # To setup Google Calendar with calenar.vim
 # https://github.com/itchyny/calendar.vim#important-notice

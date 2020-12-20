@@ -9,8 +9,8 @@ augroup CalendarMappings
   " unmap mappings for other plugins
   " autocmd FileType calendar nunmap <buffer> <C-n>
   " autocmd FileType calendar nunmap <buffer> <C-p>
-  autocmd FileType calendar nunmap <buffer> <C-h>
-  autocmd FileType calendar nunmap <buffer> <C-j>
-  autocmd FileType calendar nunmap <buffer> <C-k>
-  autocmd FileType calendar nunmap <buffer> <C-l>
+  autocmd FileType calendar silent! nunmap <buffer> <C-h>
+  autocmd FileType calendar silent! nunmap <buffer> <C-j>
+  autocmd FileType calendar silent! nunmap <buffer> <C-k>
+  autocmd FileType calendar silent! nunmap <buffer> <C-l>
 augroup END
