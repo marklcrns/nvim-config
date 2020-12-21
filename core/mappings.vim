@@ -300,7 +300,6 @@ function! UtilityMappings()
   " Use backspace key for matching pairs
   nmap <BS> %
   xmap <BS> %
-  nmap <silent> \ :noh<CR>
   " Drag current line(s) vertically and auto-indent
   nnoremap <Leader>J :m+<CR>
   nnoremap <Leader>K :m-2<CR>

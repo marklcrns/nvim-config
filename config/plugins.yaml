@@ -41,8 +41,6 @@
 - repo: tpope/vim-unimpaired
 - repo: tpope/vim-eunuch
 - repo: Shougo/context_filetype.vim
-- repo: itchyny/vim-parenmatch
-- repo: andymass/vim-matchup
 - repo: sgur/vim-editorconfig
   hook_source: |
     let g:editorconfig_verbose = 1
@@ -249,6 +247,12 @@
 # }}}
 
 # Tools{{{
+- { repo: andymass/vim-matchup, on_event: FileType }
+- { repo: itchyny/vim-parenmatch, on_event: FileType }
+- { repo: itchyny/vim-gitbranch, on_event: FileType }
+- { repo: romainl/vim-cool, on_event: [ CursorMoved, InsertEnter ] }
+- { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
+
 # To setup Google Calendar with calenar.vim
 # https://github.com/itchyny/calendar.vim#important-notice
 - repo: itchyny/calendar.vim
@@ -425,9 +429,6 @@
     let g:EasyMotion_smartcase = 1
     let g:EasyMotion_use_smartsign_us = 1
     let g:EasyMotion_startofline = 0
-
-- repo: t9md/vim-quickhl
-  on_map: { nv: <Plug> }
 
 - repo: brooth/far.vim
   on_cmd: [F, Far, Farr, Farf, Refar, Farundo]
