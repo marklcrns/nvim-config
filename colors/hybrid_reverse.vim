@@ -412,7 +412,7 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " Ref: https://github.com/mhinz/vim-janah
 highlight Comment guifg=#585858 ctermfg=240 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 " Transparent bg
-" highlight Normal guibg=NONE ctermbg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
 " }}}
 
 " Plugin: vim-gitgutter {{{
