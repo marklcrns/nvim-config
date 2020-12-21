@@ -490,9 +490,9 @@ endfunction
 
 function! FoldsMappings()
   " Toggle fold
-  nnoremap <CR> za
+  nnoremap <Leader><CR> za
   " Focus the current fold by closing all others
-  nnoremap <Leader><CR> zMzvzt
+  nnoremap <Leader><Leader><CR> zMzvzt
   " Toggle fold all
   nnoremap <expr> zm &foldlevel ? 'zM' :'zR'
   " Jumping to next closed fold

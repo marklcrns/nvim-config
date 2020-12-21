@@ -1,7 +1,7 @@
 let g:which_key_map =  {}
 let g:which_key_map = {
     \ 'name' : '+leader-key',
-    \ '<CR>' : 'Close all folds except current line',
+    \ '<CR>' : 'Toggle fold at current line',
        \ '-' : 'Choose window' ,
        \ '_' : 'Choose window to swap with' ,
        \ '/' : {
@@ -17,6 +17,7 @@ let g:which_key_map = {
              \ },
        \ ' ' : {
              \ 'name' : '+easymotion',
+             \ '<CR>' : 'Close all folds except current line',
                 \ ',' : 'Jump to previous last easymotion match',
                 \ ';' : 'Jump to next last easymotion match',
                 \ 'E' : 'Jump to the end of a word backward',
