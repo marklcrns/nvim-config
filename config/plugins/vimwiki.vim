@@ -194,7 +194,6 @@ augroup VimwikiEditMode
   " Useful for long lines. Depends on `gp` nmap. For more info `:verbose nmap gp`
   autocmd FileType vimwiki
         \ imap <expr><silent><buffer> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartInsertPaste()\<CR>" : "\<Esc>:call SmartInsertPaste()\<CR>"
-
 augroup END
 
 function! SubstituteOddChars()
