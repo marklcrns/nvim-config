@@ -58,9 +58,9 @@ function! ImprovedDefaultMappings()
         \ ."\<C-u>".(line('w0') <= 1 ? "H" : "M")
   noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
   noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
-  " Closing pop-up auto-completion before inserting new line
-  inoremap <expr> <M-o> (pumvisible() <bar><bar> &insertmode) ? '<C-e><M-o>' : '<M-o>'
-  inoremap <expr> <M-O> (pumvisible() <bar><bar> &insertmode) ? '<C-e><M-O>' : '<M-O>'
+  " Closing pop-up auto-completion before inserting new line in insert mode
+  inoremap <expr> <M-o> (pumvisible() <bar><bar> &insertmode) ? '<C-e><C-o>o' : '<C-o>o'
+  inoremap <expr> <M-O> (pumvisible() <bar><bar> &insertmode) ? '<C-e><C-O>O' : '<C-O>O'
 endfunction
 
 function! ExtendedBasicMappings()
@@ -85,7 +85,11 @@ function! ExtendedBasicMappings()
 	" Easier line-wise movement
 	nnoremap gh g^
 	nnoremap gl g$
-  inoremap <S-Return> <C-o>o
+  " Jump entire buffers in jumplist
+  nnoremap g<C-i> :<C-u>call JumpBuffer(-1)<CR>
+  nnoremap g<C-o> :<C-u>call JumpBuffer(1)<CR>
+  " Insert newline below
+  inoremap <S-CR> <C-o>o
   " Resize tab windows after top/bottom window movement
   nnoremap <C-w>K <C-w>K<C-w>=
   nnoremap <C-w>J <C-w>J<C-w>=
@@ -120,22 +124,22 @@ endfunction
 " FILE AND WINDOWS MAPPINGS -------------------- {{{
 function! FilePathMappings()
   " Resources: https://vim.fandom.com/wiki/Get_the_name_of_the_current_file
-  " Yank buffer's relative path without file extension to '+' clipboard
-  nnoremap <Leader>fye :let @+=expand("%:r")<bar>echo 'Yanked relative file path without extension'<CR>
   " Yank buffer's absolute path without file extension to '+' clipboard
-  nnoremap <Leader>fyE :let @+=expand("%:p:r")<bar>echo 'Yanked absolute file path without extension'<CR>
-  " Yank buffer's relative file path to '+' register
-  nnoremap <Leader>fyp :let @+=expand("%:~:.")<bar>echo 'Yanked relative file path'<CR>
+  nnoremap <Leader>fye :let @+=expand("%:p:r")<bar>echo 'Yanked absolute file path without extension'<CR>
+  " Yank buffer's relative path without file extension to '+' clipboard
+  nnoremap <Leader>fyE :let @+=expand("%:r")<bar>echo 'Yanked relative file path without extension'<CR>
   " Yank buffer's absolute file path to '+' register
-  nnoremap <Leader>fyP :let @+=expand("%:p")<bar>echo 'Yanked absolute file path'<CR>
-  " Yank buffer file name to '+' register
-  nnoremap <Leader>fyf :let @+=expand("%:t")<bar>echo 'Yanked file name'<CR>
+  nnoremap <Leader>fyp :let @+=expand("%:p")<bar>echo 'Yanked absolute file path'<CR>
+  " Yank buffer's relative file path to '+' register
+  nnoremap <Leader>fyP :let @+=expand("%:~:.")<bar>echo 'Yanked relative file path'<CR>
   " Yank buffer file name without extension to '+' register
-  nnoremap <Leader>fyF :let @+=expand("%:t:r")<bar>echo 'Yanked file name without extension'<CR>
-  " Yank buffer's relative directory path to '+' register
-  nnoremap <Leader>fyd :let @+=expand("%:p:h:t")<bar>echo 'Yanked relative directory path'<CR>
+  nnoremap <Leader>fyf :let @+=expand("%:t:r")<bar>echo 'Yanked file name without extension'<CR>
+  " Yank buffer file name to '+' register
+  nnoremap <Leader>fyF :let @+=expand("%:t")<bar>echo 'Yanked file name'<CR>
   " Yank buffer's absolut directory path to '+' register
-  nnoremap <Leader>fyD :let @+=expand("%:p:h")<bar>echo 'Yanked absolute directory path'<CR>
+  nnoremap <Leader>fyd :let @+=expand("%:p:h")<bar>echo 'Yanked absolute directory path'<CR>
+  " Yank buffer's relative directory path to '+' register
+  nnoremap <Leader>fyD :let @+=expand("%:p:h:t")<bar>echo 'Yanked relative directory path'<CR>
   " Yank buffer's file extension only to '+' clipboard
   nnoremap <Leader>fyx :let @+=expand("%:e")<bar>echo 'Yanked file extension'<CR>
   " :edit file path from clipboard register
@@ -232,22 +236,6 @@ function! WindowsManagementMappings()
   endfunction
   noremap <silent> q :call SmartBufClose()<cr>
 
-  " bufkill.vim
-  " BuffKillList stores buffers accessed so far
-  nmap <silent> <Leader>ba <Plug>BufKillAlt
-  nmap <silent> <Leader>bA <Plug>BufKillBangAlt
-  nmap <silent> <Leader>bb <Plug>BufKillBun
-  nmap <silent> <Leader>bB <Plug>BufKillBangBun
-  nmap <silent> <Leader>bd <Plug>BufKillBd
-  nmap <silent> <Leader>bD <Plug>BufKillBangBd
-  nmap <silent> <Leader>bn <Plug>BufKillForward
-  nmap <silent> <Leader>bN <Plug>BufKillBangForward
-  nmap <silent> <Leader>bp <Plug>BufKillBack
-  nmap <silent> <Leader>bP <Plug>BufKillBangBack
-  nmap <silent> <Leader>bu <Plug>BufKillUndo
-  nmap <silent> <Leader>bw <Plug>BufKillBw
-  nmap <silent> <Leader>bW <Plug>BufKillBangBw
-
   " Tab operation
   nnoremap <silent> <Leader>1 :<C-u>tabfirst<CR>
   nnoremap <silent> <Leader>5 :<C-u>tabprevious<CR>
@@ -312,6 +300,7 @@ function! UtilityMappings()
   " Use backspace key for matching pairs
   nmap <BS> %
   xmap <BS> %
+  nmap <silent> \ :noh<CR>
   " Drag current line(s) vertically and auto-indent
   nnoremap <Leader>J :m+<CR>
   nnoremap <Leader>K :m-2<CR>
@@ -503,7 +492,7 @@ function! FoldsMappings()
   " Toggle fold
   nnoremap <CR> za
   " Focus the current fold by closing all others
-  nnoremap <S-CR> zMzvzt
+  nnoremap <Leader><CR> zMzvzt
   " Toggle fold all
   nnoremap <expr> zm &foldlevel ? 'zM' :'zR'
   " Jumping to next closed fold
@@ -521,8 +510,8 @@ function! FoldsMappings()
       call winrestview(view)
     endif
   endfunction
-  nnoremap <silent> <LocalLeader>zj :call NextClosedFold('j')<cr>
-  nnoremap <silent> <LocalLeader>zk :call NextClosedFold('k')<cr>
+  nnoremap <silent> <Leader>zj :call NextClosedFold('j')<cr>
+  nnoremap <silent> <Leader>zk :call NextClosedFold('k')<cr>
 endfunction
 " }}} UTILITIES MAPPINGS
 
@@ -579,7 +568,9 @@ function! TextManipulationMappings()
   " Lowercase each word of current entire file
   nnoremap <Leader>rc :%s/\<./\l&/g<CR>:nohl<CR>
   " Yank everything from current file
-  nnoremap <Leader>rya ggVGy<C-o>
+  nnoremap <Leader>rya ggVGy<C-o>:echom "Yanked all file contents!"<CR>
+  " Replace all with yanked texts
+  nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
   " Jumps to previously misspelled word and fixes it with the first in the suggestion
   " Update: also echo changes and line and col number
   " Ref: https://castle.Dev/post/lecture-notes-1/
@@ -709,61 +700,6 @@ endfunction
 
 " Append '.md' to clipboard register yanked file path and :edit from current directory
 nnoremap <Leader>;wm :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
-
-" Creates a wiki link based from the relative path of the source file to be
-" imported, then copy its content. Close the source file buffer after and goes
-" back to target index file or start point.
-" Requirements:
-" 1. Source references to import has to start from 2nd buffer
-" 2. Target index has to be the last buffer
-" 3. Start cursor should be at the line above the target line.
-" 4. MkNonExDir() from https://stackoverflow.com/a/4294176/11850077
-" 5. vim-buffet plugin
-" Insert date ref: https://vim.fandom.com/wiki/Insert_current_date_or_time
-function! VimConvertImportFiles(repeat)
-  " loop through nth times with repeat arg
-  let i = 0
-  while i < a:repeat
-    " mark 'A' to index file and reference import file
-    exec "norm! mA"
-    exec "norm \<plug>BuffetSwitch(2)"
-    " copy relative file path without extension
-    exec "let @+=expand('%:r')"
-    " mark 'B' to reference file first line
-    exec "norm! ggmB"
-    " go back to index and create a new link for the reference file
-    exec "norm 'AA\<cr>\<esc>p\<cr>"
-
-    " Open new wiki link relative to current working directory and mark to 'C'
-    exec "cd %:h"
-    exec 'e ' . expand('%:p:h') . '/' . getreg('+') . '.md'
-    exec 'norm! mC'
-    " go to reference file and yank all contents
-    exec "norm! 'BVGy"
-    " go to new wiki link and paste all
-    exec "norm! 'Cp"
-
-    " copy filename wihtout extension
-    exec "let @+=expand('%:t:r')"
-    " add markdown title and author meta data, filename as title.
-    exec "norm! ggO---"
-    exec "put='title: ' . getreg('+')"
-    exec "put='author: Mark Lucernas'"
-    " add markdown date meta
-    exec "pu='date: ' . strftime('%Y-%m-%d')"
-    exec "pu='---'"
-
-    " save and delete reference and new wiki buffers, then go back to index
-    exec "w!"
-    exec "norm! \<c-^>"
-    exec "bd"
-    exec "redraw!"
-    exec "norm! 'Aj"
-
-    let i += 1
-  endwhile
-endfunction
-nmap <Leader>;wi :call VimConvertImportFiles()<Left>
 
 function! s:toggle_background()
   if ! exists('g:colors_name')
