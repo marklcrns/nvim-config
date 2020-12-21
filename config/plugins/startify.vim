@@ -1,3 +1,5 @@
+" Startify
+" ---
 
 autocmd! FileType startify
 autocmd  FileType startify set laststatus=0 showtabline=0
@@ -16,43 +18,37 @@ let g:startify_session_dir = '~/.vim/session'
 
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
-      \ { 'type': 'files',     'header': ['   MRU']            },
       \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+      \ { 'type': 'files',     'header': ['   MRU']            },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
 
 " Centering header
 let g:startify_custom_header =
-	\ startify#center(startify#fortune#cowsay('', '═','║','╔','╗','╝','╚'))
+      \ startify#center(startify#fortune#cowsay('', '═','║','╔','╗','╝','╚'))
 
 let g:startify_bookmarks = [
-	\ { 'a': '~/.bash_aliases' },
-	\ { 'z': '~/.zshrc' },
-	\ { 'b': '~/.bashrc' },
-	\ { 't': '~/.tmux.conf' },
-	\ { 'w': '~/.config/nvim/layers/+tools/whichkey/config.vim' },
-	\ { 'vg': '~/.config/nvim/core/general.vim' },
-	\ { 'vm': '~/.config/nvim/core/mappings.vim' },
-	\ { 'vp': '~/.config/nvim/core/dein/plugins.yaml' },
-	\ { 'vc': '~/.config/nvim/layers/+thinkvim/config.vim' },
-	\ { 'lp': '~/.config/nvim/.thinkvim.d/local_plugins.yaml' },
-	\ { 'ls': '~/.config/nvim/.thinkvim.d/local_settings.vim' },
-	\ { 'di': '~/.doom.d/init.el' },
-	\ { 'dc': '~/.doom.d/config.el' },
-	\ { 'dp': '~/.doom.d/packages.el' },
-	\ { 'ei': '~/.emacs.d/init.el' },
-	\ ]
+      \ { 'a': '~/.bash_aliases' },
+      \ { 'b': '~/.bashrc' },
+      \ { 'p': '~/.profile' },
+      \ { 't': '~/.tmux.conf' },
+      \ { 'z': '~/.zshrc' },
+      \ ]
 
 let s:footer = [
+      \ '                                                  _|      ',
+      \ '      _|      _|                      _|        _|        ',
+      \ '      _|_|  _|_|    _|_|_|  _|  _|_|  _|  _|        _|_|_|',
+      \ '      _|  _|  _|  _|    _|  _|_|      _|_|        _|_|    ',
+      \ '      _|      _|  _|    _|  _|        _|  _|          _|_|',
+      \ '      _|      _|    _|_|_|  _|        _|    _|    _|_|_|  ',
       \ '',
-      \ '   __         _    _        _    _      _         _    ',
-      \ '  / /    ___ | |_ ( ) ___  | |_ | |__  (_) _ __  | | __',
-      \ ' / /    / _ \| __||/ / __| | __|| |_ \ | || |_ \ | |/ /',
-      \ '/ /___ |  __/| |_    \__ \ | |_ | | | || || | | ||   < ',
-      \ '\____/  \___| \__|   |___/  \__||_| |_||_||_| |_||_|\_\',
-      \ '                                                       ',
-      \ '             [ ThinkVim   Author:taigacute ]           ',
+      \ '_|      _|                                  _|                ',
+      \ '_|_|    _|    _|_|      _|_|    _|      _|      _|_|_|  _|_|  ',
+      \ '_|  _|  _|  _|_|_|_|  _|    _|  _|      _|  _|  _|    _|    _|',
+      \ '_|    _|_|  _|        _|    _|    _|  _|    _|  _|    _|    _|',
+      \ '_|      _|    _|_|_|    _|_|        _|      _|  _|    _|    _|',
       \ '',
       \ ]
 

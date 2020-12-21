@@ -41,8 +41,6 @@ function! s:goyo_leave()
   if g:showcmd_goyo_bak
     set showcmd
   endif
-  " Source custom colors
-  source $VIM_PATH/core/color.vim
   " De-activate Limelight
   Limelight!
 endfunction

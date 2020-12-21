@@ -226,17 +226,6 @@ if dein#tap('vim-clap')
   endfunction
 endif
 
-if dein#tap('coc-clap')
-  nnoremap <silent> <Leader>cfa :<C-u>Clap coc_actions<Cr>
-  nnoremap <silent> <Leader>cfc :<C-u>Clap coc_commands<Cr>
-  nnoremap <silent> <Leader>cfd :<C-u>Clap coc_diagnostics<Cr>
-  nnoremap <silent> <Leader>cfe :<C-u>Clap coc_extensions<Cr>
-  nnoremap <silent> <Leader>cfl :<C-u>Clap coc_location<Cr>
-  nnoremap <silent> <Leader>cfo :<C-u>Clap coc_outline<Cr>
-  nnoremap <silent> <Leader>cfs :<C-u>Clap coc_symbols<Cr>
-  nnoremap <silent> <Leader>cfv :<C-u>Clap coc_services<Cr>
-endif
-
 if dein#tap('codi.vim')
   nnoremap <Leader>icc :<C-u>Codi!!<CR>
   nnoremap <Leader>icu :<C-u>CodiUpdate<CR>
@@ -333,7 +322,6 @@ endif
 if dein#tap('vim-quickrun')
   nnoremap <silent> <Localleader>r :QuickRun -mode n<CR>
   vnoremap <silent> <LocalLeader>r :QuickRun -mode v<CR>
-  nnoremap <silent> <localLeader><CR> :<C-u>set opfunc=quickrun#operator<CR>g@ip
 endif
 
 if dein#tap('vim-floaterm')
@@ -374,8 +362,8 @@ endif
 if dein#tap('splitjoin.vim')
   let g:splitjoin_join_mapping = ''
   let g:splitjoin_split_mapping = ''
-  nmap sj :SplitjoinJoin<CR>
-  nmap sk :SplitjoinSplit<CR>
+  nmap sJ :SplitjoinJoin<CR>
+  nmap sK :SplitjoinSplit<CR>
 endif
 
 if dein#tap('vista.vim')
@@ -731,6 +719,12 @@ if dein#tap('far.vim')
   vnoremap <silent> <Leader>rfs  :Farr<cr>
   nnoremap <silent> <Leader>rfu  :Farundo<cr>
 endif
+
+if dein#tap('leetcode.vim')
+  nnoremap <Leader>Ll :LeetCodeList<CR>
+  nnoremap <Leader>Ls :LeetCodeTest<CR>
+  nnoremap <Leader>Lt :LeetCodeSubmit<CR>
+endi
 
 
 " Commented plugins too old, or found much better
