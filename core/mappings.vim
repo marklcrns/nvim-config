@@ -289,7 +289,7 @@ function! WindowsManagementMappings()
   " Deletes buffer but keeps the split
   " Ref: https://stackoverflow.com/a/19619038/11850077
   noremap [Window]d :b#<bar>bd#<CR>
-  nnoremap <silent> [Window]z  :<C-u>call <SID>zoom()<CR>
+  nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
 endfunction
 " }}} FILE AND WINDOWS MAPPINGS
 
@@ -746,12 +746,12 @@ function! s:window_empty_buffer()
 endfunction
 
 " Simple zoom toggle
-function! s:zoom()
-  if exists('t:zoomed')
-    unlet t:zoomed
+function! s:custom_zoom()
+  if exists('t:custom_zoomed')
+    unlet t:custom_zoomed
     wincmd =
   else
-    let t:zoomed = { 'nr': bufnr('%') }
+    let t:custom_zoomed = { 'nr': bufnr('%') }
     vertical resize
     resize
     normal! ze

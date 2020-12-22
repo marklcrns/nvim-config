@@ -277,9 +277,9 @@ function! badge#mode(...) abort
   if &filetype !~? g:badge_filetype_blacklist && &readonly
     let s:modes .= a:0 > 0 ? a:1 : 'R'
   endif
-  " if exists('t:zoomed') && bufnr('%') == t:zoomed.nr
-  "   let s:modes .= a:0 > 1 ? a:2 : 'Z'
-  " endif
+  if exists('t:custom_zoomed') && bufnr('%') == t:custom_zoomed.nr
+    let s:modes .= a:0 > 1 ? a:2 : 'Z'
+  endif
 
   return s:modes
 endfunction

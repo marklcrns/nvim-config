@@ -5,6 +5,7 @@ let s:stl  = " %7*%{&paste ? '=' : ''}%*"         " Paste symbol
 let s:stl .= "%4*%{&readonly ? '' : '#'}%*"       " Modified symbol
 let s:stl .= "%6*%{badge#mode('⚠ ', 'Z')}"        " Read-only symbol
 let s:stl .= '%*%n'                               " Buffer number
+let s:stl .= "%6*%{zoom#statusline()}%*"
 let s:stl .= "%6*%{badge#modified('+')}%0*"       " Write symbol
 let s:stl .= ' %1*%{badge#filename()}%* '         " Filename
 let s:stl .= '%( %{badge#branch()} %)'           " Git branch name
