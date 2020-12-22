@@ -50,7 +50,7 @@ let s:footer = [
       \ '_|    _|_|  _|        _|    _|    _|  _|    _|  _|    _|    _|',
       \ '_|      _|    _|_|_|    _|_|        _|      _|  _|    _|    _|',
       \ '',
-      \ '                  [ github.com/marklcrns ]',
+      \ '                    [ github.com/marklcrns ]',
       \ ]
 
 function! s:center(lines) abort
