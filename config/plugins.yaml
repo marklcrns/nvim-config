@@ -33,6 +33,10 @@
 
 # Tools
 # ----------------------------------------
+- repo: dhruvasagar/vim-zoom
+  hook_add: |
+    let g:zoom#statustext = '🔍'
+
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
   hook_add: |
@@ -516,11 +520,6 @@
     autocmd User preview_open_post
     \  unlet! g:vim_markdown_no_default_key_mappings
     \| unlet! g:vim_markdown_emphasis_multiline
-
-- repo: dhruvasagar/vim-zoom
-  on_map: { n: <Plug> }
-  hook_add: |
-    let g:zoom#statustext = '🔍'
 
 - repo: lambdalisue/fern.vim
   on_cmd: Fern
