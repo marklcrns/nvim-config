@@ -25,7 +25,7 @@ update-plugins:
 		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
 
 uninstall:
-	rm -rf "$(XDG_CACHE_HOME)/vim"
+	rm -rf "$(XDG_CACHE_HOME)/vim" env
 
 test:
 ifeq ('$(vim)','nvim')

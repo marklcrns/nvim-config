@@ -8,8 +8,6 @@ SCRIPTPATH="$(realpath -s $0)"
 SCRIPTDIR=$(dirname ${SCRIPTPATH})
 NVIM_ROOT="$(realpath "${SCRIPTDIR}/..")"
 
-echo $NVIM_ROOT
-
 # Install Neovim latest if not already
 if ! command -v nvim &> /dev/null; then
   sudo add-apt-repository ppa:neovim-ppa/unstable -y
