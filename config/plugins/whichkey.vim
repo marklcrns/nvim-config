@@ -437,6 +437,7 @@ let g:which_key_localmap = {
       \ 's' : {
             \ 'name' : '+ui-toggles',
                \ 'c' : 'Color highlight toggle',
+               \ 'd' : 'Dim inactive toggle',
                \ 'e' : 'Conceal toggle',
                \ 'g' : 'Gutter toggle',
                \ 'i' : 'Indent guide toggle',

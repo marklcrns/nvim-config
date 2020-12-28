@@ -479,6 +479,11 @@ if dein#tap('rainbow')
 endif
 
 if dein#tap('vim-diminactive')
+  nnoremap <LocalLeader>sd :DimInactiveToggle<CR>
+endif
+
+
+if dein#tap('golden_size')
   function! GoldenSizeToggle()
       if g:golden_size_off
           let g:golden_size_off = 0
