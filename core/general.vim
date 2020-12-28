@@ -289,4 +289,12 @@ if has('termguicolors') && &termguicolors
     set winblend=10
   endif
 endif
+
+if g:activate_cursorline
+  set cursorline
+endif
+
+if g:activate_cursorcolumn
+  set cursorcolumn
+endif
 " }}}

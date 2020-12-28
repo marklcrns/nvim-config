@@ -37,13 +37,6 @@ augroup user_plugin_filetype "{{{
         \ |   filetype detect
         \ | endif
 
-  " Highlight current line only on focused window
-  autocmd WinEnter,InsertLeave * if &ft !~# '^\(denite\|clap_\)' |
-        \ set cursorline | endif
-
-  autocmd WinLeave,InsertEnter * if &ft !~# '^\(denite\|clap_\)' |
-        \ set nocursorline | endif
-
   " Automatically set read-only for files being edited elsewhere
   autocmd SwapExists * nested let v:swapchoice = 'o'
 
@@ -76,14 +69,18 @@ augroup user_plugin_filetype "{{{
 
   augroup CursorUI
     autocmd!
-    " disable cursorline on InsertEnter
-    autocmd InsertEnter * set nocursorline
-    " reenable cursorline on InsertLeave when activated
-    autocmd InsertLeave *
-          \ if g:activate_cursorline == 1
-          \ | set cursorline
+    " disable cursorline and cursorcolumn on InsertEnter
+    autocmd InsertEnter * if &ft !~# '^\(denite\|clap_\)' |
+          \ set nocursorline nocursorcolumn
           \ | endif
-  augroup END
+    " reenable cursorline on InsertLeave when activated
+    autocmd InsertLeave * if (g:activate_cursorline == 1) && (&ft !~# '^\(denite\|clap_\)') |
+          \ set cursorline
+          \ | endif
+    " reenable cursorcolumn on InsertLeave when activated
+    autocmd InsertLeave * if (g:activate_cursorcolumn == 1) && (&ft !~# '^\(denite\|clap_\)') |
+          \ set cursorcolumn
+          \ | endif
 augroup END "}}}
 
 " Credits: https://github.com/Shougo/shougo-s-github/blob/master/vim/rc/options.rc.vim#L147

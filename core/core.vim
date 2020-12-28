@@ -55,6 +55,10 @@ let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
 let g:loaded_netrwFileHandlers = 1
 
+" Set global variables
+let g:activate_cursorline = 1
+let g:activate_cursorcolumn = 0
+
 " Initialize base requirements
 if has('vim_starting')
   " Set leader and localleader keys
