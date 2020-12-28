@@ -474,7 +474,7 @@ let g:which_key_localmap = {
       \ 'v' : {
             \ 'name' : '+vista',
                \ 'v' : 'Vista toggle',
-               \ 'c' : 'Vista coc',
+               \ 'c' : 'Vista finder clap',
                \ 'f' : 'Vista focus back and forth',
                \ 'o' : 'Vista open',
                \ 'q' : 'Vista close',
