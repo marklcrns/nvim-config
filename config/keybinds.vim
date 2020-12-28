@@ -478,6 +478,19 @@ if dein#tap('rainbow')
   nmap <LocalLeader>sp :RainbowToggle<CR>
 endif
 
+if dein#tap('vim-diminactive')
+  function! GoldenSizeToggle()
+      if g:golden_size_off
+          let g:golden_size_off = 0
+          echom "Golden size on"
+      else
+          let g:golden_size_off = 1
+          echom "Golden size off"
+      endif
+  endfunction
+  nnoremap <LocalLeader>sr :<C-u>call GoldenSizeToggle()<CR>
+endif
+
 if dein#tap('markdown-preview.nvim')
   nmap <Leader>lmd <Plug>MarkdownPreviewToggle
   nmap <Leader>lmo <Plug>MarkdownPreview
