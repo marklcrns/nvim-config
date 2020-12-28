@@ -16,6 +16,7 @@ let g:coc_global_extensions = [
       \ 'coc-java-debug',
       \ 'coc-json',
       \ 'coc-lists',
+      \ 'coc-lua',
       \ 'coc-markdownlint',
       \ 'coc-marketplace',
       \ 'coc-post',
