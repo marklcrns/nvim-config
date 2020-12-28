@@ -42,9 +42,6 @@
   hook_add: |
     let g:tmux_navigator_disable_when_zoomed = 1
 
-- repo: tpope/vim-unimpaired
-- repo: tpope/vim-eunuch
-- repo: Shougo/context_filetype.vim
 - repo: sgur/vim-editorconfig
   hook_source: |
     let g:editorconfig_verbose = 1
@@ -55,6 +52,15 @@
       \  ],
       \ 'pattern': ['\.un~$']
       \ }
+
+- repo: tpope/vim-unimpaired
+- repo: tpope/vim-eunuch
+- repo: Shougo/context_filetype.vim
+- repo:  blueyed/vim-diminactive 
+  hook_source: |
+    let g:diminactive_filetype_blacklist = [ 'startify' ]
+- repo: dm1try/golden_size
+  hook_source: luafile $VIM_PATH/config/plugins/golden_size.lua
 
 # Fix neovim cursorhold bug. Suggested by Fern.vim
 - repo: antoinemadec/FixCursorHold.nvim
