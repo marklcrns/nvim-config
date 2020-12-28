@@ -442,6 +442,7 @@ let g:which_key_localmap = {
                \ 'i' : 'Indent guide toggle',
                \ 'p' : 'Rainbow pairs toggle',
                \ 's' : 'Spell checker toggle',
+               \ 'r' : 'Auto split resize toggle',
                \ 'v' : 'Virtualedit mode toggle',
                \ 'w' : 'Text wrap toggle',
                \ 'l' : {
