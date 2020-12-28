@@ -591,7 +591,7 @@ function! SettingsToggleMappings()
   endif
   " Toggle cursorline
   function! ToggleCursorline()
-    if g:activate_cursorline == 1
+    if g:activate_cursorline
       set nocursorline
       let g:activate_cursorline = 0
       echom 'Cursorline deactivated'
@@ -604,7 +604,7 @@ function! SettingsToggleMappings()
   nmap <silent> <LocalLeader>sll :<C-u>call ToggleCursorline()<CR>
   " Toggle cursorcolumn
   function! ToggleCursorcolumn()
-    if g:activate_cursorcolumn == 1
+    if g:activate_cursorcolumn
       set nocursorcolumn
       let g:activate_cursorcolumn = 0
       echom 'Cursorcolumn deactivated'
