@@ -15,6 +15,11 @@ if ! command -v nvim &> /dev/null; then
   sudo apt install neovim -y
 fi
 
+if ! command -v fzf &> /dev/null; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+
 # For GUI prompts, VCoolor.vim and other support
 sudo apt install yad zenity zeal -y
 # Taskwarrior

@@ -282,10 +282,24 @@
   depends: Goyo
   hook_source: source $VIM_PATH/config/plugins/limelight.vim
 
+- repo: junegunn/fzf
+  merged: 0
+  on_cmd: FZF
+  type__depth: 1
+  hook_source: |-
+    let g:fzf_layout = { 'down': '~25%' }
+
+- repo: junegunn/fzf.vim
+  depends: fzf
+  merged: 0
+  on_cmd: [ Files, GitFiles, Buffers, Lines, Locate, Colors, Ag, Rg, Tags ]
+  on_func: [ fzf#vim#with_preview, fzf#run, vista#finder#fzf#Run ]
+
 - repo: liuchengxu/vim-clap
   merged: 0
   build: call clap#installer#build_all()
   on_map: { n: <Plug> }
+  on_func: [ vista#finder#clap#Run ]
   hook_source: source $VIM_PATH/config/plugins/vim-clap.vim
 
 - repo: junegunn/gv.vim
