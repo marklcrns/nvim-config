@@ -1,17 +1,20 @@
-" smartbufclose.vim
+" File: smartbufclose.vim
+"
 " Author:
 "   Mark Lucernas
 "   https://github.com/marklcrns
 "
 " Description:
-"   Sensibly delete buffers with respect to tabs and window splits
+"   Sensibly delete current buffer with respect to alternate tabs and window
+"   splits.
 "
 " Features:
 "   - Delete buffers with preserving tabs and window splits displaying the same
 "     buffer to be deleted.
 "   - Keep tabs and window splits open with an empty buffer if pointing to
 "     same buffer to be deleted.
-"   - Auto delete empty buffers (will close tabs and window splits)
+"   - Auto delete empty buffers (will close tabs and window splits).
+"   - Prevents from deleting buffer if modified.
 "
 " Usage:
 "   :SmartBufClose
@@ -20,8 +23,10 @@
 "   - CleanEmptyBuffers()
 "     https://stackoverflow.com/a/10102604
 "   - SmartBufClose()
+"     https://github.com/cespare/vim-sbd
 "     https://stackoverflow.com/a/29236158
 "     https://superuser.com/questions/345520/vim-number-of-total-buffers
+"
 
 
 
@@ -120,19 +125,23 @@ function! <SID>SmartBufClose()
   endif
 
   " Create empty buffer if only buffer w/o window splits, else close split
-  if curBufCount ># 1
-    " Prevent tabs and windows from closing if pointing to the same curBuf
-    " by switching to next buffer before deleting curBuf
-    call s:ShiftAllWindowsBufferPointingToBuffer(curBuf)
-
-    " Close buffer and restore active tab
-    silent execute 'silent! bdelete' . curBuf
-    silent execute 'silent! tabnext ' . curTab
+  if getbufvar(curBuf, '&modified') == 1
+    echohl WarningMsg | echo "Changes detected. Please save your file!" | echohl None
   else
-    " Create new buffer empty if no splits and delete curBuf
-    execute 'enew'
-    call s:ShiftAllWindowsBufferPointingToBuffer(curBuf)
-    execute "silent! " . curBuf . "bdelete"
+    if curBufCount ># 1
+        " Prevent tabs and windows from closing if pointing to the same curBuf
+        " by switching to next buffer before deleting curBuf
+        call s:ShiftAllWindowsBufferPointingToBuffer(curBuf)
+
+        " Close buffer and restore active tab
+        silent execute 'silent! bdelete' . curBuf
+        silent execute 'silent! tabnext ' . curTab
+    else
+      " Create new buffer empty if no splits and delete curBuf
+      execute 'enew'
+      call s:ShiftAllWindowsBufferPointingToBuffer(curBuf)
+      execute "silent! " . curBuf . "bdelete"
+    endif
   endif
 endfunction
 
