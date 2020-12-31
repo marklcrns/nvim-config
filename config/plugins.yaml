@@ -35,7 +35,7 @@
 # ----------------------------------------
 - repo: dhruvasagar/vim-zoom
   hook_add: |
-    let g:zoom#statustext = '🔍'
+    let g:zoom#statustext = ''
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
@@ -556,6 +556,13 @@
     autocmd User preview_open_post
     \  unlet! g:vim_markdown_no_default_key_mappings
     \| unlet! g:vim_markdown_emphasis_multiline
+
+- repo: kyazdani42/nvim-tree.lua
+  on_cmd: [ NvimTreeToggle, NvimTreeOpen ]
+  hook_add: source $VIM_PATH/config/plugins/nvim-tree.vim
+
+- repo: kyazdani42/nvim-web-devicons
+  on_source: nvim-tree.lua
 
 - repo: lambdalisue/fern.vim
   on_cmd: Fern

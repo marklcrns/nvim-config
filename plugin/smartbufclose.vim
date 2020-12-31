@@ -34,8 +34,9 @@
 " List of excluded filetypes to preserve windows when clearing splits
 " see CloseAllModifiableWin()
 let g:smartbufclose_excluded_filetypes = [
-      \ 'vista', 'fern', 'Mundo', 'MundoDiff', 'minimap', 'fugitive',
-      \ 'gitcommit' ]
+      \ 'vista', 'fern', 'NvimTree', 'Mundo', 'MundoDiff', 'minimap',
+      \ 'fugitive', 'gitcommit' 
+      \ ]
 
 
 

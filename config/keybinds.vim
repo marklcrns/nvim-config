@@ -306,9 +306,15 @@ if dein#tap('goyo.vim')
   nnoremap <Leader>ig :Goyo<CR>
 endif
 
-if dein#tap('fern.vim')
-  nnoremap <silent> <Leader>ea :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
-  nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35<CR>
+" if dein#tap('fern.vim')
+"   nnoremap <silent> <Leader>ea :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
+"   nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35<CR>
+" endif
+
+if dein#tap('nvim-tree.lua')
+nnoremap <silent> <Leader>ee :NvimTreeToggle<CR>
+nnoremap <silent> <Leader>ef :NvimTreeFindFile<CR>
+nnoremap <silent> <Leader>er :NvimTreeRefresh<CR>
 endif
 
 if dein#tap('vim-startify')

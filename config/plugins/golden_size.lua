@@ -36,6 +36,6 @@ golden_size.set_ignore_callbacks({
   { golden_size_ignore },
   { golden_size.ignore_float_windows }, -- default one, ignore float windows
   { golden_size.ignore_by_window_flag }, -- default one, ignore windows with w:ignore_gold_size=1
-  { ignore_by_filetype, {'vista', 'fern', 'Mundo', 'MundoDiff', 'minimap', 'fugitive', 'gitcommit'} },
+  { ignore_by_filetype, {'vista', 'fern', 'NvimTree', 'Mundo', 'MundoDiff', 'minimap', 'fugitive', 'gitcommit'} },
   { ignore_by_buftype, {'terminal', 'quickfix', 'nerdtree'} }
 })
