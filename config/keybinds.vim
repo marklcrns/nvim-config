@@ -289,11 +289,21 @@ if dein#tap('caw.vim')
   call InitCaw()
 endif
 
-if dein#tap('vim-smoothie')
-  nnoremap <silent> <C-f> :<C-U>call smoothie#forwards()<CR>
-  nnoremap <silent> <C-b> :<C-U>call smoothie#backwards()<CR>
-  nnoremap <silent> <C-d> :<C-U>call smoothie#downwards()<CR>
-  nnoremap <silent> <C-u> :<C-U>call smoothie#upwards()<CR>
+" if dein#tap('vim-smoothie')
+"   nnoremap <silent> <C-f> :<C-U>call smoothie#forwards()<CR>
+"   nnoremap <silent> <C-b> :<C-U>call smoothie#backwards()<CR>
+"   nnoremap <silent> <C-d> :<C-U>call smoothie#downwards()<CR>
+"   nnoremap <silent> <C-u> :<C-U>call smoothie#upwards()<CR>
+" endif
+
+if dein#tap('accelerated-jk')
+  " Time-driven acceleration
+  nmap j <Plug>(accelerated_jk_gj)
+  nmap k <Plug>(accelerated_jk_gk)
+
+  " " Position-driven acceleration
+  " nmap j <Plug>(accelerated_jk_gj_position)
+  " nmap k <Plug>(accelerated_jk_gk_position)
 endif
 
 if dein#tap('python_match.vim')

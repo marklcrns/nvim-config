@@ -44,11 +44,18 @@ function! ImprovedDefaultMappings()
   nnoremap zh z4h
   " Open file under the cursor in a vsplit
   nnoremap gf :vertical wincmd f<CR>
-  " Makes Relative Number jumps work with text wrap
-  noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-  noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-  vnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-  vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+  " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
+  " these mappings will move through display-lines in visual mode too.
+  vnoremap j gj
+  vnoremap k gk
+
+  " DISABLE: Conflict with rhysd/accelerated-jk
+  " " Makes Relative Number jumps work with text wrap
+  " noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+  " noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+  " vnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+  " vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
   " Improve scroll, credits: https://github.com/Shougo
   noremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
         \ 'zt' : (winline() == 1) ? 'zb' : 'zz'
