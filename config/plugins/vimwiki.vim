@@ -268,8 +268,8 @@ augroup VimwikiCustomMappings
               \ <Esc>:VimwikiReturn 4 1<CR>
   autocmd Filetype vimwiki nnoremap <silent><buffer><LocalLeader>wL :call IndexResourcesLinks('# Resources', '')<CR>
   " Dependent on `q` mapping to exec `bdelete`. Somehow <S-CR> on normal don't work
-  autocmd Filetype vimwiki nmap <buffer><Leader><CR> :VimwikiFollowLink<CR>mZ<C-o>q`ZmZ
-  autocmd Filetype vimwiki nmap <buffer><Leader><BS> :VimwikiGoBackLink<CR>mZ<C-o>q`ZmZ
+  " autocmd Filetype vimwiki nmap <buffer><Leader><CR> :VimwikiFollowLink<CR>mZ<C-o>q`ZmZ
+  " autocmd Filetype vimwiki nmap <buffer><Leader><BS> :VimwikiGoBackLink<CR>mZ<C-o>q`ZmZ
 augroup END
 
 " Quick fix hack on <CR> and <S-CR> being remapped when comming back to a session
