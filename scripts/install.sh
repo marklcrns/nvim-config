@@ -20,6 +20,8 @@ if ! command -v fzf &> /dev/null; then
   ~/.fzf/install
 fi
 
+# Clipboard support
+sudo apt install xclip
 # For GUI prompts, VCoolor.vim and other support
 sudo apt install yad zenity zeal -y
 # Taskwarrior
