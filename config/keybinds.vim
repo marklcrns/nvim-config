@@ -317,8 +317,8 @@ if dein#tap('goyo.vim')
 endif
 
 " if dein#tap('fern.vim')
-  nnoremap <silent> <Leader>ea :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
-"   nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35<CR>
+  " nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
+  nnoremap <silent> <Leader>ea :<C-u>Fern . -drawer -keep -toggle -width=35<CR>
 " endif
 
 if dein#tap('nvim-tree.lua')
