@@ -68,18 +68,32 @@ augroup user_plugin_filetype "{{{
   autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
 
   augroup CursorUI
+    let ft_exclusion = '^\(denite\|clap_\)'
     autocmd!
-    " disable cursorline and cursorcolumn on InsertEnter
-    autocmd InsertEnter * if &ft !~# '^\(denite\|clap_\)' |
-          \ set nocursorline nocursorcolumn
+    " Disable cursorline and cursorcolumn on InsertEnter, WinLeave
+    autocmd InsertEnter * if &ft !~# ft_exclusion |
+          \ setlocal nocursorline nocursorcolumn
           \ | endif
-    " reenable cursorline on InsertLeave when activated
-    autocmd InsertLeave * if (g:activate_cursorline == 1) && (&ft !~# '^\(denite\|clap_\)') |
-          \ set cursorline
+    autocmd WinLeave * setlocal nocursorline nocursorcolumn
+    " Enable cursorline and cursorcolumn on InsertLeave, WinEnter, BufWinEnter
+    " and if activated
+    autocmd InsertLeave * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
+          \ setlocal cursorline
           \ | endif
-    " reenable cursorcolumn on InsertLeave when activated
-    autocmd InsertLeave * if (g:activate_cursorcolumn == 1) && (&ft !~# '^\(denite\|clap_\)') |
-          \ set cursorcolumn
+    autocmd InsertLeave * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
+          \ setlocal cursorcolumn
+          \ | endif
+    autocmd WinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
+          \ setlocal cursorline
+          \ | endif
+    autocmd WinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
+          \ setlocal cursorcolumn
+          \ | endif
+    autocmd BufWinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
+          \ setlocal cursorline
+          \ | endif
+    autocmd BufWinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
+          \ setlocal cursorcolumn
           \ | endif
 augroup END "}}}
 
