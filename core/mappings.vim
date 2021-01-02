@@ -295,15 +295,8 @@ function! YankPasteMappings()
 endfunction
 
 function! EmacsLikeMappings()
-  " Insert keymap like emacs (Adjusted for new <Esc>`^ remapping above)
-  " delete word before cursor (prioritize words over punctualtions and
-  " delimiters)
-  " imap <C-w> <C-[>bcaw
-  " no longer needed. Ref: https://vim.fandom.com/wiki/Recover_from_accidental_Ctrl-U
-  " imap <C-u> <C-G>u<C-U>
   inoremap <C-h> <BS>
   inoremap <C-d> <Del>
-  inoremap <C-k> <C-[>Da
   inoremap <C-a> <Home>
   inoremap <expr><C-e> pumvisible() ? "\<C-e>" : "\<End>"
   " Cursor navigation
