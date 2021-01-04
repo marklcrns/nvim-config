@@ -252,41 +252,22 @@ if dein#tap('vim-choosewin')
 endif
 
 if dein#tap('caw.vim')
-  function! InitCaw() abort
-    if ! (&l:modifiable && &buftype ==# '')
-      silent! nunmap <buffer> <Leader>V
-      silent! xunmap <buffer> <Leader>V
-      silent! nunmap <buffer> <Leader>v
-      silent! xunmap <buffer> <Leader>v
-      silent! nunmap <buffer> gc
-      silent! xunmap <buffer> gc
-      silent! nunmap <buffer> gcc
-      silent! xunmap <buffer> gcc
-    else
-      xmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
-      nmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
-      xmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
-      nmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
-      xmap <buffer> <Leader>/b <Plug>(caw:box:comment)
-      nmap <buffer> <Leader>/b <Plug>(caw:box:comment)
-      xmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
-      nmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
-      xmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
-      nmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
-      xmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
-      nmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
-      xmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
-      nmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
-      xmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
-      nmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
-      nmap <buffer> gc <Plug>(caw:prefix)
-      xmap <buffer> gc <Plug>(caw:prefix)
-      nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-      xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-    endif
-  endfunction
-  autocmd FileType * call InitCaw()
-  call InitCaw()
+  xmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
+  nmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
+  xmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
+  nmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
+  xmap <buffer> <Leader>/b <Plug>(caw:box:comment)
+  nmap <buffer> <Leader>/b <Plug>(caw:box:comment)
+  xmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
+  nmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
+  xmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
+  nmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
+  xmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
+  nmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
+  xmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
+  nmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
+  xmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
+  nmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
 endif
 
 " if dein#tap('vim-smoothie')
