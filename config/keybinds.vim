@@ -241,11 +241,6 @@ if dein#tap('vim-easy-align')
   nmap <Leader>rAA <Plug>(LiveEasyAlign)
 endif
 
-if dein#tap('vim-qf')
-  " nmap [q <Plug>(qf_qf_previous)
-  " nmap ]q <Plug>(qf_qf_next)
-endif
-
 if dein#tap('vim-mundo')
   nnoremap <silent> <LocalLeader>u :MundoToggle<CR>
 endif
