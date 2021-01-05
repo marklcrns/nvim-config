@@ -130,6 +130,12 @@
   on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
   hook_source: source $VIM_PATH/config/plugins/vim-easy-align.vim
 
+- repo: kkoomen/vim-doge
+  on_ft: [py, php, js, jsx, tsx, lua, java, groovy, ruby, cpp, c, sh]
+  build: call doge#install()
+  hook_source: |
+    let g:doge_mapping = '<Leader>ld'
+
 - repo: AndrewRadev/splitjoin.vim
   on_map: { n: <Plug>Splitjoin }
 
@@ -497,18 +503,6 @@
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
-
-- repo: tweekmonster/braceless.vim
-  on_event: FileType
-  hook_source: |
-    let g:braceless_jump_prev_key = ""
-    let g:braceless_jump_next_key = ""
-    let g:braceless_segment_prev_key = ""
-    let g:braceless_segment_next_key = ""
-    let g:braceless_enable_easymotion = 0
-    let g:braceless_enable_jump_indent = 0
-    autocmd FileType python,html
-    \ BracelessEnable +highlight
 
 - repo: mhinz/vim-startify
   on_cmd: [ Startify, SSave, SLoad, SDelete ]
