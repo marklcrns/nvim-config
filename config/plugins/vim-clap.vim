@@ -52,7 +52,7 @@ let g:clap_provider_personalconf = {
       \ s:user_nvim_plugins_mappings,
       \ s:user_nvim_whichkey,
       \ ],
-      \ 'sink': 'e',
+      \ 'sink': 'edit',
       \ }
 
 " A function to config highlight of ClapSymbol

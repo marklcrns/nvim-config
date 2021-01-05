@@ -209,7 +209,6 @@ if dein#tap('vim-clap')
 
   function! s:clap_mappings()
     nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>
-    nnoremap <silent> <buffer> <nowait>' :call clap#handler#tab_action()<CR>
     inoremap <silent> <buffer> <Tab>   <C-R>=clap#navigation#linewise('down')<CR>
     inoremap <silent> <buffer> <S-Tab> <C-R>=clap#navigation#linewise('up')<CR>
     nnoremap <silent> <buffer> <C-j> :<C-u>call clap#navigation#linewise('down')<CR>
@@ -240,6 +239,11 @@ if dein#tap('vim-easy-align')
   xmap <Leader>rAA <Plug>(LiveEasyAlign)
   " Start Live-interactive EasyAlign for a motion/text object
   nmap <Leader>rAA <Plug>(LiveEasyAlign)
+endif
+
+if dein#tap('vim-qf')
+  " nmap [q <Plug>(qf_qf_previous)
+  " nmap ]q <Plug>(qf_qf_next)
 endif
 
 if dein#tap('vim-mundo')
