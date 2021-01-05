@@ -6,7 +6,7 @@
 "
 " Description:
 "   Sensibly delete current buffer with respect to alternate tabs and window
-"   splits.
+"   splits, and other types of buffer.
 "
 " Features:
 "   - Delete buffers with preserving tabs and window splits displaying the same
@@ -15,9 +15,11 @@
 "     same buffer to be deleted.
 "   - Auto delete empty buffers (will close tabs and window splits).
 "   - Prevents from deleting buffer if modified.
+"   - Handles fugitive diff splits; closing all fugitive blob buffers.
 "
 " Usage:
 "   :SmartBufClose
+"   noremap q :SmartBufClose<CR>
 "
 " Credits:
 "   - CleanEmptyBuffers()
@@ -98,10 +100,73 @@ function! s:CloseAllModifiableWin(excluded_filetypes)
   return splitsClosed
 endfunction
 
+
+function! s:DeleteBufPreservingSplit(bufNr)
+  let curTabNr = tabpagenr()
+
+  " Store listed buffers count
+  let curBufCount = len(getbufinfo({'buflisted':1}))
+
+  if curBufCount ># 1
+    " Prevent tabs and windows from closing if pointing to the same curBuf
+    " by switching to next buffer before deleting curBuf
+    call s:ShiftAllWindowsBufferPointingToBuffer(a:bufNr)
+
+    " Close buffer and restore active tab
+    silent execute 'silent! bdelete' . a:bufNr
+    silent execute 'silent! tabnext ' . curTabNr
+    " Create blank buffer if ended up with unmodifiable buffer
+    if !&modifiable
+      execute 'enew'
+    endif
+  else
+    " Create new buffer empty if no splits and delete curBuf
+    execute 'enew'
+    call s:ShiftAllWindowsBufferPointingToBuffer(a:bufNr)
+    execute "silent! " . a:bufNr . "bdelete"
+  endif
+endfunction
+
+
+" Return true if has fugitive buffer open
+function! s:HasFugitiveBuf()
+  for bufferNum in range(1, bufnr('$'))
+    if bufname(bufferNum) =~ '^fugitive:'
+      return v:true
+    endif
+  endfor
+  return v:false
+endfunction
+
+
+" If in fugitive blob buffer, close fugitive blob buffer and everything
+" related to it, else just close all fugitive blob buffer
+function! s:HandleFugitiveDiffBuffers()
+  if bufname('%') =~ '^fugitive:'
+    let fugitiveBlobBufPath= expand('#' . bufnr('%') . ':p')
+    " Delete all buffer with similar path to fugitive blob buffer
+    for bufferNum in range(1, bufnr('$'))
+      if bufname(bufferNum) =~ fugitiveBlobBufPath || bufname(bufferNum) =~ '^fugitive:'
+        silent execute 'bd ' . bufferNum
+      endif
+    endfor
+    " Delete fugitive blob buffer
+    call s:DeleteBufPreservingSplit(bufnr('%'))
+  else
+    " Delete all fugitive blob buffers
+    for bufferNum in range(1, bufnr('$'))
+      if bufname(bufferNum) =~ '^fugitive:'
+        silent execute 'bd ' . bufferNum
+      endif
+    endfor
+  endif
+endfunction
+
+
 function! <SID>SmartBufClose()
-  let curBuf = bufnr('%')
+  let curBufNr = bufnr('%')
   let curBufName = bufname('%')
-  let curTab = tabpagenr()
+  let curTabNr = tabpagenr()
 
   call s:CleanEmptyBuffers()
   " Store listed buffers count
@@ -114,6 +179,11 @@ function! <SID>SmartBufClose()
   elseif !&modifiable
     silent execute 'bw!'
     return
+  elseif &diff
+    if s:HasFugitiveBuf()
+      call s:HandleFugitiveDiffBuffers()
+      return
+    endif
   elseif ((curBufCount ==# 1 && curBufName ==# '') || &buftype ==# 'nofile') " Quit when only buffer and empty
     " Close all splits if exists, else quit vim
     if s:CloseAllModifiableWin(g:smartbufclose_excluded_filetypes) ==# 0
@@ -126,27 +196,12 @@ function! <SID>SmartBufClose()
   endif
 
   " Create empty buffer if only buffer w/o window splits, else close split
-  if getbufvar(curBuf, '&modified') == 1
+  if getbufvar(curBufNr, '&modified') == 1
     echohl WarningMsg | echo "Changes detected. Please save your file!" | echohl None
   else
-    if curBufCount ># 1
-        " Prevent tabs and windows from closing if pointing to the same curBuf
-        " by switching to next buffer before deleting curBuf
-        call s:ShiftAllWindowsBufferPointingToBuffer(curBuf)
-
-        " Close buffer and restore active tab
-        silent execute 'silent! bdelete' . curBuf
-        silent execute 'silent! tabnext ' . curTab
-    else
-      " Create new buffer empty if no splits and delete curBuf
-      execute 'enew'
-      call s:ShiftAllWindowsBufferPointingToBuffer(curBuf)
-      execute "silent! " . curBuf . "bdelete"
-    endif
+    call s:DeleteBufPreservingSplit(curBufNr)
   endif
 endfunction
 
 
-
 command! -nargs=0 SmartBufClose call <SID>SmartBufClose()
-
