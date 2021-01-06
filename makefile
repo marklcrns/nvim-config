@@ -20,10 +20,6 @@ create-dirs:
 update-repo:
 	git pull --ff --ff-only
 
-update-plugins:
-	$(vim) -V1 -es -i NONE -N --noplugin -u core/package_manager.vim \
-		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
-
 uninstall:
 	rm -rf "$(XDG_CACHE_HOME)/vim" env
 
@@ -46,4 +42,4 @@ else
 endif
 	@echo All tests passed, hooray!
 
-.PHONY: install create-dirs update-repo update-plugins uninstall test
+.PHONY: install create-dirs update-repo uninstall test
