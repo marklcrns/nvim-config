@@ -10,8 +10,15 @@ let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let $CUSTOM_VIM_PATH = expand($HOME.'/.nvim-user.d')
 
 " Set python interpreter from a dedicated virtual environment
-let g:python_host_prog = expand($VIM_PATH.'/env/python/env/bin/python')
-let g:python3_host_prog = expand($VIM_PATH.'/env/python3/env/bin/python3')
+let s:python = expand($VIM_PATH.'/env/python/env/bin/python')
+let s:python3 = expand($VIM_PATH.'/env/python3/env/bin/python3')
+
+if !empty(glob(s:python)) && !isdirectory(s:python)
+  let g:python_host_prog = s:python
+endif
+if !empty(glob(s:python3)) && !isdirectory(s:python3)
+  let g:python3_host_prog = s:python3
+endif
 
 " Set the secondary user config file
 let s:user_init_config = expand($CUSTOM_VIM_PATH.'/init.vim')
