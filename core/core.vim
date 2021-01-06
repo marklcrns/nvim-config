@@ -83,7 +83,6 @@ if has('vim_starting')
 endif
 
 " Initialize plugin-manager and load plugins config files
-call utils#source_file($VIM_PATH,'core/package_manager.vim')
 call utils#source_file($VIM_PATH,'config/keybinds.vim')
 
 call utils#source_file($VIM_PATH,'core/general.vim')
