@@ -58,7 +58,7 @@
   "diagnostic.refreshOnInsertMode": true,
 
   //git
-  "git.enableGutters": true,
+  "git.enableGutters": false,
   "git.branchCharacter":"\uf408",
   //"git.addGBlameToBufferVar": true,
   //"git.addGBlameToVirtualText": true,
@@ -153,16 +153,10 @@
   "java.import.maven.enabled": true,
   "java.import.gradle.enabled": true,
   "java.import.gradle.wrapper.enabled": true,
-  "java.imports.gradle.wrapper.checksums": [
-    {
-      "sha256": "34dfac25b0eb5b075f489dde2eb9d2c3224dba3d830d064cc5689a9080c2eddf",
-      "allowed": true
-    }
-  ],
   "java.maven.downloadSources": true,
-  "java.implementationsCodeLens.enabled": true,
-  "java.referencesCodeLens.enabled": true,
-  "java.signatureHelp.enabled": true,
+  "java.implementationsCodeLens.enabled": false,
+  "java.referencesCodeLens.enabled": false,
+  "java.signatureHelp.enabled": false,
   "java.autobuild.enabled": false,
   "java.errors.incompleteClasspath.severity": "error",
   "java.completion.enabled": true,

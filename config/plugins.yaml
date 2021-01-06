@@ -539,7 +539,7 @@
   on_map: { n: <Plug> }
   hook_source: |
     let g:accelerated_jk_enable_deceleration = 1
-    let g:accelerated_jk_acceleration_limit = 300
+    let g:accelerated_jk_acceleration_limit = 200
 
 - repo: romainl/vim-qf
   on_event: QuickFixCmdPost
