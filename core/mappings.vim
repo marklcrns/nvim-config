@@ -492,7 +492,7 @@ function! TextManipulationMappings()
   " Lowercase each word of current entire file
   nnoremap <Leader>rc :%s/\<./\l&/g<CR>:nohl<CR>
   " Yank everything from current file
-  nnoremap <Leader>rya ggVGy<C-o>:echom "Yanked all file contents!"<CR>
+  nnoremap <Leader>rya ggVGy:echom "Yanked all file contents!"<CR>
   " Replace all with yanked texts
   nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
   " Jumps to previously misspelled word and fixes it with the first in the suggestion
