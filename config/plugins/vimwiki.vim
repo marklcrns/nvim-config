@@ -14,7 +14,7 @@ let g:vimwiki_list = [
       \     'template_path': '~/Docs/wiki/templates/',
       \     'template_default': 'template',
       \     'template_ext':'.html',
-      \     'custom_wiki2html': '$VIM_PATH/layers/+tools/vimwiki/wiki2html.sh' },
+      \     'custom_wiki2html': '$VIM_PATH/config/plugins/wiki2html.sh' },
       \   { 'path': '~/Docs/wiki/docs/md/',
       \     'path_html': '~/Docs/wiki/docs/html',
       \     'index': 'index',
@@ -27,7 +27,7 @@ let g:vimwiki_list = [
       \     'template_path': '~/Docs/wiki/templates/',
       \     'template_default': 'template',
       \     'template_ext':'.html',
-      \     'custom_wiki2html': '$VIM_PATH/layers/+tools/vimwiki/wiki2html.sh' },
+      \     'custom_wiki2html': '$VIM_PATH/config/plugins/wiki2html.sh' },
       \   { 'path': '~/Docs/wiki/school/md',
       \     'path_html': '~/Docs/wiki/school/html',
       \     'index': 'index',
@@ -40,7 +40,7 @@ let g:vimwiki_list = [
       \     'template_path': '~/Docs/wiki/templates/',
       \     'template_default': 'template',
       \     'template_ext':'.html',
-      \     'custom_wiki2html': '$VIM_PATH/layers/+tools/vimwiki/wiki2html.sh' },
+      \     'custom_wiki2html': '$VIM_PATH/config/plugins/wiki2html.sh' },
       \ ]
 
 " Custom link handler for external files
