@@ -10,24 +10,36 @@ NVIM_ROOT="$(realpath "${SCRIPTDIR}/..")"
 
 # Install Neovim latest if not already
 if ! command -v nvim &> /dev/null; then
-  sudo add-apt-repository ppa:neovim-ppa/unstable -y
-  sudo apt-get update -y
-  sudo apt install neovim -y
+  pkg install nvim
+fi
+
+if ! command -v python &> /dev/null; then
+  pkg install python
+  pip install neovim
+  pip install virtualenv
+else
+  pip install neovim
+  pip install virtualenv
+fi
+
+if ! command -v npm &> /dev/null; then
+  pkg install nodejs
+  npm install -g neovim
+else
+  npm install -g neovim
 fi
 
 if ! command -v fzf &> /dev/null; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
+  pkg install fzf
 fi
 
-# Clipboard support
-sudo apt install xclip
-# For GUI prompts, VCoolor.vim and other support
-sudo apt install yad zenity zeal -y
-# Taskwarrior
-sudo apt install taskwarrior -y
-# C/C++ language server for coc (Debian based and Ubuntu 20.04 only)
-sudo apt install ccls -y
+if ! command -v rg &> /dev/null; then
+  pkg install ripgrep
+fi
+
+if ! command -v task &> /dev/null; then
+  pkg install taskwarrior
+fi
 
 # Install virtual environment for vim python prog host
 source ${SCRIPTDIR}/venv.sh
@@ -54,14 +66,6 @@ if source ${NVIM_ROOT}/env/python3/env/bin/activate; then
   deactivate
 fi
 
-# Npm packages for linking and formatter
-if command -v npm &> /dev/null; then
-  npm install -g eslint stylelint prettier
-else
-  echo
-  echo "Error: npm package manager not found... SKIPPING"
-  echo
-fi
 
 echo
 echo "Done!"
