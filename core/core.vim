@@ -8,6 +8,9 @@ endif
 let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 " Set secondary nvim configuration directory
 let $CUSTOM_VIM_PATH = expand($HOME.'/.nvim-user.d')
+" Set data/cache directory as $XDG_CACHE_HOME/vim
+let $DATA_PATH =
+  \ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
 
 " Set python interpreter from a dedicated virtual environment
 let s:python = expand($VIM_PATH.'/env/python/env/bin/python')
