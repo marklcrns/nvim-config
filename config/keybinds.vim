@@ -296,13 +296,13 @@ endif
 " endif
 
 if dein#tap('accelerated-jk')
-  " Time-driven acceleration
-  nmap j <Plug>(accelerated_jk_gj)
-  nmap k <Plug>(accelerated_jk_gk)
+  " Position-driven acceleration
+  nmap j <Plug>(accelerated_jk_gj_position)
+  nmap k <Plug>(accelerated_jk_gk_position)
 
-  " " Position-driven acceleration
-  " nmap j <Plug>(accelerated_jk_gj_position)
-  " nmap k <Plug>(accelerated_jk_gk_position)
+  " " Time-driven acceleration (has problems with repeating macro)
+  " nmap j <Plug>(accelerated_jk_gj)
+  " nmap k <Plug>(accelerated_jk_gk)
 endif
 
 if dein#tap('python_match.vim')
