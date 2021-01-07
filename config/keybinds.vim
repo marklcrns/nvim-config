@@ -190,6 +190,7 @@ if dein#tap('vim-clap')
   nnoremap <silent> <Leader>fdb :<C-u>Clap buffers<CR>
   nnoremap <silent> <Leader>fdr :<C-u>Clap grep<CR>
   nnoremap <silent> <Leader>fdR :<C-u>Clap grep %:p:h<CR>
+  nnoremap <silent> <Leader>fds :<C-u>Clap sessions<CR>
   nnoremap <silent> <Leader>fdm :<C-u>Clap marks<CR>
   nnoremap <silent> <Leader>fdf :<C-u>Clap files ++finder=rg --files<cr>
   nnoremap <silent> <Leader>fdF :<C-u>Clap files ++finder=rg --hidden --files<cr>
@@ -326,12 +327,10 @@ nnoremap <silent> <Leader>ef :NvimTreeFindFile<CR>
 nnoremap <silent> <Leader>er :NvimTreeRefresh<CR>
 endif
 
-if dein#tap('vim-startify')
-  nnoremap <silent> <leader>so :<C-u>Startify<CR>
-  nnoremap <silent> <leader>sc :<C-u>SClose<CR>
-  nnoremap <silent> <leader>ss :<C-u>SSave<CR>
-  nnoremap <silent> <leader>sl :<C-u>SLoad<CR>
-  nnoremap <silent> <leader>sd :<C-u>SDelete<CR>
+if dein#tap('dashboard-nvim')
+  nnoremap <silent> <leader>sd :<C-u>Dashboard<CR>
+  nnoremap <nowait><silent> <leader>ss :<C-u>SessionSave<Space>
+  nnoremap <nowait><silent> <leader>sl :<C-u>SessionLoad<Space>
 endif
 
 if dein#tap('vim-quickrun')

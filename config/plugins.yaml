@@ -24,13 +24,6 @@
 - repo: honza/vim-snippets
   depends: ultisnips
 
-# UI
-# ----------------------------------------
-- repo: ryanoasis/vim-devicons
-  hook_add: |
-    let g:webdevicons_enable_denite = 1
-    let g:webdevicons_enable_startify = 1
-
 # Tools
 # ----------------------------------------
 - repo: dhruvasagar/vim-zoom
@@ -48,7 +41,8 @@
     let g:editorconfig_blacklist = {
       \ 'filetype': [
       \   'git.*', 'fugitive', 'help', 'defx', 'denite.*', 'startify',
-      \   'vista.*', 'tagbar', 'lsp-.*', 'clap_.*', 'any-jump', 'gina-.*'
+      \   'dashboard', 'vista.*', 'tagbar', 'lsp-.*', 'clap_.*', 'any-jump',
+      \   'gina-.*'
       \  ],
       \ 'pattern': ['\.un~$']
       \ }
@@ -60,7 +54,7 @@
 # If on tmux, best with https://github.com/tmux-plugins/vim-tmux-focus-events
 - repo:  blueyed/vim-diminactive
   hook_source: |
-    let g:diminactive_filetype_blacklist = [ 'startify' ]
+    let g:diminactive_filetype_blacklist = [ 'startify', 'dashboard' ]
     let g:diminactive_enable_focus = 1
 
 - repo: dm1try/golden_size
@@ -312,6 +306,11 @@
   on_func: [ vista#finder#clap#Run ]
   hook_source: source $VIM_PATH/config/plugins/vim-clap.vim
 
+- repo: hokorobi/vim-clap-sessions 
+  depends: vim-clap
+  hook_add: |
+    let g:clap_session_dir = '$HOME/.vim/sessions'
+
 - repo: junegunn/gv.vim
   depends: vim-fugitive
   on_cmd: GV
@@ -504,14 +503,8 @@
   on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
 
-- repo: mhinz/vim-startify
-  on_cmd: [ Startify, SSave, SLoad, SDelete ]
-  depends: vim-devicons
-  hook_source: source $VIM_PATH/config/plugins/startify.vim
-  hook_post_source: |
-    function! StartifyEntryFormat()
-      return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-    endfunction
+- repo: glepnir/dashboard-nvim
+  hook_source: source $VIM_PATH/config/plugins/dashboard.vim
 
 - repo: norcalli/nvim-colorizer.lua
   if: has('nvim') && has('nvim-0.4.0')

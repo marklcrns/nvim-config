@@ -2,6 +2,7 @@ SHELL = /bin/bash
 vim := $(if $(shell which nvim),nvim,$(shell which vim))
 vim_version := '${shell $(vim) --version}'
 XDG_CACHE_HOME ?= $(HOME)/.cache
+XDG_CONFIG_HOME ?= $(HOME)/.config
 
 default: install
 
@@ -25,7 +26,7 @@ update-plugins:
 		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
 
 uninstall:
-	rm -rf "$(XDG_CACHE_HOME)/vim" env
+	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CONFIG_HOME)/coc" env
 
 test:
 ifeq ('$(vim)','nvim')
