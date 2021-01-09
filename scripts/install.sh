@@ -57,7 +57,7 @@ fi
 
 # python3 host prog
 if source ${NVIM_ROOT}/env/python3/env/bin/activate; then
-  pip install wheel pynvim neovim
+  pip install wheel pynvim neovim PyYAML
   # Optionals
   pip install git+git://github.com/tbabej/tasklib@develop # For tbabej/taskwiki
   pip install six

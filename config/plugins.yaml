@@ -513,10 +513,10 @@
       return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
     endfunction
 
-- repo: norcalli/nvim-colorizer.lua
-  if: has('nvim') && has('nvim-0.4.0')
-  on_event: FileType
-  hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
+# - repo: norcalli/nvim-colorizer.lua
+#   if: has('nvim') && has('nvim-0.4.0')
+#   on_event: FileType
+#   hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
 - repo: itchyny/vim-cursorword
   on_event: FileType
@@ -550,9 +550,9 @@
     let g:qf_auto_open_loclist = 0
     let g:qf_auto_resize = 0
 
-- repo: kyazdani42/nvim-tree.lua
-  on_cmd: [ NvimTreeToggle, NvimTreeOpen ]
-  hook_add: source $VIM_PATH/config/plugins/nvim-tree.vim
+# - repo: kyazdani42/nvim-tree.lua
+#   on_cmd: [ NvimTreeToggle, NvimTreeOpen ]
+#   hook_add: source $VIM_PATH/config/plugins/nvim-tree.vim
 
 - repo: kyazdani42/nvim-web-devicons
   on_source: nvim-tree.lua

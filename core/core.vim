@@ -86,6 +86,9 @@ if has('vim_starting')
 endif
 
 " Load config files
+call utils#source_file($VIM_PATH,'core/package_manager.vim')
+call utils#source_file($VIM_PATH,'config/keybinds.vim')
+
 call utils#source_file($VIM_PATH,'core/general.vim')
 call utils#source_file($VIM_PATH,'core/filetype.vim')
 call utils#source_file($VIM_PATH,'core/mappings.vim')
