@@ -8,7 +8,6 @@
 
 # Startup {{{
 - repo: glepnir/dashboard-nvim
-  on_event: VimEnter
   hook_source: source $VIM_PATH/config/plugins/dashboard.vim
 
 # Package Manager
@@ -313,7 +312,7 @@
 - repo: hokorobi/vim-clap-sessions 
   depends: vim-clap
   hook_add: |
-    let g:clap_session_dir = '$HOME/.vim/sessions'
+    let g:clap_session_dir = '~/.vim/sessions'
 
 - repo: junegunn/gv.vim
   depends: vim-fugitive
