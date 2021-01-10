@@ -29,8 +29,20 @@ sudo apt install taskwarrior -y
 # C/C++ language server for coc (Debian based and Ubuntu 20.04 only)
 sudo apt install ccls -y
 
-# Install virtual environment for vim python prog host
-source ${SCRIPTDIR}/venv.sh
+if command -v pip3 &> /dev/null; then
+  if ! eval pip3 search PyYAML &> /dev/null; then
+    pip3 install PyYAML
+  fi
+elif command -v pip &> /dev/null; then
+  if ! eval pip search PyYAML &> /dev/null; then
+    pip install PyYAML
+  fi
+else
+  echo "ERROR: Please install Python pip"
+fi
+
+# Generate virtual environment for vim python prog host
+source ${SCRIPTDIR}/generate_venv.sh
 
 # python2 host prog
 if source ${NVIM_ROOT}/env/python/env/bin/activate; then
