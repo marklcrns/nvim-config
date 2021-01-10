@@ -1,5 +1,5 @@
 
-let g:dashboard_session_directory = '~/.vim/sessions'
+let g:dashboard_session_directory = '$HOME/.vim/sessions'
 " Credits: https://github.com/66RING/.vim/blob/master/config/plugin_config.vim
 let g:dashboard_custom_header = [
       \'',
@@ -27,7 +27,7 @@ let g:dashboard_custom_section = {
           \ 'command' : 'DashboardFindFile'
           \ },
       \ '2_open_session': {
-          \ 'description'     : [' <S>essions                              SPC s f  '],
+          \ 'description'     : [' <S>essions                              SPC f d s'],
           \ 'command' : 'Clap sessions'
           \ },
       \ '3_find_history': {
