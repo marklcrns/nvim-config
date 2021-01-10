@@ -7,6 +7,10 @@
 # ==========================================
 
 # Startup {{{
+- repo: glepnir/dashboard-nvim
+  on_event: VimEnter
+  hook_source: source $VIM_PATH/config/plugins/dashboard.vim
+
 # Package Manager
 # ----------------------------------------
 - repo: Shougo/dein.vim
@@ -502,9 +506,6 @@
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
-
-- repo: glepnir/dashboard-nvim
-  hook_source: source $VIM_PATH/config/plugins/dashboard.vim
 
 - repo: norcalli/nvim-colorizer.lua
   if: has('nvim') && has('nvim-0.4.0')

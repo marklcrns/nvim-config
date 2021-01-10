@@ -22,25 +22,29 @@ let g:dashboard_custom_header = [
       \]
 
 let g:dashboard_custom_section = {
-      \ 'open_session': {
-          \ 'description'     : [' <S>essions                              SPC s f  '],
-          \ 'command' : 'Clap sessions'
-          \ },
-      \ 'find_file': {
+      \ '1_find_file': {
           \ 'description'     : [' <F>iles                                 SPC f d f'],
           \ 'command' : 'DashboardFindFile'
           \ },
-      \ 'find_history': {
+      \ '2_open_session': {
+          \ 'description'     : [' <S>essions                              SPC s f  '],
+          \ 'command' : 'Clap sessions'
+          \ },
+      \ '3_find_history': {
           \ 'description'     : ['ﭯ <H>istory                               SPC f d h'],
           \ 'command': 'DashboardFindHistory'
           \ },
-      \ 'book_marks': {
+      \ '4_book_marks': {
           \ 'description'     : [' <M>arks                                 SPC f d m'],
           \ 'command': 'DashboardJumpMark'
           \ },
-      \ 'open_dotfiles': {
+      \ '5_open_dotfiles': {
           \ 'description'     : [' <.>dotfiles                             SPC f d p'],
           \ 'command': 'Clap personalconf'
+          \ },
+      \ '6_daily_todo': {
+          \ 'description'     : [' <T>o-Do daily                               ; w T'],
+          \ 'command': 'call DToday()'
           \ },
       \ }
 
@@ -50,3 +54,4 @@ autocmd FileType dashboard noremap <nowait><silent><buffer> f :DashboardFindFile
 autocmd FileType dashboard noremap <nowait><silent><buffer> h :DashboardFindHistory<CR>
 autocmd FileType dashboard noremap <nowait><silent><buffer> m :DashboardJumpMark<CR>
 autocmd FileType dashboard noremap <nowait><silent><buffer> s :Clap sessions<CR>
+autocmd FileType dashboard noremap <nowait><silent><buffer> t :call DToday()<CR>
