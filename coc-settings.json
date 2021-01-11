@@ -58,7 +58,7 @@
   "diagnostic.refreshOnInsertMode": true,
 
   //git
-  "git.enableGutters": false,
+  "git.enableGutters": true,
   "git.branchCharacter":"\uf408",
   //"git.addGBlameToBufferVar": true,
   //"git.addGBlameToVirtualText": true,

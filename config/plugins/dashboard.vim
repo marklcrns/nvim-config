@@ -1,5 +1,5 @@
 
-let g:dashboard_session_directory = '$HOME/.vim/sessions'
+let g:dashboard_session_directory = $HOME . '/.vim/sessions'
 " Credits: https://github.com/66RING/.vim/blob/master/config/plugin_config.vim
 let g:dashboard_custom_header = [
       \'',
