@@ -46,6 +46,10 @@ let g:dashboard_custom_section = {
           \ 'description'     : [' <T>o-Do daily                               ; w T'],
           \ 'command': 'call DToday()'
           \ },
+      \ '7_wiki': {
+          \ 'description'     : [' <W>iki                                      ; W W'],
+          \ 'command': 'VimwikiUISelect'
+          \ },
       \ }
 
 autocmd FileType dashboard noremap <nowait><silent><buffer> . :Clap personalconf<CR>
@@ -55,3 +59,4 @@ autocmd FileType dashboard noremap <nowait><silent><buffer> h :DashboardFindHist
 autocmd FileType dashboard noremap <nowait><silent><buffer> m :DashboardJumpMark<CR>
 autocmd FileType dashboard noremap <nowait><silent><buffer> s :Clap sessions<CR>
 autocmd FileType dashboard noremap <nowait><silent><buffer> t :call DToday()<CR>
+autocmd FileType dashboard noremap <nowait><silent><buffer> w :VimwikiUISelect<CR>

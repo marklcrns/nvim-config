@@ -525,7 +525,7 @@ if dein#tap('vim-markdown')
 endif
 
 if dein#tap('vimwiki')
-  nmap <LocalLeader>WW  :<C-u>VimwikiIndex<CR>
+  nmap <LocalLeader>WW  :<C-u>VimwikiUISelect<CR>
   nmap <LocalLeader>WI  :<C-u>VimwikiDiaryIndex<CR>
   nmap <LocalLeader>wh  :<C-u>Vimwiki2HTML<CR>
   nmap <LocalLeader>whh :<C-u>Vimwiki2HTMLBrowse<CR>
