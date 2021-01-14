@@ -176,8 +176,11 @@ function! <SID>SmartBufClose()
   if &filetype ==# 'gitcommit'
     silent execute 'q!'
     return
-  elseif !&modifiable
+  elseif &buftype ==# 'terminal'
     silent execute 'bw!'
+    return
+  elseif (!&modifiable || &readonly || curBufName ==# '')
+    silent execute 'q!'
     return
   elseif &diff
     if s:HasFugitiveBuf()
@@ -190,9 +193,6 @@ function! <SID>SmartBufClose()
       silent execute 'qa!'
       return
     endif
-  elseif (curBufName ==# '' || &readonly || &buftype ==# 'terminal') " Wipe readonly buffer, terminal, and empty to remove from jump stack
-    silent execute 'bw!'
-    return
   endif
 
   " Create empty buffer if only buffer w/o window splits, else close split
