@@ -367,7 +367,7 @@ let g:which_key_localmap = {
               \ },
       \ 'W' : {
             \ 'name' : '+vimwiki-init',
-            \ 'W' : 'Vimwiki index',
+            \ 'W' : 'Vimwiki UI select',
             \ 'I' : 'Vimwiki diary index',
             \ },
       \ }
