@@ -3,6 +3,8 @@ augroup user_events
   autocmd!
 augroup END
 
+let s:cache_path = $DATA_PATH . '/dein'
+
 if has('vim_starting')
   " When using VIMINIT trick for exotic MYVIMRC locations, add path now.
   if &runtimepath !~# $VIM_PATH
@@ -20,8 +22,6 @@ if has('vim_starting')
       call mkdir(s:path, 'p')
     endif
   endfor
-
-  let s:cache_path = $DATA_PATH . '/dein'
 
   " Use dein as a plugin manager
   let g:dein#auto_recache = 1
@@ -51,7 +51,7 @@ let s:rc_dir = expand($HOME . '/.config/nvim')
 let s:toml = s:rc_dir . '/config/dein.toml'
 let s:lazy_toml = s:rc_dir . '/config/dein_lazy.toml'
 if dein#load_state(s:cache_path)
-  call dein#begin(s:cache_path)
+  call dein#begin(s:cache_path, s:toml, s:lazy_toml)
 
   call dein#load_toml(s:toml, {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
@@ -70,11 +70,18 @@ if dein#load_state(s:cache_path)
     endif
     call dein#install()
   endif
-
-  " Trigger source event hooks
-  call dein#call_hook('source')
-  call dein#call_hook('post_source')
 endif
+
+filetype plugin indent on
+
+" Only enable syntax when vim is starting
+if has('vim_starting')
+  syntax enable
+endif
+
+" Trigger source event hooks
+call dein#call_hook('source')
+call dein#call_hook('post_source')
 
 " Required:
 filetype plugin indent on
