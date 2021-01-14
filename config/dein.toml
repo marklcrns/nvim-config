@@ -1,0 +1,435 @@
+# Normal Loaded Plugins
+# ==========================================
+
+# Startup {{{
+# Package Manager
+# ----------------------------------------
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# Completion
+# ----------------------------------------
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merged = '0'
+rev = 'release'
+hook_source = 'source ~/.config/nvim/config/plugins/coc.vim'
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/ultisnips.vim
+'''
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+depends = 'ultisnips'
+
+# Tools
+# ----------------------------------------
+[[plugins]]
+repo = 'dhruvasagar/vim-zoom'
+hook_source = '''
+let g:zoom#statustext = ''
+'''
+
+[[plugins]]
+repo = 'christoomey/vim-tmux-navigator'
+hook_source = '''
+let g:tmux_navigator_disable_when_zoomed = 1
+'''
+
+[[plugins]]
+repo = 'sgur/vim-editorconfig'
+hook_source = '''
+let g:editorconfig_verbose = 1
+let g:editorconfig_blacklist = {
+  \ 'filetype': [
+  \   'git.*', 'fugitive', 'help', 'defx', 'denite.*', 'startify',
+  \   'vista.*', 'tagbar', 'lsp-.*', 'clap_.*', 'any-jump', 'gina-.*'
+  \  ],
+  \ 'pattern': ['\.un~$']
+  \ }
+'''
+
+[[plugins]]
+repo = 'tpope/vim-unimpaired'
+
+[[plugins]]
+repo = 'tpope/vim-eunuch'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+# Fix neovim cursorhold bug. Suggested by Fern.vim
+[[plugins]]
+repo = 'antoinemadec/FixCursorHold.nvim'
+# }}}
+
+
+# Lazy Loading
+# ==========================================
+
+# Syntax{{{
+
+# Coding tools
+# ----------------------------------------
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+on_ft = '[vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/vim-easy-align.vim
+'''
+
+[[plugins]]
+repo = 'kana/vim-niceblock'
+on_map = '{ x: <Plug> }'
+hook_add = 'let g:niceblock_no_default_key_mappings = 0'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+on_map = '{ nx: <Plug> }'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+on_map = 'vonx: <Plug>(operator-sandwich'
+hook_add = '''
+let g:sandwich_no_default_key_mappings = 1
+let g:operator_sandwich_no_default_key_mappings = 1
+let g:textobj_sandwich_no_default_key_mappings = 1
+'''
+
+[[plugins]]
+repo = 'Raimondi/delimitMate'
+on_event = 'FileType'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/delimitMate.vim
+'''
+# }}}
+
+
+# Git{{{
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+on_cmd = 'Gina'
+
+[[plugins]]
+repo = 'rhysd/committia.vim'
+on_event = 'BufReadPost'
+hook_add = '''
+let g:committia_hooks = {}
+function! g:committia_hooks.edit_open(info)
+" Additional settings
+setlocal spell
+
+" If no commit message, start with insert mode
+if a:info.vcs ==# 'git' && getline(1) ==# ''
+    startinsert
+endif
+
+" Scroll the diff window from insert mode
+" Map <C-n> and <C-p>
+imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
+imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
+endfunction
+'''
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_cmd = '[G, Git, Gfetch, Gpush, Gstatus, Glog, Gclog, Gllog, Gdiffsplit, Gvdiffsplit]'
+# }}}
+
+# Markdown
+# ---------------------------------------
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = 'markdown'
+hook_add = '''
+  source ~/.config/nvim/config/plugins/vim-markdown.vim
+'''
+
+# Python
+# ----------------------------------------
+[[plugins]]
+repo = 'tmhedberg/SimpylFold'
+on_ft = 'python'
+
+[[plugins]]
+repo = 'vim-scripts/python_match.vim'
+on_ft = 'python'
+
+[[plugins]]
+repo = 'raimon49/requirements.txt.vim'
+on_ft = 'requirements'
+# }}}
+
+# Tools{{{
+[[plugins]]
+repo = 'andymass/vim-matchup'
+on_event = 'FileType'
+
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
+on_event = 'FileType'
+
+[[plugins]]
+repo = 'itchyny/vim-gitbranch'
+on_event = 'FileType'
+[[plugins]]
+
+repo = 'romainl/vim-cool'
+on_event = '[ CursorMoved, InsertEnter ]'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+merged = '0'
+on_cmd = 'FZF'
+type__depth = '1'
+hook_source = '''
+let g:fzf_layout = { 'down': '~25%' }
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+merged = '0'
+on_cmd = '[ Files, GitFiles, Buffers, Lines, Locate, Colors, Ag, Rg, Tags ]'
+on_func = '[ fzf#vim#with_preview, fzf#run, vista#finder#fzf#Run ]'
+
+[[plugins]]
+repo = 'liuchengxu/vim-clap'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/vim-clap.vim
+'''
+
+[[plugins]]
+repo = 'junegunn/gv.vim'
+depends = 'vim-fugitive'
+on_cmd = 'GV'
+
+[[plugins]]
+repo = 'ludovicchabant/vim-gutentags'
+on_if = 'executable('ctags')'
+on_event = '[BufReadPost, BufWritePost]'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/vim-gutentags.vim
+'''
+
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+on_cmd = 'Vista'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/vista.vim
+'''
+
+[[plugins]]
+repo = 'liuchengxu/vim-which-key'
+on_cmd = '[Whichkey, Whichkey!]'
+hook_add = '''
+  source ~/.config/nvim/config/plugins/whichkey.vim
+'''
+hook_post_source = '''
+call which_key#register('<Space>', 'g:which_key_map')
+call which_key#register(';', 'g:which_key_localmap')
+call which_key#register(']', 'g:which_key_rsbgmap')
+call which_key#register('[', 'g:which_key_lsbgmap')
+call which_key#register('d', 'g:which_key_dmap')
+call which_key#register('s', 'g:which_key_smap')
+call which_key#register('g', 'g:which_key_gmap')
+'''
+
+[[plugins]]
+repo = 'airblade/vim-rooter'
+on_event = 'FileType'
+hook_add = '''
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_manual_only = 1
+let g:rooter_patterns = [
+  \ '=src',
+  \ '.git/',
+  \ 'README.*',
+  \ 'node_modules/',
+  \ 'pom.xml',
+  \ 'env/',
+  \ '.root',
+  \ '.editorconfig',
+  \ ]
+let g:rooter_silent_chdir = 1
+let g:rooter_resolve_links = 1
+let g:rooter_cd_cmd = 'lcd'
+'''
+
+# Only load when in wiki directory
+[[plugins]]
+repo = 'vimwiki/vimwiki'
+on_if = '(getcwd() =~ $HOME . "/Docs/wiki.\*" && &filetype == "markdown")'
+on_cmd = '[VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]'
+hook_add = '''
+let g:vimwiki_use_calendar = 1
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_cb_checked = 1
+let g:vimwiki_autowriteall = 0
+let g:vimwiki_folding = 'custom'
+let g:vimwiki_key_mappings =
+  \ {
+  \   'all_maps': 1,
+  \   'global': 1,
+  \   'headers': 1,
+  \   'text_objs': 1,
+  \   'table_format': 1,
+  \   'table_mappings': 0,
+  \   'lists': 1,
+  \   'links': 1,
+  \   'html': 1,
+  \   'mouse': 0,
+  \ }
+let g:vimwiki_map_prefix = '<LocalLeader>w'
+'''
+hook_source = '''
+  source ~/.config/nvim/config/plugins/vimwiki.vim
+'''
+
+# Only load when in wiki diary sub directory
+[[plugins]]
+repo = 'tbabej/taskwiki'
+on_if = '''
+(expand('%:p') =~ $HOME . "/Docs/wiki/wiki/md/diary/.\*" && &filetype == 'vimwiki')
+'''
+depends = 'vimwiki'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/taskwiki.vim
+'''
+
+[[plugins]]
+repo = 'xarthurx/taskwarrior.vim'
+on_event = 'FileType'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+on_cmd = 'QuickRun'
+hook_add = '''
+let g:quickrun_config = {
+    \   "_" : {
+    \       "outputter" : "message",
+    \   },
+    \}
+let g:quickrun_no_default_key_mappings = 1
+'''
+
+[[plugins]]
+repo = 'kshenoy/vim-signature'
+on_event = 'FileType'
+hook_add = '''
+let g:SignatureForceRemoveGlobal = 1
+let g:SignatureUnconditionallyRecycleMarks = 1
+let g:SignatureErrorIfNoAvailableMarks = 0
+let g:SignaturePurgeConfirmation = 0
+let g:SignatureMarkTextHLDynamic = 1
+let g:SignatureMarkerTextHLDynamic = 1
+let g:SignatureIncludeMarkers = repeat('⚐', 10)
+'''
+
+[[plugins]]
+repo = 'tpope/vim-abolish'
+on_event = 'FileType'
+
+[[plugins]]
+repo = 'simnalamburt/vim-mundo'
+on_map = '{n: <Plug>}'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+on_map = '.*'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+on_map = '{n: <Plug>}'
+hook_source = '''
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_prompt = 'Jump to → '
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_smartsign_us = 1
+let g:EasyMotion_startofline = 0
+'''
+
+# UI{{{
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+on_event = 'FileType'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/vim-indent-guides.vim
+'''
+
+# [[plugins]]
+# repo = 'norcalli/nvim-colorizer.lua'
+#   if = 'has('nvim') && has('nvim-0.4.0')'
+#   on_event = 'FileType'
+#   hook_source = 'luafile ~/.config/nvim/config/plugins/colorizer.lua'
+
+# [[plugins]]
+# repo = 'kyazdani42/nvim-tree.lua'
+#   on_cmd = '[ NvimTreeToggle, NvimTreeOpen ]'
+#   hook_add = '''
+#   source ~/.config/nvim/config/plugins/nvim-tree.vim
+# '''
+
+# [[plugins]]
+# repo = 'kyazdani42/nvim-web-devicons'
+# on_source = 'nvim-tree.lua'
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+on_cmd = 'Fern'
+hook_source = '''
+  source ~/.config/nvim/config/plugins/fern.vim
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+on_source = 'fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+on_source = 'fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/glyph-palette.vim'
+on_source = 'fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+on_source = 'fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-mapping-project-top.vim'
+on_source = 'fern.vim'
+# }}}
+
+# Text Objects {{{
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+on_map = '{ x: <Plug> }'
+[[plugins]]
+# only autoload functions, lazy by nature'
+repo = 'kana/vim-textobj-user'
+[[plugins]]
+repo = 'kana/vim-textobj-function'
+on_map = '{ ox: <Plug> }'
+hook_add = '''
+let g:textobj_function_no_default_key_mappings = 1
+'''
+# }}}
+
+# ETC {{{
+[[plugins]]
+repo = 'ianding1/leetcode.vim'
+on_cmd = '[ LeetCodeList, LeetCodeTest, LeetCodeSubmit, LeetCodeSignIn ]'
+hook_add = '''
+let g:leetcode_browser = 'chrome'
+let g:leetcode_solution_filetype = 'java'
+'''
+# }}}
+

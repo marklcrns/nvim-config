@@ -7,13 +7,6 @@ if dein#tap('dein.vim')
   nnoremap <silent> <Leader>pd  :call map(dein#check_clean(), "delete(v:val, \"rf\")")<CR>
 endif
 
-if dein#tap('any-jump.vim')
-  nnoremap <silent> <leader>ab :AnyJumpBack<CR>
-  nnoremap <silent> <Leader>aj :AnyJump<CR>
-  xnoremap <silent> <Leader>aj :AnyJumpVisual<CR>
-  nnoremap <silent> <leader>al :AnyJumpLastResults<CR>
-endif
-
 if dein#tap('coc.nvim')
   nnoremap <silent> <leader>cC :<C-u>CocConfig<Cr>
   " Using CocList
@@ -205,7 +198,7 @@ if dein#tap('vim-clap')
   "like emacs counsel-find-file
   nnoremap <silent> <C-x><C-f> :<C-u>Clap filer<CR>
 
-  autocmd user_events FileType clap_input call s:clap_mappings()
+  autocmd FileType clap_input call s:clap_mappings()
 
   function! s:clap_mappings()
     nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>
@@ -225,11 +218,6 @@ if dein#tap('vim-clap')
   endfunction
 endif
 
-if dein#tap('codi.vim')
-  nnoremap <Leader>icc :<C-u>Codi!!<CR>
-  nnoremap <Leader>icu :<C-u>CodiUpdate<CR>
-endif
-
 if dein#tap('vim-easy-align')
   " Start interactive EasyAlign in visual mode
   xmap <Leader>raa <Plug>(EasyAlign)
@@ -243,11 +231,6 @@ endif
 
 if dein#tap('vim-mundo')
   nnoremap <silent> <LocalLeader>u :MundoToggle<CR>
-endif
-
-if dein#tap('vim-choosewin')
-  nmap <Leader>- <Plug>(choosewin)
-  nmap <Leader>_ :<C-u>ChooseWinSwapStay<CR>
 endif
 
 if dein#tap('caw.vim')
@@ -288,97 +271,31 @@ if dein#tap('caw.vim')
   call InitCaw()
 endif
 
-" if dein#tap('vim-smoothie')
-"   nnoremap <silent> <C-f> :<C-U>call smoothie#forwards()<CR>
-"   nnoremap <silent> <C-b> :<C-U>call smoothie#backwards()<CR>
-"   nnoremap <silent> <C-d> :<C-U>call smoothie#downwards()<CR>
-"   nnoremap <silent> <C-u> :<C-U>call smoothie#upwards()<CR>
-" endif
-
-if dein#tap('accelerated-jk')
-  " Time-driven acceleration
-  nmap j <Plug>(accelerated_jk_gj)
-  nmap k <Plug>(accelerated_jk_gk)
-
-  " " Position-driven acceleration
-  " nmap j <Plug>(accelerated_jk_gj_position)
-  " nmap k <Plug>(accelerated_jk_gk_position)
-endif
-
 if dein#tap('python_match.vim')
   autocmd FileType python
         \ nmap <buffer> {{ [%
         \ | nmap <buffer> }} ]%
 endif
 
-if dein#tap('goyo.vim')
-  nnoremap <Leader>ig :Goyo<CR>
-endif
-
-" if dein#tap('fern.vim')
-  " nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
+if dein#tap('fern.vim')
+  nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
   nnoremap <silent> <Leader>ea :<C-u>Fern . -drawer -keep -toggle -width=35<CR>
+endif
+
+" if dein#tap('nvim-tree.lua')
+" nnoremap <silent> <Leader>ee :NvimTreeToggle<CR>
+" nnoremap <silent> <Leader>ef :NvimTreeFindFile<CR>
+" nnoremap <silent> <Leader>er :NvimTreeRefresh<CR>
 " endif
-
-if dein#tap('nvim-tree.lua')
-nnoremap <silent> <Leader>ee :NvimTreeToggle<CR>
-nnoremap <silent> <Leader>ef :NvimTreeFindFile<CR>
-nnoremap <silent> <Leader>er :NvimTreeRefresh<CR>
-endif
-
-if dein#tap('vim-startify')
-  nnoremap <silent> <leader>so :<C-u>Startify<CR>
-  nnoremap <silent> <leader>sc :<C-u>SClose<CR>
-  nnoremap <silent> <leader>ss :<C-u>SSave<CR>
-  nnoremap <silent> <leader>sl :<C-u>SLoad<CR>
-  nnoremap <silent> <leader>sd :<C-u>SDelete<CR>
-endif
 
 if dein#tap('vim-quickrun')
   nnoremap <silent> <Localleader>r :QuickRun -mode n<CR>
   vnoremap <silent> <LocalLeader>r :QuickRun -mode v<CR>
 endif
 
-if dein#tap('vim-floaterm')
-  nnoremap <silent> <Leader>ota :Clap floaterm<CR>
-  tnoremap <silent> <Leader>ota <C-\><C-n>:Clap floaterm<CR>
-  nnoremap <silent> <Leader>otb :FloatermUpdate --wintype=normal --position=bottom<CR>
-  tnoremap <silent> <Leader>otb <C-\><C-n>:FloatermUpdate --wintype=normal --position=bottom<CR>
-  nnoremap <silent> <Leader>oth :FloatermHide<CR>
-  tnoremap <silent> <Leader>oth <C-\><C-n>:FloatermHide<CR>
-  nnoremap <silent> <Leader>otn :FloatermNext<CR>
-  tnoremap <silent> <Leader>otn <C-\><C-n>:FloatermNext<CR>
-  nnoremap <silent> <Leader>oto :FloatermNew<CR>
-  tnoremap <silent> <Leader>oto <C-\><C-n>:FloatermNew<CR>
-  nnoremap <silent> <Leader>otp :FloatermPrev<CR>
-  tnoremap <silent> <Leader>otp <C-\><C-n>:FloatermPrev<CR>
-  nnoremap <silent> <Leader>otq :FloatermKill<CR>
-  tnoremap <silent> <Leader>otq <C-\><C-n>:FloatermKill<CR>
-  nnoremap <silent> <Leader>otQ :FloatermKill!<CR>
-  tnoremap <silent> <Leader>otQ <C-\><C-n>:FloatermKill!<CR>
-  nnoremap <silent> <Leader>otr :FloatermNew ranger<CR>
-  tnoremap <silent> <Leader>otr <C-\><C-n>:FloatermNew ranger<CR>
-  nnoremap <silent> <Leader>ots :FloatermShow<CR>
-  tnoremap <silent> <Leader>ots <C-\><C-n>:FloatermShow<CR>
-  nnoremap <silent> <Leader>otS :FloatermSend<CR>
-  nnoremap <silent> <Leader>ott :FloatermToggle<CR>
-  tnoremap <silent> <Leader>ott <C-\><C-n>:FloatermToggle<CR>
-  nnoremap <silent> <Leader>otu :FloatermUpdate<CR>
-  tnoremap <silent> <Leader>otu <C-\><C-n>:FloatermUpdate<CR>
-  tnoremap <silent> <Leader>otv <C-\><C-n>:FloatermUpdate --wintype=normal --position=right<CR>
-  nnoremap <silent> <Leader>otv :FloatermUpdate --wintype=normal --position=right<CR>
-endif
-
 if dein#tap('vim-expand-region')
   xmap v <Plug>(expand_region_expand)
   xmap V <Plug>(expand_region_shrink)
-endif
-
-if dein#tap('splitjoin.vim')
-  let g:splitjoin_join_mapping = ''
-  let g:splitjoin_split_mapping = ''
-  nmap sJ :SplitjoinJoin<CR>
-  nmap sK :SplitjoinSplit<CR>
 endif
 
 if dein#tap('vista.vim')
@@ -387,12 +304,6 @@ if dein#tap('vista.vim')
   nnoremap <silent><localleader>vf :Vista focus<CR>
   nnoremap <silent><localleader>vo :Vista<CR>
   nnoremap <silent><localleader>vq :Vista!<CR>
-endif
-
-if dein#tap('minimap.vim')
-  nnoremap <silent><localleader>mm :MinimapToggle<CR>
-  nnoremap <silent><localleader>mq :MinimapClose<CR>
-  nnoremap <silent><localleader>mr :MinimapRefresh<CR>
 endif
 
 if dein#tap('vim-easymotion')
@@ -460,61 +371,12 @@ if dein#tap('vim-sandwich')
   xmap as <Plug>(textobj-sandwich-query-a)
 endif
 
-
-" if dein#tap('vim-operator-replace')
-"   xmap p <Plug>(operator-replace)
-" endif
-
-if dein#tap('linediff.vim')
-  nmap <silent> <leader>idla :<C-u>LinediffAdd<CR>
-  vmap <silent> <leader>idla :LinediffAdd<CR>
-  nmap <silent> <leader>idlA :<C-u>LinediffAdd<C-a>
-  nmap <silent> <leader>idld :<C-u>Linediff<CR>
-  vmap <silent> <leader>idld :Linediff<CR>
-  nmap <silent> <leader>idll :<C-u>LinediffLast<CR>
-  vmap <silent> <leader>idll :LinediffLast<CR>
-  nmap <silent> <leader>idlm :<C-u>LinediffMerge<CR>
-  nmap <silent> <leader>idlp :<C-u>LinediffPick<CR>
-  nmap <silent> <leader>idlr :<C-u>LinediffReset<CR>
-  nmap <silent> <leader>idls :<C-u>LinediffShow<CR>
-  " resets linediff with q when active
-  autocmd User LinediffBufferReady nnoremap <buffer> q :LinediffReset<cr>
-endif
-
 if dein#tap('vim-zoom')
   nmap [Window]f <Plug>(zoom-toggle)
 endif
 
 if dein#tap('vim-rooter')
   nnoremap <Leader>frr :Rooter<CR>
-endif
-
-if dein#tap('rainbow')
-  nmap <LocalLeader>sp :RainbowToggle<CR>
-endif
-
-if dein#tap('vim-diminactive')
-  nnoremap <LocalLeader>sd :DimInactiveToggle<CR>
-endif
-
-
-if dein#tap('golden_size')
-  function! GoldenSizeToggle()
-      if g:golden_size_off
-          let g:golden_size_off = 0
-          echom "Golden size on"
-      else
-          let g:golden_size_off = 1
-          echom "Golden size off"
-      endif
-  endfunction
-  nnoremap <LocalLeader>sr :<C-u>call GoldenSizeToggle()<CR>
-endif
-
-if dein#tap('markdown-preview.nvim')
-  nmap <Leader>lmd <Plug>MarkdownPreviewToggle
-  nmap <Leader>lmo <Plug>MarkdownPreview
-  nmap <Leader>lmc <Plug>MarkdownPreviewStop
 endif
 
 if dein#tap('vim-markdown')
@@ -587,21 +449,6 @@ if dein#tap('taskwiki')
   nnoremap <LocalLeader>tt :TaskWikiTags<CR>
 endif
 
-if dein#tap('vimux')
-  " Prompt for a command to run
-  nnoremap <Leader>vc :VimuxPromptCommand<CR>
-  " Run last command executed by VimuxRunCommand
-  nnoremap <Leader>vl :VimuxRunLastCommand<CR>
-  " Inspect runner pane
-  nnoremap <Leader>vi :VimuxInspectRunner<CR>
-  " Close vim tmux runner opened by VimuxRunCommand
-  nnoremap <Leader>vq :VimuxCloseRunner<CR>
-  " Interrupt any command running in the runner pane
-  nnoremap <Leader>vx :VimuxInterruptRunner<CR>
-  " Zoom the runner pane (use <bind-key> z to restore runner pane)
-  nnoremap <Leader>vf :VimuxZoomRunner<CR>
-endif
-
 if dein#tap('vim-indent-guides')
   nmap <silent> <LocalLeader>si <Plug>IndentGuidesToggle
 endif
@@ -631,32 +478,6 @@ if dein#tap('vim-signature')
     \ 'GotoNextMarkerAny': ']=',
     \ 'GotoPrevMarkerAny': '[=',
     \ }
-endif
-
-if dein#tap('vim-wordy')
-  " auto wildcharm trigger
-  if !&wildcharm | set wildcharm=<C-z> | endif
-  execute 'nnoremap <leader>lgww :Wordy<space>'.nr2char(&wildcharm)
-
-  nnoremap <leader>lgwn :NextWordy<CR>
-  nnoremap <leader>lgwp :PrevWordy<CR>
-  nnoremap <leader>lgwr :NoWordy<CR>
-endif
-
-if dein#tap('vim-quickhl')
-  nmap <Leader>iht <Plug>(quickhl-manual-this)
-  xmap <Leader>iht <Plug>(quickhl-manual-this)
-
-  nmap <Leader>ihw <Plug>(quickhl-manual-this-whole-word)
-  xmap <Leader>ihw <Plug>(quickhl-manual-this-whole-word)
-
-  nmap <Leader>ihr <Plug>(quickhl-manual-reset)
-  xmap <Leader>ihr <Plug>(quickhl-manual-reset)
-endif
-
-if dein#tap('thesaurus_query.vim')
-  nnoremap <silent> <Leader>rt :<C-u>ThesaurusQueryReplaceCurrentWord<CR>
-  vnoremap <silent> <Leader>rt y:ThesaurusQueryReplace <C-r>"<CR>
 endif
 
 if dein#tap('vim-fugitive')
@@ -691,45 +512,9 @@ if dein#tap('gina.vim')
   nnoremap <Leader>gp :<C-u>Gina push<CR>
 endif
 
-if dein#tap('calendar.vim')
-  nnoremap <LocalLeader>cc :Calendar -view=year -first_day=sunday<CR>
-  nnoremap <LocalLeader>cd :Calendar -view=day<CR>
-  nnoremap <LocalLeader>ch :Calendar -view=day -split=horizontal -position=below -height=12<CR>
-  nnoremap <LocalLeader>cm :Calendar -view=monthly<CR>
-  nnoremap <LocalLeader>ct :Calendar -view=clock<CR>
-  nnoremap <LocalLeader>cv :Calendar -view=year -split=vertical -width=27 -first_day=sunday<CR>
-  nnoremap <LocalLeader>cw :Calendar -view=week<CR>
-endif
-
-if dein#tap('nvim-colorizer.lua')
-  nnoremap <LocalLeader>sc :<C-u>ColorizerToggle<CR>
-endif
-
-if dein#tap('vCoolor.vim')
-  nnoremap <silent> <Leader>ltcpa :<C-u>VCoolIns ra<CR>
-  nnoremap <silent> <Leader>ltcph :<C-u>VCoolIns h<CR>
-  nnoremap <silent> <Leader>ltcpr :<C-u>VCoolIns r<CR>
-  nnoremap <silent> <Leader>ltcpx :<C-u>VCoolor<CR>
-endif
-
-if dein#tap('vim-convert-color-to')
-  " Normal mode
-  nnoremap <Leader>ltca :<C-u>ConvertColorTo rgba<CR>
-  nnoremap <Leader>ltch :<C-u>ConvertColorTo hsl<CR>
-  nnoremap <Leader>ltcH :<C-u>ConvertColorTo hsla<CR>
-  nnoremap <Leader>ltcr :<C-u>ConvertColorTo rgb_int<CR>
-  nnoremap <Leader>ltcR :<C-u>ConvertColorTo rgb_float<CR>
-  nnoremap <Leader>ltcx :<C-u>ConvertColorTo hex<CR>
-  nnoremap <Leader>ltcX :<C-u>ConvertColorTo hexa<CR>
-  " Visual mode
-  vnoremap <Leader>ltca :ConvertColorTo rgba<CR>
-  vnoremap <Leader>ltch :ConvertColorTo hsl<CR>
-  vnoremap <Leader>ltcH :ConvertColorTo hsla<CR>
-  vnoremap <Leader>ltcr :ConvertColorTo rgb_int<CR>
-  vnoremap <Leader>ltcR :ConvertColorTo rgb_float<CR>
-  vnoremap <Leader>ltcx :ConvertColorTo hex<CR>
-  vnoremap <Leader>ltcX :ConvertColorTo hexa<CR>
-endif
+" if dein#tap('nvim-colorizer.lua')
+"   nnoremap <LocalLeader>sc :<C-u>ColorizerToggle<CR>
+" endif
 
 if dein#tap('vim-abolish')
   nnoremap <Leader>rs :<C-u>Subvert//g<Left><Left>
@@ -742,36 +527,9 @@ if dein#tap('vim-abolish')
     \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 endif
 
-if dein#tap('far.vim')
-  nnoremap <silent> <Leader>rfd  :Fardo<cr>
-  nnoremap <silent> <Leader>rff  :Farf<cr>
-  vnoremap <silent> <Leader>rff  :Farf<cr>
-  nnoremap <silent> <Leader>rfr  :Refar<cr>
-  vnoremap <silent> <Leader>rfr  :Refar<cr>
-  nnoremap <silent> <Leader>rfs  :Farr<cr>
-  vnoremap <silent> <Leader>rfs  :Farr<cr>
-  nnoremap <silent> <Leader>rfu  :Farundo<cr>
-endif
-
 if dein#tap('leetcode.vim')
   nnoremap <Leader>Ll :LeetCodeList<CR>
   nnoremap <Leader>Ls :LeetCodeTest<CR>
   nnoremap <Leader>Lt :LeetCodeSubmit<CR>
 endi
 
-
-" Commented plugins too old, or found much better
-" ==================================================
-" if dein#tap('spaceline.vim')
-"   let g:spaceline_colorscheme = 'solarized_dark'
-"   let g:spaceline_seperate_mode = 1
-"   let g:spaceline_homemode_right = ''
-"   let g:spaceline_filename_left  = ''
-"   let g:spaceline_filesize_right = ''
-"   let g:spaceline_gitinfo_left   = ''
-"   let g:spaceline_gitinfo_right  = ''
-"   let g:spaceline_cocexts_right  = ''
-"   let g:spaceline_lineformat_right = ''
-"   let g:spaceline_seperate_endseperate = ''
-"   let g:spaceline_seperate_emptyseperate = ''
-" endif
