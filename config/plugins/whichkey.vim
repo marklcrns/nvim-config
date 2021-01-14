@@ -17,7 +17,6 @@ let g:which_key_map = {
              \ },
        \ ' ' : {
              \ 'name' : '+easymotion',
-             \ '<CR>' : 'Close all folds except current line',
                 \ ',' : 'Jump to previous last easymotion match',
                 \ ';' : 'Jump to next last easymotion match',
                 \ 'E' : 'Jump to the end of a word backward',
@@ -273,11 +272,6 @@ let g:which_key_map = {
              \ 'e' : 'Tab edit ',
              \ 'm' : 'Move tab',
              \ 'q' : 'Close current tab',
-          \ },
-    \ 'z' : {
-          \ 'name' : '+folds',
-          \ 'j' : 'Next closed fold',
-          \ 'k' : 'Previous closed fold',
           \ },
     \ }
 

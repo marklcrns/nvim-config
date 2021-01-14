@@ -416,7 +416,7 @@ function! FoldsMappings()
   " Toggle fold
   nnoremap <Leader><CR> za
   " Focus the current fold by closing all others
-  nnoremap <Leader><Leader><CR> zMzvzt
+  nnoremap z<CR> zMzvzt
   " Toggle fold all
   nnoremap <expr> zm &foldlevel ? 'zM' :'zR'
   " Jumping to next closed fold
@@ -434,8 +434,8 @@ function! FoldsMappings()
       call winrestview(view)
     endif
   endfunction
-  nnoremap <silent> <Leader>zj :call NextClosedFold('j')<cr>
-  nnoremap <silent> <Leader>zk :call NextClosedFold('k')<cr>
+  nnoremap <silent> zj :call NextClosedFold('j')<cr>
+  nnoremap <silent> zk :call NextClosedFold('k')<cr>
 endfunction
 " }}} UTILITIES MAPPINGS
 
