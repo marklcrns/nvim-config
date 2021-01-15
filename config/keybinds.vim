@@ -745,10 +745,10 @@ if dein#tap('far.vim')
   nnoremap <silent> <Leader>rfd  :Fardo<cr>
   nnoremap <silent> <Leader>rff  :Farf<cr>
   vnoremap <silent> <Leader>rff  :Farf<cr>
-  nnoremap <silent> <Leader>rfr  :Refar<cr>
-  vnoremap <silent> <Leader>rfr  :Refar<cr>
-  nnoremap <silent> <Leader>rfs  :Farr<cr>
-  vnoremap <silent> <Leader>rfs  :Farr<cr>
+  nnoremap <silent> <Leader>rfl  :Refar<cr>
+  vnoremap <silent> <Leader>rfl  :Refar<cr>
+  nnoremap <silent> <Leader>rfr  :Farr<cr>
+  vnoremap <silent> <Leader>rfr  :Farr<cr>
   nnoremap <silent> <Leader>rfu  :Farundo<cr>
 endif
 
