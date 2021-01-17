@@ -295,7 +295,7 @@
   merged: 0
   on_cmd: FZF
   type__depth: 1
-  hook_source: |-
+  hook_source: |
     let g:fzf_layout = { 'down': '~25%' }
 
 - repo: junegunn/fzf.vim
@@ -333,7 +333,7 @@
   if: executable('cargo')
   build: 'cargo install --locked code-minimap'
   on_cmd: [ Minimap, MinimapToggle ]
-  hook_source: |-
+  hook_source: |
     let g:minimap_block_filetypes = ['fugitive', 'nerdtree', 'fern', 'defx', 'vista']
 
 - repo: liuchengxu/vim-which-key
@@ -429,12 +429,12 @@
 - repo: thinca/vim-quickrun
   on_cmd: QuickRun
   hook_add: |
-        let g:quickrun_config = {
-            \   "_" : {
-            \       "outputter" : "message",
-            \   },
-            \}
-        let g:quickrun_no_default_key_mappings = 1
+    let g:quickrun_config = {
+        \   "_" : {
+        \       "outputter" : "message",
+        \   },
+        \}
+    let g:quickrun_no_default_key_mappings = 1
 
 - repo: kshenoy/vim-signature
   on_event: FileType
@@ -513,13 +513,11 @@
   on_event: FileType
   hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
-# Requires additional installation in $VIM_PATH/after/ftplugin
-# https://github.com/romainl/vim-qf
 - repo: romainl/vim-qf
   on_ft: qf
   on_event: QuickFixCmdPost
   on_map: { n: <Plug> }
-  hook_add: |-
+  hook_add: |
     let g:qf_bufname_or_text = 1
     let g:qf_auto_open_quickfix = 0
     let g:qf_auto_open_loclist = 0
@@ -548,15 +546,6 @@
   hook_source: |
     let g:accelerated_jk_enable_deceleration = 1
     let g:accelerated_jk_acceleration_limit = 200
-
-- repo: romainl/vim-qf
-  on_event: QuickFixCmdPost
-  on_map: { n: <Plug> }
-  hook_add: |
-    let g:qf_bufname_or_text = 1
-    let g:qf_auto_open_quickfix = 0
-    let g:qf_auto_open_loclist = 0
-    let g:qf_auto_resize = 0
 
 - repo: kyazdani42/nvim-tree.lua
   on_cmd: [ NvimTreeToggle, NvimTreeOpen ]
@@ -609,6 +598,6 @@
 - repo:  ianding1/leetcode.vim
   on_cmd: [ LeetCodeList, LeetCodeTest, LeetCodeSubmit, LeetCodeSignIn ]
   hook_add: |
-    let g:leetcode_browser = 'chrome'
+    let g:leetcode_browser = 'firefox'
     let g:leetcode_solution_filetype = 'java'
 # }}}
