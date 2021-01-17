@@ -254,12 +254,12 @@ let g:which_key_map = {
                   \ 'c' : 'Markdown preview stop',
                   \ 'd' : 'Markdown preview toggle',
                   \ 'o' : 'Markdown preview',
-                \ 't' : {
-                      \ 'name' : '+table-of-contents',
-                        \ 'h' : 'Table of contents horizontal',
-                        \ 't' : 'Table of contents',
-                        \ 'v' : 'Table of contents vertical',
-                      \ },
+                  \ 't' : {
+                        \ 'name' : '+table-of-contents',
+                          \ 'h' : 'Table of contents horizontal',
+                          \ 't' : 'Table of contents',
+                          \ 'v' : 'Table of contents vertical',
+                        \ },
                 \ },
           \ 't' : {
                 \ 'name' : '+tools',
