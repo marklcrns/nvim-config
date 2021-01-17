@@ -151,6 +151,16 @@ hook_add = '''
   source ~/.config/nvim/config/plugins/vim-markdown.vim
 '''
 
+# If build failed, manually install dependencies:
+# cd ~/.cache/vim/dein/repos/github.com/iamcco/markdown-preview.nvim/app && yarn install
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+build = 'sh -c "cd app && yarn install"'
+hook_source = '''
+  source $VIM_PATH/config/plugins/markdown-preview.vim
+'''
+
 # Python
 # ----------------------------------------
 [[plugins]]

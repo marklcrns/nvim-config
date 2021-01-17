@@ -379,6 +379,12 @@ if dein#tap('vim-rooter')
   nnoremap <Leader>frr :Rooter<CR>
 endif
 
+if dein#tap('markdown-preview.nvim')
+  nmap <Leader>lmd <Plug>MarkdownPreviewToggle
+  nmap <Leader>lmo <Plug>MarkdownPreview
+  nmap <Leader>lmc <Plug>MarkdownPreviewStop
+endif
+
 if dein#tap('vim-markdown')
   nnoremap <Leader>lmtt :<C-u>Toc<CR>
   nnoremap <Leader>lmtv :<C-u>Tocv<CR>

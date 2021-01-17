@@ -192,6 +192,18 @@ let g:which_key_map = {
                 \ 'j' : 'Save compile and run in next tmux pane',
                 \ 'r' : 'Save compile and run Java in vim terminal',
                 \ },
+          \ 'm' : {
+                \ 'name' : '+markdown',
+                  \ 'c' : 'Markdown preview stop',
+                  \ 'd' : 'Markdown preview toggle',
+                  \ 'o' : 'Markdown preview',
+                  \ 't' : {
+                        \ 'name' : '+table-of-contents',
+                          \ 'h' : 'Table of contents horizontal',
+                          \ 't' : 'Table of contents',
+                          \ 'v' : 'Table of contents vertical',
+                        \ },
+                \ },
           \ },
     \ 'L' : {
           \ 'name' : '+leetcode',
