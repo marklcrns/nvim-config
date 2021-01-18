@@ -13,9 +13,10 @@ colorscheme, statusline and tabline by [rafi](https://github.com/rafi).
 ## Requirements
 
 - Neovim 0.5+
-- Python 3+
-- Python 2+ (Optional but required for taskwiki.vim)
 - Nodejs and npm
+- Python 3+
+- Python 2+ (Required for taskwiki.vim)
+- pandoc (Required for vimwiki)
 - yarn (Optional for markdown-preview.vim)
 - cargo (Optional for minimap.vim)
 
