@@ -8,7 +8,7 @@ with obsession 🤤 and ❤
 ![Demo](./demo/demo.gif)
 
 [Hybrid](https://github.com/rafi/vim-config/blob/master/themes/hybrid.vim)
-colorscheme, statusline and tabline by [rafi](https://github.com/rafi)
+colorscheme, statusline and tabline by [rafi](https://github.com/rafi).
 
 ## Requirements
 
@@ -21,7 +21,8 @@ colorscheme, statusline and tabline by [rafi](https://github.com/rafi)
 
 ## Installation
 
-Just simply run `make` to install all the necessary dependencies and directories
+Just simply run `make` to install all the necessary dependencies and
+directories.
 
 ```bash
 make
@@ -32,6 +33,23 @@ make install
 This will install all dependencies and create `env` python virtual environment
 in root directory for `python_host_prog` and `python3_host_prog` instead of
 using global python.
+
+### Minimal
+
+For minimal version of this repo, checkout to the
+[minimal](https://github.com/marklcrns/nvim-config/tree/minimal) branch of this
+repo.
+
+```bash
+git checkout minimal
+```
+
+Then simply run `make` to install.
+
+
+## Notable Plugins
+
+Productivity plugins I use on the daily for all sorts of reason.
 
 ### Vimwiki
 
@@ -67,8 +85,8 @@ buffer filetype
 
 ## Credits
 
-Thanks to the following (Neo)Vim configurations and to all the geniuses behind
-the plugins that made this repo possible.
+Thanks to the following (Neo)Vim configs and to all the geniuses behind the
+plugins that made this repo possible.
 
 - [ThinkVim](https://github.com/hardcoreplayers/ThinkVim)
 - [Rafi's vim-config](https://github.com/rafi/vim-config)
