@@ -24,10 +24,11 @@ if has('vim_starting')
   endfor
 
   " Use dein as a plugin manager
-  let g:dein#auto_recache = 1
+  let g:dein#auto_recache = v:true
+  let g:dein#lazy_rplugins = v:true
   let g:dein#install_max_processes = 12
   let g:dein#install_progress_type = 'title'
-  let g:dein#enable_notification = 1
+  let g:dein#enable_notification = v:true
   let g:dein#install_log_filename = $DATA_PATH . '/dein.log'
 
   " Add dein to vim's runtimepath
@@ -51,7 +52,9 @@ let s:rc_dir = expand($HOME . '/.config/nvim')
 let s:toml = s:rc_dir . '/config/dein.toml'
 let s:lazy_toml = s:rc_dir . '/config/dein_lazy.toml'
 if dein#load_state(s:cache_path)
-  call dein#begin(s:cache_path, s:toml, s:lazy_toml)
+  call dein#begin(s:cache_path, [
+        \ expand('<sfile>'), s:toml, s:lazy_toml,
+        \ ])
 
   call dein#load_toml(s:toml, {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
