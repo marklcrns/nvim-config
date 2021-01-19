@@ -25,8 +25,8 @@ update-plugins:
 	$(vim) -V1 -es -i NONE -N --noplugin -u core/package_manager.vim \
 		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
 
-uninstall:
-	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CONFIG_HOME)/coc" env
+clean:
+	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CONFIG_HOME)/coc"
 
 test:
 ifeq ('$(vim)','nvim')

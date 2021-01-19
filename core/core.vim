@@ -9,17 +9,6 @@ let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 " Set secondary nvim configuration directory
 let $CUSTOM_VIM_PATH = expand($HOME.'/.nvim-user.d')
 
-" Set python interpreter from a dedicated virtual environment
-let s:python = expand($VIM_PATH.'/env/python/env/bin/python')
-let s:python3 = expand($VIM_PATH.'/env/python3/env/bin/python3')
-
-if !empty(glob(s:python)) && !isdirectory(s:python)
-  let g:python_host_prog = s:python
-endif
-if !empty(glob(s:python3)) && !isdirectory(s:python3)
-  let g:python3_host_prog = s:python3
-endif
-
 " Set the secondary user config file
 let s:user_init_config = expand($CUSTOM_VIM_PATH.'/init.vim')
 
@@ -90,7 +79,7 @@ call utils#source_file($VIM_PATH,'core/general.vim')
 call utils#source_file($VIM_PATH,'core/filetype.vim')
 call utils#source_file($VIM_PATH,'core/mappings.vim')
 
-" Load user init config
+" Load secondary user init config
 call utils#check_source(s:user_init_config)
 
 if get(g:, 'statusline_plugin_enable', 1)
