@@ -51,25 +51,15 @@ endif
 " --------
 if has('wildmenu')
   if ! has('nvim')
-    set wildmode=list:longest
+    set nowildmenu
+    set wildmode=list:longest,full
   endif
-
-  " if has('nvim')
-  "   set wildoptions=pum
-  " else
-  "   set nowildmenu
-  "   set wildmode=list:longest,full
-  "   set wildoptions=tagfile
-  " endif
   set wildignorecase
   set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
   set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
   set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
-  set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
   set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
-  set wildcharm=<C-z>  " substitue for 'wildchar' (<Tab>) in macros
 endif
-" }}}
 
 " Vim Directories {{{
 " ---------------
@@ -194,7 +184,7 @@ set breakat=\ \ ;:,!?           " Long lines break chars
 set nostartofline               " Cursor in same column for few commands
 set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
 set splitbelow splitright       " Splits open bottom right
-set switchbuf=useopen,uselast   " Jump to the first open window
+set switchbuf=useopen           " Jump to the first open window
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
 set completeopt=menu,menuone    " Always show menu, even for one item
@@ -205,9 +195,9 @@ if exists('+completepopup')
   set completepopup=height:4,width:60,highlight:InfoPopup
 endif
 
-" Use the new Neovim :h jumplist-stack
 if has('nvim-0.5')
-  set jumpoptions=stack
+  set jumpoptions=stack         " Use the new Neovim :h jumplist-stack
+  set switchbuf+=uselast        " Jump to the last window
 endif
 
 if has('patch-8.1.0360') || has('nvim-0.4')
@@ -225,7 +215,6 @@ set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 5 lines left/right
 set fillchars+=vert:\|  " add a bar for vertical splits
-set fcs=eob:\           " hide ~ tila
 set list
 let &showbreak='↳  '
 set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
@@ -290,11 +279,40 @@ if has('termguicolors') && &termguicolors
   endif
 endif
 
-if g:activate_cursorline
-  set cursorline
-endif
+augroup CursorUI
+  let ft_exclusion = '^\(denite\|clap_\)'
+  autocmd!
+  " Disable cursorline and cursorcolumn on InsertEnter, WinLeave
+  autocmd InsertEnter * if &ft !~# ft_exclusion |
+        \ setlocal nocursorline nocursorcolumn
+        \ | endif
+  autocmd WinLeave * setlocal nocursorline nocursorcolumn
+  " Enable cursorline and cursorcolumn on InsertLeave, WinEnter, BufWinEnter
+  " and if activated
+  autocmd InsertLeave * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
+        \ setlocal cursorline
+        \ | endif
+  autocmd InsertLeave * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
+        \ setlocal cursorcolumn
+        \ | endif
+  autocmd WinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
+        \ setlocal cursorline
+        \ | endif
+  autocmd WinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
+        \ setlocal cursorcolumn
+        \ | endif
+  autocmd BufWinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
+        \ setlocal cursorline
+        \ | endif
+  autocmd BufWinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
+        \ setlocal cursorcolumn
+        \ | endif
 
-if g:activate_cursorcolumn
-  set cursorcolumn
-endif
+  if g:activate_cursorline
+    set cursorline
+  endif
+  if g:activate_cursorcolumn
+    set cursorcolumn
+  endif
+augroup END
 " }}}

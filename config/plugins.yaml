@@ -31,7 +31,7 @@
 # ----------------------------------------
 - repo: dhruvasagar/vim-zoom
   hook_add: |
-    let g:zoom#statustext = ''
+    let g:zoom#statustext = '🔎'
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
@@ -63,10 +63,16 @@
     let g:diminactive=0
 
 - repo: dm1try/golden_size
+  if: has('nvim') && has('nvim-0.5')
   hook_source: luafile $VIM_PATH/config/plugins/golden_size.lua
 
-# Fix neovim cursorhold bug. Suggested by Fern.vim
-- repo: antoinemadec/FixCursorHold.nvim
+# Improve CursorHold performance
+# See: https://github.com/neovim/neovim/issues/12587
+- { repo: antoinemadec/FixCursorHold.nvim, if: "has('nvim')" }
+
+# Vim8 only:
+- { repo: roxma/nvim-yarp, if: "! has('nvim')", depends: vim-hug-neovim-rpc }
+- { repo: roxma/vim-hug-neovim-rpc, if: "! has('nvim')" }
 # }}}
 
 
@@ -209,6 +215,7 @@
   hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
 
 - repo: iamcco/markdown-preview.nvim
+  if: has('nvim')
   on_ft: [markdown, pandoc.markdown, rmd]
   build: 'sh -c "cd app && yarn install"'
   hook_source: source $VIM_PATH/config/plugins/markdown-preview.vim
@@ -390,7 +397,7 @@
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
-  on_if: (getcwd() =~ $HOME . "/Docs/wiki.\*" && &filetype == 'markdown')
+  if: (getcwd() =~ $HOME . "/Docs/wiki.\*" && &filetype == 'markdown')
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_add: |
     let g:vimwiki_use_calendar = 1
@@ -416,7 +423,7 @@
 
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
-  on_if: (expand('%:p') =~ $HOME . "/Docs/wiki/wiki/md/diary/.\*" && &filetype == 'vimwiki')
+  if: (expand('%:p') =~ $HOME . "/Docs/wiki/wiki/md/diary/.\*" && &filetype == 'vimwiki')
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
@@ -548,10 +555,12 @@
     let g:accelerated_jk_acceleration_limit = 200
 
 - repo: kyazdani42/nvim-tree.lua
+  if: has('nvim') && has('nvim-0.5')
   on_cmd: [ NvimTreeToggle, NvimTreeOpen ]
   hook_add: source $VIM_PATH/config/plugins/nvim-tree.vim
 
 - repo: kyazdani42/nvim-web-devicons
+  if: has('nvim') && has('nvim-0.5')
   on_source: nvim-tree.lua
 
 - repo: lambdalisue/fern.vim

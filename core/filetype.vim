@@ -63,46 +63,4 @@ augroup user_plugin_filetype "{{{
 
   " HTML (.gohtml and .tpl for server side)
   autocmd BufNewFile,BufRead *.html,*.htm,*.gohtml,*.tpl  setf html
-
-  " Make directory automatically.
-  autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-
-  augroup CursorUI
-    let ft_exclusion = '^\(denite\|clap_\)'
-    autocmd!
-    " Disable cursorline and cursorcolumn on InsertEnter, WinLeave
-    autocmd InsertEnter * if &ft !~# ft_exclusion |
-          \ setlocal nocursorline nocursorcolumn
-          \ | endif
-    autocmd WinLeave * setlocal nocursorline nocursorcolumn
-    " Enable cursorline and cursorcolumn on InsertLeave, WinEnter, BufWinEnter
-    " and if activated
-    autocmd InsertLeave * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
-          \ setlocal cursorline
-          \ | endif
-    autocmd InsertLeave * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
-          \ setlocal cursorcolumn
-          \ | endif
-    autocmd WinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
-          \ setlocal cursorline
-          \ | endif
-    autocmd WinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
-          \ setlocal cursorcolumn
-          \ | endif
-    autocmd BufWinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
-          \ setlocal cursorline
-          \ | endif
-    autocmd BufWinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
-          \ setlocal cursorcolumn
-          \ | endif
 augroup END "}}}
-
-" Credits: https://github.com/Shougo/shougo-s-github/blob/master/vim/rc/options.rc.vim#L147
-function! s:mkdir_as_necessary(dir, force) abort
-  if !isdirectory(a:dir) && &l:buftype == '' &&
-        \ (a:force || input(printf('"%s" does not exist. Create? [y/N]',
-        \              a:dir)) =~? '^y\%[es]$')
-    call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-  endif
-endfunction
-
