@@ -1,4 +1,9 @@
-let g:which_key_map =  {}
+augroup user_events
+  autocmd! FileType which_key
+  autocmd  FileType which_key set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
+
 let g:which_key_map = {
     \ 'name' : '+leader-key',
     \ '<CR>' : 'Toggle fold at current line',

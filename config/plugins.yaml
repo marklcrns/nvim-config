@@ -318,7 +318,7 @@
   on_func: [ vista#finder#clap#Run ]
   hook_source: source $VIM_PATH/config/plugins/vim-clap.vim
 
-- repo: hokorobi/vim-clap-sessions 
+- repo: hokorobi/vim-clap-sessions
   depends: vim-clap
   hook_add: |
     let g:clap_session_dir = $DATA_PATH . '/sessions'
