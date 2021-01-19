@@ -314,7 +314,7 @@
 - repo: hokorobi/vim-clap-sessions 
   depends: vim-clap
   hook_add: |
-    let g:clap_session_dir = $HOME . '/.vim/sessions'
+    let g:clap_session_dir = $DATA_PATH . '/sessions'
 
 - repo: junegunn/gv.vim
   depends: vim-fugitive

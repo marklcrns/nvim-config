@@ -5,7 +5,7 @@ let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 let g:UltiSnipsSnippetDirectories = [
       \ $DATA_PATH . "/dein/repos/github.com/honza/vim-snippets/UltiSnips",
-      \ $HOME . "/.vim/UltiSnips/"
+      \ $VIM_PATH . "/UltiSnips/"
       \ ]
 
 " If you want :UltiSnipsEdit to split your window.
