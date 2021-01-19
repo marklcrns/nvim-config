@@ -47,4 +47,4 @@ else
 endif
 	@echo All tests passed, hooray!
 
-.PHONY: install create-dirs update-repo update-plugins uninstall test
+.PHONY: install create-dirs update-repo update-plugins clean test
