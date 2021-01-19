@@ -590,36 +590,6 @@ function! SettingsToggleMappings()
 endfunction
 " }}} SETTINGS TOGGLE MAPPINGS
 
-" MISC MAPPINGS -------------------- {{{
-" Compile java in ./bin directory. NOTE: ./bin must exist
-" Ref: https://stackoverflow.com/a/24708245
-function! JavaMappings()
-  " Compile and run current java file in next tmux pane
-  function! JavaCompileRunVimux()
-    exe '!javac -Xlint %'
-    exe 'VimuxInterruptRunner'
-    call VimuxRunCommand("clear; time java -cp " . expand("%:p:h") . " " . expand("%:t:r"))
-  endfunction
-  " Autocompile Java and run in another tmux pand
-  autocmd FileType java nnoremap <buffer><silent><Leader>ljj :call JavaCompileRunVimux()<CR>
-  " Compile current java file
-  autocmd FileType java nnoremap <buffer><silent><Leader>ljc :!javac -Xlint %<CR>
-  autocmd FileType java nnoremap <buffer><silent><Leader>ljC :!javac -Xlint *.java<CR>
-  " Save, complie, and run java file in current buffer <C-c> to exit program
-  autocmd FileType java nnoremap <buffer><silent><Leader>ljr :w<CR>:terminal javac -Xlint % && time java -cp %:p:h %:t:r<CR>
-  " F9 to compile, F10/F11 to cycle through errors.
-  " Ref: https://stackoverflow.com/a/14727153
-  autocmd Filetype java set makeprg=javac\ -Xlint\ %
-  set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
-  map <F9> :make<Return>:copen<Return>
-  map <F10> :cprevious<Return>
-  map <F11> :cnext<Return>
-endfunction
-function! GitMappings()
-  nnoremap <Leader>gP :<C-u>terminal git push<CR>
-endfunction
-" }}} MISC MAPPINGS
-
 " ==================== Custom single purpose functions and mappings ==================== "
 
 " Append '.md' to clipboard register yanked file path and :edit from current directory
@@ -708,6 +678,3 @@ call FoldsMappings()
 call TextManipulationMappings()
 " Settings Toggle Mappings
 call SettingsToggleMappings()
-" Misc Mappings
-" call JavaMappings()
-call GitMappings()
