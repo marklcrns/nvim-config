@@ -313,6 +313,14 @@ let g:which_key_map = {
                 \ 'v' : 'Position floaterm vertically to the right',
              \ },
           \ },
+    \ 'p' : {
+          \ 'name' : '+vim-plugins-manager',
+             \ 'd' : 'Delete unused plugins',
+             \ 'l' : 'Get log',
+             \ 'L' : 'Get update log',
+             \ 'r' : 'Recache runtimepath',
+             \ 'u' : 'Update plugins',
+          \ },
     \ 'q' : 'Adaptive buffer quit',
     \ 'Q' : 'Quit neovim',
     \ 'r' : {

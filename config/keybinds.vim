@@ -3,7 +3,8 @@
 if dein#tap('dein.vim')
   nnoremap <silent> <Leader>pu  :call dein#update()<CR>
   nnoremap <silent> <Leader>pr  :call dein#recache_runtimepath()<CR>
-  nnoremap <silent> <Leader>pl  :echo dein#get_updates_log()<CR>
+  nnoremap <silent> <Leader>pl  :echo dein#get_log()<CR>
+  nnoremap <silent> <Leader>pL  :echo dein#get_updates_log()<CR>
   nnoremap <silent> <Leader>pd  :call map(dein#check_clean(), "delete(v:val, \"rf\")")<CR>
 endif
 
@@ -77,8 +78,6 @@ if dein#tap('coc.nvim')
   nmap <leader>cc <Plug>(coc-codeaction)
   " Fix autofix problem of current line
   nmap <leader>cq <Plug>(coc-fix-current)
-  " Insert current filetype template on cursor
-  nmap <leader>cm <Plug>(coc-template)
   " Remap keys for gotos
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
