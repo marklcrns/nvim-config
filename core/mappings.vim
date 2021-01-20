@@ -302,8 +302,6 @@ function! EmacsLikeMappings()
   " Cursor navigation
   inoremap <C-b> <Left>
   inoremap <C-f> <Right>
-  inoremap <expr><C-n> pumvisible() ? "\<C-n>" : "\<Down>"
-  inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<Up>"
   " move between sentences
   inoremap <M-a> <C-[>(i
   inoremap <M-e> <C-[>)i
