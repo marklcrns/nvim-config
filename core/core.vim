@@ -69,6 +69,10 @@ if has('vim_starting')
   nnoremap ;        <Nop>
   xnoremap ;        <Nop>
 
+  " Vim only, Linux terminal settings
+  if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
+    call s:source_file('config/terminal.vim')
+  endif
 endif
 
 " Initialize plugin-manager and load plugins config files
