@@ -392,7 +392,7 @@ let g:which_key_map = {
 									\ },
 					\ },
 		\ 's' : {
-					\ 'name' : '+startup',
+					\ 'name' : '+sessions',
 					\ 'd' : 'Dashboard open',
 					\ 'l' : 'Load session {session-name}',
 					\ 's' : 'Save session {session-name}',
