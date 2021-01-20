@@ -435,6 +435,13 @@ function! FoldsMappings()
   nnoremap <silent> zj :call NextClosedFold('j')<cr>
   nnoremap <silent> zk :call NextClosedFold('k')<cr>
 endfunction
+
+function! SessionMappings()
+	nnoremap <Leader>ss :<C-u>SessionSave<Space>
+	nnoremap <Leader>sl :<C-u>SessionLoad<Space>
+	nnoremap <Leader>sq :<C-u>SessionClose<Cr>
+	nnoremap <Leader>sd :<C-u>SessionDetach<Cr>
+endfunction
 " }}} UTILITIES MAPPINGS
 
 " TEXT MANIPULATION MAPPINGS -------------------- {{{
@@ -672,6 +679,7 @@ call QuickFixLocationListMappings()
 call RegisterMappings()
 call DiffMappings()
 call FoldsMappings()
+call SessionMappings()
 " Text Manipulation Mappings
 call TextManipulationMappings()
 " Settings Toggle Mappings
