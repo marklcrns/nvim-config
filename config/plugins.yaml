@@ -63,12 +63,12 @@
     let g:diminactive=0
 
 - repo: dm1try/golden_size
-  if: has('nvim') && has('nvim-0.5')
+  if: "has('nvim') && has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/golden_size.lua
 
 # Improve CursorHold performance
 # See: https://github.com/neovim/neovim/issues/12587
-- { repo: antoinemadec/FixCursorHold.nvim, if: "has('nvim')" }
+- { repo: antoinemadec/FixCursorHold.nvim, "if: has('nvim')" }
 
 # Vim8 only:
 - { repo: roxma/nvim-yarp, if: "! has('nvim')", depends: vim-hug-neovim-rpc }
@@ -117,7 +117,7 @@
     let g:rainbow_active = 0
 
 - repo: KabbAmine/vCoolor.vim
-  if: has('nvim') && has('nvim-0.4.0')
+  if: "has('nvim') && has('nvim-0.4.0')"
   on_cmd: [VCoolor, VCoolIns]
   hook_add: |
     let g:vcoolor_disable_mappings = 1
@@ -215,7 +215,7 @@
   hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
 
 - repo: iamcco/markdown-preview.nvim
-  if: has('nvim')
+  if: "has('nvim')"
   on_ft: [markdown, pandoc.markdown, rmd]
   build: 'sh -c "cd app && yarn install"'
   hook_source: source $VIM_PATH/config/plugins/markdown-preview.vim
@@ -300,7 +300,7 @@
   on_cmd: GV
 
 - repo: ludovicchabant/vim-gutentags
-  if: executable('ctags')
+  if: "executable('ctags')"
   on_event: [BufReadPost, BufWritePost]
   hook_source: source $VIM_PATH/config/plugins/vim-gutentags.vim
 
@@ -309,7 +309,7 @@
   hook_source: source $VIM_PATH/config/plugins/vista.vim
 
 - repo: wfxr/minimap.vim
-  if: executable('cargo')
+  if: "executable('cargo')"
   build: 'cargo install --locked code-minimap'
   on_cmd: [ Minimap, MinimapToggle ]
   hook_source: |
@@ -368,34 +368,14 @@
   hook_source: source  $VIM_PATH/config/plugins/floaterm.vim
 
 # Only load when in wiki directory
-- repo: vimwiki/vimwiki
-  if: (getcwd() =~ $HOME . "/Docs/wiki.\*" && &filetype == 'markdown')
+- repo: https://github.com/vimwiki/vimwiki
+  on_if: "(getcwd() =~ $HOME . '/Docs/wiki.*' && &filetype == 'markdown')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
-  hook_add: |
-    let g:vimwiki_use_calendar = 1
-    let g:vimwiki_hl_headers = 1
-    let g:vimwiki_hl_cb_checked = 1
-    let g:vimwiki_autowriteall = 0
-    let g:vimwiki_folding = 'custom'
-    let g:vimwiki_key_mappings =
-      \ {
-      \   'all_maps': 1,
-      \   'global': 1,
-      \   'headers': 1,
-      \   'text_objs': 1,
-      \   'table_format': 1,
-      \   'table_mappings': 0,
-      \   'lists': 1,
-      \   'links': 1,
-      \   'html': 1,
-      \   'mouse': 0,
-      \ }
-    let g:vimwiki_map_prefix = '<LocalLeader>w'
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
 
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
-  if: (expand('%:p') =~ $HOME . "/Docs/wiki/wiki/md/diary/.\*" && &filetype == 'vimwiki')
+  on_if: "(expand('%:p') =~ $HOME . '/Docs/wiki/wiki/md/diary/.*' && &filetype == 'vimwiki')"
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
@@ -488,7 +468,7 @@
   hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
 
 - repo: norcalli/nvim-colorizer.lua
-  if: has('nvim') && has('nvim-0.4.0')
+  if: "has('nvim') && has('nvim-0.4.0')"
   on_event: FileType
   hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
@@ -527,12 +507,12 @@
     let g:accelerated_jk_acceleration_limit = 200
 
 - repo: kyazdani42/nvim-tree.lua
-  if: has('nvim') && has('nvim-0.5')
+  if: "has('nvim') && has('nvim-0.5')"
   on_cmd: [ NvimTreeToggle, NvimTreeOpen ]
   hook_add: source $VIM_PATH/config/plugins/nvim-tree.vim
 
 - repo: kyazdani42/nvim-web-devicons
-  if: has('nvim') && has('nvim-0.5')
+  if: "has('nvim') && has('nvim-0.5')"
   on_source: nvim-tree.lua
 
 - repo: lambdalisue/fern.vim
