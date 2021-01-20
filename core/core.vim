@@ -75,13 +75,13 @@ if has('vim_starting')
   endif
 endif
 
-" Initialize plugin-manager and load plugins config files
-call utils#source_file($VIM_PATH,'core/package_manager.vim')
-call utils#source_file($VIM_PATH,'config/keybinds.vim')
-
 call utils#source_file($VIM_PATH,'core/general.vim')
 call utils#source_file($VIM_PATH,'core/filetype.vim')
 call utils#source_file($VIM_PATH,'core/mappings.vim')
+
+" Initialize plugin-manager and load plugins config files
+call utils#source_file($VIM_PATH,'core/package_manager.vim')
+call utils#source_file($VIM_PATH,'config/keybinds.vim')
 
 " Load secondary user init config
 call utils#check_source(s:user_init_config)
