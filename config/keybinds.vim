@@ -328,8 +328,6 @@ endif
 
 if dein#tap('dashboard-nvim')
   nnoremap <silent> <leader>sd :<C-u>Dashboard<CR>
-  nnoremap <nowait><silent> <leader>ss :<C-u>SessionSave<Space>
-  nnoremap <nowait><silent> <leader>sl :<C-u>SessionLoad<Space>
 endif
 
 if dein#tap('vim-quickrun')
