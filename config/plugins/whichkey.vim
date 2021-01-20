@@ -100,7 +100,6 @@ let g:which_key_map = {
                   \ 'g' : 'Toggle coc git gutter',
                   \ 's' : 'Toggle coc spell checker',
                   \ },
-            \ 'm' : 'Coc template',
             \ 'q' : 'Coc autofix current line',
             \ 'x' : 'Coc cursors operate',
             \ },
