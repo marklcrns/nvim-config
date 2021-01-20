@@ -22,10 +22,18 @@ colorscheme, statusline and tabline by [rafi](https://github.com/rafi).
 
 ## Installation
 
-Just simply run `make` to install all the necessary dependencies and
+Clone repository into `~/.config/nvim`
+
+```bash
+git clone --single-branch --branch master https://github.com/marklcrns/nvim-config ~/.config/nvim
+```
+
+Then simply run `make` to install all the necessary dependencies and
 directories.
 
 ```bash
+cd ~/.config/nvim
+
 make
 # or
 make install
@@ -40,12 +48,6 @@ using global python.
 For minimal version of this repo, checkout to the
 [minimal](https://github.com/marklcrns/nvim-config/tree/minimal) branch of this
 repo.
-
-```bash
-git checkout minimal
-```
-
-Then simply run `make` to install.
 
 
 ## Notable Plugins
