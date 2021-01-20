@@ -23,13 +23,13 @@ ok "===> neovim check pass"
 
 action "Checking node and yarn..."
 
-if node --version | grep "v" &> /dev/null; then
+if ! command -v node &> /dev/null; then
   error "Node not installed"
   warn "Please install node use this script 'curl -sL install-node.now.sh/lts | bash' "
   exit 1;
 fi
 
-if yarn --version | grep "v" &> /dev/null; then
+if ! command -v yarn &> /dev/null; then
   error "yarn not installed"
   warn "Please install yarn use this script 'curl --compressed -o- -L https://yarnpkg.com/install.sh | bash' "
   exit 1;
