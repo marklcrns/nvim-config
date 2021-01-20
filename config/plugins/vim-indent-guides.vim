@@ -1,4 +1,3 @@
-let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_tab_guides = 0
 let g:indent_guides_color_change_percent = 3
@@ -10,3 +9,5 @@ let g:indent_guides_exclude_filetypes =
     \ 'codi', 'which_key', 'calendar', 'coc', 'floaterm',
     \ 'any-jump', 'coc-explorer', 'clap_input', 'dashboard',
     \ 'fern' ]
+
+autocmd user_events FileType * ++once IndentGuidesEnable
