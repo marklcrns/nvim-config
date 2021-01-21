@@ -11,8 +11,10 @@ let g:indent_guides_exclude_filetypes = [
 			\ 'dashboard', 'codi', 'which_key'
 			\ ]
 
-let g:indent_guides_start_level = 2
+let g:indent_guides_start_level = 1
+let g:indent_guides_space_guides = 1
 let g:indent_guides_tab_guides = 1
+" Override tab display chars
 set listchars+=tab:\ \ 
 
 autocmd user_events FileType * ++once IndentGuidesEnable

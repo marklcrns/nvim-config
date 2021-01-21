@@ -1,4 +1,4 @@
-" File:       hybrid_reverse.vim
+" File:       custom_hybrid_reverse.vim
 " BASED ON:   https://github.com/w0ng/vim-hybrid
 "             https://github.com/kristijanhusak/vim-hybrid-material
 
@@ -7,11 +7,11 @@
 hi clear
 
 if exists("syntax_on")
-  syntax reset
+	syntax reset
 endif
 
 let s:style = &background
-let g:colors_name = "hybrid_reverse"
+let g:colors_name = "custom_hybrid_reverse"
 " }}}
 
 " GUI And Cterm Palettes: {{{
@@ -19,7 +19,7 @@ let g:colors_name = "hybrid_reverse"
 
 let s:palette = {'gui' : {} , 'cterm' : {}}
 
-let s:gui_background = "#1d1f21"
+let s:gui_background = "#1C1C1C"
 let s:gui_selection  = "#373b41"
 let s:gui_line       = "#282a2e"
 let s:gui_comment    = "#707880"
@@ -49,31 +49,31 @@ let s:palette.gui.darkred    = { 'dark' : "#5f0000"        , 'light' : "#d7d7ff"
 let s:palette.gui.darkpurple = { 'dark' : "#5f005f"        , 'light' : "#5f005f" }
 
 if exists("g:hybrid_custom_term_colors") && g:hybrid_custom_term_colors == 1
-  let s:cterm_foreground = "15"  " White
-  let s:cterm_selection  = "8"   " DarkGrey
-  let s:cterm_line       = "0"   " Black
-  let s:cterm_comment    = "7"   " LightGrey
-  let s:cterm_red        = "9"   " LightRed
-  let s:cterm_orange     = "3"   " DarkYellow
-  let s:cterm_yellow     = "11"  " LightYellow
-  let s:cterm_green      = "10"  " LightGreen
-  let s:cterm_aqua       = "14"  " LightCyan
-  let s:cterm_blue       = "12"  " LightBlue
-  let s:cterm_purple     = "13"  " LightMagenta
-  let s:cterm_delbg      = "9"   " LightRed
+	let s:cterm_foreground = "15"  " White
+	let s:cterm_selection  = "8"   " DarkGrey
+	let s:cterm_line       = "0"   " Black
+	let s:cterm_comment    = "7"   " LightGrey
+	let s:cterm_red        = "9"   " LightRed
+	let s:cterm_orange     = "3"   " DarkYellow
+	let s:cterm_yellow     = "11"  " LightYellow
+	let s:cterm_green      = "10"  " LightGreen
+	let s:cterm_aqua       = "14"  " LightCyan
+	let s:cterm_blue       = "12"  " LightBlue
+	let s:cterm_purple     = "13"  " LightMagenta
+	let s:cterm_delbg      = "9"   " LightRed
 else
-  let s:cterm_foreground = "250"
-  let s:cterm_selection  = "237"
-  let s:cterm_line       = "235"
-  let s:cterm_comment    = "243"
-  let s:cterm_red        = "167"
-  let s:cterm_orange     = "173"
-  let s:cterm_yellow     = "221"
-  let s:cterm_green      = "143"
-  let s:cterm_aqua       = "109"
-  let s:cterm_blue       = "110"
-  let s:cterm_purple     = "139"
-  let s:cterm_delbg      = "167"
+	let s:cterm_foreground = "250"
+	let s:cterm_selection  = "237"
+	let s:cterm_line       = "235"
+	let s:cterm_comment    = "243"
+	let s:cterm_red        = "167"
+	let s:cterm_orange     = "173"
+	let s:cterm_yellow     = "221"
+	let s:cterm_green      = "143"
+	let s:cterm_aqua       = "109"
+	let s:cterm_blue       = "110"
+	let s:cterm_purple     = "139"
+	let s:cterm_delbg      = "167"
 endif
 
 let s:palette.cterm.background = { 'dark' : "234"              , 'light' : "254" }
@@ -118,11 +118,11 @@ let s:i      = ",italic"
 " Highlighting Primitives: {{{
 " ----------------------------------------------------------------------------
 function! s:build_prim(hi_elem, field)
-  " Given a:hi_elem = bg, a:field = comment
-  let l:vname = "s:" . a:hi_elem . "_" . a:field " s:bg_comment
-  let l:gui_assign = "gui".a:hi_elem."=".s:palette.gui[a:field][s:style] " guibg=...
-  let l:cterm_assign = "cterm".a:hi_elem."=".s:palette.cterm[a:field][s:style] " ctermbg=...
-  exe "let " . l:vname . " = ' " . l:gui_assign . " " . l:cterm_assign . "'"
+	" Given a:hi_elem = bg, a:field = comment
+	let l:vname = "s:" . a:hi_elem . "_" . a:field " s:bg_comment
+	let l:gui_assign = "gui".a:hi_elem."=".s:palette.gui[a:field][s:style] " guibg=...
+	let l:cterm_assign = "cterm".a:hi_elem."=".s:palette.cterm[a:field][s:style] " ctermbg=...
+	exe "let " . l:vname . " = ' " . l:gui_assign . " " . l:cterm_assign . "'"
 endfunction
 
 let s:bg_none = ' guibg=NONE ctermbg=NONE'
@@ -212,16 +212,16 @@ exe "let s:sp_darkpurple = ' guisp=". s:palette.gui.darkpurple[s:style] ."'"
 
 " Set bold font depending on options
 if exists("g:enable_bold_font") && g:enable_bold_font == 1
-    let s:fg_bold = s:fmt_bold
+	let s:fg_bold = s:fmt_bold
 else
-    let s:fg_bold = s:fmt_none
+	let s:fg_bold = s:fmt_none
 endif
 
 " Set italic font depending on options
 if exists("g:enable_italic_font") && g:enable_italic_font == 1
-    let s:fg_italic = s:fmt_ital
+	let s:fg_italic = s:fmt_ital
 else
-    let s:fg_italic = s:fmt_none
+	let s:fg_italic = s:fmt_none
 endif
 
 " }}}
@@ -276,15 +276,15 @@ hi LongLineWarning  guifg=NONE        guibg=#371F1C     gui=underline ctermfg=NO
 
 " Use defined custom background colour for terminal Vim.
 if !has('gui_running') && exists("g:hybrid_custom_term_colors") && g:hybrid_custom_term_colors == 1
-  let s:bg_normal = s:bg_none
+	let s:bg_normal = s:bg_none
 else
-  let s:bg_normal = s:bg_background
+	let s:bg_normal = s:bg_background
 endif
 
 let s:normal_bg = s:bg_normal
 
 if get(g:, 'hybrid_transparent_background', 0) == 1
-  let s:normal_bg = s:bg_none
+	let s:normal_bg = s:bg_none
 endif
 
 exe "hi! Normal"        .s:fg_foreground  .s:normal_bg      .s:fmt_none
@@ -372,107 +372,3 @@ hi! link diffAdded String
 " This is needed for some reason: {{{
 let &background = s:style
 " }}}
-
-" Highlights: Tabline {{{
-" ----------------------------------------------------------------------------
-" TabLineFill: Tab pages line, where there are no labels
-hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gui=NONE
-" TabLine: Not-active tab page label
-hi TabLine     ctermfg=243 ctermbg=236 guifg=#767676 guibg=#303030 cterm=NONE gui=NONE
-" TabLineSel: Active tab page label
-hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C cterm=NONE gui=NONE
-" Custom
-highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
-highlight TabLineAlt       ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
-highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
-" }}}
-
-" Highlights: Statusline {{{
-highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897 cterm=reverse gui=reverse
-highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656 cterm=reverse gui=reverse
-
-" Filepath color
-highlight User1 guifg=#D7D7BC guibg=#30302c ctermfg=251 ctermbg=236
-" Line and column information
-highlight User2 guifg=#a8a897 guibg=#4e4e43 ctermfg=248 ctermbg=239
-" Line and column corner arrow
-highlight User3 guifg=#4e4e43 guibg=#30302c ctermfg=239 ctermbg=236
-" Buffer # symbol and whitespace or syntax errors
-highlight User4 guifg=#666656 guibg=#30302c ctermfg=242 ctermbg=236
-" Write symbol
-highlight User6 guifg=#cf6a4c guibg=#30302c ctermfg=167 ctermbg=236
-" Paste symbol
-highlight User7 guifg=#99ad6a guibg=#30302c ctermfg=107 ctermbg=236
-" Syntax and whitespace
-highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
-" }}}
-
-" Highlights: General GUI {{{
-" ----------------------------------------------------------------------------
-" Ref: https://github.com/mhinz/vim-janah
-highlight Comment guifg=#585858 ctermfg=240 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-" Transparent bg
-highlight Normal guibg=NONE ctermbg=NONE
-" }}}
-
-" Plugin: vim-gitgutter {{{
-" ----------------------------------------------------------------------------
-highlight! GitGutterAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
-" }}}
-
-" Plugin: Vim-indent-guides {{{
-" NOTE: g:indent_guides_auto_colors must be 0
-" ----------------------------------------------------------------------------
-highlight IndentGuidesOdd  guibg=#262626 ctermbg=235
-highlight IndentGuidesEven guibg=#303030 ctermbg=236
-" }}}
-
-" Plugin: vim-highlightedyank {{{
-" ----------------------------------------------------------------------------
-highlight! link HighlightedyankRegion DiffText
-" }}}
-
-" Plugin: vim-signature {{{
-highlight! SignatureMarkText    ctermfg=11 guifg=#756207 ctermbg=234 guibg=#1c1c1c
-highlight! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c
-" }}}
-
-" Plugin: vim-choosewin {{{
-" ----------------------------------------------------------------------------
-let g:choosewin_color_label = {
-      \ 'cterm': [  75, 233 ], 'gui': [ '#7f99cd', '#000000' ] }
-let g:choosewin_color_label_current = {
-      \ 'cterm': [ 228, 233 ], 'gui': [ '#D7D17C', '#000000' ] }
-let g:choosewin_color_other = {
-      \ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
-" }}}
-
-" Plugin: Fern.vim {{{
-" ----------------------------------------------------------------------------
-highlight FernGitStatusBracket guifg=#6c7a80 ctermfg=NONE
-highlight FernGitStatusIndex guifg=#b5bd68 guibg=NONE
-highlight FernGitStatusWorktree guifg=#cc6666 guibg=NONE
-highlight FernGitStatusUnmerged guifg=#232c31 guibg=NONE
-highlight FernGitStatusUntracked guifg=#6c7a80 guibg=NONE
-highlight FernGitStatusIgnored guifg=#6c7a80 guibg=NONE
-" }}}
-
-" Plugins: Coc {{{
-" ----------------------------------------------------------------------------
-highlight CocCursorRange guibg=#b16286 guifg=#ebdbb2
-highlight default CocHighlightText  guibg=#725972 ctermbg=96
-highlight CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
-
-" Coc-yank highlight
-highlight HighlightedyankRegion term=bold ctermbg=0 guibg=#d0d0d0
-" }}}
-
-" GetColorSynatxGroup
-" ---------------------------------------------------------
-nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
-      \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-

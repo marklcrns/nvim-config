@@ -94,6 +94,7 @@ if get(g:, 'tabline_plugin_enable', 1)
 endif
 
 call theme#init()
+call utils#source_file($VIM_PATH,'core/colors.vim')
 
 set secure
 
