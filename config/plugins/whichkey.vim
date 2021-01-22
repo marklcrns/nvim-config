@@ -440,6 +440,7 @@ let g:which_key_localmap = {
 			\ 'r'		 : 'Quick run',
 			\ 's' : {
 						\ 'name' : '+ui-toggles',
+							 \ 'b' : 'Toggle dark/light background',
 							 \ 'c' : 'Color highlight toggle',
 							 \ 'd' : 'Dim inactive toggle',
 							 \ 'e' : 'Conceal toggle',
@@ -447,6 +448,7 @@ let g:which_key_localmap = {
 							 \ 'i' : 'Indent guide toggle',
 							 \ 'p' : 'Rainbow pairs toggle',
 							 \ 's' : 'Spell checker toggle',
+							 \ 't' : 'Tab char toggle',
 							 \ 'r' : 'Auto split resize toggle',
 							 \ 'v' : 'Virtualedit mode toggle',
 							 \ 'w' : 'Text wrap toggle',
