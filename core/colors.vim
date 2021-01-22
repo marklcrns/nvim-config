@@ -42,17 +42,22 @@ highlight Comment guifg=#585858 ctermfg=240 guibg=NONE ctermbg=NONE gui=NONE cte
 
 " Plugin: vim-gitgutter {{{
 " ----------------------------------------------------------------------------
-highlight! GitGutterAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
+highlight! GitGutterAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=NONE
+highlight! GitGutterChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=NONE
+highlight! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
+highlight! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
 " }}}
 
 " Plugin: Vim-indent-guides {{{
 " NOTE: g:indent_guides_auto_colors must be 0
 " ----------------------------------------------------------------------------
-highlight IndentGuidesOdd  guibg=#222222 ctermbg=235
-highlight IndentGuidesEven guibg=#272727 ctermbg=236
+if &background ==# 'dark'
+	highlight IndentGuidesOdd  guibg=#222222 ctermbg=235
+	highlight IndentGuidesEven guibg=#272727 ctermbg=236
+elseif &background ==# 'light'
+	highlight IndentGuidesOdd  guibg=#d2d2d2 ctermbg=235
+	highlight IndentGuidesEven guibg=#e0e0e0 ctermbg=236
+endif
 " }}}
 
 " Plugin: vim-signature {{{
