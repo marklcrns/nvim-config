@@ -639,8 +639,6 @@ function! s:toggle_background()
 			echo 'Set colorscheme to '.&background.' mode'
 		endif
 	endif
-	
-	call utils#source_file($VIM_PATH,'core/colors.vim')
 endfunction
 
 function! s:window_empty_buffer()

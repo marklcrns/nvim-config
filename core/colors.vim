@@ -48,18 +48,6 @@ highlight! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
 highlight! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
 " }}}
 
-" Plugin: Vim-indent-guides {{{
-" NOTE: g:indent_guides_auto_colors must be 0
-" ----------------------------------------------------------------------------
-if &background ==# 'dark'
-	highlight IndentGuidesOdd  guibg=#222222 ctermbg=235
-	highlight IndentGuidesEven guibg=#272727 ctermbg=236
-elseif &background ==# 'light'
-	highlight IndentGuidesOdd  guibg=#d2d2d2 ctermbg=235
-	highlight IndentGuidesEven guibg=#e0e0e0 ctermbg=236
-endif
-" }}}
-
 " Plugin: vim-signature {{{
 highlight! SignatureMarkText    ctermfg=11 guifg=#756207 ctermbg=234 guibg=#1c1c1c
 highlight! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c
