@@ -18,10 +18,6 @@ let $VIM_PATH =
 			\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 			\ )
 
-" Set data/cache directory as $XDG_CACHE_HOME/vim
-let $DATA_PATH =
-			\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
-
 " Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
 			\ $HOME     . '/.nvim-config.d/plugins.yaml',
