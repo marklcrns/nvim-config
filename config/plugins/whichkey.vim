@@ -429,13 +429,17 @@ let g:which_key_localmap = {
 							 \ 'v' : 'Calendar vertical yearly',
 							 \ 'w' : 'Calendar weekly',
 						\ },
-			\ 'l'		 : 'toggle-locationlist',
 			\ 'm' : {
 						\ 'name' : '+Minimap',
 						\ 'm' : 'Minimap Toggle',
 						\ 'q' : 'Minimap Close',
 						\ 'r' : 'Minimap Refresh',
-			\ },
+						\ },
+			\ 'o' : {
+						\ 'name' : '+open',
+								\ 'l'	: 'Toggle locationlist',
+								\ 'q'	: 'Toggle quickfix',
+						\ },
 			\ 'q'		 : 'Toggle quickfix',
 			\ 'r'		 : 'Quick run',
 			\ 's' : {

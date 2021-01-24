@@ -1,4 +1,33 @@
 " Plugin key settings
+let s:enable_whichkey = dein#tap('vim-which-key')
+
+if s:enable_whichkey
+	function! InitWhickey()
+		let s:leader_key=substitute(get(g:,"mapleader","\\"), ' ', '<Space>', '')
+		let s:localleader_key= get(g:,'maplocalleader',';')
+		execute 'nnoremap <silent> <Leader> :<c-u>WhichKey "'.s:leader_key.'"<CR>'
+		execute 'vnoremap <silent> <Leader> :<c-u>WhichKeyVisual "'.s:leader_key.'"<CR>'
+		execute 'nnoremap <silent> <LocalLeader> :<c-u>WhichKey "' .s:localleader_key.'"<CR>'
+		execute 'vnoremap <silent> <LocalLeader> :<c-u>WhichKeyVisual "'.s:localleader_key.'"<CR>'
+		execute 'nnoremap <silent> [ :<c-u>WhichKey "["<CR>'
+		execute 'nnoremap <silent> ] :<c-u>WhichKey "]"<CR>'
+	endfunction
+	call InitWhickey()
+
+	" let g:which_key_map.c = { 'name': '+code' }
+	" let g:which_key_map.f = { 'name': '+find'}
+	" let g:which_key_map.o = { 'name': '+open' }
+	" let g:which_key_map.t = { 'name': '+toggle'}
+	" let g:which_key_map.g = { 'name': '+versioncontrol'}
+
+	" Extra mappings
+	nnoremap <silent> ?s            :<c-u>WhichKey 's'<CR>
+	vnoremap <silent> ?s            :<c-u>WhichKeyVisual 's'<CR>
+	nnoremap <silent> ?d            :<c-u>WhichKey 'd'<CR>
+	vnoremap <silent> ?d            :<c-u>WhichKeyVisual 'd'<CR>
+	nnoremap <silent> ?g            :<c-u>WhichKey 'g'<CR>
+	vnoremap <silent> ?g            :<c-u>WhichKeyVisual 'g'<CR>
+endif
 
 if dein#tap('dein.vim')
   nnoremap <silent> <Leader>pu  :call dein#update()<CR>
@@ -415,21 +444,6 @@ if dein#tap('vim-easymotion')
   nmap <Leader><Leader>, <Plug>(easymotion-prev)
 endif
 
-if dein#tap('vim-which-key')
-  nnoremap <silent> <Leader>      :<c-u>WhichKey '<Space>'<CR>
-  vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
-  nnoremap <silent> <localleader> :<c-u>WhichKey ';'<CR>
-  vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ';'<CR>
-  nnoremap <silent> [             :<c-u>WhichKey '['<CR>
-  nnoremap <silent> ]             :<c-u>WhichKey ']'<CR>
-  nnoremap <silent> ?s            :<c-u>WhichKey 's'<CR>
-  vnoremap <silent> ?s            :<c-u>WhichKeyVisual 's'<CR>
-  nnoremap <silent> ?d            :<c-u>WhichKey 'd'<CR>
-  vnoremap <silent> ?d            :<c-u>WhichKeyVisual 'd'<CR>
-  nnoremap <silent> ?g            :<c-u>WhichKey 'g'<CR>
-  vnoremap <silent> ?g            :<c-u>WhichKeyVisual 'g'<CR>
-endif
-
 if dein#tap('vim-niceblock')
   silent! xmap I  <Plug>(niceblock-I)
   silent! xmap gI <Plug>(niceblock-gI)
@@ -519,6 +533,12 @@ if dein#tap('vim-markdown')
   nnoremap <Leader>lmth :<C-u>Toch<CR>
   " Disable mappings
   map <Plug> <Plug>Markdown_MoveToCurHeader
+endif
+
+if dein#tap('vimtex')
+	if s:enable_whichkey
+		let g:which_key_localmap.l = { 'name': '+vimtex' }
+	endif
 endif
 
 if dein#tap('vimwiki')

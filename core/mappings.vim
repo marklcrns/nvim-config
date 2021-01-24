@@ -319,7 +319,7 @@ function! QuickFixLocationListMappings()
 		endfor
 		lopen
 	endfunction
-	nnoremap <silent> <LocalLeader>l :call LocationlistToggle()<CR>
+	nnoremap <silent> <LocalLeader>ol :call LocationlistToggle()<CR>
 	" Move through the quickfix list
 	nnoremap <silent> [q :cprevious<CR>
 	nnoremap <silent> ]q :cnext<CR>
@@ -336,7 +336,7 @@ function! QuickFixLocationListMappings()
 		endfor
 		copen
 	endfunction
-	nnoremap <silent> <LocalLeader>q :call QuickfixToggle()<CR>
+	nnoremap <silent> <LocalLeader>oq :call QuickfixToggle()<CR>
 	" When using `dd` in the quickfix list, remove the item from the quickfix list.
 	" Ref: https://stackoverflow.com/a/48817071/11850077
 	function! RemoveQFItem()

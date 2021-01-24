@@ -197,6 +197,8 @@
   on_cmd: [G, Git, Gfetch, Gpush, Gstatus, Glog, Gclog, Gllog, Gdiffsplit, Gvdiffsplit]
 # }}}
 
+# Languages {{{
+
 # Javascript
 # ----------------------------------------
 # - repo: chemzqm/vim-jsx-improve
@@ -242,7 +244,15 @@
 # ----------------------------------------
 - repo: pearofducks/ansible-vim
   on_ft: [yaml.ansible, ansible_hosts]
+
+# LaTeX
+
+- repo: lervag/vimtex
+  on_ft: tex
+  hook_source: source $VIM_PATH/config/plugins/vimtex.vim
+
 # }}}
+
 
 # Tools{{{
 - { repo: andymass/vim-matchup, on_event: FileType }
@@ -369,13 +379,13 @@
 
 # Only load when in wiki directory
 - repo: https://github.com/vimwiki/vimwiki
-  on_if: "(getcwd() =~ $HOME . '/Docs/wiki.*' && &filetype == 'markdown')"
+  on_if: "(getcwd() =~ $HOME . '/Documents/wiki.*' && &filetype == 'markdown')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
 
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
-  on_if: "(expand('%:p') =~ $HOME . '/Docs/wiki/wiki/md/diary/.*' && &filetype == 'vimwiki')"
+  on_if: "(expand('%:p') =~ $HOME . '/Documents/wiki/wiki/md/diary/.*' && &filetype == 'vimwiki')"
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
