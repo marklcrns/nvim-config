@@ -285,12 +285,6 @@ let g:which_key_map = {
 											\ },
 								\ },
 					\ },
-		\ 'L' : {
-					\ 'name' : '+leetcode',
-					\ 'l' : 'List Leetcode problems',
-					\ 't' : 'Run Leetcode test',
-					\ 's' : 'Submit Leetcode solution',
-					\ },
 		\ 'o' : {
 					\ 'name' : '+open',
 						 \ 'g' : 'Open file in google chrome',
@@ -587,12 +581,13 @@ let g:which_key_smap = {
 let g:which_key_timeout = 200
 let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
 
+let g:which_key_display_names = {'<CR>': '↵', '<TAB>': '⇆'}
 let g:which_key_display_names = {
-			\				' ': 'SPC',
-			\		'<C-H>': 'BS',
-			\		'<C-I>': 'TAB',
-			\		'<TAB>': 'TAB',
-			\ '<S-TAB>': 'S-TAB',
-			\		 '<CR>': 'ENTER',
+			\				' ': '␣',
+			\		'<C-H>': '←',
+			\		'<C-I>': '⇆',
+			\		'<TAB>': '⇆',
+			\ '<S-TAB>': 'S⇆',
+			\		 '<CR>': '↵',
 			\ }
 
