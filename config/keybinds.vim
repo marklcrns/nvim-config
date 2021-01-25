@@ -183,6 +183,7 @@ if dein#tap('vim-clap')
   nnoremap <silent> <Leader>fdb :<C-u>Clap buffers<CR>
   nnoremap <silent> <Leader>fdr :<C-u>Clap grep<CR>
   nnoremap <silent> <Leader>fdR :<C-u>Clap grep %:p:h<CR>
+  nnoremap <silent> <Leader>fds :<C-u>Clap sessions<CR>
   nnoremap <silent> <Leader>fdm :<C-u>Clap marks<CR>
   nnoremap <silent> <Leader>fdf :<C-u>Clap files ++finder=rg --files<cr>
   nnoremap <silent> <Leader>fdF :<C-u>Clap files ++finder=rg --hidden --files<cr>
@@ -198,7 +199,7 @@ if dein#tap('vim-clap')
   "like emacs counsel-find-file
   nnoremap <silent> <C-x><C-f> :<C-u>Clap filer<CR>
 
-  autocmd FileType clap_input call s:clap_mappings()
+  autocmd user_events FileType clap_input call s:clap_mappings()
 
   function! s:clap_mappings()
     nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>

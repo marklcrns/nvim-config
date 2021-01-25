@@ -1,3 +1,21 @@
+let g:vimwiki_use_calendar = 1
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_cb_checked = 1
+let g:vimwiki_autowriteall = 0
+let g:vimwiki_folding = 'custom'
+let g:vimwiki_key_mappings = {
+      \   'all_maps': 1,
+      \   'global': 1,
+      \   'headers': 1,
+      \   'text_objs': 1,
+      \   'table_format': 1,
+      \   'table_mappings': 0,
+      \   'lists': 1,
+      \   'links': 1,
+      \   'html': 1,
+      \   'mouse': 0,
+      \ }
+let g:vimwiki_map_prefix = '<LocalLeader>w'
 
 let g:vimwiki_list = [
       \   { 'path': '~/Documents/wiki/wiki/md/',
@@ -263,24 +281,21 @@ augroup VimwikiCustomMappings
         \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
         \ "\<ESC>:VimwikiReturn 1 5\<CR>"
   autocmd FileType vimwiki inoremap <silent><buffer> <CR>
-              \ <C-]><Esc>:VimwikiReturn 1 5<CR>
+        \ <C-]><Esc>:VimwikiReturn 1 5<CR>
   autocmd FileType vimwiki inoremap <silent><buffer> <S-CR>
-              \ <Esc>:VimwikiReturn 4 1<CR>
+        \ <Esc>:VimwikiReturn 4 1<CR>
   autocmd Filetype vimwiki nnoremap <silent><buffer><LocalLeader>wL :call IndexResourcesLinks('# Resources', '')<CR>
-  " Dependent on `q` mapping to exec `bdelete`. Somehow <S-CR> on normal don't work
-  " autocmd Filetype vimwiki nmap <buffer><Leader><CR> :VimwikiFollowLink<CR>mZ<C-o>q`ZmZ
-  " autocmd Filetype vimwiki nmap <buffer><Leader><BS> :VimwikiGoBackLink<CR>mZ<C-o>q`ZmZ
 augroup END
 
 " Quick fix hack on <CR> and <S-CR> being remapped when comming back to a session
 if !hasmapto('VimwikiReturn', 'i')
   if maparg('<CR>', 'i') !~? '<Esc>:VimwikiReturn'
-    autocmd Filetype vimwiki inoremap <silent><buffer><expr> <CR>
+    autocmd FileType vimwiki inoremap <silent><buffer><expr> <CR>
           \ delimitMate#WithinEmptyPair() ?
           \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
           \ "\<ESC>:VimwikiReturn 1 5\<CR>"
   endif
   if maparg('<S-CR>', 'i') !~? '<Esc>:VimwikiReturn'
-    autocmd Filetype vimwiki inoremap <silent><buffer> <S-CR> <Esc>:VimwikiReturn 4 1<CR>
+    autocmd FileType vimwiki inoremap <silent><buffer> <S-CR> <Esc>:VimwikiReturn 4 1<CR>
   endif
 endif

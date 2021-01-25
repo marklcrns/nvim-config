@@ -41,31 +41,8 @@ if ! command -v task &> /dev/null; then
   pkg install taskwarrior
 fi
 
-# Install virtual environment for vim python prog host
-source ${SCRIPTDIR}/venv.sh
-
-# python2 host prog
-if source ${NVIM_ROOT}/env/python/env/bin/activate; then
-  pip install wheel pynvim neovim
-  # Optionals
-  pip install git+git://github.com/tbabej/tasklib@develop # For tbabej/taskwiki
-  pip install six
-  pip install keyring browser_cookie3  # for leetcode.vim
-  pip install keyrings.alt
-  deactivate
-fi
-
-# python3 host prog
-if source ${NVIM_ROOT}/env/python3/env/bin/activate; then
-  pip install wheel pynvim neovim PyYAML
-  # Optionals
-  pip install git+git://github.com/tbabej/tasklib@develop # For tbabej/taskwiki
-  pip install six
-  pip install keyring browser_cookie3  # for leetcode.vim
-  pip install keyrings.alt
-  deactivate
-fi
-
+# Generate virtual environment for vim python prog host
+source ${SCRIPTDIR}/generate_venv.sh
 
 echo
 echo "Done!"

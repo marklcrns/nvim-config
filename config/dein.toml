@@ -218,6 +218,13 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'hokorobi/vim-clap-sessions'
+depends = 'vim-clap'
+hook_add = '''
+	let g:clap_session_dir = $DATA_PATH . '/sessions'
+'''
+
+[[plugins]]
 repo = 'junegunn/gv.vim'
 depends = 'vim-fugitive'
 on_cmd = 'GV'
@@ -279,7 +286,7 @@ hook_add = '''
 repo = 'vimwiki/vimwiki'
 on_cmd = ['VimwikIndex', 'VimwikiDiaryIndex', 'VimwikiUISelect']
 on_if = '''
-  (getcwd() =~ $HOME . "/Docs/wiki.\*" && &filetype == "markdown")
+  (getcwd() =~ $HOME . "/Documents/wiki.\*" && &filetype == "markdown")
 '''
 hook_add = '''
   let g:vimwiki_use_calendar = 1
@@ -310,7 +317,7 @@ hook_source = '''
 [[plugins]]
 repo = 'tbabej/taskwiki'
 on_if = '''
-  (expand('%:p') =~ $HOME . "/Docs/wiki/wiki/md/diary/.\*" && &filetype == 'vimwiki')
+  (expand('%:p') =~ $HOME . "/Documents/wiki/wiki/md/diary/.\*" && &filetype == 'vimwiki')
 '''
 depends = 'vimwiki'
 hook_source = '''
