@@ -31,7 +31,7 @@
 # ----------------------------------------
 - repo: dhruvasagar/vim-zoom
   hook_add: |
-    let g:zoom#statustext = '🔎'
+    let g:zoom#statustext = 'F'
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
