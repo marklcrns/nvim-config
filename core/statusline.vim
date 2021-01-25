@@ -4,7 +4,7 @@
 let s:stl  = " %7*%{&paste ? '=' : ''}%*"         " Paste symbol
 let s:stl .= "%4*%{&readonly ? '' : '#'}%*"       " Modified symbol
 let s:stl .= "%6*%{badge#mode('🔒', 'Z')}"       " Read-only symbol
-let s:stl .= "%6*%{zoom#statusline()}%*"
+let s:stl .= "%6*%{badge#zoom()}%*"
 let s:stl .= '%*%n'                               " Buffer number
 let s:stl .= "%6*%{badge#modified('+')}%0*"       " Write symbol
 let s:stl .= ' %1*%{badge#filename()}%* '         " Filename
@@ -29,16 +29,16 @@ let s:stl_nc .= '%{&ft} '                      " File type
 
 " Status-line blacklist
 let s:statusline_filetypes_ignore = get(g:, 'statusline_filetypes_ignore',
-	\ 'defx\|denite\|vista\|undotree\|diff\|sidemenu\|qf\|minimap')
+			\ 'defx\|denite\|vista\|undotree\|diff\|sidemenu\|qf\|minimap')
 
 let s:statusline_filetypes = get(g:, 'statusline_filetypes', {
-	\ 'defx': ['%{fnamemodify(getcwd(), ":t")}%=%l/%L'],
-	\ 'magit': [
-	\   '%y %{badge#gitstatus()}%<%=%{fnamemodify(badge#filename(), ":~")}%=%l/%L',
-	\   '%y %{badge#gitstatus()}%= %l/%L'],
-	\ 'minimap': [' '],
-	\ 'denite-filter': ['%#Normal#'],
-	\ })
+			\ 'defx': ['%{fnamemodify(getcwd(), ":t")}%=%l/%L'],
+			\ 'magit': [
+			\   '%y %{badge#gitstatus()}%<%=%{fnamemodify(badge#filename(), ":~")}%=%l/%L',
+			\   '%y %{badge#gitstatus()}%= %l/%L'],
+			\ 'minimap': [' '],
+			\ 'denite-filter': ['%#Normal#'],
+			\ })
 
 " s:set_state replaces current statusline
 function! s:set_state(filetype, index, default)
