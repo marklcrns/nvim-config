@@ -25,20 +25,20 @@ update-plugins:
 	$(vim) -V1 -es -i NONE -N --noplugin -u core/package_manager.vim \
 		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
 
-uninstall:
-	rm -rf "$(XDG_CONFIG_HOME)/coc" "$(XDG_CACHE_HOME)/vim"
+clean:
+	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CONFIG_HOME)/coc"
 
 test:
 ifeq ('$(vim)','nvim')
 	$(info Testing NVIM 0.5+...)
 	$(if $(shell echo "$(vim_version)" | egrep "NVIM v0\.[5-9]"),\
 		$(info OK),\
-		$(error   .. You need Neovim 0.5.x or newer))
+		$(error		.. You need Neovim 0.5.x or newer))
 else
 	$(info Testing VIM 8.x...)
 	$(if $(shell echo "$(vim_version)" | egrep "VIM .* 8\."),\
 		$(info OK),\
-		$(error   .. You need Vim 8.x))
+		$(error		.. You need Vim 8.x))
 
 	$(info Testing +python3... )
 	$(if $(findstring +python3,$(vim_version)),\
@@ -47,4 +47,4 @@ else
 endif
 	@echo All tests passed, hooray!
 
-.PHONY: install create-dirs update-repo update-plugins uninstall test
+.PHONY: install create-dirs update-repo update-plugins clean test
