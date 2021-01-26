@@ -26,13 +26,13 @@ if has('vim_starting')
 	" Python interpreter settings
 	if has('nvim')
 		" Set python interpreter from a dedicated virtualenv created by generate_venv.sh
-		let l:python = $DATA_PATH . '/venv/python/env/bin/python'
-		let l:python3 = $DATA_PATH . '/venv/python3/env/bin/python3'
-		if filereadable(l:python)
-			let g:python_host_prog = l:python
+		let s:python = $DATA_PATH . '/venv/python/env/bin/python'
+		let s:python3 = $DATA_PATH . '/venv/python3/env/bin/python3'
+		if filereadable(s:python)
+			let g:python_host_prog = s:python
 		endif
-		if filereadable(l:python3)
-			let g:python3_host_prog = l:python3
+		if filereadable(s:python3)
+			let g:python3_host_prog = s:python3
 		endif
 	elseif has('pythonx')
 		if has('python3')
