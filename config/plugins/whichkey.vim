@@ -581,7 +581,6 @@ let g:which_key_smap = {
 let g:which_key_timeout = 200
 let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
 
-let g:which_key_display_names = {'<CR>': '↵', '<TAB>': '⇆'}
 let g:which_key_display_names = {
 			\				' ': '␣',
 			\		'<C-H>': '←',
