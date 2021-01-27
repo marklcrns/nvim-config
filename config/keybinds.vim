@@ -1,4 +1,33 @@
 " Plugin key settings
+let s:enable_whichkey = dein#tap('vim-which-key')
+
+if s:enable_whichkey
+	function! InitWhickey()
+		let s:leader_key=substitute(get(g:,"mapleader","\\"), ' ', '<Space>', '')
+		let s:localleader_key= get(g:,'maplocalleader',';')
+		execute 'nnoremap <silent> <Leader> :<c-u>WhichKey "'.s:leader_key.'"<CR>'
+		execute 'vnoremap <silent> <Leader> :<c-u>WhichKeyVisual "'.s:leader_key.'"<CR>'
+		execute 'nnoremap <silent> <LocalLeader> :<c-u>WhichKey "' .s:localleader_key.'"<CR>'
+		execute 'vnoremap <silent> <LocalLeader> :<c-u>WhichKeyVisual "'.s:localleader_key.'"<CR>'
+		execute 'nnoremap <silent> [ :<c-u>WhichKey "["<CR>'
+		execute 'nnoremap <silent> ] :<c-u>WhichKey "]"<CR>'
+	endfunction
+	call InitWhickey()
+
+	" let g:which_key_map.c = { 'name': '+code' }
+	" let g:which_key_map.f = { 'name': '+find'}
+	" let g:which_key_map.o = { 'name': '+open' }
+	" let g:which_key_map.t = { 'name': '+toggle'}
+	" let g:which_key_map.g = { 'name': '+versioncontrol'}
+
+	" Extra mappings
+	nnoremap <silent> ?s            :<c-u>WhichKey 's'<CR>
+	vnoremap <silent> ?s            :<c-u>WhichKeyVisual 's'<CR>
+	nnoremap <silent> ?d            :<c-u>WhichKey 'd'<CR>
+	vnoremap <silent> ?d            :<c-u>WhichKeyVisual 'd'<CR>
+	nnoremap <silent> ?g            :<c-u>WhichKey 'g'<CR>
+	vnoremap <silent> ?g            :<c-u>WhichKeyVisual 'g'<CR>
+endif
 
 if dein#tap('dein.vim')
   nnoremap <silent> <Leader>pu  :call dein#update()<CR>
@@ -331,21 +360,6 @@ if dein#tap('vim-easymotion')
   nmap <Leader><Leader>, <Plug>(easymotion-prev)
 endif
 
-if dein#tap('vim-which-key')
-  nnoremap <silent> <Leader>      :<c-u>WhichKey '<Space>'<CR>
-  vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
-  nnoremap <silent> <localleader> :<c-u>WhichKey ';'<CR>
-  vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ';'<CR>
-  nnoremap <silent> [             :<c-u>WhichKey '['<CR>
-  nnoremap <silent> ]             :<c-u>WhichKey ']'<CR>
-  nnoremap <silent> ?s            :<c-u>WhichKey 's'<CR>
-  vnoremap <silent> ?s            :<c-u>WhichKeyVisual 's'<CR>
-  nnoremap <silent> ?d            :<c-u>WhichKey 'd'<CR>
-  vnoremap <silent> ?d            :<c-u>WhichKeyVisual 'd'<CR>
-  nnoremap <silent> ?g            :<c-u>WhichKey 'g'<CR>
-  vnoremap <silent> ?g            :<c-u>WhichKeyVisual 'g'<CR>
-endif
-
 if dein#tap('vim-niceblock')
   silent! xmap I  <Plug>(niceblock-I)
   silent! xmap gI <Plug>(niceblock-gI)
@@ -409,51 +423,66 @@ if dein#tap('vimwiki')
   nmap <LocalLeader>wT :<C-u>call DToday()<CR>
 endif
 
-if dein#tap('taskwarrior.vim')
-  nnoremap <LocalLeader>tW :<C-u>TW<CR>
+if dein#tap('taskwiki')
+	" Normal mode task commands
+	nnoremap <LocalLeader>ta :TaskWikiAnnotate<CR>
+	nnoremap <LocalLeader>tcp :TaskWikiChooseProject<CR>
+	nnoremap <LocalLeader>tct :TaskWikiChooseTag<CR>
+	nnoremap <LocalLeader>td :TaskWikiDone<CR>
+	nnoremap <LocalLeader>tD :TaskWikiDelete<CR>
+	nnoremap <LocalLeader>te :TaskWikiEdit<CR>
+	nnoremap <LocalLeader>tg :TaskWikiGrid<CR>
+	nnoremap <LocalLeader>ti :TaskWikiInfo<CR>
+	nnoremap <LocalLeader>tl :TaskWikiLink<CR>
+	nnoremap <LocalLeader>tm :TaskWikiMod<CR>
+	nnoremap <LocalLeader>t+ :TaskWikiStart<CR>
+	nnoremap <LocalLeader>t- :TaskWikiStop<CR>
+	" Visual mode counter part task commands
+	vnoremap <LocalLeader>ta :TaskWikiAnnotate<CR>
+	vnoremap <LocalLeader>tcp :TaskWikiChooseProject<CR>
+	vnoremap <LocalLeader>tct :TaskWikiChooseTag<CR>
+	vnoremap <LocalLeader>td :TaskWikiDone<CR>
+	vnoremap <LocalLeader>tD :TaskWikiDelete<CR>
+	vnoremap <LocalLeader>te :TaskWikiEdit<CR>
+	vnoremap <LocalLeader>tg :TaskWikiGrid<CR>
+	vnoremap <LocalLeader>ti :TaskWikiInfo<CR>
+	vnoremap <LocalLeader>tl :TaskWikiLink<CR>
+	vnoremap <LocalLeader>tm :TaskWikiMod<CR>
+	vnoremap <LocalLeader>t+ :TaskWikiStart<CR>
+	vnoremap <LocalLeader>t- :TaskWikiStop<CR>
+
+	" Other normal mode commands
+	nnoremap <LocalLeader>tbd :TaskWikiBurndownDaily<CR>
+	nnoremap <LocalLeader>tbw :TaskWikiBurndownWeekly<CR>
+	nnoremap <LocalLeader>tbm :TaskWikiBurndownMonthly<CR>
+	nnoremap <LocalLeader>tC :TaskWikiCalendar<CR>
+	nnoremap <LocalLeader>tGm :TaskWikiGhistoryMonthly<CR>
+	nnoremap <LocalLeader>tGa :TaskWikiGhistoryAnnual<CR>
+	nnoremap <LocalLeader>thm :TaskWikiHistoryMonthly<CR>
+	nnoremap <LocalLeader>tha :TaskWikiHistoryAnnual<CR>
+	nnoremap <LocalLeader>tp :TaskWikiProjects<CR>
+	nnoremap <LocalLeader>ts :TaskWikiProjectsSummary<CR>
+	nnoremap <LocalLeader>tS :TaskWikiStats<CR>
+	nnoremap <LocalLeader>tt :TaskWikiTags<CR>
+
+	if s:enable_whichkey
+		let g:which_key_localmap.t = {
+					\ 'name' : '+taskwiki',
+					\ 'u' : ['call TaskWikiUpdate()', 'Custom taskwiki tasks update']
+					\ }
+		let g:which_key_localmap.t.b = { 'name' : '+taskwiki-burndown' }
+		let g:which_key_localmap.t.c = { 'name' : '+taskwiki-choose' }
+		let g:which_key_localmap.t.h = { 'name' : '+taskwiki-history' }
+		let g:which_key_localmap.t.G = { 'name' : '+taskwiki-ghistory' }
+	endif
 endif
 
-if dein#tap('taskwiki')
-  " Normal mode task commands
-  nnoremap <LocalLeader>ta :TaskWikiAnnotate<CR>
-  nnoremap <LocalLeader>tcp :TaskWikiChooseProject<CR>
-  nnoremap <LocalLeader>tct :TaskWikiChooseTag<CR>
-  nnoremap <LocalLeader>td :TaskWikiDone<CR>
-  nnoremap <LocalLeader>tD :TaskWikiDelete<CR>
-  nnoremap <LocalLeader>te :TaskWikiEdit<CR>
-  nnoremap <LocalLeader>tg :TaskWikiGrid<CR>
-  nnoremap <LocalLeader>ti :TaskWikiInfo<CR>
-  nnoremap <LocalLeader>tl :TaskWikiLink<CR>
-  nnoremap <LocalLeader>tm :TaskWikiMod<CR>
-  nnoremap <LocalLeader>t+ :TaskWikiStart<CR>
-  nnoremap <LocalLeader>t- :TaskWikiStop<CR>
-  " Visual mode counter part task commands
-  vnoremap <LocalLeader>ta :TaskWikiAnnotate<CR>
-  vnoremap <LocalLeader>tcp :TaskWikiChooseProject<CR>
-  vnoremap <LocalLeader>tct :TaskWikiChooseTag<CR>
-  vnoremap <LocalLeader>td :TaskWikiDone<CR>
-  vnoremap <LocalLeader>tD :TaskWikiDelete<CR>
-  vnoremap <LocalLeader>te :TaskWikiEdit<CR>
-  vnoremap <LocalLeader>tg :TaskWikiGrid<CR>
-  vnoremap <LocalLeader>ti :TaskWikiInfo<CR>
-  vnoremap <LocalLeader>tl :TaskWikiLink<CR>
-  vnoremap <LocalLeader>tm :TaskWikiMod<CR>
-  vnoremap <LocalLeader>t+ :TaskWikiStart<CR>
-  vnoremap <LocalLeader>t- :TaskWikiStop<CR>
+if dein#tap('taskwarrior.vim')
+	nnoremap <LocalLeader>tw :<C-u>TW<CR>
 
-  " Other normal mode commands
-  nnoremap <LocalLeader>tbd :TaskWikiBurndownDaily<CR>
-  nnoremap <LocalLeader>tbw :TaskWikiBurndownWeekly<CR>
-  nnoremap <LocalLeader>tbm :TaskWikiBurndownMonthly<CR>
-  nnoremap <LocalLeader>tC :TaskWikiCalendar<CR>
-  nnoremap <LocalLeader>tGm :TaskWikiGhistoryMonthly<CR>
-  nnoremap <LocalLeader>tGa :TaskWikiGhistoryAnnual<CR>
-  nnoremap <LocalLeader>thm :TaskWikiHistoryMonthly<CR>
-  nnoremap <LocalLeader>tha :TaskWikiHistoryAnnual<CR>
-  nnoremap <LocalLeader>tp :TaskWikiProjects<CR>
-  nnoremap <LocalLeader>ts :TaskWikiProjectsSummary<CR>
-  nnoremap <LocalLeader>tS :TaskWikiStats<CR>
-  nnoremap <LocalLeader>tt :TaskWikiTags<CR>
+	if s:enable_whichkey
+		let g:which_key_localmap.t.w = ['TW', 'Open Task Warrior']
+	endif
 endif
 
 if dein#tap('vim-indent-guides')

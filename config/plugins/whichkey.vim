@@ -327,23 +327,6 @@ let g:which_key_localmap = {
                      \ 'x' : 'Crosshair toggle',
                      \ },
             \ },
-      \ 't' : {
-            \ 'name' : '+taskwiki',
-            \ 'b' : {
-                  \ 'name' : '+taskwiki-burndown',
-                  \ },
-            \ 'c' : {
-                  \ 'name' : '+taskwiki-choose',
-                  \ },
-            \ 'h' : {
-                  \ 'name' : '+taskwiki-history',
-                  \ },
-            \ 'G' : {
-                  \ 'name' : '+taskwiki-ghistory',
-                  \ },
-            \ 'U' : 'Custom Taskkwiki tasks update',
-            \ 'W' : 'Open taskwarrior',
-            \ },
       \ 'u' : 'Mundotree toggle' ,
       \ 'v' : {
             \ 'name' : '+vista',
@@ -448,20 +431,16 @@ let g:which_key_smap = {
       \ 'k' : 'Join split',
       \ }
 
-" let s:current_colorscheme = get(g:,"colors_name","")
-" if  s:current_colorscheme == "base16-default-dark"
-"     highlight WhichKeySeperator guibg=NONE ctermbg=NONE guifg=#a1b56c ctermfg=02
-" endif
-
 let g:which_key_timeout = 200
 let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
+let g:which_key_sep = '»'
 
 let g:which_key_display_names = {
-      \       ' ': 'SPC',
-      \   '<C-H>': 'BS',
-      \   '<C-I>': 'TAB',
-      \   '<TAB>': 'TAB',
-      \ '<S-TAB>': 'S-TAB',
-      \    '<CR>': 'ENTER',
-      \ }
+			\				' ': '␣',
+			\		'<C-H>': '←',
+			\		'<C-I>': '⇆',
+			\		'<TAB>': '⇆',
+			\ '<S-TAB>': 'S⇆',
+			\		 '<CR>': '↵',
+			\ }
 

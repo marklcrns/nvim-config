@@ -14,4 +14,4 @@ augroup TaskWikiReload
     \ autocmd! FocusGained <buffer> call TaskWikiUpdate()
 augroup END
 
-nnoremap <LocalLeader>tU :call TaskWikiUpdate()<CR>
+nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
