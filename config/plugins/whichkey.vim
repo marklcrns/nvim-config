@@ -457,23 +457,6 @@ let g:which_key_localmap = {
 										 \ 'x' : 'Crosshair toggle',
 										 \ },
 						\ },
-			\ 't' : {
-						\ 'name' : '+taskwiki',
-						\ 'b' : {
-									\ 'name' : '+taskwiki-burndown',
-									\ },
-						\ 'c' : {
-									\ 'name' : '+taskwiki-choose',
-									\ },
-						\ 'h' : {
-									\ 'name' : '+taskwiki-history',
-									\ },
-						\ 'G' : {
-									\ 'name' : '+taskwiki-ghistory',
-									\ },
-						\ 'U' : 'Custom Taskkwiki tasks update',
-						\ 'W' : 'Open taskwarrior',
-						\ },
 			\ 'u' : 'Mundotree toggle' ,
 			\ 'v' : {
 						\ 'name' : '+vista',
@@ -580,6 +563,7 @@ let g:which_key_smap = {
 
 let g:which_key_timeout = 200
 let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
+let g:which_key_sep = '»'
 
 let g:which_key_display_names = {
 			\				' ': '␣',

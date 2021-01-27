@@ -556,10 +556,6 @@ if dein#tap('vimwiki')
 	nmap <LocalLeader>wT :<C-u>call DToday()<CR>
 endif
 
-if dein#tap('taskwarrior.vim')
-	nnoremap <LocalLeader>tW :<C-u>TW<CR>
-endif
-
 if dein#tap('taskwiki')
 	" Normal mode task commands
 	nnoremap <LocalLeader>ta :TaskWikiAnnotate<CR>
@@ -601,6 +597,25 @@ if dein#tap('taskwiki')
 	nnoremap <LocalLeader>ts :TaskWikiProjectsSummary<CR>
 	nnoremap <LocalLeader>tS :TaskWikiStats<CR>
 	nnoremap <LocalLeader>tt :TaskWikiTags<CR>
+
+	if s:enable_whichkey
+		let g:which_key_localmap.t = {
+					\ 'name' : '+taskwiki',
+					\ 'u' : ['call TaskWikiUpdate()', 'Custom taskwiki tasks update']
+					\ }
+		let g:which_key_localmap.t.b = { 'name' : '+taskwiki-burndown' }
+		let g:which_key_localmap.t.c = { 'name' : '+taskwiki-choose' }
+		let g:which_key_localmap.t.h = { 'name' : '+taskwiki-history' }
+		let g:which_key_localmap.t.G = { 'name' : '+taskwiki-ghistory' }
+	endif
+endif
+
+if dein#tap('taskwarrior.vim')
+	nnoremap <LocalLeader>tw :<C-u>TW<CR>
+
+	if s:enable_whichkey
+		let g:which_key_localmap.t.w = ['TW', 'Open Task Warrior']
+	endif
 endif
 
 if dein#tap('vimux')
