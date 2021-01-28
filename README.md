@@ -56,7 +56,9 @@ Productivity plugins I use on the daily for all sorts of reason.
 
 ### Vimwiki
 
-A powerful wiki creator for all sorts of needs.
+A powerful personal wiki creator for all sorts of needs.
+
+- [vimwiki/vimwiki](https://github.com/vimwiki/vimwiki)
 
 ![Vimwiki](./demo/vimwiki.gif)
 
