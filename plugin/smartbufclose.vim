@@ -16,6 +16,8 @@
 "   - Auto delete empty buffers (will close tabs and window splits).
 "   - Prevents from deleting buffer if modified.
 "   - Handles fugitive diff splits; closing all fugitive blob buffers.
+"   - Plugins Support: vim-fugitive, gina, goyo, vim-mundo, qf, fern, nvim-tree,
+"		  minimap, vista.
 "
 " Usage:
 "   :SmartBufClose
@@ -39,8 +41,6 @@ let g:smartbufclose_excluded_filetypes = [
 			\ 'vista', 'fern', 'NvimTree', 'Mundo', 'MundoDiff', 'minimap',
 			\ 'fugitive', 'gitcommit' 
 			\ ]
-
-
 
 function! s:CleanEmptyBuffers()
 	let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val)<0 && !getbufvar(v:val, "&mod")')
@@ -172,17 +172,24 @@ function! <SID>SmartBufClose()
 	" Store listed buffers count
 	let curBufCount = len(getbufinfo({'buflisted':1}))
 
-	" Immediately quit/wipe certain buffers
+	" Immediately quit/wipe certain buffers or filetype
 	if &buftype ==# 'terminal'
 		silent execute 'bw!'
 		return
-	elseif &filetype ==# 'gitcommit'
-		silent execute 'q!'
-		return
-	elseif &filetype ==# 'git' || &filetype ==# 'qf'
+	elseif &filetype =~ 'git\|qf\|gina-log'
 		silent execute 'bd'
 		return
-	elseif (!&modifiable || &readonly || curBufName ==# '')
+	elseif exists("#goyo")
+		" Hacky workaround to delete buffer while in Goyo mode without exiting or
+		" to turn off Goyo mode when only one buffer exists
+		if curBufCount ># 1
+			silent execute 'bn | bd#'
+		else
+			silent execute 'q | bn'
+			call s:CleanEmptyBuffers()
+		endif
+		return
+	elseif &filetype ==# 'gitcommit' || (!&modifiable || &readonly || curBufName ==# '')
 		silent execute 'q!'
 		return
 	elseif &diff
@@ -205,6 +212,5 @@ function! <SID>SmartBufClose()
 		call s:DeleteBufPreservingSplit(curBufNr)
 	endif
 endfunction
-
 
 command! -nargs=0 SmartBufClose call <SID>SmartBufClose()
