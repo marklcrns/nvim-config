@@ -522,6 +522,10 @@ if dein#tap('golden_size')
 endif
 
 if dein#tap('markdown-preview.nvim')
+	" Disable some mappings
+	map <Plug> <Plug>Markdown_MoveToCurHeader
+	map <Plug> <Plug>Markdown_OpenUrlUnderCursor
+
 	nmap <Leader>lmd <Plug>MarkdownPreviewToggle
 	nmap <Leader>lmo <Plug>MarkdownPreview
 	nmap <Leader>lmc <Plug>MarkdownPreviewStop
@@ -531,8 +535,6 @@ if dein#tap('vim-markdown')
 	nnoremap <Leader>lmtt :<C-u>Toc<CR>
 	nnoremap <Leader>lmtv :<C-u>Tocv<CR>
 	nnoremap <Leader>lmth :<C-u>Toch<CR>
-	" Disable mappings
-	map <Plug> <Plug>Markdown_MoveToCurHeader
 endif
 
 if dein#tap('vimtex')
@@ -706,6 +708,15 @@ if dein#tap('vim-fugitive')
 	nnoremap <Leader>gG :<C-u>Glog --grep= -- %<Left><Left><Left><Left><Left>
 	nnoremap <Leader>gr :<C-u>Git reset<CR>
 	nnoremap <Leader>gs :<C-u>Gstatus<CR>
+endif
+
+if dein#tap('open-browser.vim')
+  nmap gx <Plug>(openbrowser-smart-search)
+  vmap gx <Plug>(openbrowser-smart-search)
+
+	if s:enable_whichkey
+		let g:which_key_gmap.x = ['<Plug>(openbrowser-smart-search)', 'Open in browser']
+	endif
 endif
 
 if dein#tap('gv.vim')

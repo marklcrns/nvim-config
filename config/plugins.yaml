@@ -194,7 +194,16 @@
     endfunction
 
 - repo: tpope/vim-fugitive
-  on_cmd: [G, Git, Gfetch, Gpush, Gstatus, Glog, Gclog, Gllog, Gdiffsplit, Gvdiffsplit]
+  on_cmd: [G, Git, Gfetch, Gpush, Gstatus, Glog, Gclog, Gllog, Gdiffsplit, Gvdiffsplit, GBrowse]
+
+- repo:  tpope/vim-rhubarb
+  depends: vim-fugitive
+
+- repo: tyru/open-browser.vim
+  hook_source: |
+    let g:netrw_nogx = 1
+    command! -nargs=1 Browse OpenBrowser <args>
+
 # }}}
 
 # Languages {{{
@@ -214,7 +223,7 @@
 # ---------------------------------------
 - repo: plasticboy/vim-markdown
   on_ft: markdown
-  hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
+  hook_source: source $VIM_PATH/config/plugins/vim-markdown.vim
 
 - repo: iamcco/markdown-preview.nvim
   if: "has('nvim')"
