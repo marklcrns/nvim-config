@@ -8,7 +8,7 @@ let g:indent_guides_exclude_filetypes = [
 			\ 'vista', 'vista_kind', 'tagbar', 'lsp-hover', 'clap_input', 'fzf',
 			\ 'any-jump', 'gina-status', 'gina-commit', 'gina-log', 'minimap',
 			\ 'quickpick-filter', 'lsp-quickpick-filter', 'calendar', 'coc-explorer',
-			\ 'dashboard', 'codi', 'which_key'
+			\ 'dashboard', 'codi', 'which_key', 'taskreport'
 			\ ]
 
 let g:indent_guides_start_level = 1
