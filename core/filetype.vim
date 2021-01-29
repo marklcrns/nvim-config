@@ -64,3 +64,17 @@ augroup user_plugin_filetype "{{{
   " HTML (.gohtml and .tpl for server side)
   autocmd BufNewFile,BufRead *.html,*.htm,*.gohtml,*.tpl  setf html
 augroup END "}}}
+
+augroup user_cursorui
+  let ft_exclusion = '^\(denite\|clap_\)'
+  autocmd!
+	autocmd InsertEnter,WinLeave * if (get(g:, 'custom_cursorline_enable', 1) || get(g:, 'custom_cursorcolumn_enable', 0)) && (&ft !~# ft_exclusion)
+        \| setlocal nocursorline nocursorcolumn
+        \| endif
+  autocmd InsertLeave,WinEnter,BufWinEnter * if get(g:, 'custom_cursorline_enable', 1) && (&ft !~# ft_exclusion)
+        \| setlocal cursorline
+        \| endif
+  autocmd InsertLeave,WinEnter,BufWinEnter * if get(g:, 'custom_cursorcolumn_enable', 0) && (&ft !~# ft_exclusion)
+        \| setlocal cursorcolumn
+        \| endif
+augroup END

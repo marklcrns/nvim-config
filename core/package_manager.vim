@@ -8,20 +8,20 @@ augroup END
 " Initializes options
 let s:package_manager = 'dein'
 
-" Set main configuration directory as parent directory
-let $VIM_PATH =
-			\ get(g:, 'etc_vim_path',
-			\   exists('*stdpath') ? stdpath('config') :
-			\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
-			\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
-			\   ! empty($VIM_PATH) ? expand($VIM_PATH) :
-			\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-			\ )
+let s:plugins_yaml = 'plugins.yaml'
+if get(g:, 'handle_plugins', 'full') ==# 'minimal'
+	let s:plugins_yaml = 'plugins_minimal.yaml'
+endif
+
+let s:secondary_plugins_yaml = ''
+if get(g:, 'init_secondary_config', 1)
+	let s:secondary_plugins_yaml = $HOME . '/.nvim-config.d/plugins.yaml'
+endif
 
 " Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
-			\ $HOME     . '/.nvim-config.d/plugins.yaml',
-			\ $VIM_PATH . '/config/plugins.yaml',
+			\ $VIM_PATH . '/config/' . s:plugins_yaml,
+			\ s:secondary_plugins_yaml,
 			\ $VIM_PATH . '/usr/vimrc.yaml',
 			\ $VIM_PATH . '/usr/vimrc.json',
 			\ $VIM_PATH . '/vimrc.yaml',
@@ -32,46 +32,6 @@ let s:config_paths = get(g:, 'etc_config_paths', [
 call filter(s:config_paths, 'filereadable(v:val)')
 
 function! s:main()
-	if has('vim_starting')
-		" When using VIMINIT trick for exotic MYVIMRC locations, add path now.
-		if &runtimepath !~# $VIM_PATH
-			set runtimepath^=$VIM_PATH
-			set runtimepath+=$VIM_PATH/after
-		endif
-
-		" Ensure data directories
-		for s:path in [
-					\ $DATA_PATH,
-					\ $DATA_PATH . '/undo',
-					\ $DATA_PATH . '/backup',
-					\ $DATA_PATH . '/session',
-					\ $VIM_PATH . '/spell' ]
-			if ! isdirectory(s:path)
-				call mkdir(s:path, 'p')
-			endif
-		endfor
-	endif
-
-	" Python interpreter settings
-	if has('nvim')
-		" Set python interpreter from a dedicated virtualenv created by generate_venv.sh
-		let l:python = $DATA_PATH . '/venv/python/env/bin/python'
-		let l:python3 = $DATA_PATH . '/venv/python3/env/bin/python3'
-		if filereadable(l:python)
-			let g:python_host_prog = l:python
-		endif
-		if filereadable(l:python3)
-			let g:python3_host_prog = l:python3
-		endif
-	elseif has('pythonx')
-		if has('python3')
-			set pyxversion=3
-		elseif has('python')
-			set pyxversion=2
-		endif
-	endif
-
-	" Initializes chosen package manager
 	call s:use_{s:package_manager}()
 endfunction
 
