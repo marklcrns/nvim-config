@@ -22,7 +22,7 @@ update-repo:
 	git pull --ff --ff-only
 
 update-plugins:
-	$(vim) -V1 -es -i NONE -N --noplugin -u core/package_manager.vim \
+	$(vim) -V1 -es -i NONE -N --noplugin -u core/core.vim \
 		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
 
 clean:

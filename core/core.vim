@@ -1,7 +1,8 @@
-" NOTE: Must run `:call dein#recache_runtimepath()` every after switch
-"	To delete unused plugins: `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
+" NOTE: Must run `:call dein#recache_runtimepath()` when switching between modes
+" and toggling g:init_secondary_config
+" To delete unused plugins, run `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
 "	-----
-" full    =	loads /config/plugins.yaml (default)
+" full    = loads /config/plugins.yaml (default)
 " minimal = loads /config/plugins_minimal.yaml
 " disable = no load plugins
 let g:handle_plugins = 'full'

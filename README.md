@@ -25,7 +25,7 @@ colorscheme, statusline and tabline by [rafi](https://github.com/rafi).
 Clone repository into `~/.config/nvim`
 
 ```bash
-git clone --single-branch --branch master https://github.com/marklcrns/nvim-config ~/.config/nvim
+git clone --ff-only --branch master https://github.com/marklcrns/nvim-config ~/.config/nvim
 ```
 
 Then simply run `make` to install all the necessary dependencies and
@@ -43,12 +43,51 @@ This will install all dependencies and create `env` python virtual environment
 in root directory for `python_host_prog` and `python3_host_prog` instead of
 using global python.
 
-### Minimal
+### Full / Minimal / Disable Plugins
 
-For minimal version of this repo, checkout to the
-[minimal](https://github.com/marklcrns/nvim-config/tree/minimal) branch of this
-repo.
+Easy switch between `full`, `minimal`, and `disable` plugin handler mode.
 
+Just edit the global variable in `/core/core.vim`
+
+```vim
+" NOTE: Must run `:call dein#recache_runtimepath()` when switching between modes
+" and toggling g:init_secondary_config
+" To delete unused plugins, run `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
+" -----
+" full    = loads /config/plugins.yaml (default)
+" minimal = loads /config/plugins_minimal.yaml
+" disable = no load plugins
+let g:handle_plugins = 'full'
+let g:init_secondary_config = 0
+```
+
+Secondary init.vim config should be located in `~/.local-nvim.d/init.vim` and
+would be loaded when `g:init_secondary_config = 1`. This will be sourced after
+all the main configs in `core` are sourced and can be modified freely.
+
+Also, local plugins can be installed in the same relative directory as the main
+one `~/.local-nvim.d/config/plugins.yaml`
+
+### Negating Existing Plugins In Local Config
+
+If you wan't to disable some plugins but don't want to mess with the main
+configuration, you can create a local config files as an extension of the main.
+
+The main configuration uses `/config/plugins.yaml` to manage plugins with
+[dein](https://github.com/Shougo/dein.vim) which most are lazy-loaded and can
+easily be disabled. see
+[manage-vim-plugins-via-yaml](http://genkisugimoto.com/blog/manage-vim-plugins-via-yaml/)
+blog post for more.
+
+By default, it uses `~/.local-nvim.d/config/plugins.yaml` as the secondary
+plugins installer file. Just simply add the plugins you want to disable as such:
+
+```vim
+- repo: andrep/vimacs
+  if: 0
+" Much cleaner syntax
+- {repo: andrep/vimacs, if: 0}
+```
 
 ## Notable Plugins
 
