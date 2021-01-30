@@ -198,22 +198,22 @@ function! WindowsManagementMappings()
 	nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
 	nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 	" Resize splits
-	nnoremap [Window]k :resize -3<CR>
-	nnoremap [Window]j :resize +3<CR>
-	nnoremap [Window]h :vertical resize -3<CR>
-	nnoremap [Window]l :vertical resize +3<CR>
-	nnoremap [Window]q :close<CR>
+	nnoremap <silent> [Window]k :resize -3<CR>
+	nnoremap <silent> [Window]j :resize +3<CR>
+	nnoremap <silent> [Window]h :vertical resize -3<CR>
+	nnoremap <silent> [Window]l :vertical resize +3<CR>
+	nnoremap <silent> [Window]q :close<CR>
+	" Switch between splits
+	nnoremap <silent> [Window]H <C-w>h
+	nnoremap <silent> [Window]L <C-w>l
+	nnoremap <silent> [Window]J <C-w>j
+	nnoremap <silent> [Window]K <C-w>k
+	nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
+
 	nnoremap <Up>      :resize -1<CR>
 	nnoremap <Down>    :resize +1<CR>
 	nnoremap <Left>    :vertical resize -1<CR>
 	nnoremap <Right>   :vertical resize +1<CR>
-	" Switch between splits
-	nnoremap <M-h> <C-w>h
-	nnoremap <M-l> <C-w>l
-	nnoremap <M-j> <C-w>j
-	nnoremap <M-k> <C-w>k
-
-	nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
 endfunction
 " }}} FILE AND WINDOWS MAPPINGS
 
