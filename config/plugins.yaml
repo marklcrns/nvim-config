@@ -284,12 +284,12 @@
   hook_source: source  $VIM_PATH/config/plugins/choosewin.vim
 
 - repo: junegunn/goyo.vim
+  depends: Limelight.vim
   on_cmd: Goyo
   hook_source: source $VIM_PATH/config/plugins/goyo.vim
 
 - repo: junegunn/Limelight.vim
   on_cmd: Limelight
-  depends: Goyo
   hook_source: source $VIM_PATH/config/plugins/limelight.vim
 
 - repo: junegunn/fzf
