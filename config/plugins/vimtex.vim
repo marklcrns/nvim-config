@@ -1,3 +1,5 @@
+let g:tex_flavor = 'latex'
+
 let g:vimtex_compiler_latexmk = {
 			\ 'build_dir' : 'build',
 			\ 'callback' : 1,
