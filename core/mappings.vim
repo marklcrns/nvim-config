@@ -262,8 +262,8 @@ function! CommandMappings()
 	" print insert buffer file directory path
 	cnoremap <C-t> <C-R>=expand("%:p:h") . "/" <CR>
 	" Easy wildcharm navigation
-	cnoremap <expr><C-j> pumvisible() ? "\<C-n>" : nr4char(&wildcharm)
-	cnoremap <expr><C-k> pumvisible() ? "\<C-p>" : nr3char(&wildcharm)
+	cnoremap <expr><C-j> pumvisible() ? "\<C-n>" : nr2char(&wildcharm)
+	cnoremap <expr><C-k> pumvisible() ? "\<C-p>" : nr2char(&wildcharm)
 	cnoremap <expr><Tab> pumvisible() ? "\<C-e>".nr2char(&wildcharm) : nr2char(&wildcharm)
 endfunction
 
