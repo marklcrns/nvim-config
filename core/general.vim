@@ -188,7 +188,7 @@ set switchbuf=useopen           " Jump to the first open window
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
 set completeopt=menu,menuone    " Always show menu, even for one item
-set completeopt+=noselect,noinsert
+set completeopt+=noinsert
 
 if exists('+completepopup')
   set completeopt+=popup
@@ -278,41 +278,4 @@ if has('termguicolors') && &termguicolors
     set winblend=10
   endif
 endif
-
-augroup CursorUI
-  let ft_exclusion = '^\(denite\|clap_\)'
-  autocmd!
-  " Disable cursorline and cursorcolumn on InsertEnter, WinLeave
-  autocmd InsertEnter * if &ft !~# ft_exclusion |
-        \ setlocal nocursorline nocursorcolumn
-        \ | endif
-  autocmd WinLeave * setlocal nocursorline nocursorcolumn
-  " Enable cursorline and cursorcolumn on InsertLeave, WinEnter, BufWinEnter
-  " and if activated
-  autocmd InsertLeave * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
-        \ setlocal cursorline
-        \ | endif
-  autocmd InsertLeave * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
-        \ setlocal cursorcolumn
-        \ | endif
-  autocmd WinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
-        \ setlocal cursorline
-        \ | endif
-  autocmd WinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
-        \ setlocal cursorcolumn
-        \ | endif
-  autocmd BufWinEnter * if (g:activate_cursorline == 1) && (&ft !~# ft_exclusion) |
-        \ setlocal cursorline
-        \ | endif
-  autocmd BufWinEnter * if (g:activate_cursorcolumn == 1) && (&ft !~# ft_exclusion) |
-        \ setlocal cursorcolumn
-        \ | endif
-
-  if g:activate_cursorline
-    set cursorline
-  endif
-  if g:activate_cursorcolumn
-    set cursorcolumn
-  endif
-augroup END
 " }}}

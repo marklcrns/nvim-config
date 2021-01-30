@@ -502,10 +502,15 @@
   hook_source: |
     augroup user_plugin_cursorword
       autocmd!
-      autocmd FileType yaml,markdown let b:cursorword = 1
+      autocmd FileType json,yaml,markdown,nginx,dosini,conf
+        \ let b:cursorword = 1
       autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif
-      autocmd InsertEnter * let b:cursorword = 0
-      autocmd InsertLeave * let b:cursorword = 1
+      autocmd InsertEnter * if get(b:, 'cursorword', 0) == 1
+        \| let b:cursorword = 0
+        \| endif
+      autocmd InsertLeave * if get(b:, 'cursorword', 1) == 0
+        \| let b:cursorword = 1
+        \| endif
     augroup END
 
 # - repo: psliwka/vim-smoothie
