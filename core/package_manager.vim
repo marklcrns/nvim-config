@@ -8,9 +8,11 @@ augroup END
 " Initializes options
 let s:package_manager = 'dein'
 
-let s:plugins_yaml = 'plugins.yaml'
-if get(g:, 'handle_plugins', 'full') ==# 'minimal'
-	let s:plugins_yaml = 'plugins_minimal.yaml'
+let s:plugins_yaml = ''
+if get(g:, 'handle_plugins', 'full') ==# 'full'
+	let s:plugins_yaml = $VIM_PATH . 'plugins.yaml'
+elseif get(g:, 'handle_plugins', 'full') ==# 'minimal'
+	let s:plugins_yaml = $VIM_PATH . 'plugins_minimal.yaml'
 endif
 
 let s:secondary_plugins_yaml = ''
@@ -20,12 +22,12 @@ endif
 
 " Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
-			\ $VIM_PATH . '/config/' . s:plugins_yaml,
-			\ s:secondary_plugins_yaml,
 			\ $VIM_PATH . '/usr/vimrc.yaml',
 			\ $VIM_PATH . '/usr/vimrc.json',
 			\ $VIM_PATH . '/vimrc.yaml',
 			\ $VIM_PATH . '/vimrc.json',
+			\ s:plugins_yaml,
+			\ s:secondary_plugins_yaml,
 			\ ])
 
 " Filter non-existent config paths

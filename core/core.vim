@@ -1,10 +1,10 @@
 " NOTE: Must run `:call dein#recache_runtimepath()` when switching between modes
 " and toggling g:init_secondary_config
 " To delete unused plugins, run `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
-"	-----
+" -----
 " full    = loads /config/plugins.yaml (default)
 " minimal = loads /config/plugins_minimal.yaml
-" disable = no load plugins
+" disable = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
 let g:handle_plugins = 'full'
 let g:init_secondary_config = 1
 
@@ -137,8 +137,8 @@ call utils#source_file($VIM_PATH, 'core/filetype.vim')
 call utils#source_file($VIM_PATH, 'core/mappings.vim')
 
 " Initialize plugin-manager and load plugins config files
+call utils#source_file($VIM_PATH, 'core/package_manager.vim')
 if get(g:, 'handle_plugins', 'full') !=# 'disable'
-	call utils#source_file($VIM_PATH, 'core/package_manager.vim')
 	call utils#source_file($VIM_PATH, 'config/keybinds.vim')
 endif
 
