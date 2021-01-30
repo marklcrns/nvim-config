@@ -28,10 +28,10 @@ let $VIM_PATH =
 			\ )
 
 " Set secondary nvim configuration directory
-let $CUSTOM_VIM_PATH = expand($HOME.'/.nvim-config.d')
+let $CUSTOM_VIM_PATH = expand($HOME.'/.local-nvim.d')
 " Set data/cache directory as $XDG_CACHE_HOME/vim
 let $DATA_PATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
-" Set the secondary user config file
+" Set the secondary user init config file
 let s:user_init_config = expand($CUSTOM_VIM_PATH . '/init.vim')
 
 " Disable vim distribution plugins
@@ -67,7 +67,7 @@ if has('vim_starting')
 
 	" Ensure data directories
 	for s:path in [
-				\ $DATA_PATH, 
+				\ $DATA_PATH,
 				\ $DATA_PATH . '/undo',
 				\ $DATA_PATH . '/backup',
 				\ $DATA_PATH . '/session',

@@ -15,7 +15,7 @@ endif
 
 let s:secondary_plugins_yaml = ''
 if get(g:, 'init_secondary_config', 1)
-	let s:secondary_plugins_yaml = $HOME . '/.nvim-config.d/plugins.yaml'
+	let s:secondary_plugins_yaml = $CUSTOM_VIM_PATH . '/config/plugins.yaml'
 endif
 
 " Collection of user plugin list config file-paths
