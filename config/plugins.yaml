@@ -21,12 +21,6 @@
   rev: release
   hook_add: source $VIM_PATH/config/plugins/coc.vim
 
-- repo: SirVer/ultisnips
-  hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
-
-- repo: honza/vim-snippets
-  depends: ultisnips
-
 # Tools
 # ----------------------------------------
 - repo: dhruvasagar/vim-zoom
@@ -80,6 +74,17 @@
 # ==========================================
 
 # Completion{{{
+
+- repo: SirVer/ultisnips
+  if: has('python3')
+  on_event: FileType
+  hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
+
+- repo: honza/vim-snippets
+  if: has('python3')
+  depends: ultisnips
+  on_event: FileType
+  merged: 0
 
 # HTML
 # -----
