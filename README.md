@@ -42,9 +42,9 @@ This will install all dependencies and create `env` python virtual environment
 in root directory for `python_host_prog` and `python3_host_prog` instead of
 using global python.
 
-### Full / Minimal / Disable Plugins
+### Full / Minimal / Skip / Disable Plugins
 
-Easy switch between `full`, `minimal`, and `disable` plugin handler mode.
+Easy switch between `full`, `minimal`, `skip`, and `disable` plugin handler mode.
 
 Just edit the global variable in `/core/core.vim`
 
@@ -55,7 +55,8 @@ Just edit the global variable in `/core/core.vim`
 " -----
 " full    = loads /config/plugins.yaml (default)
 " minimal = loads /config/plugins_minimal.yaml
-" disable = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
+" skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
+"	disable = disable package manager (no plugins will be loaded)
 let g:handle_plugins = 'full'
 let g:init_secondary_config = 0
 ```

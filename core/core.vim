@@ -4,9 +4,10 @@
 " -----
 " full    = loads /config/plugins.yaml (default)
 " minimal = loads /config/plugins_minimal.yaml
-" disable = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
+" skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
+"	disable = disable package manager (no plugins will be loaded)
 let g:handle_plugins = 'full'
-let g:init_secondary_config = 1
+let g:init_secondary_config = 0
 
 let g:custom_statusline_enable = 1
 let g:custom_tabline_enable = 1
@@ -137,9 +138,11 @@ call utils#source_file($VIM_PATH, 'core/filetype.vim')
 call utils#source_file($VIM_PATH, 'core/mappings.vim')
 
 " Initialize plugin-manager and load plugins config files
-call utils#source_file($VIM_PATH, 'core/package_manager.vim')
 if get(g:, 'handle_plugins', 'full') !=# 'disable'
-	call utils#source_file($VIM_PATH, 'config/keybinds.vim')
+	call utils#source_file($VIM_PATH, 'core/package_manager.vim')
+	if g:handle_plugins !=# 'skip'
+		call utils#source_file($VIM_PATH, 'config/keybinds.vim')
+	endif
 endif
 
 " Load custom status and tabline

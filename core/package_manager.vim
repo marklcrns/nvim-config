@@ -9,10 +9,12 @@ augroup END
 let s:package_manager = 'dein'
 
 let s:plugins_yaml = ''
-if get(g:, 'handle_plugins', 'full') ==# 'full'
-	let s:plugins_yaml = $VIM_PATH . 'plugins.yaml'
-elseif get(g:, 'handle_plugins', 'full') ==# 'minimal'
-	let s:plugins_yaml = $VIM_PATH . 'plugins_minimal.yaml'
+if get(g:, 'handle_plugins', 'full') !=# 'disable'
+	if g:handle_plugins ==# 'full'
+		let s:plugins_yaml = $VIM_PATH . '/config/plugins.yaml'
+	elseif g:handle_plugins ==# 'minimal'
+		let s:plugins_yaml = $VIM_PATH . '/config/plugins_minimal.yaml'
+	endif
 endif
 
 let s:secondary_plugins_yaml = ''
