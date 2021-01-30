@@ -25,6 +25,9 @@ update-plugins:
 	$(vim) -V1 -es -i NONE -N --noplugin -u core/core.vim \
 		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
 
+clean-plugins:
+	rm -rf "$(XDG_CACHE_HOME)/vim/dein"
+
 clean:
 	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CONFIG_HOME)/coc"
 
