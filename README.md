@@ -7,8 +7,7 @@ with obsession 🤤 and ❤
 ![Neovim](./demo/neovim.png)
 ![Demo](./demo/demo.gif)
 
-[Hybrid](https://github.com/rafi/vim-config/blob/master/themes/hybrid.vim)
-colorscheme, statusline and tabline by [rafi](https://github.com/rafi).
+Statusline and tabline plugin from [rafi/vim-config](https://github.com/rafi/vim-config).
 
 ## Requirements
 
@@ -25,7 +24,7 @@ colorscheme, statusline and tabline by [rafi](https://github.com/rafi).
 Clone repository into `~/.config/nvim`
 
 ```bash
-git clone --ff-only --branch master https://github.com/marklcrns/nvim-config ~/.config/nvim
+git clone --branch master https://github.com/marklcrns/nvim-config ~/.config/nvim
 ```
 
 Then simply run `make` to install all the necessary dependencies and
