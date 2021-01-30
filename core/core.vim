@@ -1,15 +1,16 @@
-" NOTE: Must run `:call dein#recache_runtimepath()` after switching
+" NOTE: Must run `:call dein#recache_runtimepath()` every after switch
 "	To delete unused plugins: `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
 "	-----
 " full    =	loads /config/plugins.yaml (default)
 " minimal = loads /config/plugins_minimal.yaml
 " disable = no load plugins
 let g:handle_plugins = 'full'
+let g:init_secondary_config = 1
+
 let g:custom_statusline_enable = 1
 let g:custom_tabline_enable = 1
 let g:custom_cursorline_enable = 1
 let g:custom_cursorcolumn_enable = 0
-let g:init_secondary_config = 1
 
 if &compatible
 	" vint: -ProhibitSetNoCompatible
