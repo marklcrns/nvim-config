@@ -213,9 +213,6 @@ function! WindowsManagementMappings()
 	nnoremap <M-j> <C-w>j
 	nnoremap <M-k> <C-w>k
 
-	" Deletes buffer but keeps the split
-	" Ref: https://stackoverflow.com/a/19619038/11850077
-	noremap [Window]d :b#<bar>bd#<CR>
 	nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
 endfunction
 " }}} FILE AND WINDOWS MAPPINGS
@@ -413,22 +410,10 @@ function! FoldsMappings()
 	" Toggle fold all
 	nnoremap <expr> zm &foldlevel ? 'zM' :'zR'
 	" Jumping to next closed fold
-	" Ref: https://stackoverflow.com/a/9407015/11850077
-	function! NextClosedFold(dir)
-		let cmd = 'norm!z' . a:dir
-		let view = winsaveview()
-		let [l0, l, open] = [0, view.lnum, 1]
-		while l != l0 && open
-			exe cmd
-			let [l0, l] = [l, line('.')]
-			let open = foldclosed(l) < 0
-		endwhile
-		if open
-			call winrestview(view)
-		endif
-	endfunction
-	nnoremap <silent> zj :call NextClosedFold('j')<cr>
-	nnoremap <silent> zk :call NextClosedFold('k')<cr>
+	nnoremap <silent> zj :<C-u>call <SID>next_closed_fold('j')<cr>
+	nnoremap <silent> zk :<C-u>call <SID>next_closed_fold('k')<cr>
+	nnoremap <silent> ]z :<C-u>call <SID>next_open_fold('j')<cr>
+	nnoremap <silent> [z :<C-u>call <SID>next_open_fold('k')<cr>
 endfunction
 
 function! SessionMappings()
@@ -524,54 +509,81 @@ endfunction
 " Append '.md' to clipboard register yanked file path and :edit from current directory
 nnoremap <Leader>;wm :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
 
-if &cursorline
-	let g:activate_cursorline = 1
-else
-	let g:activate_cursorline = 0
-endif
-if &cursorcolumn
-	let g:activate_cursorcolumn = 1
-else
-	let g:activate_cursorcolumn = 0
-endif
+
+" Ref: https://stackoverflow.com/a/9407015/11850077
+function! s:next_closed_fold(direction)
+	let cmd = 'norm!z' . a:direction
+	let view = winsaveview()
+	let [l0, l, open] = [0, view.lnum, 1]
+	while l != l0 && open
+		exe cmd
+		let [l0, l] = [l, line('.')]
+		let open = foldclosed(l) < 0
+	endwhile
+	if open
+		call winrestview(view)
+	endif
+endfunction
+
+" Ref: https://vim.fandom.com/wiki/Navigate_to_the_next_open_fold
+function! s:next_open_fold(direction)
+	if (a:direction == "j")
+		normal zj
+		let start = line('.')
+		while foldclosed(start) != -1
+			let start = start + 1
+		endwhile
+	else
+		normal zk
+		let start = line('.')
+		while foldclosed(start) != -1
+			let start = start - 1
+		endwhile
+	endif
+	call cursor(start, 0)
+endfunction
+
 " Toggle cursorline
 function! s:toggle_cursorline()
-	if g:activate_cursorline
+	if get(g:, 'custom_cursorline_enable', 1)
 		set nocursorline
-		let g:activate_cursorline = 0
+		let g:custom_cursorline_enable = 0
 		echom 'Cursorline deactivated'
 	else
 		set cursorline
-		let g:activate_cursorline = 1
+		let g:custom_cursorline_enable = 1
 		echom 'Cursorline activated'
 	endif
 endfunction
+
 " Toggle cursorcolumn
 function! s:toggle_cursorcolumn()
-	if g:activate_cursorcolumn
+	if get(g:, 'custom_cursorcolumn_enable', 0)
 		set nocursorcolumn
-		let g:activate_cursorcolumn = 0
+		let g:custom_cursorcolumn_enable = 0
 		echom 'Cursorcolumn deactivated'
 	else
 		set cursorcolumn
-		let g:activate_cursorcolumn = 1
+		let g:custom_cursorcolumn_enable = 1
 		echom 'Cursorcolumn activated'
 	endif
 endfunction
+
 " Toggle cursorline and cursorcolumn
 function! s:toggle_crosshair()
 	if (&cursorline || &cursorcolumn)
 		set nocursorline nocursorcolumn
-		let g:activate_cursorline = 0
-		let g:activate_cursorcolumn = 0
+		let g:custom_cursorline_enable = 0
+		let g:custom_cursorcolumn_enable = 0
 		echom 'Crosshair activated'
 	else
 		set cursorline cursorcolumn
-		let g:activate_cursorline = 1
-		let g:activate_cursorcolumn = 1
+		let g:custom_cursorline_enable = 1
+		let g:custom_cursorcolumn_enable = 1
 		echom 'Crosshair deactivated'
 	endif
 endfunction
+
 " Toggle conceallevel
 function! s:toggle_conceal2()
 	if &conceallevel
@@ -607,12 +619,12 @@ endfunction
 " Toggle Tab Char
 function! s:toggle_tabchar()
 	if &lcs =~ 'tab:  '
-		set lcs-=tab:\ \ 
-		set lcs+=tab:\▏\ 
+		execute 'set lcs-=tab:\ \ '
+		execute 'set lcs+=tab:\▏\ '
 		echom 'Tabchar set'
 	elseif &lcs =~ 'tab:▏ '
-		set lcs-=tab:\▏\ 
-		set lcs+=tab:\ \ 
+		execute 'set lcs-=tab:\▏\ '
+		execute 'set lcs+=tab:\ \ '
 		echom 'Tabchar default'
 	endif
 endfunction
@@ -638,14 +650,6 @@ function! s:toggle_background()
 		else
 			echo 'Set colorscheme to '.&background.' mode'
 		endif
-	endif
-endfunction
-
-function! s:window_empty_buffer()
-	let l:current = bufnr('%')
-	if ! getbufvar(l:current, '&modified')
-		enew
-		silent! execute 'bdelete '.l:current
 	endif
 endfunction
 
