@@ -17,9 +17,9 @@ if get(g:, 'handle_plugins', 'full') !=# 'disable'
 	endif
 endif
 
-let s:secondary_plugins_yaml = ''
+let s:local_plugins_yaml = ''
 if get(g:, 'init_secondary_config', 1)
-	let s:secondary_plugins_yaml = $CUSTOM_VIM_PATH . '/config/plugins.yaml'
+	let s:local_plugins_yaml = $LOCAL_VIM_PATH . '/config/plugins.yaml'
 endif
 
 " Collection of user plugin list config file-paths
@@ -29,7 +29,7 @@ let s:config_paths = get(g:, 'etc_config_paths', [
 			\ $VIM_PATH . '/vimrc.yaml',
 			\ $VIM_PATH . '/vimrc.json',
 			\ s:plugins_yaml,
-			\ s:secondary_plugins_yaml,
+			\ s:local_plugins_yaml,
 			\ ])
 
 " Filter non-existent config paths

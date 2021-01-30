@@ -7,7 +7,7 @@
 " skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
 "	disable = disable package manager (no plugins will be loaded)
 let g:handle_plugins = 'full'
-let g:init_secondary_config = 0
+let g:init_secondary_config = 1
 
 let g:custom_statusline_enable = 1
 let g:custom_tabline_enable = 1
@@ -31,11 +31,11 @@ let $VIM_PATH =
 			\ )
 
 " Set secondary nvim configuration directory
-let $CUSTOM_VIM_PATH = expand($HOME.'/.local-nvim.d')
+let $LOCAL_VIM_PATH = expand($HOME.'/.local-nvim.d')
 " Set data/cache directory as $XDG_CACHE_HOME/vim
 let $DATA_PATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
 " Set the secondary user init config file
-let s:user_init_config = expand($CUSTOM_VIM_PATH . '/init.vim')
+let s:user_init_config = expand($LOCAL_VIM_PATH . '/init.vim')
 
 " Disable vim distribution plugins
 let g:loaded_gzip = 1
@@ -68,6 +68,11 @@ if has('vim_starting')
 		set runtimepath+=$VIM_PATH/after
 	endif
 
+	if &runtimepath !~# $LOCAL_VIM_PATH
+		set runtimepath^=$LOCAL_VIM_PATH
+		set runtimepath+=$LOCAL_VIM_PATH/after
+	endif
+
 	" Ensure data directories
 	for s:path in [
 				\ $DATA_PATH,
@@ -76,7 +81,7 @@ if has('vim_starting')
 				\ $DATA_PATH . '/session',
 				\ $VIM_PATH . '/spell' ]
 		if ! isdirectory(s:path)
-			call mkdir(s:path, 'p')
+			call mkdir(s:path, 'p', 0770)
 		endif
 	endfor
 
