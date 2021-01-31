@@ -25,8 +25,8 @@ let g:nvim_tree_show_icons = {
 " NOTE: the 'edit' key will wrap/unwrap a folder and open a file
 let g:nvim_tree_bindings = {
     \ 'edit':            ['<CR>', 'o'],
-    \ 'edit_vsplit':     '<C-g>',
-    \ 'edit_split':      '<C-v>',
+    \ 'edit_vsplit':     '<C-v>',
+    \ 'edit_split':      '<C-g>',
     \ 'edit_tab':        '<C-t>',
     \ 'close_node':      ['<S-CR>', '<BS>'],
     \ 'toggle_dotfiles': ',',
