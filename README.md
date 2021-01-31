@@ -66,7 +66,9 @@ would be loaded when `g:init_secondary_config = 1`. This will be sourced after
 all the main configs in `core` are sourced and can be modified freely.
 
 Also, local plugins can be installed in the same relative directory as the main
-one `~/.local-nvim.d/config/plugins.yaml`
+one `~/.local-nvim.d/config/plugins.yaml`. Additionally, `$LOCAL_VIM_PATH` vim
+global variable can be used to refer to the home directory of the secondary
+config, that is `~/.local-nvim.d`.
 
 ### Negating Existing Plugins In Local Config
 
