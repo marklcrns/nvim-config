@@ -21,12 +21,12 @@ if s:enable_whichkey
 	" let g:which_key_map.g = { 'name': '+versioncontrol'}
 
 	" Extra mappings
-	nnoremap <silent> ?s            :<c-u>WhichKey 's'<CR>
-	vnoremap <silent> ?s            :<c-u>WhichKeyVisual 's'<CR>
-	nnoremap <silent> ?d            :<c-u>WhichKey 'd'<CR>
-	vnoremap <silent> ?d            :<c-u>WhichKeyVisual 'd'<CR>
-	nnoremap <silent> ?g            :<c-u>WhichKey 'g'<CR>
-	vnoremap <silent> ?g            :<c-u>WhichKeyVisual 'g'<CR>
+	nnoremap <silent> ?s :<c-u>WhichKey 's'<CR>
+	vnoremap <silent> ?s :<c-u>WhichKeyVisual 's'<CR>
+	nnoremap <silent> ?d :<c-u>WhichKey 'd'<CR>
+	vnoremap <silent> ?d :<c-u>WhichKeyVisual 'd'<CR>
+	nnoremap <silent> ?g :<c-u>WhichKey 'g'<CR>
+	vnoremap <silent> ?g :<c-u>WhichKeyVisual 'g'<CR>
 endif
 
 if dein#tap('dein.vim')
@@ -136,19 +136,35 @@ if dein#tap('coc.nvim')
 	" Use K for show documentation in float window
 	" nnoremap <silent> K :call CocActionAsync('doHover')<CR>
 
-	" Use K to show documentation in preview for vim window and float for nvim
+	" Use K to show documentation in preview window.
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 	function! s:show_documentation()
-		if (index(['vim', 'help'], &filetype) >= 0)
+		if (index(['vim','help'], &filetype) >= 0)
 			execute 'h '.expand('<cword>')
+		elseif (coc#rpc#ready())
+			call CocActionAsync('doHover')
 		else
-			let l:found = CocAction('doHover')
+			execute '!' . &keywordprg . " " . expand('<cword>')
 		endif
 	endfunction
 
-	" use <c-space> for trigger completion.
-	inoremap <silent><expr> <c-space> coc#refresh()
+	" Use <c-space> to trigger completion.
+	if has('nvim')
+		inoremap <silent><expr> <c-space> coc#refresh()
+	else
+		inoremap <silent><expr> <c-@> coc#refresh()
+	endif
+
+	" Remap <C-f> and <C-b> for scroll float windows/popups.
+	if has('nvim-0.4.0') || has('patch-8.2.0750')
+		nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+		nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+		inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+		inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+		vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+		vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	endif
 
 	" float window scroll
 	nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-f>"

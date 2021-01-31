@@ -7,7 +7,7 @@
 " skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
 "	disable = disable package manager (no plugins will be loaded)
 let g:handle_plugins = 'full'
-let g:init_secondary_config = 1
+let g:init_secondary_config = 0
 
 let g:custom_statusline_enable = 1
 let g:custom_tabline_enable = 1
