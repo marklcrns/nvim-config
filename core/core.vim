@@ -5,7 +5,7 @@
 " full    = loads /config/plugins.yaml (default)
 " minimal = loads /config/plugins_minimal.yaml
 " skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
-"	disable = disable package manager (no plugins will be loaded)
+" disable = disable package manager (no plugins will be loaded)
 let g:handle_plugins = 'full'
 let g:init_secondary_config = 0
 
