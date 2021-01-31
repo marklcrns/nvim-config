@@ -374,32 +374,54 @@ function! DiffMappings()
 	exe 'nnoremap <Leader>idh :diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
 	exe 'nnoremap <Leader>idV :vert diffsplit $HOME/'.nr2char(&wildcharm)
 	exe 'nnoremap <Leader>idH :diffsplit $HOME/'.nr2char(&wildcharm)
-	" Git mappings for mergetools or diff mode
-	" Add the following to .gitconfig, then run `git mergetool nvimdiff <MERGE_CONFLICT_FILE>`
-	" [merge]
-	"   tool = nvimdiff
-	" [mergetool "nvimdiff"]
-	"   cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-	" [mergetool]
-	"   prompt = true
-	nnoremap <expr> dob &diff ? ':diffget BASE<CR>'   : ''
-	nnoremap <expr> dob &diff ? ':diffget BASE<CR>'   : ''
-	nnoremap <expr> dol &diff ? ':diffget LOCAL<CR>'  : ''
-	nnoremap <expr> dor &diff ? ':diffget REMOTE<CR>' : ''
-	" Quit nvim with an error code. Useful when aborting git mergetool or git commit
-	nnoremap <expr> cq  &diff ? ':cquit<CR>'          : ''
+
+	nmap <silent> <Leader>idd :DiffOrig<CR>
+
 	function! PrintMergeDiffMappings()
+		" Only display once if g:custom_diff_enable = 0
+		if get(g:, 'custom_diff_enable', 0) ==# 1
+			return
+		endif
+
+		" Git mappings for mergetools (also works for vimdiff, i.e. LOCAL for
+		" original code, and REMOTE for new changes)
+		"
+		" Add the following to .gitconfig, then run `git mergetool nvimdiff <MERGE_CONFLICT_FILE>`
+		" [merge]
+		"   tool = nvimdiff
+		" [mergetool "nvimdiff"]
+		"   cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+		" [mergetool]
+		"   prompt = true
+
+		" Diff mappings only when in diff buffer
+		nnoremap <expr> dob &diff ? ':diffget BASE<CR>'   : ''
+		nnoremap <expr> dol &diff ? ':diffget LOCAL<CR>'  : ''
+		nnoremap <expr> dor &diff ? ':diffget REMOTE<CR>' : ''
+		" Quit nvim with an error code. Useful when aborting git mergetool or git commit
+		nnoremap <expr> cq  &diff ? ':cquit<CR>'          : ''
+
+		echom " "
 		echom "dob :diffget BASE"
 		echom "dol :diffget LOCAL"
 		echom "dor :diffget REMOTE"
 		echom "cq  :cquit"
 		echom "]c  Next conflict"
 		echom "[c  Previous conflict"
-		echom " "
-		echom "To view these again, type :messages or :call PrintMergeDiffMappings()"
+
+		" Only shows the first time this function is called
+		if !exists("g:custom_diff_enable")
+			echohl WildMenu | echom "To view these again, type :messages or :call PrintMergeDiffMappings()" | echohl NONE
+		endif
+
+		let g:custom_diff_enable = 1
 	endfunction
 
-	nmap <silent> <Leader>idd :DiffOrig<CR>
+	" Display diff mappings on diff mode
+	augroup user_diffmode
+		autocmd!
+		autocmd OptionSet diff if v:option_old == 0 && v:option_new != 0 | call PrintMergeDiffMappings() | else | let g:custom_diff_enable = 0 | endif
+	augroup END
 endfunction
 
 function! FoldsMappings()
@@ -692,3 +714,7 @@ call SessionMappings()
 call TextManipulationMappings()
 " Settings Toggle Mappings
 call SettingsToggleMappings()
+
+
+
+" test

@@ -1,7 +1,7 @@
 " NOTE: Must run `:call dein#recache_runtimepath()` when switching between modes
 " and toggling g:init_secondary_config
 " To delete unused plugins, run `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
-" -----
+" ------
 " full    = loads /config/plugins.yaml (default)
 " minimal = loads /config/plugins_minimal.yaml
 " skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.yaml)
