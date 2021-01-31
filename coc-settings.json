@@ -1,4 +1,10 @@
 {
+	// Disable floating window
+	"suggest.floatEnable": false,
+	"diagnostic.messageTarget": "echo",
+	"signature.target": "echo",
+	"coc.preferences.hoverTarget": "echo",
+
   "suggest.triggerAfterInsertEnter": false,
   "suggest.minTriggerInputLength": 1,
   "suggest.timeout": 500,
@@ -35,20 +41,9 @@
       "default": "\uf29c"
   },
 
-  // coc-explorer
-  "explorer.icon.expanded": "▾",
-  "explorer.icon.collapsed": "▸",
-  "explorer.width": 30,
-  "explorer.icon.enableNerdfont": true,
-  "explorer.quitOnOpen": true,
-  "explorer.floating.width": -20,
-  "explorer.floating.height": -10,
-  "explorer.openAction.strategy": "sourceWindow",
-
   //diagnostic
   "diagnostic.enableSign": true,
   "diagnostic.enableHighlightLineNumber": true,
-  "diagnostic.signOffset": 9999999,
   "diagnostic.hintSign": "⊹",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
@@ -109,11 +104,6 @@
     "vimwiki"
   ],
 
-  "coc.source.word.filetypes": [
-    "markdown",
-    "vimwiki"
-  ],
-
   // html/emmet
   "html.enable": true,
   "html.filetypes": [
@@ -140,8 +130,6 @@
   "session.directory": "~/.cache/vim/session",
 
   // eslint
-  "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
-  "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
   // python
   "python.jediEnabled": false,
