@@ -44,9 +44,7 @@ augroup CocAutoCmd
   autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
 	" Highlight the symbol and its references when holding the cursor.
 	autocmd CursorHold * silent call CocActionAsync('highlight')
-
 augroup end
-
 
 " Ref: https://stackoverflow.com/a/61275100/11850077
 "      https://github.com/vim/vim/issues/2004#issuecomment-324357529

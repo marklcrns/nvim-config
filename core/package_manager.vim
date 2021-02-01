@@ -5,21 +5,28 @@ augroup user_events
 	autocmd!
 augroup END
 
-" Initializes options
-let s:package_manager = 'dein'
-
 let s:plugins_yaml = ''
+let s:plugins_toml = ''
+let s:plugins_toml_lazy = ''
 if get(g:, 'handle_plugins', 'full') !=# 'disable'
 	if g:handle_plugins ==# 'full'
 		let s:plugins_yaml = $VIM_PATH . '/config/plugins.yaml'
+		let s:plugins_toml = $VIM_PATH . '/config/plugins.toml'
+		let s:plugins_toml_lazy = $VIM_PATH . '/config/plugins_lazy.toml'
 	elseif g:handle_plugins ==# 'minimal'
 		let s:plugins_yaml = $VIM_PATH . '/config/plugins_minimal.yaml'
+		let s:plugins_toml = $VIM_PATH . '/config/plugins_minimal.toml'
+		let s:plugins_toml_lazy = $VIM_PATH . '/config/plugins_minimal_lazy.toml'
 	endif
 endif
 
 let s:local_plugins_yaml = ''
+let s:local_plugins_toml = ''
+let s:local_plugins_toml_lazy = ''
 if get(g:, 'init_secondary_config', 1)
 	let s:local_plugins_yaml = $LOCAL_VIM_PATH . '/config/plugins.yaml'
+	let s:local_plugins_toml = $LOCAL_VIM_PATH . '/config/plugins.toml'
+	let s:local_plugins_toml_lazy = $LOCAL_VIM_PATH . '/config/plugins_lazy.toml'
 endif
 
 " Collection of user plugin list config file-paths
@@ -32,22 +39,31 @@ let s:config_paths = get(g:, 'etc_config_paths', [
 			\ s:local_plugins_yaml,
 			\ ])
 
+" Collection of user plugin list config file-paths
+let s:config_paths_toml = get(g:, 'etc_config_paths_toml', [
+			\ s:plugins_toml,
+			\ s:plugins_toml_lazy,
+			\ s:local_plugins_toml,
+			\ s:local_plugins_toml_lazy,
+			\ ])
+
+
 " Filter non-existent config paths
 call filter(s:config_paths, 'filereadable(v:val)')
 
 function! s:main()
-	call s:use_{s:package_manager}()
+	call s:use_{get(g:, 'package_manager', 'dein_yaml')}()
 endfunction
 
-function! s:use_dein()
+function! s:use_dein_yaml()
 	let l:cache_path = $DATA_PATH . '/dein'
 
 	if has('vim_starting')
 		" Use dein as a plugin manager
-		let g:dein#auto_recache = 1
+		let g:dein#auto_recache = v:true
 		let g:dein#install_max_processes = 12
 		let g:dein#install_progress_type = 'title'
-		let g:dein#enable_notification = 1
+		let g:dein#enable_notification = v:true
 		let g:dein#install_log_filename = $DATA_PATH . '/dein.log'
 
 		" Add dein to vim's runtimepath
@@ -85,6 +101,76 @@ function! s:use_dein()
 		if isdirectory($VIM_PATH . '/dev')
 			call dein#local($VIM_PATH . '/dev', { 'frozen': 1, 'merged': 0 })
 		endif
+		call dein#end()
+
+		" Save cached state for faster startups
+		if ! g:dein#_is_sudo
+			call dein#save_state()
+		endif
+
+		" Update or install plugins if a change detected
+		if dein#check_install()
+			if ! has('nvim')
+				set nomore
+			endif
+			call dein#install()
+		endif
+	endif
+
+	filetype plugin indent on
+
+	" Only enable syntax when vim is starting
+	if has('vim_starting')
+		syntax enable
+	endif
+
+	" Trigger source event hooks
+	call dein#call_hook('source')
+	call dein#call_hook('post_source')
+endfunction
+
+function! s:use_dein_toml()
+	let l:cache_path = $DATA_PATH . '/dein'
+
+	if has('vim_starting')
+		" Use dein as a plugin manager
+		let g:dein#auto_recache = v:true
+		let g:dein#lazy_rplugins = v:true
+		let g:dein#install_max_processes = 12
+		let g:dein#install_progress_type = 'title'
+		let g:dein#enable_notification = v:true
+		let g:dein#install_log_filename = $DATA_PATH . '/dein.log'
+
+		" Add dein to vim's runtimepath
+		if &runtimepath !~# '/dein.vim'
+			let s:dein_dir = l:cache_path . '/repos/github.com/Shougo/dein.vim'
+			" Clone dein if first-time setup
+			if ! isdirectory(s:dein_dir)
+				execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+				if v:shell_error
+					call s:error('dein installation has failed! is git installed?')
+					finish
+				endif
+			endif
+
+			execute 'set runtimepath+='.substitute(
+						\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+		endif
+	endif
+
+	" Initialize dein.vim (package manager)
+	if dein#load_state(l:cache_path)
+		" Start propagating file paths and plugin presets
+		call dein#begin(l:cache_path, extend([expand('<sfile>')], s:config_paths_toml))
+
+		for toml in s:config_paths_toml
+			if empty(toml)
+				continue
+			endif
+			" If 'lazy' is present in toml filename, set lazy
+			call dein#load_toml(toml, {'lazy': stridx(toml, "lazy") !=# -1 ? 1 : 0})
+		endfor
+
 		call dein#end()
 
 		" Save cached state for faster startups

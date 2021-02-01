@@ -1,0 +1,67 @@
+# Plugins Parsed by TOML
+# NOTE: `g:package_manager' must be set to 'dein_toml'
+# hook_add:     executed after the line is parsed
+# hook_source:  executed after the plugins are sourced
+
+# Normal Loaded Plugins
+# ==========================================
+
+# Startup {{{
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+repo = 'glepnir/dashboard-nvim'
+hook_source = 'source $VIM_PATH/config/plugins/dashboard.vim'
+
+# Completion
+# ----------------------------------------
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merged = '0'
+rev = 'release'
+hook_source = 'source ~/.config/nvim/config/plugins/coc.vim'
+
+# Tools
+# ----------------------------------------
+[[plugins]]
+repo = 'dhruvasagar/vim-zoom'
+hook_source = '''
+  let g:zoom#statustext = ''
+'''
+
+[[plugins]]
+repo = 'christoomey/vim-tmux-navigator'
+hook_source = '''
+  let g:tmux_navigator_disable_when_zoomed = 1
+'''
+
+[[plugins]]
+repo = 'sgur/vim-editorconfig'
+hook_source = '''
+  let g:editorconfig_verbose = 1
+  let g:editorconfig_blacklist = {
+    \ 'filetype': [
+    \   'git.*', 'fugitive', 'help', 'defx', 'denite.*', 'startify',
+    \   'vista.*', 'tagbar', 'lsp-.*', 'clap_.*', 'any-jump', 'gina-.*'
+    \  ],
+    \ 'pattern': ['\.un~$']
+    \ }
+'''
+
+[[plugins]]
+repo = 'tpope/vim-unimpaired'
+
+[[plugins]]
+repo = 'tpope/vim-eunuch'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+# Fix neovim cursorhold bug. Suggested by Fern.vim
+[[plugins]]
+repo = 'antoinemadec/FixCursorHold.nvim'
+# }}}
+
+

@@ -7,12 +7,10 @@
 # ==========================================
 
 # Startup {{{
+- repo: Shougo/dein.vim
+
 - repo: glepnir/dashboard-nvim
   hook_source: source $VIM_PATH/config/plugins/dashboard.vim
-
-# Package Manager
-# ----------------------------------------
-- repo: Shougo/dein.vim
 
 # Completion
 # ----------------------------------------
@@ -136,6 +134,7 @@
 - repo: puremourning/vimspector
   hook_add: |
     let g:vimspector_enable_mappings = 'HUMAN'
+
 - repo: junegunn/vim-easy-align
   on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
   hook_source: source $VIM_PATH/config/plugins/vim-easy-align.vim
@@ -160,12 +159,14 @@
 
 - repo: tyru/caw.vim
   on_map: { nx: <Plug> }
+
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }
   hook_add: |
     let g:sandwich_no_default_key_mappings = 1
     let g:operator_sandwich_no_default_key_mappings = 1
     let g:textobj_sandwich_no_default_key_mappings = 1
+
 - repo: Raimondi/delimitMate
   on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/delimitMate.vim
@@ -217,21 +218,9 @@
   hook_source: |
     let g:netrw_nogx = 1
     command! -nargs=1 Browse OpenBrowser <args>
-
 # }}}
 
 # Languages {{{
-
-# Javascript
-# ----------------------------------------
-# - repo: chemzqm/vim-jsx-improve
-#   on_ft: [javascript, javascriptreact]
-
-# JSON
-# ----------------------------------------
-# - repo: elzr/vim-json
-#   on_ft: json
-#   hook_add: let g:vim_json_syntax_conceal = 0
 
 # Markdown
 # ---------------------------------------
@@ -253,7 +242,6 @@
 
 - repo: junegunn/vim-emoji
   on_ft: [markdown, vim]
-
 
 # Python
 # ----------------------------------------
@@ -569,7 +557,6 @@
 # Text Objects {{{
 - repo: terryma/vim-expand-region
   on_map: { x: <Plug> }
-- repo: kana/vim-textobj-user  # only autoload functions, lazy by nature
 - repo: kana/vim-textobj-function
   on_map: { ox: <Plug> }
   hook_add: let g:textobj_function_no_default_key_mappings = 1
