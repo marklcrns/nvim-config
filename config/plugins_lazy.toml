@@ -346,22 +346,24 @@ hook_source = '''
   source $VIM_PATH/config/plugins/vim-indent-guides.vim
 '''
 
-# [[plugins]]
-# repo = 'norcalli/nvim-colorizer.lua'
-#   if = 'has('nvim') && has('nvim-0.4.0')'
-#   on_event = 'FileType'
-#   hook_source = 'luafile $VIM_PATH/config/plugins/colorizer.lua'
+[[plugins]]
+repo = 'norcalli/nvim-colorizer.lua'
+if = 'has("nvim") && has("nvim-0.4.0")'
+on_event = 'FileType'
+hook_source = 'luafile $VIM_PATH/config/plugins/colorizer.lua'
 
-# [[plugins]]
-# repo = 'kyazdani42/nvim-tree.lua'
-#   on_cmd = '[ NvimTreeToggle, NvimTreeOpen ]'
-#   hook_add = '''
-#   source $VIM_PATH/config/plugins/nvim-tree.vim
-# '''
+[[plugins]]
+repo = 'kyazdani42/nvim-tree.lua'
+if = 'has("nvim") && has("nvim-0.5")'
+on_cmd = '[ NvimTreeToggle, NvimTreeOpen ]'
+hook_add = '''
+	source $VIM_PATH/config/plugins/nvim-tree.vim
+'''
 
-# [[plugins]]
-# repo = 'kyazdani42/nvim-web-devicons'
-# on_source = 'nvim-tree.lua'
+[[plugins]]
+repo = 'kyazdani42/nvim-web-devicons'
+if = 'has("nvim") && has("nvim-0.5")'
+on_source = 'nvim-tree.lua'
 
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
