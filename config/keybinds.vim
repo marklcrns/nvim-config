@@ -14,12 +14,6 @@ if s:enable_whichkey
 	endfunction
 	call InitWhickey()
 
-	" let g:which_key_map.c = { 'name': '+code' }
-	" let g:which_key_map.f = { 'name': '+find'}
-	" let g:which_key_map.o = { 'name': '+open' }
-	" let g:which_key_map.t = { 'name': '+toggle'}
-	" let g:which_key_map.g = { 'name': '+versioncontrol'}
-
 	" Extra mappings
 	nnoremap <silent> ?s :<c-u>WhichKey 's'<CR>
 	vnoremap <silent> ?s :<c-u>WhichKeyVisual 's'<CR>
@@ -166,9 +160,6 @@ if dein#tap('coc.nvim')
 		vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 	endif
 
-	" float window scroll
-	nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-f>"
-	nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
 	" multiple cursors
 	nmap <silent> <C-c> <Plug>(coc-cursors-position)
 	" use normal command like `<leader>xi(`
@@ -287,7 +278,8 @@ if dein#tap('vim-easy-align')
 endif
 
 if dein#tap('vim-mundo')
-	nnoremap <silent> <LocalLeader>u :MundoToggle<CR>
+	nnoremap <silent> <Leader>ou :MundoToggle<CR>
+	let g:which_key_map['o']['u'] = 'Undo tree toggle'
 endif
 
 if dein#tap('vim-choosewin')
@@ -415,25 +407,38 @@ if dein#tap('vim-expand-region')
 	xmap V <Plug>(expand_region_shrink)
 endif
 
-if dein#tap('splitjoin.vim')
-	let g:splitjoin_join_mapping = ''
-	let g:splitjoin_split_mapping = ''
-	nmap sJ :SplitjoinJoin<CR>
-	nmap sK :SplitjoinSplit<CR>
-endif
-
 if dein#tap('vista.vim')
-	nnoremap <silent><localleader>vv :Vista!!<CR>
-	nnoremap <silent><localleader>vc :Vista finder clap<CR>
-	nnoremap <silent><localleader>vf :Vista focus<CR>
-	nnoremap <silent><localleader>vo :Vista<CR>
-	nnoremap <silent><localleader>vq :Vista!<CR>
+	nnoremap <silent><Leader>ovv :Vista!!<CR>
+	nnoremap <silent><Leader>ovc :Vista finder clap<CR>
+	nnoremap <silent><Leader>ovf :Vista focus<CR>
+	nnoremap <silent><Leader>ovo :Vista<CR>
+	nnoremap <silent><Leader>ovq :Vista!<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['o']['v'] = {
+					\ 'name' : '+vista',
+					\ 'v' : 'Vista toggle',
+					\ 'c' : 'Vista finder clap',
+					\ 'f' : 'Vista focus back and forth',
+					\ 'o' : 'Vista open',
+					\ 'q' : 'Vista close',
+					\ }
+	endif
 endif
 
 if dein#tap('minimap.vim')
-	nnoremap <silent><localleader>mm :MinimapToggle<CR>
-	nnoremap <silent><localleader>mq :MinimapClose<CR>
-	nnoremap <silent><localleader>mr :MinimapRefresh<CR>
+	nnoremap <silent><Leader>omm :MinimapToggle<CR>
+	nnoremap <silent><Leader>omq :MinimapClose<CR>
+	nnoremap <silent><Leader>omr :MinimapRefresh<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['o']['m'] = {
+					\ 'name' : '+Minimap',
+					\ 'm' : 'Minimap Toggle',
+					\ 'q' : 'Minimap Close',
+					\ 'r' : 'Minimap Refresh',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-easymotion')
@@ -555,7 +560,7 @@ endif
 
 if dein#tap('vimtex')
 	if s:enable_whichkey
-		let g:which_key_localmap.l = { 'name': '+vimtex' }
+		let g:which_key_localmap['l'] = { 'name': '+vimtex' }
 	endif
 endif
 
@@ -572,6 +577,39 @@ if dein#tap('vimwiki')
 		setlocal laststatus=0 showtabline=0 colorcolumn=0
 	endfunction
 	nmap <LocalLeader>wT :<C-u>call DToday()<CR>
+
+	if s:enable_whichkey
+		let g:which_key_localmap['w'] = {
+					\ 'name' : '+vimwiki',
+					\ 'd' : 'Vimwiki delete current page',
+					\ 'h' : 'Vimwiki to html',
+					\ 'hh' : 'Vimwiki to html browse',
+					\ 'H' : 'Vimwiki all to html',
+					\ 'i' : 'Vimwiki diary index',
+					\ 'l' : 'Vimwiki generate links',
+					\ 'L' : 'Vimwiki custom generate resources links',
+					\ 'n' : 'Vimwiki go to',
+					\ 'r' : 'Vimwiki rename link',
+					\ 's' : 'Vimwiki UI select',
+					\ 't' : 'Vimwiki index new tab',
+					\ 'T' : 'Vimwiki create new diary for today',
+					\ 'w' : 'Vimwiki index',
+					\ ' ' : {
+					\ 'name' : '+diary',
+					\ 'i' : 'Vimwiki diary generate link',
+					\ 'm' : 'Vimwiki diary tomorrow',
+					\ 't' : 'Vimwiki diary today',
+					\ 'w' : 'Vimwiki diary note',
+					\ 'y' : 'Vimwiki diary yesterday',
+					\ },
+					\ }
+
+		let g:which_key_localmap['W'] = {
+					\ 'name' : '+vimwiki-init',
+					\ 'W' : 'Vimwiki UI select',
+					\ 'I' : 'Vimwiki diary index',
+					\ }
+	endif
 endif
 
 if dein#tap('taskwiki')
@@ -619,12 +657,20 @@ if dein#tap('taskwiki')
 	if s:enable_whichkey
 		let g:which_key_localmap.t = {
 					\ 'name' : '+taskwiki',
-					\ 'u' : ['call TaskWikiUpdate()', 'Custom taskwiki tasks update']
+					\ 'u' : ['call TaskWikiUpdate()', 'Custom taskwiki tasks update'],
+					\ 'b' : {
+					\ 'name' : '+taskwiki-burndown',
+					\ },
+					\ 'c' : {
+					\ 'name' : '+taskwiki-choose',
+					\ },
+					\ 'h' : {
+					\ 'name' : '+taskwiki-history',
+					\ },
+					\ 'G' : {
+					\ 'name' : '+taskwiki-ghistory',
+					\ },
 					\ }
-		let g:which_key_localmap.t.b = { 'name' : '+taskwiki-burndown' }
-		let g:which_key_localmap.t.c = { 'name' : '+taskwiki-choose' }
-		let g:which_key_localmap.t.h = { 'name' : '+taskwiki-history' }
-		let g:which_key_localmap.t.G = { 'name' : '+taskwiki-ghistory' }
 	endif
 endif
 
@@ -632,7 +678,7 @@ if dein#tap('taskwarrior.vim')
 	nnoremap <LocalLeader>tw :<C-u>TW<CR>
 
 	if s:enable_whichkey
-		let g:which_key_localmap.t.w = ['TW', 'Open Task Warrior']
+		let g:which_key_localmap['t']['w'] = 'Open Task Warrior'
 	endif
 endif
 
@@ -649,6 +695,17 @@ if dein#tap('vimux')
 	nnoremap <Leader>vx :VimuxInterruptRunner<CR>
 	" Zoom the runner pane (use <bind-key> z to restore runner pane)
 	nnoremap <Leader>vf :VimuxZoomRunner<CR>
+	if s:enable_whichkey
+		let g:which_key_localmap['v'] = {
+					\ 'name' : '+vimux',
+					\ 'c' : 'Vimux prompt command',
+					\ 'l' : 'Vimux run last command',
+					\ 'i' : 'Vimux inspect runner',
+					\ 'f' : 'Vimux zoom runner',
+					\ 'q' : 'Vimux close runner',
+					\ 'x' : 'Vimux interrupt runner',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-indent-guides')
@@ -708,45 +765,57 @@ if dein#tap('thesaurus_query.vim')
 	vnoremap <silent> <Leader>rt y:ThesaurusQueryReplace <C-r>"<CR>
 endif
 
-if dein#tap('vim-fugitive')
-	" Ref http://vimcasts.org/episodes/fugitive-vim-exploring-the-history-of-a-git-repository/
-	nnoremap <Leader>gb :<C-u>Git blame<CR>
-	nnoremap <Leader>gdc :<C-u>Gdiff --cached<CR>
-	nnoremap <Leader>gdd :<C-u>Gdiff<Space>
-	nnoremap <Leader>gdt :<C-u>Git difftool<CR>
-	nnoremap <Leader>gds :<C-u>Gdiffsplit!<CR>
-	nnoremap <Leader>gdh :<C-u>Ghdiffsplit<CR>
-	nnoremap <Leader>gdv :<C-u>Gvdiffsplit<CR>
-	nnoremap <Leader>gl :<C-u>Glog<CR>
-	nnoremap <Leader>gL :<C-u>0Glog<CR>
-	nnoremap <Leader>gF :<C-u>Gfetch<CR>
-	nnoremap <Leader>gg :<C-u>Ggrep<Space>
-	nnoremap <Leader>gG :<C-u>Glog --grep= -- %<Left><Left><Left><Left><Left>
-	nnoremap <Leader>gr :<C-u>Git reset<CR>
-	nnoremap <Leader>gs :<C-u>Gstatus<CR>
-endif
-
 if dein#tap('open-browser.vim')
-  nmap gx <Plug>(openbrowser-smart-search)
-  vmap gx <Plug>(openbrowser-smart-search)
+	nmap gx <Plug>(openbrowser-smart-search)
+	vmap gx <Plug>(openbrowser-smart-search)
 
 	if s:enable_whichkey
-		let g:which_key_gmap.x = ['<Plug>(openbrowser-smart-search)', 'Open in browser']
+		let g:which_key_gmap['x'] = 'Open in browser'
 	endif
 endif
 
-if dein#tap('gv.vim')
-	noremap <Leader>gv :GV! --all<cr>
-	vnoremap <Leader>gv :GV! --all<cr>
+if dein#tap('gina.vim')
+	nnoremap <silent> <Leader>ga :Gina add %:p<CR>
+	nnoremap <silent> <Leader>gA :Gina add .<CR>
+	nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
+	nnoremap <silent> <Leader>gc :Gina commit<CR>
+	nnoremap <silent> <leader>gd :Gina compare<CR>
+	nnoremap <silent> <Leader>gF :Gina! fetch<CR>
+	nnoremap <silent> <Leader>gl :Gina log --graph --all<CR>
+	nnoremap <silent> <leader>go :,Gina browse :<CR>
+	vnoremap <silent> <leader>go :Gina browse :<CR>
+	nnoremap <silent> <Leader>gp :Gina! push<CR>
+	nnoremap <silent> <leader>gs :Gina status -s<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['g']['a'] = 'Stage buffer'
+		let g:which_key_map['g']['A'] = 'Stage all changes'
+		let g:which_key_map['g']['b'] = 'Open git blame'
+		let g:which_key_map['g']['c'] = 'Commit staged changes'
+		let g:which_key_map['g']['d'] = 'Diff buffer'
+		let g:which_key_map['g']['F'] = 'Fetch remote'
+		let g:which_key_map['g']['l'] = 'Display git log'
+		let g:which_key_map['g']['o'] = 'Open repo in browser'
+		let g:which_key_map['g']['p'] = 'Push commits'
+		let g:which_key_map['g']['s'] = 'Display git status'
+	endif
 endif
 
-if dein#tap('gina.vim')
-	nnoremap <Leader>ga :<C-u>Gina add %:p<CR>
-	nnoremap <Leader>gA :<C-u>Gina add .<CR>
-	nnoremap <Leader>gB :<C-u>Gina blame<CR>
-	nnoremap <Leader>gc :<C-u>Gina commit<CR>
-	nnoremap <Leader>go :<C-u>Gina log<CR>
-	nnoremap <Leader>gp :<C-u>Gina push<CR>
+if dein#tap('vim-gitgutter')
+	nmap ]g <Plug>(GitGutterNextHunk)
+	nmap [g <Plug>(GitGutterPrevHunk)
+	nmap gS <Plug>(GitGutterStageHunk)
+	xmap gS <Plug>(GitGutterStageHunk)
+	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
+	nmap gs <Plug>(GitGutterPreviewHunk)
+
+	if s:enable_whichkey
+		let g:which_key_rsbgmap['g'] = 'Go to next git changes hunk'
+		let g:which_key_lsbgmap['g'] = 'Go to prev git changes hunk'
+		let g:which_key_gmap['s'] = 'Preview git changes hunk'
+		let g:which_key_gmap['S'] = 'Stage git changes hunk'
+		let g:which_key_map['g']['r'] = 'Undo stage git changes hunk'
+	endif
 endif
 
 if dein#tap('calendar.vim')
@@ -815,30 +884,16 @@ if dein#tap('leetcode.vim')
 	nnoremap <Leader>Ll :LeetCodeList<CR>
 	nnoremap <Leader>Lt :LeetCodeTest<CR>
 	nnoremap <Leader>Ls :LeetCodeSubmit<CR>
+	nnoremap <Leader>Lu :LeetCodeSignIn<CR>
 
 	if s:enable_whichkey
-		let g:which_key_map.L = {
+		let g:which_key_map['L'] = {
 					\ 'name' : '+leetcode',
-					\ 'l' : ['LeetCodeList',   'LeetCode list problems'],
-					\ 't' : ['LeetCodeTest',   'LeetCode test solution'],
-					\ 's' : ['LeetCodeSubmit', 'LeetCode submit solution'],
+					\ 'l' : 'LeetCode list problems',
+					\ 't' : 'LeetCode test solution',
+					\ 's' : 'LeetCode submit solution',
+					\ 'u' : 'LeetCode Sign in',
 					\ }
 	endif
 endi
 
-
-" Commented plugins too old, or found much better
-" ==================================================
-" if dein#tap('spaceline.vim')
-"   let g:spaceline_colorscheme = 'solarized_dark'
-"   let g:spaceline_seperate_mode = 1
-"   let g:spaceline_homemode_right = ''
-"   let g:spaceline_filename_left  = ''
-"   let g:spaceline_filesize_right = ''
-"   let g:spaceline_gitinfo_left   = ''
-"   let g:spaceline_gitinfo_right  = ''
-"   let g:spaceline_cocexts_right  = ''
-"   let g:spaceline_lineformat_right = ''
-"   let g:spaceline_seperate_endseperate = ''
-"   let g:spaceline_seperate_emptyseperate = ''
-" endif

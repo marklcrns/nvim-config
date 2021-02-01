@@ -1,9 +1,9 @@
 {
-	// Disable floating window
-	"suggest.floatEnable": false,
+	// Floating window
+	"suggest.floatEnable": true,
 	"diagnostic.messageTarget": "echo",
-	"signature.target": "echo",
-	"coc.preferences.hoverTarget": "echo",
+	"signature.target": "float",
+	"coc.preferences.hoverTarget": "float",
 
   "suggest.triggerAfterInsertEnter": false,
   "suggest.minTriggerInputLength": 1,
@@ -53,21 +53,21 @@
   "diagnostic.refreshOnInsertMode": true,
 
   //git
-  "git.enableGutters": true,
-  "git.branchCharacter":"\uf408",
+  "git.enableGutters": false,
+  //"git.branchCharacter":"\uf408",
   //"git.addGBlameToBufferVar": true,
   //"git.addGBlameToVirtualText": true,
   //"git.virtualTextPrefix": " ❯❯❯ ",
-  "git.addedSign.hlGroup": "GitGutterAdd",
-  "git.changedSign.hlGroup": "GitGutterChange",
-  "git.removedSign.hlGroup": "GitGutterDelete",
-  "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "git.addedSign.text":"▎",
-  "git.changedSign.text":"▎",
-  "git.removedSign.text":"▏",
-  "git.topRemovedSign.text": "▔",
-  "git.changeRemovedSign.text": "▋",
+  //"git.addedSign.hlGroup": "GitGutterAdd",
+  //"git.changedSign.hlGroup": "GitGutterChange",
+  //"git.removedSign.hlGroup": "GitGutterDelete",
+  //"git.topRemovedSign.hlGroup": "GitGutterDelete",
+  //"git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  //"git.addedSign.text":"▎",
+  //"git.changedSign.text":"▎",
+  //"git.removedSign.text":"▏",
+  //"git.topRemovedSign.text": "▔",
+  //"git.changeRemovedSign.text": "▋",
 
   //Snippet
   "coc.preferences.snippetStatusText": "Ⓢ ",

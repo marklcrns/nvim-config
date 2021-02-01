@@ -146,9 +146,6 @@
   hook_source: |
     let g:doge_mapping = '<Leader>ld'
 
-- repo: AndrewRadev/splitjoin.vim
-  on_map: { n: <Plug>Splitjoin }
-
 - repo: AndrewRadev/linediff.vim
   on_cmd: Linediff
   hook_add: |
@@ -178,6 +175,8 @@
 # Git{{{
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
+  on_ft: [ gitcommit, gitrebase ]
+  hook_source: source $VIM_PATH/config/plugins/gina.vim
 
 - repo: rhysd/committia.vim
   on_event: BufReadPost
@@ -198,11 +197,21 @@
       imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
     endfunction
 
-- repo: tpope/vim-fugitive
-  on_cmd: [G, Git, Gfetch, Gpush, Gstatus, Glog, Gclog, Gllog, Gdiffsplit, Gvdiffsplit, GBrowse]
-
-- repo:  tpope/vim-rhubarb
-  depends: vim-fugitive
+- repo: airblade/vim-gitgutter
+  on_event: FileType
+  hook_add: |
+    let g:gitgutter_map_keys = 0
+    let g:gitgutter_sign_added = '▎'
+    let g:gitgutter_sign_modified = '▎'
+    let g:gitgutter_sign_removed = '▍'
+    let g:gitgutter_sign_removed_first_line = '▘'
+    let g:gitgutter_sign_removed_above_and_below = '_¯'
+    let g:gitgutter_sign_modified_removed = '▍'
+    let g:gitgutter_preview_win_floating = 1
+    let g:gitgutter_sign_allow_clobber = 0
+    let g:gitgutter_sign_priority = 0
+    let g:gitgutter_override_sign_column_highlight = 0
+    let g:gitgutter_set_sign_backgrounds = 1
 
 - repo: tyru/open-browser.vim
   hook_source: |
@@ -316,10 +325,6 @@
   depends: vim-clap
   hook_add: |
     let g:clap_session_dir = $DATA_PATH . '/session'
-
-- repo: junegunn/gv.vim
-  depends: vim-fugitive
-  on_cmd: GV
 
 - repo: ludovicchabant/vim-gutentags
   if: "executable('ctags')"
