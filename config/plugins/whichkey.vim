@@ -4,6 +4,19 @@ augroup user_events
 		\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
+let g:which_key_timeout = 200
+let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
+let g:which_key_sep = '»'
+
+let g:which_key_display_names = {
+			\				' ': '␣',
+			\		'<C-H>': '←',
+			\		'<C-I>': '⇆',
+			\		'<TAB>': '⇆',
+			\ '<S-TAB>': 'S⇆',
+			\		 '<CR>': '↵',
+			\ }
+
 let g:which_key_map = {
 		\ 'name' : '+leader-key',
 		\ '<CR>' : 'Toggle fold at current line',
@@ -158,34 +171,6 @@ let g:which_key_map = {
 									\ 'o' : 'Open/Create file from yanked path',
 									\ 'x' : 'Yank file extension only',
 								\ },
-					\ },
-		\ 'g' : {
-					\ 'name' : '+git-operate',
-						 \ 'a' : 'Git add',
-						 \ 'A' : 'Git add all',
-						 \ 'b' : 'Git blame',
-						 \ 'B' : 'Gina blame',
-						 \ 'c' : 'Gina commit',
-						 \ 'd' : {
-									 \ 'name' : '+git-diff',
-									 \ 'c' : 'Git diff cached',
-									 \ 'd' : 'Git diff',
-									 \ 's' : 'Git diffsplit',
-									 \ 't' : 'Git difftool',
-									 \ 'h' : 'Git diffsplit horizontal',
-									 \ 'v' : 'Git diffsplit vertical',
-									 \ },
-						 \ 'D' : 'Git open all dirty files (uncommited) in H splits',
-						 \ 'F' : 'Git fetch',
-						 \ 'g' : 'Ggrep {word}',
-						 \ 'G' : 'Git log grep current file',
-						 \ 'l' : 'Git log quickfix',
-						 \ 'L' : 'Git log current file quickfix',
-						 \ 'o' : 'Gina log',
-						 \ 'p' : 'Git push',
-						 \ 'P' : 'Terminal git push',
-						 \ 's' : 'Git status',
-						 \ 'v' : 'Git commit browser',
 					\ },
 		\ 'G' : 'Grep operator',
 		\ 'i' : {
@@ -400,15 +385,6 @@ let g:which_key_map = {
 						 \ 'm' : 'Move tab',
 						 \ 'q' : 'Close current tab',
 					\ },
-		\ 'v' : {
-					\ 'name' : '+vimux',
-						 \ 'c' : 'Vimux prompt command',
-						 \ 'l' : 'Vimux run last command',
-						 \ 'i' : 'Vimux inspect runner',
-						 \ 'f' : 'Vimux zoom runner',
-						 \ 'q' : 'Vimux close runner',
-						 \ 'x' : 'Vimux interrupt runner',
-					\ },
 		\ }
 
 let g:which_key_localmap = {
@@ -422,12 +398,6 @@ let g:which_key_localmap = {
 							 \ 't' : 'Calendar clock',
 							 \ 'v' : 'Calendar vertical yearly',
 							 \ 'w' : 'Calendar weekly',
-						\ },
-			\ 'm' : {
-						\ 'name' : '+Minimap',
-						\ 'm' : 'Minimap Toggle',
-						\ 'q' : 'Minimap Close',
-						\ 'r' : 'Minimap Refresh',
 						\ },
 			\ 'o' : {
 						\ 'name' : '+open',
@@ -456,44 +426,6 @@ let g:which_key_localmap = {
 										 \ 'l' : 'Cursorline toggle',
 										 \ 'x' : 'Crosshair toggle',
 										 \ },
-						\ },
-			\ 'u' : 'Mundotree toggle' ,
-			\ 'v' : {
-						\ 'name' : '+vista',
-							 \ 'v' : 'Vista toggle',
-							 \ 'c' : 'Vista finder clap',
-							 \ 'f' : 'Vista focus back and forth',
-							 \ 'o' : 'Vista open',
-							 \ 'q' : 'Vista close',
-						\ },
-			\ 'w' : {
-						\ 'name' : '+vimwiki',
-							\ 'd' : 'Vimwiki delete current page',
-							\ 'h' : 'Vimwiki to html',
-							\ 'hh' : 'Vimwiki to html browse',
-							\ 'H' : 'Vimwiki all to html',
-							\ 'i' : 'Vimwiki diary index',
-							\ 'l' : 'Vimwiki generate links',
-							\ 'L' : 'Vimwiki custom generate resources links',
-							\ 'n' : 'Vimwiki go to',
-							\ 'r' : 'Vimwiki rename link',
-							\ 's' : 'Vimwiki UI select',
-							\ 't' : 'Vimwiki index new tab',
-							\ 'T' : 'Vimwiki create new diary for today',
-							\ 'w' : 'Vimwiki index',
-							\ ' ' : {
-										\ 'name' : '+diary',
-										\ 'i' : 'Vimwiki diary generate link',
-										\ 'm' : 'Vimwiki diary tomorrow',
-										\ 't' : 'Vimwiki diary today',
-										\ 'w' : 'Vimwiki diary note',
-										\ 'y' : 'Vimwiki diary yesterday',
-										\ },
-							\ },
-			\ 'W' : {
-						\ 'name' : '+vimwiki-init',
-						\ 'W' : 'Vimwiki UI select',
-						\ 'I' : 'Vimwiki diary index',
 						\ },
 			\ }
 
@@ -561,16 +493,11 @@ let g:which_key_smap = {
 			\ 'k' : 'Join split',
 			\ }
 
-let g:which_key_timeout = 200
-let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
-let g:which_key_sep = '»'
+let g:which_key_map['f'] = { 'name': '+find-manager' }
+let g:which_key_map['g'] = { 'name': '+git' }
+let g:which_key_map['o'] = { 'name': '+open' }
+let g:which_key_map['t'] = { 'name': '+toggle'}
+let g:which_key_map['w'] = { 'name': '+vimwiki'}
+let g:which_key_map['/'] = { 'name': '+commenter'}
 
-let g:which_key_display_names = {
-			\				' ': '␣',
-			\		'<C-H>': '←',
-			\		'<C-I>': '⇆',
-			\		'<TAB>': '⇆',
-			\ '<S-TAB>': 'S⇆',
-			\		 '<CR>': '↵',
-			\ }
-
+let g:which_key_map['g']['D'] = ['GitOpenDirty', 'Open all dirty in splits']
