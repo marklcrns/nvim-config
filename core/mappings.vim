@@ -264,7 +264,7 @@ function! CommandMappings()
 	" Easy wildcharm navigation
 	cnoremap <expr><C-j> pumvisible() ? "\<C-n>" : nr2char(&wildcharm)
 	cnoremap <expr><C-k> pumvisible() ? "\<C-p>" : nr2char(&wildcharm)
-	cnoremap <expr><Tab> pumvisible() ? "\<C-e>".nr2char(&wildcharm) : nr2char(&wildcharm)
+	cnoremap <expr><Tab> pumvisible() ? "\<C-y>" . nr2char(&wildcharm) : nr2char(&wildcharm)
 endfunction
 
 function! YankPasteMappings()
