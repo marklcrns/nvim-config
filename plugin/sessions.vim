@@ -9,6 +9,7 @@
 " - SessionLoad [name]: Clear buffers and load selected session
 " - SessionClose:       Save session and clear all buffers
 " - SessionDetach:      Stop persisting session, leave buffers open
+" - SessionList:				List all existing session in session directory
 "
 " If [name] is empty, the current working-directory is used.
 "
@@ -41,6 +42,9 @@ command! SessionDetach call s:session_detach()
 
 " Close session and all buffers
 command! SessionClose call s:session_close()
+
+" Close session and all buffers
+command! SessionList execute('!stat -c "\%y \%n" ' . g:session_directory . '/*.vim')
 
 " Save session on quit if one is loaded
 augroup plugin_sessions
