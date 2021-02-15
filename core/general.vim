@@ -13,7 +13,7 @@ set isfname-==               " Remove =, detects filename in var=/foo/bar
 set virtualedit=block        " Position cursor anywhere in visual block
 set synmaxcol=2500           " Don't syntax highlight long lines
 set formatoptions+=1         " Don't break lines after a one-letter word
-set formatoptions-=t         " Don't auto-wrap text
+" set formatoptions-=t         " Don't auto-wrap text
 set formatoptions-=o         " Disable comment-continuation (normal 'o'/'O')
 if has('patch-7.3.541')
   set formatoptions+=j       " Remove comment leader when joining lines
