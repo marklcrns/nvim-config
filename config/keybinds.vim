@@ -895,5 +895,26 @@ if dein#tap('leetcode.vim')
 					\ 'u' : 'LeetCode Sign in',
 					\ }
 	endif
-endi
+endif
 
+function! EliteModeToggle()
+	if get(g:, 'elite_mode', 0) ==# 1
+		if dein#tap('delimitMate') | exec 'silent! DelimitMateOn' | endif
+		if dein#tap('coc.nvim')
+			exec 'silent! CocEnable'
+		 endif
+		echom "Elite mode off"
+		let g:elite_mode=v:false
+	else
+		if dein#tap('delimitMate') | exec 'silent! DelimitMateOff' | endif
+		if dein#tap('coc.nvim')
+			exec 'silent! CocDisable'
+		endif
+		echom "Elite mode on"
+		let g:elite_mode=v:true
+	endif
+endfunction
+
+nnoremap <Leader>E :<C-u>EliteModeToggle<CR>
+
+command! -nargs=0 EliteModeToggle call EliteModeToggle()
