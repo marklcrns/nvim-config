@@ -23,14 +23,7 @@ if &compatible
 endif
 
 " Set main configuration directory as parent directory
-let $VIM_PATH =
-			\ get(g:, 'etc_vim_path',
-			\   exists('*stdpath') ? stdpath('config') :
-			\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
-			\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
-			\   ! empty($VIM_PATH) ? expand($VIM_PATH) :
-			\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-			\ )
+let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 
 " Set secondary nvim configuration directory
 let $LOCAL_VIM_PATH = expand($HOME.'/.local-nvim.d')
@@ -136,7 +129,7 @@ if has('vim_starting')
 
 	" Vim only, Linux terminal settings
 	if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
-		call utils#source_file('core/terminal.vim')
+		call utils#source_file($VIM_PATH, 'core/terminal.vim')
 	endif
 endif
 

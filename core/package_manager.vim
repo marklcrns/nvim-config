@@ -5,6 +5,15 @@ augroup user_events
 	autocmd!
 augroup END
 
+let $VIM_PATH =
+			\ get(g:, 'etc_vim_path',
+			\   exists('*stdpath') ? stdpath('config') :
+			\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
+			\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
+			\   ! empty($VIM_PATH) ? expand($VIM_PATH) :
+			\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+			\ )
+
 let s:plugins_yaml = ''
 let s:plugins_toml = ''
 let s:plugins_toml_lazy = ''
