@@ -9,7 +9,7 @@
 " - SessionLoad [name]: Clear buffers and load selected session
 " - SessionClose:       Save session and clear all buffers
 " - SessionDetach:      Stop persisting session, leave buffers open
-" - SessionList:				List all existing session in session directory
+" - SessionList:        List all existing session in session directory
 "
 " If [name] is empty, the current working-directory is used.
 "

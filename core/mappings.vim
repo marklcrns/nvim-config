@@ -715,6 +715,3 @@ call TextManipulationMappings()
 " Settings Toggle Mappings
 call SettingsToggleMappings()
 
-
-
-" test
