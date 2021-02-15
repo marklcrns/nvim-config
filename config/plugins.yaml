@@ -575,3 +575,7 @@
     let g:leetcode_browser = 'firefox'
     let g:leetcode_solution_filetype = 'java'
 # }}}
+
+- repo: 'nvim-lua/popup.nvim'
+- repo: 'nvim-lua/plenary.nvim'
+- repo: 'nvim-telescope/telescope.nvim'
