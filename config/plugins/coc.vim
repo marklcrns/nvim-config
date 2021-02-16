@@ -26,7 +26,6 @@ let g:coc_global_extensions = [
       \ 'coc-sh',
       \ 'coc-spell-checker',
       \ 'coc-stylelint',
-      \ 'coc-tag',
       \ 'coc-tsserver',
       \ 'coc-vimlsp',
       \ 'coc-vimtex',
