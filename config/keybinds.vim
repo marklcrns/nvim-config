@@ -29,6 +29,65 @@ if dein#tap('dein.vim')
 	nnoremap <silent> <Leader>pl  :echo dein#get_log()<CR>
 	nnoremap <silent> <Leader>pL  :echo dein#get_updates_log()<CR>
 	nnoremap <silent> <Leader>pd  :call map(dein#check_clean(), "delete(v:val, \"rf\")")<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['p'] = {
+					\ 'name' : '+plugin-manager',
+					\ 'd' : 'Delete unused plugins',
+					\ 'l' : 'Get log',
+					\ 'L' : 'Get update log',
+					\ 'r' : 'Recache runtimepath',
+					\ 'u' : 'Update plugins',
+					\ }
+	endif
+
+	if s:enable_whichkey
+		let g:which_key_map['c'] = {
+					\ 'name' : '+coc',
+						 \ 'a' : 'Code action text object',
+						 \ 'c' : 'Code action current word',
+						 \ 'C' : 'Open coc config',
+						 \ 'F' : 'Coc format',
+						 \ 'g' : {
+									 \ 'name' : '+coc-git',
+									 \ 'b' : 'Preview line in git browser',
+									 \ 'B' : 'Copy line git url to clipboard',
+									 \ 'c' : 'Coc show last commit of current line',
+									 \ 'd' : 'Git diff cached',
+									 \ 'f' : 'Toggle fold all except git chunks',
+									 \ 'i' : 'Preview git chunk under cursor',
+									 \ 's' : 'Coc list status changes',
+									 \ 't' : 'Stage git chunk under cursor',
+									 \ 'u' : 'Undo git chunk changes under cursor',
+									\ },
+						 \ 'j' : 'Coc list next',
+						 \ 'k' : 'Coc list prev',
+						 \ 'l' : {
+									 \ 'name' : '+coc-list',
+										 \ 'c' : 'Coc commands',
+										 \ 'd' : 'Coc diagnostics',
+										 \ 'e' : 'Coc extensions',
+										 \ 'm' : 'Coc marketplace',
+										 \ 'o' : 'File outline',
+										 \ 'r' : 'Resume last coc list',
+										 \ 's' : 'Search workspace symbols',
+										 \ 'w' : 'Coc rgrep selected word or motion',
+										 \ 'W' : 'Coc grep cursor word in buffer',
+										 \ 'y' : 'Coc yank list',
+									 \ },
+						\ 'n' : 'Coc rename variable under cursor',
+						\ 'r' : 'Coc refactor word under cursor',
+						\ 's' : 'Coc search {prompt}',
+						\ 'S' : 'Coc search word match {prompt}',
+						\ 't' : {
+									\ 'name' : '+coc-toggles',
+									\ 'g' : 'Toggle coc git gutter',
+									\ 's' : 'Toggle coc spell checker',
+									\ },
+						\ 'q' : 'Coc autofix current line',
+						\ 'x' : 'Coc cursors operate',
+					\ }
+	endif
 endif
 
 if dein#tap('any-jump.vim')
@@ -36,6 +95,15 @@ if dein#tap('any-jump.vim')
 	nnoremap <silent> <Leader>aj :AnyJump<CR>
 	xnoremap <silent> <Leader>aj :AnyJumpVisual<CR>
 	nnoremap <silent> <leader>al :AnyJumpLastResults<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['a'] = {
+					\ 'name' : '+any-jump',
+					\ 'b' : 'Open previously opened file',
+					\ 'j' : 'Open jump to definition window',
+					\ 'l' : 'Open last jump to definition result',
+					\ }
+	endif
 endif
 
 if dein#tap('coc.nvim')
@@ -259,11 +327,46 @@ if dein#tap('vim-clap')
 		inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
 		inoremap <silent> <buffer> jj    <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
 	endfunction
+
+	if s:enable_whichkey
+		let g:which_key_map['f']['d'] = {
+					\ 'name' : '+finder',
+					\ ':' : 'Find on command history',
+					\ 'b' : 'Find on buffers',
+					\ 'c' : 'Find colorscheme',
+					\ 'f' : 'Find files on directory',
+					\ 'F' : 'Find files on directory (includes hidden files)',
+					\ 'g' : 'Find git files',
+					\ 'h' : 'Find on history',
+					\ 'l' : 'Find on locationlist',
+					\ 'm' : 'Find files with marks',
+					\ 'o' : 'Find old files',
+					\ 'p' : 'Find personal configurations',
+					\ 'r' : 'Find word with grep2',
+					\ 'R' : 'Find word relative to current file directory',
+					\ 's' : 'Find sessions',
+					\ 'u' : 'Find git diff files',
+					\ 'v' : 'Find last visual selection with Grep',
+					\ 'w' : 'Find word undercursor with Grep',
+					\ }
+
+		let g:which_key_gmap['d'] = 'Go to definition'
+		let g:which_key_gmap['i'] = 'Go to implementation'
+		let g:which_key_gmap['r'] = 'Go to reference'
+		let g:which_key_gmap['y'] = 'Go to type definition'
+	endif
 endif
 
 if dein#tap('codi.vim')
 	nnoremap <Leader>icc :<C-u>Codi!!<CR>
 	nnoremap <Leader>icu :<C-u>CodiUpdate<CR>
+	if s:enable_whichkey
+		let g:which_key_map['i']['c'] = {
+					\ 'name' : '+codi (interactive scratchpad)',
+					\ 'c' : 'Codi toggle',
+					\ 'u' : 'Update Codi output',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-easy-align')
@@ -275,16 +378,53 @@ if dein#tap('vim-easy-align')
 	xmap <Leader>rAA <Plug>(LiveEasyAlign)
 	" Start Live-interactive EasyAlign for a motion/text object
 	nmap <Leader>rAA <Plug>(LiveEasyAlign)
+
+	if s:enable_whichkey
+		let g:which_key_map['r']['a'] = {
+					\ 'name' : '+easyalign',
+					\ 'a' : 'Start easyalign',
+					\ 'a<CR><Delim>' : 'Around 1st delimiter',
+					\ 'a<CR>3<Delim>' : 'Around 3rd delimiter',
+					\ 'a<CR>-<Delim>' : 'Around the last delimiter',
+					\ 'a<CR>-2<Delim>' : 'Around the 2nd last delimiter',
+					\ 'a<CR>*<Delim>' : 'Around all <Delim>',
+					\ 'a<CR>:' : 'Around 1st colon ( key: value )',
+					\ 'a<CR><Right>:' : 'Around 1st ( key : value )',
+					\ 'a<CR>**<Delim>' : 'Left-right alternating around <Delim>',
+					\ 'a<CR><CR>**<Delim>' : 'Right-left alternating around <Delim>',
+					\ 'a<CR><CR>Delim>' : 'Right alignment aroung 1st <Delim>',
+					\ }
+		let g:which_key_map['r']['A'] = {
+					\ 'name' : '+easyalign-live',
+					\ 'A' : 'Start easyalign-live',
+					\ 'A<CR><Delim>' : 'Around 1st delimiter',
+					\ 'A<CR>3<Delim>' : 'Around 3rd delimiter',
+					\ 'A<CR>-<Delim>' : 'Around the last delimiter',
+					\ 'A<CR>-2<Delim>' : 'Around the 2nd last delimiter',
+					\ 'A<CR>*<Delim>' : 'Around all <Delim>',
+					\ 'A<CR>:' : 'Around 1st colon ( key: value )',
+					\ 'A<CR><Right>:' : 'Around 1st ( key : value )',
+					\ 'A<CR>**<Delim>' : 'Left-right alternating around <Delim>',
+					\ 'A<CR><CR>**<Delim>' : 'Right-left alternating around <Delim>',
+					\ 'a<CR><CR>Delim>' : 'Right alignment aroung 1st <Delim>',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-mundo')
 	nnoremap <silent> <Leader>ou :MundoToggle<CR>
-	let g:which_key_map['o']['u'] = 'Undo tree toggle'
+	if s:enable_whichkey
+		let g:which_key_map['o']['u'] = 'Undo tree toggle'
+	endif
 endif
 
 if dein#tap('vim-choosewin')
 	nmap <Leader>- <Plug>(choosewin)
 	nmap <Leader>_ :<C-u>ChooseWinSwapStay<CR>
+	if s:enable_whichkey
+		let g:which_key_map['-'] = 'Choose window'
+		let g:which_key_map['_'] = 'Choose window to swap with'
+	endif
 endif
 
 if dein#tap('caw.vim')
@@ -323,6 +463,20 @@ if dein#tap('caw.vim')
 	endfunction
 	autocmd FileType * call InitCaw()
 	call InitCaw()
+
+	if s:enable_whichkey
+		let g:which_key_map['/'] = {
+					\ 'name' : '+commenter',
+					\ '/' : 'Comment toggle',
+					\ 'a' : 'Comment line/selected end',
+					\ 'b' : 'Comment box',
+					\ 'c' : 'Comment line/selected',
+					\ 'i' : 'Comment line/selected beginning',
+					\ 'j' : 'Jump next comment',
+					\ 'k' : 'Jump Prev comment',
+					\ 'w' : 'Comment wrap toggle',
+					\ }
+	endif
 endif
 
 " if dein#tap('vim-smoothie')
@@ -350,17 +504,30 @@ endif
 
 if dein#tap('goyo.vim')
 	nnoremap <Leader>ig :Goyo<CR>
+	if s:enable_whichkey
+		let g:which_key_map['i']['g'] = 'Goyo toggle'
+	endif
 endif
 
 if dein#tap('fern.vim')
 	" nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
 	nnoremap <silent> <Leader>ea :<C-u>Fern . -drawer -keep -toggle -width=35<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['e']['a'] = 'Toggle explorer to current file'
+		let g:which_key_map['e']['e'] = 'Toggle explorer to current directory'
+	endif
 endif
 
 if dein#tap('nvim-tree.lua')
 	nnoremap <silent> <Leader>ee :NvimTreeToggle<CR>
 	nnoremap <silent> <Leader>ef :NvimTreeFindFile<CR>
 	nnoremap <silent> <Leader>er :NvimTreeRefresh<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['e']['e'] = 'Toggle explorer to current directory'
+		let g:which_key_map['e']['r'] = 'Toggle explorer resume directory'
+	endif
 endif
 
 if dein#tap('dashboard-nvim')
@@ -400,6 +567,26 @@ if dein#tap('vim-floaterm')
 	tnoremap <silent> <Leader>otu <C-\><C-n>:FloatermUpdate<CR>
 	tnoremap <silent> <Leader>otv <C-\><C-n>:FloatermUpdate --wintype=normal --position=right<CR>
 	nnoremap <silent> <Leader>otv :FloatermUpdate --wintype=normal --position=right<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['o']['t'] = {
+					\ 'name' : '+floaterm',
+					\ 'a' : 'List all running floaterms',
+					\ 'b' : 'Position horizontally floaterm to the bottom',
+					\ 'h' : 'Hide floaterm',
+					\ 'n' : 'Next floaterm',
+					\ 'o' : 'Open new floaterm',
+					\ 'p' : 'Previous floaterm',
+					\ 'q' : 'Kill floaterm',
+					\ 'Q' : 'Kill all floaterm',
+					\ 'r' : 'Open ranger in floaterm',
+					\ 's' : 'Show floaterm',
+					\ 'S' : 'Send current line to floaterm',
+					\ 't' : 'Toggle floaterm',
+					\ 'u' : 'Update floaterm',
+					\ 'v' : 'Position floaterm vertically to the right',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-expand-region')
@@ -463,6 +650,31 @@ if dein#tap('vim-easymotion')
 	omap / <Plug>(easymotion-tn)
 	nmap <Leader><Leader>; <Plug>(easymotion-next)
 	nmap <Leader><Leader>, <Plug>(easymotion-prev)
+
+	if s:enable_whichkey
+		let g:which_key_map[' '] = {
+					\ 'name' : '+easymotion',
+					\ ',' : 'Jump to previous last easymotion match',
+					\ ';' : 'Jump to next last easymotion match',
+					\ 'E' : 'Jump to the end of a word backward',
+					\ 'F' : 'Jump to any char backward',
+					\ 'N' : 'Jump to latest "/" or "?" match backward',
+					\ 'S' : 'Bidrectional jump to any char on all windows',
+					\ 'T' : 'Jump before any char backward',
+					\ 'b' : 'Jump to beginning of a word backward',
+					\ 'e' : 'Jump to the end of a word forward',
+					\ 'f' : 'Jump to any char forward',
+					\ 'h' : 'Jump to any char backward within cursor line',
+					\ 'j' : 'Jump downwards at the same column',
+					\ 'k' : 'Jump upwards at the same column',
+					\ 'l' : 'Jump to any char forward within cursor line',
+					\ 'n' : 'Jump to latest "/" or "?" match forward',
+					\ 'r' : 'Repeat last motion',
+					\ 's' : 'Bidrectional jump to any char',
+					\ 't' : 'Jump before any char forward',
+					\ 'w' : 'Jump to beginning of a word forward',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-niceblock')
@@ -510,6 +722,19 @@ if dein#tap('linediff.vim')
 	nmap <silent> <leader>idls :<C-u>LinediffShow<CR>
 	" resets linediff with q when active
 	autocmd User LinediffBufferReady nnoremap <buffer> q :LinediffReset<cr>
+
+	if s:enable_whichkey
+		let g:which_key_map['i']['d']['l'] = {
+					\ 'name' : '+linediff',
+					\ 'a' : 'Linediff add',
+					\ 'A' : '<start, end>Linediff Add',
+					\ 'd' : 'Linediff',
+					\ 'm' : 'Linediff merge conflict',
+					\ 'p' : 'Linediff pick merge conflict',
+					\ 'r' : 'Linediff reset',
+					\ 's' : 'Linediff show',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-zoom')
@@ -522,10 +747,16 @@ endif
 
 if dein#tap('rainbow')
 	nmap <LocalLeader>sp :RainbowToggle<CR>
+	if s:enable_whichkey
+		let g:which_key_localmap['s']['p'] = 'Rainbow pairs toggle'
+	endif
 endif
 
 if dein#tap('vim-diminactive')
 	nnoremap <LocalLeader>sd :DimInactiveToggle<CR>
+	if s:enable_whichkey
+		let g:which_key_localmap['s']['d'] = 'Dim inactive toggle'
+	endif
 endif
 
 
@@ -547,15 +778,30 @@ if dein#tap('markdown-preview.nvim')
 	map <Plug> <Plug>Markdown_MoveToCurHeader
 	map <Plug> <Plug>Markdown_OpenUrlUnderCursor
 
-	nmap <Leader>lmd <Plug>MarkdownPreviewToggle
 	nmap <Leader>lmo <Plug>MarkdownPreview
-	nmap <Leader>lmc <Plug>MarkdownPreviewStop
+	nmap <Leader>lms <Plug>MarkdownPreviewStop
+	nmap <Leader>lmt <Plug>MarkdownPreviewToggle
+
+	if s:enable_whichkey
+		let g:which_key_map['l']['o'] = 'Markdown preview'
+		let g:which_key_map['l']['s'] = 'Markdown preview stop'
+		let g:which_key_map['l']['t'] = 'Markdown preview toggle'
+	endif
 endif
 
 if dein#tap('vim-markdown')
 	nnoremap <Leader>lmtt :<C-u>Toc<CR>
 	nnoremap <Leader>lmtv :<C-u>Tocv<CR>
 	nnoremap <Leader>lmth :<C-u>Toch<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['l']['m']['t'] = {
+					\ 'name' : '+table-of-contents',
+					\ 'h' : 'Table of contents horizontal',
+					\ 't' : 'Table of contents',
+					\ 'v' : 'Table of contents vertical',
+					\ }
+	endif
 endif
 
 if dein#tap('vimtex')
@@ -710,6 +956,9 @@ endif
 
 if dein#tap('vim-indent-guides')
 	nmap <silent> <LocalLeader>si <Plug>IndentGuidesToggle
+	if s:enable_whichkey
+		let g:which_key_localmap['s']['i'] = 'Indent guide toggle'
+	endif
 endif
 
 if dein#tap('vim-signature')
@@ -747,6 +996,16 @@ if dein#tap('vim-wordy')
 	nnoremap <leader>lgwn :NextWordy<CR>
 	nnoremap <leader>lgwp :PrevWordy<CR>
 	nnoremap <leader>lgwr :NoWordy<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['l']['g']['w'] = {
+					\ 'name' : '+wordy',
+					\ 'p' : 'Prev wordy',
+					\ 'n' : 'Next wordy',
+					\ 'r' : 'Remove wordy',
+					\ 'w' : 'Wordy select',
+					\ }
+	endif
 endif
 
 if dein#tap('vim-quickhl')
@@ -758,11 +1017,24 @@ if dein#tap('vim-quickhl')
 
 	nmap <Leader>ihr <Plug>(quickhl-manual-reset)
 	xmap <Leader>ihr <Plug>(quickhl-manual-reset)
+
+	if s:enable_whichkey
+		let g:which_key_map['i']['h'] = {
+					\ 'name' : '+quick-highlight',
+					\ 't' : 'Highlight this',
+					\ 'r' : 'Highlight reset',
+					\ 'w' : 'Highlight this whole word',
+					\ }
+	endif
 endif
 
 if dein#tap('thesaurus_query.vim')
 	nnoremap <silent> <Leader>rt :<C-u>ThesaurusQueryReplaceCurrentWord<CR>
 	vnoremap <silent> <Leader>rt y:ThesaurusQueryReplace <C-r>"<CR>
+
+	if s:enable_whichkey
+		let g:which_key_map['r']['t'] = 'Thesaurus current word'
+	endif
 endif
 
 if dein#tap('open-browser.vim')
@@ -826,36 +1098,26 @@ if dein#tap('calendar.vim')
 	nnoremap <LocalLeader>ct :Calendar -view=clock<CR>
 	nnoremap <LocalLeader>cv :Calendar -view=year -split=vertical -width=27 -first_day=sunday<CR>
 	nnoremap <LocalLeader>cw :Calendar -view=week<CR>
+
+	if s:enable_whichkey
+		let g:which_key_localmap['c'] = {
+					\ 'name' : '+calendar',
+					\ 'c' : 'Calendar default',
+					\ 'd' : 'Calendar daily',
+					\ 'h' : 'Calendar horizontal daily',
+					\ 'm' : 'Calendar monthly',
+					\ 't' : 'Calendar clock',
+					\ 'v' : 'Calendar vertical yearly',
+					\ 'w' : 'Calendar weekly',
+					\ }
+	endif
 endif
 
 if dein#tap('nvim-colorizer.lua')
 	nnoremap <LocalLeader>sc :<C-u>ColorizerToggle<CR>
-endif
-
-if dein#tap('vCoolor.vim')
-	nnoremap <silent> <Leader>ltcpa :<C-u>VCoolIns ra<CR>
-	nnoremap <silent> <Leader>ltcph :<C-u>VCoolIns h<CR>
-	nnoremap <silent> <Leader>ltcpr :<C-u>VCoolIns r<CR>
-	nnoremap <silent> <Leader>ltcpx :<C-u>VCoolor<CR>
-endif
-
-if dein#tap('vim-convert-color-to')
-	" Normal mode
-	nnoremap <Leader>ltca :<C-u>ConvertColorTo rgba<CR>
-	nnoremap <Leader>ltch :<C-u>ConvertColorTo hsl<CR>
-	nnoremap <Leader>ltcH :<C-u>ConvertColorTo hsla<CR>
-	nnoremap <Leader>ltcr :<C-u>ConvertColorTo rgb_int<CR>
-	nnoremap <Leader>ltcR :<C-u>ConvertColorTo rgb_float<CR>
-	nnoremap <Leader>ltcx :<C-u>ConvertColorTo hex<CR>
-	nnoremap <Leader>ltcX :<C-u>ConvertColorTo hexa<CR>
-	" Visual mode
-	vnoremap <Leader>ltca :ConvertColorTo rgba<CR>
-	vnoremap <Leader>ltch :ConvertColorTo hsl<CR>
-	vnoremap <Leader>ltcH :ConvertColorTo hsla<CR>
-	vnoremap <Leader>ltcr :ConvertColorTo rgb_int<CR>
-	vnoremap <Leader>ltcR :ConvertColorTo rgb_float<CR>
-	vnoremap <Leader>ltcx :ConvertColorTo hex<CR>
-	vnoremap <Leader>ltcX :ConvertColorTo hexa<CR>
+	if s:enable_whichkey
+		let g:which_key_localmap['s']['c'] = 'Color highlight toggle'
+	endif
 endif
 
 if dein#tap('vim-abolish')
@@ -867,6 +1129,11 @@ if dein#tap('vim-abolish')
 				\ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 	inoremap <M-y> <ESC>"xyy"xpV:Subvert//g<bar>norm`.$
 				\ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
+	if s:enable_whichkey
+		let g:which_key_map['r']['s'] = 'Subvert line /{pat}/{sub}/[flags]'
+		let g:which_key_map['r']['S'] = 'Subvert entire /{pat}/{sub}/[flags]'
+	endif
 endif
 
 if dein#tap('far.vim')
@@ -878,6 +1145,17 @@ if dein#tap('far.vim')
 	nnoremap <silent> <Leader>rfr  :Farr<cr>
 	vnoremap <silent> <Leader>rfr  :Farr<cr>
 	nnoremap <silent> <Leader>rfu  :Farundo<cr>
+
+	if s:enable_whichkey
+		let g:which_key_map['r']['f'] = {
+					\ 'name' : '+far',
+					\ 'd' : 'Do (apply) find and replace',
+					\ 'f' : 'Find',
+					\ 'l' : 'Reexecute last far command',
+					\ 'r' : 'Find and replace',
+					\ 'u' : 'Undo find and replace',
+					\ }
+	endif
 endif
 
 if dein#tap('leetcode.vim')

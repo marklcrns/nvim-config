@@ -441,6 +441,7 @@ endfunction
 function! SessionMappings()
 	nnoremap <Leader>ss :<C-u>SessionSave<Space>
 	nnoremap <Leader>sl :<C-u>SessionLoad<Space>
+	nnoremap <Leader>sL :<C-u>SessionList<Space>
 	nnoremap <Leader>sq :<C-u>SessionClose<Cr>
 	nnoremap <Leader>sd :<C-u>SessionDetach<Cr>
 endfunction
@@ -529,7 +530,7 @@ endfunction
 " ==================== Custom single purpose functions and mappings ==================== "
 
 " Append '.md' to clipboard register yanked file path and :edit from current directory
-nnoremap <Leader>;wm :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
+nnoremap <Leader>;m :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
 
 
 " Ref: https://stackoverflow.com/a/9407015/11850077
