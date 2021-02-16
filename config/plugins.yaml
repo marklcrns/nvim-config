@@ -119,16 +119,6 @@
   hook_source: |
     let g:rainbow_active = 0
 
-- repo: KabbAmine/vCoolor.vim
-  if: "has('nvim') && has('nvim-0.4.0')"
-  on_cmd: [VCoolor, VCoolIns]
-  hook_add: |
-    let g:vcoolor_disable_mappings = 1
-    let g:vcoolor_lowercase = 1
-
-- repo: amadeus/vim-convert-color-to
-  on_cmd: ConvertColorTo
-
 # Coding tools
 # ----------------------------------------
 - repo: puremourning/vimspector
