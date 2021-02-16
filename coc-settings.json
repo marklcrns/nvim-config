@@ -43,14 +43,14 @@
 
   //diagnostic
   "diagnostic.enableSign": true,
-  "diagnostic.enableHighlightLineNumber": true,
+  "diagnostic.enableHighlightLineNumber": false,
   "diagnostic.hintSign": "⊹",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
   "diagnostic.errorSign": "",
   "diagnostic.messageDelay": 150,
   "diagnostic.displayByAle": false,
-  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.refreshOnInsertMode": false,
 
   //git
   "git.enableGutters": false,
