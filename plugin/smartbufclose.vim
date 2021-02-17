@@ -168,12 +168,12 @@ function! <SID>SmartBufClose()
 			call s:CleanEmptyBuffers()
 		endif
 		return
-	elseif &filetype =~ 'gitcommit\|gina-\|gina-\|gina-\|diff' ||
+	elseif &filetype =~ 'git\|qf\|gina-'
+		silent execute 'bd'
+		return
+	elseif &filetype =~ 'gitcommit\|diff' ||
 				\ (!&modifiable || &readonly || curBufName ==# '')
 		silent execute 'q'
-		return
-	elseif &filetype =~ 'git\|qf'
-		silent execute 'bd'
 		return
 	elseif ((curBufCount ==# 1 && curBufName ==# '') || &buftype ==# 'nofile') " Quit when only buffer and empty
 		" Close all splits if exists, else quit vim
