@@ -127,12 +127,12 @@ let g:which_key_map = {
 					\ },
 		\ 's' : {
 					\ 'name' : '+sessions',
-					\ 'd' : 'Dashboard open',
+					\ 'D' : 'Dashboard open',
+					\ 'd' : 'Detach session',
 					\ 'l' : 'Load session {session-name}',
 					\ 'L' : 'List sessions',
 					\ 's' : 'Save session {session-name}',
-					\ 'u' : 'Detach session (save session and detach)',
-					\ 'q' : 'Close session (save session, detach, and close all buffers)',
+					\ 'q' : 'Close session',
 					\ },
 		\ 't' : {
 					\ 'name' : '+tab-operate',

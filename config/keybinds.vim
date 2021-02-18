@@ -531,7 +531,7 @@ if dein#tap('nvim-tree.lua')
 endif
 
 if dein#tap('dashboard-nvim')
-	nnoremap <silent> <leader>sd :<C-u>Dashboard<CR>
+	nnoremap <silent> <leader>sD :<C-u>Dashboard<CR>
 endif
 
 if dein#tap('vim-quickrun')
