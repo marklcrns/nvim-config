@@ -445,9 +445,9 @@ endfunction
 function! SessionMappings()
 	nnoremap <Leader>ss :<C-u>SessionSave<Space>
 	nnoremap <Leader>sl :<C-u>SessionLoad<Space>
-	nnoremap <Leader>sL :<C-u>SessionList<Space>
-	nnoremap <Leader>sq :<C-u>SessionClose<Cr>
-	nnoremap <Leader>sd :<C-u>SessionDetach<Cr>
+	nnoremap <Leader>sL :<C-u>SessionList<CR>
+	nnoremap <Leader>sq :<C-u>SessionClose<CR>
+	nnoremap <Leader>sd :<C-u>SessionDetach<CR>
 endfunction
 " }}} UTILITIES MAPPINGS
 
