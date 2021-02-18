@@ -209,6 +209,9 @@ function! WindowsManagementMappings()
 	nnoremap <silent> [Window]J :resize +3<CR>
 	nnoremap <silent> [Window]H :vertical resize -3<CR>
 	nnoremap <silent> [Window]L :vertical resize +3<CR>
+	" Equalize splits
+	nnoremap <silent> [Window]= :tabdo wincmd =<CR>
+
 
 	" Replace arrow keys for resizing
 	nnoremap <Up>      :resize -2<CR>
