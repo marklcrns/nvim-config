@@ -1078,8 +1078,8 @@ if dein#tap('vim-gitgutter')
 	nmap [g <Plug>(GitGutterPrevHunk)
 	nmap gS <Plug>(GitGutterStageHunk)
 	xmap gS <Plug>(GitGutterStageHunk)
-	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
 	nmap gs <Plug>(GitGutterPreviewHunk)
+	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
 
 	if s:enable_whichkey
 		let g:which_key_rsbgmap['g'] = 'Go to next git changes hunk'

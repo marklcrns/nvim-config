@@ -57,7 +57,7 @@ function! badge#gitstatus(...) abort
 	"   for l:status in l:map
 	"     let l:out = values(l:map)
 	"   endfor
-	" else
+	" endif
 	if exists('*gitgutter#hunk#summary')
 		let l:summary = gitgutter#hunk#summary(bufnr('%'))
 		for l:idx in range(0, len(l:summary) - 1)
@@ -65,8 +65,14 @@ function! badge#gitstatus(...) abort
 				let l:out .= ' ' . l:icons[l:idx] . l:summary[l:idx]
 			endif
 		endfor
+	elseif match(&runtimepath, 'gitgutter') != -1
+		let l:summary = GitGutterGetHunkSummary()
+		for l:idx in range(0, len(l:summary) - 1)
+			if l:summary[l:idx] > 0
+				let l:out .= ' ' . l:icons[l:idx] . l:summary[l:idx]
+			endif
+		endfor
 	endif
-	" endif
 	return trim(l:out)
 endfunction
 
@@ -184,10 +190,12 @@ function! badge#branch() abort
 	" Returns git branch name, using different plugins.
 
 	if &filetype !~? g:badge_filetype_blacklist
-		if exists('*gitbranch#name')
-			return gitbranch#name()
+		if match(&runtimepath, 'gina') != -1
+			return gina#component#repo#branch()
 		elseif exists('*vcs#info')
 			return vcs#info('%b')
+		elseif exists('*gitbranch#name')
+			return gitbranch#name()
 		elseif exists('fugitive#head')
 			return fugitive#head(8)
 		endif
