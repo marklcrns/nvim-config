@@ -187,6 +187,10 @@ function! WindowsManagementMappings()
 	nnoremap <silent> ]B :blast<CR>
 	nnoremap <silent> [B :bfirst<CR>
 
+	" Open all buffers
+	nnoremap <silent> <Leader>bah :sba<CR>
+	nnoremap <silent> <Leader>bav :vert sba<CR>
+
 	" Window-control prefix
 	nnoremap  [Window]   <Nop>
 	nmap      s [Window]

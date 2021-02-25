@@ -942,7 +942,7 @@ if dein#tap('vimux')
 	" Zoom the runner pane (use <bind-key> z to restore runner pane)
 	nnoremap <Leader>vf :VimuxZoomRunner<CR>
 	if s:enable_whichkey
-		let g:which_key_localmap['v'] = {
+		let g:which_key_map['v'] = {
 					\ 'name' : '+vimux',
 					\ 'c' : 'Vimux prompt command',
 					\ 'l' : 'Vimux run last command',

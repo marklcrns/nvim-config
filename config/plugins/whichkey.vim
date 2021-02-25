@@ -27,6 +27,14 @@ let g:which_key_map = {
 		\ '1' : 'Go to first tab',
 		\ '5' : 'Go to previous tab',
 		\ '9' : 'Go to last tab',
+		\ 'b' : {
+					\ 'name' : '+buffer-operate',
+					\ 'a' : {
+								\ 'name' : '+all',
+								\ 'h' : 'Open all buffers in horizontal split',
+								\ 'v' : 'Open all buffers in vertical split',
+								\ },
+					\ },
 		\ 'f' : {
 					\ 'name' : '+file-manager',
 					\ 'D' : 'Delete current file',
