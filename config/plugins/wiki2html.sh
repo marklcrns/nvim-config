@@ -71,7 +71,7 @@ pandoc_template="pandoc \
 # Sample anchor links:
 # [Some Text](filename#anchor-name)
 # [Some Text](filename.md#anchor-name)
-regex1='s/(\[.+\])\((.+?)(\.md)?#([^.#)]+)\)/\1(\2.html#\4)/g'
+regex1='s/(\[?(.|\n|\t)+\])\((.+?)(\.md)?#([^#)]+)\)/\1(\3.html#\5)/g'
 
 # Searches for markdown links (with or without extension or .md) and appends a
 # .html at the end of filename
