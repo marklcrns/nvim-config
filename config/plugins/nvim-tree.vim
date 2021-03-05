@@ -20,34 +20,6 @@ let g:nvim_tree_show_icons = {
 "1 by default, notice that if 'files' is 1, it will only display
 "if nvim-web-devicons is installed and on your runtimepath
 
-" You can edit keybindings be defining this variable
-" You don't have to define all keys.
-" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
-let g:nvim_tree_bindings = {
-    \ 'edit':            ['<CR>', 'o'],
-    \ 'edit_vsplit':     '<C-v>',
-    \ 'edit_split':      '<C-g>',
-    \ 'edit_tab':        '<C-t>',
-    \ 'close_node':      ['<S-CR>', '<BS>'],
-    \ 'toggle_dotfiles': ',',
-    \ 'toggle_ignored':  'i',
-    \ 'refresh':         'r',
-    \ 'preview':         '<Tab>',
-    \ 'cd':              '<C-]>',
-    \ 'create':          'N',
-    \ 'remove':          'D',
-    \ 'rename':          'R',
-    \ 'cut':             'x',
-    \ 'copy':            'c',
-    \ 'paste':           'p',
-    \ 'prev_git_item':   '[c',
-    \ 'next_git_item':   ']c',
-    \ }
-
-" Disable default mappings by plugin
-" Bindings are enable by default, disabled on any non-zero value
-" let nvim_tree_disable_keybindings=1
-
 " default will show icon by default if no icon is provided
 " default shows no icon by default
 let g:nvim_tree_icons = {

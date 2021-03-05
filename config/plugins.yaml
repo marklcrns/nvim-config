@@ -513,7 +513,9 @@
 - repo: kyazdani42/nvim-tree.lua
   if: "has('nvim') && has('nvim-0.5')"
   on_cmd: [ NvimTreeToggle, NvimTreeOpen ]
-  hook_add: source $VIM_PATH/config/plugins/nvim-tree.vim
+  hook_source: |
+    source $VIM_PATH/config/plugins/nvim-tree.vim
+    source $VIM_PATH/config/plugins/nvim-tree.lua
 
 - repo: kyazdani42/nvim-web-devicons
   if: "has('nvim') && has('nvim-0.5')"
@@ -566,6 +568,10 @@
     let g:leetcode_solution_filetype = 'java'
 # }}}
 
-- repo: 'nvim-lua/popup.nvim'
-- repo: 'nvim-lua/plenary.nvim'
-- repo: 'nvim-telescope/telescope.nvim'
+- repo: nvim-lua/popup.nvim
+- repo: nvim-lua/plenary.nvim
+- repo: nvim-telescope/telescope.nvim
+- repo: nvim-treesitter/nvim-treesitter
+  build: TSUpdate
+  hook_source: source $VIM_PATH/config/plugins/nvim-treesitter.lua
+
