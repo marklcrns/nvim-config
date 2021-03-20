@@ -255,15 +255,21 @@ endfunction
 " Ref: https://stackoverflow.com/a/61275100/11850077
 "      https://github.com/vim/vim/issues/2004#issuecomment-324357529
 function! IntegratedVimwikiTab() abort
+
   " First, try to expand or jump on UltiSnips.
-  let snippet = UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res > 0
-    return snippet
+  " let snippet = UltiSnips#ExpandSnippet()
+  " if g:ulti_expand_res > 0
+  "   return snippet
+  " endif
+  if UltiSnips#CanExpandSnippet()
+    return UltiSnips#ExpandSnippet()
   endif
+
   " Then, check if we're in a completion menu
   if pumvisible()
     return coc#_select_confirm()
   endif
+
   " Finally, trigger vimwiki table jump.
   return vimwiki#tbl#kbd_tab()
 endfunction

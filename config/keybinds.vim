@@ -257,16 +257,16 @@ if dein#tap('coc.nvim')
 	" imap     <expr><C-d> pumvisible() ? "\<PageDown>" : "\<C-d>"
 	" imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 
-	nnoremap <expr><C-n> coc#util#has_float() ?
-				\ coc#util#float_scrollable() ?
-				\ coc#util#float_scroll(1)
-				\ : ""
-				\ : "\<C-n>"
-	nnoremap <expr><C-p> coc#util#has_float() ?
-				\ coc#util#float_scrollable() ?
-				\ coc#util#float_scroll(0)
-				\ : ""
-				\ : "\<C-p>"
+	" nnoremap <expr><C-n> coc#util#has_float() ?
+	"			\ coc#util#float_scrollable() ?
+	"			\ coc#util#float_scroll(1)
+	"			\ : ""
+	"			\ : "\<C-n>"
+	" nnoremap <expr><C-p> coc#util#has_float() ?
+	"			\ coc#util#float_scrollable() ?
+	"			\ coc#util#float_scroll(0)
+	"			\ : ""
+	"			\ : "\<C-p>"
 
 	" Map function and class text objects
 	" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -430,10 +430,6 @@ endif
 if dein#tap('caw.vim')
 	function! InitCaw() abort
 		if ! (&l:modifiable && &buftype ==# '')
-			silent! nunmap <buffer> <Leader>V
-			silent! xunmap <buffer> <Leader>V
-			silent! nunmap <buffer> <Leader>v
-			silent! xunmap <buffer> <Leader>v
 			silent! nunmap <buffer> gc
 			silent! xunmap <buffer> gc
 			silent! nunmap <buffer> gcc
@@ -457,7 +453,7 @@ if dein#tap('caw.vim')
 			nmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
 			nmap <buffer> gc <Plug>(caw:prefix)
 			xmap <buffer> gc <Plug>(caw:prefix)
-			nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+			nmap <buffer> gcc <Plug>(caw:hatpos:toggle:operator)
 			xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
 		endif
 	endfunction
@@ -587,11 +583,6 @@ if dein#tap('vim-floaterm')
 					\ 'v' : 'Position floaterm vertically to the right',
 					\ }
 	endif
-endif
-
-if dein#tap('vim-expand-region')
-	xmap v <Plug>(expand_region_expand)
-	xmap V <Plug>(expand_region_shrink)
 endif
 
 if dein#tap('vista.vim')
