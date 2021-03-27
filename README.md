@@ -121,7 +121,7 @@ be installed which contains various community-maintained programming languages
 snippets.
 
 Additionally, UltiSnips is configured to source custom personal snippets from
-`$HOME/.vim/UltiSnips` directory.
+`$VIM_PATH/UltiSnips` directory.
 
 Run `:UltiSnipsEdit!` in vim command line to edit all snippets for the current
 buffer filetype
