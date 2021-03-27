@@ -313,8 +313,6 @@ if dein#tap('vim-clap')
 
 	function! s:clap_mappings()
 		nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>
-		inoremap <silent> <buffer> <Tab>   <C-R>=clap#navigation#linewise('down')<CR>
-		inoremap <silent> <buffer> <S-Tab> <C-R>=clap#navigation#linewise('up')<CR>
 		nnoremap <silent> <buffer> <C-j> :<C-u>call clap#navigation#linewise('down')<CR>
 		nnoremap <silent> <buffer> <C-k> :<C-u>call clap#navigation#linewise('up')<CR>
 		nnoremap <silent> <buffer> <C-n> :<C-u>call clap#navigation#linewise('down')<CR>
