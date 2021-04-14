@@ -114,6 +114,39 @@ function! ExtendedBasicMappings()
 	" Increment/Decrement previous searcheable number by one. Wraps at start of file.
 	nnoremap <silent> <M-S-a> :<C-u>call AddSubtract("\<C-a>", 'b')<CR>
 	nnoremap <silent> <M-S-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
+
+  function! ShiftCharAscii(char, shift)
+    let nr = char2nr(a:char)
+    execute 'normal! r' . nr2char(nr + a:shift)
+  endfunction
+
+  function! VShiftCharAscii(shift)
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - 1]
+    let lines[0] = lines[0][column_start - 1:]
+
+    let str = join(lines, "\n")
+
+    let res = ""
+    for i in range(0, len(str) - 1)
+      let res = res . nr2char(char2nr(str[i]) + a:shift)
+    endfor
+
+    let clipboard = getreg('+')
+    let @+ = res
+    execute 'normal! gvpgv'
+    let @+ = clipboard
+  endfunction
+
+  vnoremap <silent> <M-c> :<C-u>call VShiftCharAscii(1)<CR>
+  vnoremap <silent> <M-S-c> :<C-u>call VShiftCharAscii(-1)<CR>
+  nnoremap <silent> <M-c> :<C-u>call ShiftCharAscii(matchstr(getline('.'), '\%' . col('.') . 'c.'), 1)<CR>
+  nnoremap <silent> <M-S-c> :<C-u>call ShiftCharAscii(matchstr(getline('.'), '\%' . col('.') . 'c.'), -1)<CR>
 endfunction
 " }}} BASIC MAPPINGS
 
@@ -196,8 +229,8 @@ function! WindowsManagementMappings()
 	nmap      s [Window]
 
 	" Splits
-	nnoremap <silent> [Window]v  :<C-u>split<CR>
-	nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
+	nnoremap <silent> [Window]g  :<C-u>split<CR>
+	nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
 	nnoremap <silent> [Window]q  :close<CR>
 	nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
 	" Split current buffer, go to previous window and previous buffer
