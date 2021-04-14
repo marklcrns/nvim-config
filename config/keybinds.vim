@@ -369,13 +369,13 @@ endif
 
 if dein#tap('vim-easy-align')
 	" Start interactive EasyAlign in visual mode
-	xmap <Leader>raa <Plug>(EasyAlign)
+	xnoremap <Leader>raa :EasyAlign<CR>
 	" Start interactive EasyAlign for a motion/text object
-	nmap <Leader>raa <Plug>(EasyAlign)
+	nnoremap <Leader>raa :EasyAlign<CR>
 	" Start Live-interactive EasyAlign in visual mode
-	xmap <Leader>rAA <Plug>(LiveEasyAlign)
-	" Start Live-interactive EasyAlign for a motion/text object
-	nmap <Leader>rAA <Plug>(LiveEasyAlign)
+	xnoremap <Leader>rAA :LiveEasyAlign<CR>
+	" Start Live-interactive EasyAlign for a motion/text object<CR>
+	nnoremap <Leader>rAA :LiveEasyAlign<CR>
 
 	if s:enable_whichkey
 		let g:which_key_map['r']['a'] = {
@@ -584,6 +584,7 @@ if dein#tap('vim-floaterm')
 endif
 
 if dein#tap('vista.vim')
+	nnoremap <silent><Leader>V   :Vista focus<CR>
 	nnoremap <silent><Leader>ovv :Vista!!<CR>
 	nnoremap <silent><Leader>ovc :Vista finder clap<CR>
 	nnoremap <silent><Leader>ovf :Vista focus<CR>
@@ -591,6 +592,7 @@ if dein#tap('vista.vim')
 	nnoremap <silent><Leader>ovq :Vista!<CR>
 
 	if s:enable_whichkey
+    let g:which_key_map['V'] = 'Vista focus back and forth'
 		let g:which_key_map['o']['v'] = {
 					\ 'name' : '+vista',
 					\ 'v' : 'Vista toggle',
