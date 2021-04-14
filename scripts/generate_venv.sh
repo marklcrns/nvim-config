@@ -52,6 +52,7 @@ if command -v python3 &> /dev/null; then
     pip install six
     pip install keyring browser_cookie3  # for leetcode.vim
     pip install keyrings.alt
+    pip install neovim-remote
     deactivate
   fi
 else
