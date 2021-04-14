@@ -1,8 +1,15 @@
 " CoC config
 let g:coc_status_error_sign = ''
 let g:coc_status_warning_sign = ' '
+
+" coc-ccls bug fix
+"   cd ~/.config/coc/extensions/node_modules/coc-ccls
+"   ln -s node_modules/ws/lib lib
+" Ref: https://github.com/neoclide/coc.nvim/issues/2088#issuecomment-648801572
 let g:coc_global_extensions = [
+      \ 'coc-ccls',
       \ 'coc-clangd',
+      \ 'coc-cmake',
       \ 'coc-css',
       \ 'coc-dictionary',
       \ 'coc-emmet',
