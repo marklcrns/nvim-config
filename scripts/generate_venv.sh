@@ -55,6 +55,8 @@ if command -v python3 &> /dev/null; then
     pip install neovim-remote
     deactivate
   fi
+
+  pip3 install trellowarrior
 else
   error "python3 not found... Please install python3"
   exit 1
