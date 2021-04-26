@@ -9,14 +9,22 @@ endfunction
 
 function! TaskWarriorServerUpdate()
   let l:command = 'trellowarrior sync; task sync'
-  " Sync only if has changes and no terminal is open running/ran the command
+  " Sync only if has changes and no terminal is open running the command
   if &modified == 0
     return
+  else
+    let g:has_taskwiki_changes = 1
   endif
   if has('nvim')
     for bufferNum in range(1, bufnr('$'))
+      " Look for terminal running the command
       if getbufvar(bufferNum, 'term_title') =~ l:command
-        return
+        " if still running, return, else wipe terminal buffer
+        if jobwait([getbufvar(bufferNum, '&channel')], 0)[0] == -1
+          return
+        else
+          silent execute 'bw! ' . bufferNum
+        endif
       endif
     endfor
   else
@@ -26,8 +34,11 @@ function! TaskWarriorServerUpdate()
       endif
     endfor
   endif
-  silent exe "w!"
-  silent exe "split | resize 5 | term " . l:command
+  if g:has_taskwiki_changes
+    silent exe "w! | TaskWikiBufferSave"
+    silent exe "split | resize 5 | term " . l:command
+    let g:has_taskwiki_changes = 0
+  endif
 endfunction
 
 augroup TaskWikiSync
