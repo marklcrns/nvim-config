@@ -9,7 +9,10 @@ endfunction
 
 function! TaskWarriorServerUpdate()
   let l:command = 'trellowarrior sync; task sync'
-  " Sync only if no terminal is open running/ran the command
+  " Sync only if has changes and no terminal is open running/ran the command
+  if &modified == 0
+    return
+  endif
   if has('nvim')
     for bufferNum in range(1, bufnr('$'))
       if getbufvar(bufferNum, 'term_title') =~ l:command
@@ -23,6 +26,7 @@ function! TaskWarriorServerUpdate()
       endif
     endfor
   endif
+  silent exe "w!"
   silent exe "split | resize 5 | term " . l:command
 endfunction
 
@@ -34,7 +38,7 @@ augroup END
 
 augroup TaskWarriorSync
   autocmd! Filetype vimwiki
-    \ autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate()
+    \ autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate()
 augroup END
 
 nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
