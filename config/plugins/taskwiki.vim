@@ -36,8 +36,11 @@ function! TaskWarriorServerUpdate()
   endif
   if g:has_taskwiki_changes
     silent exe "w! | TaskWikiBufferSave"
-    silent exe "split | resize 5 | term " . l:command
     let g:has_taskwiki_changes = 0
+    let @a = system("task | grep 'Sync required'")
+    if @a =~ 'Sync required'
+      silent exe "split | resize 5 | term " . l:command
+    endif
   endif
 endfunction
 
@@ -54,3 +57,5 @@ augroup END
 
 nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
 nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate()<CR>
+
+
