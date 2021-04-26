@@ -10,11 +10,19 @@ endfunction
 function! TaskWarriorServerUpdate()
   let l:command = 'trellowarrior sync; task sync'
   " Sync only if no terminal is open running/ran the command
-  for bufferNum in range(1, bufnr('$'))
-    if getbufvar(bufferNum, 'term_title') =~ l:command
-      return
-    endif
-  endfor
+  if has('nvim')
+    for bufferNum in range(1, bufnr('$'))
+      if getbufvar(bufferNum, 'term_title') =~ l:command
+        return
+      endif
+    endfor
+  else
+    for bufferNum in range(1, bufnr('$'))
+      if getbufvar(bufferNum, '&buftype') == 'terminal'
+        return
+      endif
+    endfor
+  endif
   silent exe "split | resize 5 | term " . l:command
 endfunction
 
