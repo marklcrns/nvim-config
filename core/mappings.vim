@@ -288,6 +288,28 @@ function! UtilityMappings()
 	endfunction
 	nnoremap <Leader>fg :call VimgrepWrapper("")<Left><Left>
 	nnoremap <Leader>gD :GitOpenDirty<CR>
+  " Termdebug
+  packadd! termdebug
+  nnoremap <Leader>dA :<C-u>call feedkeys(':Arguments<Space>','t')<CR>
+  nnoremap <Leader>dd :<C-u>call feedkeys(':Termdebug<Space>','t')<CR>
+  nnoremap <Leader>db :<C-u>Break<CR>
+  nnoremap <Leader>de :execute "Evaluate " . expand('<cword>')<CR>
+  vnoremap <Leader>de :Evaluate<CR>
+  nnoremap <Leader>dC :<C-u>Clear<CR>
+  nnoremap <Leader>dc :<C-u>Continue<CR>
+  nnoremap <Leader>ds :<C-u>Step<CR>
+  nnoremap <Leader>dr :<C-u>call feedkeys(':Run<Space>','t')<CR>
+  nnoremap <Leader>dF :<C-u>Finish<CR>
+  nnoremap <Leader>dx :<C-u>Stop<CR>
+  if has('nvim')
+    nnoremap <Leader>dn :<C-u>Over<CR>
+  else
+    nnoremap <Leader>dn :<C-u>Next<CR>
+  endif
+  nnoremap <Leader>da :<C-u>Asm<CR>
+  nnoremap <Leader>dg :<C-u>Gdb<CR>
+  nnoremap <Leader>dp :<C-u>Program<CR>
+  nnoremap <Leader>df :<C-u>Source<CR>
 endfunction
 
 function! CommandMappings()
@@ -481,7 +503,7 @@ endfunction
 
 function! SessionMappings()
 	nnoremap <Leader>ss :<C-u>SessionSave<Space>
-	nnoremap <Leader>sl :<C-u>SessionLoad<Space>
+	nnoremap <Leader>sl :<C-u>call feedkeys(':SessionLoad<Space><Tab>','t')<CR>
 	nnoremap <Leader>sL :<C-u>SessionList<CR>
 	nnoremap <Leader>sq :<C-u>SessionClose<CR>
 	nnoremap <Leader>sd :<C-u>SessionDetach<CR>

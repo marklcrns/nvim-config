@@ -242,8 +242,8 @@ if dein#tap('coc.nvim')
 		return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 	endfunc
 
-	nnoremap <silent> <leader>cs :<C-u>CocSearch<Space>
-	nnoremap <silent> <leader>cS :<C-u>CocSearch -w<Space>
+	nnoremap <silent> <leader>cs :<C-u>call feedkeys(':CocSearch<Space>','t')<CR>
+	nnoremap <silent> <leader>cS :<C-u>call feedkeys(':CocSearch -w<Space>','t')<CR>
 
 	nmap <leader>cr <Plug>(coc-refactor)
 
@@ -369,10 +369,13 @@ endif
 
 if dein#tap('vimspector')
   " Evaluate the word under the cursor
-  nmap <Leader>di <Plug>VimspectorBalloonEval
-  xmap <Leader>di <Plug>VimspectorBalloonEval
+  nmap <Leader>dvi <Plug>VimspectorBalloonEval
+  xmap <Leader>dvi <Plug>VimspectorBalloonEval
   " Close all debugging window
-  nmap <Leader>dq :VimspectorReset<CR>
+  nmap <Leader>dvq :VimspectorReset<CR>
+  nmap <Leader>dve :call feedkeys(':VimspectorEval<Space><Tab>','t')<CR>
+  nmap <Leader>dvw :call feedkeys(':VimspectorWatch<Space><Tab>','t')<CR>
+  nmap <Leader>dvs :call feedkeys(':VimspectorShowOutput<Space><Tab>','t')<CR>
 
   nmap <Leader><F11> <Plug>VimspectorUpFrame
   nmap <Leader><F12> <Plug>VimspectorDownFrame
@@ -383,11 +386,14 @@ if dein#tap('vimspector')
     let g:which_key_map['<F9>'] = 'Vimspector toggle conditional break'
     let g:which_key_map['<F11>'] = 'Vimspector frame up'
     let g:which_key_map['<F12>'] = 'Vimspector frame down'
-    let g:which_key_map['d'] = {
-          \ 'name' : '+debug',
-          \ 'i' : 'Evaluate variable under cursor',
-          \ 'q' : 'Close vimspector',
-          \ }
+    let g:which_key_map['d']['v'] = {
+         \ 'name' : '+vimspector',
+         \ 'e' : 'Vimspector Evaluate variable <var-name>',
+         \ 'i' : 'Vimspector Evaluate variable under cursor',
+         \ 's' : 'Vimspector ShowOutput',
+         \ 'q' : 'Close vimspector and reset',
+         \ 'w' : 'Vimspector Watch variable <var-name>',
+         \ }
   endif
 endif
 
