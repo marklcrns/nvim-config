@@ -921,29 +921,25 @@ if dein#tap('taskwiki')
 	nnoremap <LocalLeader>tS :TaskWikiStats<CR>
 	nnoremap <LocalLeader>tt :TaskWikiTags<CR>
 
+  " User defined functions
+  nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
+  nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate(v:true)<CR>
+
 	if s:enable_whichkey
-		let g:which_key_localmap.t = {
+		let g:which_key_localmap['t'] = {
 					\ 'name' : '+taskwiki',
-					\ 'u' : ['call TaskWikiUpdate()', 'Custom taskwiki tasks update'],
-					\ 'b' : {
-					\ 'name' : '+taskwiki-burndown',
-					\ },
-					\ 'c' : {
-					\ 'name' : '+taskwiki-choose',
-					\ },
-					\ 'h' : {
-					\ 'name' : '+taskwiki-history',
-					\ },
-					\ 'G' : {
-					\ 'name' : '+taskwiki-ghistory',
-					\ },
+					\   'b' : { 'name' : '+taskwiki-burndown' },
+					\   'c' : { 'name' : '+taskwiki-choose' },
+					\   'h' : { 'name' : '+taskwiki-history' },
+					\   'G' : { 'name' : '+taskwiki-ghistory' },
+          \   'u' : ['call TaskWikiUpdate()', 'Custom taskwiki tasks update'],
+          \   'U' : ['call TaskWarriorServerUpdate()', 'Custom taskwiki server update'],
 					\ }
 	endif
 endif
 
 if dein#tap('taskwarrior.vim')
 	nnoremap <LocalLeader>tw :<C-u>TW<CR>
-
 	if s:enable_whichkey
 		let g:which_key_localmap['t']['w'] = 'Open Task Warrior'
 	endif

@@ -20,7 +20,7 @@ function! TodoListDetectEnable()
       augroup END
       augroup TaskWarriorSync
         autocmd!
-        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate()
+        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(v:false)
       augroup END
       return
     endif
@@ -32,34 +32,36 @@ function! TaskWikiUpdate()
   silent exe "TaskWikiBufferLoad"
 endfunction
 
-function! TaskWarriorServerUpdate()
+function! TaskWarriorServerUpdate(force)
   let l:command = 'trellowarrior sync; task sync'
   " Sync only if has changes and no terminal is open running the command
   if &modified == 0
     return
-  else
-    let g:has_taskwiki_changes = 1
   endif
-  if has('nvim')
-    for bufferNum in range(1, bufnr('$'))
-      " Look for terminal running the command
-      if getbufvar(bufferNum, 'term_title') =~ l:command
-        " if still running, return, else wipe terminal buffer
-        if jobwait([getbufvar(bufferNum, '&channel')], 0)[0] == -1
-          return
-        else
-          silent execute 'bw! ' . bufferNum
+  let g:has_taskwiki_changes = 1
+
+  if a:force == v:false
+    if has('nvim')
+      for bufferNum in range(1, bufnr('$'))
+        " Look for terminal running the command
+        if getbufvar(bufferNum, 'term_title') =~ l:command
+          " if still running, return, else wipe terminal buffer
+          if jobwait([getbufvar(bufferNum, '&channel')], 0)[0] == -1
+            return
+          else
+            silent execute 'bw! ' . bufferNum
+          endif
         endif
-      endif
-    endfor
-  else
-    for bufferNum in range(1, bufnr('$'))
-      if getbufvar(bufferNum, '&buftype') == 'terminal'
-        return
-      endif
-    endfor
+      endfor
+    else
+      for bufferNum in range(1, bufnr('$'))
+        if getbufvar(bufferNum, '&buftype') == 'terminal'
+          return
+        endif
+      endfor
+    endif
   endif
-  if g:has_taskwiki_changes
+  if g:has_taskwiki_changes || a:force == v:true
     silent exe "w! | TaskWikiBufferSave"
     let g:has_taskwiki_changes = 0
     let @x = system("task | grep 'Sync required'")
@@ -68,7 +70,4 @@ function! TaskWarriorServerUpdate()
     endif
   endif
 endfunction
-
-nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
-nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate()<CR>
 
