@@ -122,6 +122,7 @@
 # Coding tools
 # ----------------------------------------
 - repo: puremourning/vimspector
+  hook_source: source $VIM_PATH/config/plugins/vimspector.vim
   hook_add: |
     let g:vimspector_enable_mappings = 'HUMAN'
 

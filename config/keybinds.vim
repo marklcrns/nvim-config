@@ -367,6 +367,30 @@ if dein#tap('codi.vim')
 	endif
 endif
 
+if dein#tap('vimspector')
+  " Evaluate the word under the cursor
+  nmap <Leader>di <Plug>VimspectorBalloonEval
+  xmap <Leader>di <Plug>VimspectorBalloonEval
+  " Close all debugging window
+  nmap <Leader>dq :VimspectorReset<CR>
+
+  nmap <Leader><F11> <Plug>VimspectorUpFrame
+  nmap <Leader><F12> <Plug>VimspectorDownFrame
+
+  if s:enable_whichkey
+    let g:which_key_map['<F5>'] = 'Vimspector launch'
+    let g:which_key_map['<F8>'] = 'Vimspector run to cursor'
+    let g:which_key_map['<F9>'] = 'Vimspector toggle conditional break'
+    let g:which_key_map['<F11>'] = 'Vimspector frame up'
+    let g:which_key_map['<F12>'] = 'Vimspector frame down'
+    let g:which_key_map['d'] = {
+          \ 'name' : '+debug',
+          \ 'i' : 'Evaluate variable under cursor',
+          \ 'q' : 'Close vimspector',
+          \ }
+  endif
+endif
+
 if dein#tap('vim-easy-align')
 	" Start interactive EasyAlign in visual mode
 	xnoremap <Leader>raa :EasyAlign<CR>
