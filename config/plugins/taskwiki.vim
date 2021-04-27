@@ -3,6 +3,31 @@ let g:taskwiki_dont_preserve_folds = 'yes'
 let g:taskwiki_disable_concealcursor = 'yes'
 let g:taskwiki_suppress_mappings = 'yes'
 
+augroup VimwikiTodoListDetect
+  autocmd!
+  autocmd! Filetype vimwiki call TodoListDetectEnable()
+augroup END
+
+" Enable autocmds if file contains 'title:TODO list' metadata or '# Todo List'
+" markdown header in the first 10 lines of the file
+function! TodoListDetectEnable()
+  let n = 1
+  while n < 10 && n < line("$")
+    if getline(n) =~ 'title: TODO list\|# Todo List'
+      augroup TaskWikiSync
+        autocmd!
+        autocmd! FocusGained <buffer> call TaskWikiUpdate()
+      augroup END
+      augroup TaskWarriorSync
+        autocmd!
+        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate()
+      augroup END
+      return
+    endif
+    let n = n + 1
+  endwhile
+endfunction
+
 function! TaskWikiUpdate()
   silent exe "TaskWikiBufferLoad"
 endfunction
@@ -37,25 +62,13 @@ function! TaskWarriorServerUpdate()
   if g:has_taskwiki_changes
     silent exe "w! | TaskWikiBufferSave"
     let g:has_taskwiki_changes = 0
-    let @a = system("task | grep 'Sync required'")
-    if @a =~ 'Sync required'
+    let @x = system("task | grep 'Sync required'")
+    if @x =~ 'Sync required'
       silent exe "split | resize 5 | term " . l:command
     endif
   endif
 endfunction
 
-augroup TaskWikiSync
-  autocmd!
-  autocmd! Filetype vimwiki
-    \ autocmd! FocusGained <buffer> call TaskWikiUpdate()
-augroup END
-
-augroup TaskWarriorSync
-  autocmd! Filetype vimwiki
-    \ autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate()
-augroup END
-
 nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
 nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate()<CR>
-
 
