@@ -368,14 +368,26 @@ if dein#tap('codi.vim')
 endif
 
 if dein#tap('vimspector')
-  " Evaluate the word under the cursor
-  nmap <Leader>dvi <Plug>VimspectorBalloonEval
-  xmap <Leader>dvi <Plug>VimspectorBalloonEval
   " Close all debugging window
-  nmap <Leader>dvq :VimspectorReset<CR>
-  nmap <Leader>dve :call feedkeys(':VimspectorEval<Space><Tab>','t')<CR>
+  nmap <Leader>dvE :call feedkeys(':VimspectorEval<Space><Tab>','t')<CR>
   nmap <Leader>dvw :call feedkeys(':VimspectorWatch<Space><Tab>','t')<CR>
   nmap <Leader>dvs :call feedkeys(':VimspectorShowOutput<Space><Tab>','t')<CR>
+  nmap <Leader>dvbb <Plug>VimspectorToggleBreakpoint
+  nmap <Leader>dvbc <Plug>VimspectorToggleConditionalBreakpoint
+  nmap <Leader>dvbf <Plug>VimspectorAddFunctionBreakpoint
+  nmap <Leader>dvc <Plug>VimspectorRunToCursor
+  nmap <Leader>dve <Plug>VimspectorBalloonEval
+  xmap <Leader>dve <Plug>VimspectorBalloonEval
+  nmap <Leader>dvh <Plug>VimspectorContinue
+  nmap <Leader>dvj <Plug>VimspectorStepOver
+  nmap <Leader>dvk <Plug>VimspectorStepOut
+  nmap <Leader>dvJ <Plug>VimspectorDownFrame
+  nmap <Leader>dvK <Plug>VimspectorUpFrame
+  nmap <Leader>dvl <Plug>VimspectorStepInto
+  nmap <Leader>dvp <Plug>VimspectorPause
+  nmap <Leader>dvq :VimspectorReset<CR>
+  nmap <Leader>dvr <Plug>VimspectorRestart
+  nmap <Leader>dvx <Plug>VimspectorStop
 
   nmap <Leader><F11> <Plug>VimspectorUpFrame
   nmap <Leader><F12> <Plug>VimspectorDownFrame
@@ -388,11 +400,27 @@ if dein#tap('vimspector')
     let g:which_key_map['<F12>'] = 'Vimspector frame down'
     let g:which_key_map['d']['v'] = {
          \ 'name' : '+vimspector',
-         \ 'e' : 'Vimspector Evaluate variable <var-name>',
-         \ 'i' : 'Vimspector Evaluate variable under cursor',
-         \ 's' : 'Vimspector ShowOutput',
-         \ 'q' : 'Close vimspector and reset',
-         \ 'w' : 'Vimspector Watch variable <var-name>',
+            \ 'b' : {
+                  \ 'name' : '+breakpoints',
+                  \ 'b' : 'Toggle line breakpoint under current line',
+                  \ 'c' : 'Toggle conditional line breakpoint under current line',
+                  \ 'f' : 'Add a function breakpoint for the expression under cursor',
+                \ },
+            \ 'c' : 'Run to cursor',
+            \ 'e' : 'Evaluate variable under cursor',
+            \ 'E' : 'Evaluate variable <var-name>',
+            \ 'h' : 'Continue until next breakpoint',
+            \ 'j' : 'Step over (next)',
+            \ 'J' : 'Frame down',
+            \ 'k' : 'Step out (finish)',
+            \ 'K' : 'Frame up',
+            \ 'l' : 'Step into (step)',
+            \ 'p' : 'Pause debuggee',
+            \ 'r' : 'Restart debugging',
+            \ 's' : 'Show output <category>',
+            \ 'q' : 'Close vimspector and reset',
+            \ 'x' : 'Stop debugging',
+            \ 'w' : 'Watch variable <var-name>',
          \ }
   endif
 endif
