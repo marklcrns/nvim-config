@@ -24,6 +24,9 @@
 - repo: dhruvasagar/vim-zoom
   hook_add: |
     let g:zoom#statustext = 'F'
+- repo: szw/vim-maximizer
+  hook_source: |
+    let g:maximizer_set_default_mapping = 0
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"

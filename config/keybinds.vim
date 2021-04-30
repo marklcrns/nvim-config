@@ -759,7 +759,11 @@ if dein#tap('linediff.vim')
 endif
 
 if dein#tap('vim-zoom')
-	nmap [Window]f <Plug>(zoom-toggle)
+	nmap <silent> [Window]f <Plug>(zoom-toggle)
+endif
+
+if dein#tap('vim-maximizer')
+	nmap <silent> [Window]z :MaximizerToggle<CR>
 endif
 
 if dein#tap('vim-rooter')

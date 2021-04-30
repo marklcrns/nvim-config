@@ -231,8 +231,8 @@ function! WindowsManagementMappings()
 	" Splits
 	nnoremap <silent> [Window]g  :<C-u>split<CR>
 	nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
-	nnoremap <silent> [Window]q  :close<CR>
-	nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
+	nnoremap <silent> [Window]q  :<C-u>close<CR>
+	" nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
 	" Split current buffer, go to previous window and previous buffer
 	nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
 	nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
@@ -739,18 +739,19 @@ function! s:toggle_background()
 	endif
 endfunction
 
-" Simple zoom toggle
-function! s:custom_zoom()
-	if exists('t:custom_zoomed')
-		unlet t:custom_zoomed
-		wincmd =
-	else
-		let t:custom_zoomed = { 'nr': bufnr('%') }
-		vertical resize
-		resize
-		normal! ze
-	endif
-endfunction
+" DEPRECATED by vim-maximizer
+" " Simple zoom toggle
+" function! s:custom_zoom()
+" 	if exists('t:custom_zoomed')
+" 		unlet t:custom_zoomed
+" 		wincmd =
+" 	else
+" 		let t:custom_zoomed = { 'nr': bufnr('%') }
+" 		vertical resize
+" 		resize
+" 		normal! ze
+" 	endif
+" endfunction
 
 " ==================== Mappings Function Calls ==================== "
 
