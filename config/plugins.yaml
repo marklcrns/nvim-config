@@ -468,9 +468,13 @@
 # }}}
 
 # UI{{{
-- repo: nathanaelkane/vim-indent-guides
+# - repo: nathanaelkane/vim-indent-guides
+#   on_event: FileType
+#   hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
+
+- repo:  glepnir/indent-guides.nvim
   on_event: FileType
-  hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
+  hook_source: luafile $VIM_PATH/config/plugins/indent-guides.lua
 
 - repo: norcalli/nvim-colorizer.lua
   if: "has('nvim') && has('nvim-0.4.0')"
