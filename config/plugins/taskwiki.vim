@@ -20,7 +20,7 @@ function! TodoListDetectEnable()
       augroup END
       augroup TaskWarriorSync
         autocmd!
-        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(v:false)
+        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(0)
       augroup END
       return
     endif
@@ -40,7 +40,7 @@ function! TaskWarriorServerUpdate(force)
   endif
   let g:has_taskwiki_changes = 1
 
-  if a:force == v:false
+  if a:force == 0
     if has('nvim')
       for bufferNum in range(1, bufnr('$'))
         " Look for terminal running the command
@@ -61,9 +61,10 @@ function! TaskWarriorServerUpdate(force)
       endfor
     endif
   endif
-  if g:has_taskwiki_changes || a:force == v:true
+  if g:has_taskwiki_changes == 1 || a:force == 1
+    echo "Syncing task server"
     silent exe "w! | TaskWikiBufferSave"
-    let g:has_taskwiki_changes = 0
+    let g:has_taskwiki_changes = v:false
     let @x = system("task | grep 'Sync required'")
     if @x =~ 'Sync required'
       silent exe "split | resize 5 | term " . l:command
