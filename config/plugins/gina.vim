@@ -19,29 +19,29 @@ let g:gina#command#blame#formatter#format = '%au: %su%= on %ti %ma%in'
 
 " Open in vertical split
 call gina#custom#command#option(
-	\ '/\%(branch\|changes\|status\|grep\|log\|reflog\)',
-	\ '--opener', 'split'
-	\)
+  \ '/\%(branch\|changes\|status\|grep\|log\|reflog\)',
+  \ '--opener', 'split'
+  \)
 
 " Fixed medium width types
 call gina#custom#execute(
-	\ '/\%(changes\|status\|ls\)',
-	\ 'vertical resize ' . s:width_half . ' | setlocal winfixwidth'
-	\)
+  \ '/\%(changes\|status\|ls\)',
+  \ 'vertical resize ' . s:width_half . ' | setlocal winfixwidth'
+  \)
 
 " Fixed small width special types
 call gina#custom#execute(
-	\ '/\%(branch\)',
-	\ 'vertical resize ' . s:width_quarter . ' | setlocal winfixwidth'
-	\)
+  \ '/\%(branch\)',
+  \ 'vertical resize ' . s:width_quarter . ' | setlocal winfixwidth'
+  \)
 
 " Alias 'p'/'dp' globally
 call gina#custom#action#alias('/.*', 'dp', 'diff:preview')
 call gina#custom#mapping#nmap('/.*', 'dp', ':<C-u>call gina#action#call(''dp'')<CR>', {'noremap': 1, 'silent': 1})
 " call gina#custom#action#alias('/\%(blame\|log\)', 'preview', 'botright show:commit:preview')
 call gina#custom#mapping#nmap('/.*', 'p',
-	\ ':<C-u>call gina#action#call(''preview'')<CR>',
-	\ {'noremap': 1, 'silent': 1, 'nowait': 1})
+  \ ':<C-u>call gina#action#call(''preview'')<CR>',
+  \ {'noremap': 1, 'silent': 1, 'nowait': 1})
 
 " Echo chunk info with K
 call gina#custom#mapping#nmap('blame', 'K', '<Plug>(gina-blame-echo)')
@@ -54,6 +54,6 @@ call gina#custom#mapping#nmap('blame', '<C-r>', '<Plug>(gina-blame-C-L)')
 
 " Dirty workaround to prevent overwrriting vim-tmux-navigator mappings
 if match(&runtimepath, 'vim-tmux-navigator') != -1
-	call gina#custom#mapping#nmap('status', '<C-j>', ':<C-u>TmuxNavigateDown<CR>')
-	call gina#custom#mapping#nmap('status', '<C-k>', ':<C-u>TmuxNavigateUp<CR>')
+  call gina#custom#mapping#nmap('status', '<C-j>', ':<C-u>TmuxNavigateDown<CR>')
+  call gina#custom#mapping#nmap('status', '<C-k>', ':<C-u>TmuxNavigateUp<CR>')
 endif

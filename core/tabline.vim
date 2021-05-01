@@ -38,7 +38,7 @@ function! Tabline()
 		if l:nr == l:current
 			let l:tabline .= '%#TabLineFill#%#TabLineSel# '
 		else
-			let l:tabline .= '%#TabLine#  '
+			let l:tabline .= '%#TabLine#	'
 		endif
 
 		" Get file-name with custom cutoff settings
@@ -71,7 +71,7 @@ function! Tabline()
 		if l:nr == l:current
 			let l:tabline .= '%#TabLineSel# %#TabLineFill#'
 		else
-			let l:tabline .= '%#TabLine#  '
+			let l:tabline .= '%#TabLine#	'
 		endif
 	endfor
 

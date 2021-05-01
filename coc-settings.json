@@ -1,9 +1,9 @@
 {
-	// Floating window
-	"suggest.floatEnable": true,
-	"diagnostic.messageTarget": "float",
-	"signature.target": "float",
-	"coc.preferences.hoverTarget": "float",
+  // Floating window
+  "suggest.floatEnable": true,
+  "diagnostic.messageTarget": "float",
+  "signature.target": "float",
+  "coc.preferences.hoverTarget": "float",
 
   "suggest.triggerAfterInsertEnter": false,
   "suggest.minTriggerInputLength": 1,

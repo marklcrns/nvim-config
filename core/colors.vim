@@ -57,11 +57,11 @@ hi! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c
 " Plugin: vim-choosewin {{{
 " ----------------------------------------------------------------------------
 let g:choosewin_color_label = {
-			\ 'cterm': [  75, 233 ], 'gui': [ '#7f99cd', '#000000' ] }
+      \ 'cterm': [  75, 233 ], 'gui': [ '#7f99cd', '#000000' ] }
 let g:choosewin_color_label_current = {
-			\ 'cterm': [ 228, 233 ], 'gui': [ '#D7D17C', '#000000' ] }
+      \ 'cterm': [ 228, 233 ], 'gui': [ '#D7D17C', '#000000' ] }
 let g:choosewin_color_other = {
-			\ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
+      \ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
 " }}}
 
 " Plugin: Fern.vim {{{
@@ -87,7 +87,7 @@ hi HighlightedyankRegion term=bold ctermbg=0 guibg=#d0d0d0
 " GetColorSynatxGroup
 " ---------------------------------------------------------
 " nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
-"			\ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-"			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+"     \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+"     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 

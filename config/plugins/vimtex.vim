@@ -15,19 +15,19 @@ let g:matchup_override_vimtex = 1
 let g:matchup_matchparen_deferred = 1
 
 let g:vimtex_compiler_latexmk = {
-			\ 'build_dir' : 'build',
-			\ 'callback' : 1,
-			\ 'continuous' : 1,
-			\ 'executable' : 'latexmk',
-			\ 'hooks' : [],
-			\ 'options' : [
-			\   '-verbose',
-			\   '-file-line-error',
-			\   '-synctex=1',
-			\   '-interaction=nonstopmode',
-			\ ],
-			\}
+      \ 'build_dir' : 'build',
+      \ 'callback' : 1,
+      \ 'continuous' : 1,
+      \ 'executable' : 'latexmk',
+      \ 'hooks' : [],
+      \ 'options' : [
+      \   '-verbose',
+      \   '-file-line-error',
+      \   '-synctex=1',
+      \   '-interaction=nonstopmode',
+      \ ],
+      \}
 
 let g:vimtex_quickfix_ignore_filters = [
-			\ 'LaTeX Font Warning',
-			\ ]
+      \ 'LaTeX Font Warning',
+      \ ]

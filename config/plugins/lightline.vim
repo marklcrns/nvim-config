@@ -7,7 +7,7 @@ let g:lightline = {
   \   'lineinfo': '%3l:%-2v',
   \ },
   \ 'component_function': {
-	\		'zoom' : 'zoom#statusline',
+  \   'zoom' : 'zoom#statusline',
   \   'cocstatus': 'coc#status',
   \   'currentfunction': 'CocCurrentFunction',
   \   'readonly': 'LightlineReadonly',
@@ -36,7 +36,7 @@ function! CocCurrentFunction()
 endfunction
 
 function! LightlineReadonly()
-	return &readonly ? '' : ''
+  return &readonly ? '' : ''
 endfunction
 
 function! LightlineGitStatus() abort
@@ -46,9 +46,9 @@ endfunction
 
 " Gutentags Statusline
 augroup MyGutentagsStatusLineRefresher
-	autocmd!
-	autocmd User GutentagsUpdating call lightline#update()
-	autocmd User GutentagsUpdated call lightline#update()
+  autocmd!
+  autocmd User GutentagsUpdating call lightline#update()
+  autocmd User GutentagsUpdated call lightline#update()
 augroup END
 
 " Vista Statusline

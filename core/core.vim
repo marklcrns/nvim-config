@@ -17,9 +17,9 @@ let g:custom_cursorline_enable = 1
 let g:custom_cursorcolumn_enable = 0
 
 if &compatible
-	" vint: -ProhibitSetNoCompatible
-	set nocompatible
-	" vint: +ProhibitSetNoCompatible
+  " vint: -ProhibitSetNoCompatible
+  set nocompatible
+  " vint: +ProhibitSetNoCompatible
 endif
 
 " Set main configuration directory as parent directory
@@ -57,80 +57,80 @@ let g:loaded_netrwFileHandlers = 1
 
 " Initialize start up base requirements
 if has('vim_starting')
-	" When using VIMINIT trick for exotic MYVIMRC locations, add path now.
-	if &runtimepath !~# $VIM_PATH
-		set runtimepath^=$VIM_PATH
-		set runtimepath+=$VIM_PATH/after
-	endif
+  " When using VIMINIT trick for exotic MYVIMRC locations, add path now.
+  if &runtimepath !~# $VIM_PATH
+    set runtimepath^=$VIM_PATH
+    set runtimepath+=$VIM_PATH/after
+  endif
 
-	if &runtimepath !~# $LOCAL_VIM_PATH
-		set runtimepath^=$LOCAL_VIM_PATH
-		set runtimepath+=$LOCAL_VIM_PATH/after
-	endif
+  if &runtimepath !~# $LOCAL_VIM_PATH
+    set runtimepath^=$LOCAL_VIM_PATH
+    set runtimepath+=$LOCAL_VIM_PATH/after
+  endif
 
-	" Ensure data directories
-	for s:path in [
-				\ $DATA_PATH,
-				\ $DATA_PATH . '/undo',
-				\ $DATA_PATH . '/backup',
-				\ $DATA_PATH . '/session',
-				\ $VIM_PATH . '/spell' ]
-		if ! isdirectory(s:path)
-			call mkdir(s:path, 'p', 0770)
-		endif
-	endfor
+  " Ensure data directories
+  for s:path in [
+        \ $DATA_PATH,
+        \ $DATA_PATH . '/undo',
+        \ $DATA_PATH . '/backup',
+        \ $DATA_PATH . '/session',
+        \ $VIM_PATH . '/spell' ]
+    if ! isdirectory(s:path)
+      call mkdir(s:path, 'p', 0770)
+    endif
+  endfor
 
-	" Python interpreter settings
-	if has('nvim')
-		" Set python interpreter from a dedicated virtualenv created by generate_venv.sh
-		let python = $DATA_PATH . '/venv/python/env/bin/python'
-		let python3 = $DATA_PATH . '/venv/python3/env/bin/python3'
-		if filereadable(python)
-			let g:python_host_prog = python
-		endif
-		if filereadable(python3)
-			let g:python3_host_prog = python3
-		endif
-	elseif has('pythonx')
-		if has('python3')
-			set pyxversion=3
-		elseif has('python')
-			set pyxversion=2
-		endif
-	endif
+  " Python interpreter settings
+  if has('nvim')
+    " Set python interpreter from a dedicated virtualenv created by generate_venv.sh
+    let python = $DATA_PATH . '/venv/python/env/bin/python'
+    let python3 = $DATA_PATH . '/venv/python3/env/bin/python3'
+    if filereadable(python)
+      let g:python_host_prog = python
+    endif
+    if filereadable(python3)
+      let g:python3_host_prog = python3
+    endif
+  elseif has('pythonx')
+    if has('python3')
+      set pyxversion=3
+    elseif has('python')
+      set pyxversion=2
+    endif
+  endif
 
-	" Enables 24-bit RGB color in the terminal
-	if has('termguicolors')
-		if empty($COLORTERM) || $COLORTERM =~# 'truecolor\|24bit'
-			set termguicolors
-		endif
-	endif
+  " Enables 24-bit RGB color in the terminal
+  if has('termguicolors')
+    if empty($COLORTERM) || $COLORTERM =~# 'truecolor\|24bit'
+      set termguicolors
+    endif
+  endif
 
-	if ! has('nvim')
-		set t_Co=256
-		" Set Vim-specific sequences for RGB colors
-		" Fixes 'termguicolors' usage in vim+tmux
-		" :h xterm-true-color
-		let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-		let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-	endif
+  if ! has('nvim')
+    set t_Co=256
+    " Set Vim-specific sequences for RGB colors
+    " Fixes 'termguicolors' usage in vim+tmux
+    " :h xterm-true-color
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  endif
 
-	" Set leader and localleader keys
-	let g:mapleader="\<Space>"
-	let g:maplocalleader=';'
+  " Set leader and localleader keys
+  let g:mapleader="\<Space>"
+  let g:maplocalleader=';'
 
-	" Release keymappings prefixes, evict entirely for use of plug-ins.
-	nnoremap <Space>  <Nop>
-	xnoremap <Space>  <Nop>
-	nnoremap ,        <Nop>
-	xnoremap ,        <Nop>
-	nnoremap ;        <Nop>
-	xnoremap ;        <Nop>
+  " Release keymappings prefixes, evict entirely for use of plug-ins.
+  nnoremap <Space>  <Nop>
+  xnoremap <Space>  <Nop>
+  nnoremap ,        <Nop>
+  xnoremap ,        <Nop>
+  nnoremap ;        <Nop>
+  xnoremap ;        <Nop>
 
-	" Vim only, Linux terminal settings
-	if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
-		call utils#source_file($VIM_PATH, 'core/terminal.vim')
-	endif
+  " Vim only, Linux terminal settings
+  if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
+    call utils#source_file($VIM_PATH, 'core/terminal.vim')
+  endif
 endif
 
 call utils#source_file($VIM_PATH, 'core/general.vim')
@@ -139,23 +139,23 @@ call utils#source_file($VIM_PATH, 'core/mappings.vim')
 
 " Initialize plugin-manager and load plugins config files
 if get(g:, 'handle_plugins', 'full') !=# 'disable'
-	call utils#source_file($VIM_PATH, 'core/package_manager.vim')
-	if g:handle_plugins !=# 'skip'
-		call utils#source_file($VIM_PATH, 'config/keybinds.vim')
-	endif
+  call utils#source_file($VIM_PATH, 'core/package_manager.vim')
+  if g:handle_plugins !=# 'skip'
+    call utils#source_file($VIM_PATH, 'config/keybinds.vim')
+  endif
 endif
 
 " Load custom status and tabline
 if get(g:, 'custom_statusline_enable', 1)
-	call utils#source_file($VIM_PATH, 'core/statusline.vim')
+  call utils#source_file($VIM_PATH, 'core/statusline.vim')
 endif
 if get(g:, 'custom_tabline_enable', 1)
-	call utils#source_file($VIM_PATH, 'core/tabline.vim')
+  call utils#source_file($VIM_PATH, 'core/tabline.vim')
 endif
 
 " Load secondary user init config
 if get(g:, 'init_secondary_config', 1)
-	call utils#check_source(s:user_init_config)
+  call utils#check_source(s:user_init_config)
 endif
 
 call theme#init()

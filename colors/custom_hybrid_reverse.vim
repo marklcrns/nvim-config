@@ -7,7 +7,7 @@
 hi clear
 
 if exists("syntax_on")
-	syntax reset
+  syntax reset
 endif
 
 let s:style = &background
@@ -49,31 +49,31 @@ let s:palette.gui.darkred    = { 'dark' : "#5f0000"        , 'light' : "#d7d7ff"
 let s:palette.gui.darkpurple = { 'dark' : "#5f005f"        , 'light' : "#5f005f" }
 
 if exists("g:hybrid_custom_term_colors") && g:hybrid_custom_term_colors == 1
-	let s:cterm_foreground = "15"  " White
-	let s:cterm_selection  = "8"   " DarkGrey
-	let s:cterm_line       = "0"   " Black
-	let s:cterm_comment    = "7"   " LightGrey
-	let s:cterm_red        = "9"   " LightRed
-	let s:cterm_orange     = "3"   " DarkYellow
-	let s:cterm_yellow     = "11"  " LightYellow
-	let s:cterm_green      = "10"  " LightGreen
-	let s:cterm_aqua       = "14"  " LightCyan
-	let s:cterm_blue       = "12"  " LightBlue
-	let s:cterm_purple     = "13"  " LightMagenta
-	let s:cterm_delbg      = "9"   " LightRed
+  let s:cterm_foreground = "15"  " White
+  let s:cterm_selection  = "8"   " DarkGrey
+  let s:cterm_line       = "0"   " Black
+  let s:cterm_comment    = "7"   " LightGrey
+  let s:cterm_red        = "9"   " LightRed
+  let s:cterm_orange     = "3"   " DarkYellow
+  let s:cterm_yellow     = "11"  " LightYellow
+  let s:cterm_green      = "10"  " LightGreen
+  let s:cterm_aqua       = "14"  " LightCyan
+  let s:cterm_blue       = "12"  " LightBlue
+  let s:cterm_purple     = "13"  " LightMagenta
+  let s:cterm_delbg      = "9"   " LightRed
 else
-	let s:cterm_foreground = "250"
-	let s:cterm_selection  = "237"
-	let s:cterm_line       = "235"
-	let s:cterm_comment    = "243"
-	let s:cterm_red        = "167"
-	let s:cterm_orange     = "173"
-	let s:cterm_yellow     = "221"
-	let s:cterm_green      = "143"
-	let s:cterm_aqua       = "109"
-	let s:cterm_blue       = "110"
-	let s:cterm_purple     = "139"
-	let s:cterm_delbg      = "167"
+  let s:cterm_foreground = "250"
+  let s:cterm_selection  = "237"
+  let s:cterm_line       = "235"
+  let s:cterm_comment    = "243"
+  let s:cterm_red        = "167"
+  let s:cterm_orange     = "173"
+  let s:cterm_yellow     = "221"
+  let s:cterm_green      = "143"
+  let s:cterm_aqua       = "109"
+  let s:cterm_blue       = "110"
+  let s:cterm_purple     = "139"
+  let s:cterm_delbg      = "167"
 endif
 
 let s:palette.cterm.background = { 'dark' : "234"              , 'light' : "254" }
@@ -118,11 +118,11 @@ let s:i      = ",italic"
 " Highlighting Primitives: {{{
 " ----------------------------------------------------------------------------
 function! s:build_prim(hi_elem, field)
-	" Given a:hi_elem = bg, a:field = comment
-	let l:vname = "s:" . a:hi_elem . "_" . a:field " s:bg_comment
-	let l:gui_assign = "gui".a:hi_elem."=".s:palette.gui[a:field][s:style] " guibg=...
-	let l:cterm_assign = "cterm".a:hi_elem."=".s:palette.cterm[a:field][s:style] " ctermbg=...
-	exe "let " . l:vname . " = ' " . l:gui_assign . " " . l:cterm_assign . "'"
+  " Given a:hi_elem = bg, a:field = comment
+  let l:vname = "s:" . a:hi_elem . "_" . a:field " s:bg_comment
+  let l:gui_assign = "gui".a:hi_elem."=".s:palette.gui[a:field][s:style] " guibg=...
+  let l:cterm_assign = "cterm".a:hi_elem."=".s:palette.cterm[a:field][s:style] " ctermbg=...
+  exe "let " . l:vname . " = ' " . l:gui_assign . " " . l:cterm_assign . "'"
 endfunction
 
 let s:bg_none = ' guibg=NONE ctermbg=NONE'
@@ -212,16 +212,16 @@ exe "let s:sp_darkpurple = ' guisp=". s:palette.gui.darkpurple[s:style] ."'"
 
 " Set bold font depending on options
 if exists("g:enable_bold_font") && g:enable_bold_font == 1
-	let s:fg_bold = s:fmt_bold
+  let s:fg_bold = s:fmt_bold
 else
-	let s:fg_bold = s:fmt_none
+  let s:fg_bold = s:fmt_none
 endif
 
 " Set italic font depending on options
 if exists("g:enable_italic_font") && g:enable_italic_font == 1
-	let s:fg_italic = s:fmt_ital
+  let s:fg_italic = s:fmt_ital
 else
-	let s:fg_italic = s:fmt_none
+  let s:fg_italic = s:fmt_none
 endif
 
 " }}}
@@ -276,15 +276,15 @@ hi LongLineWarning  guifg=NONE        guibg=#371F1C     gui=underline ctermfg=NO
 
 " Use defined custom background colour for terminal Vim.
 if !has('gui_running') && exists("g:hybrid_custom_term_colors") && g:hybrid_custom_term_colors == 1
-	let s:bg_normal = s:bg_none
+  let s:bg_normal = s:bg_none
 else
-	let s:bg_normal = s:bg_background
+  let s:bg_normal = s:bg_background
 endif
 
 let s:normal_bg = s:bg_normal
 
 if get(g:, 'hybrid_transparent_background', 0) == 1
-	let s:normal_bg = s:bg_none
+  let s:normal_bg = s:bg_none
 endif
 
 exe "hi! Normal"        .s:fg_foreground  .s:normal_bg      .s:fmt_none

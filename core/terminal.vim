@@ -9,8 +9,8 @@
 " let &pastetoggle = "\e[201~"
 "
 " function! s:XTermPasteBegin(ret) abort
-" 	setlocal paste
-" 	return a:ret
+"		setlocal paste
+"		return a:ret
 " endfunction
 "
 " noremap  <special> <expr> <Esc>[200~ <SID>XTermPasteBegin('0i')

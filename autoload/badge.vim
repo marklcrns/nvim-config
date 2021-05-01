@@ -50,13 +50,13 @@ function! badge#gitstatus(...) abort
 	let l:icons = ['₊', '∗', '₋']  " added, modified, removed
 	let l:out = ''
 	" if &filetype ==# 'magit'
-	"   let l:map = {}
-	"   for l:file in magit#git#get_status()
-	"     let l:map[l:file['unstaged']] = get(l:map, l:file['unstaged'], 0) + 1
-	"   endfor
-	"   for l:status in l:map
-	"     let l:out = values(l:map)
-	"   endfor
+	"		let l:map = {}
+	"		for l:file in magit#git#get_status()
+	"			let l:map[l:file['unstaged']] = get(l:map, l:file['unstaged'], 0) + 1
+	"		endfor
+	"		for l:status in l:map
+	"			let l:out = values(l:map)
+	"		endfor
 	" endif
 	if exists('*gitgutter#hunk#summary')
 		let l:summary = gitgutter#hunk#summary(bufnr('%'))
@@ -80,10 +80,10 @@ function! badge#filename(...) abort
 	" Provides relative path with limited characters in each directory name, and
 	" limits number of total directories. Caches the result for current buffer.
 	" Parameters:
-	"   1: Buffer number, ignored if tab number supplied
-	"   2: Maximum characters displayed in base filename
-	"   3: Maximum characters displayed in each directory
-	"   4: Cache key
+	"		1: Buffer number, ignored if tab number supplied
+	"		2: Maximum characters displayed in base filename
+	"		3: Maximum characters displayed in each directory
+	"		4: Cache key
 
 	" Compute buffer id
 	let l:bufnr = '%'
@@ -121,7 +121,7 @@ function! badge#filename(...) abort
 		" Placeholder for empty buffer
 		let l:fn = g:badge_nofile
 		" elseif ! &buflisted
-		" 	let l:fn = ''
+		"		let l:fn = ''
 	else
 		" Shorten dir names
 		let l:max = a:0 > 2 ? a:3 : g:badge_status_dir_max_chars
@@ -144,7 +144,7 @@ function! badge#filename(...) abort
 			let l:icon = get(l:icon, 'icon', '')
 		endif
 		if ! empty(l:icon)
-			let l:fn .= l:icon . '  '
+			let l:fn .= l:icon . '	'
 		endif
 
 		let l:fn .= join(parts, '/')
@@ -262,7 +262,7 @@ endfunction
 function! badge#trails(...) abort
 	" Detect trailing whitespace and cache result per buffer
 	" Parameters:
-	"   Whitespace warning message, use %s for line number, default: WS:%s
+	"		Whitespace warning message, use %s for line number, default: WS:%s
 
 	if ! exists('b:badge_cache_trails')
 		let b:badge_cache_trails = ''
@@ -280,7 +280,7 @@ endfunction
 function! badge#modified(...) abort
 	" Make sure we ignore &modified when choosewin is active
 	" Parameters:
-	"   Modified symbol, default: +
+	"		Modified symbol, default: +
 
 	let label = a:0 == 1 ? a:1 : '+'
 	let choosewin = exists('g:choosewin_active') && g:choosewin_active
@@ -290,8 +290,8 @@ endfunction
 function! badge#mode(...) abort
 	" Returns file's mode: read-only and/or zoomed
 	" Parameters:
-	"   Read-only symbol, default: R
-	"   Zoomed buffer symbol, default: Z
+	"		Read-only symbol, default: R
+	"		Zoomed buffer symbol, default: Z
 
 	let s:modes = ''
 	if &filetype !~? g:badge_filetype_blacklist && &readonly
@@ -313,7 +313,7 @@ endfunction
 function! badge#session(...) abort
 	" Returns an indicator for active session
 	" Parameters:
-	"   Active session symbol, default: [S]
+	"		Active session symbol, default: [S]
 
 	return empty(v:this_session) ? '' : a:0 == 1 ? a:1 : '[S]'
 endfunction

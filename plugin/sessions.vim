@@ -7,9 +7,9 @@
 " Commands:
 " - SessionSave [name]: Create and activate new session
 " - SessionLoad [name]: Clear buffers and load selected session
-" - SessionClose:       Save session and clear all buffers
-" - SessionDetach:      Stop persisting session, leave buffers open
-" - SessionList:        List all existing session in session directory
+" - SessionClose:				Save session and clear all buffers
+" - SessionDetach:			Stop persisting session, leave buffers open
+" - SessionList:				List all existing session in session directory
 "
 " If [name] is empty, the current working-directory is used.
 "
