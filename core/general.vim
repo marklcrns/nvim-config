@@ -278,4 +278,6 @@ if has('termguicolors') && &termguicolors
     set winblend=10
   endif
 endif
+
+set guifont=SauceCodePro\ NF:h15
 " }}}
