@@ -39,6 +39,11 @@ hi Comment guifg=#585858 ctermfg=240 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 " Transparent bg
 " hi Normal guibg=NONE ctermbg=NONE
 hi clear Conceal
+
+hi DiffAdd ctermbg=235 ctermfg=108 cterm=reverse guibg=#262626 guifg=#87af87 gui=reverse
+hi DiffChange ctermbg=235 ctermfg=103 cterm=reverse guibg=#262626 guifg=#8787af gui=reverse
+hi DiffDelete ctermbg=235 ctermfg=131 cterm=reverse guibg=#262626 guifg=#af5f5f gui=reverse
+hi DiffText ctermbg=235 ctermfg=208 cterm=reverse guibg=#262626 guifg=#ecec93 gui=reverse
 " }}}
 
 " Plugin: vim-gitgutter {{{
