@@ -279,5 +279,10 @@ if has('termguicolors') && &termguicolors
   endif
 endif
 
-set guifont=SauceCodePro\ NF:h15
+
+" Neovide {{{
+set guifont=SauceCodePro\ NF:h14
+let g:neovide_cursor_vfx_mode = "wireframe"
+" }}}
+
 " }}}
