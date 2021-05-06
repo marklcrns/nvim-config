@@ -15,8 +15,8 @@ function! ExitMappings()
   nnoremap <silent> <leader>fS :wa<CR>
   xnoremap <silent> <leader>fS <Esc>:wa<CR>
   " Save and quit
-  nnoremap <silent> <leader>fq :wq!<CR>
-  xnoremap <silent> <leader>fq <Esc>:wq!<CR>
+  nnoremap <silent> <leader>fq :wq<CR>
+  xnoremap <silent> <leader>fq <Esc>:wq<CR>
   " Wipe buffer
   nnoremap <silent> <leader>fw :bw<CR>
   xnoremap <silent> <leader>fw :<Esc>bw<CR>
