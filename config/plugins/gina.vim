@@ -2,10 +2,6 @@
 " ---
 " Problems? https://github.com/lambdalisue/gina.vim/issues
 
-call gina#custom#command#alias('status', 'st')
-call gina#custom#command#option('st', '-s')
-call gina#custom#command#option('status', '-b')
-
 " call gina#custom#command#option('/\v(status|branch|ls|grep|changes)', '--opener', 'botright 10split')
 " call gina#custom#command#option('/\v(blame|diff|log)', '--opener', 'tabnew')
 call gina#custom#command#option('commit', '--opener', 'below vnew')
@@ -52,7 +48,7 @@ call gina#custom#mapping#nmap('blame', '<Return>', '<Plug>(gina-blame-open)')
 call gina#custom#mapping#nmap('blame', '<Backspace>', '<Plug>(gina-blame-back)')
 call gina#custom#mapping#nmap('blame', '<C-r>', '<Plug>(gina-blame-C-L)')
 
-" Dirty workaround to prevent overwrriting vim-tmux-navigator mappings
+" Dirty workaround to prevent overwriting vim-tmux-navigator mappings
 if match(&runtimepath, 'vim-tmux-navigator') != -1
   call gina#custom#mapping#nmap('status', '<C-j>', ':<C-u>TmuxNavigateDown<CR>')
   call gina#custom#mapping#nmap('status', '<C-k>', ':<C-u>TmuxNavigateUp<CR>')

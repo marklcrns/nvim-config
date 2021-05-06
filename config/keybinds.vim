@@ -1106,7 +1106,7 @@ if dein#tap('gina.vim')
   nnoremap <silent> <leader>go :,Gina browse :<CR>
   vnoremap <silent> <leader>go :Gina browse :<CR>
   nnoremap <silent> <Leader>gp :Gina! push<CR>
-  nnoremap <silent> <leader>gs :Gina status -s<CR>
+  nnoremap <silent> <leader>gs :Gina status -s -b<CR>
 
   if s:enable_whichkey
     let g:which_key_map['g']['a'] = 'Stage buffer'
