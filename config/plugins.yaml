@@ -581,7 +581,8 @@
 - repo: nvim-lua/popup.nvim
 - repo: nvim-lua/plenary.nvim
 - repo: nvim-telescope/telescope.nvim
+- repo: nvim-treesitter/nvim-treesitter-textobjects
 - repo: nvim-treesitter/nvim-treesitter
   build: TSUpdate
-  hook_source: source $VIM_PATH/config/plugins/nvim-treesitter.lua
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
 
