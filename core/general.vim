@@ -217,7 +217,8 @@ set sidescrolloff=5     " Keep at least 5 lines left/right
 set fillchars+=vert:\|  " add a bar for vertical splits
 set list
 let &showbreak='↳  '
-set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+" set listchars=tab:\|\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+set listchars=tab:»·,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 set title
 " Title length.
 set titlelen=95
@@ -281,8 +282,16 @@ endif
 
 
 " Neovide {{{
-set guifont=SauceCodePro\ NF:h14
-let g:neovide_cursor_vfx_mode = "wireframe"
+if exists('g:neovide')
+  set guifont=SauceCodePro\ NF:h15
+  let g:neovide_cursor_vfx_mode = "wireframe"
+
+  nnoremap <M-h> <C-w>h
+  nnoremap <M-j> <C-w>j
+  nnoremap <M-k> <C-w>k
+  nnoremap <M-l> <C-w>l
+  nnoremap <M-\> <C-w>p
+endif
 " }}}
 
 " }}}
