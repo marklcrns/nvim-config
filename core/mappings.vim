@@ -3,23 +3,23 @@
 " BASIC MAPPINGS -------------------- {{{
 function! ExitMappings()
   " Quit without saving
-  nnoremap <silent> <Leader>q :silent q!<CR>
-  xnoremap <silent> <Leader>q <Esc>:silent q!<CR>
+  nnoremap <silent> <Leader>q :q!<CR>
+  xnoremap <silent> <Leader>q <Esc>:q!<CR>
   " Quit all without saving
-  nnoremap <silent> <Leader>Q :silent qa!<CR>
-  xnoremap <silent> <Leader>Q <Esc>:silent qa!<CR>
+  nnoremap <silent> <Leader>Q :qa!<CR>
+  xnoremap <silent> <Leader>Q <Esc>:qa!<CR>
   " Write/Save buffer
-  nnoremap <silent> <leader>fs :silent w<bar>echo "buffer saved!"<CR>
-  xnoremap <silent> <leader>fs <Esc>:silent w<bar>echo "buffer saved!"<<CR>
+  nnoremap <silent> <leader>fs :w<CR>
+  xnoremap <silent> <leader>fs <Esc>:w<CR>
   " Write/Save all buffer
-  nnoremap <silent> <leader>fS :silent wa<bar>echo "all buffer saved!"<CR>
-  xnoremap <silent> <leader>fS <Esc>:silent wa<bar>echo "all buffer saved!"<CR>
+  nnoremap <silent> <leader>fS :wa<CR>
+  xnoremap <silent> <leader>fS <Esc>:wa<CR>
   " Save and quit
-  nnoremap <silent> <leader>fq :silent wq!<CR>
-  xnoremap <silent> <leader>fq <Esc>:silent wq!<CR>
+  nnoremap <silent> <leader>fq :wq!<CR>
+  xnoremap <silent> <leader>fq <Esc>:wq!<CR>
   " Wipe buffer
-  nnoremap <silent> <leader>fw :bw<bar>echo "buffer wiped!"<CR>
-  xnoremap <silent> <leader>fw :<Esc>bw<bar>echo "buffer wiped!"<CR>
+  nnoremap <silent> <leader>fw :bw<CR>
+  xnoremap <silent> <leader>fw :<Esc>bw<CR>
   " Save all and quit
   nnoremap <leader>fQ :confirm wqa!<CR>
   xnoremap <leader>fQ :<Esc>confirm wqa!<CR>
