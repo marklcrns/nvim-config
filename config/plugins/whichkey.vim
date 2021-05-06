@@ -19,7 +19,6 @@ let g:which_key_display_names = {
 
 let g:which_key_map = {
     \ 'name' : '+leader-key',
-    \ '<CR>' : 'Toggle fold at current line',
     \ ';' : {
           \ 'name' : '+single-purpose',
           \ 'm' : 'Open clipboard register relative path as markdown',
@@ -167,6 +166,8 @@ let g:which_key_map = {
              \ 'm' : 'Move tab',
              \ 'q' : 'Close current tab',
           \ },
+    \ 'z' : 'Toggle fold at current line',
+    \ 'Z' : 'Focus the current fold by closing all others',
     \ }
 
 let g:which_key_localmap = {

@@ -237,10 +237,11 @@ function! WindowsManagementMappings()
   nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
   nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
   " Switch between splits
-  nnoremap <silent> [Window]k <C-w>k
-  nnoremap <silent> [Window]j <C-w>j
   nnoremap <silent> [Window]h <C-w>h
+  nnoremap <silent> [Window]j <C-w>j
+  nnoremap <silent> [Window]k <C-w>k
   nnoremap <silent> [Window]l <C-w>l
+  nnoremap <silent> [Window]\ <C-w>p
   " Resize splits
   nnoremap <silent> [Window]K :resize -3<CR>
   nnoremap <silent> [Window]J :resize +3<CR>
@@ -489,16 +490,16 @@ endfunction
 
 function! FoldsMappings()
   " Toggle fold
-  nnoremap <Leader><CR> za
+  nnoremap <Leader>z za
   " Focus the current fold by closing all others
-  nnoremap z<CR> zMzvzt
+  nnoremap <Leader>Z zMzvzt
   " Toggle fold all
   nnoremap <expr> zm &foldlevel ? 'zM' :'zR'
   " Jumping to next closed fold
   nnoremap <silent> zj :<C-u>call <SID>next_closed_fold('j')<cr>
   nnoremap <silent> zk :<C-u>call <SID>next_closed_fold('k')<cr>
-  nnoremap <silent> ]z :<C-u>call <SID>next_open_fold('j')<cr>
-  nnoremap <silent> [z :<C-u>call <SID>next_open_fold('k')<cr>
+  nnoremap <silent> zn :<C-u>call <SID>next_open_fold('j')<cr>
+  nnoremap <silent> zp :<C-u>call <SID>next_open_fold('k')<cr>
 endfunction
 
 function! SessionMappings()

@@ -21,8 +21,8 @@ let s:user_nvim_whichkey         = expand($VIM_PATH . '/config/plugins/whichkey.
 let g:clap_cache_directory = $DATA_PATH . '/clap'
 let g:clap_disable_run_rooter = v:false
 let g:clap_project_root_markers = [
-      \ '=src',
       \ '.git/',
+      \ '=src',
       \ 'README.*',
       \ 'node_modules/',
       \ 'pom.xml',
