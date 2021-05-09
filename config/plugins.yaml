@@ -14,10 +14,19 @@
 
 # Completion
 # ----------------------------------------
-- repo: neoclide/coc.nvim
-  merged: 0
-  rev: release
-  hook_add: source $VIM_PATH/config/plugins/coc.vim
+# - repo: neoclide/coc.nvim
+#   merged: 0
+#   rev: release
+#   hook_add: source $VIM_PATH/config/plugins/coc.vim
+
+- repo: neovim/nvim-lspconfig
+  hook_source: |
+    source $VIM_PATH/config/plugins/nvim-lspconfig.vim
+    luafile $VIM_PATH/config/plugins/nvim-lspconfig.lua
+
+- repo: norcalli/snippets.nvim
+  hook_source: |
+    luafile $VIM_PATH/config/plugins/snippets.lua
 
 # Tools
 # ----------------------------------------
@@ -76,16 +85,16 @@
 
 # Completion{{{
 
-- repo: SirVer/ultisnips
-  if: has('python3')
-  on_event: FileType
-  hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
+# - repo: SirVer/ultisnips
+#   if: has('python3')
+#   on_event: FileType
+#   hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
 
-- repo: honza/vim-snippets
-  if: has('python3')
-  depends: ultisnips
-  on_event: FileType
-  merged: 0
+# - repo: honza/vim-snippets
+#   if: has('python3')
+#   depends: ultisnips
+#   on_event: FileType
+#   merged: 0
 
 # HTML
 # -----
