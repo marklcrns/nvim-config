@@ -187,8 +187,8 @@ set splitbelow splitright       " Splits open bottom right
 set switchbuf=useopen           " Jump to the first open window
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
-set completeopt=menu,menuone    " Always show menu, even for one item
-set completeopt+=noinsert
+set completeopt=menuone         " Always show menu, even for one item
+set completeopt+=noselect
 
 if exists('+completepopup')
   set completeopt+=popup
@@ -211,7 +211,7 @@ set number              " Show number
 set relativenumber      " Show relative number
 set noshowmode          " Don't show mode on bottom
 set noruler             " Disable default status ruler
-set shortmess=aoOTI     " Shorten messages and don't show intro
+set shortmess=acoOTI    " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 5 lines left/right
 set fillchars+=vert:\|  " add a bar for vertical splits

@@ -106,191 +106,28 @@ if dein#tap('any-jump.vim')
   endif
 endif
 
-" if dein#tap('coc.nvim')
-"   nnoremap <silent> <leader>cC :<C-u>CocConfig<Cr>
-"   " Using CocList
-"   " Show commands
-"   nnoremap <silent> <leader>clc  :<C-u>CocList commands<cr>
-"   " Show all diagnostics
-"   nnoremap <silent> <leader>cld  :<C-u>CocList diagnostics<cr>
-"   " Manage extensions
-"   nnoremap <silent> <leader>cle  :<C-u>CocList extensions<cr>
-"   " Marketplace list
-"   nnoremap <silent> <leader>clm  :<C-u>CocList marketplace<cr>
-"   " Find symbol of current document
-"   nnoremap <silent> <leader>clo  :<C-u>CocList outline<cr>
-"   " Resume latest coc list
-"   nnoremap <silent> <leader>clr  :<C-u>CocListResume<CR>
-"   " Search workspace symbols
-"   nnoremap <silent> <leader>cls  :<C-u>CocList -I symbols<cr>
-"   " Show yank list (coc-yank)
-"   nnoremap <silent> <leader>cly  :<C-u>CocList -A --normal yank<cr>
-" 
-"   " Rgrep selected or by motion
-"   nnoremap <leader>clw :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
-"   vnoremap <leader>clw :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-" 
-"   function! s:GrepFromSelected(type)
-"     let saved_unnamed_register = @@
-"     if a:type ==# 'v'
-"       normal! `<v`>y
-"     elseif a:type ==# 'char'
-"       normal! `[v`]y
-"     else
-"       return
-"     endif
-"     let word = substitute(@@, '\n$', '', 'g')
-"     let word = escape(word, '| ')
-"     let @@ = saved_unnamed_register
-"     execute 'CocList grep '.word
-"   endfunction
-" 
-"   " Grep in current buffer under cursor
-"   nnoremap <silent> <Leader>clW  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
-" 
-"   " Do default action for next item.
-"   nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
-"   " Do default action for previous item.
-"   nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
-"   " Use `[d` and `]d` for navigate diagnostics
-"   nmap <silent> [d <Plug>(coc-diagnostic-prev)
-"   nmap <silent> ]d <Plug>(coc-diagnostic-next)
-"   " Remap for rename current word
-"   nmap <leader>cn <Plug>(coc-rename)
-"   " Remap for format selected region
-"   vmap <leader>cF <Plug>(coc-format-selected)
-"   nmap <leader>cF <Plug>(coc-format-selected)
-"   " Applying codeAction to the selected region.
-"   xmap <silent><leader>ca <Plug>(coc-codeaction-selected)
-"   nmap <silent><leader>ca <Plug>(coc-codeaction-selected)
-"   " xmap <leader>a  <Plug>(coc-codeaction-selected)
-"   " nmap <leader>a  <Plug>(coc-codeaction-selected)
-"   " Remap for do codeAction of current line
-"   nmap <leader>cc <Plug>(coc-codeaction)
-"   " Fix autofix problem of current line
-"   nmap <leader>cq <Plug>(coc-fix-current)
-"   " Remap keys for gotos
-"   nmap <silent> gd <Plug>(coc-definition)
-"   nmap <silent> gy <Plug>(coc-type-definition)
-"   nmap <silent> gi <Plug>(coc-implementation)
-"   nmap <silent> gr <Plug>(coc-references)
-" 
-"   " coc-git
-"   nmap [g <Plug>(coc-git-prevchunk)
-"   nmap ]g <Plug>(coc-git-nextchunk)
-"   " show commit contains current position
-"   nmap <Leader>cgc <Plug>(coc-git-commit)
-"   " show chunk diff at current position
-"   nmap <Leader>cgi <Plug>(coc-git-chunkinfo)
-"   " show git status
-"   nnoremap <silent> <leader>cgs  :<C-u>CocList --normal gstatus<CR>
-"   nnoremap <Leader>cgb :CocCommand git.browserOpen<CR>
-"   nnoremap <Leader>cgB :CocCommand git.copyUrl<CR>
-"   nnoremap <Leader>cgd :CocCommand git.diffCached<CR>
-"   nnoremap <Leader>cgf :CocCommand git.foldUnchanged<CR>
-"   nnoremap <Leader>cgt :CocCommand git.chunkStage<CR>
-"   nnoremap <Leader>cgu :CocCommand git.chunkUndo<CR>
-" 
-"   " Coc toggles
-"   nnoremap <Leader>ctg :<C-u>CocCommand git.toggleGutters<Cr>
-"   nnoremap <Leader>cts :<C-u>CocCommand cSpell.toggleEnableSpellChecker<Cr>
-" 
-"   " Use K for show documentation in float window
-"   " nnoremap <silent> K :call CocActionAsync('doHover')<CR>
-" 
-"   " Use K to show documentation in preview window.
-"   nnoremap <silent> K :call <SID>show_documentation()<CR>
-" 
-"   function! s:show_documentation()
-"     if (index(['vim','help'], &filetype) >= 0)
-"       execute 'h '.expand('<cword>')
-"     elseif (coc#rpc#ready())
-"       call CocActionAsync('doHover')
-"     else
-"       execute '!' . &keywordprg . " " . expand('<cword>')
-"     endif
-"   endfunction
-" 
-"   " Use <c-space> to trigger completion.
-"   if has('nvim')
-"     inoremap <silent><expr> <c-space> coc#refresh()
-"   else
-"     inoremap <silent><expr> <c-@> coc#refresh()
-"   endif
-" 
-"   " Remap <C-f> and <C-b> for scroll float windows/popups.
-"   if has('nvim-0.4.0') || has('patch-8.2.0750')
-"     nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"     nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-"     inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-"     inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-"     vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"     vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-"   endif
-" 
-"   " multiple cursors
-"   nmap <silent> <C-c> <Plug>(coc-cursors-position)
-"   " use normal command like `<leader>xi(`
-"   nmap <leader>cx <Plug>(coc-cursors-operator)
-" 
-"   nmap <expr> <silent> <C-s> <SID>select_current_word()
-"   function! s:select_current_word()
-"     if !get(g:, 'coc_cursors_activated', 0)
-"       return "\<Plug>(coc-cursors-word)"
-"     endif
-"     " Adjusted for vim-asterisk plugin
-"     return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-"   endfunc
-" 
-"   nnoremap <silent> <leader>cs :<C-u>call feedkeys(':CocSearch<Space>','t')<CR>
-"   nnoremap <silent> <leader>cS :<C-u>call feedkeys(':CocSearch -w<Space>','t')<CR>
-" 
-"   nmap <leader>cr <Plug>(coc-refactor)
-" 
-"   " Movement within 'ins-completion-menu'
-"   imap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
-"   imap <expr><C-k> pumvisible() ? "\<Up>" : "<C-k>"
-" 
-"   " Scroll pages in menu
-"   " inoremap <expr><C-f> pumvisible() ? "\<PageDown>" : "\<Right>" a
-"   " inoremap <expr><C-b> pumvisible() ? "\<PageUp>" : "\<Left>"
-"   " imap     <expr><C-d> pumvisible() ? "\<PageDown>" : "\<C-d>"
-"   " imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
-" 
-"   " nnoremap <expr><C-n> coc#util#has_float() ?
-"   "     \ coc#util#float_scrollable() ?
-"   "     \ coc#util#float_scroll(1)
-"   "     \ : ""
-"   "     \ : "\<C-n>"
-"   " nnoremap <expr><C-p> coc#util#has_float() ?
-"   "     \ coc#util#float_scrollable() ?
-"   "     \ coc#util#float_scroll(0)
-"   "     \ : ""
-"   "     \ : "\<C-p>"
-" 
-"   " Map function and class text objects
-"   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-"   xmap if <Plug>(coc-funcobj-i)
-"   omap if <Plug>(coc-funcobj-i)
-"   xmap af <Plug>(coc-funcobj-a)
-"   omap af <Plug>(coc-funcobj-a)
-"   xmap ic <Plug>(coc-classobj-i)
-"   omap ic <Plug>(coc-classobj-i)
-"   xmap ac <Plug>(coc-classobj-a)
-"   omap ac <Plug>(coc-classobj-a)
-" 
-"   " Use <c-space> to trigger completion.
-"   if has('nvim')
-"     inoremap <silent><expr> <c-space> coc#refresh()
-"   else
-"     inoremap <silent><expr> <c-@> coc#refresh()
-"   endif
-" endif
-
 if dein#tap('snippets.nvim')
   lua require'snippets'.use_suggested_mappings()
   inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
   inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
+endif
+
+if dein#tap('nvim-compe')
+  " Integrates with delimitMate
+  " inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })
+  inoremap <silent><expr> <CR>
+    \ delimitMate#WithinEmptyPair() ?
+    \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
+    \ "\<C-e>\<CR>"
+  inoremap <silent><expr> <Tab>     compe#confirm('<Tab>')
+  inoremap <silent><expr> <C-Space> compe#complete()
+  inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+  inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+  inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+  " Movement within 'ins-completion-menu'
+  imap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
+  imap <expr><C-k> pumvisible() ? "\<Up>" : "<C-k>"
 endif
 
 if dein#tap('vim-clap')

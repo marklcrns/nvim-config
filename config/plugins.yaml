@@ -14,19 +14,34 @@
 
 # Completion
 # ----------------------------------------
-# - repo: neoclide/coc.nvim
-#   merged: 0
-#   rev: release
-#   hook_add: source $VIM_PATH/config/plugins/coc.vim
 
 - repo: neovim/nvim-lspconfig
   hook_source: |
-    source $VIM_PATH/config/plugins/nvim-lspconfig.vim
     luafile $VIM_PATH/config/plugins/nvim-lspconfig.lua
+
+- repo: RishabhRD/popfix
+- repo: RishabhRD/nvim-lsputils
+
+- repo: kabouzeid/nvim-lspinstall
+  hook_source: |
+    luafile $VIM_PATH/config/plugins/nvim-lspinstall.lua
 
 - repo: norcalli/snippets.nvim
   hook_source: |
     luafile $VIM_PATH/config/plugins/snippets.lua
+
+- repo: SirVer/ultisnips
+  if: has('python3')
+  hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
+
+- repo: honza/vim-snippets
+  if: has('python3')
+  depends: ultisnips
+  merged: 0
+
+- repo: hrsh7th/nvim-compe
+  hook_source: |
+    luafile $VIM_PATH/config/plugins/nvim-compe.lua
 
 # Tools
 # ----------------------------------------
@@ -84,29 +99,6 @@
 # ==========================================
 
 # Completion{{{
-
-# - repo: SirVer/ultisnips
-#   if: has('python3')
-#   on_event: FileType
-#   hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
-
-# - repo: honza/vim-snippets
-#   if: has('python3')
-#   depends: ultisnips
-#   on_event: FileType
-#   merged: 0
-
-# HTML
-# -----
-- repo: mattn/emmet-vim
-  on_event: InsertEnter
-  on_ft: [ html,css,javascript,javascriptreact,vue,typescript,typescriptreact ]
-  hook_source: |
-    let g:user_emmet_complete_tag = 0
-    let g:user_emmet_install_global = 0
-    let g:user_emmet_install_command = 0
-    let g:user_emmet_mode = 'i'
-    let g:user_emmet_leader_key = '<C-;>'
 
 # Vim Commandline
 # -----

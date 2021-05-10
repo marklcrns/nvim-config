@@ -255,7 +255,6 @@ endfunction
 " Ref: https://stackoverflow.com/a/61275100/11850077
 "      https://github.com/vim/vim/issues/2004#issuecomment-324357529
 function! IntegratedVimwikiTab() abort
-
   " First, try to expand or jump on UltiSnips.
   " let snippet = UltiSnips#ExpandSnippet()
   " if g:ulti_expand_res > 0
@@ -267,7 +266,8 @@ function! IntegratedVimwikiTab() abort
 
   " Then, check if we're in a completion menu
   if pumvisible()
-    return coc#_select_confirm()
+    call compe#confirm('<C-y>')
+    return
   endif
 
   " Finally, trigger vimwiki table jump.
