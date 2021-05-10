@@ -426,7 +426,8 @@ if dein#tap('nvim-tree.lua')
 endif
 
 if dein#tap('dashboard-nvim')
-  nnoremap <silent> <leader>sD :<C-u>Dashboard<CR>
+  nnoremap <silent> <leader>so :<C-u>Dashboard<CR>
+  let g:which_key_map['s']['o'] = 'Dashboard open'
 endif
 
 if dein#tap('vim-quickrun')
