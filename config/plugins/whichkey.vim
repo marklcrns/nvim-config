@@ -152,11 +152,11 @@ let g:which_key_map = {
           \ },
     \ 's' : {
           \ 'name' : '+sessions',
-          \ 'D' : 'Dashboard open',
           \ 'd' : 'Detach session',
-          \ 'l' : 'Load session {session-name}',
+          \ 'D' : 'Delete session {name}',
+          \ 'l' : 'Load session {name}',
           \ 'L' : 'List sessions',
-          \ 's' : 'Save session {session-name}',
+          \ 's' : 'Save session {name}',
           \ 'q' : 'Close session',
           \ },
     \ 't' : {
