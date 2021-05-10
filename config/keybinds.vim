@@ -427,7 +427,9 @@ endif
 
 if dein#tap('dashboard-nvim')
   nnoremap <silent> <leader>so :<C-u>Dashboard<CR>
-  let g:which_key_map['s']['o'] = 'Dashboard open'
+  if s:enable_whichkey
+    let g:which_key_map['s']['o'] = 'Dashboard open'
+  endif
 endif
 
 if dein#tap('vim-quickrun')
