@@ -29,7 +29,7 @@ clean-plugins:
 	rm -rf "$(XDG_CACHE_HOME)/vim/dein"
 
 clean:
-	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CONFIG_HOME)/coc"
+	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CACHE_HOME)/nvim"
 
 test:
 ifeq ('$(vim)','nvim')
