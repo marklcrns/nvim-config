@@ -1,36 +1,14 @@
-" NOTE: Must run `:call dein#recache_runtimepath()` when switching between modes
-" and toggling g:init_secondary_config
-" To delete unused plugins, run `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
-" ------
-" full    = loads /config/plugins/plugins.* (default)
-" minimal = loads /config/plugins/plugins_minimal.*
-" skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.*)
-" disable = disable package manager (no plugins will be loaded)
-let g:handle_plugins = 'full'
-let g:init_secondary_config = 0
-" Currently supported: dein_yaml, dein_toml
-let g:package_manager = 'dein_yaml'
-
-let g:custom_statusline_enable = 1
-let g:custom_tabline_enable = 1
-let g:custom_cursorline_enable = 1
-let g:custom_cursorcolumn_enable = 0
-
 if &compatible
   " vint: -ProhibitSetNoCompatible
   set nocompatible
   " vint: +ProhibitSetNoCompatible
 endif
 
-" Set main configuration directory as parent directory
-let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-
-" Set secondary nvim configuration directory
-let $LOCAL_VIM_PATH = expand($HOME.'/.local-nvim.d')
-" Set data/cache directory as $XDG_CACHE_HOME/vim
-let $DATA_PATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
-" Set the secondary user init config file
-let s:user_init_config = expand($LOCAL_VIM_PATH . '/init.vim')
+" Custom settings enable
+let g:custom_statusline_enable = 1
+let g:custom_tabline_enable = 1
+let g:custom_cursorline_enable = 1
+let g:custom_cursorcolumn_enable = 0
 
 " Disable vim distribution plugins
 let g:loaded_gzip = 1
@@ -57,29 +35,6 @@ let g:loaded_netrwFileHandlers = 1
 
 " Initialize start up base requirements
 if has('vim_starting')
-  " When using VIMINIT trick for exotic MYVIMRC locations, add path now.
-  if &runtimepath !~# $VIM_PATH
-    set runtimepath^=$VIM_PATH
-    set runtimepath+=$VIM_PATH/after
-  endif
-
-  if &runtimepath !~# $LOCAL_VIM_PATH
-    set runtimepath^=$LOCAL_VIM_PATH
-    set runtimepath+=$LOCAL_VIM_PATH/after
-  endif
-
-  " Ensure data directories
-  for s:path in [
-        \ $DATA_PATH,
-        \ $DATA_PATH . '/undo',
-        \ $DATA_PATH . '/backup',
-        \ $DATA_PATH . '/session',
-        \ $VIM_PATH . '/spell' ]
-    if ! isdirectory(s:path)
-      call mkdir(s:path, 'p', 0770)
-    endif
-  endfor
-
   " Python interpreter settings
   if has('nvim')
     " Set python interpreter from a dedicated virtualenv created by generate_venv.sh
@@ -115,18 +70,6 @@ if has('vim_starting')
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   endif
 
-  " Set leader and localleader keys
-  let g:mapleader="\<Space>"
-  let g:maplocalleader=';'
-
-  " Release keymappings prefixes, evict entirely for use of plug-ins.
-  nnoremap <Space>  <Nop>
-  xnoremap <Space>  <Nop>
-  nnoremap ,        <Nop>
-  xnoremap ,        <Nop>
-  nnoremap ;        <Nop>
-  xnoremap ;        <Nop>
-
   " Vim only, Linux terminal settings
   if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
     call utils#source_file($VIM_PATH, 'core/terminal.vim')
@@ -155,7 +98,7 @@ endif
 
 " Load secondary user init config
 if get(g:, 'init_secondary_config', 1)
-  call utils#check_source(s:user_init_config)
+  call utils#check_source(g:user_init_config)
 endif
 
 call theme#init()
