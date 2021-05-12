@@ -1,15 +1,37 @@
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- capabilities.textDocument.completion.completionItem.resolveSupport = {
+--   properties = {
+--     'documentation',
+--     'detail',
+--     'additionalTextEdits',
+--   }
+-- }
+-- 
+-- require'lspconfig'.rust_analyzer.setup {
+--   capabilities = capabilities,
+-- }
+-- 
+-- require'lspconfig'.clangd.setup {
+--   capabilities = capabilities,
+-- }
+-- 
+-- require'lspconfig'.jdtls.setup {
+--   capabilities = capabilities,
+-- }
+
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
   debug = false;
-  min_length = 1;
+  min_length = 3;
   preselect = 'always';
   throttle_time = 80;
   source_timeout = 200;
   incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
+  max_abbr_width = 50;
+  max_kind_width = 50;
+  max_menu_width = 50;
   documentation = true;
 
   source = {
@@ -44,7 +66,11 @@ require'compe'.setup {
     tabnine = {
       kind = "",
       priority = 50,
-      ignored_filetypes={'clap_input'}
+      show_prediction_strength = true,
+      max_line = 1000,
+      max_num_results = 6,
+      ignored_filetypes= {'clap_input'},
+      ignore_pattern = '[(]'
     },
     emoji = {
       kind = "ﲃ",
