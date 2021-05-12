@@ -45,7 +45,6 @@
       \ 'pattern': ['\.un~$']
       \ }
 
-- repo: tpope/vim-unimpaired
 - repo: tpope/vim-eunuch
 - repo: Shougo/context_filetype.vim
 
@@ -132,12 +131,6 @@
 - repo: junegunn/vim-easy-align
   on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
   hook_source: source $VIM_PATH/config/plugins/vim-easy-align.vim
-
-- repo: kkoomen/vim-doge
-  on_ft: [py, php, js, jsx, tsx, lua, java, groovy, ruby, cpp, c, sh]
-  build: call doge#install()
-  hook_source: |
-    let g:doge_mapping = '<Leader>ld'
 
 - repo: AndrewRadev/linediff.vim
   on_cmd: Linediff
@@ -237,20 +230,8 @@
 - repo: junegunn/vim-emoji
   on_ft: [markdown, vim]
 
-# Python
-# ----------------------------------------
-- repo: tmhedberg/SimpylFold
-  on_ft: python
-
-- repo: vim-scripts/python_match.vim
-  on_ft: python
-
-# YAML
-# ----------------------------------------
-- repo: pearofducks/ansible-vim
-  on_ft: [yaml.ansible, ansible_hosts]
-
 # LaTeX
+# ----------------------------------------
 - repo: lervag/vimtex
   on_ft: tex
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
@@ -509,11 +490,6 @@
         \| endif
     augroup END
 
-# - repo: psliwka/vim-smoothie
-#   on_func: smoothie#
-#   hook_add: |
-#     let g:smoothie_no_default_mappings = v:true
-
 - repo: rhysd/accelerated-jk
   on_map: { n: <Plug> }
   hook_source: |
@@ -559,6 +535,8 @@
 # Text Objects {{{
 - repo: terryma/vim-expand-region
   on_map: { x: <Plug> }
+- repo: kana/vim-textobj-user
+- repo: kana/vim-textobj-entire
 - repo: kana/vim-textobj-function
   on_map: { ox: <Plug> }
   hook_add: let g:textobj_function_no_default_key_mappings = 1
@@ -581,8 +559,8 @@
 - repo: nvim-lua/popup.nvim
 - repo: nvim-lua/plenary.nvim
 - repo: nvim-telescope/telescope.nvim
-- repo: nvim-treesitter/nvim-treesitter-textobjects
 - repo: nvim-treesitter/nvim-treesitter
   build: TSUpdate
   hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
+- repo: nvim-treesitter/nvim-treesitter-textobjects
 
