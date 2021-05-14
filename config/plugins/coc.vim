@@ -26,6 +26,7 @@ let g:coc_global_extensions = [
       \ 'coc-lua',
       \ 'coc-markdownlint',
       \ 'coc-marketplace',
+      \ 'coc-omnisharp',
       \ 'coc-post',
       \ 'coc-prettier',
       \ 'coc-python',
