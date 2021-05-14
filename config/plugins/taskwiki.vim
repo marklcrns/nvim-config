@@ -33,13 +33,13 @@ function! TaskWikiUpdate()
 endfunction
 
 function! TaskWarriorServerUpdate(force)
-  let l:command = 'trellowarrior sync; task sync'
   " Sync only if has changes and no terminal is open running the command
-  if &modified == 0
+  if &modified == 0 && a:force != 1
     return
   endif
-  let g:has_taskwiki_changes = 1
 
+  let l:command = 'trellowarrior sync; task sync'
+  let g:has_taskwiki_changes = 1
   if a:force == 0
     if has('nvim')
       for bufferNum in range(1, bufnr('$'))
