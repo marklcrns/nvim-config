@@ -712,7 +712,7 @@ if dein#tap('vimwiki')
   " Setup vim for vimwiki diary note taking
   function! DToday()
     exec "VimwikiMakeDiaryNote"
-    setlocal laststatus=0 showtabline=0 colorcolumn=0
+    setlocal laststatus=0 colorcolumn=0
   endfunction
   nmap <LocalLeader>wT :<C-u>call DToday()<CR>
 
@@ -794,7 +794,7 @@ if dein#tap('taskwiki')
 
   " User defined functions
   nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
-  nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate(1)<CR>
+  nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate(1, 'trellowarrior sync; task sync')<CR>
 
   if s:enable_whichkey
     let g:which_key_localmap['t'] = {

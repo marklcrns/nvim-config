@@ -20,7 +20,7 @@ function! TodoListDetectEnable()
       augroup END
       augroup TaskWarriorSync
         autocmd!
-        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(0)
+        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(0, 'trellowarrior sync; task sync')
       augroup END
       return
     endif
@@ -32,19 +32,18 @@ function! TaskWikiUpdate()
   silent exe "TaskWikiBufferLoad"
 endfunction
 
-function! TaskWarriorServerUpdate(force)
+function! TaskWarriorServerUpdate(force, command)
   " Sync only if has changes and no terminal is open running the command
   if &modified == 0 && a:force != 1
     return
   endif
 
-  let l:command = 'trellowarrior sync; task sync'
   let g:has_taskwiki_changes = 1
   if a:force == 0
     if has('nvim')
       for bufferNum in range(1, bufnr('$'))
         " Look for terminal running the command
-        if getbufvar(bufferNum, 'term_title') =~ l:command
+        if getbufvar(bufferNum, 'term_title') =~ a:command
           " if still running, return, else wipe terminal buffer
           if jobwait([getbufvar(bufferNum, '&channel')], 0)[0] == -1
             return
@@ -67,7 +66,7 @@ function! TaskWarriorServerUpdate(force)
     let g:has_taskwiki_changes = v:false
     let @x = system("task | grep 'Sync required'")
     if @x =~ 'Sync required' || a:force == 1
-      silent exe "split | resize 5 | term " . l:command
+      silent exe "split | resize 5 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
     endif
   endif
 endfunction
