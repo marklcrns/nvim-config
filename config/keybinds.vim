@@ -839,12 +839,12 @@ if dein#tap('markdown-preview.nvim')
 endif
 
 if dein#tap('vim-markdown')
-  nnoremap <Leader>lmtt :<C-u>Toc<CR>
-  nnoremap <Leader>lmtv :<C-u>Tocv<CR>
-  nnoremap <Leader>lmth :<C-u>Toch<CR>
+  nnoremap <Leader>lmit :<C-u>Toc<CR>
+  nnoremap <Leader>lmiv :<C-u>Tocv<CR>
+  nnoremap <Leader>lmih :<C-u>Toch<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['l']['m']['t'] = {
+    let g:which_key_map['l']['m']['i'] = {
           \ 'name' : '+table-of-contents',
           \ 'h' : 'Table of contents horizontal',
           \ 't' : 'Table of contents',
