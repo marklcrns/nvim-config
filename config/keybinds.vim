@@ -1,13 +1,6 @@
 " Plugin key settings
 let s:enable_whichkey = dein#tap('vim-which-key')
 
-if dein#tap('vim-which-key')
-  nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-  nnoremap <silent> <localleader> :<c-u>WhichKey ';'<CR>
-  nnoremap <silent> ]             :<c-u>WhichKey ']'<CR>
-  nnoremap <silent> [             :<c-u>WhichKey '['<CR>
-endif
-
 if s:enable_whichkey
   function! InitWhickey()
     let s:leader_key=substitute(get(g:,"mapleader","\\"), ' ', '<Space>', '')
