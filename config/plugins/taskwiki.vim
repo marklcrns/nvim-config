@@ -34,40 +34,38 @@ endfunction
 
 function! TaskWarriorServerUpdate(force, command)
   " Sync only if has changes and no terminal is open running the command
-  if &modified == 0 && a:force != 1
+  let @x = system("task | grep 'Sync required'")
+  if &modified == 0 && a:force != 1 && !(@x =~ 'Sync required')
     return
   endif
-
   let g:has_taskwiki_changes = 1
-  if a:force == 0
-    if has('nvim')
-      for bufferNum in range(1, bufnr('$'))
-        " Look for terminal running the command
-        if getbufvar(bufferNum, 'term_title') =~ a:command
-          " if still running, return, else wipe terminal buffer
-          if jobwait([getbufvar(bufferNum, '&channel')], 0)[0] == -1
-            return
-          else
-            silent execute 'bw! ' . bufferNum
-          endif
-        endif
-      endfor
-    else
-      for bufferNum in range(1, bufnr('$'))
-        if getbufvar(bufferNum, '&buftype') == 'terminal'
+
+  " Close instance of terminal if exist
+  if has('nvim')
+    for bufferNum in range(1, bufnr('$'))
+      " Look for terminal running the command
+      if getbufvar(bufferNum, 'term_title') =~ a:command
+        " if still running, return, else wipe terminal buffer
+        if jobwait([getbufvar(bufferNum, '&channel')], 0)[0] == -1
           return
+        else
+          silent execute 'bw! ' . bufferNum
         endif
-      endfor
-    endif
+      endif
+    endfor
+  else
+    for bufferNum in range(1, bufnr('$'))
+      if getbufvar(bufferNum, '&buftype') == 'terminal'
+        return
+      endif
+    endfor
   endif
+
   if g:has_taskwiki_changes == 1 || a:force == 1
     echo "Syncing task server"
     silent exe "w! | TaskWikiBufferSave"
     let g:has_taskwiki_changes = v:false
-    let @x = system("task | grep 'Sync required'")
-    if @x =~ 'Sync required' || a:force == 1
-      silent exe "split | resize 5 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
-    endif
+    silent exe "split | resize 5 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
   endif
 endfunction
 
