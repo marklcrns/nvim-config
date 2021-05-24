@@ -48,13 +48,9 @@
 - repo: tpope/vim-eunuch
 - repo: Shougo/context_filetype.vim
 
-# If on tmux, best with https://github.com/tmux-plugins/vim-tmux-focus-events
-- repo:  blueyed/vim-diminactive
+- repo: sunjon/Shade.nvim
   hook_source: |
-    let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
-    let g:diminactive_filetype_blacklist = [ 'startify', 'dashboard' ]
-    let g:diminactive_enable_focus = 1
-    let g:diminactive=0
+    luafile $VIM_PATH/config/plugins/shade.lua
 
 - repo: dm1try/golden_size
   if: "has('nvim') && has('nvim-0.5')"
