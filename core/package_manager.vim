@@ -19,13 +19,25 @@ let s:plugins_toml = ''
 let s:plugins_toml_lazy = ''
 if get(g:, 'handle_plugins', 'full') !=# 'disable'
 	if g:handle_plugins ==# 'full'
-		let s:plugins_yaml = $VIM_PATH . '/config/plugins.yaml'
-		let s:plugins_toml = $VIM_PATH . '/config/plugins.toml'
-		let s:plugins_toml_lazy = $VIM_PATH . '/config/plugins_lazy.toml'
+		if filereadable($VIM_PATH . '/config/plugins.yaml')
+			let s:plugins_yaml = $VIM_PATH . '/config/plugins.yaml'
+		endif
+		if filereadable($VIM_PATH . '/config/plugins.toml')
+			let s:plugins_toml = $VIM_PATH . '/config/plugins.toml'
+		endif
+		if filereadable($VIM_PATH . '/config/plugins_lazy.toml')
+			let s:plugins_toml_lazy = $VIM_PATH . '/config/plugins_lazy.toml'
+		endif
 	elseif g:handle_plugins ==# 'minimal'
-		let s:plugins_yaml = $VIM_PATH . '/config/plugins_minimal.yaml'
-		let s:plugins_toml = $VIM_PATH . '/config/plugins_minimal.toml'
-		let s:plugins_toml_lazy = $VIM_PATH . '/config/plugins_minimal_lazy.toml'
+		if filereadable($VIM_PATH . '/config/plugins_minimal.yaml')
+			let s:plugins_yaml = $VIM_PATH . '/config/plugins_minimal.yaml'
+		endif
+		if filereadable($VIM_PATH . '/config/plugins_minimal.toml')
+			let s:plugins_toml = $VIM_PATH . '/config/plugins_minimal.toml'
+		endif
+		if filereadable($VIM_PATH . '/config/plugins_minimal_lazy.toml')
+			let s:plugins_toml_lazy = $VIM_PATH . '/config/plugins_minimal_lazy.toml'
+		endif
 	endif
 endif
 
@@ -33,9 +45,15 @@ let s:local_plugins_yaml = ''
 let s:local_plugins_toml = ''
 let s:local_plugins_toml_lazy = ''
 if get(g:, 'init_secondary_config', 1)
-	let s:local_plugins_yaml = $LOCAL_VIM_PATH . '/config/plugins.yaml'
-	let s:local_plugins_toml = $LOCAL_VIM_PATH . '/config/plugins.toml'
-	let s:local_plugins_toml_lazy = $LOCAL_VIM_PATH . '/config/plugins_lazy.toml'
+	if filereadable($LOCAL_VIM_PATH . '/config/plugins.yaml')
+		let s:local_plugins_yaml = $LOCAL_VIM_PATH . '/config/plugins.yaml'
+	endif
+	if filereadable($LOCAL_VIM_PATH . '/config/plugins.toml')
+		let s:local_plugins_toml = $LOCAL_VIM_PATH . '/config/plugins.toml'
+	endif
+	if filereadable($LOCAL_VIM_PATH . '/config/plugins_lazy.toml')
+		let s:local_plugins_toml_lazy = $LOCAL_VIM_PATH . '/config/plugins_lazy.toml'
+	endif
 endif
 
 " Collection of user plugin list config file-paths
