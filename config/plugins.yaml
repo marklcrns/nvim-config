@@ -363,6 +363,10 @@
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
 
+- repo: oberblastmeister/neuron.nvim
+  hook_source: |
+    luafile $VIM_PATH/config/plugins/neuron.lua
+
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
   on_if: "(expand('%:p') =~ $HOME . '/Documents/wiki/wiki/md/diary/.*' && &filetype == 'vimwiki')"
