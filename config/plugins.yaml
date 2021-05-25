@@ -221,10 +221,11 @@
   hook_source: |
     let g:vmt_fence_text = 'TOC'
     let g:vmt_fence_closing_text = '/TOC'
-  on_ft: markdown
+    let g:vmt_auto_update_on_save = 1
+  on_ft: [markdown, vim, vimwiki]
 
 - repo: junegunn/vim-emoji
-  on_ft: [markdown, vim]
+  on_ft: [markdown, vim, vimwiki]
 
 # LaTeX
 # ----------------------------------------
