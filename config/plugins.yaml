@@ -356,7 +356,8 @@
   hook_source: source  $VIM_PATH/config/plugins/floaterm.vim
 
 # Only load when in wiki directory
-- repo: https://github.com/vimwiki/vimwiki
+- repo: vimwiki/vimwiki
+  rev: dev
   on_if: "(getcwd() =~ $HOME . '/Documents/wiki.*' && &filetype == 'markdown')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
