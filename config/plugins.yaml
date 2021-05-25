@@ -373,9 +373,6 @@
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
-- repo: xarthurx/taskwarrior.vim
-  on_event: FileType
-
 - repo: honza/dockerfile.vim
   on_ft: Dockerfile
 

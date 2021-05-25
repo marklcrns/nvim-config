@@ -966,13 +966,6 @@ if dein#tap('taskwiki')
   endif
 endif
 
-if dein#tap('taskwarrior.vim')
-  nnoremap <LocalLeader>tw :<C-u>TW<CR>
-  if s:enable_whichkey
-    let g:which_key_localmap['t']['w'] = 'Open Task Warrior'
-  endif
-endif
-
 if dein#tap('vimux')
   " Prompt for a command to run
   nnoremap <Leader>vc :VimuxPromptCommand<CR>
