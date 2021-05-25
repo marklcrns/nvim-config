@@ -34,7 +34,8 @@ endfunction
 
 function! TaskWarriorServerUpdate(force, command)
   " Sync only if has changes and no terminal is open running the command
-  if &modified == 0 && a:force != 1
+  let @x = system("task | grep 'Sync required'")
+  if &modified == 0 && a:force != 1 && !(@x =~ 'Sync required')
     return
   endif
   let g:has_taskwiki_changes = 1
@@ -64,7 +65,7 @@ function! TaskWarriorServerUpdate(force, command)
     echo "Syncing task server"
     silent exe "w! | TaskWikiBufferSave"
     let g:has_taskwiki_changes = v:false
-    if system("task | grep 'Sync required'") =~ 'Sync required' || a:force == 1
+    if @x =~ 'Sync required' || a:force == 1
       silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
     endif
   endif
