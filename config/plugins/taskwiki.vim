@@ -64,7 +64,7 @@ function! TaskWarriorServerUpdate(force, command)
     echo "Syncing task server"
     silent exe "w! | TaskWikiBufferSave"
     let g:has_taskwiki_changes = v:false
-    if system("task | grep 'Sync required'") =~ 'Sync required'
+    if system("task | grep 'Sync required'") =~ 'Sync required' || a:force == 1
       silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
     endif
   endif
