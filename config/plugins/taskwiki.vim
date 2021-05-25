@@ -20,7 +20,7 @@ function! TodoListDetectEnable()
       augroup END
       augroup TaskWarriorSync
         autocmd!
-        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(0, 'trellowarrior sync; task sync')
+        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(0, 'trellowarrior -v sync; task sync')
       augroup END
       return
     endif
