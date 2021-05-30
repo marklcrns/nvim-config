@@ -48,9 +48,9 @@
 - repo: tpope/vim-eunuch
 - repo: Shougo/context_filetype.vim
 
-- repo: sunjon/Shade.nvim
-  hook_source: |
-    luafile $VIM_PATH/config/plugins/shade.lua
+# - repo: sunjon/Shade.nvim
+#   hook_source: |
+#     luafile $VIM_PATH/config/plugins/shade.lua
 
 - repo: dm1try/golden_size
   if: "has('nvim') && has('nvim-0.5')"
@@ -413,7 +413,7 @@
   on_event: FileType
 
 - repo: arthurxavierx/vim-caser
-  on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
+  on_ft: .*
 
 - repo: simnalamburt/vim-mundo
   on_map: {n: <Plug>}
