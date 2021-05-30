@@ -3,11 +3,6 @@ let g:taskwiki_dont_preserve_folds = 'yes'
 let g:taskwiki_disable_concealcursor = 'yes'
 let g:taskwiki_suppress_mappings = 'yes'
 
-augroup VimwikiTodoListDetect
-  autocmd!
-  autocmd! Filetype vimwiki call TodoListDetectEnable()
-augroup END
-
 " Enable autocmds if file contains 'title:TODO list' metadata or '# Todo List'
 " markdown header in the first 10 lines of the file
 function! TodoListDetectEnable() abort
@@ -51,7 +46,7 @@ function! TaskWarriorServerUpdate(force, command) abort
 
   if g:has_taskwiki_changes == 1 || a:force == 1
     echo "Syncing task server"
-    silent exe "w! | TaskWikiBufferSave"
+    silent exe "up | TaskWikiBufferSave"
     let g:has_taskwiki_changes = v:false
     if system("task | grep 'Sync required'") =~ 'Sync required' || a:force == 1
       silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
@@ -124,8 +119,9 @@ function! s:afterTermClose() abort
   endwhile
 endfunc
 
-augroup MyTerminal
+augroup VimwikiTodoListDetect
   autocmd!
+  autocmd Filetype vimwiki call TodoListDetectEnable()
   " The line '[Process exited ?]' is appended to the terminal buffer after the
   " `TermClose` event. So we use a timer to wait a few milliseconds to read the
   " exit status. Setting the timer to 0 or 1 ms is not sufficient; 20 ms seems
