@@ -161,9 +161,10 @@ set hlsearch      " Highlight search results
 
 set complete=.,w,b,k  " C-n completion: Scan buffers, windows and dictionary
 
-if exists('+inccommand')
-  set inccommand=split
-endif
+" Slows down substitution greatly
+" if exists('+inccommand')
+"   set inccommand=split
+" endif
 
 if executable('rg')
   set grepformat=%f:%l:%m
