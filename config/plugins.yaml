@@ -46,6 +46,7 @@
       \ }
 
 - repo: tpope/vim-eunuch
+- repo: marklcrns/vim-smartq
 - repo: Shougo/context_filetype.vim
 
 # - repo: sunjon/Shade.nvim

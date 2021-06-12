@@ -83,8 +83,6 @@ function! ImprovedDefaultMappings()
 endfunction
 
 function! ExtendedBasicMappings()
-  " Remaps macro record key since q has been remapped
-  nnoremap Q q
   " Disables esc key on some modes to force new habit
   " Allow <Esc> to exit terminal-mode back to normal:
   tnoremap <Esc> <C-\><C-n>
@@ -211,8 +209,6 @@ function! FileManagementMappings()
 endfunction
 
 function! WindowsManagementMappings()
-  noremap <silent> q :SmartBufClose<cr>
-
   " Tab operation
   nnoremap <silent> <Leader>1 :<C-u>tabfirst<CR>
   nnoremap <silent> <Leader>5 :<C-u>tabprevious<CR>

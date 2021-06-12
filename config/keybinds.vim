@@ -287,6 +287,11 @@ if dein#tap('coc.nvim')
   endif
 endif
 
+if dein#tap('vim-smartq')
+  nnoremap Q q
+  nnoremap <silent> q :SmartQ<CR>
+endif
+
 if dein#tap('vim-clap')
   nnoremap <silent> <Leader>fd: :<C-u>Clap command_history<CR>
   nnoremap <silent> <Leader>fdc :<C-u>Clap colors<CR>
