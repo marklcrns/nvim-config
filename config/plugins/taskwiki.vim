@@ -15,7 +15,7 @@ function! TodoListDetectEnable() abort
       augroup END
       augroup TaskWarriorSync
         autocmd!
-        autocmd! BufWriteCmd <buffer> call TaskWarriorServerUpdate(0, 'trellowarrior -v sync; task sync')
+        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('trellowarrior -v sync; task sync', v:false)
       augroup END
       return
     endif
@@ -27,12 +27,11 @@ function! TaskWikiUpdate() abort
   silent exe "TaskWikiBufferLoad"
 endfunction
 
-function! TaskWarriorServerUpdate(force, command) abort
+function! TaskWarriorServerUpdate(command, force) abort
   " Sync only if has changes and no terminal is open running the command
-  if &modified == 0 && a:force != 1 && !(system("task | grep 'Sync required'") =~ 'Sync required')
+  if &modified == 0 && a:force == v:false && system("task | grep 'Sync required'") !~ 'Sync required'
     return
   endif
-  let g:has_taskwiki_changes = 1
 
   " Close instance of terminal if exist
   let term_bufNr = s:jumpToTermJob(a:command)
@@ -44,14 +43,10 @@ function! TaskWarriorServerUpdate(force, command) abort
     endif
   endif
 
-  if g:has_taskwiki_changes == 1 || a:force == 1
-    echo "Syncing task server"
-    silent exe "up | TaskWikiBufferSave"
-    let g:has_taskwiki_changes = v:false
-    if system("task | grep 'Sync required'") =~ 'Sync required' || a:force == 1
-      silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
-      execute bufwinnr(s:jumpToTermJob(a:command)) . 'wincmd w | normal! G'
-    endif
+  echo "Syncing task server"
+  if system("task | grep 'Sync required'") =~ 'Sync required' || a:force == v:true
+    silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
+    execute bufwinnr(s:jumpToTermJob(a:command)) . 'wincmd w | normal! G'
   endif
 endfunction
 
@@ -64,7 +59,6 @@ function! s:jumpToTerm() abort
       return bufNr
     endif
   endfor
-
   return 0
 endfunction
 
