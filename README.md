@@ -16,8 +16,8 @@ Statusline and tabline plugin from [rafi/vim-config](https://github.com/rafi/vim
 - Python 3+
 - Python 2+ (Required for taskwiki.vim)
 - pandoc (Required for vimwiki)
-- yarn (Optional for markdown-preview.vim)
-- cargo (Optional for minimap.vim)
+- yarn (Required for markdown-preview.vim)
+- cargo (Required for minimap.vim)
 
 ## Installation
 
@@ -42,11 +42,11 @@ This will install all dependencies and create `env` python virtual environment
 in root directory for `python_host_prog` and `python3_host_prog` instead of
 using global python.
 
-### Full / Minimal / Skip / Disable Plugins
+### Plugin Handler
 
 Easy switch between `full`, `minimal`, `skip`, and `disable` plugin handler mode.
 
-Just edit the global variable in `/core/core.vim`
+Just edit the global variable in `init.vim`
 
 ```vim
 " NOTE: Must run `:call dein#recache_runtimepath()` when switching between modes
