@@ -61,6 +61,10 @@ augroup user_plugin_filetype "{{{
         \ setlocal expandtab smarttab nosmartindent
         \ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
 
+  " Makefile
+  autocmd FileType make
+        \ setlocal noexpandtab tabstop=8 softtabstop=8 shiftwidth=8
+
   " HTML (.gohtml and .tpl for server side)
   autocmd BufNewFile,BufRead *.html,*.htm,*.gohtml,*.tpl  setf html
 augroup END "}}}
