@@ -3,6 +3,11 @@ let g:taskwiki_dont_preserve_folds = 'yes'
 let g:taskwiki_disable_concealcursor = 'yes'
 let g:taskwiki_suppress_mappings = 'yes'
 
+augroup VimwikiTodoListDetect
+  autocmd!
+  autocmd Filetype vimwiki call TodoListDetectEnable()
+augroup END
+
 " Enable autocmds if file contains 'title:TODO list' metadata or '# Todo List'
 " markdown header in the first 10 lines of the file
 function! TodoListDetectEnable() abort
@@ -10,12 +15,16 @@ function! TodoListDetectEnable() abort
   while n < 10 && n < line("$")
     if getline(n) =~ 'title: TODO list\|# Todo List'
       augroup TaskWikiSync
-        autocmd!
+        autocmd! BufEnter <buffer> call TaskWikiUpdate()
         autocmd! FocusGained <buffer> call TaskWikiUpdate()
       augroup END
       augroup TaskWarriorSync
-        autocmd!
         autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('trellowarrior -v sync; task sync', v:false)
+        " The line '[Process exited ?]' is appended to the terminal buffer after the
+        " `TermClose` event. So we use a timer to wait a few milliseconds to read the
+        " exit status. Setting the timer to 1 or 1 ms is not sufficient; 20 ms seems
+        " to work fine.
+        autocmd! TermClose * call timer_start(20, { -> s:afterTermClose() })
       augroup END
       return
     endif
@@ -30,6 +39,7 @@ endfunction
 function! TaskWarriorServerUpdate(command, force) abort
   " Sync only if has changes and no terminal is open running the command
   if &modified == 0 && a:force == v:false && system("task | grep 'Sync required'") !~ 'Sync required'
+    silent execute 'up'
     return
   endif
 
@@ -112,14 +122,4 @@ function! s:afterTermClose() abort
     endif
   endwhile
 endfunc
-
-augroup VimwikiTodoListDetect
-  autocmd!
-  autocmd Filetype vimwiki call TodoListDetectEnable()
-  " The line '[Process exited ?]' is appended to the terminal buffer after the
-  " `TermClose` event. So we use a timer to wait a few milliseconds to read the
-  " exit status. Setting the timer to 0 or 1 ms is not sufficient; 20 ms seems
-  " to work fine.
-  autocmd TermClose * call timer_start(20, { -> s:afterTermClose() })
-augroup END
 
