@@ -281,10 +281,12 @@ if has('termguicolors') && &termguicolors
   endif
 endif
 
-
-" Neovide {{{
+" [SOLVED] WSL2 system clipboard not working.
+" https://github.com/Kethku/neovide/issues/544#issuecomment-820519937
+" Note: make sure win32yank.exe is sourced in $PATH before other system
+" clipboard utility, such as xclip, for it to work. /usr/local/bin works.
 if exists('g:neovide')
-  set guifont=SauceCodePro\ NF:h15
+  set guifont=SauceCodePro\ NF:h16
   let g:neovide_cursor_vfx_mode = "wireframe"
 
   nnoremap <M-h> <C-w>h
@@ -293,6 +295,5 @@ if exists('g:neovide')
   nnoremap <M-l> <C-w>l
   nnoremap <M-\> <C-w>p
 endif
-" }}}
 
 " }}}
