@@ -204,6 +204,8 @@ function! FileManagementMappings()
   nnoremap <Leader>frl :lcd %:p:h<CR>:pwd<CR>
   " Open current file with xdg-open and disown
   nnoremap <silent><Leader>oo :!xdg-open "%:p" & disown<CR>
+  " Open current file in firefox and disown
+  nnoremap <silent><Leader>of :!firefox "%:p" & disown<CR>
   " Open current file in google chrome and disown
   nnoremap <silent><Leader>og :!google-chrome "%:p" & disown<CR>
 endfunction

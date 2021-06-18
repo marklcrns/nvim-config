@@ -116,7 +116,8 @@ let g:which_key_map = {
           \ },
     \ 'o' : {
           \ 'name' : '+open',
-             \ 'g' : 'Open file in google chrome',
+             \ 'f' : 'Open file in firefox browser',
+             \ 'g' : 'Open file in google chrome browser',
              \ 'o' : 'Open file with xdg',
           \ },
     \ 'q' : 'Adaptive buffer quit',
