@@ -992,6 +992,14 @@ if dein#tap('vimux')
   endif
 endif
 
+if dein#tap('vim-tmux-navigator')
+  nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+  nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+  nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+  nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+  nnoremap <silent> <M-\> :TmuxNavigatePrevious<cr>
+endif
+
 " if dein#tap('vim-indent-guides')
 "   nmap <silent> <LocalLeader>si <Plug>IndentGuidesToggle
 "   if s:enable_whichkey

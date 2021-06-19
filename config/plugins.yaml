@@ -32,6 +32,7 @@
   if: "! (has('win32') || has('win64'))"
   hook_add: |
     let g:tmux_navigator_disable_when_zoomed = 1
+    let g:tmux_navigator_no_mappings = 1
 
 - repo: sgur/vim-editorconfig
   hook_source: |
