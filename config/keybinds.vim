@@ -782,6 +782,12 @@ if dein#tap('linediff.vim')
   endif
 endif
 
+if dein#tap('sideways.vim')
+  nnoremap <c-h> :SidewaysLeft<cr>
+  nnoremap <c-l> :SidewaysRight<cr>
+endif
+
+
 if dein#tap('vim-zoom')
   nmap <silent> [Window]f <Plug>(zoom-toggle)
 endif

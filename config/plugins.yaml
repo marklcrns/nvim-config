@@ -130,6 +130,15 @@
   on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
   hook_source: source $VIM_PATH/config/plugins/vim-easy-align.vim
 
+- repo: AndrewRadev/sideways.vim
+  on_event: FileType
+
+- repo: AndrewRadev/splitjoin.vim
+  on_event: FileType
+  hook_source: |
+    let g:splitjoin_split_mapping = '<C-k>'
+    let g:splitjoin_join_mapping = '<C-j>'
+
 - repo: AndrewRadev/linediff.vim
   on_cmd: Linediff
   hook_add: |
