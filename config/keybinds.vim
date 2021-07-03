@@ -957,7 +957,7 @@ if dein#tap('taskwiki')
 
   " User defined functions
   nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
-  nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate('trellowarrior -v sync; task sync', v:true)<CR>
+  nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate('task sync', v:true)<CR>
 
   if s:enable_whichkey
     let g:which_key_localmap['t'] = {
