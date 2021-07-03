@@ -3,7 +3,7 @@
 
 let s:stl  = " %7*%{&paste ? '=' : ''}%*"					" Paste symbol
 let s:stl .= "%4*%{&readonly ? '' : '#'}%*"				" Modified symbol
-let s:stl .= "%6*%{badge#mode('🔒', 'Z')}"			 " Read-only symbol
+let s:stl .= "%6*%{badge#mode('🔒', 'Z')}"				" Read-only symbol
 let s:stl .= "%6*%{badge#zoom()}%*"
 let s:stl .= '%*%n'																" Buffer number
 let s:stl .= "%6*%{badge#modified('+')}%0*"				" Write symbol
@@ -18,7 +18,8 @@ let s:stl .= '%='																	" Align to right
 let s:stl .= '%{badge#format()} %4*%*'						" File format
 let s:stl .= '%( %{&fenc} %)'											" File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'									" File type
-let s:stl .= '%3*%2* %3b|0x%2B %2l:%2c%3p%% '		" ASCII value, Line and column
+let s:stl .= '%3*%2* %3b|0x%2B %2l:%2c%4p%% '		" ASCII value, Line and column
+let s:stl .= "%4*%{badge#scrollbar()}%*"
 
 " Non-active Statusline
 let s:stl_nc = " %{badge#mode('🔒', 'Z')}%n"	 " Read-only symbol
