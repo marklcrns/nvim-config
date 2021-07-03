@@ -407,7 +407,6 @@
 
 # UI{{{
 - repo: lukas-reineke/indent-blankline.nvim
-  rev: lua
   on_event: FileType
   hook_source: luafile $VIM_PATH/config/plugins/indent-blankline.lua
 
