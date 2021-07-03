@@ -218,7 +218,7 @@ set sidescrolloff=5     " Keep at least 5 lines left/right
 set fillchars+=vert:\|  " add a bar for vertical splits
 set list
 let &showbreak='↳  '
-" set listchars=tab:\|\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+" set listchars=tab:\│\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 set listchars=tab:»·,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 set title
 " Title length.
