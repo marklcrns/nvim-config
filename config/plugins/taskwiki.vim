@@ -12,24 +12,20 @@ augroup END
 " markdown header in the first 10 lines of the file
 function! TodoListDetectEnable() abort
   let n = 1
-  while n < 10 && n < line("$")
-    if getline(n) =~ 'title: TODO list\|# Todo List'
-      augroup TaskWikiSync
-        autocmd! BufEnter <buffer> call TaskWikiUpdate()
-        autocmd! FocusGained <buffer> call TaskWikiUpdate()
-      augroup END
-      augroup TaskWarriorSync
-        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('trellowarrior -v sync; task sync', v:false)
-        " The line '[Process exited ?]' is appended to the terminal buffer after the
-        " `TermClose` event. So we use a timer to wait a few milliseconds to read the
-        " exit status. Setting the timer to 1 or 1 ms is not sufficient; 20 ms seems
-        " to work fine.
-        autocmd! TermClose * call timer_start(20, { -> s:afterTermClose() })
-      augroup END
-      return
-    endif
-    let n = n + 1
-  endwhile
+  if expand('%:t:r') =~ '^\v\d{4}-\d\d-\d\d'
+    augroup TaskWikiSync
+      autocmd! BufEnter <buffer> call TaskWikiUpdate()
+      autocmd! FocusGained <buffer> call TaskWikiUpdate()
+    augroup END
+    augroup TaskWarriorSync
+      autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('task sync', v:false)
+      " The line '[Process exited ?]' is appended to the terminal buffer after the
+      " `TermClose` event. So we use a timer to wait a few milliseconds to read the
+      " exit status. Setting the timer to 1 or 1 ms is not sufficient; 20 ms seems
+      " to work fine.
+      autocmd! TermClose * call timer_start(20, { -> s:afterTermClose() })
+    augroup END
+  endif
 endfunction
 
 function! TaskWikiUpdate() abort
@@ -38,7 +34,7 @@ endfunction
 
 function! TaskWarriorServerUpdate(command, force) abort
   " Sync only if has changes and no terminal is open running the command
-  if &modified == 0 && a:force == v:false && system("task | grep 'Sync required'") !~ 'Sync required'
+  if getbufvar(bufnr('%'), '&modified') == 0 && a:force != v:true && !s:TaskDirty()
     silent execute 'up'
     return
   endif
@@ -54,7 +50,7 @@ function! TaskWarriorServerUpdate(command, force) abort
   endif
 
   echo "Syncing task server"
-  if system("task | grep 'Sync required'") =~ 'Sync required' || a:force == v:true
+  if a:force == v:true || s:TaskDirty()
     silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
     execute bufwinnr(s:jumpToTermJob(a:command)) . 'wincmd w | normal! G'
   endif
@@ -91,6 +87,10 @@ function! s:jumpToTermJob(command) abort
     endfor
   endif
   return 0
+endfunction
+
+function s:TaskDirty() abort
+  return system("task | grep 'Sync required'") =~ 'Sync required'
 endfunction
 
 " Get the exit status from a terminal buffer by looking for a line near the end
