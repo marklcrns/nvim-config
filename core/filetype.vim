@@ -72,13 +72,13 @@ augroup END "}}}
 augroup user_cursorui
   let ft_exclusion = '^\(denite\|clap_\)'
   autocmd!
-  autocmd InsertEnter,WinLeave,FocusLost * if (get(g:, 'custom_cursorline_enable', 1) || get(g:, 'custom_cursorcolumn_enable', 0)) && (&ft !~# ft_exclusion)
+  autocmd CursorMoved,InsertEnter,WinLeave,FocusLost * if (get(g:, 'custom_cursorline_enable', 1) || get(g:, 'custom_cursorcolumn_enable', 0)) && (&ft !~# ft_exclusion)
         \| setlocal nocursorline nocursorcolumn
         \| endif
-  autocmd InsertLeave,WinEnter,BufWinEnter,FocusGained * if get(g:, 'custom_cursorline_enable', 1) && (&ft !~# ft_exclusion)
+  autocmd CursorHold,InsertLeave,WinEnter,BufWinEnter,FocusGained * if get(g:, 'custom_cursorline_enable', 1) && (&ft !~# ft_exclusion)
         \| setlocal cursorline
         \| endif
-  autocmd InsertLeave,WinEnter,BufWinEnter,FocusGained * if get(g:, 'custom_cursorcolumn_enable', 0) && (&ft !~# ft_exclusion)
+  autocmd CursorHold,InsertLeave,WinEnter,BufWinEnter,FocusGained * if get(g:, 'custom_cursorcolumn_enable', 0) && (&ft !~# ft_exclusion)
         \| setlocal cursorcolumn
         \| endif
 augroup END
