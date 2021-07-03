@@ -276,6 +276,9 @@ function! UtilityMappings()
   " Use backspace key for matching pairs
   nmap <BS> %
   xmap <BS> %
+  " Insert new line without insert mode
+  nnoremap [<space> O<esc>j
+  nnoremap ]<space> o<esc>k
   " Drag current line(s) vertically and auto-indent
   nnoremap <Leader>J :m+<CR>
   nnoremap <Leader>K :m-2<CR>
@@ -531,7 +534,7 @@ function! TextManipulationMappings()
   nnoremap <Leader>rw gwap
   xnoremap <Leader>rw gw
   " Duplicate paragraph
-  nnoremap <leader>rp yap<S-}>p
+  nnoremap <leader>rp yap}p
   " Duplicate selected line
   " Ref: https://stackoverflow.com/a/3806683/11850077
   vnoremap <Leader>rp y`]p
