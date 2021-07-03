@@ -474,15 +474,6 @@ if dein#tap('vim-mundo')
   endif
 endif
 
-if dein#tap('vim-choosewin')
-  nmap <Leader>- <Plug>(choosewin)
-  nmap <Leader>_ :<C-u>ChooseWinSwapStay<CR>
-  if s:enable_whichkey
-    let g:which_key_map['-'] = 'Choose window'
-    let g:which_key_map['_'] = 'Choose window to swap with'
-  endif
-endif
-
 if dein#tap('caw.vim')
   function! InitCaw() abort
     if ! (&l:modifiable && &buftype ==# '')
@@ -541,26 +532,10 @@ if dein#tap('accelerated-jk')
   " nmap k <Plug>(accelerated_jk_gk)
 endif
 
-if dein#tap('python_match.vim')
-  autocmd FileType python
-        \ nmap <buffer> {{ [%
-        \ | nmap <buffer> }} ]%
-endif
-
 if dein#tap('goyo.vim')
   nnoremap <Leader>ig :Goyo<CR>
   if s:enable_whichkey
     let g:which_key_map['i']['g'] = 'Goyo toggle'
-  endif
-endif
-
-if dein#tap('fern.vim')
-  " nnoremap <silent> <Leader>ee :<C-u>Fern . -drawer -keep -toggle -width=35 -reveal=%<CR><C-w>=
-  nnoremap <silent> <Leader>ea :<C-u>Fern . -drawer -keep -toggle -width=35<CR>
-
-  if s:enable_whichkey
-    let g:which_key_map['e']['a'] = 'Toggle explorer to current file'
-    let g:which_key_map['e']['e'] = 'Toggle explorer to current directory'
   endif
 endif
 
@@ -587,56 +562,6 @@ if dein#tap('vim-quickrun')
   vnoremap <silent> <LocalLeader>r :QuickRun -mode v<CR>
 endif
 
-if dein#tap('vim-floaterm')
-  nnoremap <silent> <Leader>ota :Clap floaterm<CR>
-  tnoremap <silent> <Leader>ota <C-\><C-n>:Clap floaterm<CR>
-  nnoremap <silent> <Leader>otb :FloatermUpdate --wintype=normal --position=bottom<CR>
-  tnoremap <silent> <Leader>otb <C-\><C-n>:FloatermUpdate --wintype=normal --position=bottom<CR>
-  nnoremap <silent> <Leader>oth :FloatermHide<CR>
-  tnoremap <silent> <Leader>oth <C-\><C-n>:FloatermHide<CR>
-  nnoremap <silent> <Leader>otn :FloatermNext<CR>
-  tnoremap <silent> <Leader>otn <C-\><C-n>:FloatermNext<CR>
-  nnoremap <silent> <Leader>oto :FloatermNew<CR>
-  tnoremap <silent> <Leader>oto <C-\><C-n>:FloatermNew<CR>
-  nnoremap <silent> <Leader>otp :FloatermPrev<CR>
-  tnoremap <silent> <Leader>otp <C-\><C-n>:FloatermPrev<CR>
-  nnoremap <silent> <Leader>otq :FloatermKill<CR>
-  tnoremap <silent> <Leader>otq <C-\><C-n>:FloatermKill<CR>
-  nnoremap <silent> <Leader>otQ :FloatermKill!<CR>
-  tnoremap <silent> <Leader>otQ <C-\><C-n>:FloatermKill!<CR>
-  nnoremap <silent> <Leader>otr :FloatermNew ranger<CR>
-  tnoremap <silent> <Leader>otr <C-\><C-n>:FloatermNew ranger<CR>
-  nnoremap <silent> <Leader>ots :FloatermShow<CR>
-  tnoremap <silent> <Leader>ots <C-\><C-n>:FloatermShow<CR>
-  nnoremap <silent> <Leader>otS :FloatermSend<CR>
-  nnoremap <silent> <Leader>ott :FloatermToggle<CR>
-  tnoremap <silent> <Leader>ott <C-\><C-n>:FloatermToggle<CR>
-  nnoremap <silent> <Leader>otu :FloatermUpdate<CR>
-  tnoremap <silent> <Leader>otu <C-\><C-n>:FloatermUpdate<CR>
-  tnoremap <silent> <Leader>otv <C-\><C-n>:FloatermUpdate --wintype=normal --position=right<CR>
-  nnoremap <silent> <Leader>otv :FloatermUpdate --wintype=normal --position=right<CR>
-
-  if s:enable_whichkey
-    let g:which_key_map['o']['t'] = {
-          \ 'name' : '+floaterm',
-          \ 'a' : 'List all running floaterms',
-          \ 'b' : 'Position horizontally floaterm to the bottom',
-          \ 'h' : 'Hide floaterm',
-          \ 'n' : 'Next floaterm',
-          \ 'o' : 'Open new floaterm',
-          \ 'p' : 'Previous floaterm',
-          \ 'q' : 'Kill floaterm',
-          \ 'Q' : 'Kill all floaterm',
-          \ 'r' : 'Open ranger in floaterm',
-          \ 's' : 'Show floaterm',
-          \ 'S' : 'Send current line to floaterm',
-          \ 't' : 'Toggle floaterm',
-          \ 'u' : 'Update floaterm',
-          \ 'v' : 'Position floaterm vertically to the right',
-          \ }
-  endif
-endif
-
 if dein#tap('vista.vim')
   nnoremap <silent><Leader>V   :Vista focus<CR>
   nnoremap <silent><Leader>ovv :Vista!!<CR>
@@ -654,21 +579,6 @@ if dein#tap('vista.vim')
           \ 'f' : 'Vista focus back and forth',
           \ 'o' : 'Vista open',
           \ 'q' : 'Vista close',
-          \ }
-  endif
-endif
-
-if dein#tap('minimap.vim')
-  nnoremap <silent><Leader>omm :MinimapToggle<CR>
-  nnoremap <silent><Leader>omq :MinimapClose<CR>
-  nnoremap <silent><Leader>omr :MinimapRefresh<CR>
-
-  if s:enable_whichkey
-    let g:which_key_map['o']['m'] = {
-          \ 'name' : '+Minimap',
-          \ 'm' : 'Minimap Toggle',
-          \ 'q' : 'Minimap Close',
-          \ 'r' : 'Minimap Refresh',
           \ }
   endif
 endif
@@ -748,45 +658,10 @@ if dein#tap('vim-sandwich')
   xmap as <Plug>(textobj-sandwich-query-a)
 endif
 
-
-" if dein#tap('vim-operator-replace')
-"   xmap p <Plug>(operator-replace)
-" endif
-
-if dein#tap('linediff.vim')
-  nmap <silent> <leader>idla :<C-u>LinediffAdd<CR>
-  vmap <silent> <leader>idla :LinediffAdd<CR>
-  nmap <silent> <leader>idlA :<C-u>LinediffAdd<C-a>
-  nmap <silent> <leader>idld :<C-u>Linediff<CR>
-  vmap <silent> <leader>idld :Linediff<CR>
-  nmap <silent> <leader>idll :<C-u>LinediffLast<CR>
-  vmap <silent> <leader>idll :LinediffLast<CR>
-  nmap <silent> <leader>idlm :<C-u>LinediffMerge<CR>
-  nmap <silent> <leader>idlp :<C-u>LinediffPick<CR>
-  nmap <silent> <leader>idlr :<C-u>LinediffReset<CR>
-  nmap <silent> <leader>idls :<C-u>LinediffShow<CR>
-  " resets linediff with q when active
-  autocmd User LinediffBufferReady nnoremap <buffer> q :LinediffReset<cr>
-
-  if s:enable_whichkey
-    let g:which_key_map['i']['d']['l'] = {
-          \ 'name' : '+linediff',
-          \ 'a' : 'Linediff add',
-          \ 'A' : '<start, end>Linediff Add',
-          \ 'd' : 'Linediff',
-          \ 'm' : 'Linediff merge conflict',
-          \ 'p' : 'Linediff pick merge conflict',
-          \ 'r' : 'Linediff reset',
-          \ 's' : 'Linediff show',
-          \ }
-  endif
-endif
-
 if dein#tap('sideways.vim')
   nnoremap <c-h> :SidewaysLeft<cr>
   nnoremap <c-l> :SidewaysRight<cr>
 endif
-
 
 if dein#tap('vim-zoom')
   nmap <silent> [Window]f <Plug>(zoom-toggle)
@@ -799,21 +674,6 @@ endif
 if dein#tap('vim-rooter')
   nnoremap <Leader>frr :Rooter<CR>
 endif
-
-if dein#tap('rainbow')
-  nmap <LocalLeader>sp :RainbowToggle<CR>
-  if s:enable_whichkey
-    let g:which_key_localmap['s']['p'] = 'Rainbow pairs toggle'
-  endif
-endif
-
-if dein#tap('vim-diminactive')
-  nnoremap <LocalLeader>sd :DimInactiveToggle<CR>
-  if s:enable_whichkey
-    let g:which_key_localmap['s']['d'] = 'Dim inactive toggle'
-  endif
-endif
-
 
 if dein#tap('golden_size')
   function! GoldenSizeToggle()
@@ -1006,13 +866,6 @@ if dein#tap('vim-tmux-navigator')
   nnoremap <silent> <M-\> :TmuxNavigatePrevious<cr>
 endif
 
-" if dein#tap('vim-indent-guides')
-"   nmap <silent> <LocalLeader>si <Plug>IndentGuidesToggle
-"   if s:enable_whichkey
-"     let g:which_key_localmap['s']['i'] = 'Indent guide toggle'
-"   endif
-" endif
-
 if dein#tap('vim-signature')
   let g:SignatureIncludeMarks = 'abcdefghijkloqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   let g:SignatureMap = {
@@ -1040,26 +893,6 @@ if dein#tap('vim-signature')
         \ }
 endif
 
-if dein#tap('vim-wordy')
-  " auto wildcharm trigger
-  if !&wildcharm | set wildcharm=<C-z> | endif
-  execute 'nnoremap <leader>lgww :Wordy<space>'.nr2char(&wildcharm)
-
-  nnoremap <leader>lgwn :NextWordy<CR>
-  nnoremap <leader>lgwp :PrevWordy<CR>
-  nnoremap <leader>lgwr :NoWordy<CR>
-
-  if s:enable_whichkey
-    let g:which_key_map['l']['g']['w'] = {
-          \ 'name' : '+wordy',
-          \ 'p' : 'Prev wordy',
-          \ 'n' : 'Next wordy',
-          \ 'r' : 'Remove wordy',
-          \ 'w' : 'Wordy select',
-          \ }
-  endif
-endif
-
 if dein#tap('vim-quickhl')
   nmap <Leader>iht <Plug>(quickhl-manual-this)
   xmap <Leader>iht <Plug>(quickhl-manual-this)
@@ -1077,15 +910,6 @@ if dein#tap('vim-quickhl')
           \ 'r' : 'Highlight reset',
           \ 'w' : 'Highlight this whole word',
           \ }
-  endif
-endif
-
-if dein#tap('thesaurus_query.vim')
-  nnoremap <silent> <Leader>rt :<C-u>ThesaurusQueryReplaceCurrentWord<CR>
-  vnoremap <silent> <Leader>rt y:ThesaurusQueryReplace <C-r>"<CR>
-
-  if s:enable_whichkey
-    let g:which_key_map['r']['t'] = 'Thesaurus current word'
   endif
 endif
 
