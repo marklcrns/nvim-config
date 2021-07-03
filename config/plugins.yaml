@@ -48,6 +48,10 @@
 
 - repo: tpope/vim-eunuch
 - repo: marklcrns/vim-smartq
+  hook_source: |
+    let g:smartq_q_filetypes = [
+      \ 'list', 'qf', 'diff', 'git', 'gina-status', 'gina-commit', 'snippets'
+      \ ]
 - repo: Shougo/context_filetype.vim
 
 # - repo: sunjon/Shade.nvim
@@ -463,9 +467,14 @@
 #   on_event: FileType
 #   hook_source: source $VIM_PATH/config/plugins/vim-indent-guides.vim
 
-- repo:  glepnir/indent-guides.nvim
+# - repo:  glepnir/indent-guides.nvim
+#   on_event: FileType
+#   hook_source: luafile $VIM_PATH/config/plugins/indent-guides.lua
+
+- repo: lukas-reineke/indent-blankline.nvim
+  rev: lua
   on_event: FileType
-  hook_source: luafile $VIM_PATH/config/plugins/indent-guides.lua
+  hook_source: luafile $VIM_PATH/config/plugins/indent-blankline.lua
 
 - repo: norcalli/nvim-colorizer.lua
   if: "has('nvim') && has('nvim-0.4.0')"
