@@ -49,7 +49,6 @@ function! TaskWarriorServerUpdate(command, force) abort
     endif
   endif
 
-  echo "Syncing task server"
   if a:force == v:true || s:TaskDirty()
     silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
     execute bufwinnr(s:jumpToTermJob(a:command)) . 'wincmd w | normal! G'
