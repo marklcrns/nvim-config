@@ -563,7 +563,6 @@ if dein#tap('vim-quickrun')
 endif
 
 if dein#tap('vista.vim')
-  nnoremap <silent><Leader>V   :Vista focus<CR>
   nnoremap <silent><Leader>ovv :Vista!!<CR>
   nnoremap <silent><Leader>ovc :Vista finder clap<CR>
   nnoremap <silent><Leader>ovf :Vista focus<CR>
@@ -571,7 +570,6 @@ if dein#tap('vista.vim')
   nnoremap <silent><Leader>ovq :Vista!<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['V'] = 'Vista focus back and forth'
     let g:which_key_map['o']['v'] = {
           \ 'name' : '+vista',
           \ 'v' : 'Vista toggle',
@@ -579,6 +577,17 @@ if dein#tap('vista.vim')
           \ 'f' : 'Vista focus back and forth',
           \ 'o' : 'Vista open',
           \ 'q' : 'Vista close',
+          \ }
+  endif
+endif
+
+if dein#tap('tagbar')
+  nnoremap <silent><Leader>ott :Tagbar<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['o']['t'] = {
+          \ 'name' : '+tagbar',
+          \ 't' : 'Tagbar toggle',
           \ }
   endif
 endif
