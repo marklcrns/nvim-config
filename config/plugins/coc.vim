@@ -22,6 +22,7 @@ let g:coc_global_extensions = [
       \ 'coc-java',
       \ 'coc-java-debug',
       \ 'coc-json',
+      \ 'coc-kotlin',
       \ 'coc-lists',
       \ 'coc-lua',
       \ 'coc-markdownlint',
