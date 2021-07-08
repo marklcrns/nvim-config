@@ -120,5 +120,6 @@ function! s:afterTermClose() abort
       bdelete!
     endif
   endwhile
+  call TaskWikiUpdate()
 endfunc
 
