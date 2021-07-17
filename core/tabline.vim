@@ -26,9 +26,16 @@ function! Tabline()
 		return ''
 	endif
 
+	let l:tabline = ''
+
+	" TODO: TOO SLOW in big projects
+	" Active project name
+	" let l:tabline =
+	"	\ '%#TabLineAlt# %{"" . get(g:, "global_symbol_padding", " ") . badge#project()} %#TabLineAltShade#'
+
 	" Active project name
 	let l:tabline =
-		\ '%#TabLineAlt# %{"" . get(g:, "global_symbol_padding", " ") . badge#project()} %#TabLineAltShade#'
+				\ '%#TabLineAlt# %{"" . get(g:, "global_symbol_padding", " ") . expand("%:p:h:t")} %#TabLineAltShade#'
 
 	" Iterate through all tabs and collect labels
 	let l:current = tabpagenr()
@@ -39,7 +46,7 @@ function! Tabline()
 
 		" Left-side of single tab
 		if l:nr == l:current
-			let l:tabline .= '%#TabLineFill#%#TabLineSel# '
+			let l:tabline .= '%#TabLineFill# %#TabLineSel# '
 		else
 			let l:tabline .= '%#TabLine#  '
 		endif
@@ -71,7 +78,7 @@ function! Tabline()
 
 		" Right-side of single tab
 		if l:nr == l:current
-			let l:tabline .= '%#TabLineSel# %#TabLineFill#'
+			let l:tabline .= '%#TabLineSel# %#TabLineFill# '
 		else
 			let l:tabline .= '%#TabLine#  '
 		endif
