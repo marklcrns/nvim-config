@@ -220,7 +220,7 @@
 
 
 # Tools{{{
-- { repo: andymass/vim-matchup, on_event: FileType }
+# - { repo: andymass/vim-matchup, on_event: FileType }
 # - { repo: itchyny/vim-gitbranch, on_event: FileType }
 - { repo: romainl/vim-cool }
 
