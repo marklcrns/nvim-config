@@ -902,26 +902,6 @@ if dein#tap('vim-signature')
         \ }
 endif
 
-if dein#tap('vim-quickhl')
-  nmap <Leader>iht <Plug>(quickhl-manual-this)
-  xmap <Leader>iht <Plug>(quickhl-manual-this)
-
-  nmap <Leader>ihw <Plug>(quickhl-manual-this-whole-word)
-  xmap <Leader>ihw <Plug>(quickhl-manual-this-whole-word)
-
-  nmap <Leader>ihr <Plug>(quickhl-manual-reset)
-  xmap <Leader>ihr <Plug>(quickhl-manual-reset)
-
-  if s:enable_whichkey
-    let g:which_key_map['i']['h'] = {
-          \ 'name' : '+quick-highlight',
-          \ 't' : 'Highlight this',
-          \ 'r' : 'Highlight reset',
-          \ 'w' : 'Highlight this whole word',
-          \ }
-  endif
-endif
-
 if dein#tap('open-browser.vim')
   nmap gx <Plug>(openbrowser-smart-search)
   vmap gx <Plug>(openbrowser-smart-search)

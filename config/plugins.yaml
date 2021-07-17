@@ -221,9 +221,8 @@
 
 # Tools{{{
 - { repo: andymass/vim-matchup, on_event: FileType }
-- { repo: itchyny/vim-gitbranch, on_event: FileType }
-- { repo: romainl/vim-cool, on_event: [ CursorMoved, InsertEnter ] }
-- { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
+# - { repo: itchyny/vim-gitbranch, on_event: FileType }
+- { repo: romainl/vim-cool }
 
 # To setup Google Calendar with calenar.vim
 # https://github.com/itchyny/calendar.vim#important-notice
