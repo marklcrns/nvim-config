@@ -81,14 +81,6 @@
   depends: ultisnips
   on_event: FileType
   merged: 0
-
-# Vim Commandline
-# -----
-- repo: Shougo/echodoc.vim
-  on_event: CompleteDone
-  hook_source: |
-    call echodoc#enable()
-    let g:echodoc#type = "virtual"
 # }}}
 
 # Syntax{{{
@@ -108,7 +100,7 @@
 #     let g:vimspector_enable_mappings = 'HUMAN'
 
 - repo: junegunn/vim-easy-align
-  on_ft: [vim, md, vimwiki, json, go, html, js, jsx, py, css, java, less, tmpl, toml, xml, sql, Dockerfile]
+  on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/vim-easy-align.vim
 
 - repo: AndrewRadev/sideways.vim
