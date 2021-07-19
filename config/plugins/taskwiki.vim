@@ -90,6 +90,7 @@ endfunction
 
 function s:TaskDirty() abort
   return system("task | grep 'Sync required'") =~ 'Sync required'
+        \ && !filereadable("/tmp/task_sync.lock")
 endfunction
 
 " Get the exit status from a terminal buffer by looking for a line near the end
