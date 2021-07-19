@@ -4,12 +4,6 @@ if &compatible
   " vint: +ProhibitSetNoCompatible
 endif
 
-" Custom settings enable
-let g:custom_statusline_enable = 1
-let g:custom_tabline_enable = 1
-let g:custom_cursorline_enable = 1
-let g:custom_cursorcolumn_enable = 0
-
 " Disable vim distribution plugins
 let g:loaded_gzip = 1
 let g:loaded_tar = 1

@@ -139,7 +139,7 @@
   // "tsserver.npm": "/usr/bin/npm",  // `nvm deactivate` to make this work
 
   // java
-  "java.enabled": true,
+  "java.enabled": false,
   "java.import.maven.enabled": true,
   "java.import.gradle.enabled": true,
   "java.import.gradle.wrapper.enabled": true,
