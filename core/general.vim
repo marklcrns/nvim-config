@@ -288,12 +288,6 @@ endif
 if exists('g:neovide')
   set guifont=SauceCodePro\ NF:h16
   let g:neovide_cursor_vfx_mode = "wireframe"
-
-  nnoremap <M-h> <C-w>h
-  nnoremap <M-j> <C-w>j
-  nnoremap <M-k> <C-w>k
-  nnoremap <M-l> <C-w>l
-  nnoremap <M-\> <C-w>p
 endif
 
 " }}}
