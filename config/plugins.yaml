@@ -22,6 +22,9 @@
   rev: release
   hook_source: source $VIM_PATH/config/plugins/coc.vim
 
+- repo: liuchengxu/vim-which-key
+  hook_source: source $VIM_PATH/config/plugins/whichkey.vim
+
 # Tools
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
@@ -159,9 +162,6 @@
   hook_add: source $VIM_PATH/config/plugins/vim-markdown-toc.vim
   on_ft: [markdown, vim, vimwiki]
 
-- repo: junegunn/vim-emoji
-  on_ft: [markdown, vim, vimwiki]
-
 # LaTeX
 # ----------------------------------------
 - repo: lervag/vimtex
@@ -225,10 +225,6 @@
     
 - repo: preservim/tagbar
   on_cmd: [Tagbar, TabarOpen, TagbarToggle, TagbarOpenAutoClose]
-
-- repo: liuchengxu/vim-which-key
-  on_event: Filetype
-  hook_source: source $VIM_PATH/config/plugins/whichkey.vim
 
 - repo: airblade/vim-rooter
   on_event: FileType
