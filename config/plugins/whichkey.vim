@@ -1,9 +1,3 @@
-augroup user_events
-  autocmd! FileType which_key
-  autocmd  FileType which_key set laststatus=0 noshowmode noruler
-    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
-
 let g:which_key_timeout = 200
 let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
 let g:which_key_sep = '»'
@@ -256,5 +250,28 @@ let g:which_key_smap = {
 
 let g:which_key_map['e'] = { 'name': '+file-explorer' }
 let g:which_key_map['g'] = { 'name': '+git' }
-
 let g:which_key_map['g']['D'] = ['GitOpenDirty', 'Open all dirty in splits']
+
+call which_key#register('<Space>', 'g:which_key_map')
+call which_key#register(';', 'g:which_key_localmap')
+call which_key#register(']', 'g:which_key_rsbgmap')
+call which_key#register('[', 'g:which_key_lsbgmap')
+call which_key#register('d', 'g:which_key_dmap')
+call which_key#register('s', 'g:which_key_smap')
+call which_key#register('g', 'g:which_key_gmap')
+
+let s:leader_key=substitute(get(g:,"mapleader","\\"), ' ', '<Space>', '')
+let s:localleader_key= get(g:,'maplocalleader',';')
+execute 'nnoremap <silent> <Leader> :<c-u>WhichKey "'.s:leader_key.'"<CR>'
+execute 'vnoremap <silent> <Leader> :<c-u>WhichKeyVisual "'.s:leader_key.'"<CR>'
+execute 'nnoremap <silent> <LocalLeader> :<c-u>WhichKey "' .s:localleader_key.'"<CR>'
+execute 'vnoremap <silent> <LocalLeader> :<c-u>WhichKeyVisual "'.s:localleader_key.'"<CR>'
+execute 'nnoremap <silent> [ :<c-u>WhichKey "["<CR>'
+execute 'nnoremap <silent> ] :<c-u>WhichKey "]"<CR>'
+
+augroup user_events
+  autocmd! FileType which_key
+  autocmd  FileType which_key set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
+

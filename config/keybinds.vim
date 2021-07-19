@@ -1,19 +1,7 @@
 " Plugin key settings
-let s:enable_whichkey = dein#tap('vim-which-key')
+let s:enable_whichkey = dein#is_sourced('vim-which-key')
 
 if s:enable_whichkey
-  function! InitWhickey()
-    let s:leader_key=substitute(get(g:,"mapleader","\\"), ' ', '<Space>', '')
-    let s:localleader_key= get(g:,'maplocalleader',';')
-    execute 'nnoremap <silent> <Leader> :<c-u>WhichKey "'.s:leader_key.'"<CR>'
-    execute 'vnoremap <silent> <Leader> :<c-u>WhichKeyVisual "'.s:leader_key.'"<CR>'
-    execute 'nnoremap <silent> <LocalLeader> :<c-u>WhichKey "' .s:localleader_key.'"<CR>'
-    execute 'vnoremap <silent> <LocalLeader> :<c-u>WhichKeyVisual "'.s:localleader_key.'"<CR>'
-    execute 'nnoremap <silent> [ :<c-u>WhichKey "["<CR>'
-    execute 'nnoremap <silent> ] :<c-u>WhichKey "]"<CR>'
-  endfunction
-  call InitWhickey()
-
   " Extra mappings
   nnoremap <silent> ?s :<c-u>WhichKey 's'<CR>
   vnoremap <silent> ?s :<c-u>WhichKeyVisual 's'<CR>
