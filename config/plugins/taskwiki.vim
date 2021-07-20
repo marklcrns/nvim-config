@@ -14,8 +14,7 @@ function! TodoListDetectEnable() abort
   let n = 1
   if expand('%:t:r') =~ '^\v\d{4}-\d\d-\d\d'
     augroup TaskWikiSync
-      autocmd! BufEnter <buffer> call TaskWikiUpdate()
-      autocmd! FocusGained <buffer> call TaskWikiUpdate()
+      autocmd! BufEnter,FocusGained <buffer> TaskWikiBufferLoad
     augroup END
     augroup TaskWarriorSync
       autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('task sync', v:false)
@@ -26,10 +25,6 @@ function! TodoListDetectEnable() abort
       autocmd! TermClose * call timer_start(20, { -> s:afterTermClose() })
     augroup END
   endif
-endfunction
-
-function! TaskWikiUpdate() abort
-  silent exe "TaskWikiBufferLoad"
 endfunction
 
 function! TaskWarriorServerUpdate(command, force) abort
@@ -121,6 +116,6 @@ function! s:afterTermClose() abort
       bdelete!
     endif
   endwhile
-  call TaskWikiUpdate()
+  silent exe "TaskWikiBufferLoad"
 endfunc
 

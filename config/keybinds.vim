@@ -844,6 +844,8 @@ if dein#tap('taskwiki')
   vnoremap <LocalLeader>t- :TaskWikiStop<CR>
 
   " Other normal mode commands
+  nnoremap <LocalLeader>tbl :TaskWikiBufferLoad<CR>
+  nnoremap <LocalLeader>tbs :TaskWikiBufferSave<CR>
   nnoremap <LocalLeader>tbd :TaskWikiBurndownDaily<CR>
   nnoremap <LocalLeader>tbw :TaskWikiBurndownWeekly<CR>
   nnoremap <LocalLeader>tbm :TaskWikiBurndownMonthly<CR>
@@ -858,8 +860,7 @@ if dein#tap('taskwiki')
   nnoremap <LocalLeader>tt :TaskWikiTags<CR>
 
   " User defined functions
-  nnoremap <LocalLeader>tu :call TaskWikiUpdate()<CR>
-  nnoremap <LocalLeader>tU :call TaskWarriorServerUpdate('task sync', v:true)<CR>
+  nnoremap <LocalLeader>tu :call TaskWarriorServerUpdate('task sync', v:true)<CR>
 
   if s:enable_whichkey
     let g:which_key_localmap['t'] = {
@@ -868,8 +869,7 @@ if dein#tap('taskwiki')
           \   'c' : { 'name' : '+taskwiki-choose' },
           \   'h' : { 'name' : '+taskwiki-history' },
           \   'G' : { 'name' : '+taskwiki-ghistory' },
-          \   'u' : ['call TaskWikiUpdate()', 'Custom taskwiki tasks update'],
-          \   'U' : ['call TaskWarriorServerUpdate()', 'Custom taskwiki server update'],
+          \   'u' : ['call TaskWarriorServerUpdate()', 'Custom taskwiki server update'],
           \ }
   endif
 endif
