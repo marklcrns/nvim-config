@@ -273,6 +273,13 @@ if dein#tap('coc.nvim')
   else
     inoremap <silent><expr> <c-@> coc#refresh()
   endif
+
+  if s:enable_whichkey
+    let g:which_key_gmap['d'] = 'Go to definition'
+    let g:which_key_gmap['i'] = 'Go to implementation'
+    let g:which_key_gmap['r'] = 'Go to reference'
+    let g:which_key_gmap['y'] = 'Go to type definition'
+  endif
 endif
 
 if dein#tap('vim-clap')
@@ -335,11 +342,49 @@ if dein#tap('vim-clap')
           \ 'v' : 'Find last visual selection with Grep',
           \ 'w' : 'Find word undercursor with Grep',
           \ }
+  endif
+endif
 
-    let g:which_key_gmap['d'] = 'Go to definition'
-    let g:which_key_gmap['i'] = 'Go to implementation'
-    let g:which_key_gmap['r'] = 'Go to reference'
-    let g:which_key_gmap['y'] = 'Go to type definition'
+if dein#tap('telescope.nvim')
+  " Find files using Telescope command-line sugar.
+  nnoremap <leader>fdb <cmd>Telescope buffers<cr>
+  nnoremap <leader>fdc <cmd>Telescope colorscheme<cr>
+  nnoremap <leader>fdf <cmd>Telescope find_files<cr>
+  nnoremap <leader>fdF <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>
+  nnoremap <leader>fdd <cmd>Telescope file_browser<cr>
+  nnoremap <leader>fdr <cmd>Telescope live_grep<cr>
+  nnoremap <leader>fdh <cmd>Telescope help_tags<cr>
+  nnoremap <leader>fdj <cmd>Telescope jumplist<cr>
+  nnoremap <leader>fdm <cmd>Telescope marks<cr>
+  nnoremap <leader>fdo <cmd>Telescope oldfiles<cr>
+  nnoremap <leader>fdw <cmd>Telescope grep_string<cr>
+  nnoremap <leader>fdgb <cmd>Telescope git_branch<cr>
+  nnoremap <leader>fdgc <cmd>Telescope git_commits<cr>
+  nnoremap <leader>fdgf <cmd>Telescope git_files<cr>
+  nnoremap <leader>fdgs <cmd>Telescope git_status<cr>
+
+  if s:enable_whichkey
+    let g:which_key_map['f']['d'] = {
+          \ 'name' : '+finder',
+          \ 'b' : 'Find buffers',
+          \ 'c' : 'Find colorscheme',
+          \ 'd' : 'File browser',
+          \ 'f' : 'Find files',
+          \ 'F' : 'Find hidden files',
+          \ 'g' : {
+              \ 'name' : '+git',
+              \ 'b' : 'Find git branch',
+              \ 'c' : 'Find git commits',
+              \ 'f' : 'Find git files',
+              \ 's' : 'Find git files with changes',
+            \ },
+          \ 'h' : 'Find help tags',
+          \ 'j' : 'Find jumplist',
+          \ 'm' : 'Find files with marks',
+          \ 'o' : 'Find old files',
+          \ 'r' : 'Find string live grep',
+          \ 'w' : 'Find string undercursor',
+          \ }
   endif
 endif
 

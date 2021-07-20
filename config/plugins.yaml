@@ -202,17 +202,17 @@
   on_cmd: [Files, GitFiles, Buffers, Lines, Locate, Colors, Ag, Rg, Tags]
   on_func: [fzf#vim#with_preview, fzf#run, vista#finder#fzf#Run]
 
-- repo: liuchengxu/vim-clap
-  merged: 0
-  build: call clap#installer#build_all()
-  on_map: { n: <Plug> }
-  on_func: [vista#finder#clap#Run]
-  hook_source: source $VIM_PATH/config/plugins/vim-clap.vim
-
-- repo: hokorobi/vim-clap-sessions
-  depends: vim-clap
-  hook_add: |
-    let g:clap_session_dir = $DATA_PATH . '/session'
+# - repo: liuchengxu/vim-clap
+#   merged: 0
+#   build: call clap#installer#build_all()
+#   on_map: { n: <Plug> }
+#   on_func: [vista#finder#clap#Run]
+#   hook_source: source $VIM_PATH/config/plugins/vim-clap.vim
+# 
+# - repo: hokorobi/vim-clap-sessions
+#   depends: vim-clap
+#   hook_add: |
+#     let g:clap_session_dir = $DATA_PATH . '/session'
 
 - repo: ludovicchabant/vim-gutentags
   if: "executable('ctags')"
@@ -310,9 +310,16 @@
     source $VIM_PATH/config/plugins/nvim-tree.vim
     source $VIM_PATH/config/plugins/nvim-tree.lua
 
+- repo: nvim-lua/popup.nvim
+  if: "has('nvim-0.5')"
+- repo: nvim-lua/plenary.nvim
+  if: "has('nvim-0.5')"
+- repo: nvim-telescope/telescope.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/telescope.lua
+
 - repo: kyazdani42/nvim-web-devicons
   if: "has('nvim-0.5')"
-  on_source: nvim-tree.lua
 # }}}
 
 # ETC {{{
@@ -326,12 +333,6 @@
     let g:leetcode_solution_filetype = 'java'
 # }}}
 
-- repo: nvim-lua/popup.nvim
-  if: "has('nvim-0.5')"
-- repo: nvim-lua/plenary.nvim
-  if: "has('nvim-0.5')"
-- repo: nvim-telescope/telescope.nvim
-  if: "has('nvim-0.5')"
 - repo: nvim-treesitter/nvim-treesitter
   if: "has('nvim-0.5')"
   build: TSUpdate
