@@ -844,8 +844,7 @@ if dein#tap('taskwiki')
   vnoremap <LocalLeader>t- :TaskWikiStop<CR>
 
   " Other normal mode commands
-  nnoremap <LocalLeader>tbl :TaskWikiBufferLoad<CR>
-  nnoremap <LocalLeader>tbs :TaskWikiBufferSave<CR>
+  nnoremap <LocalLeader>tL :TaskWikiBufferLoad<CR>
   nnoremap <LocalLeader>tbd :TaskWikiBurndownDaily<CR>
   nnoremap <LocalLeader>tbw :TaskWikiBurndownWeekly<CR>
   nnoremap <LocalLeader>tbm :TaskWikiBurndownMonthly<CR>
