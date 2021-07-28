@@ -246,10 +246,13 @@
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
-- repo: oberblastmeister/neuron.nvim
-  if: "has('nvim-0.5') && !exists('g:neovide') && !exists('g:GuiLoaded') && !has('gui') && !has('gui_running')"
+# - repo: oberblastmeister/neuron.nvim
+#   hook_source: |
+#     luafile $VIM_PATH/config/plugins/neuron.lua
+
+- repo: pyrho/nerveux.nvim
   hook_source: |
-    luafile $VIM_PATH/config/plugins/neuron.lua
+    luafile $VIM_PATH/config/plugins/nerveux.lua
 
 - repo: honza/dockerfile.vim
   on_ft: Dockerfile
