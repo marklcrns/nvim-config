@@ -82,3 +82,9 @@ augroup user_cursorui
         \| setlocal cursorcolumn
         \| endif
 augroup END
+
+augroup user_linenumbersui
+  autocmd!
+  autocmd InsertEnter * setlocal norelativenumber
+  autocmd InsertLeave * setlocal relativenumber
+augroup END
