@@ -46,6 +46,13 @@ let g:which_key_map = {
           \ 'x' : 'Stop (interrupt) execution',
           \ 'A' : 'Set arguments for the next Run',
           \ },
+    \ 'e' : {
+          \ 'name' : '+file-explore',
+          \ 'w' : 'Edit file from current directory',
+          \ 'g' : 'Edit file in split from current directory',
+          \ 'v' : 'Edit file in vertical split from current directory',
+          \ 't' : 'Edit file in new tab from current directory',
+          \ },
     \ 'f' : {
           \ 'name' : '+file-manager',
           \ 'D' : 'Delete current file',
@@ -248,7 +255,6 @@ let g:which_key_smap = {
       \ 'name' : '+s-key',
       \ }
 
-let g:which_key_map['e'] = { 'name': '+file-explorer' }
 let g:which_key_map['g'] = { 'name': '+git' }
 let g:which_key_map['g']['D'] = ['GitOpenDirty', 'Open all dirty in splits']
 

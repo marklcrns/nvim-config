@@ -575,7 +575,8 @@ if dein#tap('nvim-tree.lua')
 
   if s:enable_whichkey
     let g:which_key_map['e']['e'] = 'Toggle explorer to current directory'
-    let g:which_key_map['e']['r'] = 'Toggle explorer resume directory'
+    let g:which_key_map['e']['f'] = 'Find current buffer in explorer'
+    let g:which_key_map['e']['r'] = 'Refresh file explorer'
   endif
 endif
 

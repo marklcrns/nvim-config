@@ -308,7 +308,7 @@
 
 - repo: kyazdani42/nvim-tree.lua
   if: "has('nvim-0.5')"
-  on_cmd: [NvimTreeToggle, NvimTreeOpen]
+  on_cmd: [NvimTreeToggle, NvimTreeOpen, NvimTreeFindFile]
   hook_source: |
     source $VIM_PATH/config/plugins/nvim-tree.vim
     source $VIM_PATH/config/plugins/nvim-tree.lua
