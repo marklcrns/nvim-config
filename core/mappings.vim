@@ -48,6 +48,13 @@ function! ImprovedDefaultMappings()
   xnoremap > >gv|
   " Keep cursor at the bottom of the visual selection after you yank it.
   vnoremap y ygv<Esc>
+  " Yank to end
+  nnoremap Y y$
+  " Keep centered when jumping
+  nnoremap n nzzzv
+  nnoremap N Nzzzv
+  " Keep cursor position when joining lines
+  nnoremap J mzJ`zmz
   " Fixes `[c` and `]c` not working
   nnoremap [c [c
   nnoremap ]c ]c
@@ -67,6 +74,19 @@ function! ImprovedDefaultMappings()
   " noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
   " vnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
   " vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
+  " Increment/Decrement next searcheable number by one. Wraps at end of file.
+  function! AddSubtract(char, back)
+    let pattern = &nrformats =~ 'alpha' ? '[[:alpha:][:digit:]]' : '[[:digit:]]'
+    call search(pattern, 'cw' . a:back)
+    execute 'normal! ' . v:count1 . a:char
+    silent! call repeat#set(":\<C-u>call AddSubtract('" .a:char. "', '" .a:back. "')\<CR>")
+  endfunction
+  nnoremap <silent> <M-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
+  nnoremap <silent> <M-x> :<C-u>call AddSubtract("\<C-x>", '')<CR>
+  " Increment/Decrement previous searcheable number by one. Wraps at start of file.
+  nnoremap <silent> <M-S-a> :<C-u>call AddSubtract("\<C-a>", 'b')<CR>
+  nnoremap <silent> <M-S-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
 
   " Improve scroll, credits: https://github.com/Shougo
   noremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
@@ -97,8 +117,6 @@ function! ExtendedBasicMappings()
   tnoremap <Esc> <C-\><C-n>
   " Insert actual tab instead of spaces. Useful when `expandtab` is in use
   inoremap <S-Tab> <C-v><Tab>
-  " Yank to end
-  nnoremap Y y$
   " Easier line-wise movement
   nnoremap gh g^
   nnoremap gl g$
@@ -112,18 +130,6 @@ function! ExtendedBasicMappings()
   nnoremap <C-w>J <C-w>J<C-w>=
   " Select last paste
   nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
-  " Increment/Decrement next searcheable number by one. Wraps at end of file.
-  function! AddSubtract(char, back)
-    let pattern = &nrformats =~ 'alpha' ? '[[:alpha:][:digit:]]' : '[[:digit:]]'
-    call search(pattern, 'cw' . a:back)
-    execute 'normal! ' . v:count1 . a:char
-    silent! call repeat#set(":\<C-u>call AddSubtract('" .a:char. "', '" .a:back. "')\<CR>")
-  endfunction
-  nnoremap <silent> <M-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
-  nnoremap <silent> <M-x> :<C-u>call AddSubtract("\<C-x>", '')<CR>
-  " Increment/Decrement previous searcheable number by one. Wraps at start of file.
-  nnoremap <silent> <M-S-a> :<C-u>call AddSubtract("\<C-a>", 'b')<CR>
-  nnoremap <silent> <M-S-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
 
   function! ShiftCharAscii(char, shift)
     let nr = char2nr(a:char)
@@ -271,19 +277,27 @@ endfunction
 
 " UTILITIES MAPPINGS -------------------- {{{
 function! UtilityMappings()
+  " Undo break points
+  inoremap , ,<C-g>u
+  inoremap . .<C-g>u
+  inoremap ! !<C-g>u
+  inoremap ? ?<C-g>u
   " Select last inserted characters.
   inoremap <M-v> <ESC>v`[
   " Use backspace key for matching pairs
-  nmap <BS> %
-  xmap <BS> %
+  nnoremap <BS> %
+  xnoremap <BS> %
   " Insert new line without insert mode
   nnoremap [<space> O<esc>j
   nnoremap ]<space> o<esc>k
   " Drag current line(s) vertically and auto-indent
-  nnoremap <Leader>J :m+<CR>
-  nnoremap <Leader>K :m-2<CR>
-  vnoremap J :m'>+<CR>gv=gv
+  nnoremap <Leader>J :m.+1<CR>
+  nnoremap <Leader>K :m.-2<CR>
+  vnoremap J :m'>+1<CR>gv=gv
   vnoremap K :m'<-2<CR>gv=gv
+  " Move within 'ins-completion-menu' else, move current line
+  inoremap <expr><C-j> pumvisible() ? "\<Down>" : "<Esc>:m.+1<CR>==`^i"
+  inoremap <expr><C-k> pumvisible() ? "\<Up>" : "<Esc>:m.-2<CR>==`^i"
   " Load all a:input value from files of the same extension as the current
   " buffer within project directory.
   " Ref: https://stackoverflow.com/a/4106211/11850077
@@ -590,17 +604,17 @@ endfunction
 
 " SETTINGS TOGGLE MAPPINGS -------------------- {{{
 function! SettingsToggleMappings()
-  nmap <silent> <LocalLeader>sll :<C-u>call <SID>toggle_cursorline()<CR>
-  nmap <silent> <LocalLeader>slc :<C-u>call <SID>toggle_cursorcolumn()<CR>
-  nmap <silent> <LocalLeader>slx :<C-u>call <SID>toggle_crosshair()<CR>
-  nmap <silent> <LocalLeader>sb :<C-u>call <SID>toggle_background()<CR>
-  nmap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
-  nmap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
-  nmap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>
-  nmap <silent> <LocalLeader>sv :<C-u>call <SID>toggle_virtualedit()<CR>
-  nmap <silent> <LocalLeader>ss :set spell!<CR>
+  nnoremap <silent> <LocalLeader>sll :<C-u>call <SID>toggle_cursorline()<CR>
+  nnoremap <silent> <LocalLeader>slc :<C-u>call <SID>toggle_cursorcolumn()<CR>
+  nnoremap <silent> <LocalLeader>slx :<C-u>call <SID>toggle_crosshair()<CR>
+  nnoremap <silent> <LocalLeader>sb :<C-u>call <SID>toggle_background()<CR>
+  nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
+  nnoremap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
+  nnoremap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>
+  nnoremap <silent> <LocalLeader>sv :<C-u>call <SID>toggle_virtualedit()<CR>
+  nnoremap <silent> <LocalLeader>ss :set spell!<CR>
   " Smart wrap toggle (breakindent and colorcolumn toggle as-well)
-  nmap <LocalLeader>sw :execute('setlocal wrap! breakindent! colorcolumn=' .
+  nnoremap <LocalLeader>sw :execute('setlocal wrap! breakindent! colorcolumn=' .
         \ (&colorcolumn == '' ? &textwidth : ''))<CR>
 endfunction
 " }}} SETTINGS TOGGLE MAPPINGS

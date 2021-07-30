@@ -235,10 +235,6 @@ if dein#tap('coc.nvim')
 
   nmap <leader>cr <Plug>(coc-refactor)
 
-  " Movement within 'ins-completion-menu'
-  imap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
-  imap <expr><C-k> pumvisible() ? "\<Up>" : "<C-k>"
-
   " Scroll pages in menu
   " inoremap <expr><C-f> pumvisible() ? "\<PageDown>" : "\<Right>" a
   " inoremap <expr><C-b> pumvisible() ? "\<PageUp>" : "\<Left>"
