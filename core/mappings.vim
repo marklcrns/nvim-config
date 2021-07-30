@@ -12,6 +12,130 @@ xnoremap ,        <Nop>
 nnoremap ;        <Nop>
 xnoremap ;        <Nop>
 
+" HELPER FUNCTIONS -------------------- {{{
+
+" Increment/Decrement integer
+function! AddSubtract(char, back)
+  let pattern = &nrformats =~ 'alpha' ? '[[:alpha:][:digit:]]' : '[[:digit:]]'
+  call search(pattern, 'cw' . a:back)
+  execute 'normal! ' . v:count1 . a:char
+  silent! call repeat#set(":\<C-u>call AddSubtract('" .a:char. "', '" .a:back. "')\<CR>")
+endfunction
+
+" Returns visually selected text
+function! s:get_selection(cmdtype)
+  let temp = @s
+  normal! gv"sy
+  let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
+
+" Preserve last search and cursor position before running a:command
+function! Preserve(command)
+  " Save search and cur pos
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Execute command
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+function! ShiftCharAscii(char, shift)
+  let nr = char2nr(a:char)
+  execute 'normal! r' . nr2char(nr + a:shift)
+endfunction
+
+function! VShiftCharAscii(shift)
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - 1]
+  let lines[0] = lines[0][column_start - 1:]
+
+  let str = join(lines, "\n")
+
+  let res = ""
+  for i in range(0, len(str) - 1)
+    let res = res . nr2char(char2nr(str[i]) + a:shift)
+  endfor
+
+  let clipboard = getreg('+')
+  let @+ = res
+  execute 'normal! gvpgv'
+  let @+ = clipboard
+endfunction
+
+" Load all a:input value from files of the same extension as the current
+" buffer within project directory.
+" Ref: https://stackoverflow.com/a/4106211/11850077
+function! VimgrepWrapper(input, ...)
+  " arg2 'c' for ignorecasing and 'C' for match casing
+  let casing = get(a:, 1, "")
+  let ext = expand("%:e")
+  " Find files only with same extension as current buffer if theres a file
+  " extension, else no file type filter.
+  if ext
+    exec "noautocmd vimgrep /\\" . casing . a:input . "/j **/*." . expand("%:e")
+  else
+    exec "noautocmd vimgrep /\\" . casing . a:input . "/j **/*"
+  endif
+  exec "cw"
+endfunction
+
+" Auto indent while pasting
+function! AutoIndentPaste()
+  " Don't apply on these filetypes
+  if &filetype =~ 'markdown\|vimwiki\|text|\snippets\|tex'
+    return
+  endif
+  " Format and indent pasted text automatically. Also select pasted texts after
+  nnoremap <buffer> p p=`]
+  nnoremap <buffer> P P=`]
+endfunction
+
+" Toggle Locationlist
+function! LocationlistToggle()
+  for i in range(1, winnr('$'))
+    let bnum = winbufnr(i)
+    if getbufvar(bnum, '&buftype') == 'locationlist'
+      lclose
+      return
+    endif
+  endfor
+  lopen
+endfunction
+
+" Toggle Quickfix
+function! QuickfixToggle()
+  for i in range(1, winnr('$'))
+    let bnum = winbufnr(i)
+    if getbufvar(bnum, '&buftype') == 'quickfix'
+      cclose
+      return
+    endif
+  endfor
+  copen
+endfunction
+
+" When using `dd` in the quickfix list, remove the item from the quickfix list.
+" Ref: https://stackoverflow.com/a/48817071/11850077
+function! RemoveQFItem()
+  let curqfidx = line('.') - 1
+  let qfall = getqflist()
+  call remove(qfall, curqfidx)
+  call setqflist(qfall, 'r')
+  execute curqfidx + 1 . "cfirst"
+  :copen
+endfunction
+:command! RemoveQFItem :call RemoveQFItem()
+" }}} BASIC MAPPINGS
+
 " BASIC MAPPINGS -------------------- {{{
 function! ExitMappings()
   " Quit without saving
@@ -76,12 +200,6 @@ function! ImprovedDefaultMappings()
   " vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
   " Increment/Decrement next searcheable number by one. Wraps at end of file.
-  function! AddSubtract(char, back)
-    let pattern = &nrformats =~ 'alpha' ? '[[:alpha:][:digit:]]' : '[[:digit:]]'
-    call search(pattern, 'cw' . a:back)
-    execute 'normal! ' . v:count1 . a:char
-    silent! call repeat#set(":\<C-u>call AddSubtract('" .a:char. "', '" .a:back. "')\<CR>")
-  endfunction
   nnoremap <silent> <M-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
   nnoremap <silent> <M-x> :<C-u>call AddSubtract("\<C-x>", '')<CR>
   " Increment/Decrement previous searcheable number by one. Wraps at start of file.
@@ -130,34 +248,6 @@ function! ExtendedBasicMappings()
   nnoremap <C-w>J <C-w>J<C-w>=
   " Select last paste
   nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
-
-  function! ShiftCharAscii(char, shift)
-    let nr = char2nr(a:char)
-    execute 'normal! r' . nr2char(nr + a:shift)
-  endfunction
-
-  function! VShiftCharAscii(shift)
-    let [line_start, column_start] = getpos("'<")[1:2]
-    let [line_end, column_end] = getpos("'>")[1:2]
-    let lines = getline(line_start, line_end)
-    if len(lines) == 0
-        return ''
-    endif
-    let lines[-1] = lines[-1][: column_end - 1]
-    let lines[0] = lines[0][column_start - 1:]
-
-    let str = join(lines, "\n")
-
-    let res = ""
-    for i in range(0, len(str) - 1)
-      let res = res . nr2char(char2nr(str[i]) + a:shift)
-    endfor
-
-    let clipboard = getreg('+')
-    let @+ = res
-    execute 'normal! gvpgv'
-    let @+ = clipboard
-  endfunction
 
   vnoremap <silent> <M-c> :<C-u>call VShiftCharAscii(1)<CR>
   vnoremap <silent> <M-S-c> :<C-u>call VShiftCharAscii(-1)<CR>
@@ -298,22 +388,6 @@ function! UtilityMappings()
   " Move within 'ins-completion-menu' else, move current line
   inoremap <expr><C-j> pumvisible() ? "\<Down>" : "<Esc>:m.+1<CR>==`^i"
   inoremap <expr><C-k> pumvisible() ? "\<Up>" : "<Esc>:m.-2<CR>==`^i"
-  " Load all a:input value from files of the same extension as the current
-  " buffer within project directory.
-  " Ref: https://stackoverflow.com/a/4106211/11850077
-  function! VimgrepWrapper(input, ...)
-    " arg2 'c' for ignorecasing and 'C' for match casing
-    let casing = get(a:, 1, "")
-    let ext = expand("%:e")
-    " Find files only with same extension as current buffer if theres a file
-    " extension, else no file type filter.
-    if ext
-      exec "noautocmd vimgrep /\\" . casing . a:input . "/j **/*." . expand("%:e")
-    else
-      exec "noautocmd vimgrep /\\" . casing . a:input . "/j **/*"
-    endif
-    exec "cw"
-  endfunction
   nnoremap <Leader>fg :call VimgrepWrapper("")<Left><Left>
   nnoremap <Leader>gD :GitOpenDirty<CR>
   " Termdebug
@@ -356,6 +430,11 @@ function! CommandMappings()
   cnoremap <expr><C-j> pumvisible() ? "\<C-n>" : nr2char(&wildcharm)
   cnoremap <expr><C-k> pumvisible() ? "\<C-p>" : nr2char(&wildcharm)
   cnoremap <expr><Tab> pumvisible() ? "\<C-y>" . nr2char(&wildcharm) : nr2char(&wildcharm)
+  cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+  map <leader>ew :e %%
+  map <leader>ev :vsplit %%
+  map <leader>eg :split %%
+  map <leader>et :tabe %%
 endfunction
 
 function! YankPasteMappings()
@@ -364,16 +443,6 @@ function! YankPasteMappings()
   inoremap <C-y> <Esc>"xyy"xp`.A
   " Duplicate current line then enter line substitution. DEPRECATED by vim-abolish
   " inoremap <C-y> <ESC>yypV:s//g<Left><Left>
-  " Auto indent while pasting
-  function! AutoIndentPaste()
-    " Don't apply on these filetypes
-    if &filetype =~ 'markdown\|vimwiki\|text|\snippets\|tex'
-      return
-    endif
-    " Format and indent pasted text automatically. Also select pasted texts after
-    nnoremap <buffer> p p=`]
-    nnoremap <buffer> P P=`]
-  endfunction
   autocmd BufWritePre * call AutoIndentPaste()
 endfunction
 
@@ -396,46 +465,13 @@ function! QuickFixLocationListMappings()
   nnoremap <silent> ]l :lnext<CR>
   nnoremap <silent> [L :lfirst<CR>
   nnoremap <silent> ]L :llast<CR>
-  " Toggle Locationlist
-  function! LocationlistToggle()
-    for i in range(1, winnr('$'))
-      let bnum = winbufnr(i)
-      if getbufvar(bnum, '&buftype') == 'locationlist'
-        lclose
-        return
-      endif
-    endfor
-    lopen
-  endfunction
-  nnoremap <silent> <LocalLeader>ol :call LocationlistToggle()<CR>
   " Move through the quickfix list
   nnoremap <silent> [q :cprevious<CR>
   nnoremap <silent> ]q :cnext<CR>
   nnoremap <silent> [Q :cfirst<CR>
   nnoremap <silent> ]Q :clast<CR>
-  " Toggle Quickfix
-  function! QuickfixToggle()
-    for i in range(1, winnr('$'))
-      let bnum = winbufnr(i)
-      if getbufvar(bnum, '&buftype') == 'quickfix'
-        cclose
-        return
-      endif
-    endfor
-    copen
-  endfunction
+  nnoremap <silent> <LocalLeader>ol :call LocationlistToggle()<CR>
   nnoremap <silent> <LocalLeader>oq :call QuickfixToggle()<CR>
-  " When using `dd` in the quickfix list, remove the item from the quickfix list.
-  " Ref: https://stackoverflow.com/a/48817071/11850077
-  function! RemoveQFItem()
-    let curqfidx = line('.') - 1
-    let qfall = getqflist()
-    call remove(qfall, curqfidx)
-    call setqflist(qfall, 'r')
-    execute curqfidx + 1 . "cfirst"
-    :copen
-  endfunction
-  :command! RemoveQFItem :call RemoveQFItem()
   " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
   autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
 endfunction
@@ -564,13 +600,6 @@ function! TextManipulationMappings()
   nnoremap <Leader>rR :s//gc<Left><Left><Left>
   " Search and replace within visually selected only
   xnoremap <Leader>rr :s//gc<Left><Left><Left>
-  " Returns visually selected text
-  function! s:get_selection(cmdtype)
-    let temp = @s
-    normal! gv"sy
-    let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
-    let @s = temp
-  endfunction
   " Search and replace last selected with confirmation
   nnoremap <Leader>rF :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
   xnoremap <Leader>rF :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
@@ -581,7 +610,7 @@ function! TextManipulationMappings()
   " Ref: https://stackoverflow.com/a/51291652
   vnoremap <silent> <Leader>rl :<C-U>let i=1 \| '<,'>g/^/s//\=i.'. '/ \| let i=i+1 \| nohl<CR>
   " Fix indentation of whole buffer
-  nnoremap <Leader>ri gg=G<C-o>
+  nnoremap <silent><Leader>ri :call Preserve("normal gg=G")<CR>
   " Ref: https://stackoverflow.com/a/17440797/11850077
   " Capitaliz each word of the selected
   vnoremap <Leader>rC :s/\<./\u&/g \| nohl<CR>
