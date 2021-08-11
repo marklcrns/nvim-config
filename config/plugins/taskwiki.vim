@@ -16,13 +16,19 @@ function! TodoListDetectEnable() abort
     augroup TaskWikiSync
       autocmd! BufEnter,FocusGained <buffer> TaskWikiBufferLoad
     augroup END
+
     augroup TaskWarriorSync
       autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('task sync', v:false)
-      " The line '[Process exited ?]' is appended to the terminal buffer after the
-      " `TermClose` event. So we use a timer to wait a few milliseconds to read the
-      " exit status. Setting the timer to 1 or 1 ms is not sufficient; 20 ms seems
-      " to work fine.
-      autocmd! TermClose * call timer_start(20, { -> s:afterTermClose() })
+      if get(g:, 'asyncrun_support', 0) == 1
+        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdateAsyncRun('task sync', v:false)
+      else
+        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('task sync', v:false)
+        " The line '[Process exited ?]' is appended to the terminal buffer after the
+        " `TermClose` event. So we use a timer to wait a few milliseconds to read the
+        " exit status. Setting the timer to 1 or 1 ms is not sufficient; 20 ms seems
+        " to work fine.
+        autocmd! TermClose * call timer_start(20, { -> s:afterTermClose() })
+      endif
     augroup END
   endif
 endfunction
@@ -47,6 +53,18 @@ function! TaskWarriorServerUpdate(command, force) abort
   if a:force == v:true || s:TaskDirty()
     silent exe "split | resize 4 | term " . "echo \"Executing '" . a:command . "'...\" && " . a:command
     execute bufwinnr(s:jumpToTermJob(a:command)) . 'wincmd w | normal! G'
+  endif
+endfunction
+
+function! TaskWarriorServerUpdateAsyncRun(command, force) abort
+  " Sync only if has changes and no terminal is open running the command
+  if getbufvar(bufnr('%'), '&modified') == 0 && a:force != v:true && !s:TaskDirty()
+    silent execute 'up'
+    return
+  endif
+
+  if a:force == v:true || s:TaskDirty()
+    call asyncrun#run('', '', a:command)
   endif
 endfunction
 
