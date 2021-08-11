@@ -32,6 +32,7 @@ let g:coc_global_extensions = [
       \ 'coc-prettier',
       \ 'coc-python',
       \ 'coc-ultisnips',
+      \ 'coc-scssmodules',
       \ 'coc-sh',
       \ 'coc-spell-checker',
       \ 'coc-stylelint',
