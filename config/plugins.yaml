@@ -52,6 +52,9 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/golden_size.lua
 
+- repo: camspiers/lens.vim
+  hook_source: source $VIM_PATH/config/plugins/lens.vim
+
 # Improve CursorHold performance: https://github.com/neovim/neovim/issues/12587
 - repo: antoinemadec/FixCursorHold.nvim
   if: "has('nvim')"
@@ -247,13 +250,14 @@
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
-# - repo: oberblastmeister/neuron.nvim
-#   hook_source: |
-#     luafile $VIM_PATH/config/plugins/neuron.lua
-
-- repo: pyrho/nerveux.nvim
+- repo: oberblastmeister/neuron.nvim
+  rev: unstable
   hook_source: |
-    luafile $VIM_PATH/config/plugins/nerveux.lua
+    luafile $VIM_PATH/config/plugins/neuron.lua
+
+# - repo: pyrho/nerveux.nvim
+#   hook_source: |
+#     luafile $VIM_PATH/config/plugins/nerveux.lua
 
 - repo: honza/dockerfile.vim
   on_ft: Dockerfile
@@ -268,6 +272,13 @@
 
 - repo: tpope/vim-abolish
   on_event: FileType
+
+- repo: joom/latex-unicoder.vim
+  on_func: [unicoder#start, unicoder#selection]
+  hook_source: |
+    let g:unicoder_cancel_normal = 1
+    let g:unicoder_cancel_insert = 1
+    let g:unicoder_cancel_visual = 1
 
 - repo: simnalamburt/vim-mundo
   on_map: {n: <Plug>}

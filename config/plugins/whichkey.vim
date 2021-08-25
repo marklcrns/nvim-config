@@ -190,7 +190,8 @@ let g:which_key_localmap = {
                \ 't' : 'Tab char toggle',
                \ 'r' : 'Auto split resize toggle',
                \ 'v' : 'Virtualedit mode toggle',
-               \ 'w' : 'Text wrap toggle',
+               \ 'w' : 'Text wrap view toggle',
+               \ 'W' : 'Text wrapping toggle',
                \ 'l' : {
                      \ 'name' : '+cursor',
                      \ 'c' : 'Cursorcolumn toggle',

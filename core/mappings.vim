@@ -178,7 +178,7 @@ function! ImprovedDefaultMappings()
   nnoremap n nzzzv
   nnoremap N Nzzzv
   " Keep cursor position when joining lines
-  nnoremap J mzJ`zmz
+  nnoremap J mzJ`z:delmark z<CR>
   " Fixes `[c` and `]c` not working
   nnoremap [c [c
   nnoremap ]c ]c
@@ -438,11 +438,15 @@ function! CommandMappings()
 endfunction
 
 function! YankPasteMappings()
+  " Duplicate line(s) and substitute
+  " Ref: https://stackoverflow.com/a/3806683/11850077
+  nnoremap <leader>rp yap}pV`[v`]:s//gcI<Left><Left><Left><Left>
+  vnoremap <Leader>rp y`]p`[v`]:s//gcI<Left><Left><Left><Left>
   " Yank and paste line under cursor to and from "x register
-  " nnoremap <C-y> "xyy"xp$
-  inoremap <C-y> <Esc>"xyy"xp`.A
-  " Duplicate current line then enter line substitution. DEPRECATED by vim-abolish
-  " inoremap <C-y> <ESC>yypV:s//g<Left><Left>
+  nnoremap <C-y> "xyy"xp$
+  inoremap <C-y> <Esc>"xyy"xpV:s//gI<bar>norm`.A
+        \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+  vnoremap <C-y> "xy`]"xp`[V`]
   autocmd BufWritePre * call AutoIndentPaste()
 endfunction
 
@@ -583,11 +587,6 @@ function! TextManipulationMappings()
   " Wrap paragraph to textwidth
   nnoremap <Leader>rw gwap
   xnoremap <Leader>rw gw
-  " Duplicate paragraph
-  nnoremap <leader>rp yap}p
-  " Duplicate selected line
-  " Ref: https://stackoverflow.com/a/3806683/11850077
-  vnoremap <Leader>rp y`]p
   " Change current word in a repeatable manner (repeatable with ".")
   nnoremap <leader>rn *``cgn
   nnoremap <leader>rN *``cgN
@@ -633,6 +632,7 @@ endfunction
 
 " SETTINGS TOGGLE MAPPINGS -------------------- {{{
 function! SettingsToggleMappings()
+  nnoremap <silent> <LocalLeader>ss :set spell!<CR>
   nnoremap <silent> <LocalLeader>sll :<C-u>call <SID>toggle_cursorline()<CR>
   nnoremap <silent> <LocalLeader>slc :<C-u>call <SID>toggle_cursorcolumn()<CR>
   nnoremap <silent> <LocalLeader>slx :<C-u>call <SID>toggle_crosshair()<CR>
@@ -641,7 +641,7 @@ function! SettingsToggleMappings()
   nnoremap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
   nnoremap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>
   nnoremap <silent> <LocalLeader>sv :<C-u>call <SID>toggle_virtualedit()<CR>
-  nnoremap <silent> <LocalLeader>ss :set spell!<CR>
+  nnoremap <silent> <LocalLeader>sW :<C-u>call <SID>toggle_text_wrapping()<CR>
   " Smart wrap toggle (breakindent and colorcolumn toggle as-well)
   nnoremap <LocalLeader>sw :execute('setlocal wrap! breakindent! colorcolumn=' .
         \ (&colorcolumn == '' ? &textwidth : ''))<CR>
@@ -765,11 +765,22 @@ function! s:toggle_tabchar()
   if &lcs =~ 'tab:  '
     execute 'set lcs-=tab:\ \ '
     execute 'set lcs+=tab:\▏\ '
-    echom 'Tabchar set'
+    echom "Tabchar set to '▏  '"
   elseif &lcs =~ 'tab:▏ '
     execute 'set lcs-=tab:\▏\ '
     execute 'set lcs+=tab:\ \ '
-    echom 'Tabchar default'
+    echom 'Tabchar set to default'
+  endif
+endfunction
+
+" Toggle Text wrapping
+function! s:toggle_text_wrapping()
+  if stridx(&formatoptions, 't') == -1
+    execute 'set formatoptions+=t'
+    echom 'Text wrapping activated'
+  else
+    execute 'set formatoptions-=t'
+    echom 'Text wrapping deactivated'
   endif
 endfunction
 

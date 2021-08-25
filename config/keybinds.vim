@@ -714,18 +714,23 @@ if dein#tap('vim-rooter')
   nnoremap <Leader>frr :Rooter<CR>
 endif
 
-if dein#tap('golden_size')
-  function! GoldenSizeToggle()
-    if g:golden_size_off
-      let g:golden_size_off = 0
-      echom "Golden size on"
-    else
-      let g:golden_size_off = 1
-      echom "Golden size off"
-    endif
-  endfunction
-  nnoremap <LocalLeader>sr :<C-u>call GoldenSizeToggle()<CR>
+" if dein#tap('golden_size')
+"   function! GoldenSizeToggle()
+"     if g:golden_size_off
+"       let g:golden_size_off = 0
+"       echom "Golden size on"
+"     else
+"       let g:golden_size_off = 1
+"       echom "Golden size off"
+"     endif
+"   endfunction
+"   nnoremap <LocalLeader>sr :<C-u>call GoldenSizeToggle()<CR>
+" endif
+
+if dein#tap('lens.vim')
+  nnoremap <LocalLeader>sr :<C-u>call lens#toggle()<CR>
 endif
+
 
 if dein#tap('markdown-preview.nvim')
   " Disable some mappings
@@ -1019,15 +1024,20 @@ if dein#tap('vim-abolish')
   vnoremap <Leader>rs :Subvert//g<Left><Left>
   nnoremap <Leader>rS :<C-u>%Subvert//g<Left><Left>
   " Duplicate line and subvert. Uses "x register for yanking and pasting
-  nnoremap <M-y> "xyy"xpV:Subvert//g<bar>norm`.$
-        \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-  inoremap <M-y> <ESC>"xyy"xpV:Subvert//g<bar>norm`.$
-        \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+  nnoremap <Leader>rp yap}pV`[v`]:Subvert//g<bar>norm`.$
+     \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+  vnoremap <Leader>rp y`]p`[v`]:Subvert//g<Left><Left>
 
   if s:enable_whichkey
     let g:which_key_map['r']['s'] = 'Subvert line /{pat}/{sub}/[flags]'
     let g:which_key_map['r']['S'] = 'Subvert entire /{pat}/{sub}/[flags]'
+    let g:which_key_map['r']['p'] = 'Duplicate line(s) and Subvert'
   endif
+endif
+
+if dein#tap('latex-unicoder.vim')
+  inoremap <C-l> <Esc>:call unicoder#start(1)<CR>
+  vnoremap <C-l> :<C-u>call unicoder#selection()<CR>
 endif
 
 if dein#tap('far.vim')
