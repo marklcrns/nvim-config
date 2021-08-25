@@ -173,7 +173,7 @@
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
 
 - repo: joom/latex-unicoder.vim
-  on_func: [unicoder#start, unicoder#selection]
+  on_ft: markdown
   hook_source: |
     let g:unicoder_cancel_normal = 1
     let g:unicoder_cancel_insert = 1
