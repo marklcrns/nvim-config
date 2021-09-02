@@ -173,7 +173,7 @@
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
 
 - repo: joom/latex-unicoder.vim
-  on_ft: markdown
+  on_ft: [markdown, vimwiki]
   hook_source: |
     let g:unicoder_cancel_normal = 1
     let g:unicoder_cancel_insert = 1
@@ -247,13 +247,13 @@
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
   rev: dev
-  on_if: "(getcwd() =~ $HOME . '/Documents/wiki.*' && &filetype == 'markdown')"
+  on_if: "(getcwd() =~ $HOME . '/Documents/my-wiki.*' && &filetype == 'markdown')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
 
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
-  on_if: "(expand('%:p') =~ $HOME . '/Documents/wiki/wiki/md/diary/.*' && &filetype == 'vimwiki')"
+  on_if: "(expand('%:p') =~ $HOME . '/Documents/my-wiki/task/md/diary/.*' && &filetype == 'vimwiki')"
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
