@@ -278,6 +278,10 @@ if dein#tap('coc.nvim')
   endif
 endif
 
+if dein#tap('vim-smartq')
+  nmap <silent> <leader>fq <Plug>(smartq_this_save)
+endif
+
 if dein#tap('vim-clap')
   nnoremap <silent> <Leader>fd: :<C-u>Clap command_history<CR>
   nnoremap <silent> <Leader>fdc :<C-u>Clap colors<CR>
@@ -497,9 +501,9 @@ if dein#tap('vim-easy-align')
 endif
 
 if dein#tap('vim-mundo')
-  nnoremap <silent> <Leader>ou :MundoToggle<CR>
+  nnoremap <silent> <Leader>iu :MundoToggle<CR>
   if s:enable_whichkey
-    let g:which_key_map['o']['u'] = 'Undo tree toggle'
+    let g:which_key_map['i']['u'] = 'Undo tree toggle'
   endif
 endif
 
@@ -593,14 +597,14 @@ if dein#tap('vim-quickrun')
 endif
 
 if dein#tap('vista.vim')
-  nnoremap <silent><Leader>ovv :Vista!!<CR>
-  nnoremap <silent><Leader>ovc :Vista finder clap<CR>
-  nnoremap <silent><Leader>ovf :Vista focus<CR>
-  nnoremap <silent><Leader>ovo :Vista<CR>
-  nnoremap <silent><Leader>ovq :Vista!<CR>
+  nnoremap <silent><Leader>ivv :Vista!!<CR>
+  nnoremap <silent><Leader>ivc :Vista finder clap<CR>
+  nnoremap <silent><Leader>ivf :Vista focus<CR>
+  nnoremap <silent><Leader>ivo :Vista<CR>
+  nnoremap <silent><Leader>ivq :Vista!<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['o']['v'] = {
+    let g:which_key_map['i']['v'] = {
           \ 'name' : '+vista',
           \ 'v' : 'Vista toggle',
           \ 'c' : 'Vista finder clap',
@@ -612,10 +616,10 @@ if dein#tap('vista.vim')
 endif
 
 if dein#tap('tagbar')
-  nnoremap <silent><Leader>ott :Tagbar<CR>
+  nnoremap <silent><Leader>itt :Tagbar<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['o']['t'] = {
+    let g:which_key_map['i']['t'] = {
           \ 'name' : '+tagbar',
           \ 't' : 'Tagbar toggle',
           \ }

@@ -28,6 +28,12 @@
 # Tools
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
+  rev: dev
+- repo: christoomey/vim-tmux-navigator
+  if: "! (has('win32') || has('win64'))"
+  hook_add: |
+    let g:tmux_navigator_disable_when_zoomed = 1
+    let g:tmux_navigator_no_mappings = 1
 - repo: tpope/vim-eunuch
 - repo: Shougo/context_filetype.vim
 - repo: skywind3000/asyncrun.vim
@@ -38,12 +44,6 @@
 - repo: szw/vim-maximizer
   hook_source: |
     let g:maximizer_set_default_mapping = 0
-
-- repo: christoomey/vim-tmux-navigator
-  if: "! (has('win32') || has('win64'))"
-  hook_add: |
-    let g:tmux_navigator_disable_when_zoomed = 1
-    let g:tmux_navigator_no_mappings = 1
 
 - repo: sgur/vim-editorconfig
   hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
@@ -322,8 +322,10 @@
   if: "has('nvim-0.5')"
   on_cmd: [NvimTreeToggle, NvimTreeOpen, NvimTreeFindFile]
   hook_source: |
-    source $VIM_PATH/config/plugins/nvim-tree.vim
     source $VIM_PATH/config/plugins/nvim-tree.lua
+    source $VIM_PATH/config/plugins/nvim-tree.vim
+- repo: kyazdani42/nvim-web-devicons
+  if: "has('nvim-0.5')"
 
 - repo: nvim-lua/popup.nvim
   if: "has('nvim-0.5')"
@@ -332,9 +334,6 @@
 - repo: nvim-telescope/telescope.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/telescope.lua
-
-- repo: kyazdani42/nvim-web-devicons
-  if: "has('nvim-0.5')"
 # }}}
 
 # ETC {{{
@@ -354,4 +353,3 @@
   hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
 - repo: nvim-treesitter/nvim-treesitter-textobjects
   if: "has('nvim-0.5')"
-

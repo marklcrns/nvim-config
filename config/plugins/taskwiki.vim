@@ -2,6 +2,7 @@ let g:taskwiki_markup_syntax = 'markdown'
 let g:taskwiki_dont_preserve_folds = 'yes'
 let g:taskwiki_disable_concealcursor = 'yes'
 let g:taskwiki_suppress_mappings = 'yes'
+let s:sync_command = 'test -e /tmp/task_sync.lock || task sync'
 
 augroup VimwikiTodoListDetect
   autocmd!
@@ -11,18 +12,17 @@ augroup END
 " Enable autocmds if file contains 'title:TODO list' metadata or '# Todo List'
 " markdown header in the first 10 lines of the file
 function! TodoListDetectEnable() abort
-  let n = 1
   if expand('%:t:r') =~ '^\v\d{4}-\d\d-\d\d'
     augroup TaskWikiSync
       autocmd! BufEnter,FocusGained <buffer> TaskWikiBufferLoad
     augroup END
 
     augroup TaskWarriorSync
-      autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('task sync', v:false)
+      autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate(s:sync_command, v:false)
       if get(g:, 'asyncrun_support', 0) == 1
-        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdateAsyncRun('task sync', v:false)
+        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdateAsyncRun(s:sync_command, v:false)
       else
-        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate('task sync', v:false)
+        autocmd! BufWritePost <buffer> call TaskWarriorServerUpdate(s:sync_command, v:false)
         " The line '[Process exited ?]' is appended to the terminal buffer after the
         " `TermClose` event. So we use a timer to wait a few milliseconds to read the
         " exit status. Setting the timer to 1 or 1 ms is not sufficient; 20 ms seems

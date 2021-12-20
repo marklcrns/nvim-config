@@ -358,8 +358,11 @@ function! badge#indexing() abort
 		endif
 	endif
 	if exists('*coc#status')
-		let l:out .= coc#status()
+		let l:out .= coc#status() . ' '
 	endif
+	" if luaeval("require'nvim-gps'.is_available()")
+	" 	let l:out .= luaeval("require'nvim-gps'.get_location()")
+	" endif
 	if exists('g:SessionLoad') && g:SessionLoad == 1
 		let l:out .= '[s]'
 	endif

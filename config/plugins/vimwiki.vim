@@ -134,11 +134,15 @@ endfunction
 command! -register CopyMatches call CopyMatches(<q-reg>)
 
 function! IndexResourcesLinks(header, pattern)
+  let list_type_include = '-+'
+  let list_type_exclude = '*'
+  let link_type_emojis = '⬇📄📑💽📺'
   " Save cursor position
   let save_pos = getpos(".")
   " Use default link pattern in non was given
   " Note: \_.\{-} regex pattern matches all characters including new lines.
-  let pattern = empty(a:pattern) ? '^\([-*]\s\|[^+]*\)\zs\[[⬇📄📑💽📺]\_.\{-}\](\_.\{-})' : a:pattern
+  " Res: https://vim.fandom.com/wiki/Regex_lookahead_and_lookbehind
+  let pattern = empty(a:pattern) ? '^\(['.list_type_include.']\s\|[^'.list_type_exclude.']*\)\zs\[['.link_type_emojis.']\_.\{-}\](\_.\{-}\(\\\)\@<!)' : a:pattern
   " Check if pattern matched
   if search(pattern, 'w') == 0
     echo "No link pattern match found"
