@@ -2,6 +2,7 @@ let g:taskwiki_markup_syntax = 'markdown'
 let g:taskwiki_dont_preserve_folds = 'yes'
 let g:taskwiki_disable_concealcursor = 'yes'
 let g:taskwiki_suppress_mappings = 'yes'
+let g:taskwiki_use_python2 = 'yes'
 let s:sync_command = 'test -e /tmp/task_sync.lock || task sync'
 
 augroup VimwikiTodoListDetect
