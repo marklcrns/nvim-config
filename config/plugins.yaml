@@ -122,12 +122,6 @@
   on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/delimitMate.vim
 
-# - repo: puremourning/vimspector
-#   hook_source: source $VIM_PATH/config/plugins/vimspector.vim
-#   hook_add: |
-#     let g:vimspector_enable_mappings = 'HUMAN'
-# }}}
-
 # Git{{{
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
