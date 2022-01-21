@@ -507,53 +507,53 @@ if dein#tap('vim-mundo')
   endif
 endif
 
-if dein#tap('caw.vim')
-  function! InitCaw() abort
-    if ! (&l:modifiable && &buftype ==# '')
-      silent! nunmap <buffer> gc
-      silent! xunmap <buffer> gc
-      silent! nunmap <buffer> gcc
-      silent! xunmap <buffer> gcc
-    else
-      xmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
-      nmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
-      xmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
-      nmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
-      xmap <buffer> <Leader>/b <Plug>(caw:box:comment)
-      nmap <buffer> <Leader>/b <Plug>(caw:box:comment)
-      xmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
-      nmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
-      xmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
-      nmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
-      xmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
-      nmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
-      xmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
-      nmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
-      xmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
-      nmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
-      nmap <buffer> gc <Plug>(caw:prefix)
-      xmap <buffer> gc <Plug>(caw:prefix)
-      nmap <buffer> gcc <Plug>(caw:hatpos:toggle:operator)
-      xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-    endif
-  endfunction
-  autocmd FileType * call InitCaw()
-  call InitCaw()
+" if dein#tap('caw.vim')
+"   function! InitCaw() abort
+"     if ! (&l:modifiable && &buftype ==# '')
+"       silent! nunmap <buffer> gc
+"       silent! xunmap <buffer> gc
+"       silent! nunmap <buffer> gcc
+"       silent! xunmap <buffer> gcc
+"     else
+"       xmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
+"       nmap <buffer> <Leader>// <Plug>(caw:hatpos:toggle)
+"       xmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
+"       nmap <buffer> <Leader>/a <Plug>(caw:dollarpos:comment)
+"       xmap <buffer> <Leader>/b <Plug>(caw:box:comment)
+"       nmap <buffer> <Leader>/b <Plug>(caw:box:comment)
+"       xmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
+"       nmap <buffer> <Leader>/c <Plug>(caw:hatpos:comment)
+"       xmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
+"       nmap <buffer> <Leader>/j <Plug>(caw:jump:comment-next)
+"       xmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
+"       nmap <buffer> <Leader>/k <Plug>(caw:jump:comment-prev)
+"       xmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
+"       nmap <buffer> <Leader>/i <Plug>(caw:zeropos:comment)
+"       xmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
+"       nmap <buffer> <Leader>/w <Plug>(caw:wrap:toggle)
+"       nmap <buffer> gc <Plug>(caw:prefix)
+"       xmap <buffer> gc <Plug>(caw:prefix)
+"       nmap <buffer> gcc <Plug>(caw:hatpos:toggle:operator)
+"       xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+"     endif
+"   endfunction
+"   autocmd FileType * call InitCaw()
+"   call InitCaw()
 
-  if s:enable_whichkey
-    let g:which_key_map['/'] = {
-          \ 'name' : '+commenter',
-          \ '/' : 'Comment toggle',
-          \ 'a' : 'Comment line/selected end',
-          \ 'b' : 'Comment box',
-          \ 'c' : 'Comment line/selected',
-          \ 'i' : 'Comment line/selected beginning',
-          \ 'j' : 'Jump next comment',
-          \ 'k' : 'Jump Prev comment',
-          \ 'w' : 'Comment wrap toggle',
-          \ }
-  endif
-endif
+"   if s:enable_whichkey
+"     let g:which_key_map['/'] = {
+"           \ 'name' : '+commenter',
+"           \ '/' : 'Comment toggle',
+"           \ 'a' : 'Comment line/selected end',
+"           \ 'b' : 'Comment box',
+"           \ 'c' : 'Comment line/selected',
+"           \ 'i' : 'Comment line/selected beginning',
+"           \ 'j' : 'Jump next comment',
+"           \ 'k' : 'Jump Prev comment',
+"           \ 'w' : 'Comment wrap toggle',
+"           \ }
+"   endif
+" endif
 
 if dein#tap('accelerated-jk')
   " Position-driven acceleration

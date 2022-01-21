@@ -28,12 +28,15 @@
 # Tools
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
+  on_event: FileType
   rev: dev
+
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
   hook_add: |
     let g:tmux_navigator_disable_when_zoomed = 1
     let g:tmux_navigator_no_mappings = 1
+
 - repo: tpope/vim-eunuch
 - repo: Shougo/context_filetype.vim
 - repo: skywind3000/asyncrun.vim
@@ -48,9 +51,9 @@
 - repo: sgur/vim-editorconfig
   hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
 
-- repo: dm1try/golden_size
-  if: "has('nvim-0.5')"
-  hook_source: luafile $VIM_PATH/config/plugins/golden_size.lua
+# - repo: dm1try/golden_size
+#   if: "has('nvim-0.5')"
+#   hook_source: luafile $VIM_PATH/config/plugins/golden_size.lua
 
 - repo: camspiers/lens.vim
   hook_source: source $VIM_PATH/config/plugins/lens.vim
@@ -90,6 +93,12 @@
 # Syntax
 # ----------------------------------------
 - repo: tmux-plugins/vim-tmux
+- repo: nvim-treesitter/nvim-treesitter
+  if: "has('nvim-0.5')"
+  build: TSUpdate
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
+- repo: nvim-treesitter/nvim-treesitter-textobjects
+  if: "has('nvim-0.5')"
 
 # Coding tools
 # ----------------------------------------
@@ -111,8 +120,11 @@
   hook_add: |
     let g:niceblock_no_default_key_mappings = 0
 
-- repo: tyru/caw.vim
-  on_map: { nx: <Plug> }
+# - repo: tyru/caw.vim
+#   on_map: { nx: <Plug> }
+
+- repo: b3nj5m1n/kommentary
+  on_event: FileType
 
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }
@@ -247,6 +259,7 @@
 
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
+  if: has('python3')
   on_if: "(expand('%:p') =~ $HOME . '/Documents/my-wiki/task/md/diary/.*' && &filetype == 'vimwiki')"
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
@@ -283,6 +296,9 @@
 - repo: easymotion/vim-easymotion
   on_map: {n: <Plug>}
   hook_add: source $VIM_PATH/config/plugins/vim-easymotion.vim
+
+- repo: ggandor/lightspeed.nvim
+  if: "has('nvim-0.5')"
 
 - repo: brooth/far.vim
   on_cmd: [F, Far, Farr, Farf, Refar, Farundo]
@@ -341,9 +357,3 @@
     let g:leetcode_solution_filetype = 'java'
 # }}}
 
-- repo: nvim-treesitter/nvim-treesitter
-  if: "has('nvim-0.5')"
-  build: TSUpdate
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
-- repo: nvim-treesitter/nvim-treesitter-textobjects
-  if: "has('nvim-0.5')"
