@@ -163,7 +163,7 @@
   hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
 
 - repo: iamcco/markdown-preview.nvim
-  if: "has('nvim')"
+  if: "has('nvim') && executable('yarn')"
   on_ft: [markdown, pandoc.markdown, rmd]
   build: 'sh -c "cd app && yarn install"'
   hook_add: source $VIM_PATH/config/plugins/markdown-preview.vim
