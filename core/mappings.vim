@@ -178,7 +178,7 @@ function! ImprovedDefaultMappings()
   nnoremap n nzzzv
   nnoremap N Nzzzv
   " Keep cursor position when joining lines
-  nnoremap J mzJ`z:delmark z<CR>
+  nnoremap <silent> J :let p=getpos('.')<bar>join<bar>call setpos('.', p)<cr>
   " Fixes `[c` and `]c` not working
   nnoremap [c [c
   nnoremap ]c ]c
