@@ -175,6 +175,7 @@
 # LaTeX
 # ----------------------------------------
 - repo: lervag/vimtex
+  merged: 0
   on_ft: tex
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
 
@@ -250,6 +251,12 @@
 - repo: benmills/vimux
   on_cmd: [VimuxPromptCommand, VimuxOpenRunner]
 
+- repo: nvim-neorg/neorg
+  if: "has('nvim-0.5')"
+  build: 'TSInstall norg norg_meta norg_table'
+  depends: [plenary.nvim, nvim-treesitter]
+  hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
+
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
   rev: dev
@@ -265,13 +272,9 @@
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
 - repo: oberblastmeister/neuron.nvim
+  merged: 0
   rev: unstable
-  hook_source: |
-    luafile $VIM_PATH/config/plugins/neuron.lua
-
-# - repo: pyrho/nerveux.nvim
-#   hook_source: |
-#     luafile $VIM_PATH/config/plugins/nerveux.lua
+  hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
 
 - repo: honza/dockerfile.vim
   on_ft: Dockerfile

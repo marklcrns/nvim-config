@@ -78,7 +78,7 @@
   "list.source.outline.defaultOptions": ["--auto-preview"],
 
   //prettier
-  "coc.preferences.formatOnSaveFiletypes": ["css", "scss"],
+  // "coc.preferences.formatOnSaveFiletypes": ["css", "scss"],
   "prettier.statusItemText": "ⓟ",
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,
