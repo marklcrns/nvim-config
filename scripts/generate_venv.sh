@@ -63,3 +63,14 @@ else
 fi
 
 ok "===> python provider pass"
+
+if ! command -v tree-sitter &> /dev/null; then
+  if grep -qEi "(microsoft|WSL)" /proc/version &> /dev/null; then
+    npm -g install tree-sitter-cli
+  else
+    npm -g install tree-sitter
+  fi
+fi
+
+ok "===> Tree-sitter installed"
+
