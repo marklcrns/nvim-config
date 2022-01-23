@@ -215,7 +215,7 @@ set noruler             " Disable default status ruler
 set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 5 lines left/right
-set fillchars+=vert:\|  " add a bar for vertical splits
+set fillchars+=vert:\│  " add a bar for vertical splits
 set list
 let &showbreak='↳  '
 " set listchars=tab:\│\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
@@ -290,4 +290,7 @@ if exists('g:neovide')
   let g:neovide_cursor_vfx_mode = "wireframe"
 endif
 
+if exists('g:Gui') || exists('g:GuiLoaded') || has("gui_running") || has('gui')
+  set guifont=SauceCodePro\ NF:h16
+endif
 " }}}

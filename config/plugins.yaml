@@ -51,10 +51,6 @@
 - repo: sgur/vim-editorconfig
   hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
 
-# - repo: dm1try/golden_size
-#   if: "has('nvim-0.5')"
-#   hook_source: luafile $VIM_PATH/config/plugins/golden_size.lua
-
 - repo: camspiers/lens.vim
   hook_source: source $VIM_PATH/config/plugins/lens.vim
 
@@ -120,9 +116,6 @@
   hook_add: |
     let g:niceblock_no_default_key_mappings = 0
 
-# - repo: tyru/caw.vim
-#   on_map: { nx: <Plug> }
-
 - repo: b3nj5m1n/kommentary
   on_event: FileType
 
@@ -180,8 +173,8 @@
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
 
 - repo: joom/latex-unicoder.vim
-  on_ft: [markdown, vimwiki]
-  hook_source: |
+  on_ft: [markdown, vimwiki, norg]
+  hook_add: |
     let g:unicoder_cancel_normal = 1
     let g:unicoder_cancel_insert = 1
     let g:unicoder_cancel_visual = 1
@@ -220,18 +213,6 @@
   on_cmd: [Files, GitFiles, Buffers, Lines, Locate, Colors, Ag, Rg, Tags]
   on_func: [fzf#vim#with_preview, fzf#run, vista#finder#fzf#Run]
 
-# - repo: liuchengxu/vim-clap
-#   merged: 0
-#   build: call clap#installer#build_all()
-#   on_map: { n: <Plug> }
-#   on_func: [vista#finder#clap#Run]
-#   hook_source: source $VIM_PATH/config/plugins/vim-clap.vim
-# 
-# - repo: hokorobi/vim-clap-sessions
-#   depends: vim-clap
-#   hook_add: |
-#     let g:clap_session_dir = $DATA_PATH . '/session'
-
 - repo: ludovicchabant/vim-gutentags
   if: "executable('ctags')"
   on_event: [BufReadPost, BufWritePost]
@@ -254,8 +235,11 @@
 - repo: nvim-neorg/neorg
   if: "has('nvim-0.5')"
   build: 'TSInstall norg norg_meta norg_table'
-  depends: [plenary.nvim, nvim-treesitter]
+  depends: [plenary.nvim, nvim-treesitter, telescope.nvim]
   hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
+
+- repo: nvim-neorg/neorg-telescope
+  depends: [neorg, telescope.nvim]
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
@@ -272,8 +256,9 @@
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
 - repo: oberblastmeister/neuron.nvim
-  merged: 0
+  if: "executable('neuron')"
   rev: unstable
+  merged: 0
   hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
 
 - repo: honza/dockerfile.vim
