@@ -259,6 +259,7 @@
   if: "executable('neuron')"
   rev: unstable
   merged: 0
+  on_ft: markdown
   hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
 
 - repo: honza/dockerfile.vim
