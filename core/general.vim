@@ -286,11 +286,11 @@ endif
 " Note: make sure win32yank.exe is sourced in $PATH before other system
 " clipboard utility, such as xclip, for it to work. /usr/local/bin works.
 if exists('g:neovide')
-  set guifont=SauceCodePro\ NF:h16
+  set guifont=SauceCodePro\ Nerd\ Font:h14
   let g:neovide_cursor_vfx_mode = "wireframe"
 endif
 
 if exists('g:Gui') || exists('g:GuiLoaded') || has("gui_running") || has('gui')
-  set guifont=SauceCodePro\ NF:h16
+  set guifont=SauceCodePro\ Nerd\ Font:h16
 endif
 " }}}
