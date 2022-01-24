@@ -281,16 +281,28 @@ if has('termguicolors') && &termguicolors
   endif
 endif
 
+if exists('g:neovide') || exists('g:Gui') || exists('g:GuiLoaded') || has("gui_running") || has('gui')
+  let s:guifontsize = 14
+  let s:guifont = 'Source\ Code\ Pro\ iCursive\ S12'
+
+  function! AdjustFontSize(amount)
+    let s:guifontsize = s:guifontsize+a:amount
+    exec "set guifont=" . s:guifont . ":h" . s:guifontsize
+  endfunction
+
+  noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
+  noremap <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
+  inoremap <C-ScrollWheelUp> <Esc>:call AdjustFontSize(1)<CR>a
+  inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
+
+  exec "set guifont=" . s:guifont . ":h" . s:guifontsize
+endif
+
 " [SOLVED] WSL2 system clipboard not working.
 " https://github.com/Kethku/neovide/issues/544#issuecomment-820519937
 " Note: make sure win32yank.exe is sourced in $PATH before other system
 " clipboard utility, such as xclip, for it to work. /usr/local/bin works.
 if exists('g:neovide')
-  set guifont=SauceCodePro\ Nerd\ Font:h14
   let g:neovide_cursor_vfx_mode = "wireframe"
-endif
-
-if exists('g:Gui') || exists('g:GuiLoaded') || has("gui_running") || has('gui')
-  set guifont=SauceCodePro\ Nerd\ Font:h16
 endif
 " }}}
