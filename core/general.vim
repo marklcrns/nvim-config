@@ -282,20 +282,17 @@ if has('termguicolors') && &termguicolors
 endif
 
 if exists('g:neovide') || exists('g:Gui') || exists('g:GuiLoaded') || has("gui_running") || has('gui')
-  let s:guifontsize = 14
-  let s:guifont = 'Source\ Code\ Pro\ iCursive\ S12'
-
   function! AdjustFontSize(amount)
-    let s:guifontsize = s:guifontsize+a:amount
-    exec "set guifont=" . s:guifont . ":h" . s:guifontsize
+    let g:guifontsize = g:guifontsize+a:amount
+    exec "set guifont=" . g:guifont . ":h" . g:guifontsize
   endfunction
 
-  noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
-  noremap <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
-  inoremap <C-ScrollWheelUp> <Esc>:call AdjustFontSize(1)<CR>a
-  inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
+  noremap <silent> <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
+  noremap <silent> <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
+  inoremap <silent> <C-ScrollWheelUp> <Esc>:call AdjustFontSize(1)<CR>a
+  inoremap <silent> <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
 
-  exec "set guifont=" . s:guifont . ":h" . s:guifontsize
+  exec "set guifont=" . g:guifont . ":h" . g:guifontsize
 endif
 
 " [SOLVED] WSL2 system clipboard not working.
