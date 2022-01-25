@@ -4,6 +4,7 @@
   "diagnostic.messageTarget": "float",
   "signature.target": "float",
   "coc.preferences.hoverTarget": "float",
+  "coc.preferences.jumpCommand": ":vsplit",
 
   "suggest.triggerAfterInsertEnter": false,
   "suggest.minTriggerInputLength": 1,

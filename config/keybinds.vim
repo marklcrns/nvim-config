@@ -183,9 +183,6 @@ if dein#tap('coc.nvim')
   nnoremap <Leader>ctg :<C-u>CocCommand git.toggleGutters<Cr>
   nnoremap <Leader>cts :<C-u>CocCommand cSpell.toggleEnableSpellChecker<Cr>
 
-  " Use K for show documentation in float window
-  " nnoremap <silent> K :call CocActionAsync('doHover')<CR>
-
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
 
