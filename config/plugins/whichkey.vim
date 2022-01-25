@@ -4,8 +4,6 @@ let g:which_key_sep = '»'
 
 let g:which_key_display_names = {
       \       ' ': '␣',
-      \   '<C-H>': '←',
-      \   '<C-I>': '⇆',
       \   '<TAB>': '⇆',
       \ '<S-TAB>': 'S⇆',
       \    '<CR>': '↵',

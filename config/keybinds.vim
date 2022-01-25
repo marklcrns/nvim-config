@@ -654,26 +654,44 @@ if dein#tap('vim-sandwich')
 endif
 
 if dein#tap('sideways.vim')
-  nnoremap <c-h> :SidewaysLeft<cr>
-  nnoremap <c-l> :SidewaysRight<cr>
+  nnoremap <Leader><c-h> :SidewaysLeft<cr>
+  nnoremap <Leader><c-l> :SidewaysRight<cr>
+  if s:enable_whichkey
+    let g:which_key_map['<C-H>'] = 'Sideways Left'
+    let g:which_key_map['<C-L>'] = 'Sideways Right'
+  endif
+endif
+
+if dein#tap('splitjoin.vim')
+  if s:enable_whichkey
+    let g:which_key_map['<C-J>'] = 'Splitjoin Join'
+    let g:which_key_map['<C-K>'] = 'Splitjoin Split'
+  endif
 endif
 
 if dein#tap('vim-zoom')
   nmap <silent> [Window]f <Plug>(zoom-toggle)
 endif
 
-if dein#tap('vim-maximizer')
-  nmap <silent> [Window]z :MaximizerToggle<CR>
-endif
-
 if dein#tap('vim-rooter')
   nnoremap <Leader>frr :Rooter<CR>
 endif
 
-if dein#tap('lens.vim')
-  nnoremap <LocalLeader>sr :<C-u>call lens#toggle()<CR>
+if dein#tap('focus.nvim')
+  nnoremap <LocalLeader>sr :<C-u>FocusToggle<CR>
+  nnoremap <silent> [Window]z     :<C-u>FocusMaxOrEqual<CR>
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['r'] = 'Toggle Auto-resize'
+  endif
 endif
 
+if dein#tap('winshift.nvim')
+  nnoremap <C-Left> :WinShift left<CR>
+  nnoremap <C-Down> :WinShift down<CR>
+  nnoremap <C-Up> :WinShift up<CR>
+  nnoremap <C-Right> :WinShift right<CR>
+endif
 
 if dein#tap('markdown-preview.nvim')
   " Disable some mappings
@@ -984,15 +1002,9 @@ if dein#tap('vim-abolish')
 
   if s:enable_whichkey
     let g:which_key_map['r']['s'] = 'Subvert line /{pat}/{sub}/[flags]'
-    let g:which_key_map['r']['S'] = 'Subvert entire /{pat}/{sub}/[flags]'
+    let g:which_key_map['r']['S'] = 'Subvert file /{pat}/{sub}/[flags]'
     let g:which_key_map['r']['p'] = 'Duplicate line(s) and Subvert'
   endif
-endif
-
-if dein#tap('latex-unicoder.vim')
-  nnoremap <C-l> :call unicoder#start(0)<CR>
-  inoremap <C-l> <Esc>:call unicoder#start(1)<CR>
-  vnoremap <C-l> :<C-u>call unicoder#selection()<CR>
 endif
 
 if dein#tap('far.vim')
@@ -1010,7 +1022,7 @@ if dein#tap('far.vim')
           \ 'name' : '+far',
           \ 'd' : 'Do (apply) find and replace',
           \ 'f' : 'Find',
-          \ 'l' : 'Reexecute last far command',
+          \ 'l' : 'Execute last far command',
           \ 'r' : 'Find and replace',
           \ 'u' : 'Undo find and replace',
           \ }

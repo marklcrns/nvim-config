@@ -232,11 +232,11 @@ set showmatch           " Jump to matching bracket
 set matchpairs+=<:>     " Add HTML brackets to pair matching
 set matchtime=1         " Tenths of a second to show the matching paren
 
-set showtabline=2       " Always show the tabs line
-set winwidth=30         " Minimum width for active window
-set winminwidth=10      " Minimum width for inactive windows
+" set winwidth=30         " Minimum width for active window
+" set winminwidth=10      " Minimum width for inactive windows
 " set winheight=4         " Minimum height for active window
-set winminheight=1      " Minimum height for inactive window
+" set winminheight=1      " Minimum height for inactive window
+set showtabline=2       " Always show the tabs line
 set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
 set previewheight=12    " Completion preview height

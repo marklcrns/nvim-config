@@ -31,6 +31,9 @@
   on_event: FileType
   rev: dev
 
+- repo: akinsho/toggleterm.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/toggleterm.lua
+
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
   hook_add: |
@@ -44,15 +47,16 @@
 - repo: dhruvasagar/vim-zoom
   hook_add: |
     let g:zoom#statustext = 'F'
-- repo: szw/vim-maximizer
-  hook_source: |
-    let g:maximizer_set_default_mapping = 0
 
 - repo: sgur/vim-editorconfig
   hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
 
-- repo: camspiers/lens.vim
-  hook_source: source $VIM_PATH/config/plugins/lens.vim
+- repo: beauwilliams/focus.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/focus.lua
+
+- repo: sindrets/winshift.nvim
+  if: "has('nvim-0.5')"
 
 # Improve CursorHold performance: https://github.com/neovim/neovim/issues/12587
 - repo: antoinemadec/FixCursorHold.nvim
@@ -88,13 +92,15 @@
 
 # Syntax
 # ----------------------------------------
-- repo: tmux-plugins/vim-tmux
 - repo: nvim-treesitter/nvim-treesitter
   if: "has('nvim-0.5')"
   build: TSUpdate
   hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
 - repo: nvim-treesitter/nvim-treesitter-textobjects
   if: "has('nvim-0.5')"
+- repo: lewis6991/spellsitter.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/spellsitter.lua
 
 # Coding tools
 # ----------------------------------------
@@ -108,8 +114,8 @@
 - repo: AndrewRadev/splitjoin.vim
   on_event: FileType
   hook_add: |
-    let g:splitjoin_split_mapping = '<C-k>'
-    let g:splitjoin_join_mapping = '<C-j>'
+    let g:splitjoin_join_mapping = '<Leader><C-j>'
+    let g:splitjoin_split_mapping = '<Leader><C-k>'
 
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
@@ -117,7 +123,9 @@
     let g:niceblock_no_default_key_mappings = 0
 
 - repo: b3nj5m1n/kommentary
+  if: "has('nvim')"
   on_event: FileType
+  hook_source: luafile $VIM_PATH/config/plugins/kommentary.lua
 
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }
@@ -171,13 +179,6 @@
   merged: 0
   on_ft: tex
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
-
-- repo: joom/latex-unicoder.vim
-  on_ft: [markdown, vimwiki, norg]
-  hook_add: |
-    let g:unicoder_cancel_normal = 1
-    let g:unicoder_cancel_insert = 1
-    let g:unicoder_cancel_visual = 1
 # }}}
 
 
@@ -219,10 +220,12 @@
   hook_source: source $VIM_PATH/config/plugins/vim-gutentags.vim
 
 - repo: liuchengxu/vista.vim
+  if: "executable('ctags')"
   on_cmd: Vista
   hook_source: source $VIM_PATH/config/plugins/vista.vim
     
 - repo: preservim/tagbar
+  if: "executable('ctags')"
   on_cmd: [Tagbar, TabarOpen, TagbarToggle, TagbarOpenAutoClose]
 
 - repo: airblade/vim-rooter
