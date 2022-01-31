@@ -416,10 +416,11 @@ endfunction
 
 function! CommandMappings()
   " Commandline basic movements
-  "cnoremap w!! w !sudo tee % >/dev/null
-  cnoremap <C-p> <Up>
-  cnoremap <C-b> <Left>
-  cnoremap <C-f> <Right>
+  " cnoremap w!! w !sudo tee % >/dev/null
+  " cnoremap <C-p> <Up>
+  " cnoremap <C-n> <Down>
+  " cnoremap <C-b> <Left>
+  " cnoremap <C-f> <Right>
   cnoremap <C-a> <Home>
   cnoremap <C-e> <End>
   cnoremap <C-d> <Del>

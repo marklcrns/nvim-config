@@ -28,8 +28,6 @@
 # Tools
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
-  on_event: FileType
-  rev: dev
 
 - repo: akinsho/toggleterm.nvim
   hook_source: luafile $VIM_PATH/config/plugins/toggleterm.lua
@@ -202,6 +200,7 @@
   hook_source: source $VIM_PATH/config/plugins/limelight.vim
 
 - repo: junegunn/fzf
+  build: 'cd ~/.fzf && ./install --all'
   merged: 0
   on_cmd: FZF
   type__depth: 1
@@ -262,7 +261,11 @@
   if: "executable('neuron')"
   merged: 0
   on_ft: markdown
+  depends: [telescope.nvim, plenary.nvim]
   hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
+
+# - repo: pyrho/nerveux.nvim
+#   hook_source: luafile $VIM_PATH/config/plugins/nerveux.lua
 
 - repo: honza/dockerfile.vim
   on_ft: Dockerfile

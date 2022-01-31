@@ -159,8 +159,11 @@ if dein#tap('coc.nvim')
   nmap <leader>cq <Plug>(coc-fix-current)
   " Remap keys for gotos
   nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gD :call CocAction('jumpDefinition', 'vsplit')<CR>
   nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gY :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
   nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gI :call CocAction('jumpImplementation', 'vsplit')<CR>
   nmap <silent> gr <Plug>(coc-references)
 
   " coc-git
@@ -676,7 +679,7 @@ endif
 
 if dein#tap('focus.nvim')
   nnoremap <LocalLeader>sr :<C-u>FocusToggle<CR>
-  nnoremap <silent> [Window]z     :<C-u>FocusMaxOrEqual<CR>
+  nnoremap <silent> [Window]z :<C-u>FocusMaxOrEqual<CR>
 
   if s:enable_whichkey
     let g:which_key_localmap['s']['r'] = 'Toggle Auto-resize'

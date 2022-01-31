@@ -1,11 +1,13 @@
 {
+  // "coc.preferences.jumpCommand": ":vsplit",
+
   // Floating window
   "suggest.floatEnable": true,
   "diagnostic.messageTarget": "float",
   "signature.target": "float",
   "coc.preferences.hoverTarget": "float",
-  "coc.preferences.jumpCommand": ":vsplit",
 
+  // Completion
   "suggest.triggerAfterInsertEnter": false,
   "suggest.minTriggerInputLength": 1,
   "suggest.timeout": 500,
@@ -42,7 +44,7 @@
       "default": "\uf29c"
   },
 
-  //diagnostic
+  // Diagnostics
   "diagnostic.enable": true,
   "diagnostic.enableSign": true,
   "diagnostic.enableHighlightLineNumber": false,
@@ -54,37 +56,37 @@
   "diagnostic.displayByAle": false,
   "diagnostic.refreshOnInsertMode": false,
 
-  //git
+  // Git
   "git.enableGutters": false,
-  //"git.branchCharacter":"\uf408",
-  //"git.addGBlameToBufferVar": true,
-  //"git.addGBlameToVirtualText": true,
-  //"git.virtualTextPrefix": " ❯❯❯ ",
-  //"git.addedSign.hlGroup": "GitGutterAdd",
-  //"git.changedSign.hlGroup": "GitGutterChange",
-  //"git.removedSign.hlGroup": "GitGutterDelete",
-  //"git.topRemovedSign.hlGroup": "GitGutterDelete",
-  //"git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  //"git.addedSign.text":"▎",
-  //"git.changedSign.text":"▎",
-  //"git.removedSign.text":"▏",
-  //"git.topRemovedSign.text": "▔",
-  //"git.changeRemovedSign.text": "▋",
+  // "git.branchCharacter":"\uf408",
+  // "git.addGBlameToBufferVar": true,
+  // "git.addGBlameToVirtualText": true,
+  // "git.virtualTextPrefix": " ❯❯❯ ",
+  // "git.addedSign.hlGroup": "GitGutterAdd",
+  // "git.changedSign.hlGroup": "GitGutterChange",
+  // "git.removedSign.hlGroup": "GitGutterDelete",
+  // "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  // "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  // "git.addedSign.text":"▎",
+  // "git.changedSign.text":"▎",
+  // "git.removedSign.text":"▏",
+  // "git.topRemovedSign.text": "▔",
+  // "git.changeRemovedSign.text": "▋",
 
-  //Snippet
+  // Snippet
   "coc.preferences.snippetStatusText": "Ⓢ ",
 
-  //CocList
+  // CocList
   "list.source.files.defaultOptions": ["--auto-preview"],
   "list.source.outline.defaultOptions": ["--auto-preview"],
 
-  //prettier
+  // Prettier
   // "coc.preferences.formatOnSaveFiletypes": ["css", "scss"],
   "prettier.statusItemText": "ⓟ",
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,
 
-  // css
+  // CSS
   "css.enable": true,
 
   // Markdown
@@ -107,7 +109,7 @@
     "vimwiki"
   ],
 
-  // html/emmet
+  // HTML/Emmet
   "html.enable": true,
   "html.filetypes": [
       "htmldjango",
@@ -125,21 +127,23 @@
     "vue-html": "html"
   },
 
-  //multiple curssors
+  // Multiple curssors
   "cursors.nextKey": "<C-n>",
   "cursors.previousKey": "<C-p>",
   "cursors.cancelKey": "<Esc>",
-  //sessions
+  // Sessions
   "session.directory": "~/.cache/vim/session",
 
-  // eslint
+  // Eslint
   "eslint.autoFixOnSave": false,
-  // python
+
+  // Python
   "python.jediEnabled": false,
-  // javascript
+
+  // Javascript
   // "tsserver.npm": "/usr/bin/npm",  // `nvm deactivate` to make this work
 
-  // java
+  // Java
   "java.enabled": false,
   "java.import.maven.enabled": true,
   "java.import.gradle.enabled": true,
@@ -163,13 +167,10 @@
   // Bash language server
   "sh.enable": true,
 
-  //-------- Code Spell Checker Configuration --------
-  // Enable / Disable the spell checker.
+  // Spell Checker
   "cSpell.enabled": true,
-  // The Language local to use when spell checking. "en" and "en-GB" are currently supported.
   "cSpell.language": "en",
   "cSpell.diagnosticLevel": "Hint",
-  // Specify file types to spell check.
   "cSpell.enabledLanguageIds": [
     "csharp",
     "css",
@@ -195,30 +196,23 @@
     "zsh"
   ],
   "cSpell.fixSpellingWithRenameProvider": true,
-  // Controls the maximum number of spelling errors per document.
   "cSpell.maxNumberOfProblems": 100,
-  // Controls the number of suggestions shown.
   "cSpell.numSuggestions": 8,
-  // The minimum length of a word before checking it against a dictionary.
   "cSpell.minWordLength": 4,
-  // Display the spell checker status on the status bar.
   "cSpell.showStatus": true,
   // Words to add to dictionary for a workspace.
   "cSpell.words": [],
   // Enable / Disable compound words like 'errormessage'
   "cSpell.allowCompoundWords": true,
-  // Words to be ignored and not suggested.
   "cSpell.ignoreWords": [
     "colour",
     "behaviour"
   ],
-  // User words to add to dictionary.  Should only be in the user settings.
   "cSpell.userWords": [
     "Lucernas",
     "Mindfuck",
     "nums"
   ],
-  // Specify paths/files to ignore.
   "cSpell.ignorePaths": [
     "node_modules",        // this will ignore anything the node_modules directory
     "**/node_modules",     // the same for this one
@@ -233,7 +227,6 @@
   // This is useful for offensive words and common spelling errors.
   // For example "hte" should be "the"`
   "cSpell.flagWords": ["hte"],
-  // Set the delay before spell checking the document. Default is 50.
   "cSpell.spellCheckDelayMs": 50,
 
   // Coc-yank
@@ -257,6 +250,7 @@
   // Auto generated by coc-clangd
   "clangd.path": "/home/markl/.config/coc/extensions/coc-clangd-data/install/12.0.0/clangd_12.0.0/bin/clangd",
 
+  // Omnisharp
   "coc.source.OmniSharp.filetypes": [
     "cs"
   ],

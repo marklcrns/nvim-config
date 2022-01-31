@@ -3,13 +3,13 @@ require 'nerveux'.setup {
     neuron_cmd = "neuron",
 
     --- no trailing slash, (default: current directory)
-    neuron_dir = "/home/markl/Documents/my-zettelkasten",
+    neuron_dir = "~/Documents/my-zettelkasten",
 
     --- Use the cache, significantly faster (default: false)
     use_cache = true,
 
     --- start the neuron daemon to keep the cache up to date (default: false)
-    start_daemon = true,
+    start_daemon = false,
 
     --- show zettel titles inline as virtual text (default: false)
     virtual_titles = true,
