@@ -385,9 +385,9 @@ function! UtilityMappings()
   nnoremap <Leader>K :m.-2<CR>
   vnoremap J :m'>+1<CR>gv=gv
   vnoremap K :m'<-2<CR>gv=gv
-  " Move within 'ins-completion-menu' else, move current line
-  inoremap <expr><C-j> pumvisible() ? "\<Down>" : "<Esc>:m.+1<CR>==`^i"
-  inoremap <expr><C-k> pumvisible() ? "\<Up>" : "<Esc>:m.-2<CR>==`^i"
+  " Move within 'ins-completion-menu'
+  inoremap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
+  inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<C-k>"
   nnoremap <Leader>fg :call VimgrepWrapper("")<Left><Left>
   nnoremap <Leader>gD :GitOpenDirty<CR>
   " Termdebug
