@@ -1,0 +1,73 @@
+[[plugins]]
+repo = 'SirVer/ultisnips'
+if = 'has("python3")'
+on_event = 'FileType'
+hook_add = '''
+	source $VIM_PATH/config/plugins/ultisnips.vim
+'''
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+if = 'has("python3")'
+depends = 'ultisnips'
+on_event = 'FileType'
+merged = '0'
+
+[[plugins]]
+repo = 'liuchengxu/vim-which-key'
+on_cmd = '[Whichkey, Whichkey!]'
+hook_add = 'source $VIM_PATH/config/plugins/whichkey.vim'
+hook_source = '''
+  call which_key#register('<Space>', 'g:which_key_map')
+  call which_key#register(';', 'g:which_key_localmap')
+  call which_key#register(']', 'g:which_key_rsbgmap')
+  call which_key#register('[', 'g:which_key_lsbgmap')
+  call which_key#register('d', 'g:which_key_dmap')
+  call which_key#register('s', 'g:which_key_smap')
+  call which_key#register('g', 'g:which_key_gmap')
+'''
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+on_map = '.*'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+on_map = '{ vonx: <Plug>(operator-sandwich- }'
+hook_add = 'source $VIM_PATH/config/plugins/vim-sandwich.vim'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+on_map = '{ nx: <Plug> }'
+
+[[plugins]]
+repo = 'Raimondi/delimitMate'
+on_event = 'FileType'
+
+[[plugins]]
+repo = 'romainl/vim-cool'
+
+[[plugins]]
+repo = 'marklcrns/vim-smartq'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+merged = '0'
+on_cmd = 'FZF'
+hook_source = '''
+  let g:fzf_layout = { 'down': '~25%' }
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+merged = '0'
+on_cmd = '[Files, GitFiles, Buffers, Lines, Locate, Colors, Ag, Rg, Tags]'
+on_func = '[fzf#vim#with_preview, fzf#run, vista#finder#fzf#Run]'
+
+[[plugins]]
+repo = 'vimwiki/vimwiki'
+rev = 'dev'
+on_if = "(getcwd() =~ $HOME . '/Documents/my-wiki.*' && &filetype == 'markdown')"
+on_cmd = '[VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]'
+hook_source = 'source $VIM_PATH/config/plugins/vimwiki.vim'
