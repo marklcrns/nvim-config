@@ -348,6 +348,11 @@ function! WindowsManagementMappings()
   nnoremap <silent> [Window]k <C-w>k
   nnoremap <silent> [Window]l <C-w>l
   nnoremap <silent> [Window]\ <C-w>p
+  nnoremap <silent> <M-h> <C-w>h
+  nnoremap <silent> <M-j> <C-w>j
+  nnoremap <silent> <M-k> <C-w>k
+  nnoremap <silent> <M-l> <C-w>l
+  nnoremap <silent> <M-\> <C-w>p
   " Resize splits
   nnoremap <silent> [Window]K :resize -3<CR>
   nnoremap <silent> [Window]J :resize +3<CR>
@@ -356,12 +361,11 @@ function! WindowsManagementMappings()
   " Equalize splits
   nnoremap <silent> [Window]= :tabdo wincmd =<CR>
 
-
   " Replace arrow keys for resizing
-  nnoremap <Up>      :resize -2<CR>
-  nnoremap <Down>    :resize +2<CR>
-  nnoremap <Left>    :vertical resize -2<CR>
-  nnoremap <Right>   :vertical resize +2<CR>
+  nnoremap <silent> <Up>      :resize -1<CR>
+  nnoremap <silent> <Down>    :resize +1<CR>
+  nnoremap <silent> <Left>    :vertical resize -2<CR>
+  nnoremap <silent> <Right>   :vertical resize +2<CR>
 endfunction
 " }}} FILE AND WINDOWS MAPPINGS
 
