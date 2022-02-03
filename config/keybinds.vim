@@ -633,6 +633,24 @@ if dein#tap('vim-niceblock')
   silent! xmap A  <Plug>(niceblock-A)
 endif
 
+if dein#tap('caw.vim')
+  function! InitCaw() abort
+    if ! (&l:modifiable && &buftype ==# '')
+      silent! nunmap <buffer> gc
+      silent! xunmap <buffer> gc
+      silent! nunmap <buffer> gcc
+      silent! xunmap <buffer> gcc
+    else
+      nmap <buffer> gc <Plug>(caw:prefix)
+      xmap <buffer> gc <Plug>(caw:prefix)
+      nmap <buffer> gcc <Plug>(caw:hatpos:toggle:operator)
+      xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+    endif
+  endfunction
+  autocmd FileType * call InitCaw()
+  call InitCaw()
+endif
+
 if dein#tap('vim-sandwich')
   nmap <silent> sa <Plug>(operator-sandwich-add)
   xmap <silent> sa <Plug>(operator-sandwich-add)
