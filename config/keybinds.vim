@@ -941,11 +941,12 @@ if dein#tap('gina.vim')
   nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
   nnoremap <silent> <Leader>gc :Gina commit<CR>
   nnoremap <silent> <leader>gd :Gina compare<CR>
-  nnoremap <silent> <Leader>gF :Gina! fetch<CR>
+  nnoremap <silent> <Leader>gF :Gina fetch<CR>
   nnoremap <silent> <Leader>gl :Gina log --graph --all<CR>
-  nnoremap <silent> <leader>go :,Gina browse :<CR>
-  vnoremap <silent> <leader>go :Gina browse :<CR>
+  nnoremap <silent> <leader>go :Gina browse<CR>
+  vnoremap <silent> <leader>go :Gina browse<CR>
   nnoremap <silent> <Leader>gp :Gina! push<CR>
+  nnoremap <silent> <Leader>gP :Gina pull<CR>
   nnoremap <silent> <leader>gs :Gina status -s -b<CR>
 
   if s:enable_whichkey
