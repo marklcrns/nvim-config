@@ -6,6 +6,11 @@
 " minimal = loads /config/plugins/plugins_minimal.*
 " skip    = only load ~/.local-nvim.d/config/plugins.* (global keybinds.vim will be skipped as well)
 " disable = disable package manager (no plugins will be loaded)
+" ------
+"  Lazy loaded plugin for toml plugins can be put in a separate file:
+"  plugins_minimal_lazy.toml
+"  Yaml plugins does not need to be in a separate '_lazy' file and thus wont be
+"  loaded.
 let g:handle_plugins = 'full'
 
 " Initialize ~/.local-nvim.d/init.vim
