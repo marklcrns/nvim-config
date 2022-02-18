@@ -705,10 +705,12 @@ if dein#tap('focus.nvim')
 endif
 
 if dein#tap('winshift.nvim')
-  nnoremap <C-Left> :WinShift left<CR>
-  nnoremap <C-Down> :WinShift down<CR>
-  nnoremap <C-Up> :WinShift up<CR>
-  nnoremap <C-Right> :WinShift right<CR>
+  nnoremap <C-W><Left>  :WinShift left<CR>
+  nnoremap <C-W><Down>  :WinShift down<CR>
+  nnoremap <C-W><Up>    :WinShift up<CR>
+  nnoremap <C-W><Right> :WinShift right<CR>
+  nnoremap <C-W>m       :WinShift swap<CR>
+  nnoremap <C-W><C-M>   :WinShift<CR>
 endif
 
 if dein#tap('markdown-preview.nvim')
