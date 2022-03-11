@@ -589,9 +589,6 @@ function! TextManipulationMappings()
   " whitespace.vim
   nnoremap <silent><Leader>r<Space> :<C-u>WhitespaceErase<CR>
   vnoremap <silent><Leader>r<Space> :WhitespaceErase<CR>
-  " Wrap paragraph to textwidth
-  nnoremap <Leader>rw gwap
-  xnoremap <Leader>rw gw
   " Change current word in a repeatable manner (repeatable with ".")
   nnoremap <leader>rn *``cgn
   nnoremap <leader>rN *``cgN

@@ -143,7 +143,6 @@ let g:which_key_map = {
             \ 'p' : 'Duplicate paragraph',
             \ 'r' : 'Search and replace',
             \ 'R' : 'Search and replace current line',
-            \ 'w' : 'Wrap paragraph to textwidth',
             \ 'y' : {
                   \ 'name' : '+yank-text',
                   \ 'a' : 'Yank all file content',

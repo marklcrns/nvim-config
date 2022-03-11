@@ -278,6 +278,13 @@ if dein#tap('coc.nvim')
   endif
 endif
 
+if dein#tap('wilder.nvim')
+  noremap <LocalLeader>so :call wilder#toggle()<CR>
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['o'] = 'Toggle Wilder Completion'
+  endif
+endif
+
 if dein#tap('vim-smartq')
   nmap <silent> <leader>fq <Plug>(smartq_this_save)
 endif

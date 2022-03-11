@@ -3,6 +3,7 @@ require("focus").setup{
   autoresize = true,
   hybridnumber = true,
   signcolumn = false,
+  width = vim.api.nvim_get_option('textwidth') + 10,
   -- absolutenumber_unfocussed = true,
   colorcolumn = {enable = true, width = vim.api.nvim_get_option('textwidth')},
   bufnew =  true,
