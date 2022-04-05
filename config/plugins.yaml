@@ -49,6 +49,7 @@
 - repo: sgur/vim-editorconfig
   hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
 
+# Window management
 - repo: beauwilliams/focus.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/focus.lua
@@ -125,15 +126,18 @@
   hook_add: |
     let g:niceblock_no_default_key_mappings = 0
 
+# Commenter
 - repo: b3nj5m1n/kommentary
   if: "has('nvim')"
   on_event: FileType
   hook_source: luafile $VIM_PATH/config/plugins/kommentary.lua
 
+# Surround
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }
   hook_add: source $VIM_PATH/config/plugins/vim-sandwich.vim
 
+# Delimiter
 - repo: Raimondi/delimitMate
   on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/delimitMate.vim
