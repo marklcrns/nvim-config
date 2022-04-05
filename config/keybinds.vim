@@ -551,8 +551,23 @@ if dein#tap('dashboard-nvim')
 endif
 
 if dein#tap('vim-quickrun')
-  nnoremap <silent> <Localleader>r :QuickRun -mode n<CR>
-  vnoremap <silent> <LocalLeader>r :QuickRun -mode v<CR>
+  nnoremap <silent> <Localleader>rq :QuickRun -mode n<CR>
+  vnoremap <silent> <LocalLeader>rq :QuickRun -mode v<CR>
+  if s:enable_whichkey
+    let g:which_key_localmap['r']['q'] = 'QuickRun'
+  endif
+endif
+
+if dein#tap('sniprun')
+  nnoremap <silent> <Localleader>rs :SnipRun<CR>
+  vnoremap <silent> <LocalLeader>rs :SnipRun<CR>
+  nnoremap <silent> <LocalLeader>rl :SnipLive<CR>
+  nnoremap <silent> <LocalLeader>rr :SnipReset<CR>
+  if s:enable_whichkey
+    let g:which_key_localmap['r']['s'] = 'SnipRun'
+    let g:which_key_localmap['r']['l'] = 'SnipLive'
+    let g:which_key_localmap['r']['r'] = 'SnipReset'
+  endif
 endif
 
 if dein#tap('vista.vim')

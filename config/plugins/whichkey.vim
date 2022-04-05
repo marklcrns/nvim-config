@@ -256,6 +256,8 @@ let g:which_key_smap = {
 let g:which_key_map['g'] = { 'name': '+git' }
 let g:which_key_map['g']['D'] = ['GitOpenDirty', 'Open all dirty in splits']
 
+let g:which_key_localmap['r'] = { 'name': '+code-runner' }
+
 call which_key#register('<Space>', 'g:which_key_map')
 call which_key#register(';', 'g:which_key_localmap')
 call which_key#register(']', 'g:which_key_rsbgmap')
