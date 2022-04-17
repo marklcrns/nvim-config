@@ -142,6 +142,11 @@
   on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/delimitMate.vim
 
+# Titlecase
+- repo: christoomey/vim-titlecase
+  on_event: FileType
+  hook_source: source $VIM_PATH/config/plugins/vim-titlecase.vim
+
 # Git{{{
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
@@ -254,7 +259,6 @@
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
-  rev: dev
   on_if: "(getcwd() =~ $HOME . '/Documents/my-wiki.*' && &filetype == 'markdown')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
