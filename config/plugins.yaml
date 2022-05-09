@@ -259,6 +259,7 @@
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
+  rev: 4d7a4da2e8e2fff34126e32d8818ba93c66a8a75
   on_if: "(getcwd() =~ $HOME . '/Documents/my-wiki.*' && &filetype == 'markdown')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim

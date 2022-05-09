@@ -15,7 +15,6 @@ let g:coc_global_extensions = [
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
-      \ 'coc-floaterm',
       \ 'coc-git',
       \ 'coc-gitignore',
       \ 'coc-html',

@@ -1,2 +1,2 @@
-let g:titlecase_excluded_words = [ 'mark' ]
+let g:titlecase_excluded_words = []
 
