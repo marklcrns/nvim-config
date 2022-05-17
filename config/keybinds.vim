@@ -290,7 +290,7 @@ if dein#tap('vim-smartq')
 endif
 
 if dein#tap('vim-clap')
-  nnoremap <silent> <Leader>fd: :<C-u>Clap command_history<CR>
+  nnoremap <silent> <Leader>fd  :<C-u>Clap command_history<CR>
   nnoremap <silent> <Leader>fdc :<C-u>Clap colors<CR>
   nnoremap <silent> <Leader>fdb :<C-u>Clap buffers<CR>
   nnoremap <silent> <Leader>fdr :<C-u>Clap grep<CR>
@@ -957,6 +957,12 @@ if dein#tap('open-browser.vim')
   if s:enable_whichkey
     let g:which_key_gmap['x'] = 'Open in browser'
   endif
+endif
+
+if dein#tap('vim-titlecase')
+  nnoremap gZ  <Plug>Titlecase
+  vnoremap gZ  <Plug>Titlecase
+  nnoremap gZZ <Plug>TitlecaseLine
 endif
 
 if dein#tap('gina.vim')

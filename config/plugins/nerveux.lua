@@ -3,7 +3,7 @@ require 'nerveux'.setup {
     neuron_cmd = "neuron",
 
     --- no trailing slash, (default: current directory)
-    neuron_dir = "~/Documents/my-zettelkasten",
+    neuron_dir = "~/Documents/my-zettelkaster",
 
     --- Use the cache, significantly faster (default: false)
     use_cache = true,

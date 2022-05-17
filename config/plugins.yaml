@@ -259,10 +259,10 @@
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
-  rev: 4d7a4da2e8e2fff34126e32d8818ba93c66a8a75
   on_if: "(getcwd() =~ $HOME . '/Documents/my-wiki.*' && &filetype == 'markdown')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
+  # rev: 4d7a4da2e8e2fff34126e32d8818ba93c66a8a75
 
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
@@ -271,15 +271,16 @@
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
 
-- repo: oberblastmeister/neuron.nvim
-  if: "executable('neuron')"
-  merged: 0
-  on_ft: markdown
-  depends: [telescope.nvim, plenary.nvim]
-  hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
+# - repo: oberblastmeister/neuron.nvim
+#   rev: unstable
+#   if: "executable('neuron')"
+#   merged: 0
+#   on_ft: markdown
+#   depends: [telescope.nvim, plenary.nvim]
+#   hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
 
-# - repo: pyrho/nerveux.nvim
-#   hook_source: luafile $VIM_PATH/config/plugins/nerveux.lua
+- repo: pyrho/nerveux.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/nerveux.lua
 
 - repo: honza/dockerfile.vim
   on_ft: Dockerfile
