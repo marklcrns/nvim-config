@@ -12,6 +12,7 @@ let g:coc_global_extensions = [
       \ 'coc-cmake',
       \ 'coc-css',
       \ 'coc-dictionary',
+      \ 'coc-docker',
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
@@ -56,23 +57,30 @@ augroup end
 
 " Ref: https://stackoverflow.com/a/61275100/11850077
 "      https://github.com/vim/vim/issues/2004#issuecomment-324357529
-function! IntegratedCocTab() abort
-  " First, try to expand or jump on UltiSnips.
-  let snippet = UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res > 0
-    return snippet
-  endif
-  " Then, check if we're in a completion menu
-  if pumvisible()
-    return coc#_select_confirm()
-  endif
-  " Finally, do regular tab if no trigger
-  return "\<Tab>"
-endfunction
 
-" Integration with delimitMate and Ultisnips
-autocmd FileType * inoremap <silent> <Tab>
-      \ <C-R>=IntegratedCocTab()<CR>
+" function! IntegratedCocTab() abort
+"   " First, try to expand or jump on UltiSnips.
+"   let snippet = UltiSnips#ExpandSnippet()
+"   if g:ulti_expand_res > 0
+"     return snippet
+"   endif
+"   " Then, check if we're in a completion menu
+"   if coc#pum#visible()
+"     return coc#_select_confirm()
+"   endif
+"   " Finally, do regular tab if no trigger
+"   return "\<Tab>"
+" endfunction
+
+" autocmd FileType * inoremap <silent> <Tab>
+"       \ <C-R>=IntegratedCocTab()<CR>
+
+autocmd FileType * inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ CheckBackSpace() ? "\<TAB>" :
+      \ coc#refresh()
+
 " Integration with delimitMate plugin. Also ignores completion.
 inoremap <silent><expr> <CR>
       \ delimitMate#WithinEmptyPair() ?
