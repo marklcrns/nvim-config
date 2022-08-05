@@ -305,3 +305,8 @@ if exists('g:neovide')
   let g:neovide_cursor_vfx_mode = "wireframe"
 endif
 " }}}
+
+function! IsFloating(id) abort
+    let l:cfg = nvim_win_get_config(a:id)
+    return !empty(l:cfg.relative) || l:cfg.external
+endfunction

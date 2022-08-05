@@ -13,7 +13,8 @@
 - repo: Shougo/dein.vim
 
 - repo: glepnir/dashboard-nvim
-  hook_source: source $VIM_PATH/config/plugins/dashboard.vim
+  hook_add: source $VIM_PATH/config/plugins/dashboard.vim
+  hook_source: luafile $VIM_PATH/config/plugins/dashboard.lua
 
 # Completion
 # ----------------------------------------
