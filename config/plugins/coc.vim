@@ -76,7 +76,7 @@ augroup end
 "       \ <C-R>=IntegratedCocTab()<CR>
 
 autocmd FileType * inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#pum#visible() ? coc#pum#confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ CheckBackSpace() ? "\<TAB>" :
       \ coc#refresh()
@@ -87,10 +87,11 @@ function! CheckBackSpace() abort
 endfunction
 
 " Integration with delimitMate plugin. Also ignores completion.
+" <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR>
       \ delimitMate#WithinEmptyPair() ?
       \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
-      \ pumvisible() ? "\<C-]>\<CR>" : "\<C-g>u\<CR>"
+      \ coc#pum#visible() ? "\<C-]>\<CR>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
