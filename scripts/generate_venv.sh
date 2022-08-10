@@ -25,7 +25,8 @@ if command -v python2 &> /dev/null; then
   if source ${DATA_PATH}/venv/python/env/bin/activate; then
     pip install wheel neovim PyYAML Send2Trash
     # Optionals
-    pip install git+git://github.com/tbabej/tasklib@develop # For tbabej/taskwiki
+    pip install tasklib # For tbabej/taskwiki
+    pip install pynvim
     pip install six
     pip install keyring browser_cookie3  # for leetcode.vim
     pip install keyrings.alt
@@ -48,15 +49,14 @@ if command -v python3 &> /dev/null; then
   if source ${DATA_PATH}/venv/python3/env/bin/activate; then
     pip install wheel neovim PyYAML Send2Trash
     # Optionals
-    pip install git+git://github.com/tbabej/tasklib@develop # For tbabej/taskwiki
+    pip install tasklib # For tbabej/taskwiki
+    pip install pynvim
     pip install six
     pip install keyring browser_cookie3  # for leetcode.vim
     pip install keyrings.alt
     pip install neovim-remote
     deactivate
   fi
-
-  pip3 install trellowarrior
 else
   error "python3 not found... Please install python3"
   exit 1
