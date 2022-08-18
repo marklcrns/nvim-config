@@ -18,17 +18,52 @@
 
 # Completion
 # ----------------------------------------
-- repo: neoclide/coc.nvim
-  merged: 0
-  rev: release
-  hook_source: source $VIM_PATH/config/plugins/coc.vim
-
 - repo: liuchengxu/vim-which-key
   hook_source: source $VIM_PATH/config/plugins/whichkey.vim
+
+- repo: nvim-treesitter/nvim-treesitter
+  if: "has('nvim-0.5')"
+  build: TSUpdate
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
+
+- repo: nvim-treesitter/nvim-treesitter-textobjects
+  if: "has('nvim-0.5')"
+
+- repo: neovim/nvim-lspconfig
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-lspconfig.lua
+
+- repo: williamboman/mason.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/mason.lua
+
+- repo: williamboman/mason-lspconfig.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/mason-lspconfig.lua
+
+- repo: glepnir/lspsaga.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua
+
+- repo: hrsh7th/nvim-cmp
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-cmp.lua
+
+- repo: hrsh7th/cmp-nvim-lsp
+  if: "has('nvim-0.5')"
+
+- repo: quangnguyen30192/cmp-nvim-ultisnips
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/cmp-nvim-ultisnips.lua
+
+- repo: lewis6991/spellsitter.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/spellsitter.lua
 
 # Tools
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
+  rev: dev
 
 - repo: akinsho/toggleterm.nvim
   hook_source: luafile $VIM_PATH/config/plugins/toggleterm.lua
@@ -94,18 +129,6 @@
 # }}}
 
 # Syntax{{{
-
-# Syntax
-# ----------------------------------------
-- repo: nvim-treesitter/nvim-treesitter
-  if: "has('nvim-0.5')"
-  build: TSUpdate
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
-- repo: nvim-treesitter/nvim-treesitter-textobjects
-  if: "has('nvim-0.5')"
-- repo: lewis6991/spellsitter.nvim
-  if: "has('nvim-0.5')"
-  hook_source: luafile $VIM_PATH/config/plugins/spellsitter.lua
 
 # Coding tools
 # ----------------------------------------

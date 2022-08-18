@@ -282,8 +282,8 @@ endfunction
 augroup VimwikiCustomMappings
   autocmd!
   " Integration with delimitMate, coc completion and Ultisnips
-  autocmd FileType vimwiki inoremap <silent><buffer> <Tab>
-        \ <C-R>=IntegratedVimwikiTab()<CR>
+  " autocmd FileType vimwiki inoremap <silent><buffer> <Tab>
+  "       \ <C-R>=IntegratedVimwikiTab()<CR>
   autocmd Filetype vimwiki inoremap <silent><buffer><expr> <S-tab>
         \ vimwiki#tbl#kbd_shift_tab()
   autocmd Filetype vimwiki inoremap <silent><buffer><expr> <CR>
