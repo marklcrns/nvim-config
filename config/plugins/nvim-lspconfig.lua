@@ -1,25 +1,16 @@
--- Mappings.
+-- DEPRECATED: Mappings Moved to keybinds.vim
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+-- local opts = { noremap=true, silent=true }
+-- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+-- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 
 local api = vim.api
 local lspconfig = require('lspconfig')
 
-local saga = require('lspsaga')
-saga.init_lsp_saga({
-  -- symbols in winbar
-  symbol_in_winbar = {
-    enable = true,
-  },
-})
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 function _G.open_lsp_log()

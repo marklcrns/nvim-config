@@ -27,7 +27,7 @@ db.custom_center = {
   {
     icon = '  ',
     desc = '<s>essions                              ',
-    action = 'call feedkeys(":SessionLoad<Space><Tab>","t")',
+    action = 'call feedkeys(":SeshLoad<Space><Tab>","t")',
     shortcut = 'SPC s l  ',
   },
   {
@@ -70,7 +70,7 @@ vim.cmd([[
     autocmd FileType dashboard noremap <nowait><silent><buffer> f :Telescope find_files<CR>
     autocmd FileType dashboard noremap <nowait><silent><buffer> h :Telescope oldfiles<CR>
     autocmd FileType dashboard noremap <nowait><silent><buffer> m :Telescope marks<CR>
-    autocmd FileType dashboard noremap <nowait><silent><buffer> s :<C-u>call feedkeys(':SessionLoad<Space><Tab>','t')<CR>
+    autocmd FileType dashboard noremap <nowait><silent><buffer> s :<C-u>call feedkeys(':SeshLoad<Space><Tab>','t')<CR>
     autocmd FileType dashboard noremap <nowait><silent><buffer> t :call DToday()<CR>
     autocmd FileType dashboard noremap <nowait><silent><buffer> W :VimwikiUISelect<CR>
     autocmd FileType dashboard noremap <nowait><silent><buffer> n :Neorg workspace<CR>

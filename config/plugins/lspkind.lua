@@ -6,6 +6,7 @@ local source_mapping = {
 	nvim_lua = "[Lua]",
 	cmp_tabnine = "[TN]",
 	path = "[Path]",
+  ultisnips = "[Snip]"
 }
 
 require'cmp'.setup {

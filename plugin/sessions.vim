@@ -5,12 +5,12 @@
 " - Save active session when quitting vim completely
 "
 " Commands:
-" - SessionSave [name]    Create and activate new session
-" - SessionLoad [name]    Clear buffers and load selected session
-" - SessionDelete [name]  Clear buffers and load selected session
-" - SessionClose:         Save session and clear all buffers
-" - SessionDetach:        Stop persisting session, leave buffers open
-" - SessionList:          List all existing session in session directory
+" - SeshSave [name]    Create and activate new session
+" - SeshLoad [name]    Clear buffers and load selected session
+" - SeshDelete [name]  Clear buffers and load selected session
+" - SeshClose:         Save session and clear all buffers
+" - SeshDetach:        Stop persisting session, leave buffers open
+" - SeshList:          List all existing session in session directory
 "
 " If [name] is empty, the current working-directory is used.
 "
@@ -31,25 +31,25 @@ let g:session_directory = get(g:, 'session_directory', $DATA_PATH . '/session')
 " ---
 
 " Save and persist session
-command! -nargs=? -complete=customlist,<SID>session_list SessionSave
-  \ call s:session_save(<q-args>)
+command! -nargs=? -complete=customlist,<SID>session_list SeshSave
+      \ call s:session_save(<q-args>)
 
 " Load and persist session
-command! -nargs=? -complete=customlist,<SID>session_list SessionLoad
-  \ call s:session_load(<q-args>)
+command! -nargs=? -complete=customlist,<SID>session_list SeshLoad
+      \ call s:session_load(<q-args>)
 
 " Load and persist session
-command! -nargs=? -complete=customlist,<SID>session_list SessionDelete
-  \ call s:session_delete(<q-args>)
+command! -nargs=? -complete=customlist,<SID>session_list SeshDelete
+      \ call s:session_delete(<q-args>)
 
 " Close session, but leave buffers opened
-command! SessionDetach call s:session_detach()
+command! SeshDetach call s:session_detach()
 
 " Close session and all buffers
-command! SessionClose call s:session_close()
+command! SeshClose call s:session_close()
 
 " List all sessions
-command! SessionList execute('!stat -c "\%y \%n" ' . g:session_directory . '/*.vim')
+command! SeshList execute('!stat -c "\%y \%n" ' . g:session_directory . '/*.vim')
 
 " Save session on quit if one is loaded
 augroup plugin_sessions
@@ -58,7 +58,7 @@ augroup plugin_sessions
   " If session is loaded, write session file on quit
   autocmd VimLeavePre * call s:session_save_current()
 
-  " autocmd SessionLoadPost * ++once unsilent
+  " autocmd SeshLoadPost * ++once unsilent
   " \ echomsg 'Loaded "' . fnamemodify(v:this_session, ':t:r') . '" session'
 augroup END
 
@@ -118,7 +118,7 @@ function! s:session_delete(name)
 endfunction
 
 function! s:session_close()
-  if ! empty(v:this_session) && ! exists('g:SessionLoad')
+  if ! empty(v:this_session) && ! exists('g:SeshLoad')
     call s:session_save_current()
     call s:session_detach()
     call s:buffers_wipeout()
@@ -126,13 +126,13 @@ function! s:session_close()
 endfunction
 
 function! s:session_save_current()
-  if ! empty(v:this_session) && ! exists('g:SessionLoad')
+  if ! empty(v:this_session) && ! exists('g:SeshLoad')
     execute 'mksession! ' . fnameescape(v:this_session)
   endif
 endfunction
 
 function! s:session_detach()
-  if ! empty(v:this_session) && ! exists('g:SessionLoad')
+  if ! empty(v:this_session) && ! exists('g:SeshLoad')
     let v:this_session = ''
     redrawtabline
     redrawstatus

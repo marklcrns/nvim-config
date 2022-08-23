@@ -119,8 +119,6 @@ let g:which_key_map = {
              \ 'g' : 'Open file in google chrome browser',
              \ 'o' : 'Open file with xdg',
           \ },
-    \ 'q' : 'Adaptive buffer quit',
-    \ 'Q' : 'Quit vim',
     \ 'r' : {
           \ 'name' : '+text-manipulate',
              \ ' ' : 'Remove whitespaces',
@@ -209,8 +207,7 @@ let g:which_key_lsbgmap = {
          \ 'b' : 'Buffer prev',
          \ 'B' : 'Buffer first',
          \ 'c' : 'Diff jump prev',
-         \ 'd' : 'Coc diagnostic prev',
-         \ 'g' : 'Git prev chunk',
+         \ 'd' : 'Diagnostic prev',
          \ 'l' : 'Locationlist prev',
          \ 'L' : 'Locationlist first',
          \ 't' : 'Tab prev',
@@ -230,8 +227,7 @@ let g:which_key_rsbgmap = {
          \ 'b' : 'Buffer next',
          \ 'B' : 'Buffer last',
          \ 'c' : 'Diff jump next',
-         \ 'd' : 'Coc diagnostic next',
-         \ 'g' : 'Git next chunk',
+         \ 'd' : 'Diagnostic next',
          \ 'l' : 'Locationlist next',
          \ 'L' : 'Locationlist last',
          \ 't' : 'Tab next',
@@ -247,6 +243,7 @@ let g:which_key_dmap = {
 let g:which_key_gmap = {
       \ 'name' : '+g-key',
       \ 'p' : 'Select last pasted',
+      \ 'K' : 'Show Dev help under cursor',
       \ }
 
 let g:which_key_smap = {
