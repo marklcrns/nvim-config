@@ -20,31 +20,31 @@ db.custom_header = {
 db.custom_center = {
   {
     icon = '  ',
-    desc = '<F>iles                                 ',
+    desc = '<f>iles                                 ',
     shortcut = 'SPC f d f',
     action = 'Telescope find_files',
   },
   {
     icon = '  ',
-    desc = '<S>essions                              ',
+    desc = '<s>essions                              ',
     action = 'call feedkeys(":SessionLoad<Space><Tab>","t")',
     shortcut = 'SPC s l  ',
   },
   {
     icon = 'ﭯ  ',
-    desc = '<H>istory                               ',
+    desc = '<h>istory                               ',
     action = 'Telescope oldfiles',
     shortcut = 'SPC f d h',
   },
   {
     icon = '  ',
-    desc = '<M>arks                                 ',
+    desc = '<m>arks                                 ',
     action = 'Telescope marks',
     shortcut = 'SPC f d m',
   },
   {
     icon = '  ',
-    desc = '<T>o-Do daily                               ',
+    desc = '<t>o-Do daily                               ',
     action = 'call DToday()',
     shortcut = '; w T',
   },
@@ -56,7 +56,7 @@ db.custom_center = {
   },
   {
     icon = '  ',
-    desc = '<N>eorg                                     ',
+    desc = '<n>eorg                                     ',
     action = 'Neorg workspace',
     shortcut = '; n w',
   },

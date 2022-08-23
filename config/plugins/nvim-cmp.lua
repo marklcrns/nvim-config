@@ -1,5 +1,6 @@
 -- Setup nvim-cmp.
 local cmp = require'cmp'
+local lspkind = require('lspkind')
 
 cmp.setup({
   snippet = {
@@ -21,21 +22,37 @@ cmp.setup({
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
 
-  -- completion = {
-  --   completeopt = 'menu,menuone,noinsert'
-  -- },
+  completion = {
+    completeopt = 'menu,menuone,noinsert'
+  },
 
   sources = cmp.config.sources({
+    { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     -- { name = 'vsnip' }, -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
+    { name = 'cmp_tabnine' },
     { name = 'buffer' },
     { name = 'path' },
-  })
+  }),
+
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      before = function (entry, vim_item)
+        return vim_item
+      end
+    })
+  },
 })
 
 -- Set configuration for specific filetype.

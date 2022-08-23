@@ -45,12 +45,29 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua
 
+- repo: onsails/lspkind.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/lspkind.lua
+
 - repo: hrsh7th/nvim-cmp
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-cmp.lua
 
+- repo: hrsh7th/cmp-nvim-lua
+  if: "has('nvim-0.5')"
+
 - repo: hrsh7th/cmp-nvim-lsp
   if: "has('nvim-0.5')"
+
+- repo: hrsh7th/cmp-path
+  if: "has('nvim-0.5')"
+
+- repo: hrsh7th/cmp-buffer
+  if: "has('nvim-0.5')"
+
+- repo: tzachar/cmp-tabnine
+  if: "has('nvim-0.5')"
+  build: './install.sh'
+  hook_source: luafile $VIM_PATH/config/plugins/cmp-tabnine.lua
 
 - repo: quangnguyen30192/cmp-nvim-ultisnips
   if: "has('nvim-0.5')"
@@ -85,6 +102,10 @@
 - repo: sgur/vim-editorconfig
   hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
 
+- repo: folke/todo-comments.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/todo-comments.lua
+
 # Window management
 - repo: beauwilliams/focus.nvim
   if: "has('nvim-0.5')"
@@ -113,19 +134,20 @@
 # Completion{{{
 - repo: SirVer/ultisnips
   if: has('python3')
-  on_event: FileType
   hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
 
 - repo: honza/vim-snippets
   if: has('python3')
   depends: ultisnips
-  on_event: FileType
   merged: 0
+
+- repo: mlaursen/vim-react-snippets
+  if: has('python3')
+  depends: ultisnips
 
 # Works with nvim-yarp and vim-hug-neovim-rpc
 - repo: gelguy/wilder.nvim
   hook_source: source $VIM_PATH/config/plugins/wilder.vim
-  on_event' : CmdlineEnter
 # }}}
 
 # Syntax{{{
@@ -133,14 +155,11 @@
 # Coding tools
 # ----------------------------------------
 - repo: junegunn/vim-easy-align
-  on_event: FileType
   hook_add: source $VIM_PATH/config/plugins/vim-easy-align.vim
 
 - repo: AndrewRadev/sideways.vim
-  on_event: FileType
 
 - repo: AndrewRadev/splitjoin.vim
-  on_event: FileType
   hook_add: |
     let g:splitjoin_join_mapping = '<Leader><C-j>'
     let g:splitjoin_split_mapping = '<Leader><C-k>'
@@ -153,7 +172,6 @@
 # Commenter
 - repo: b3nj5m1n/kommentary
   if: "has('nvim')"
-  on_event: FileType
   hook_source: luafile $VIM_PATH/config/plugins/kommentary.lua
 
 # Surround
@@ -163,12 +181,10 @@
 
 # Delimiter
 - repo: Raimondi/delimitMate
-  on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/delimitMate.vim
 
 # Titlecase
 - repo: christoomey/vim-titlecase
-  on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/vim-titlecase.vim
 
 # Git{{{
@@ -178,11 +194,9 @@
   hook_source: source $VIM_PATH/config/plugins/gina.vim
 
 - repo: rhysd/committia.vim
-  on_event: BufReadPost
   hook_source: source $VIM_PATH/config/plugins/committia.vim
 
 - repo: airblade/vim-gitgutter
-  on_event: FileType
   hook_add: source $VIM_PATH/config/plugins/vim-gitgutter.vim
 
 - repo: tyru/open-browser.vim
@@ -219,7 +233,6 @@
 
 
 # Tools{{{
-# - { repo: itchyny/vim-gitbranch, on_event: FileType }
 - { repo: romainl/vim-cool }
 
 # To setup Google Calendar with calenar.vim
@@ -253,7 +266,6 @@
 
 - repo: ludovicchabant/vim-gutentags
   if: "executable('ctags')"
-  on_event: [BufReadPost, BufWritePost]
   hook_source: source $VIM_PATH/config/plugins/vim-gutentags.vim
 
 - repo: liuchengxu/vista.vim
@@ -266,7 +278,6 @@
   on_cmd: [Tagbar, TabarOpen, TagbarToggle, TagbarOpenAutoClose]
 
 - repo: airblade/vim-rooter
-  on_event: FileType
   hook_add: source $VIM_PATH/config/plugins/vim-rooter.vim
 
 - repo: benmills/vimux
@@ -320,11 +331,9 @@
   hook_source: source $VIM_PATH/config/plugins/sniprun.lua
 
 - repo: kshenoy/vim-signature
-  on_event: FileType
   hook_add: source $VIM_PATH/config/plugins/vim-signature.vim
 
 - repo: tpope/vim-abolish
-  on_event: FileType
 
 - repo: simnalamburt/vim-mundo
   on_map: {n: <Plug>}
@@ -350,17 +359,14 @@
 
 # UI{{{
 - repo: lukas-reineke/indent-blankline.nvim
-  on_event: FileType
   hook_source: luafile $VIM_PATH/config/plugins/indent-blankline.lua
 
 - repo: norcalli/nvim-colorizer.lua
   if: "has('nvim-0.5')"
-  on_event: FileType
   hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
 - repo: romainl/vim-qf
   on_ft: qf
-  on_event: QuickFixCmdPost
   on_map: { n: <Plug> }
   hook_source: source $VIM_PATH/config/plugins/vim-qf.vim
 
@@ -387,7 +393,6 @@
 
 # ETC {{{
 - repo: dstein64/vim-startuptime
-  on_event: VimEnter
 
 - repo:  ianding1/leetcode.vim
   on_cmd: [LeetCodeList, LeetCodeTest, LeetCodeSubmit, LeetCodeSignIn]

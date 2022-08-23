@@ -6,5 +6,5 @@ autocmd FileType dashboard noremap <nowait><silent><buffer> h :Telescope oldfile
 autocmd FileType dashboard noremap <nowait><silent><buffer> m :Telescope marks<CR>
 autocmd FileType dashboard noremap <nowait><silent><buffer> s :<C-u>call feedkeys(':SessionLoad<Space><Tab>','t')<CR>
 autocmd FileType dashboard noremap <nowait><silent><buffer> t :call DToday()<CR>
-autocmd FileType dashboard noremap <nowait><silent><buffer> w :VimwikiUISelect<CR>
+autocmd FileType dashboard noremap <nowait><silent><buffer> W :VimwikiUISelect<CR>
 autocmd FileType dashboard noremap <nowait><silent><buffer> n :Neorg workspace<CR>
