@@ -575,12 +575,12 @@ function! FoldsMappings()
 endfunction
 
 function! SessionMappings()
-  nnoremap <Leader>ss :<C-u>SessionSave<Space>
-  nnoremap <Leader>sl :<C-u>call feedkeys(':SessionLoad<Space><Tab>','t')<CR>
-  nnoremap <Leader>sD :<C-u>call feedkeys(':SessionDelete<Space><Tab>','t')<CR>
-  nnoremap <Leader>sL :<C-u>SessionList<CR>
-  nnoremap <Leader>sq :<C-u>SessionClose<CR>
-  nnoremap <Leader>sd :<C-u>SessionDetach<CR>
+  nnoremap <Leader>ss :<C-u>SeshSave<Space>
+  nnoremap <Leader>sl :<C-u>call feedkeys(':SeshLoad<Space><Tab>','t')<CR>
+  nnoremap <Leader>sD :<C-u>call feedkeys(':SeshDelete<Space><Tab>','t')<CR>
+  nnoremap <Leader>sL :<C-u>SeshList<CR>
+  nnoremap <Leader>sq :<C-u>SeshClose<CR>
+  nnoremap <Leader>sd :<C-u>SeshDetach<CR>
 endfunction
 " }}} UTILITIES MAPPINGS
 
