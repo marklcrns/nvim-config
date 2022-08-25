@@ -29,7 +29,12 @@ require('neorg').setup {
     },
     ["core.norg.esupports.metagen"] = {
       config = {
-          type = "auto",
+        type = "auto",
+      }
+    },
+    ["core.norg.qol.toc"] = {
+      config = {
+        toc_split_placement = "right",
       }
     },
     ["core.integrations.telescope"] = {}, -- Enable the telescope module
@@ -80,4 +85,3 @@ neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, key
     noremap = true,
   })
 end)
-

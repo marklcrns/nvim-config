@@ -465,11 +465,13 @@ endif
 
 if dein#tap('neorg')
   nmap <LocalLeader>nw :<C-u>Neorg workspace<CR>
+  nmap <LocalLeader>ns :<C-u>Neorg toc split<CR>
   if s:enable_whichkey
     let g:which_key_localmap['n'] = { 'name': '+neorg' }
     let g:which_key_localmap['n']['m'] = { 'name': '+mode-select' }
     let g:which_key_localmap['n']['n'] = { 'name': '+create' }
     let g:which_key_localmap['n']['t'] = { 'name': '+tree-sitter' }
+    let g:which_key_localmap['n']['s'] = "TOC split"
     let g:which_key_localmap['n']['w'] = "Open Workspace"
   endif
 endif
