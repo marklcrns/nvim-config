@@ -147,6 +147,8 @@ let g:which_key_map = {
                   \ 'p' : 'Replace all with yanked texts',
                   \ },
           \ },
+    \ 'q' : 'Quit without saving',
+    \ 'Q' : 'Quit vim without saving',
     \ 's' : {
           \ 'name' : '+sessions',
           \ 'd' : 'Detach session',
@@ -244,12 +246,14 @@ let g:which_key_gmap = {
       \ 'name' : '+g-key',
       \ 'p' : 'Select last pasted',
       \ 'K' : 'Show Dev help under cursor',
+      \ 'o' : 'Go to file in vertical split',
       \ }
 
 let g:which_key_smap = {
       \ 'name' : '+s-key',
       \ }
 
+let g:which_key_map['c'] = { 'name': '+code' }
 let g:which_key_map['g'] = { 'name': '+git' }
 let g:which_key_map['g']['D'] = ['GitOpenDirty', 'Open all dirty in splits']
 

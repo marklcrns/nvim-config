@@ -44,37 +44,48 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua
 
-- repo: onsails/lspkind.nvim
-  hook_source: luafile $VIM_PATH/config/plugins/lspkind.lua
-
 - repo: hrsh7th/nvim-cmp
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-cmp.lua
 
 - repo: hrsh7th/cmp-nvim-lua
   if: "has('nvim-0.5')"
+  depends: nvim-cmp
 
 - repo: hrsh7th/cmp-nvim-lsp
   if: "has('nvim-0.5')"
+  depends: nvim-cmp
 
 - repo: hrsh7th/cmp-path
   if: "has('nvim-0.5')"
+  depends: nvim-cmp
 
 - repo: hrsh7th/cmp-buffer
   if: "has('nvim-0.5')"
+  depends: nvim-cmp
 
 - repo: tzachar/cmp-tabnine
   if: "has('nvim-0.5')"
-  build: './install.sh'
+  depends: nvim-cmp
+  build: "./install.sh"
   hook_source: luafile $VIM_PATH/config/plugins/cmp-tabnine.lua
+
+- repo: hrsh7th/cmp-emoji
+  if: "has('nvim-0.5')"
+  depends: nvim-cmp
 
 - repo: quangnguyen30192/cmp-nvim-ultisnips
   if: "has('nvim-0.5')"
+  depends: [ultisnips, nvim-cmp]
   hook_source: luafile $VIM_PATH/config/plugins/cmp-nvim-ultisnips.lua
 
 - repo: lewis6991/spellsitter.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/spellsitter.lua
+
+- repo: jose-elias-alvarez/null-ls.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/null-ls.lua
 
 # Tools
 # ----------------------------------------
@@ -126,7 +137,6 @@
   if: "!has('nvim')"
 # }}}
 
-
 # Lazy Loading
 # ==========================================
 
@@ -157,11 +167,6 @@
   hook_add: source $VIM_PATH/config/plugins/vim-easy-align.vim
 
 - repo: AndrewRadev/sideways.vim
-
-- repo: AndrewRadev/splitjoin.vim
-  hook_add: |
-    let g:splitjoin_join_mapping = '<Leader><C-j>'
-    let g:splitjoin_split_mapping = '<Leader><C-k>'
 
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
@@ -203,7 +208,6 @@
     let g:netrw_nogx = 1
     command! -nargs=1 Browse OpenBrowser <args>
 # }}}
-
 # Languages {{{
 
 # Markdown
@@ -230,7 +234,6 @@
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
 # }}}
 
-
 # Tools{{{
 - { repo: romainl/vim-cool }
 
@@ -250,7 +253,7 @@
   hook_source: source $VIM_PATH/config/plugins/limelight.vim
 
 - repo: junegunn/fzf
-  build: 'cd ~/.fzf && ./install --all'
+  build: "cd ~/.fzf && ./install --all"
   merged: 0
   on_cmd: FZF
   type__depth: 1
@@ -271,7 +274,7 @@
   if: "executable('ctags')"
   on_cmd: Vista
   hook_source: source $VIM_PATH/config/plugins/vista.vim
-    
+
 - repo: preservim/tagbar
   if: "executable('ctags')"
   on_cmd: [Tagbar, TabarOpen, TagbarToggle, TagbarOpenAutoClose]
@@ -284,7 +287,7 @@
 
 - repo: nvim-neorg/neorg
   if: "has('nvim-0.5')"
-  build: 'TSInstall norg norg_meta norg_table'
+  build: "TSInstall norg norg_meta norg_table"
   depends: [plenary.nvim, nvim-treesitter, telescope.nvim]
   hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
 
@@ -335,13 +338,13 @@
 - repo: tpope/vim-abolish
 
 - repo: simnalamburt/vim-mundo
-  on_map: {n: <Plug>}
+  on_map: { n: <Plug> }
 
 - repo: tpope/vim-repeat
   on_map: .*
 
 - repo: easymotion/vim-easymotion
-  on_map: {n: <Plug>}
+  on_map: { n: <Plug> }
   hook_add: source $VIM_PATH/config/plugins/vim-easymotion.vim
 
 - repo: ggandor/lightspeed.nvim
@@ -393,10 +396,10 @@
 # ETC {{{
 - repo: dstein64/vim-startuptime
 
-- repo:  ianding1/leetcode.vim
+- repo: ianding1/leetcode.vim
   on_cmd: [LeetCodeList, LeetCodeTest, LeetCodeSubmit, LeetCodeSignIn]
   hook_add: |
     let g:leetcode_browser = 'firefox'
     let g:leetcode_solution_filetype = 'java'
-# }}}
 
+# }}}

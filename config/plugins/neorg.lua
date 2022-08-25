@@ -22,11 +22,11 @@ require('neorg').setup {
         workspace = 'gtd',
       },
     },
-    -- ['core.norg.completion'] = {
-    --   config = {
-    --     engine = 'nvim-cmp',
-    --   },
-    -- },
+    ['core.norg.completion'] = {
+      config = {
+        engine = 'nvim-cmp',
+      },
+    },
     ["core.norg.esupports.metagen"] = {
       config = {
           type = "auto",

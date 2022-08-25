@@ -72,5 +72,7 @@ if ! command -v tree-sitter &> /dev/null; then
   fi
 fi
 
-ok "===> Tree-sitter installed"
+npm -g install prettier
+
+ok "===> Global npm packages installed"
 

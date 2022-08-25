@@ -47,10 +47,35 @@ if dein#tap('any-jump.vim')
 endif
 
 if dein#tap('nvim-lspconfig')
-  nnoremap <silent> <leader>x :lua vim.diagnostic.open_float()<CR>
   nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
   nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
-  nnoremap <silent> <leader>X :lua vim.diagnostic.setloclist()<CR>
+  " nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> gD :lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> gt :lua vim.lsp.buf.type_definition()<CR>
+
+  nnoremap <silent> <leader>cd :lua vim.diagnostic.setloclist()<CR>
+  nnoremap <silent> <Leader>cll <cmd>LspInfo<CR>
+  nnoremap <silent> <Leader>cli <cmd>LspInstall<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['c']['l'] = {
+          \ 'name' : '+lsp',
+          \ 'l' : 'Lsp info',
+          \ 'i' : 'Lsp install',
+          \ }
+
+    let g:which_key_map['c']['d'] = 'Show diagnostics in locationlist'
+
+    let g:which_key_map['x'] = 'Open diagnostic float'
+    let g:which_key_map['X'] = 'Set location list'
+
+    let g:which_key_gmap['D'] = 'LSP go to definition'
+    let g:which_key_gmap['i'] = 'LSP go to implementation'
+    let g:which_key_gmap['r'] = 'LSP go to references'
+    let g:which_key_gmap['t'] = 'LSP go to type definition'
+  endif
 endif
 
 if dein#tap('lspsaga.nvim')
@@ -58,27 +83,40 @@ if dein#tap('lspsaga.nvim')
   nnoremap <silent> gd :Lspsaga preview_definition<CR>
   nnoremap <silent> gf :Lspsaga lsp_finder<CR>
   nnoremap <silent> gh :Lspsaga signature_help<CR>
-  nnoremap <silent> gr :Lspsaga rename<CR>
   nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
   vnoremap <silent> <leader>ca :<C-u>Lspsaga range_code_action<CR>
-  vnoremap <silent> <leader>cd :Lspsaga show_line_diagnostics<CR>
   nnoremap <silent> <leader>co :LSoutlineToggle<CR>
+  nnoremap <silent> <leader>cr :Lspsaga rename<CR>
   nnoremap <silent> [e :Lspsaga diagnostic_jump_prev<CR>
   nnoremap <silent> ]e :Lspsaga diagnostic_jump_next<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['c'] = {
-          \ 'name' : '+code',
-             \ 'a' : 'Code action',
-             \ 'd' : 'Show line diagnostics',
-             \ 'o' : 'Show code outline',
-          \ }
+    let g:which_key_map['c']['a'] = 'Code action'
+    let g:which_key_map['c']['o'] = 'Show code outline'
+    let g:which_key_map['c']['r'] = 'LSP rename'
+
     let g:which_key_gmap['d'] = 'LSP go preview definition'
     let g:which_key_gmap['f'] = 'LSP finder'
-    let g:which_key_gmap['r'] = 'LSP rename'
     let g:which_key_gmap['h'] = 'LSP signature help'
+
     let g:which_key_lsbgmap['e'] = 'LSP Diagnostic prev'
     let g:which_key_rsbgmap['e'] = 'LSP Diagnostic next'
+  endif
+endif
+
+if dein#tap('mason.nvim')
+  nnoremap <silent> <leader>clm <cmd>Mason<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['c']['l']['m'] = 'Mason'
+  endif
+endif
+
+if dein#tap('null-ls.nvim')
+  nnoremap <silent> <leader>cf :lua vim.lsp.buf.format({ async = true })<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['c']['f'] = 'Code format'
   endif
 endif
 
@@ -92,71 +130,7 @@ endif
 if dein#tap('vim-smartq')
   nmap <silent> <leader>fq <Plug>(smartq_this_save)
   if s:enable_whichkey
-    let g:which_key_map['q'] = 'Smart quit'
-    let g:which_key_map['Q'] = 'Force quit'
-  endif
-endif
-
-if dein#tap('vim-clap')
-  nnoremap <silent> <Leader>fd  :<C-u>Clap command_history<CR>
-  nnoremap <silent> <Leader>fdc :<C-u>Clap colors<CR>
-  nnoremap <silent> <Leader>fdb :<C-u>Clap buffers<CR>
-  nnoremap <silent> <Leader>fdr :<C-u>Clap grep<CR>
-  nnoremap <silent> <Leader>fdR :<C-u>Clap grep %:p:h<CR>
-  nnoremap <silent> <Leader>fds :<C-u>Clap sessions<CR>
-  nnoremap <silent> <Leader>fdm :<C-u>Clap marks<CR>
-  nnoremap <silent> <Leader>fdf :<C-u>Clap files ++finder=rg --files<cr>
-  nnoremap <silent> <Leader>fdF :<C-u>Clap files ++finder=rg --hidden --files<cr>
-  nnoremap <silent> <Leader>fdg :<C-u>Clap gfiles<CR>
-  nnoremap <silent> <Leader>fdw :<C-u>Clap grep ++query=<cword><cr>
-  nnoremap <silent> <Leader>fdh :<C-u>Clap history<CR>
-  nnoremap <silent> <Leader>fdW :<C-u>Clap windows<CR>
-  nnoremap <silent> <Leader>fdl :<C-u>Clap loclist<CR>
-  nnoremap <silent> <Leader>fdu :<C-u>Clap git_diff_files<CR>
-  nnoremap <silent> <Leader>fdv :<C-u>Clap grep2 ++query=@visual<CR>
-  vnoremap <silent> <Leader>fdv <Esc>:<C-u>Clap grep2 ++query=@visual<CR>
-  nnoremap <silent> <Leader>fdp :<C-u>Clap personalconf<CR>
-  "like emacs counsel-find-file
-  nnoremap <silent> <C-x><C-f> :<C-u>Clap filer<CR>
-
-  autocmd user_events FileType clap_input call s:clap_mappings()
-
-  function! s:clap_mappings()
-    nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>
-    nnoremap <silent> <buffer> <C-j> :<C-u>call clap#navigation#linewise('down')<CR>
-    nnoremap <silent> <buffer> <C-k> :<C-u>call clap#navigation#linewise('up')<CR>
-    nnoremap <silent> <buffer> <C-n> :<C-u>call clap#navigation#linewise('down')<CR>
-    nnoremap <silent> <buffer> <C-p> :<C-u>call clap#navigation#linewise('up')<CR>
-    nnoremap <silent> <buffer> <C-f> :<c-u>call clap#navigation#scroll('down')<CR>
-    nnoremap <silent> <buffer> <C-b> :<c-u>call clap#navigation#scroll('up')<CR>
-
-    nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
-    nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
-    inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-    inoremap <silent> <buffer> jj    <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-  endfunction
-
-  if s:enable_whichkey
-    let g:which_key_map['f']['d'] = {
-          \ 'name' : '+finder',
-          \ ':' : 'Find on command history',
-          \ 'b' : 'Find on buffers',
-          \ 'c' : 'Find colorscheme',
-          \ 'f' : 'Find files on directory',
-          \ 'F' : 'Find files on directory (includes hidden files)',
-          \ 'g' : 'Find git files',
-          \ 'h' : 'Find on history',
-          \ 'l' : 'Find on locationlist',
-          \ 'm' : 'Find files with marks',
-          \ 'o' : 'Find old files',
-          \ 'p' : 'Find personal configurations',
-          \ 'r' : 'Find word with grep2',
-          \ 'R' : 'Find word relative to current file directory',
-          \ 's' : 'Find sessions',
-          \ 'u' : 'Find git diff files',
-          \ 'v' : 'Find last visual selection with Grep',
-          \ 'w' : 'Find word undercursor with Grep',
-          \ }
+    let g:which_key_map['f']['q'] = 'SmartQ Save'
   endif
 endif
 
@@ -200,76 +174,6 @@ if dein#tap('telescope.nvim')
           \ 'r' : 'Find string live grep',
           \ 'w' : 'Find string undercursor',
           \ }
-  endif
-endif
-
-if dein#tap('codi.vim')
-  nnoremap <Leader>icc :<C-u>Codi!!<CR>
-  nnoremap <Leader>icu :<C-u>CodiUpdate<CR>
-  if s:enable_whichkey
-    let g:which_key_map['i']['c'] = {
-          \ 'name' : '+codi (interactive scratchpad)',
-          \ 'c' : 'Codi toggle',
-          \ 'u' : 'Update Codi output',
-          \ }
-  endif
-endif
-
-if dein#tap('vimspector')
-  " Close all debugging window
-  nmap <Leader>dvE :call feedkeys(':VimspectorEval<Space><Tab>','t')<CR>
-  nmap <Leader>dvw :call feedkeys(':VimspectorWatch<Space><Tab>','t')<CR>
-  nmap <Leader>dvs :call feedkeys(':VimspectorShowOutput<Space><Tab>','t')<CR>
-  nmap <Leader>dvbb <Plug>VimspectorToggleBreakpoint
-  nmap <Leader>dvbc <Plug>VimspectorToggleConditionalBreakpoint
-  nmap <Leader>dvbf <Plug>VimspectorAddFunctionBreakpoint
-  nmap <Leader>dvc <Plug>VimspectorRunToCursor
-  nmap <Leader>dve <Plug>VimspectorBalloonEval
-  xmap <Leader>dve <Plug>VimspectorBalloonEval
-  nmap <Leader>dvh <Plug>VimspectorContinue
-  nmap <Leader>dvj <Plug>VimspectorStepOver
-  nmap <Leader>dvk <Plug>VimspectorStepOut
-  nmap <Leader>dvJ <Plug>VimspectorDownFrame
-  nmap <Leader>dvK <Plug>VimspectorUpFrame
-  nmap <Leader>dvl <Plug>VimspectorStepInto
-  nmap <Leader>dvp <Plug>VimspectorPause
-  nmap <Leader>dvq :VimspectorReset<CR>
-  nmap <Leader>dvr <Plug>VimspectorRestart
-  nmap <Leader>dvx <Plug>VimspectorStop
-
-  nmap <Leader><F11> <Plug>VimspectorUpFrame
-  nmap <Leader><F12> <Plug>VimspectorDownFrame
-
-  if s:enable_whichkey
-    let g:which_key_map['<F5>'] = 'Vimspector launch'
-    let g:which_key_map['<F8>'] = 'Vimspector run to cursor'
-    let g:which_key_map['<F9>'] = 'Vimspector toggle conditional break'
-    let g:which_key_map['<F11>'] = 'Vimspector frame up'
-    let g:which_key_map['<F12>'] = 'Vimspector frame down'
-    let g:which_key_map['d']['v'] = {
-         \ 'name' : '+vimspector',
-            \ 'b' : {
-                  \ 'name' : '+breakpoints',
-                  \ 'b' : 'Toggle line breakpoint under current line',
-                  \ 'c' : 'Toggle conditional line breakpoint under current line',
-                  \ 'f' : 'Add a function breakpoint for the expression under cursor',
-                \ },
-            \ 'c' : 'Run to cursor',
-            \ 'e' : 'Evaluate variable under cursor',
-            \ 'E' : 'Evaluate variable <var-name>',
-            \ 'h' : 'Start Vimspector (continue)',
-            \ 'j' : 'Step over (next)',
-            \ 'J' : 'Frame down',
-            \ 'k' : 'Step out (finish)',
-            \ 'K' : 'Frame up',
-            \ 'l' : 'Step into (step)',
-            \ 'p' : 'Pause debuggee',
-            \ 'r' : 'Restart debugging',
-            \ 's' : 'Show output <category>',
-            \ 'q' : 'Close vimspector and reset',
-            \ 'x' : 'Stop debugging',
-            \ 'w' : 'Watch variable <var-name>',
-         \ }
   endif
 endif
 
@@ -463,24 +367,6 @@ if dein#tap('vim-niceblock')
   silent! xmap A  <Plug>(niceblock-A)
 endif
 
-if dein#tap('caw.vim')
-  function! InitCaw() abort
-    if ! (&l:modifiable && &buftype ==# '')
-      silent! nunmap <buffer> gc
-      silent! xunmap <buffer> gc
-      silent! nunmap <buffer> gcc
-      silent! xunmap <buffer> gcc
-    else
-      nmap <buffer> gc <Plug>(caw:prefix)
-      xmap <buffer> gc <Plug>(caw:prefix)
-      nmap <buffer> gcc <Plug>(caw:hatpos:toggle:operator)
-      xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-    endif
-  endfunction
-  autocmd FileType * call InitCaw()
-  call InitCaw()
-endif
-
 if dein#tap('vim-sandwich')
   nmap <silent> sa <Plug>(operator-sandwich-add)
   xmap <silent> sa <Plug>(operator-sandwich-add)
@@ -510,19 +396,16 @@ if dein#tap('sideways.vim')
   endif
 endif
 
-if dein#tap('splitjoin.vim')
-  if s:enable_whichkey
-    let g:which_key_map['<C-J>'] = 'Splitjoin Join'
-    let g:which_key_map['<C-K>'] = 'Splitjoin Split'
-  endif
-endif
-
 if dein#tap('vim-zoom')
   nmap <silent> [Window]f <Plug>(zoom-toggle)
 endif
 
 if dein#tap('vim-rooter')
   nnoremap <Leader>frr :Rooter<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['f']['r']['r'] = 'Change to current buffer directory'
+  endif
 endif
 
 if dein#tap('focus.nvim')

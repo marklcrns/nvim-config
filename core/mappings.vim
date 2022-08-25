@@ -186,7 +186,7 @@ function! ImprovedDefaultMappings()
   nnoremap zl z4l
   nnoremap zh z4h
   " Open file under the cursor in a vsplit
-  nnoremap gf :vertical wincmd f<CR>
+  nnoremap go :vertical wincmd f<CR>
   " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
   " these mappings will move through display-lines in visual mode too.
   vnoremap j gj

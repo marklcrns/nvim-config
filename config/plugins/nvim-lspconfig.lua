@@ -6,7 +6,6 @@
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-
 local api = vim.api
 local lspconfig = require('lspconfig')
 
@@ -42,6 +41,11 @@ vim.diagnostic.config({
 })
 
 local on_attach = function(client, bufnr)
+  -- Disable tsserver formatting for prettier managed by null-ls
+  if client.name == "tsserver" then
+    client.server_capabilities.documentFormattingProvider = false
+  end
+  -- Format on save
   if client.server_capabilities.documentFormattingProvider then
     api.nvim_create_autocmd('BufWritePre', {
       pattern = client.config.filetypes,
@@ -128,6 +132,7 @@ local servers = {
   'html',
   'tailwindcss',
   'emmet_ls',
+  'vimls',
 }
 
 for _, server in ipairs(servers) do
