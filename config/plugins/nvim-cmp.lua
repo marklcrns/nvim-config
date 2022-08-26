@@ -84,6 +84,7 @@ cmp.setup({
     { name = 'neorg' },
     { name = 'emoji' },
     { name = 'git' },
+    { name = 'conventionalcommits' },
   }),
 
   formatting = {
@@ -103,7 +104,9 @@ cmp.setup({
         luasnip = "[LuaSnip]",
         nvim_lua = "[Lua]",
         latex_symbols = "[Latex]",
-        cmp_tabnine = "[Tab9]"
+        cmp_tabnine = "[Tab9]",
+        git = "[Git]",
+        conventionalcommits = "[Git]",
       })[entry.source.name]
       return item
     end
@@ -113,15 +116,9 @@ cmp.setup({
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
-    { name = 'git' }, -- You can specify the `cmp_git` source if you were installed it.
+    { name = 'git' }, -- cmp_git
   }, {
-    { name = 'buffer' },
-  })
-})
-
-cmp.setup.filetype('gina-commit', {
-  sources = cmp.config.sources({
-    { name = 'git' }, -- You can specify the `cmp_git` source if you were installed it.
+    { name = 'conventionalcommits' },
   }, {
     { name = 'buffer' },
   })
@@ -129,7 +126,9 @@ cmp.setup.filetype('gina-commit', {
 
 cmp.setup.filetype('NeogitCommitMessage', {
   sources = cmp.config.sources({
-    { name = 'git' }, -- You can specify the `cmp_git` source if you were installed it.
+    { name = 'git' }, -- cmp_git
+  }, {
+    { name = 'conventionalcommits' },
   }, {
     { name = 'buffer' },
   })

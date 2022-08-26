@@ -54,6 +54,14 @@ hi! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
 hi! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
 " }}}
 
+" Plugin: gitsigns {{{
+" ----------------------------------------------------------------------------
+hi! GitSignsAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=NONE
+hi! GitSignsChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=NONE
+hi! GitSignsDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
+hi! GitSignsChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
+" }}}
+
 " Plugin: vim-signature {{{
 hi! SignatureMarkText    ctermfg=11 guifg=#756207 ctermbg=234 guibg=#1c1c1c
 hi! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c

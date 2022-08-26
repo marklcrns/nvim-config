@@ -94,7 +94,7 @@ if dein#tap('lspsaga.nvim')
   nnoremap <silent> gf :Lspsaga lsp_finder<CR>
   nnoremap <silent> gh :Lspsaga signature_help<CR>
   nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
-  vnoremap <silent> <leader>ca :<C-u>Lspsaga range_code_action<CR>
+  vnoremap <silent> <leader>ca :Lspsaga range_code_action<CR>
   nnoremap <silent> <leader>co :LSoutlineToggle<CR>
   nnoremap <silent> <leader>cr :Lspsaga rename<CR>
   nnoremap <silent> [e :Lspsaga diagnostic_jump_prev<CR>
@@ -696,20 +696,35 @@ if dein#tap('neogit')
   endif
 endif
 
-if dein#tap('vim-gitgutter')
-  nmap ]g <Plug>(GitGutterNextHunk)
-  nmap [g <Plug>(GitGutterPrevHunk)
-  nmap gS <Plug>(GitGutterStageHunk)
-  xmap gS <Plug>(GitGutterStageHunk)
-  nmap gs <Plug>(GitGutterPreviewHunk)
-  nmap <Leader>gr <Plug>(GitGutterUndoHunk)
+if dein#tap('gitsigns.nvim')
+  nmap [g <cmd>Gitsigns prev_hunk<CR>
+  nmap ]g <cmd>Gitsigns next_hunk<CR>
+  nnoremap <Leader>ghb <cmd>lua require"gitsigns".blame_line{full=true}<CR>
+  nnoremap <Leader>ghd <cmd>Gitsigns diffthis<CR>
+  nnoremap <Leader>ghD <cmd>lua require"gitsigns".diffthis("~")<CR>
+  nnoremap <Leader>ghp <cmd>Gitsigns preview_hunk<CR>
+  nnoremap <Leader>ghr <cmd>Gitsigns reset_hunk<CR>
+  vnoremap <Leader>ghr <cmd>Gitsigns reset_hunk<CR>
+  vnoremap <Leader>ghR <cmd>Gitsigns reset_buffer<CR>
+  nnoremap <Leader>ghs <cmd>Gitsigns stage_hunk<CR>
+  vnoremap <Leader>ghs <cmd>Gitsigns stage_hunk<CR>
+  nnoremap <Leader>ghu <cmd>Gitsigns undo_stage_hunk<CR>
 
   if s:enable_whichkey
-    let g:which_key_rsbgmap['g'] = 'Git next chunk'
-    let g:which_key_lsbgmap['g'] = 'Git prev chunk'
-    let g:which_key_gmap['s'] = 'Preview git changes hunk'
-    let g:which_key_gmap['S'] = 'Stage git changes hunk'
-    let g:which_key_map['g']['r'] = 'Undo stage git changes hunk'
+    let g:which_key_rsbgmap['g'] = 'Git next hunk'
+    let g:which_key_lsbgmap['g'] = 'Git prev hunk'
+
+    let g:which_key_map['g']['h'] = {
+          \ 'name' : '+git-hunks',
+          \ 'b' : 'Blame current line (full)',
+          \ 'd' : 'Diffthis current line',
+          \ 'D' : 'Diffthis buffer',
+          \ 'p' : 'Preview hunk',
+          \ 'r' : 'Reset current hunk',
+          \ 'R' : 'Reset buffer',
+          \ 's' : 'Stage current hunk',
+          \ 'u' : 'Undo current hunk',
+          \ }
   endif
 endif
 
