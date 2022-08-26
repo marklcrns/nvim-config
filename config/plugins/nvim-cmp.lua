@@ -83,6 +83,7 @@ cmp.setup({
     { name = 'treesitter' },
     { name = 'neorg' },
     { name = 'emoji' },
+    { name = 'git' },
   }),
 
   formatting = {
@@ -112,7 +113,23 @@ cmp.setup({
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    { name = 'git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+cmp.setup.filetype('gina-commit', {
+  sources = cmp.config.sources({
+    { name = 'git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+cmp.setup.filetype('NeogitCommitMessage', {
+  sources = cmp.config.sources({
+    { name = 'git' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
     { name = 'buffer' },
   })

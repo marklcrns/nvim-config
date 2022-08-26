@@ -74,6 +74,11 @@
   if: "has('nvim-0.5')"
   depends: nvim-cmp
 
+- repo: petertriho/cmp-git
+  if: "has('nvim-0.5')"
+  depends: nvim-cmp
+  hook_source: luafile $VIM_PATH/config/plugins/cmp-git.lua
+
 - repo: quangnguyen30192/cmp-nvim-ultisnips
   if: "has('nvim-0.5')"
   depends: [ultisnips, nvim-cmp]
@@ -197,6 +202,11 @@
   on_ft: [gitcommit, gitrebase]
   hook_source: source $VIM_PATH/config/plugins/gina.vim
 
+
+- repo: TimUntersberger/neogit
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/neogit.lua
+
 - repo: rhysd/committia.vim
   hook_source: source $VIM_PATH/config/plugins/committia.vim
 
@@ -293,6 +303,7 @@
 
 - repo: nvim-neorg/neorg-telescope
   depends: [neorg, telescope.nvim]
+  hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki

@@ -78,6 +78,16 @@ if dein#tap('nvim-lspconfig')
   endif
 endif
 
+if dein#tap('null-ls.nvim')
+  nnoremap <silent> <leader>cf :lua vim.lsp.buf.format({ async = true })<CR>
+  nnoremap <silent> <Leader>cln <cmd>NullLsInfo<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['c']['f'] = 'Code format'
+    let g:which_key_map['c']['l']['n'] = 'Lsp info (null-ls)'
+  endif
+endif
+
 if dein#tap('lspsaga.nvim')
   nnoremap <silent> K :Lspsaga hover_doc<CR>
   nnoremap <silent> gd :Lspsaga preview_definition<CR>
@@ -109,14 +119,6 @@ if dein#tap('mason.nvim')
 
   if s:enable_whichkey
     let g:which_key_map['c']['l']['m'] = 'Mason'
-  endif
-endif
-
-if dein#tap('null-ls.nvim')
-  nnoremap <silent> <leader>cf :lua vim.lsp.buf.format({ async = true })<CR>
-
-  if s:enable_whichkey
-    let g:which_key_map['c']['f'] = 'Code format'
   endif
 endif
 
@@ -683,6 +685,14 @@ if dein#tap('gina.vim')
     let g:which_key_map['g']['o'] = 'Open repo in browser'
     let g:which_key_map['g']['p'] = 'Push commits'
     let g:which_key_map['g']['s'] = 'Display git status'
+  endif
+endif
+
+if dein#tap('neogit')
+  nnoremap <silent> <Leader>gn <cmd>Neogit<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['g']['n'] = 'Neogit'
   endif
 endif
 
