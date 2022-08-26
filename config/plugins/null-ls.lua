@@ -12,6 +12,7 @@ require("null-ls").setup({
   debug = false,
   sources = {
     formatting.prettier,
+    diagnostics.eslint,
     -- formatting.stylua,
   },
 })
