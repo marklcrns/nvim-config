@@ -32,6 +32,10 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-lspconfig.lua
 
+- repo: ray-x/lsp_signature.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/lsp_signature.lua
+
 - repo: williamboman/mason.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/mason.lua
@@ -64,6 +68,10 @@
   if: "has('nvim-0.5')"
   depends: nvim-cmp
 
+- repo: hrsh7th/cmp-cmdline
+  if: "has('nvim-0.5')"
+  depends: nvim-cmp
+
 - repo: tzachar/cmp-tabnine
   if: "has('nvim-0.5')"
   depends: nvim-cmp
@@ -71,6 +79,10 @@
   hook_source: luafile $VIM_PATH/config/plugins/cmp-tabnine.lua
 
 - repo: hrsh7th/cmp-emoji
+  if: "has('nvim-0.5')"
+  depends: nvim-cmp
+
+- repo: f3fora/cmp-spell
   if: "has('nvim-0.5')"
   depends: nvim-cmp
 
@@ -159,15 +171,6 @@
   if: has('python3')
   depends: ultisnips
   merged: 0
-
-- repo: mlaursen/vim-react-snippets
-  if: has('python3')
-  depends: ultisnips
-
-# Works with nvim-yarp and vim-hug-neovim-rpc
-- repo: gelguy/wilder.nvim
-  hook_source: source $VIM_PATH/config/plugins/wilder.vim
-# }}}
 
 # Syntax{{{
 
@@ -328,9 +331,6 @@
 # - repo: oberblastmeister/neuron.nvim
 #   rev: unstable
 #   if: "executable('neuron')"
-#   merged: 0
-#   on_ft: markdown
-#   depends: [telescope.nvim, plenary.nvim]
 #   hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
 
 - repo: pyrho/nerveux.nvim
@@ -358,10 +358,6 @@
 
 - repo: tpope/vim-repeat
   on_map: .*
-
-- repo: easymotion/vim-easymotion
-  on_map: { n: <Plug> }
-  hook_add: source $VIM_PATH/config/plugins/vim-easymotion.vim
 
 - repo: ggandor/lightspeed.nvim
   if: "has('nvim-0.5')"

@@ -1,9 +1,9 @@
-require 'nerveux'.setup {
+require'nerveux'.setup {
     --- path to neuron executable (default: neuron in PATH)
     neuron_cmd = "neuron",
 
     --- no trailing slash, (default: current directory)
-    neuron_dir = "~/Documents/my-zettelkaster",
+    neuron_dir = "~/Documents/my-zettelkasten",
 
     --- Use the cache, significantly faster (default: false)
     use_cache = true,

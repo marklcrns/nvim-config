@@ -13,6 +13,7 @@ require("null-ls").setup({
   sources = {
     formatting.prettier,
     diagnostics.eslint,
+    diagnostics.vint,
     -- formatting.stylua,
   },
 })

@@ -230,11 +230,7 @@ function! badge#syntax() abort
 	let l:warnings = 0
 	let l:hints = 0
 	let l:info = 0
-	if exists('*luaeval')
-			\ && luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-		let l:errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
-		let l:warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
-	elseif exists('*lsp#get_buffer_diagnostics_counts')
+	if exists('*lsp#get_buffer_diagnostics_counts')
 			\ && get(g:, 'lsp_diagnostics_enabled', 1)
 		let l:counts = lsp#get_buffer_diagnostics_counts()
 		let l:errors = get(l:counts, 'error', '')

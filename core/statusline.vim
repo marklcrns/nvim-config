@@ -10,7 +10,7 @@ let s:stl .= "%6*%{badge#modified('+')}%0*"				" Write symbol
 let s:stl .= ' %1*%{badge#filename()}%* '					" Filename
 let s:stl .= '%<'																	" Start truncating here
 let s:stl .= '%( %{badge#branch()} %)'						" Git branch name
-" let s:stl .= '%4*%(%{badge#syntax()} %)%*'				" Syntax lint
+let s:stl .= '%4*%(%{badge#syntax()} %)%*'				" Syntax lint
 " let s:stl .= "%4*%(%{badge#trails('␣%s')} %)%*"		" Whitespace
 let s:stl .= '%3*%(%{badge#indexing()} %)%*'			" Indexing indicator
 let s:stl .= '%3*%(%{badge#gitstatus()} %)%*'			" Git status
@@ -21,7 +21,7 @@ let s:stl .= '%4*%*%( %{&ft} %)'									" File type
 let s:stl .= '%3*%2* '
 " let s:stl .= '%3b|0x%2B '													" ASCII value
 let s:stl .= '%2l:%2c%4p%% '											" Line and column nr
-" let s:stl .= "%4*%{badge#scrollbar()}%*"
+let s:stl .= "%4*%{badge#scrollbar()}%*"
 
 " Non-active Statusline
 let s:stl_nc = " %{badge#mode('🔒', 'Z')}%n"	 " Read-only symbol

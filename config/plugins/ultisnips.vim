@@ -5,7 +5,6 @@ let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 let g:UltiSnipsSnippetDirectories = [
       \ $DATA_PATH . "/dein/repos/github.com/honza/vim-snippets/UltiSnips",
-      \ $DATA_PATH . "/dein/repos/github.com/mlaursen/vim-react-snippets/UltiSnips",
       \ $VIM_PATH . "/UltiSnips/"
       \ ]
 

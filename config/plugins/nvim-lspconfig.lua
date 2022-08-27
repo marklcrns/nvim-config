@@ -1,17 +1,8 @@
--- DEPRECATED: Mappings Moved to keybinds.vim
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
--- local opts = { noremap=true, silent=true }
--- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
 local api = vim.api
 local lspconfig = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
 function _G.open_lsp_log()
   local path = vim.lsp.get_log_path()
   vim.cmd('edit ' .. path)
@@ -61,8 +52,8 @@ end
 
 lspconfig.gopls.setup({
   on_attach = on_attach,
-  cmd = { 'gopls', '--remote=auto' },
   capabilities = capabilities,
+  cmd = { 'gopls', '--remote=auto' },
   init_options = {
     usePlaceholders = true,
     completeUnimported = true,
@@ -71,6 +62,7 @@ lspconfig.gopls.setup({
 
 lspconfig.sumneko_lua.setup({
   on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     Lua = {
       diagnostics = {
@@ -87,6 +79,7 @@ lspconfig.sumneko_lua.setup({
 
 lspconfig.clangd.setup({
   on_attach = on_attach,
+  capabilities = capabilities,
   cmd = {
     'clangd',
     '--background-index',
@@ -119,6 +112,7 @@ lspconfig.rust_analyzer.setup({
 
 lspconfig.tsserver.setup {
   on_attach = on_attach,
+  capabilities = capabilities,
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" }
 }
@@ -138,5 +132,14 @@ local servers = {
 for _, server in ipairs(servers) do
   lspconfig[server].setup({
     on_attach = on_attach,
+    capabilities = capabilities,
   })
 end
+
+-- NOTE: Mappings Moved to keybinds.vim
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+-- local opts = { noremap=true, silent=true }
+-- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+-- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)

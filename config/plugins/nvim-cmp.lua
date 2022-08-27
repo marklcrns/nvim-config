@@ -3,32 +3,44 @@ local cmp = require 'cmp'
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
 local lsp_symbols = {
-  Text = "   (Text) ",
-  Method = "   (Method)",
-  Function = "   (Function)",
-  Constructor = "   (Constructor)",
-  Field = " ﴲ  (Field)",
-  Variable = "[] (Variable)",
-  Class = "   (Class)",
-  Interface = " ﰮ  (Interface)",
-  Module = "   (Module)",
-  Property = " 襁 (Property)",
-  Unit = "   (Unit)",
-  Value = "   (Value)",
-  Enum = " 練 (Enum)",
-  Keyword = "   (Keyword)",
-  Snippet = "   (Snippet)",
-  Color = "   (Color)",
-  File = "   (File)",
-  Reference = "   (Reference)",
-  Folder = "   (Folder)",
-  EnumMember = "   (EnumMember)",
-  Constant = " ﲀ  (Constant)",
-  Struct = " ﳤ  (Struct)",
-  Event = "   (Event)",
-  Operator = "   (Operator)",
-  TypeParameter = "   (TypeParameter)"
+  Text = "  ",
+  Method = "  ",
+  Function = "  ",
+  Constructor = "  ",
+  Field = " ﴲ ",
+  Variable = "  ",
+  Class = "  ",
+  Interface = " ﰮ ",
+  Module = "  ",
+  Property = " 襁 ",
+  Unit = "  ",
+  Value = "  ",
+  Enum = " 練 ",
+  Keyword = "  ",
+  Snippet = "  ",
+  Color = "  ",
+  File = "  ",
+  Reference = "  ",
+  Folder = "  ",
+  EnumMember = "  ",
+  Constant = " ﲀ ",
+  Struct = " ﳤ ",
+  Event = "  ",
+  Operator = "  ",
+  TypeParameter = "  "
 }
+
+local press = function(key)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
+end
+
+local has_any_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+    return false
+  end
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 cmp.setup({
   snippet = {
@@ -41,33 +53,62 @@ cmp.setup({
     end,
   },
   window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-u>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+    ['<C-d>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
+    ["<C-c>"] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ["<Tab>"] = cmp.mapping(
-      function(fallback)
-        cmp_ultisnips_mappings.compose { "expand", "select_next_item" }(fallback)
-      end,
-      { "i", "s" }
-    ),
-    ["<S-Tab>"] = cmp.mapping(
-      function(fallback)
-        cmp_ultisnips_mappings.compose { "select_prev_item" }(fallback)
-      end,
-      { "i", "s" }
-    ),
+    -- ["<Tab>"] = cmp.mapping(function(fallback)
+    --   if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+    --     press("<ESC>:call UltiSnips#JumpForwards()<CR>")
+    --   elseif cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif has_any_words_before() then
+    --     press("<Tab>")
+    --   else
+    --     fallback()
+    --   end
+    -- end, {
+    --   "i",
+    --   "s",
+    -- }),
+    -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+    --   if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+    --     press("<ESC>:call UltiSnips#JumpBackwards()<CR>")
+    --   elseif cmp.visible() then
+    --     cmp.select_prev_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end, {
+    --   "i",
+    --   "s",
+    -- }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+        return press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+      elseif cmp.visible() then
+        cmp.confirm({ select = true })
+      elseif has_any_words_before() then
+        press("<Tab>")
+      else
+        fallback()
+      end
+    end, { "i", "s", }),
   }),
 
   completion = {
-    completeopt = 'menu,menuone,noselect'
+    -- completeopt = 'menu,menuone,noselect'
+    completeopt = 'menu,menuone,noinsert'
   },
 
   sources = cmp.config.sources({
@@ -82,7 +123,8 @@ cmp.setup({
     { name = 'path' },
     { name = 'treesitter' },
     { name = 'neorg' },
-    { name = 'emoji' },
+    { name = 'emoji', options = { insert = true } },
+    { name = 'spell' },
     { name = 'git' },
     { name = 'conventionalcommits' },
   }),
@@ -101,12 +143,14 @@ cmp.setup({
         path = "[Path]",
         look = "[Look]",
         treesitter = "[treesitter]",
-        luasnip = "[LuaSnip]",
+        -- luasnip = "[LuaSnip]",
+        ultisnips = "[UltiSnip]",
         nvim_lua = "[Lua]",
         latex_symbols = "[Latex]",
         cmp_tabnine = "[Tab9]",
         git = "[Git]",
         conventionalcommits = "[Git]",
+        cmdline = "[Cmdline]",
       })[entry.source.name]
       return item
     end
@@ -120,6 +164,10 @@ cmp.setup.filetype('gitcommit', {
   }, {
     { name = 'conventionalcommits' },
   }, {
+    { name = 'spell' },
+  }, {
+    { name = 'emoji', options = { insert = true } },
+  }, {
     { name = 'buffer' },
   })
 })
@@ -130,7 +178,28 @@ cmp.setup.filetype('NeogitCommitMessage', {
   }, {
     { name = 'conventionalcommits' },
   }, {
+    { name = 'spell' },
+  }, {
+    { name = 'emoji', options = { insert = true } },
+  }, {
     { name = 'buffer' },
+  })
+})
+
+-- Completion sources according to specific file-types.
+cmp.setup.filetype({ 'markdown', 'help', 'text' }, {
+  sources = cmp.config.sources({
+    { name = 'emoji', options = { insert = true } },
+  }, {
+    { name = 'nvim_lsp' },
+  }, {
+    { name = 'spell' },
+  }, {
+    { name = 'buffer' },
+  }, {
+    { name = 'path' },
+  }, {
+    { name = 'ultisnips' },
   })
 })
 
@@ -151,10 +220,3 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-  capabilities = capabilities
-}
