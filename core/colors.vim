@@ -77,6 +77,15 @@ let g:choosewin_color_other = {
       \ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
 " }}}
 
+" Plugin: dashboard {{{
+" ----------------------------------------------------------------------------
+hi! DashboardHeader guifg=#FFD700 guibg=NONE
+hi! DashboardCenter guifg=#D7D7BC guibg=NONE
+hi! DashboardShortcut guifg=#D7D17C guibg=NONE
+hi! DashboardFooter guifg=#767676 guibg=NONE
+
+" }}}
+
 " Plugin: Fern.vim {{{
 " ----------------------------------------------------------------------------
 hi FernGitStatusBracket guifg=#6c7a80 ctermfg=NONE
