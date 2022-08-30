@@ -26,10 +26,10 @@ require 'nvim-tree'.setup {
     enable = true,
     show_on_dirs = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      error = " ",
+      warning = " ",
+      hint = " ",
+      info = " ",
     },
   },
   update_focused_file                = {
@@ -78,7 +78,11 @@ require 'nvim-tree'.setup {
     auto_resize = false,
     mappings = {
       custom_only = false,
-      list = {}
+      list = {
+        { key = "u", action = "dir_up" },
+        { key = "<C-s>", action = "system_open" },
+        { key = "s", action = "" }, -- Disable default system_open mappings
+      },
     },
     number = false,
     relativenumber = false,

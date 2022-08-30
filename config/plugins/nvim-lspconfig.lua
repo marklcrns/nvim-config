@@ -11,10 +11,10 @@ end
 vim.cmd('command! -nargs=0 LspLog call v:lua.open_lsp_log()')
 
 local signs = {
-  Error = ' ',
-  Warn = ' ',
-  Info = ' ',
-  Hint = 'ﴞ ',
+  Error = " ",
+  Warn = " ",
+  Hint = " ",
+  Info = " ",
 }
 for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
@@ -33,9 +33,9 @@ vim.diagnostic.config({
 
 local on_attach = function(client, bufnr)
   -- Disable tsserver formatting for prettier managed by null-ls
-  if client.name == "tsserver" then
-    client.server_capabilities.documentFormattingProvider = false
-  end
+  -- if client.name == "tsserver" then
+  --   client.server_capabilities.documentFormattingProvider = false
+  -- end
   -- Format on save
   if client.server_capabilities.documentFormattingProvider then
     api.nvim_create_autocmd('BufWritePre', {
