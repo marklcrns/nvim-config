@@ -1,6 +1,7 @@
 -- Setup nvim-cmp.
 local cmp = require 'cmp'
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
 local lsp_symbols = {
   Text = "  ",
@@ -66,7 +67,7 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ["<C-c>"] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     -- ["<Tab>"] = cmp.mapping(function(fallback)
     --   if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
     --     press("<ESC>:call UltiSnips#JumpForwards()<CR>")
@@ -107,8 +108,8 @@ cmp.setup({
   }),
 
   completion = {
-    -- completeopt = 'menu,menuone,noselect'
-    completeopt = 'menu,menuone,noinsert'
+    completeopt = 'menu,menuone,noselect,noinsert'
+    -- completeopt = 'menu,menuone,noinsert'
   },
 
   sources = cmp.config.sources({
@@ -156,6 +157,12 @@ cmp.setup({
     end
   },
 })
+
+-- autopairs config
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {

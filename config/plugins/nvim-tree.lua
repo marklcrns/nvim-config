@@ -138,4 +138,9 @@ require 'nvim-tree'.setup {
     special_files = { "Makefile", "README.md", "readme.md" },
     symlink_destination = true,
   },
+
+  -- nvim-ts-autotag setup
+  autotag = {
+    enable = true,
+  },
 }

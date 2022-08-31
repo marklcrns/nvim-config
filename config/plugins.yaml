@@ -172,6 +172,10 @@
   depends: ultisnips
   merged: 0
 
+- repo: mlaursen/vim-react-snippets
+  if: has('python3')
+  depends: ultisnips
+
 # Syntax{{{
 
 # Coding tools
@@ -197,8 +201,14 @@
   hook_add: source $VIM_PATH/config/plugins/vim-sandwich.vim
 
 # Delimiter
-- repo: Raimondi/delimitMate
-  hook_source: source $VIM_PATH/config/plugins/delimitMate.vim
+- repo: windwp/nvim-autopairs
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-autopairs.lua
+
+- repo: windwp/nvim-ts-autotag
+  if: "has('nvim-0.5')"
+  depends: nvim-treesitter
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-ts-autotag.lua
 
 # Titlecase
 - repo: christoomey/vim-titlecase

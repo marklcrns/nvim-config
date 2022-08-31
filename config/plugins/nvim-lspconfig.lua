@@ -117,6 +117,12 @@ lspconfig.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" }
 }
 
+lspconfig.emmet_ls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+}
+
 local servers = {
   'dockerls',
   'pyright',
@@ -125,7 +131,6 @@ local servers = {
   'yamlls',
   'html',
   'tailwindcss',
-  'emmet_ls',
   'vimls',
 }
 

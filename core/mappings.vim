@@ -531,19 +531,21 @@ function! DiffMappings()
     "   prompt = true
 
     " Diff mappings only when in diff buffer
-    nnoremap <expr> dob &diff ? ':diffget BASE<CR>'   : ''
-    nnoremap <expr> dol &diff ? ':diffget LOCAL<CR>'  : ''
-    nnoremap <expr> dor &diff ? ':diffget REMOTE<CR>' : ''
+    nnoremap <expr> db &diff ? ':diffget BASE<CR>'   : ''
+    nnoremap <expr> dl &diff ? ':diffget LOCAL<CR>'  : ''
+    nnoremap <expr> dr &diff ? ':diffget REMOTE<CR>' : ''
     " Quit nvim with an error code. Useful when aborting git mergetool or git commit
-    nnoremap <expr> cq  &diff ? ':cquit<CR>'          : ''
+    nnoremap <expr> cq &diff ? ':cquit<CR>'          : ''
 
-    echom " "
-    echom "dob :diffget BASE"
-    echom "dol :diffget LOCAL"
-    echom "dor :diffget REMOTE"
-    echom "cq  :cquit"
-    echom "]c  Next conflict"
-    echom "[c  Previous conflict"
+    echom ' '
+    echom 'dp :diffput'
+    echom 'do :diffget'
+    echom 'db :diffget BASE (git mergetool only)'
+    echom 'dl :diffget LOCAL (git mergetool only)'
+    echom 'dr :diffget REMOTE (git mergetool only)'
+    echom 'cq :cquit'
+    echom ']c Next conflict'
+    echom '[c Previous conflict'
 
     " Only shows the first time this function is called
     if !exists("g:custom_diff_enable")
