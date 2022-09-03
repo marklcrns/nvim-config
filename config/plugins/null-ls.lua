@@ -14,6 +14,7 @@ require("null-ls").setup({
     formatting.prettier,
     diagnostics.eslint,
     diagnostics.vint,
+    diagnostics.shellcheck,
     -- formatting.stylua,
   },
 })
