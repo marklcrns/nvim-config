@@ -19,7 +19,6 @@ require 'nvim-tree'.setup {
     enable = true,
     auto_open = true,
   },
-  auto_close                         = false,
   open_on_tab                        = false,
   update_cwd                         = false,
   diagnostics                        = {
@@ -75,7 +74,6 @@ require 'nvim-tree'.setup {
     adaptive_size = true,
     hide_root_folder = false,
     side = 'left',
-    auto_resize = false,
     mappings = {
       custom_only = false,
       list = {
@@ -137,10 +135,5 @@ require 'nvim-tree'.setup {
     },
     special_files = { "Makefile", "README.md", "readme.md" },
     symlink_destination = true,
-  },
-
-  -- nvim-ts-autotag setup
-  autotag = {
-    enable = true,
   },
 }
