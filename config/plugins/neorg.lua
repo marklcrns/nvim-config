@@ -5,7 +5,11 @@ require('neorg').setup {
     ["core.keybinds"] = { -- Configure core.keybinds
       config = {
         default_keybinds = true, -- Generate the default keybinds
-        neorg_leader = "<LocalLeader>n" -- This is the default if unspecified
+        neorg_leader = "<LocalLeader>n", -- This is the default if unspecified
+        hook = function(keybinds)
+            keybinds.remap("toc-split", "n", "q", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
+            keybinds.remap("toc-split", "n", "<ESC>", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
+        end,
       }
     },
     ["core.norg.concealer"] = {}, -- Allows for use of icons
@@ -38,33 +42,6 @@ require('neorg').setup {
       }
     },
     ["core.integrations.telescope"] = {}, -- Enable the telescope module
-  },
-}
-
--- Treesitter integration
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-
-parser_configs.norg = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg",
-    files = { "src/parser.c", "src/scanner.cc" },
-    branch = "main"
-  },
-}
-
-parser_configs.norg_meta = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-    files = { "src/parser.c" },
-    branch = "main"
-  },
-}
-
-parser_configs.norg_table = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-    files = { "src/parser.c" },
-    branch = "main"
   },
 }
 

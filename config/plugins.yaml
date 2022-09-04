@@ -112,7 +112,6 @@
 # Tools
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
-  rev: dev
 
 - repo: akinsho/toggleterm.nvim
   hook_source: luafile $VIM_PATH/config/plugins/toggleterm.lua
@@ -275,6 +274,10 @@
   depends: Limelight.vim
   on_cmd: Goyo
   hook_source: source $VIM_PATH/config/plugins/goyo.vim
+
+- repo: folke/zen-mode.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/zen-mode.lua
 
 - repo: junegunn/Limelight.vim
   on_cmd: Limelight
