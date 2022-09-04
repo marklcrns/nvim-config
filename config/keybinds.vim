@@ -49,8 +49,8 @@ endif
 if dein#tap('nvim-lspconfig')
   nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
   nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
-  " nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent> gD :lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
   nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
   nnoremap <silent> gt :lua vim.lsp.buf.type_definition()<CR>
@@ -90,7 +90,7 @@ endif
 
 if dein#tap('lspsaga.nvim')
   nnoremap <silent> K :Lspsaga hover_doc<CR>
-  nnoremap <silent> gd :Lspsaga preview_definition<CR>
+  " nnoremap <silent> gd :Lspsaga preview_definition<CR>
   nnoremap <silent> gf :Lspsaga lsp_finder<CR>
   nnoremap <silent> gh :Lspsaga signature_help<CR>
   nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
