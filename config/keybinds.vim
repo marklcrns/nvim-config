@@ -245,6 +245,13 @@ if dein#tap('goyo.vim')
   endif
 endif
 
+if dein#tap('zen-mode.nvim')
+  nnoremap <Leader>iz <cmd>ZenMode<CR>
+  if s:enable_whichkey
+    let g:which_key_map['i']['z'] = 'ZenMode toggle'
+  endif
+endif
+
 if dein#tap('nvim-tree.lua')
   nnoremap <silent> <Leader>ee :NvimTreeToggle<CR>
   nnoremap <silent> <Leader>ef :NvimTreeFindFile<CR>

@@ -108,8 +108,8 @@ cmp.setup({
   }),
 
   completion = {
-    completeopt = 'menu,menuone,noselect,noinsert'
-    -- completeopt = 'menu,menuone,noinsert'
+    -- completeopt = 'menu,menuone,noselect,noinsert'
+    completeopt = 'menu,menuone,noinsert'
   },
 
   sources = cmp.config.sources({

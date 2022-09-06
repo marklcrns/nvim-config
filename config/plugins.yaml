@@ -190,9 +190,9 @@
     let g:niceblock_no_default_key_mappings = 0
 
 # Commenter
-- repo: b3nj5m1n/kommentary
+- repo: numToStr/Comment.nvim
   if: "has('nvim')"
-  hook_source: luafile $VIM_PATH/config/plugins/kommentary.lua
+  hook_source: luafile $VIM_PATH/config/plugins/Comment.lua
 
 # Surround
 - repo: machakann/vim-sandwich
