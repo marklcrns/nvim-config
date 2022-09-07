@@ -24,7 +24,7 @@ Statusline and tabline plugin from [rafi/vim-config](https://github.com/rafi/vim
 Clone repository into `~/.config/nvim`
 
 ```bash
-git clone --ff-only --branch master https://github.com/marklcrns/nvim-config ~/.config/nvim
+git clone --recurse-submodules --ff-only --branch master https://github.com/marklcrns/nvim-config ~/.config/nvim
 ```
 
 Then simply run `make` to install all the necessary dependencies and
