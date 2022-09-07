@@ -256,40 +256,14 @@ function! SmartInsertPaste()
   exe "norm! 0`>"
 endfunction
 
-" Ref: https://stackoverflow.com/a/61275100/11850077
-"      https://github.com/vim/vim/issues/2004#issuecomment-324357529
-function! IntegratedVimwikiTab() abort
-
-  " First, try to expand or jump on UltiSnips.
-  " let snippet = UltiSnips#ExpandSnippet()
-  " if g:ulti_expand_res > 0
-  "   return snippet
-  " endif
-  if UltiSnips#CanExpandSnippet()
-    return UltiSnips#ExpandSnippet()
-  endif
-
-  " Then, check if we're in a completion menu
-  if pumvisible()
-    return coc#_select_confirm()
-  endif
-
-  " Finally, trigger vimwiki table jump.
-  return vimwiki#tbl#kbd_tab()
-endfunction
-
 " Vimwiki custom mappings
 augroup VimwikiCustomMappings
   autocmd!
   " Integration with delimitMate, coc completion and Ultisnips
-  " autocmd FileType vimwiki inoremap <silent><buffer> <Tab>
-  "       \ <C-R>=IntegratedVimwikiTab()<CR>
+  autocmd FileType vimwiki inoremap <silent><buffer><expr> <Tab>
+        \ vimwiki#tbl#kbd_tab()
   autocmd Filetype vimwiki inoremap <silent><buffer><expr> <S-tab>
         \ vimwiki#tbl#kbd_shift_tab()
-  autocmd Filetype vimwiki inoremap <silent><buffer><expr> <CR>
-        \ delimitMate#WithinEmptyPair() ?
-        \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
-        \ "\<ESC>:VimwikiReturn 1 5\<CR>"
   autocmd FileType vimwiki inoremap <silent><buffer> <CR>
         \ <C-]><Esc>:VimwikiReturn 1 5<CR>
   autocmd FileType vimwiki inoremap <silent><buffer> <S-CR>
@@ -300,10 +274,8 @@ augroup END
 " Quick fix hack on <CR> and <S-CR> being remapped when comming back to a session
 if !hasmapto('VimwikiReturn', 'i')
   if maparg('<CR>', 'i') !~? '<Esc>:VimwikiReturn'
-    autocmd FileType vimwiki inoremap <silent><buffer><expr> <CR>
-          \ delimitMate#WithinEmptyPair() ?
-          \ "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
-          \ "\<ESC>:VimwikiReturn 1 5\<CR>"
+    autocmd FileType vimwiki inoremap <silent><buffer> <CR>
+          \ <C-]><Esc>:VimwikiReturn 1 5<CR>
   endif
   if maparg('<S-CR>', 'i') !~? '<Esc>:VimwikiReturn'
     autocmd FileType vimwiki inoremap <silent><buffer> <S-CR> <Esc>:VimwikiReturn 4 1<CR>

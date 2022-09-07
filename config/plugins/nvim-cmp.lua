@@ -68,6 +68,17 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.abort(),
     ["<C-c>"] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+        press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+      elseif cmp.visible() then
+        cmp.confirm({ select = true })
+      -- elseif has_any_words_before() then
+      --   press("<Tab>")
+      else
+        fallback()
+      end
+    end, { "i", "s", }),
     -- ["<Tab>"] = cmp.mapping(function(fallback)
     --   if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
     --     press("<ESC>:call UltiSnips#JumpForwards()<CR>")
@@ -94,22 +105,10 @@ cmp.setup({
     --   "i",
     --   "s",
     -- }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-        return press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-      elseif cmp.visible() then
-        cmp.confirm({ select = true })
-      elseif has_any_words_before() then
-        press("<Tab>")
-      else
-        fallback()
-      end
-    end, { "i", "s", }),
   }),
 
   completion = {
-    -- completeopt = 'menu,menuone,noselect,noinsert'
-    completeopt = 'menu,menuone,noinsert'
+    completeopt = 'menu,menuone,noselect,noinsert'
   },
 
   sources = cmp.config.sources({
