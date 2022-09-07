@@ -46,14 +46,6 @@ hi DiffDelete ctermbg=235 ctermfg=131 cterm=reverse guibg=#262626 guifg=#af5f5f 
 hi DiffText ctermbg=235 ctermfg=208 cterm=reverse guibg=#262626 guifg=#ecec93 gui=reverse
 " }}}
 
-" Plugin: vim-gitgutter {{{
-" ----------------------------------------------------------------------------
-hi! GitGutterAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=NONE
-hi! GitGutterChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=NONE
-hi! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
-hi! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=NONE
-" }}}
-
 " Plugin: gitsigns {{{
 " ----------------------------------------------------------------------------
 hi! GitSignsAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=NONE
@@ -83,33 +75,12 @@ hi! DashboardHeader guifg=#FFD700 guibg=NONE
 hi! DashboardCenter guifg=#D7D7BC guibg=NONE
 hi! DashboardShortcut guifg=#D7D17C guibg=NONE
 hi! DashboardFooter guifg=#767676 guibg=NONE
-
 " }}}
 
-" Plugin: Fern.vim {{{
-" ----------------------------------------------------------------------------
-hi FernGitStatusBracket guifg=#6c7a80 ctermfg=NONE
-hi FernGitStatusIndex guifg=#b5bd68 guibg=NONE
-hi FernGitStatusWorktree guifg=#cc6666 guibg=NONE
-hi FernGitStatusUnmerged guifg=#232c31 guibg=NONE
-hi FernGitStatusUntracked guifg=#6c7a80 guibg=NONE
-hi FernGitStatusIgnored guifg=#6c7a80 guibg=NONE
-" }}}
-
-" Plugins: Coc {{{
-" ----------------------------------------------------------------------------
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
-hi default CocHighlightText  guibg=#725972 ctermbg=96
-hi CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
-
-" Coc-yank highlight
-hi HighlightedyankRegion term=bold ctermbg=0 guibg=#d0d0d0
-" }}}
 
 " GetColorSynatxGroup
 " ---------------------------------------------------------
 " nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
 "     \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 "     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
 

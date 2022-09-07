@@ -142,6 +142,9 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/focus.lua
 
+- repo: blueyed/vim-diminactive
+  hook_source: source $VIM_PATH/config/plugins/vim-diminactive.vim
+
 - repo: sindrets/winshift.nvim
   if: "has('nvim-0.5')"
 
