@@ -44,6 +44,11 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/mason-lspconfig.lua
 
+- repo: jayp0521/mason-null-ls.nvim
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/mason-null-ls.lua
+  depends: [ 'mason.nvim', 'null-ls.nvim' ]
+
 - repo: glepnir/lspsaga.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua

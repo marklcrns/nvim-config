@@ -92,7 +92,6 @@ if dein#tap('lspsaga.nvim')
   nnoremap <silent> K :Lspsaga hover_doc<CR>
   " nnoremap <silent> gd :Lspsaga preview_definition<CR>
   nnoremap <silent> gf :Lspsaga lsp_finder<CR>
-  nnoremap <silent> gh :Lspsaga signature_help<CR>
   nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
   vnoremap <silent> <leader>ca :Lspsaga range_code_action<CR>
   nnoremap <silent> <leader>co :LSoutlineToggle<CR>
@@ -107,7 +106,6 @@ if dein#tap('lspsaga.nvim')
 
     let g:which_key_gmap['d'] = 'LSP go preview definition'
     let g:which_key_gmap['f'] = 'LSP finder'
-    let g:which_key_gmap['h'] = 'LSP signature help'
 
     let g:which_key_lsbgmap['e'] = 'LSP Diagnostic prev'
     let g:which_key_rsbgmap['e'] = 'LSP Diagnostic next'
@@ -826,14 +824,14 @@ function! EliteModeToggle()
     if dein#tap('coc.nvim')
       exec 'silent! CocEnable'
      endif
-    echom "Elite mode off"
+    echom 'Elite mode off'
     let g:elite_mode=v:false
   else
     if dein#tap('delimitMate') | exec 'silent! DelimitMateOff' | endif
     if dein#tap('coc.nvim')
       exec 'silent! CocDisable'
     endif
-    echom "Elite mode on"
+    echom 'Elite mode on'
     let g:elite_mode=v:true
   endif
 endfunction

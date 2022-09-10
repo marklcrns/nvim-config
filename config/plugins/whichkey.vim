@@ -267,7 +267,7 @@ call which_key#register('d', 'g:which_key_dmap')
 call which_key#register('s', 'g:which_key_smap')
 call which_key#register('g', 'g:which_key_gmap')
 
-let s:leader_key=substitute(get(g:,"mapleader","\\"), ' ', '<Space>', '')
+let s:leader_key=substitute(get(g:,'mapleader','\\'), ' ', '<Space>', '')
 let s:localleader_key= get(g:,'maplocalleader',';')
 execute 'nnoremap <silent> <Leader> :<c-u>WhichKey "'.s:leader_key.'"<CR>'
 execute 'vnoremap <silent> <Leader> :<c-u>WhichKeyVisual "'.s:leader_key.'"<CR>'
