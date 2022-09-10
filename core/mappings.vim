@@ -332,7 +332,7 @@ function! WindowsManagementMappings()
 
   " Window-control prefix
   nnoremap  [Window]   <Nop>
-  nmap      s [Window]
+  nmap      <C-w> [Window]
 
   " Splits
   nnoremap <silent> [Window]g  :<C-u>split<CR>

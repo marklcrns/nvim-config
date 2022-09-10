@@ -141,10 +141,6 @@
 - repo: Shougo/context_filetype.vim
 - repo: skywind3000/asyncrun.vim
 
-- repo: dhruvasagar/vim-zoom
-  hook_add: |
-    let g:zoom#statustext = 'F'
-
 - repo: sgur/vim-editorconfig
   hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
 
@@ -213,9 +209,8 @@
   hook_source: luafile $VIM_PATH/config/plugins/Comment.lua
 
 # Surround
-- repo: machakann/vim-sandwich
-  on_map: { vonx: <Plug>(operator-sandwich- }
-  hook_add: source $VIM_PATH/config/plugins/vim-sandwich.vim
+- repo: kylechui/nvim-surround
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-surround.lua
 
 # Delimiter
 - repo: windwp/nvim-autopairs
@@ -392,6 +387,7 @@
 
 - repo: ggandor/leap.nvim
   if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/leap.lua
 
 - repo: brooth/far.vim
   on_cmd: [F, Far, Farr, Farf, Refar, Farundo]

@@ -368,6 +368,10 @@ if dein#tap('vim-easymotion')
   endif
 endif
 
+if dein#tap('leap.nvim')
+  nnoremap <silent> [Window]f :lua leap_to_window()<CR>
+endif
+
 if dein#tap('vim-niceblock')
   silent! xmap I  <Plug>(niceblock-I)
   silent! xmap gI <Plug>(niceblock-gI)
@@ -401,10 +405,6 @@ if dein#tap('sideways.vim')
     let g:which_key_map['<C-H>'] = 'Sideways Left'
     let g:which_key_map['<C-L>'] = 'Sideways Right'
   endif
-endif
-
-if dein#tap('vim-zoom')
-  nmap <silent> [Window]f <Plug>(zoom-toggle)
 endif
 
 if dein#tap('vim-rooter')
