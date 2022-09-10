@@ -347,7 +347,7 @@
   on_if: "(expand('%:p') =~ $HOME . '/Documents/my-wiki/task/md/diary/.*' && &filetype == 'vimwiki')"
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
-  rev: 925d8ed2f522229d32d4cc39486080c244d20f7a
+  # rev: 925d8ed2f522229d32d4cc39486080c244d20f7a
 
 # - repo: oberblastmeister/neuron.nvim
 #   rev: unstable

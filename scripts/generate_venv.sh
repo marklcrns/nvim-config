@@ -26,6 +26,7 @@ if command -v python2 &> /dev/null; then
     pip install wheel neovim PyYAML Send2Trash
     # Optionals
     pip install tasklib # For tbabej/taskwiki
+    pip install packaging # For tbabej/taskwiki
     pip install pynvim
     pip install six
     pip install keyring browser_cookie3  # for leetcode.vim
@@ -50,6 +51,7 @@ if command -v python3 &> /dev/null; then
     pip install wheel neovim PyYAML Send2Trash
     # Optionals
     pip install tasklib # For tbabej/taskwiki
+    pip install packaging # For tbabej/taskwiki
     pip install pynvim
     pip install six
     pip install keyring browser_cookie3  # for leetcode.vim
