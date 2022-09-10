@@ -324,8 +324,9 @@
   if: "executable('ctags')"
   on_cmd: [Tagbar, TabarOpen, TagbarToggle, TagbarOpenAutoClose]
 
-- repo: airblade/vim-rooter
-  hook_add: source $VIM_PATH/config/plugins/vim-rooter.vim
+- repo: notjedi/nvim-rooter.lua
+  if: "has('nvim-0.5')"
+  hook_add: source $VIM_PATH/config/plugins/nvim-rooter.lua
 
 - repo: benmills/vimux
   on_cmd: [VimuxPromptCommand, VimuxOpenRunner]

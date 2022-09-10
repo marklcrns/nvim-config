@@ -407,7 +407,7 @@ if dein#tap('sideways.vim')
   endif
 endif
 
-if dein#tap('vim-rooter')
+if dein#tap('nvim-rooter.lua')
   nnoremap <Leader>frr :Rooter<CR>
 
   if s:enable_whichkey

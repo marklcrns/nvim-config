@@ -20,7 +20,6 @@ require 'nvim-tree'.setup {
     auto_open = true,
   },
   open_on_tab                        = false,
-  update_cwd                         = false,
   diagnostics                        = {
     enable = true,
     show_on_dirs = true,
@@ -31,9 +30,10 @@ require 'nvim-tree'.setup {
       info = " ",
     },
   },
+  update_cwd                         = true,
   update_focused_file                = {
     enable = true,
-    update_cwd = false,
+    update_cwd = true,
     ignore_list = {},
   },
   system_open                        = {
