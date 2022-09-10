@@ -28,19 +28,18 @@ local lsp_symbols = {
   Struct = " ﳤ ",
   Event = "  ",
   Operator = "  ",
-  TypeParameter = "  "
+  TypeParameter = "  ",
+  Copilot = "  ",
 }
 
 local press = function(key)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
 end
 
-local has_any_words_before = function()
-  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-    return false
-  end
+local has_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
 end
 
 cmp.setup({
@@ -68,17 +67,27 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.abort(),
     ["<C-c>"] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    -- ["<Tab>"] = cmp.mapping(function(fallback)
+    --   if has_words_before() then
+    --     cmp.confirm({ select = true })
+    --   elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+    --     press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+    --   elseif cmp.visible() then
+    --     cmp.confirm({ select = true })
+    --   else
+    --     fallback()
+    --   end
+    -- end, { "i", "s", }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-        press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-      elseif cmp.visible() then
+      if cmp.visible() and has_words_before() then
         cmp.confirm({ select = true })
-      -- elseif has_any_words_before() then
-      --   press("<Tab>")
+        -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+        press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
       else
         fallback()
       end
-    end, { "i", "s", }),
+    end),
     -- ["<Tab>"] = cmp.mapping(function(fallback)
     --   if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
     --     press("<ESC>:call UltiSnips#JumpForwards()<CR>")
@@ -112,13 +121,11 @@ cmp.setup({
   },
 
   sources = cmp.config.sources({
+    { name = 'copilot', group_index = 1 },
+    { name = 'nvim_lsp', group_index = 2 },
+    { name = 'ultisnips', group_index = 2 },
+    { name = 'cmp_tabnine', group_index = 2 },
     { name = 'nvim_lua' },
-    { name = 'nvim_lsp' },
-    -- { name = 'vsnip' }, -- For vsnip users.
-    -- { name = 'luasnip' }, -- For luasnip users.
-    { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
-    { name = 'cmp_tabnine' },
     { name = 'buffer' },
     { name = 'path' },
     { name = 'treesitter' },
@@ -150,6 +157,7 @@ cmp.setup({
         cmp_tabnine = "[Tab9]",
         git = "[Git]",
         conventionalcommits = "[Git]",
+        copilot = "[Copilot]",
         cmdline = "[Cmdline]",
       })[entry.source.name]
       return item

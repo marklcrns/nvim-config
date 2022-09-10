@@ -57,6 +57,16 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-cmp.lua
 
+- repo: github/copilot.vim
+
+- repo: zbirenbaum/copilot.lua
+  on_event: VimEnter
+  hook_source: luafile $VIM_PATH/config/plugins/copilot.lua
+
+- repo: zbirenbaum/copilot-cmp
+  depends: [ 'copilot.lua', 'nvim-cmp' ]
+  hook_source: luafile $VIM_PATH/config/plugins/copilot-cmp.lua
+
 - repo: hrsh7th/cmp-nvim-lua
   if: "has('nvim-0.5')"
   depends: nvim-cmp
@@ -380,8 +390,8 @@
 - repo: tpope/vim-repeat
   on_map: .*
 
-- repo: ggandor/lightspeed.nvim
-  if: "has('nvim-0.5')"
+- repo: ggandor/leap.nvim
+  if: "has('nvim-0.7')"
 
 - repo: brooth/far.vim
   on_cmd: [F, Far, Farr, Farf, Refar, Farundo]
