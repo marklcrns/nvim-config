@@ -128,9 +128,13 @@ if dein#tap('wilder.nvim')
 endif
 
 if dein#tap('vim-smartq')
-  nmap <silent> <leader>fq <Plug>(smartq_this_save)
+  nmap <silent> <Leader>fq <Plug>(smartq_this_save)
+  nmap <silent> <Leader>wq <Plug>(smartq_close_splits) 
+
+
   if s:enable_whichkey
     let g:which_key_map['f']['q'] = 'SmartQ Save'
+    let g:which_key_map['w']['q'] = 'SmartQ Close all splits'
   endif
 endif
 

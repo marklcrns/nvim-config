@@ -165,6 +165,14 @@ let g:which_key_map = {
              \ 'm' : 'Move tab',
              \ 'q' : 'Close current tab',
           \ },
+    \ 'w' : {
+          \ 'name' : '+window-operate',
+             \ 'c' : 'Close current window',
+             \ 'v' : 'Open vertical split',
+             \ 'V' : 'Open vertical split (stay in current)',
+             \ 'g' : 'Open horizontal split',
+             \ 'G' : 'Open horizontal split (stay in current)',
+          \ },
     \ 'z' : 'Toggle fold at current line',
     \ 'Z' : 'Focus the current fold by closing all others',
     \ }

@@ -338,10 +338,15 @@ function! WindowsManagementMappings()
   nnoremap <silent> [Window]g  :<C-u>split<CR>
   nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
   nnoremap <silent> [Window]q  :<C-u>close<CR>
+  nnoremap <silent> <Leader>wg :<C-u>split<CR>
+  nnoremap <silent> <Leader>wv :<C-u>vsplit<CR>
+  nnoremap <silent> <Leader>wc :<C-u>close<CR>
   " nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
   " Split current buffer, go to previous window and previous buffer
-  nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
-  nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
+  nnoremap <silent> [Window]<C-v> :vsplit<CR>:wincmd p<CR>:e#<CR>
+  nnoremap <silent> [Window]<C-g> :split<CR>:wincmd p<CR>:e#<CR>
+  nnoremap <silent> <Leader>wV    :vsplit<CR>:wincmd p<CR>:e#<CR>
+  nnoremap <silent> <Leader>wG    :split<CR>:wincmd p<CR>:e#<CR>
   " Switch between splits
   nnoremap <silent> [Window]h <C-w>h
   nnoremap <silent> [Window]j <C-w>j
