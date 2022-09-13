@@ -1,3 +1,5 @@
+-- Servers list:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local api = vim.api
 local lspconfig = require('lspconfig')
 
@@ -110,13 +112,6 @@ lspconfig.rust_analyzer.setup({
   },
 })
 
-lspconfig.tsserver.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-  cmd = { "typescript-language-server", "--stdio" }
-}
-
 lspconfig.emmet_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -130,15 +125,24 @@ local servers = {
   'bashls',
   'yamlls',
   'html',
-  'tailwindcss',
+  'cssls', -- css-lsp: for css and scss
   'vimls',
 }
 
 for _, server in ipairs(servers) do
-  lspconfig[server].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
+  -- Disable tsserver linter, use eslint instead by null-ls
+  if server == 'tsserver' then
+    lspconfig[server].setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      handlers = { ['textDocument/publishDiagnostics'] = function(...) end }
+    })
+  else
+    lspconfig[server].setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+  end
 end
 
 -- NOTE: Mappings Moved to keybinds.vim

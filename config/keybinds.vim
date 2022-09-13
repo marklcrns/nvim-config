@@ -669,6 +669,21 @@ if dein#tap('vim-titlecase')
   nnoremap gZZ <Plug>TitlecaseLine
 endif
 
+if dein#tap('rest.nvim')
+  nnoremap chr <Plug>RestNvim
+  nnoremap chp <Plug>RestNvim
+  nnoremap chl <Plug>RestNvim
+
+  if s:enable_whichkey
+    let g:which_key_map['c']['h'] = {
+          \ 'name' : '+http-client',
+          \ 'r' : 'Run Rest http request under cursor',
+          \ 'p' : 'Preview http requrest cURL command',
+          \ 'l' : 'Re-run last http request',
+          \ }
+  endif
+endif
+
 if dein#tap('gina.vim')
   nnoremap <silent> <Leader>ga :Gina add %:p<CR>
   nnoremap <silent> <Leader>gA :Gina add .<CR>

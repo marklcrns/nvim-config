@@ -15,5 +15,5 @@ require('nvim-rooter').setup {
     'makefile',
   },
   trigger_patterns = { '*' },
-  manual = false,
+  manual = true,
 }

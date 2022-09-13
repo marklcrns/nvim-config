@@ -14,6 +14,7 @@ require("mason-lspconfig").setup({
     "html",
     "tsserver",
     "tailwindcss",
+    "css-lsp"
   },
   automatic_installation = true,
 })
