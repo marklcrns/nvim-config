@@ -261,19 +261,19 @@ cmp.event:on(
 -- Set configuration for specific filetype.
 cmp.setup.filetype({'gitcommit', 'gina-commit', 'NeogitCommitMessage'}, {
   sources = cmp.config.sources({
+    { name = 'copilot' },
+  }, {
     { name = 'git' },
   }, {
     { name = 'conventionalcommits' },
   }, {
     { name = 'spell' },
   }, {
-    { name = 'emoji', options = { insert = true } },
-  }, {
     { name = 'buffer' },
   })
 })
 
-cmp.setup.filetype({ 'markdown', 'help', 'text' }, {
+cmp.setup.filetype({ 'markdown', 'vimwiki', 'help', 'text' }, {
   sources = cmp.config.sources({
     { name = 'emoji', options = { insert = true } },
   }, {
