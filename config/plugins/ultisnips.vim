@@ -1,9 +1,15 @@
 " Let coc.nvim coc-ultisnips plugin handle the expand trigger mapping
 " See coc configs
 let g:UltiSnipsNoPythonWarning = 1
-let g:UltiSnipsExpandTrigger = '<Tab>'
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
+" nvim-cmp integration
+" https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
+let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
+let g:UltiSnipsListSnippets = '<c-x><c-s>'
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
 let g:UltiSnipsSnippetDirectories = [
       \ $DATA_PATH . '/dein/repos/github.com/honza/vim-snippets/UltiSnips',
       \ $DATA_PATH . '/dein/repos/github.com/mlaursen/vim-react-snippets/UltiSnips',
