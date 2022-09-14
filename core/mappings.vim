@@ -454,6 +454,7 @@ function! YankPasteMappings()
   vnoremap <Leader>rp y`]p`[v`]:s//gcI<Left><Left><Left><Left>
   " Yank and paste line under cursor to and from "x register
   nnoremap <C-y> "xyy"xp$
+  inoremap <M-y> <Esc>"xyy"xpgi
   inoremap <C-y> <Esc>"xyy"xpV:s//gI<bar>norm`.A
         \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
   vnoremap <C-y> "xy`]"xp`[V`]

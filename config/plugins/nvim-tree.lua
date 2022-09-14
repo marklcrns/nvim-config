@@ -77,9 +77,11 @@ require 'nvim-tree'.setup {
     mappings = {
       custom_only = false,
       list = {
-        { key = "u", action = "dir_up" },
-        { key = "<C-s>", action = "system_open" },
-        { key = "s", action = "" }, -- Disable default system_open mappings
+        { key = "u",          action = "dir_up" },
+        { key = "s",          action = "" }, -- Disable default system_open mapping
+        { key = "<C-s>",      action = "system_open" },
+        { key = "<C-x>",      action = "" }, -- Disable default split mapping
+        { key = "<C-g>",      action = "split" },
       },
     },
     number = false,
