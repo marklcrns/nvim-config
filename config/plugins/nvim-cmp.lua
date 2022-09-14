@@ -177,6 +177,7 @@ cmp.setup({
         if has_words_before() then
           if cmp.visible() then
             cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+            return
           elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
             -- Only for regex conditional ultisnips that aren't visible
             -- Must close completion first with '<C-e>' to expand
