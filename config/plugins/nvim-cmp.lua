@@ -57,28 +57,6 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
 
-  -- mapping = cmp.mapping.preset.insert({
-  --   ["<C-p>"] = cmp.mapping.select_prev_item(),
-  --   ["<C-n>"] = cmp.mapping.select_next_item(),
-  --   ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-  --   ['<C-f>'] = cmp.mapping.scroll_docs(4),
-  --   ['<C-u>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
-  --   ['<C-d>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
-  --   ['<C-Space>'] = cmp.mapping.complete(),
-  --   ['<C-e>'] = cmp.mapping.abort(),
-  --   ["<C-c>"] = cmp.mapping.close(),
-  --   ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  --   ["<Tab>"] = cmp.mapping(function(fallback)
-  --     if cmp.visible() and has_words_before() then
-  --       cmp.confirm({ select = true })
-  --     elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-  --       press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-  --     else
-  --       fallback()
-  --     end
-  --   end),
-  -- }),
-
   -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
   mapping = {
     ["<Tab>"] = cmp.mapping({
@@ -176,7 +154,7 @@ cmp.setup({
       i = function(fallback)
         if has_words_before() then
           if cmp.visible() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+            cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false })
             return
           elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
             -- Only for regex conditional ultisnips that aren't visible
@@ -188,7 +166,7 @@ cmp.setup({
       end,
       c = function(fallback)
         if cmp.visible() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false })
         else
           fallback()
         end
@@ -196,12 +174,12 @@ cmp.setup({
     }),
   },
 
-  completion = {
-    completeopt = 'menu,menuone,noselect,noinsert'
+  completron = {
+    completeopt = 'menu,menuone,noselect'
   },
 
   sources = cmp.config.sources({
-    { name = 'copilot', group_index = 1, priority = 999 },
+    { name = 'copilot', group_index = 1 },
     { name = 'nvim_lsp', group_index = 1 },
     { name = 'nvim_lua', group_index = 1 },
     { name = 'ultisnips', group_index = 1, max_item_count = 10 },
@@ -249,6 +227,18 @@ cmp.setup({
     comparators = {
       require("copilot_cmp.comparators").prioritize,
       require("copilot_cmp.comparators").score,
+
+      -- Below is the default comparitor list and order for nvim-cmp
+      cmp.config.compare.offset,
+      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
     },
   },
 })
@@ -263,13 +253,9 @@ cmp.event:on(
 cmp.setup.filetype({'gitcommit', 'gina-commit', 'NeogitCommitMessage'}, {
   sources = cmp.config.sources({
     { name = 'copilot' },
-  }, {
     { name = 'git' },
-  }, {
     { name = 'conventionalcommits' },
-  }, {
     { name = 'spell' },
-  }, {
     { name = 'buffer' },
   })
 })
@@ -277,15 +263,10 @@ cmp.setup.filetype({'gitcommit', 'gina-commit', 'NeogitCommitMessage'}, {
 cmp.setup.filetype({ 'markdown', 'vimwiki', 'help', 'text' }, {
   sources = cmp.config.sources({
     { name = 'emoji', options = { insert = true } },
-  }, {
     { name = 'nvim_lsp' },
-  }, {
     { name = 'spell' },
-  }, {
     { name = 'buffer' },
-  }, {
     { name = 'path' },
-  }, {
     { name = 'ultisnips' },
   })
 })
@@ -294,8 +275,8 @@ cmp.setup.filetype({ 'markdown', 'vimwiki', 'help', 'text' }, {
 cmp.setup.cmdline('/', {
   completion = { autocomplete = false },
   sources = {
-    -- { name = 'buffer' }
-    { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
+    -- { name = 'buffer' },
+    { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] }},
   }
 })
 
@@ -303,8 +284,7 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   completion = { autocomplete = false },
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
+    { name = 'path' },
+    { name = 'cmdline' },
   })
 })
