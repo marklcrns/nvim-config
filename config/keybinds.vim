@@ -741,7 +741,7 @@ if dein#tap('gitsigns.nvim')
   nnoremap <Leader>ghp <cmd>Gitsigns preview_hunk<CR>
   nnoremap <Leader>ghr <cmd>Gitsigns reset_hunk<CR>
   vnoremap <Leader>ghr <cmd>Gitsigns reset_hunk<CR>
-  vnoremap <Leader>ghR <cmd>Gitsigns reset_buffer<CR>
+  nnoremap <Leader>ghR <cmd>Gitsigns reset_buffer<CR>
   nnoremap <Leader>ghs <cmd>Gitsigns stage_hunk<CR>
   vnoremap <Leader>ghs <cmd>Gitsigns stage_hunk<CR>
   nnoremap <Leader>ghu <cmd>Gitsigns undo_stage_hunk<CR>
