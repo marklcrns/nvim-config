@@ -77,7 +77,12 @@ hi! DashboardShortcut guifg=#D7D17C guibg=NONE
 hi! DashboardFooter guifg=#767676 guibg=NONE
 " }}}
 
+" Plugin: nvim-cmp {{{
+" ----------------------------------------------------------------------------
 hi! CmpItemKindCopilot guifg=#6CC644
+hi! CmpItemKindTabnine guifg=#CA42F0
+hi! CmpItemKindEmoji guifg=#FDE030
+" }}}
 
 " GetColorSynatxGroup
 " ---------------------------------------------------------

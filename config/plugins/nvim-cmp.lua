@@ -48,8 +48,17 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+  --   completion = cmp.config.window.bordered(),
+  --   documentation = cmp.config.window.bordered(),
+    -- documentation = false,
+    documentation = {
+      border = "rounded",
+      winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
+    },
+    completion = {
+      border = "rounded",
+      winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
+    },
   },
 
   -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
@@ -147,7 +156,8 @@ cmp.setup({
     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
+    ['<C-e>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+    ['<C-c>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
     ['<CR>'] = cmp.mapping({
       i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
       -- i = function(fallback)
@@ -171,16 +181,50 @@ cmp.setup({
     }),
   },
 
+  experimental = {
+    ghost_text = true,
+  },
+
   completion = {
     completeopt = 'menu,menuone,noselect'
   },
 
   sources = cmp.config.sources({
-    { name = 'copilot', group_index = 1 },
+    {
+      name = "copilot",
+      -- keyword_length = 0,
+      max_item_count = 3,
+      trigger_characters = {
+        {
+          ".",
+          ":",
+          "(",
+          "'",
+          '"',
+          "[",
+          ",",
+          "#",
+          "*",
+          "@",
+          "|",
+          "=",
+          "-",
+          "{",
+          "/",
+          "\\",
+          "+",
+          "?",
+          " ",
+          -- "\t",
+          -- "\n",
+        },
+      },
+      group_index = 1,
+    },
+    { name = 'cmp_tabnine', group_index = 1 },
     { name = 'nvim_lsp', group_index = 1 },
     { name = 'nvim_lua', group_index = 1 },
     { name = 'ultisnips', group_index = 1, max_item_count = 10 },
-    { name = 'cmp_tabnine', group_index = 1 },
     { name = 'treesitter', group_index = 1 },
     { name = 'git', group_index = 2 },
     { name = 'conventionalcommits', group_index = 2 },
@@ -195,6 +239,18 @@ cmp.setup({
   formatting = {
     format = function(entry, item)
       item.kind = lsp_symbols[item.kind] .. " " .. item.kind
+
+      if entry.source.name == "cmp_tabnine" then
+        item.kind_hl_group = "CmpItemKindTabnine"
+      end
+      if entry.source.name == "copilot" then
+        item.kind_hl_group = "CmpItemKindCopilot"
+      end
+
+      if entry.source.name == "emoji" then
+        item.kind_hl_group = "CmpItemKindEmoji"
+      end
+
       -- set a name for each source
       item.menu = (
         {
