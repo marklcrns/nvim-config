@@ -181,15 +181,15 @@ cmp.setup({
     { name = 'nvim_lua', group_index = 1 },
     { name = 'ultisnips', group_index = 1, max_item_count = 10 },
     { name = 'cmp_tabnine', group_index = 1 },
+    { name = 'treesitter', group_index = 1 },
     { name = 'git', group_index = 2 },
     { name = 'conventionalcommits', group_index = 2 },
     { name = 'buffer', group_index = 2 },
     { name = 'path', group_index = 2 },
     { name = 'cmdline', group_index = 2 },
     { name = 'neorg', group_index = 2 },
-    { name = 'treesitter', group_index = 3 },
+    { name = 'spell', group_index = 2 },
     { name = 'emoji', group_index = 3, options = { insert = true } },
-    { name = 'spell', group_index = 3 },
   }),
 
   formatting = {
@@ -250,23 +250,23 @@ cmp.event:on(
 -- Set configuration for specific filetype.
 cmp.setup.filetype({ 'gitcommit', 'gina-commit', 'NeogitCommitMessage' }, {
   sources = cmp.config.sources({
-    { name = 'copilot' },
-    { name = 'git' },
-    { name = 'conventionalcommits' },
-    { name = 'spell' },
-    { name = 'buffer' },
+    { name = 'copilot', group_index = 1  },
+    { name = 'git', group_index = 1  },
+    { name = 'conventionalcommits', group_index = 1  },
+    { name = 'spell', group_index = 1  },
+    { name = 'buffer', group_index = 1  },
   })
 })
 
-cmp.setup.filetype({ 'markdown', 'vimwiki', 'help', 'text' }, {
+cmp.setup.filetype({ 'markdown', 'vimwiki', 'norg', 'help', 'text' }, {
   sources = cmp.config.sources({
-    { name = 'copilot' },
-    { name = 'emoji', options = { insert = true } },
-    { name = 'nvim_lsp' },
-    { name = 'spell' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'ultisnips' },
+    { name = 'copilot', group_index = 1 },
+    { name = 'nvim_lsp', group_index = 1  },
+    { name = 'spell', group_index = 1  },
+    { name = 'buffer', group_index = 1  },
+    { name = 'path', group_index = 1  },
+    { name = 'ultisnips', group_index = 1  },
+    { name = 'emoji', group_index = 2 , options = { insert = true } },
   })
 })
 
@@ -282,8 +282,8 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   completion = { autocomplete = false },
   sources = cmp.config.sources({
-    { name = 'cmdline' },
-    { name = 'path', priority = 999 },
+    { name = 'cmdline', group_index = 1  },
+    { name = 'path', group_index = 1 , priority = 999 },
   })
 })
 
