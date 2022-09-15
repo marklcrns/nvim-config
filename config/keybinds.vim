@@ -94,7 +94,6 @@ if dein#tap('lspsaga.nvim')
   nnoremap <silent> gf :Lspsaga lsp_finder<CR>
   nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
   vnoremap <silent> <leader>ca :Lspsaga range_code_action<CR>
-  nnoremap <silent> <leader>co :LSoutlineToggle<CR>
   nnoremap <silent> <leader>cr :Lspsaga rename<CR>
   nnoremap <silent> [e :Lspsaga diagnostic_jump_prev<CR>
   nnoremap <silent> ]e :Lspsaga diagnostic_jump_next<CR>
@@ -110,6 +109,10 @@ if dein#tap('lspsaga.nvim')
     let g:which_key_lsbgmap['e'] = 'LSP Diagnostic prev'
     let g:which_key_rsbgmap['e'] = 'LSP Diagnostic next'
   endif
+endif
+
+if dein#tap('symbols-outline.nvim')
+  nnoremap <silent> <leader>co :SymbolsOutline<CR>
 endif
 
 if dein#tap('mason.nvim')
@@ -403,16 +406,25 @@ if dein#tap('vim-sandwich')
 endif
 
 if dein#tap('sideways.vim')
-  nnoremap <Leader><c-h> :SidewaysLeft<cr>
-  nnoremap <Leader><c-l> :SidewaysRight<cr>
+  nnoremap <silent> <Leader><c-h> <cmd>SidewaysLeft<cr>
+  nnoremap <silent> <Leader><c-l> <cmd>SidewaysRight<cr>
   if s:enable_whichkey
     let g:which_key_map['<C-H>'] = 'Sideways Left'
     let g:which_key_map['<C-L>'] = 'Sideways Right'
   endif
 endif
 
-if dein#tap('nvim-rooter.lua')
-  nnoremap <Leader>frr :Rooter<CR>
+if dein#tap('splitjoin.vim')
+  nnoremap <silent> <Leader><c-j> <cmd>SplitjoinJoin<cr>
+  nnoremap <silent> <Leader><c-k> <cmd>SplitjoinSplit<cr>
+  if s:enable_whichkey
+    let g:which_key_map['<C-J>'] = 'Splitjoin Join'
+    let g:which_key_map['<C-K>'] = 'Splitjoin Split'
+  endif
+endif
+
+if dein#tap('project.nvim')
+  nnoremap <Leader>frr :ProjectRoot<CR>
 
   if s:enable_whichkey
     let g:which_key_map['f']['r']['r'] = 'Change to current buffer directory'
@@ -420,8 +432,8 @@ if dein#tap('nvim-rooter.lua')
 endif
 
 if dein#tap('focus.nvim')
-  nnoremap <LocalLeader>sr :<C-u>FocusToggle<CR>
-  nnoremap <silent> [Window]z :<C-u>FocusMaxOrEqual<CR>
+  nnoremap <LocalLeader>sr <cmd>FocusToggle<CR>
+  nnoremap <silent> [Window]z <cmd>FocusMaxOrEqual<CR>
 
   if s:enable_whichkey
     let g:which_key_localmap['s']['r'] = 'Toggle Auto-resize'

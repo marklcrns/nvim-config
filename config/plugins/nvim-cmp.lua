@@ -1,6 +1,5 @@
 -- Setup nvim-cmp.
 local cmp = require 'cmp'
-local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
 local lsp_symbols = {
@@ -31,10 +30,6 @@ local lsp_symbols = {
   TypeParameter = "  ",
   Copilot = "  ",
 }
-
-local press = function(key)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
-end
 
 local has_words_before = function()
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
@@ -72,6 +67,10 @@ cmp.setup({
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
           vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+        elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+          -- Only for regex conditional ultisnips that aren't visible
+          -- Must close completion first with '<C-e>' to expand
+          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
         else
           fallback()
         end
@@ -150,23 +149,21 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
     ['<CR>'] = cmp.mapping({
-      -- i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
-      i = function(fallback)
-        if has_words_before() then
-          if cmp.visible() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false })
-            return
-          elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-            -- Only for regex conditional ultisnips that aren't visible
-            -- Must close completion first with '<C-e>' to expand
-            return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
-          end
-        end
-        fallback()
-      end,
+      i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+      -- i = function(fallback)
+      --   if cmp.visible() then
+      --     cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+      --   elseif has_words_before() and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+      --     -- Only for regex conditional ultisnips that aren't visible
+      --     -- Must close completion first with '<C-e>' to expand
+      --     return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
+      --   else
+      --     fallback()
+      --   end
+      -- end,
       c = function(fallback)
         if cmp.visible() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false })
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
         else
           fallback()
         end
@@ -174,7 +171,7 @@ cmp.setup({
     }),
   },
 
-  completron = {
+  completion = {
     completeopt = 'menu,menuone,noselect'
   },
 
@@ -183,7 +180,7 @@ cmp.setup({
     { name = 'nvim_lsp', group_index = 1 },
     { name = 'nvim_lua', group_index = 1 },
     { name = 'ultisnips', group_index = 1, max_item_count = 10 },
-    -- { name = 'cmp_tabnine', group_index = 1 },
+    { name = 'cmp_tabnine', group_index = 1 },
     { name = 'git', group_index = 2 },
     { name = 'conventionalcommits', group_index = 2 },
     { name = 'buffer', group_index = 2 },
@@ -199,25 +196,26 @@ cmp.setup({
     format = function(entry, item)
       item.kind = lsp_symbols[item.kind] .. " " .. item.kind
       -- set a name for each source
-      item.menu =
-      ({
-        spell = "[Spell]",
-        buffer = "[Buffer]",
-        calc = "[Calc]",
-        emoji = "[Emoji]",
-        nvim_lsp = "[LSP]",
-        path = "[Path]",
-        look = "[Look]",
-        treesitter = "[treesitter]",
-        ultisnips = "[UltiSnip]",
-        nvim_lua = "[Lua]",
-        latex_symbols = "[Latex]",
-        cmp_tabnine = "[Tab9]",
-        git = "[Git]",
-        conventionalcommits = "[Git]",
-        copilot = "[Copilot]",
-        cmdline = "[Cmdline]",
-      })[entry.source.name]
+      item.menu = (
+        {
+          spell = "[Spell]",
+          buffer = "[Buffer]",
+          calc = "[Calc]",
+          emoji = "[Emoji]",
+          nvim_lsp = "[LSP]",
+          path = "[Path]",
+          look = "[Look]",
+          treesitter = "[treesitter]",
+          ultisnips = "[UltiSnip]",
+          nvim_lua = "[Lua]",
+          latex_symbols = "[Latex]",
+          cmp_tabnine = "[Tab9]",
+          git = "[Git]",
+          conventionalcommits = "[CC]",
+          copilot = "[Copilot]",
+          cmdline = "[Cmdline]",
+        }
+      )[entry.source.name]
       return item
     end
   },
@@ -250,7 +248,7 @@ cmp.event:on(
 )
 
 -- Set configuration for specific filetype.
-cmp.setup.filetype({'gitcommit', 'gina-commit', 'NeogitCommitMessage'}, {
+cmp.setup.filetype({ 'gitcommit', 'gina-commit', 'NeogitCommitMessage' }, {
   sources = cmp.config.sources({
     { name = 'copilot' },
     { name = 'git' },
@@ -262,6 +260,7 @@ cmp.setup.filetype({'gitcommit', 'gina-commit', 'NeogitCommitMessage'}, {
 
 cmp.setup.filetype({ 'markdown', 'vimwiki', 'help', 'text' }, {
   sources = cmp.config.sources({
+    { name = 'copilot' },
     { name = 'emoji', options = { insert = true } },
     { name = 'nvim_lsp' },
     { name = 'spell' },
@@ -275,8 +274,7 @@ cmp.setup.filetype({ 'markdown', 'vimwiki', 'help', 'text' }, {
 cmp.setup.cmdline('/', {
   completion = { autocomplete = false },
   sources = {
-    -- { name = 'buffer' },
-    { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] }},
+    { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } },
   }
 })
 
@@ -284,7 +282,8 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   completion = { autocomplete = false },
   sources = cmp.config.sources({
-    { name = 'path' },
     { name = 'cmdline' },
+    { name = 'path', priority = 999 },
   })
 })
+

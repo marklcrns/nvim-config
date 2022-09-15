@@ -77,6 +77,7 @@ hi! DashboardShortcut guifg=#D7D17C guibg=NONE
 hi! DashboardFooter guifg=#767676 guibg=NONE
 " }}}
 
+hi! CmpItemKindCopilot guifg=#6CC644
 
 " GetColorSynatxGroup
 " ---------------------------------------------------------

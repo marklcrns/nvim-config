@@ -53,6 +53,10 @@
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua
 
+- repo: simrat39/symbols-outline.nvim
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/symbols-outline.lua
+
 - repo: hrsh7th/nvim-cmp
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-cmp.lua
@@ -197,6 +201,7 @@
   hook_add: source $VIM_PATH/config/plugins/vim-easy-align.vim
 
 - repo: AndrewRadev/sideways.vim
+- repo: AndrewRadev/splitjoin.vim
 
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
@@ -328,10 +333,6 @@
   if: "executable('ctags')"
   on_cmd: [Tagbar, TabarOpen, TagbarToggle, TagbarOpenAutoClose]
 
-- repo: notjedi/nvim-rooter.lua
-  if: "has('nvim-0.5')"
-  hook_add: source $VIM_PATH/config/plugins/nvim-rooter.lua
-
 - repo: benmills/vimux
   on_cmd: [VimuxPromptCommand, VimuxOpenRunner]
 
@@ -419,6 +420,10 @@
 
 - repo: rhysd/accelerated-jk
   on_map: { n: <Plug> }
+
+- repo: ahmedkhalf/project.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/project.lua
 
 - repo: kyazdani42/nvim-tree.lua
   if: "has('nvim-0.5')"
