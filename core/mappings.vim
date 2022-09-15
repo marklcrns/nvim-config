@@ -337,7 +337,7 @@ function! WindowsManagementMappings()
   " Splits
   nnoremap <silent> [Window]g  :<C-u>split<CR>
   nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
-  nnoremap <silent> [Window]q  :<C-u>close<CR>
+  nnoremap <silent> [Window]c  :<C-u>close<CR>
   nnoremap <silent> <Leader>wg :<C-u>split<CR>
   nnoremap <silent> <Leader>wv :<C-u>vsplit<CR>
   nnoremap <silent> <Leader>wc :<C-u>close<CR>
