@@ -8,13 +8,15 @@ local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
 
-require("null-ls").setup({
+null_ls.setup({
   debug = true,
   sources = {
-    formatting.prettier,
-    diagnostics.eslint,
-    diagnostics.vint,
-    diagnostics.shellcheck,
+    -- formatting.prettier,
+    -- diagnostics.eslint,
+    -- diagnostics.vint,
+    -- diagnostics.shellcheck,
+
     -- formatting.stylua,
   },
 })
+
