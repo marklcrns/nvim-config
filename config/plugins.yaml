@@ -229,8 +229,9 @@
   hook_source: luafile $VIM_PATH/config/plugins/nvim-ts-autotag.lua
 
 # Titlecase
-- repo: christoomey/vim-titlecase
-  hook_source: source $VIM_PATH/config/plugins/vim-titlecase.vim
+- repo: johmsalas/text-case.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/text-case.lua
 
 - repo: rest-nvim/rest.nvim
   if: "has('nvim-0.5')"
