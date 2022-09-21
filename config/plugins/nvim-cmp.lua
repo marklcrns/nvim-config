@@ -190,37 +190,37 @@ cmp.setup({
   },
 
   sources = cmp.config.sources({
-    {
-      name = "copilot",
-      -- keyword_length = 0,
-      max_item_count = 3,
-      trigger_characters = {
-        {
-          ".",
-          ":",
-          "(",
-          "'",
-          '"',
-          "[",
-          ",",
-          "#",
-          "*",
-          "@",
-          "|",
-          "=",
-          "-",
-          "{",
-          "/",
-          "\\",
-          "+",
-          "?",
-          " ",
-          -- "\t",
-          -- "\n",
-        },
-      },
-      group_index = 1,
-    },
+    -- {
+    --   name = "copilot",
+    --   -- keyword_length = 0,
+    --   max_item_count = 3,
+    --   trigger_characters = {
+    --     {
+    --       ".",
+    --       ":",
+    --       "(",
+    --       "'",
+    --       '"',
+    --       "[",
+    --       ",",
+    --       "#",
+    --       "*",
+    --       "@",
+    --       "|",
+    --       "=",
+    --       "-",
+    --       "{",
+    --       "/",
+    --       "\\",
+    --       "+",
+    --       "?",
+    --       " ",
+    --       -- "\t",
+    --       -- "\n",
+    --     },
+    --   },
+    --   group_index = 1,
+    -- },
     { name = 'cmp_tabnine', group_index = 1 },
     { name = 'nvim_lsp', group_index = 1 },
     { name = 'nvim_lua', group_index = 1 },
@@ -279,8 +279,8 @@ cmp.setup({
   sorting = {
     priority_weight = 2,
     comparators = {
-      require("copilot_cmp.comparators").prioritize,
-      require("copilot_cmp.comparators").score,
+      -- require("copilot_cmp.comparators").prioritize,
+      -- require("copilot_cmp.comparators").score,
 
       -- Below is the default comparitor list and order for nvim-cmp
       cmp.config.compare.offset,
@@ -306,7 +306,7 @@ cmp.event:on(
 -- Set configuration for specific filetype.
 cmp.setup.filetype({ 'gitcommit', 'gina-commit', 'NeogitCommitMessage' }, {
   sources = cmp.config.sources({
-    { name = 'copilot', group_index = 1  },
+    -- { name = 'copilot', group_index = 1  },
     { name = 'git', group_index = 1  },
     { name = 'conventionalcommits', group_index = 1  },
     { name = 'spell', group_index = 1  },
@@ -316,7 +316,7 @@ cmp.setup.filetype({ 'gitcommit', 'gina-commit', 'NeogitCommitMessage' }, {
 
 cmp.setup.filetype({ 'markdown', 'vimwiki', 'norg', 'help', 'text' }, {
   sources = cmp.config.sources({
-    { name = 'copilot', group_index = 1 },
+    -- { name = 'copilot', group_index = 1 },
     { name = 'nvim_lsp', group_index = 1  },
     { name = 'spell', group_index = 1  },
     { name = 'buffer', group_index = 1  },
