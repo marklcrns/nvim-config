@@ -330,10 +330,6 @@
   on_cmd: Vista
   hook_source: source $VIM_PATH/config/plugins/vista.vim
 
-- repo: preservim/tagbar
-  if: "executable('ctags')"
-  on_cmd: [Tagbar, TabarOpen, TagbarToggle, TagbarOpenAutoClose]
-
 - repo: benmills/vimux
   on_cmd: [VimuxPromptCommand, VimuxOpenRunner]
 

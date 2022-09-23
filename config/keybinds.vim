@@ -315,17 +315,6 @@ if dein#tap('vista.vim')
   endif
 endif
 
-if dein#tap('tagbar')
-  nnoremap <silent><Leader>itt :Tagbar<CR>
-
-  if s:enable_whichkey
-    let g:which_key_map['i']['t'] = {
-          \ 'name' : '+tagbar',
-          \ 't' : 'Tagbar toggle',
-          \ }
-  endif
-endif
-
 if dein#tap('vim-easymotion')
   nmap <Leader><Leader>r <Plug>(easymotion-repeat)
   nmap <Leader><Leader>s <Plug>(easymotion-s2)
