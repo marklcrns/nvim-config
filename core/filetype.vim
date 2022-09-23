@@ -70,7 +70,7 @@ augroup user_plugin_filetype "{{{
 augroup END "}}}
 
 augroup user_cursorui
-  let ft_exclusion = '^\(NvimTree\|denite\|clap_\)'
+  let ft_exclusion = '^\(NvimTree\|Outline\|denite\|clap_\)'
   autocmd!
   autocmd InsertEnter,WinLeave,FocusLost * if (get(g:, 'custom_cursorline_enable', 1) || get(g:, 'custom_cursorcolumn_enable', 0)) && (&ft !~# ft_exclusion)
         \| setlocal nocursorline nocursorcolumn
