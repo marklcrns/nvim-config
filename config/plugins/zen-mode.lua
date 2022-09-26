@@ -1,7 +1,8 @@
 require("zen-mode").setup ({
   window = {
     backdrop = 0.98,
-    width = vim.api.nvim_get_option('textwidth'),
+    width = vim.api.nvim_get_option('textwidth') + 20,
+    -- width = 120,
     height = 1,
     options = {
       -- signcolumn = 'no', -- disable signcolumn
