@@ -72,11 +72,12 @@ cmp.setup({
         end
       end,
       i = function(fallback)
-        if cmp.visible() and has_words_before() then
+        local check_backspace = has_words_before()
+        if cmp.visible() and check_backspace then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
           vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-        elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+        elseif check_backspace and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
           -- Only for regex conditional ultisnips that aren't visible
           -- Must close completion first with '<C-e>' to expand
           vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
@@ -221,7 +222,7 @@ cmp.setup({
     --   },
     --   group_index = 1,
     -- },
-    { name = 'cmp_tabnine', group_index = 1 },
+    -- { name = 'cmp_tabnine', group_index = 1 },
     { name = 'nvim_lsp', group_index = 1 },
     { name = 'nvim_lua', group_index = 1 },
     { name = 'ultisnips', group_index = 1, max_item_count = 10 },

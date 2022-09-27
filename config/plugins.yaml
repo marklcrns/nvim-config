@@ -91,11 +91,11 @@
   if: "has('nvim-0.7')"
   depends: nvim-cmp
 
-- repo: tzachar/cmp-tabnine
-  if: "has('nvim-0.7')"
-  depends: nvim-cmp
-  build: "./install.sh"
-  hook_source: luafile $VIM_PATH/config/plugins/cmp-tabnine.lua
+# - repo: tzachar/cmp-tabnine
+#   if: "has('nvim-0.7')"
+#   depends: nvim-cmp
+#   build: "./install.sh"
+#   hook_source: luafile $VIM_PATH/config/plugins/cmp-tabnine.lua
 
 - repo: hrsh7th/cmp-emoji
   if: "has('nvim-0.7')"
