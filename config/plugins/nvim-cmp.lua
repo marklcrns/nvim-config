@@ -231,7 +231,6 @@ cmp.setup({
     { name = 'conventionalcommits', group_index = 2 },
     { name = 'buffer', group_index = 2 },
     { name = 'path', group_index = 2 },
-    { name = 'cmdline', group_index = 2 },
     { name = 'neorg', group_index = 2 },
     { name = 'spell', group_index = 2 },
     { name = 'emoji', group_index = 3, options = { insert = true } },
@@ -337,7 +336,7 @@ cmp.setup.cmdline('/', {
 
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(':', {
-  completion = { autocomplete = false },
+  completion = { autocomplete = true },
   sources = cmp.config.sources({
     { name = 'cmdline', group_index = 1  },
     { name = 'path', group_index = 1 , priority = 999 },

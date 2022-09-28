@@ -127,6 +127,7 @@ local servers = {
   'html',
   'cssls', -- css-lsp: for css and scss
   'vimls',
+  'texlab',
 }
 
 for _, server in ipairs(servers) do

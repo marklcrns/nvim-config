@@ -280,7 +280,6 @@
 # LaTeX
 # ----------------------------------------
 - repo: lervag/vimtex
-  merged: 0
   on_ft: tex
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
 # }}}
