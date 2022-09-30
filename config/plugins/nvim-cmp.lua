@@ -227,11 +227,8 @@ cmp.setup({
     { name = 'nvim_lua', group_index = 1 },
     { name = 'ultisnips', group_index = 1, max_item_count = 10 },
     { name = 'treesitter', group_index = 1 },
-    { name = 'git', group_index = 2 },
-    { name = 'conventionalcommits', group_index = 2 },
     { name = 'buffer', group_index = 2 },
     { name = 'path', group_index = 2 },
-    { name = 'neorg', group_index = 2 },
     { name = 'spell', group_index = 2 },
     { name = 'emoji', group_index = 3, options = { insert = true } },
   }),
@@ -322,6 +319,7 @@ cmp.setup.filetype({ 'markdown', 'vimwiki', 'norg', 'help', 'text' }, {
     { name = 'buffer', group_index = 1  },
     { name = 'path', group_index = 1  },
     { name = 'ultisnips', group_index = 1  },
+    { name = 'neorg', group_index = 1,},
     { name = 'emoji', group_index = 2 , options = { insert = true } },
   })
 })

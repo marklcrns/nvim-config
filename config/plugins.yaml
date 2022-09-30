@@ -332,15 +332,17 @@
 - repo: benmills/vimux
   on_cmd: [VimuxPromptCommand, VimuxOpenRunner]
 
-# - repo: nvim-neorg/neorg
-#   if: "has('nvim-0.5')"
-#   build: "TSInstall norg norg_meta norg_table"
-#   depends: [plenary.nvim, nvim-treesitter, telescope.nvim]
-#   hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
-#
-# - repo: nvim-neorg/neorg-telescope
-#   depends: [neorg, telescope.nvim]
-#   hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
+- repo: nvim-neorg/neorg
+  on_ft: 'norg'
+  if: "has('nvim-0.5')"
+  build: "Neorg sync-parsers"
+  depends: [plenary.nvim, nvim-treesitter, neorg-telescope, telescope.nvim]
+  hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
+
+- repo: nvim-neorg/neorg-telescope
+  on_ft: 'norg'
+  depends: [neorg, telescope.nvim]
+  hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki

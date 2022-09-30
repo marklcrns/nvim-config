@@ -57,7 +57,7 @@ db.custom_center = {
   {
     icon = '  ',
     desc = '<n>eorg                                     ',
-    action = 'Neorg workspace',
+    action = 'Neorg workspace main',
     shortcut = '; n w',
   },
 }
@@ -73,6 +73,6 @@ vim.cmd([[
     autocmd FileType dashboard noremap <nowait><silent><buffer> s :<C-u>call feedkeys(':SeshLoad<Space><Tab>','t')<CR>
     autocmd FileType dashboard noremap <nowait><silent><buffer> t :call DToday()<CR>
     autocmd FileType dashboard noremap <nowait><silent><buffer> W :VimwikiUISelect<CR>
-    autocmd FileType dashboard noremap <nowait><silent><buffer> n :Neorg workspace<CR>
+    autocmd FileType dashboard noremap <nowait><silent><buffer> n :Neorg workspace main<CR>
   augroup END
 ]])

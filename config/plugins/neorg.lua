@@ -16,7 +16,7 @@ require('neorg').setup {
     ["core.norg.dirman"] = { -- Manage your directories with Neorg
       config = {
         workspaces = {
-          notes = "~/Documents/my-neorg/main",
+          main = "~/Documents/my-neorg/main",
           gtd = '~/Documents/my-neorg/gtd',
         }
       }
@@ -24,11 +24,6 @@ require('neorg').setup {
     ['core.gtd.base'] = {
       config = {
         workspace = 'gtd',
-      },
-    },
-    ['core.norg.completion'] = {
-      config = {
-        engine = 'nvim-cmp',
       },
     },
     ["core.norg.esupports.metagen"] = {
@@ -42,6 +37,7 @@ require('neorg').setup {
       }
     },
     ["core.integrations.telescope"] = {}, -- Enable the telescope module
+    ["core.integrations.nvim-cmp"] = {},
   },
 }
 
