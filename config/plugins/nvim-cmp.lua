@@ -1,6 +1,8 @@
 -- Setup nvim-cmp.
 local cmp = require 'cmp'
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local handlers = require('nvim-autopairs.completion.handlers')
+local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
 local lsp_symbols = {
   Text = "  ",
@@ -66,21 +68,30 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping({
       c = function()
         if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+          -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         else
           cmp.complete()
         end
       end,
+      -- i = function(fallback)
+      --   local check_backspace = has_words_before()
+      --   if cmp.visible() and check_backspace then
+      --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+      --   elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+      --   elseif check_backspace and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+      --     -- Only for regex conditional ultisnips that aren't visible
+      --     -- Must close completion first with '<C-e>' to expand
+      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
+      --   else
+      --     fallback()
+      --   end
+      -- end,
       i = function(fallback)
         local check_backspace = has_words_before()
-        if cmp.visible() and check_backspace then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-        elseif check_backspace and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-          -- Only for regex conditional ultisnips that aren't visible
-          -- Must close completion first with '<C-e>' to expand
-          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
+        if check_backspace then
+          cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
         else
           fallback()
         end
@@ -101,14 +112,17 @@ cmp.setup({
           cmp.complete()
         end
       end,
+      -- i = function(fallback)
+      --   if cmp.visible() and has_words_before() then
+      --     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+      --   elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+      --     return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+      --   else
+      --     fallback()
+      --   end
+      -- end,
       i = function(fallback)
-        if cmp.visible() and has_words_before() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-          return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-        else
-          fallback()
-        end
+        cmp_ultisnips_mappings.jump_backwards(fallback)
       end,
       s = function(fallback)
         if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
@@ -130,7 +144,7 @@ cmp.setup({
       end,
       i = function(fallback)
         if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         else
           fallback()
         end
@@ -146,7 +160,7 @@ cmp.setup({
       end,
       i = function(fallback)
         if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
         else
           fallback()
         end
@@ -297,7 +311,36 @@ cmp.setup({
 -- autopairs config
 cmp.event:on(
   'confirm_done',
-  cmp_autopairs.on_confirm_done()
+  cmp_autopairs.on_confirm_done({
+    filetypes = {
+      -- "*" is a alias to all filetypes
+      ["*"] = {
+        ["("] = {
+          kind = {
+            cmp.lsp.CompletionItemKind.Function,
+            cmp.lsp.CompletionItemKind.Method,
+          },
+          handler = handlers["*"]
+        }
+      },
+      lua = {
+        ["("] = {
+          kind = {
+            cmp.lsp.CompletionItemKind.Function,
+            cmp.lsp.CompletionItemKind.Method
+          },
+          ---@param char string
+          ---@param item item completion
+          ---@param bufnr buffer number
+          handler = function(char, item, bufnr)
+            -- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
+          end
+        }
+      },
+      -- Disable for tex
+      tex = false
+    }
+  })
 )
 
 -- Set configuration for specific filetype.

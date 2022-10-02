@@ -83,18 +83,24 @@ npairs.add_rules {
   Rule("%", "%", "lua")
     :with_pair(ts_conds.is_ts_node({'string','comment'})),
 
-  Rule("$", "$",{"tex", "latex", "vimwiki"})
-    -- don't add a pair if the next character is %
-    :with_pair(cond.not_after_regex("%%"))
-    -- don't add a pair if  the previous character is xxx
-    :with_pair(cond.not_before_regex("xxx", 3))
-    -- don't move right when repeat character
-    :with_move(cond.none())
-    -- don't delete if the next character is xx
-    :with_del(cond.not_after_regex("xx")),
-
-  Rule("$", "$", "lua")
-    :with_pair(ts_conds.is_not_ts_node({'function'})),
+  -- Bracket-like $$ behavior
+  Rule("$", "$" , {"tex", "latex", "plaintex", "vimwiki"})
+    -- move right when repeat character
+    :with_move(function(opts) return opts.char == '$' end),
+  -- Add $$ in new line after $$<CR>
+  Rule("$$", "", {"tex", "latex", "plaintex", "vimwiki"})
+    :use_regex(true)
+    :with_pair(function(opts)
+        print(vim.inspect(opts))
+        if opts.line=="aa $$" then
+        -- don't add pair on that line
+          return false
+        end
+    end)
+    :replace_endpair(function(opts)
+      return '$$'
+    end)
+    :end_wise(),
 
   -- Insert '{  }' on arrow key '>' after '() = or ()=' (javascript)
   Rule('%(.*%)%s*%=>$', ' {  }', { 'typescript', 'typescriptreact', 'javascript' })

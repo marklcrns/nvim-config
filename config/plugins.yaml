@@ -228,6 +228,11 @@
   depends: nvim-treesitter
   hook_source: luafile $VIM_PATH/config/plugins/nvim-ts-autotag.lua
 
+- repo: RRethy/nvim-treesitter-endwise
+  if: "has('nvim-0.5')"
+  depends: nvim-treesitter
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-endwise.lua
+
 # Titlecase
 - repo: johmsalas/text-case.nvim
   if: "has('nvim-0.5')"
