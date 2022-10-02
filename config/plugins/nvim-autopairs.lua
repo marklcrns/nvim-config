@@ -83,7 +83,7 @@ npairs.add_rules {
   Rule("%", "%", "lua")
     :with_pair(ts_conds.is_ts_node({'string','comment'})),
 
-  Rule("$", "$",{"tex", "latex"})
+  Rule("$", "$",{"tex", "latex", "vimwiki"})
     -- don't add a pair if the next character is %
     :with_pair(cond.not_after_regex("%%"))
     -- don't add a pair if  the previous character is xxx
