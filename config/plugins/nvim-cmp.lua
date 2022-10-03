@@ -87,27 +87,6 @@ cmp.setup({
       x = function()
         vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
       end
-      -- i = function(fallback)
-      --   local check_backspace = has_words_before()
-      --   if cmp.visible() and check_backspace then
-      --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-      --   elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-      --   elseif check_backspace and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-      --     -- Only for regex conditional ultisnips that aren't visible
-      --     -- Must close completion first with '<C-e>' to expand
-      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
-      --   else
-      --     fallback()
-      --   end
-      -- end,
-      -- s = function(fallback)
-      --   if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-      --   else
-      --     fallback()
-      --   end
-      -- end
     }),
     ["<S-Tab>"] = cmp.mapping({
       c = function()
@@ -123,22 +102,6 @@ cmp.setup({
       s = function(fallback)
         cmp_ultisnips_mappings.jump_backwards(fallback)
       end
-      -- i = function(fallback)
-      --   if cmp.visible() and has_words_before() then
-      --     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-      --   elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-      --     return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-      --   else
-      --     fallback()
-      --   end
-      -- end,
-      -- s = function(fallback)
-      --   if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-      --     return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-      --   else
-      --     fallback()
-      --   end
-      -- end
     }),
     ["<C-j>"] = cmp.mapping(
       function(fallback)
@@ -202,17 +165,6 @@ cmp.setup({
         end
       end,
       i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
-      -- i = function(fallback)
-      --   if cmp.visible() then
-      --     cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-      --   elseif has_words_before() and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-      --     -- Only for regex conditional ultisnips that aren't visible
-      --     -- Must close completion first with '<C-e>' to expand
-      --     return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
-      --   else
-      --     fallback()
-      --   end
-      -- end,
     }),
   },
 
