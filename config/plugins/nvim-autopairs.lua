@@ -102,6 +102,8 @@ npairs.add_rules {
     end)
     :end_wise(),
 
+  Rule('``', "''", "tex"),
+
   -- Insert '{  }' on arrow key '>' after '() = or ()=' (javascript)
   Rule('%(.*%)%s*%=>$', ' {  }', { 'typescript', 'typescriptreact', 'javascript' })
       :use_regex(true)
