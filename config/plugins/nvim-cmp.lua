@@ -89,19 +89,24 @@ cmp.setup({
       --   end
       -- end,
       i = function(fallback)
-        local check_backspace = has_words_before()
-        if check_backspace then
+        if has_words_before() then
           cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
         else
           fallback()
         end
       end,
+      -- s = function(fallback)
+      --   if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+      --   else
+      --     fallback()
+      --   end
+      -- end
       s = function(fallback)
-        if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-        else
-          fallback()
-        end
+        cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+      end,
+      x = function()
+          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), 'm', true)
       end
     }),
     ["<S-Tab>"] = cmp.mapping({
@@ -124,12 +129,15 @@ cmp.setup({
       i = function(fallback)
         cmp_ultisnips_mappings.jump_backwards(fallback)
       end,
+      -- s = function(fallback)
+      --   if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+      --     return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+      --   else
+      --     fallback()
+      --   end
+      -- end
       s = function(fallback)
-        if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-          return vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-        else
-          fallback()
-        end
+        cmp_ultisnips_mappings.jump_backwards(fallback)
       end
     }),
     ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
@@ -174,6 +182,13 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
     ['<C-c>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
     ['<CR>'] = cmp.mapping({
+      c = function(fallback)
+        if cmp.visible() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        else
+          fallback()
+        end
+      end,
       i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
       -- i = function(fallback)
       --   if cmp.visible() then
@@ -186,13 +201,6 @@ cmp.setup({
       --     fallback()
       --   end
       -- end,
-      c = function(fallback)
-        if cmp.visible() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-        else
-          fallback()
-        end
-      end
     }),
   },
 
@@ -201,7 +209,7 @@ cmp.setup({
   },
 
   completion = {
-    completeopt = 'menu,menuone,noselect'
+    completeopt = 'menu,menuone'
   },
 
   sources = cmp.config.sources({
@@ -323,22 +331,8 @@ cmp.event:on(
           handler = handlers["*"]
         }
       },
-      lua = {
-        ["("] = {
-          kind = {
-            cmp.lsp.CompletionItemKind.Function,
-            cmp.lsp.CompletionItemKind.Method
-          },
-          ---@param char string
-          ---@param item item completion
-          ---@param bufnr buffer number
-          handler = function(char, item, bufnr)
-            -- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
-          end
-        }
-      },
       -- Disable for tex
-      tex = false
+      -- tex = false
     }
   })
 )

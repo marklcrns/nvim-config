@@ -89,7 +89,6 @@ npairs.add_rules {
     :with_move(function(opts) return opts.char == '$' end),
   -- Add $$ in new line after $$<CR>
   Rule("$$", "", {"tex", "latex", "plaintex", "vimwiki"})
-    :use_regex(true)
     :with_pair(function(opts)
         print(vim.inspect(opts))
         if opts.line=="aa $$" then
