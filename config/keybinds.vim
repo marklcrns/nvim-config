@@ -885,7 +885,7 @@ if dein#tap('vim-you-autocorrect')
   imap <silent> <F5> <C-O><Plug>VimyouautocorrectNext
 
   if s:enable_whichkey
-    let g:which_key_localmap['s']['s'] = 'Enable autocorrect'
+    let g:which_key_localmap['s']['s'] = 'Toggle autocorrect (certain ft only)'
     let g:which_key_lsbgmap['s'] = 'Go to previous autocorrect'
     let g:which_key_rsbgmap['s'] = 'Go to next autocorrect'
   endif
