@@ -120,6 +120,9 @@
   depends: [ultisnips, nvim-cmp]
   hook_source: luafile $VIM_PATH/config/plugins/cmp-nvim-ultisnips.lua
 
+- repo: sedm0784/vim-you-autocorrect
+  hook_source: source $VIM_PATH/config/plugins/vim-you-autocorrect.vim
+
 - repo: jose-elias-alvarez/null-ls.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/null-ls.lua

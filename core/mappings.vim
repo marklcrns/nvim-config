@@ -637,12 +637,14 @@ function! TextManipulationMappings()
   " Update: also echo changes and line and col number
   " Ref: https://castle.Dev/post/lecture-notes-1/
   inoremap <C-s> <Esc>:set spell<bar>norm i<C-g>u<Esc>[s"syiW1z="tyiW:let @l=line('.')<bar>let @c=virtcol('.')<CR>``a<C-g>u<Esc>:echo getreg('l') . ":" . getreg('c') . " spell fixed (" . getreg('s') . " -> " . getreg('t') . ")"<CR>la
+  " https://jdhao.github.io/2019/04/29/nvim_spell_check/#:~:text=Correct%20spell%20errors,-In%20insert%20mode&text=To%20correct%20this%20error%2C%20press,then%20choose%20the%20correct%20one.
+  nnoremap <F11> :set spell!<CR>
+  inoremap <F11> <C-o>:set spell!<CR>
 endfunction
 " }}} TEXT MANIPULATION MAPPINGS
 
 " SETTINGS TOGGLE MAPPINGS -------------------- {{{
 function! SettingsToggleMappings()
-  nnoremap <silent> <LocalLeader>ss :set spell!<CR>
   nnoremap <silent> <LocalLeader>sll :<C-u>call <SID>toggle_cursorline()<CR>
   nnoremap <silent> <LocalLeader>slc :<C-u>call <SID>toggle_cursorcolumn()<CR>
   nnoremap <silent> <LocalLeader>slx :<C-u>call <SID>toggle_crosshair()<CR>

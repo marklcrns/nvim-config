@@ -17,6 +17,8 @@ set formatoptions+=q         " Allow formatting of comments with "gq"
 set formatoptions+=t         " Auto-wrap text using textwidth
 set formatoptions+=n         " Numbered list
 set formatoptions-=o         " Disable comment-continuation (normal 'o'/'O')
+set spelllang=en,cjk         " Set spell language and exclude 'cjk' or asian words
+set spellsuggest=best,9      " Only show 9 best spell suggest with z=
 if has('patch-7.3.541')
   set formatoptions+=j       " Remove comment leader when joining lines
 endif

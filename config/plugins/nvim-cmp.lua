@@ -68,8 +68,7 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping({
       c = function()
         if cmp.visible() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-          -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         else
           cmp.complete()
         end

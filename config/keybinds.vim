@@ -873,6 +873,24 @@ if dein#tap('vim-abolish')
   endif
 endif
 
+if dein#tap('vim-you-autocorrect')
+  nnoremap <silent> <LocalLeader>ss <cmd>call ToggleAutoCorrect()<CR>
+  nmap <silent> [s <Plug>VimyouautocorrectPrevious
+  nmap <silent> ]s <Plug>VimyouautocorrectNext
+  nmap <silent> z= <Plug>VimyouautocorrectJump<Plug>VimyouautocorrectUndo:call feedkeys('z=', 'n')<CR>
+  nmap <silent> gu <Plug>VimyouautocorrectUndo
+
+  imap <silent> <F3> <C-O><Plug>VimyouautocorrectUndo
+  imap <silent> <F4> <C-O><Plug>VimyouautocorrectPrevious
+  imap <silent> <F5> <C-O><Plug>VimyouautocorrectNext
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['s'] = 'Enable autocorrect'
+    let g:which_key_lsbgmap['s'] = 'Go to previous autocorrect'
+    let g:which_key_rsbgmap['s'] = 'Go to next autocorrect'
+  endif
+endif
+
 if dein#tap('far.vim')
   nnoremap <silent> <Leader>rfd  :Fardo<cr>
   nnoremap <silent> <Leader>rff  :Farf<cr>
