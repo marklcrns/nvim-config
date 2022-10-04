@@ -120,10 +120,6 @@
   depends: [ultisnips, nvim-cmp]
   hook_source: luafile $VIM_PATH/config/plugins/cmp-nvim-ultisnips.lua
 
-- repo: lewis6991/spellsitter.nvim
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/spellsitter.lua
-
 - repo: jose-elias-alvarez/null-ls.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/null-ls.lua
