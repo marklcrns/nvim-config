@@ -84,11 +84,19 @@ hi! CmpItemKindTabnine guifg=#CA42F0
 hi! CmpItemKindEmoji guifg=#FDE030
 " }}}
 
+" Plugin: indent_blankline {{{
+" ----------------------------------------------------------------------------
 highlight IndentBlanklineIndent1 guifg=#303030 gui=nocombine
 highlight IndentBlanklineIndent2 guifg=#454545 gui=nocombine
 highlight IndentBlanklineIndent3 guifg=#606060 gui=nocombine
 highlight IndentBlanklineIndent4 guifg=#757575 gui=nocombine
 highlight IndentBlanklineIndent5 guifg=#909090 gui=nocombine
+" }}}
+
+" Plugin: vim-you-autocorrect {{{
+" ----------------------------------------------------------------------------
+highlight AutocorrectGood ctermfg=Yellow guifg=Yellow gui=undercurl
+" }}}
 
 " GetColorSynatxGroup
 " ---------------------------------------------------------

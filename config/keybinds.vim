@@ -877,10 +877,9 @@ if dein#tap('vim-you-autocorrect')
   nnoremap <silent> <LocalLeader>ss <cmd>call ToggleAutoCorrect()<CR>
   nmap <silent> [s <Plug>VimyouautocorrectPrevious
   nmap <silent> ]s <Plug>VimyouautocorrectNext
-  nmap <silent> z= <Plug>VimyouautocorrectJump<Plug>VimyouautocorrectUndo:call feedkeys('z=', 'n')<CR>
-  nmap <silent> gu <Plug>VimyouautocorrectUndo
 
   imap <silent> <F3> <C-O><Plug>VimyouautocorrectUndo
+  nmap <silent> <F3> <Plug>VimyouautocorrectUndo
   imap <silent> <F4> <C-O><Plug>VimyouautocorrectPrevious
   imap <silent> <F5> <C-O><Plug>VimyouautocorrectNext
 

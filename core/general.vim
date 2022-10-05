@@ -17,7 +17,7 @@ set formatoptions+=q         " Allow formatting of comments with "gq"
 set formatoptions+=t         " Auto-wrap text using textwidth
 set formatoptions+=n         " Numbered list
 set formatoptions-=o         " Disable comment-continuation (normal 'o'/'O')
-set spelllang=en,cjk         " Set spell language and exclude 'cjk' or asian words
+set spelllang=en,cjk         " Set spell language and exclude 'cjk' or east asian charactes
 set spellsuggest=best,9      " Only show 9 best spell suggest with z=
 if has('patch-7.3.541')
   set formatoptions+=j       " Remove comment leader when joining lines
@@ -75,7 +75,7 @@ set undodir=$DATA_PATH/undo/,$DATA_PATH,~/tmp,/var/tmp,/tmp
 set backupdir=$DATA_PATH/backup/,$DATA_PATH,~/tmp,/var/tmp,/tmp
 set viewdir=$DATA_PATH/view/
 " Use the coc-spell-checker to do this
-" set spellfile=$VIM_PATH/spell/en.utf-8.add
+set spellfile=$VIM_PATH/spell/en.utf-8.add
 
 " History saving
 set history=2000
