@@ -363,13 +363,13 @@
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
   # rev: 925d8ed2f522229d32d4cc39486080c244d20f7a
 
-# - repo: oberblastmeister/neuron.nvim
-#   rev: unstable
-#   if: "executable('neuron')"
-#   hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
+- repo: oberblastmeister/neuron.nvim
+  rev: unstable
+  if: "executable('neuron')"
+  hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
 
-- repo: pyrho/nerveux.nvim
-  hook_source: luafile $VIM_PATH/config/plugins/nerveux.lua
+# - repo: pyrho/nerveux.nvim
+#   hook_source: luafile $VIM_PATH/config/plugins/nerveux.lua
 
 - repo: honza/dockerfile.vim
   on_ft: Dockerfile

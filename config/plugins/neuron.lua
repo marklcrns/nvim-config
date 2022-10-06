@@ -1,6 +1,6 @@
 -- these are all the default values
 require'neuron'.setup {
-    virtual_titles = true,
+    virtual_titles = false,
     mappings = true,
     run = nil, -- function to run when in neuron dir
     neuron_dir = "~/Documents/my-zettelkasten", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
