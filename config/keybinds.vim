@@ -394,6 +394,12 @@ if dein#tap('vim-sandwich')
   xmap as <Plug>(textobj-sandwich-query-a)
 endif
 
+if dein#tap('nvim-ufo')
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['r'] = 'Toggle Auto-resize'
+  endif
+endif
+
 if dein#tap('sideways.vim')
   nnoremap <silent> <Leader><c-h> <cmd>SidewaysLeft<cr>
   nnoremap <silent> <Leader><c-l> <cmd>SidewaysRight<cr>
@@ -853,7 +859,8 @@ endif
 if dein#tap('nvim-colorizer.lua')
   nnoremap <LocalLeader>sc :<C-u>ColorizerToggle<CR>
   if s:enable_whichkey
-    let g:which_key_localmap['s']['c'] = 'Color highlight toggle'
+    let g:which_key_lsbgmap['f'] = 'Previouk fold and peek'
+    let g:which_key_rsbgmap['f'] = 'Next fold and peek'
   endif
 endif
 
@@ -885,8 +892,8 @@ if dein#tap('vim-you-autocorrect')
 
   if s:enable_whichkey
     let g:which_key_localmap['s']['s'] = 'Toggle autocorrect (certain ft only)'
-    let g:which_key_lsbgmap['s'] = 'Go to previous autocorrect'
-    let g:which_key_rsbgmap['s'] = 'Go to next autocorrect'
+    let g:which_key_lsbgmap['s'] = 'Previous autocorrect'
+    let g:which_key_rsbgmap['s'] = 'Next autocorrect'
   endif
 endif
 

@@ -650,6 +650,7 @@ function! SettingsToggleMappings()
   nnoremap <silent> <LocalLeader>slx :<C-u>call <SID>toggle_crosshair()<CR>
   nnoremap <silent> <LocalLeader>sb :<C-u>call <SID>toggle_background()<CR>
   nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
+  nnoremap <silent> <LocalLeader>sf :<C-u>call <SID>toggle_foldcolumn1()<CR>
   nnoremap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
   nnoremap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>
   nnoremap <silent> <LocalLeader>sv :<C-u>call <SID>toggle_virtualedit()<CR>
@@ -750,6 +751,18 @@ function! s:toggle_conceal2()
     echom 'Conceallevel 2'
   end
 endfunction
+
+" Toggle foldcolumn
+function! s:toggle_foldcolumn1()
+  if &foldcolumn == 0
+    set foldcolumn=1
+    echom 'Foldcolumn 1'
+  else
+    set foldcolumn=0
+    echom 'Foldcolumn 0'
+  end
+endfunction
+
 " Toggle gutter
 function! s:toggle_gutter()
   if &signcolumn == 'yes'

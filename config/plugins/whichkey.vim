@@ -188,8 +188,9 @@ let g:which_key_localmap = {
       \ 'r'    : 'Quick run',
       \ 's' : {
             \ 'name' : '+ui-toggles',
-               \ 'b' : 'Toggle dark/light background',
+               \ 'b' : 'dark/light background',
                \ 'e' : 'Conceal toggle',
+               \ 'f' : 'Foldcolumn toggle',
                \ 'g' : 'Gutter toggle',
                \ 's' : 'Spell checker toggle',
                \ 't' : 'Tab char toggle',
