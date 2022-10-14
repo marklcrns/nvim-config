@@ -207,6 +207,13 @@
   hook_add: |
     let g:niceblock_no_default_key_mappings = 0
 
+# Folds
+- repo: kevinhwang91/promise-async
+
+- repo: kevinhwang91/nvim-ufo
+  depends: [nvim-treesitter, promise-async]
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-ufo.lua
+
 # Commenter
 - repo: numToStr/Comment.nvim
   if: "has('nvim')"
@@ -452,5 +459,3 @@
   hook_add: |
     let g:leetcode_browser = 'firefox'
     let g:leetcode_solution_filetype = 'java'
-
-# }}}

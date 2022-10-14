@@ -98,6 +98,14 @@ highlight IndentBlanklineIndent5 guifg=#909090 gui=nocombine
 highlight AutocorrectGood ctermfg=Yellow guifg=Yellow gui=undercurl
 " }}}
 
+" hi default UfoFoldedFg guifg=Normal.foreground
+" hi default UfoFoldedBg guibg=Folded.background
+hi default link UfoPreviewSbar PmenuSbar
+hi default link UfoPreviewThumb PmenuThumb
+hi default link UfoPreviewWinBar UfoFoldedBg
+hi default link UfoPreviewCursorLine Visual
+hi default link UfoFoldedEllipsis Comment
+
 " GetColorSynatxGroup
 " ---------------------------------------------------------
 " nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
