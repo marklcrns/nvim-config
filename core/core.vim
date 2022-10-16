@@ -74,6 +74,9 @@ call utils#source_file($VIM_PATH, 'core/general.vim')
 call utils#source_file($VIM_PATH, 'core/filetype.vim')
 call utils#source_file($VIM_PATH, 'core/mappings.vim')
 
+call theme#init()
+autocmd VimEnter,ColorScheme * call utils#source_file($VIM_PATH, 'core/colors.vim')
+
 " Initialize plugin-manager and load plugins config files
 if get(g:, 'handle_plugins', 'full') !=# 'disable'
   call utils#source_file($VIM_PATH, 'core/package_manager.vim')
@@ -94,8 +97,5 @@ endif
 if get(g:, 'init_secondary_config', 1)
   call utils#check_source(g:user_init_config)
 endif
-
-call theme#init()
-autocmd VimEnter,ColorScheme * call utils#source_file($VIM_PATH, 'core/colors.vim')
 
 set secure

@@ -184,6 +184,25 @@ if dein#tap('telescope.nvim')
   endif
 endif
 
+if dein#tap('neogen')
+  nnoremap <Leader>nc <cmd>lua require('neogen').generate({ type = 'class' })<CR><CR>
+  nnoremap <Leader>nf <cmd>lua require('neogen').generate({ type = 'func' })<CR><CR>
+  nnoremap <Leader>nt <cmd>lua require('neogen').generate({ type = 'type' })<CR><CR>
+  nnoremap <Leader>np <cmd>lua require('neogen').generate({ type = 'file' })<CR><CR>
+  nnoremap <Leader>nn <cmd>lua require('neogen').generate()<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['n'] = {
+          \ 'name' : '+neogen',
+          \ 'c' : 'Generate class annotation',
+          \ 'f' : 'Generate function annotation',
+          \ 'n' : 'Generate annotation',
+          \ 't' : 'Generate type annotation',
+          \ 'p' : 'Generate file annotation',
+          \ }
+  endif
+endif
+
 if dein#tap('vim-easy-align')
   " Start interactive EasyAlign in visual mode
   xnoremap <Leader>raa :EasyAlign<CR>

@@ -207,6 +207,10 @@
   hook_add: |
     let g:niceblock_no_default_key_mappings = 0
 
+- repo: danymat/neogen
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/neogen.lua
+
 # Folds
 - repo: kevinhwang91/promise-async
 
@@ -264,6 +268,7 @@
 - repo: lewis6991/gitsigns.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/gitsigns.lua
+# }}}
 
 - repo: tyru/open-browser.vim
   hook_source: |
@@ -421,6 +426,11 @@
 - repo: norcalli/nvim-colorizer.lua
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
+
+- repo: mvllow/modes.nvim
+  rev: v0.2.0
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/modes.lua
 
 - repo: romainl/vim-qf
   on_ft: qf

@@ -4,7 +4,7 @@ local api = vim.api
 local lspconfig = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 function _G.open_lsp_log()
   local path = vim.lsp.get_log_path()
   vim.cmd('edit ' .. path)
