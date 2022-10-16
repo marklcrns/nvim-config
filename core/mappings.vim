@@ -462,16 +462,35 @@ function! YankPasteMappings()
 endfunction
 
 function! EmacsLikeMappings()
-  inoremap <C-h> <BS>
-  inoremap <C-d> <Del>
+  " Disabled because <C-d> replaces dedentation. Note <C-t> indents.
+  " imap <C-d> <Del>
+  " imap <C-h> <BS>
   inoremap <C-a> <Home>
   inoremap <expr><C-e> pumvisible() ? "\<C-e>" : "\<End>"
   " Cursor navigation
+  inoremap <C-p> <Up>
+  inoremap <C-n> <Down>
   inoremap <C-b> <Left>
   inoremap <C-f> <Right>
-  " move between sentences
-  inoremap <M-a> <C-[>(i
+  " Move between words
+  inoremap <M-x> <Esc>:
+  inoremap <M-f> <Esc>lwi
+  inoremap <M-b> <Esc>bi
+  inoremap <M-S-f> <Esc>lWi
+  inoremap <M-S-b> <Esc>Bi
+  " Move between sentences
+  imap <M-a> <C-[>(i
   inoremap <M-e> <C-[>)i
+  " command line mode
+  cnoremap <C-p> <Up>
+  cnoremap <C-n> <Down>
+  cnoremap <C-b> <Left>
+  cnoremap <C-f> <Right>
+  cnoremap <C-a> <Home>
+  cnoremap <C-e> <End>
+  cnoremap <C-d> <Del>
+  cnoremap <C-h> <BS>
+  cnoremap <C-k> <C-f>D<C-c><C-c>:<Up>
 endfunction
 
 function! QuickFixLocationListMappings()
@@ -863,7 +882,7 @@ call WindowsManagementMappings()
 call UtilityMappings()
 call CommandMappings()
 call YankPasteMappings()
-" call EmacsLikeMappings()
+call EmacsLikeMappings()
 call QuickFixLocationListMappings()
 call RegisterMappings()
 call DiffMappings()

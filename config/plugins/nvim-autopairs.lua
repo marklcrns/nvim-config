@@ -6,7 +6,6 @@ local cond = require'nvim-autopairs.conds'
 local ts_conds = require('nvim-autopairs.ts-conds')
 
 npairs.setup({
-  fast_wrap = {},
   disable_filetype = { "TelescopePrompt" },
   check_ts = true,
   ts_config = {
