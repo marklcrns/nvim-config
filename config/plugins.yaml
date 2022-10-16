@@ -211,9 +211,12 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/neogen.lua
 
+- repo: monaqa/dial.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/dial.lua
+
 # Folds
 - repo: kevinhwang91/promise-async
-
 - repo: kevinhwang91/nvim-ufo
   depends: [nvim-treesitter, promise-async]
   hook_source: luafile $VIM_PATH/config/plugins/nvim-ufo.lua
