@@ -409,6 +409,10 @@
 - repo: tpope/vim-repeat
   on_map: .*
 
+- repo: max397574/better-escape.nvim
+  if: "has('nvim')"
+  hook_source: luafile $VIM_PATH/config/plugins/better-escape.lua
+
 - repo: ggandor/leap.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/leap.lua
