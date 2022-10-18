@@ -118,6 +118,29 @@ lspconfig.emmet_ls.setup {
   filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
 }
 
+
+-- For adding spellfiles into ltex dictionary
+local path = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+local words = {}
+
+for word in io.open(path, "r"):lines() do
+	table.insert(words, word)
+end
+
+lspconfig.ltex.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "ltex-ls" },
+  filetypes = { "bib", "gitcommit", "markdown", "org", "norg", "plaintex", "rst", "rnoweb", "tex" },
+  flags = { debounce_text_changes = 300 },
+  settings = {
+    ltex = {
+      disabledRules = { ['en-US'] = { 'PROFANITY' }, },
+      dictionary = { ['en-US'] = words, },
+    },
+  },
+}
+
 local servers = {
   'dockerls',
   'pyright',
