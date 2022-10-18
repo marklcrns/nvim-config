@@ -135,7 +135,10 @@ lspconfig.ltex.setup {
   flags = { debounce_text_changes = 300 },
   settings = {
     ltex = {
-      disabledRules = { ['en-US'] = { 'PROFANITY' }, },
+      -- Disable MORFOLOGIK_RULE_EN_US to fallback to native spell checker
+      -- https://neovim.discourse.group/t/ltex-ls-and-spelling-woes/1589/4
+      language = 'en-US',
+      disabledRules = { ['en-US'] = { 'PROFANITY', 'MORFOLOGIK_RULE_EN_US' }, },
       dictionary = { ['en-US'] = words, },
     },
   },
