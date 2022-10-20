@@ -910,8 +910,8 @@ endif
 
 if dein#tap('vim-you-autocorrect')
   nnoremap <silent> <LocalLeader>ss <cmd>call ToggleAutoCorrect()<CR>
-  nmap <silent> [s <Plug>VimyouautocorrectPrevious
-  nmap <silent> ]s <Plug>VimyouautocorrectNext
+  " nmap <silent> [s <Plug>VimyouautocorrectPrevious
+  " nmap <silent> ]s <Plug>VimyouautocorrectNext
 
   imap <silent> <F3> <C-O><Plug>VimyouautocorrectUndo
   nmap <silent> <F3> <Plug>VimyouautocorrectUndo
@@ -920,8 +920,8 @@ if dein#tap('vim-you-autocorrect')
 
   if s:enable_whichkey
     let g:which_key_localmap['s']['s'] = 'Toggle autocorrect (certain ft only)'
-    let g:which_key_lsbgmap['s'] = 'Previous autocorrect'
-    let g:which_key_rsbgmap['s'] = 'Next autocorrect'
+    " let g:which_key_lsbgmap['s'] = 'Previous autocorrect'
+    " let g:which_key_rsbgmap['s'] = 'Next autocorrect'
   endif
 endif
 
