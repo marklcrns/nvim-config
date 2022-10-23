@@ -329,7 +329,7 @@ cmp.setup.filetype({ 'markdown', 'vimwiki', 'norg', 'help', 'text' }, {
 cmp.setup.cmdline('/', {
   completion = { autocomplete = false },
   sources = {
-    { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } },
+    { name = 'buffer', options = { keyword_pattern = [=[[^[:blank:]].*]=] } },
   }
 })
 

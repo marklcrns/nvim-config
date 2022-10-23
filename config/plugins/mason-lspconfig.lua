@@ -14,9 +14,9 @@ require("mason-lspconfig").setup({
     "html",
     "tsserver",
     "tailwindcss",
-    "css-lsp",
+    "cssls", -- css-lsp
     "texlab",
-    "ltex-ls",
+    "ltex", -- ltex-ls
   },
   automatic_installation = true,
 })
