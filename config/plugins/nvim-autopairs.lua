@@ -83,11 +83,11 @@ npairs.add_rules {
     :with_pair(ts_conds.is_ts_node({'string','comment'})),
 
   -- Bracket-like $$ behavior
-  Rule("$", "$" , {"tex", "latex", "plaintex", "vimwiki"})
+  Rule("$", "$" , {"tex", "latex", "plaintex", "markdown", "vimwiki"})
     -- move right when repeat character
     :with_move(function(opts) return opts.char == '$' end),
   -- Add $$ in new line after $$<CR>
-  Rule("$$", "", {"tex", "latex", "plaintex", "vimwiki"})
+  Rule("$$", "", {"tex", "latex", "plaintex", "markdown", "vimwiki"})
     :with_pair(function(opts)
         print(vim.inspect(opts))
         if opts.line=="aa $$" then

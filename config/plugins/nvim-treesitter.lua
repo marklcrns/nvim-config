@@ -5,7 +5,8 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
-    disable = { "tex", "latex", "plaintex", "markdown", "vimwiki" },  -- list of language that will be disabled
+    -- Disable latex and markdown in favor of vimtex's own parser
+    disable = { "tex", "latex", "plaintex", "markdown" },  -- list of language that will be disabled
   },
 
   textobjects = {
