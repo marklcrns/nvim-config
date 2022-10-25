@@ -282,8 +282,8 @@
 
 # Markdown
 # ---------------------------------------
-- repo: plasticboy/vim-markdown
-  on_ft: markdown
+- repo: preservim/vim-markdown
+  on_ft: [markdown, vimwiki]
   hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
 
 - repo: iamcco/markdown-preview.nvim
@@ -299,7 +299,7 @@
 # LaTeX
 # ----------------------------------------
 - repo: lervag/vimtex
-  on_ft: [plaintex, tex, latex, markdown]
+  on_ft: [plaintex, tex, latex, markdown, vimwiki]
   hook_source: source $VIM_PATH/config/plugins/vimtex.vim
 # }}}
 
@@ -450,6 +450,9 @@
 - repo: ahmedkhalf/project.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/project.lua
+
+- repo: andymass/vim-matchup
+  depends: nvim-treesitter
 
 - repo: kyazdani42/nvim-tree.lua
   if: "has('nvim-0.5')"

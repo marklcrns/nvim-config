@@ -5,7 +5,7 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
-    -- disable = { "c", "rust" },  -- list of language that will be disabled
+    disable = { "tex", "latex", "plaintex", "markdown", "vimwiki" },  -- list of language that will be disabled
   },
 
   textobjects = {
@@ -19,6 +19,12 @@ require'nvim-treesitter.configs'.setup {
         ["ic"] = "@class.inner",
       },
     },
+  },
+
+  -- vim-matchup configs
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+    -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
   },
 }
 

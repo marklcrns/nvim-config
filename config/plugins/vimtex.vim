@@ -11,8 +11,8 @@
 let g:tex_flavor = 'latex'
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_mappings_enabled = 1
-let g:matchup_override_vimtex = 1
-let g:matchup_matchparen_deferred = 1
+" let g:matchup_override_vimtex = 1
+" let g:matchup_matchparen_deferred = 1
 
 set conceallevel=1
 let g:tex_conceal='abdmg'
