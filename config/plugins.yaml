@@ -283,7 +283,7 @@
 # Markdown
 # ---------------------------------------
 - repo: preservim/vim-markdown
-  on_ft: [markdown, vimwiki]
+  on_ft: [markdown, pandoc.markdown, rmd]
   hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
 
 - repo: iamcco/markdown-preview.nvim
@@ -294,7 +294,7 @@
 
 - repo: mzlogin/vim-markdown-toc
   hook_add: source $VIM_PATH/config/plugins/vim-markdown-toc.vim
-  on_ft: [markdown, vim, vimwiki]
+  on_ft: [markdown, pandoc.markdown, rmd]
 
 # LaTeX
 # ----------------------------------------
