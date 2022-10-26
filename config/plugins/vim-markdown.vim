@@ -24,3 +24,12 @@ let g:vim_markdown_fenced_languages = [
   \ 'py=python'
   \ ]
 
+augroup MarkdownEditMode
+  autocmd!
+  " Toggle conceallevel on and after insert mode
+  autocmd FileType markdown
+        \ autocmd InsertEnter <buffer> setlocal conceallevel=0
+  autocmd FileType markdown
+        \ autocmd InsertLeave <buffer> setlocal conceallevel=2
+augroup END
+

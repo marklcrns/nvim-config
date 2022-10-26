@@ -37,3 +37,13 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_quickfix_ignore_filters = [
       \ 'LaTeX Font Warning',
       \ ]
+
+augroup LaTeXEditMode
+  autocmd!
+  " Toggle conceallevel on and after insert mode
+  autocmd FileType tex,plaintex,latex
+        \ autocmd InsertEnter <buffer> setlocal conceallevel=0
+  autocmd FileType tex,plaintex,latex
+        \ autocmd InsertLeave <buffer> setlocal conceallevel=2
+augroup END
+
