@@ -184,7 +184,6 @@ let g:which_key_localmap = {
                 \ 'l' : 'Toggle locationlist',
                 \ 'q' : 'Toggle quickfix',
             \ },
-      \ 'q'    : 'Toggle quickfix',
       \ 'r'    : 'Quick run',
       \ 's' : {
             \ 'name' : '+ui-toggles',

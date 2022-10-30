@@ -449,7 +449,7 @@ endfunction
 
 function! YankPasteMappings()
   " Duplicate line(s) and substitute
-  " Ref: https://stackoverflow.com/a/3806683/11850077
+  " Ref: https://stackoverflow.com/a/3806683/11850075
   nnoremap <leader>rp yap}pV`[v`]:s//gcI<Left><Left><Left><Left>
   vnoremap <Leader>rp y`]p`[v`]:s//gcI<Left><Left><Left><Left>
   " Yank and paste line under cursor to and from "x register
@@ -462,6 +462,7 @@ function! YankPasteMappings()
 endfunction
 
 function! EmacsLikeMappings()
+  inoremap <M-x> <Esc>:
   " Disabled because <C-d> replaces dedentation. Note <C-t> indents.
   " imap <C-d> <Del>
   " imap <C-h> <BS>
@@ -473,7 +474,6 @@ function! EmacsLikeMappings()
   inoremap <C-b> <Left>
   inoremap <C-f> <Right>
   " Move between words
-  inoremap <M-x> <Esc>:
   inoremap <M-f> <Esc>lwi
   inoremap <M-b> <Esc>bi
   inoremap <M-S-f> <Esc>lWi
