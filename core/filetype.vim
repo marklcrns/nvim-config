@@ -86,6 +86,19 @@ augroup END "}}}
 
 augroup user_linenumbersui
   autocmd!
+  " Toggles relativenumber on Insert Mode
   autocmd InsertEnter * setlocal norelativenumber
   autocmd InsertLeave * setlocal relativenumber
+
+  " " NOTE: Note very useful. For reference only
+  "
+  " " Toggles relativenuber on Visual Mode (rnu=true on VisualEnter, rnu=false on VisualLeave)
+  " autocmd ModeChanged [vV\x16]*:* let &l:rnu = !(mode() =~# '^[vV\x16]')
+  " autocmd ModeChanged *:[vV\x16]* let &l:rnu = !(mode() =~# '^[vV\x16]')
+  " autocmd WinEnter,WinLeave * let &l:rnu = !(mode() =~# '^[vV\x16]')
+  "
+  " " Toggles relativenuber on Visual Mode (rnu=false on VisualEnter, rnu=true on VisualLeave)
+  " autocmd ModeChanged [vV\x16]*:* let &l:rnu = mode() =~# '^[vV\x16]'
+  " autocmd ModeChanged *:[vV\x16]* let &l:rnu = mode() =~# '^[vV\x16]'
+  " autocmd WinEnter,WinLeave * let &l:rnu = mode() =~# '^[vV\x16]'
 augroup END

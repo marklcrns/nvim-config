@@ -45,5 +45,11 @@ augroup LaTeXEditMode
         \ autocmd InsertEnter <buffer> setlocal conceallevel=0
   autocmd FileType tex,plaintex,latex
         \ autocmd InsertLeave <buffer> setlocal conceallevel=2
+
+  " Toggles relativenuber on Visual Mode
+  autocmd FileType tex,plaintex,latex
+        \ autocmd ModeChanged [vV\x16]*:* let &l:cole = 2
+  autocmd FileType tex,plaintex,latex
+        \ autocmd ModeChanged *:[vV\x16]* let &l:cole = 0
 augroup END
 
