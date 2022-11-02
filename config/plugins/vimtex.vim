@@ -40,13 +40,13 @@ let g:vimtex_quickfix_ignore_filters = [
 
 augroup LaTeXEditMode
   autocmd!
-  " Toggle conceallevel on and after insert mode
+  " Toggle conceallevel on and off Insert mode
   autocmd FileType tex,plaintex,latex
         \ autocmd InsertEnter <buffer> setlocal conceallevel=0
   autocmd FileType tex,plaintex,latex
         \ autocmd InsertLeave <buffer> setlocal conceallevel=2
 
-  " Toggles relativenuber on Visual Mode
+  " Toggles conceallevel on and off Visual Mode
   autocmd FileType tex,plaintex,latex
         \ autocmd ModeChanged [vV\x16]*:* let &l:cole = 2
   autocmd FileType tex,plaintex,latex

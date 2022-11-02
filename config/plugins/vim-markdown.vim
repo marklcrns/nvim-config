@@ -26,10 +26,16 @@ let g:vim_markdown_fenced_languages = [
 
 augroup MarkdownEditMode
   autocmd!
-  " Toggle conceallevel on and after insert mode
+  " Toggle conceallevel on and off Insert mode
   autocmd FileType markdown
         \ autocmd InsertEnter <buffer> setlocal conceallevel=0
   autocmd FileType markdown
         \ autocmd InsertLeave <buffer> setlocal conceallevel=2
+
+  " Toggles conceallevel on and off Visual Mode
+  autocmd FileType markdown
+        \ autocmd ModeChanged [vV\x16]*:* let &l:cole = 2
+  autocmd FileType markdown
+        \ autocmd ModeChanged *:[vV\x16]* let &l:cole = 0
 augroup END
 
