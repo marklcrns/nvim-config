@@ -8,6 +8,8 @@ local ts_conds = require('nvim-autopairs.ts-conds')
 npairs.setup({
   disable_filetype = { "TelescopePrompt" },
   check_ts = true,
+  map_cr = true,
+  map_bs = true,
   ts_config = {
       lua = {'string'},-- it will not add a pair on that treesitter node
       javascript = {'template_string'},

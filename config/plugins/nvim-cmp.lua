@@ -163,7 +163,7 @@ cmp.setup({
           fallback()
         end
       end,
-      i = cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+      i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
     }),
   },
 
