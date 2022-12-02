@@ -2,8 +2,6 @@
 
 # Install script to install virtual environment for vim python prog hosts
 
-set -e
-
 SCRIPTPATH="$(realpath -s $0)"
 SCRIPTDIR=$(dirname ${SCRIPTPATH})
 DATA_PATH="${HOME}/.cache/vim"
