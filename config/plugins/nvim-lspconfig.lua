@@ -42,9 +42,9 @@ vim.diagnostic.config({
 
 local on_attach = function(client, bufnr)
   -- Disable tsserver formatting for prettier managed by null-ls
-  -- if client.name == "tsserver" then
-  --   client.server_capabilities.documentFormattingProvider = false
-  -- end
+  if client.name == "tsserver" then
+    client.server_capabilities.documentFormattingProvider = false
+  end
   -- Format on save
   if client.server_capabilities.documentFormattingProvider then
     api.nvim_create_autocmd('BufWritePre', {
@@ -164,19 +164,19 @@ local servers = {
 }
 
 for _, server in ipairs(servers) do
-  -- -- Disable tsserver linter, use eslint instead by null-ls
-  -- if server == 'tsserver' then
-  --   lspconfig[server].setup({
-  --     on_attach = on_attach,
-  --     capabilities = capabilities,
-  --     handlers = { ['textDocument/publishDiagnostics'] = function(...) end }
-  --   })
-  -- else
-  --   lspconfig[server].setup({
-  --     on_attach = on_attach,
-  --     capabilities = capabilities,
-  --   })
-  -- end
+  -- Disable tsserver linter, use eslint instead by null-ls
+  if server == 'tsserver' then
+    lspconfig[server].setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      handlers = { ['textDocument/publishDiagnostics'] = function(...) end }
+    })
+  else
+    lspconfig[server].setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+  end
 
   lspconfig[server].setup({
     on_attach = on_attach,

@@ -12,7 +12,7 @@ null_ls.setup({
   debug = true,
   sources = {
     -- formatting.prettier,
-    -- diagnostics.eslint,
+    diagnostics.eslint,
     -- diagnostics.vint,
     -- diagnostics.shellcheck,
 
