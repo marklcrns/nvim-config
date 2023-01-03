@@ -19,6 +19,7 @@ let g:vimwiki_map_prefix = '<LocalLeader>w'
 
 let g:vimwiki_list = [
       \   { 'path': '~/Documents/my-wiki/task/md/',
+      \     'exclude_files': ['**/README.md'],
       \     'path_html': '~/Documents/my-wiki/task/html',
       \     'diary_header': 'Task',
       \     'diary_link_fmt': '%Y-%m/%d',
@@ -34,6 +35,7 @@ let g:vimwiki_list = [
       \     'template_ext':'.html',
       \     'custom_wiki2html': '~/Documents/my-wiki/task/wiki2html.sh' },
       \   { 'path': '~/Documents/my-wiki/docs/md/',
+      \     'exclude_files': ['**/README.md'],
       \     'path_html': '~/Documents/my-wiki/docs/html',
       \     'index': 'index',
       \     'auto_tags': 1,
@@ -47,6 +49,7 @@ let g:vimwiki_list = [
       \     'template_ext':'.html',
       \     'custom_wiki2html': '~/Documents/my-wiki/docs/wiki2html.sh' },
       \   { 'path': '~/Documents/my-wiki/school/md',
+      \     'exclude_files': ['**/README.md'],
       \     'path_html': '~/Documents/my-wiki/school/html',
       \     'index': 'index',
       \     'auto_tags': 1,
@@ -60,6 +63,7 @@ let g:vimwiki_list = [
       \     'template_ext':'.html',
       \     'custom_wiki2html': '~/Documents/my-wiki/school/wiki2html.sh' },
       \   { 'path': '~/Documents/my-wiki/',
+      \     'exclude_files': ['**/README.md'],
       \     'path_html': '~/Documents/my-wiki/',
       \     'index': 'index',
       \     'auto_tags': 1,

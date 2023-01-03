@@ -365,7 +365,7 @@
 
 # Only load when in wiki directory
 - repo: vimwiki/vimwiki
-  on_if: "(getcwd() =~ $HOME . '/Documents/my-wiki.*' && &filetype == 'markdown')"
+  on_if: "(getcwd() =~ $HOME . '/Documents/my-wiki.*' && &filetype == 'markdown' && expand('%:t') != 'README.md')"
   on_cmd: [VimwikIndex, VimwikiDiaryIndex, VimwikiUISelect]
   hook_source: source $VIM_PATH/config/plugins/vimwiki.vim
   rev: 4d7a4da2e8e2fff34126e32d8818ba93c66a8a75
@@ -373,7 +373,7 @@
 # Only load when in wiki diary sub directory
 - repo: tbabej/taskwiki
   if: has('python3')
-  on_if: "(expand('%:p') =~ $HOME . '/Documents/my-wiki/task/md/diary/.*' && &filetype == 'vimwiki')"
+  on_if: "(expand('%:p') =~ $HOME . '/Documents/my-wiki/task/md/diary/.*' && &filetype == 'vimwiki' && expand('%:t') != 'README.md')"
   depends: vimwiki
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
   # rev: 925d8ed2f522229d32d4cc39486080c244d20f7a
