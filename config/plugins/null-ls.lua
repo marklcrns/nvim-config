@@ -7,16 +7,47 @@ end
 local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
+
+
+-- Ref: https://github.com/majamin/neovim-config/blob/master/lua/user/config/null-ls.lua
+local sources = {
+  -- Python
+  formatting.black,
+  -- C, C++, C#, Java, Cuda
+  formatting.clang_format,
+  -- Latex
+  -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
+  formatting.latexindent.with({ extra_args = { "-g", "/dev/null" } }),
+  -- HTML, JS, CSS
+  -- formatting.prettierd,
+  formatting.eslint_d,
+  -- Rust,
+  formatting.rustfmt,
+  -- Lua
+  formatting.stylua.with({ extra_args = { "--indent-type", "Spaces", "--indent-width", "2" } }),
+  -- Shell (bash, etc.)
+  formatting.shfmt,
+  -- Git code actions
+  code_actions.gitsigns,
+}
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null_ls.setup({
   debug = true,
-  sources = {
-    -- formatting.prettier,
-    diagnostics.eslint,
-    -- diagnostics.vint,
-    -- diagnostics.shellcheck,
-
-    -- formatting.stylua,
-  },
+  sources = sources,
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+  end,
 })
 

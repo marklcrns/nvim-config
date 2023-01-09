@@ -1,7 +1,12 @@
 -- Servers list:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local api = vim.api
-local lspconfig = require('lspconfig')
+local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
+local lsp_format_ok, lsp_format = pcall(require, "lsp-format")
+
+if not lspconfig_ok or lsp_format_ok then
+  return
+end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -41,22 +46,27 @@ vim.diagnostic.config({
 })
 
 local on_attach = function(client, bufnr)
-  -- Disable tsserver formatting for prettier managed by null-ls
+  -- disable formatting for LSP clients as this is handled by null-ls
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
+
+  -- Disable tsserver formatting for prettier/eslint managed by null-ls
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
   end
-  -- Format on save
-  if client.server_capabilities.documentFormattingProvider then
-    api.nvim_create_autocmd('BufWritePre', {
-      pattern = client.config.filetypes,
-      callback = function()
-        vim.lsp.buf.format({
-          bufnr = bufnr,
-          async = true,
-        })
-      end,
-    })
-  end
+
+  -- -- Format on save
+  -- if client.server_capabilities.documentFormattingProvider then
+  --   api.nvim_create_autocmd('BufWritePre', {
+  --     pattern = client.config.filetypes,
+  --     callback = function()
+  --       vim.lsp.buf.format({
+  --         bufnr = bufnr,
+  --         async = true,
+  --       })
+  --     end,
+  --   })
+  -- end
 end
 
 lspconfig.gopls.setup({
@@ -149,6 +159,17 @@ lspconfig.ltex.setup {
       dictionary = { ['en-US'] = words, },
     },
   },
+}
+
+lspconfig.eslint.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        codeActionOnSave = {
+            enable = true,
+            mode = "all"
+        },
+    }
 }
 
 local servers = {
