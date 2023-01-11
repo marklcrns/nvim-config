@@ -63,6 +63,7 @@
 
 # Make sure to run `:Copilot auth` after install
 - repo: github/copilot.vim
+  hook_source: source $VIM_PATH/config/plugins/copilot.vim
 
 - repo: zbirenbaum/copilot.lua
   on_event: VimEnter
