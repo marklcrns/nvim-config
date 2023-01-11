@@ -9,7 +9,6 @@ local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 
-
 -- Ref: https://github.com/majamin/neovim-config/blob/master/lua/user/config/null-ls.lua
 local sources = {
   -- Python
@@ -49,5 +48,10 @@ null_ls.setup({
       })
     end
   end,
+  -- clangd fix
+  -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-1120578988
+  -- Make sure to configure nvim-lspconfig clangd as well https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-1120166948
+  on_init = function(new_client, _)
+    new_client.offset_encoding = "utf-16"
+  end,
 })
-

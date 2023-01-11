@@ -9,20 +9,20 @@ if not lspconfig_ok or lsp_format_ok then
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- nvim-ufo yaml folding fix: https://github.com/kevinhwang91/nvim-ufo/issues/72
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
-  lineFoldingOnly = true
+  lineFoldingOnly = true,
 }
 
 function _G.open_lsp_log()
   local path = vim.lsp.get_log_path()
-  vim.cmd('edit ' .. path)
+  vim.cmd("edit " .. path)
 end
 
-vim.cmd('command! -nargs=0 LspLog call v:lua.open_lsp_log()')
+vim.cmd("command! -nargs=0 LspLog call v:lua.open_lsp_log()")
 
 local signs = {
   Error = " ",
@@ -31,7 +31,7 @@ local signs = {
   Info = " ",
 }
 for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
+  local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
@@ -72,7 +72,7 @@ end
 lspconfig.gopls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = { 'gopls', '--remote=auto' },
+  cmd = { "gopls", "--remote=auto" },
   init_options = {
     usePlaceholders = true,
     completeUnimported = true,
@@ -86,11 +86,11 @@ lspconfig.sumneko_lua.setup({
     Lua = {
       diagnostics = {
         enable = true,
-        globals = { 'vim', 'packer_plugins' },
+        globals = { "vim", "packer_plugins" },
       },
-      runtime = { version = 'LuaJIT' },
+      runtime = { version = "LuaJIT" },
       workspace = {
-        library = vim.list_extend({ [vim.fn.expand('$VIMRUNTIME/lua')] = true }, {}),
+        library = vim.list_extend({ [vim.fn.expand("$VIMRUNTIME/lua")] = true }, {}),
       },
     },
   },
@@ -100,11 +100,12 @@ lspconfig.clangd.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = {
-    'clangd',
-    '--background-index',
-    '--suggest-missing-includes',
-    '--clang-tidy',
-    '--header-insertion=iwyu',
+    "clangd",
+    "--background-index",
+    "--suggest-missing-includes",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--offset-encoding=utf-16",
   },
 })
 
@@ -114,9 +115,9 @@ lspconfig.rust_analyzer.setup({
   settings = {
     imports = {
       granularity = {
-        group = 'module',
+        group = "module",
       },
-      prefix = 'self',
+      prefix = "self",
     },
     cargo = {
       buildScripts = {
@@ -129,22 +130,21 @@ lspconfig.rust_analyzer.setup({
   },
 })
 
-lspconfig.emmet_ls.setup {
+lspconfig.emmet_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
-}
-
+  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+})
 
 -- For adding spellfiles into ltex dictionary
 local path = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 local words = {}
 
 for word in io.open(path, "r"):lines() do
-	table.insert(words, word)
+  table.insert(words, word)
 end
 
-lspconfig.ltex.setup {
+lspconfig.ltex.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "ltex-ls" },
@@ -154,43 +154,43 @@ lspconfig.ltex.setup {
     ltex = {
       -- Disable MORFOLOGIK_RULE_EN_US to fallback to native spell checker
       -- https://neovim.discourse.group/t/ltex-ls-and-spelling-woes/1589/4
-      language = 'en-US',
-      disabledRules = { ['en-US'] = { 'PROFANITY', 'MORFOLOGIK_RULE_EN_US' }, },
-      dictionary = { ['en-US'] = words, },
+      language = "en-US",
+      disabledRules = { ["en-US"] = { "PROFANITY", "MORFOLOGIK_RULE_EN_US" } },
+      dictionary = { ["en-US"] = words },
     },
   },
-}
+})
 
-lspconfig.eslint.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        codeActionOnSave = {
-            enable = true,
-            mode = "all"
-        },
-    }
-}
+lspconfig.eslint.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    codeActionOnSave = {
+      enable = true,
+      mode = "all",
+    },
+  },
+})
 
 local servers = {
-  'dockerls',
-  'pyright',
-  'tsserver',
-  'bashls',
-  'yamlls',
-  'html',
-  'cssls', -- css-lsp: for css and scss
-  'vimls',
-  'texlab',
+  "dockerls",
+  "pyright",
+  "tsserver",
+  "bashls",
+  "yamlls",
+  "html",
+  "cssls", -- css-lsp: for css and scss
+  "vimls",
+  "texlab",
 }
 
 for _, server in ipairs(servers) do
   -- Disable tsserver linter, use eslint instead by null-ls
-  if server == 'tsserver' then
+  if server == "tsserver" then
     lspconfig[server].setup({
       on_attach = on_attach,
       capabilities = capabilities,
-      handlers = { ['textDocument/publishDiagnostics'] = function(...) end }
+      handlers = { ["textDocument/publishDiagnostics"] = function(...) end },
     })
   else
     lspconfig[server].setup({
