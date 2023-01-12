@@ -46,7 +46,7 @@ vim.diagnostic.config({
 })
 
 local on_attach = function(client, bufnr)
-  -- disable formatting for LSP clients as this is handled by null-ls
+  -- disable formatting for LSP clients altogether as this is handled by null-ls
   client.server_capabilities.documentFormattingProvider = false
   client.server_capabilities.documentRangeFormattingProvider = false
 
@@ -181,6 +181,7 @@ local servers = {
   "html",
   "cssls", -- css-lsp: for css and scss
   "vimls",
+  "jsonls",
   "texlab",
 }
 
