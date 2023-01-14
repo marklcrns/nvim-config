@@ -19,7 +19,7 @@ local sources = {
   formatting.jq,
   -- Latex
   -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
-  formatting.latexindent,
+  formatting.latexindent.with({ extra_args = { "-g", "/dev/null" } }),
   -- HTML, JS, CSS
   -- formatting.prettierd,
   formatting.eslint_d,
