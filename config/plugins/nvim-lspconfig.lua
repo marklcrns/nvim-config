@@ -186,19 +186,19 @@ local servers = {
 }
 
 for _, server in ipairs(servers) do
-  -- Disable tsserver linter, use eslint instead by null-ls
-  if server == "tsserver" then
-    lspconfig[server].setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      handlers = { ["textDocument/publishDiagnostics"] = function(...) end },
-    })
-  else
-    lspconfig[server].setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-  end
+  -- -- Disable tsserver linter, use eslint instead by null-ls
+  -- if server == "tsserver" then
+  --   lspconfig[server].setup({
+  --     on_attach = on_attach,
+  --     capabilities = capabilities,
+  --     handlers = { ["textDocument/publishDiagnostics"] = function(...) end },
+  --   })
+  -- else
+  --   lspconfig[server].setup({
+  --     on_attach = on_attach,
+  --     capabilities = capabilities,
+  --   })
+  -- end
 
   lspconfig[server].setup({
     on_attach = on_attach,
