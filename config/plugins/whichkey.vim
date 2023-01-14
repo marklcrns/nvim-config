@@ -186,10 +186,11 @@ let g:which_key_localmap = {
             \ },
       \ 'r'    : 'Quick run',
       \ 's' : {
-            \ 'name' : '+ui-toggles',
+            \ 'name' : '+settings-toggles',
                \ 'b' : 'dark/light background',
                \ 'e' : 'Conceal toggle',
-               \ 'f' : 'Foldcolumn toggle',
+               \ 'f' : 'Format on save toggle',
+               \ 'F' : 'Foldcolumn toggle',
                \ 'g' : 'Gutter toggle',
                \ 's' : 'Spell checker toggle',
                \ 't' : 'Tab char toggle',

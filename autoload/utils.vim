@@ -136,3 +136,12 @@ endfunction
 
 command! -nargs=+ -bar LSP          call s:lsp_init(<args>)
 
+function! utils#custom_buffer_write(bang, cmds)
+  let l:command = "w" . a:cmds . a:bang
+  if g:enable_format_on_save == 0
+    let l:command = "noautocmd " . l:command
+  endif
+  execute l:command
+endfunction
+
+command! -bang -nargs=? CustomBufferWrite :call utils#custom_buffer_write(<q-bang>, <q-args>)

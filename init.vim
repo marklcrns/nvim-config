@@ -24,6 +24,7 @@ let g:custom_statusline_enable = 1
 let g:custom_tabline_enable = 1
 let g:custom_cursorline_enable = 1
 let g:custom_cursorcolumn_enable = 0
+let g:enable_format_on_save=1
 
 " Gui Fonts
 let g:guifontsize = 12

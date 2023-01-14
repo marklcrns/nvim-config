@@ -133,7 +133,7 @@ function! RemoveQFItem()
   execute curqfidx + 1 . "cfirst"
   :copen
 endfunction
-:command! RemoveQFItem :call RemoveQFItem()
+command! RemoveQFItem :call RemoveQFItem()
 " }}} BASIC MAPPINGS
 
 " BASIC MAPPINGS -------------------- {{{
@@ -145,14 +145,14 @@ function! ExitMappings()
   nnoremap <silent> <Leader>Q :qa!<CR>
   xnoremap <silent> <Leader>Q <Esc>:qa!<CR>
   " Write/Save buffer
-  nnoremap <silent> <leader>fs :w<CR>
-  xnoremap <silent> <leader>fs <Esc>:w<CR>
+  nnoremap <silent> <leader>fs :CustomBufferWrite<CR>
+  xnoremap <silent> <leader>fs <Esc>:CustomBufferWrite<CR>
   " Write/Save all buffer
-  nnoremap <silent> <leader>fS :wa<CR>
-  xnoremap <silent> <leader>fS <Esc>:wa<CR>
+  nnoremap <silent> <leader>fS :CustomBufferWrite a<CR>
+  xnoremap <silent> <leader>fS <Esc>:CustomBufferWrite a<CR>
   " Save and quit
-  nnoremap <silent> <leader>fq :wq<CR>
-  xnoremap <silent> <leader>fq <Esc>:wq<CR>
+  nnoremap <silent> <leader>fq :CustomBufferWrite q<CR>
+  xnoremap <silent> <leader>fq <Esc>:CustomBufferWrite q<CR>
   " Wipe buffer
   nnoremap <silent> <leader>fw :bw<CR>
   xnoremap <silent> <leader>fw :<Esc>bw<CR>
@@ -668,7 +668,8 @@ function! SettingsToggleMappings()
   nnoremap <silent> <LocalLeader>slx :<C-u>call <SID>toggle_crosshair()<CR>
   nnoremap <silent> <LocalLeader>sb :<C-u>call <SID>toggle_background()<CR>
   nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
-  nnoremap <silent> <LocalLeader>sf :<C-u>call <SID>toggle_foldcolumn1()<CR>
+  nnoremap <silent> <LocalLeader>sf :<C-u>call <SID>toggle_format_on_save()<CR>
+  nnoremap <silent> <LocalLeader>sF :<C-u>call <SID>toggle_foldcolumn1()<CR>
   nnoremap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
   nnoremap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>
   nnoremap <silent> <LocalLeader>sv :<C-u>call <SID>toggle_virtualedit()<CR>
@@ -850,6 +851,18 @@ function! s:toggle_background()
     endif
   endif
 endfunction
+
+" Toggle format on save with noautocmd
+function! s:toggle_format_on_save()
+  if g:enable_format_on_save
+    let g:enable_format_on_save = 0
+    echom 'Format on save deactivated'
+  else
+    let g:enable_format_on_save = 1
+    echom 'Format on save activated'
+  endif
+endfunction
+
 
 " DEPRECATED by vim-maximizer
 " " Simple zoom toggle

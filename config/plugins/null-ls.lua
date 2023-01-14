@@ -29,6 +29,7 @@ local sources = {
   formatting.stylua.with({ extra_args = { "--indent-type", "Spaces", "--indent-width", "2" } }),
   -- Shell (bash, etc.)
   formatting.shfmt,
+  code_actions.shellcheck,
   -- Git code actions
   code_actions.gitsigns.with({
     config = {
