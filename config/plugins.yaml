@@ -28,14 +28,6 @@
 - repo: nvim-treesitter/nvim-treesitter-textobjects
   if: "has('nvim-0.7')"
 
-- repo: neovim/nvim-lspconfig
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-lspconfig.lua
-
-- repo: ray-x/lsp_signature.nvim
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/lsp_signature.lua
-
 - repo: williamboman/mason.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/mason.lua
@@ -43,11 +35,26 @@
 - repo: williamboman/mason-lspconfig.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/mason-lspconfig.lua
+  depends: [ 'mason.nvim' ]
 
 - repo: jayp0521/mason-null-ls.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/mason-null-ls.lua
-  depends: [ 'mason.nvim', 'null-ls.nvim' ]
+  depends: [ 'mason.nvim', ]
+
+- repo: neovim/nvim-lspconfig
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-lspconfig.lua
+  depends: [ 'mason-lspconfig.nvim' ]
+
+- repo: jose-elias-alvarez/null-ls.nvim
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/null-ls.lua
+  depends: [ 'mason-null-ls.nvim' ]
+
+- repo: ray-x/lsp_signature.nvim
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/lsp_signature.lua
 
 - repo: glepnir/lspsaga.nvim
   if: "has('nvim-0.7')"
@@ -124,10 +131,6 @@
 
 - repo: sedm0784/vim-you-autocorrect
   hook_source: source $VIM_PATH/config/plugins/vim-you-autocorrect.vim
-
-- repo: jose-elias-alvarez/null-ls.nvim
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/null-ls.lua
 
 # Tools
 # ----------------------------------------

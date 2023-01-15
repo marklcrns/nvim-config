@@ -1,16 +1,10 @@
-require("mason-null-ls").setup({
-  -- ensure_installed = {
-  --   -- you can pin a tool to a particular version
-  --   -- { 'golangci-lint', version = '1.47.0' },
-  --
-  --   -- you can turn off/on auto_update per tool
-  --   -- { 'shellcheck', auto_update = true },
-  --
-  --   'stylua',
-  --   'editorconfig-checker',
-  --   'prettier',
-  --   'shellcheck',
-  --   'vint',
-  -- },
+local mason_null_ls_ok, mason_null_ls = pcall(require, "mason-null-ls")
+if not mason_null_ls_ok then
+  return
+end
+
+mason_null_ls.setup({
+  ensure_installed = nil,
   automatic_installation = true,
+  automatic_setup = false,
 })

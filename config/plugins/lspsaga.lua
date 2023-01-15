@@ -1,50 +1,66 @@
-local keymap = vim.keymap.set
-
-local saga = require('lspsaga')
-saga.init_lsp_saga({
+require("lspsaga").setup({
   -- symbols in winbar
   symbol_in_winbar = {
     enable = true,
   },
 })
 
--- -- Lsp finder find the symbol definition implmement reference
--- keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
-
+-- local keymap = vim.keymap.set
+-- -- Lsp finder find the symbol definition implement reference
+-- -- if there is no implement it will hide
+-- -- when you use action in finder like open vsplit then you can
+-- -- use <C-t> to jump back
+-- keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+--
 -- -- Code action
--- keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
--- keymap("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { silent = true })
-
+-- keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+--
 -- -- Rename
--- keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
-
--- -- Definition preview
--- keymap("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
-
--- -- Show line diagnostics
--- keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
-
+-- keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
+--
+-- -- Peek Definition
+-- -- you can edit the definition file in this flaotwindow
+-- -- also support open/vsplit/etc operation check definition_action_keys
+-- -- support tagstack C-t jump back
+-- keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
+--
+-- -- Go to Definition
+-- keymap("n","gd", "<cmd>Lspsaga goto_definition<CR>")
+--
+-- -- Show line diagnostics you can pass arugment ++unfocus to make
+-- -- show_line_diagnsotic float window unfocus
+-- keymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+--
 -- -- Show cursor diagnostic
--- keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
-
--- -- Diagnsotic jump
--- keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
--- keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
-
--- -- Only jump to error
+-- -- also like show_line_diagnostics  support pass ++unfocus
+-- keymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+--
+-- -- Show buffer diagnostic
+-- keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+--
+-- -- Diagnsotic jump can use `<c-o>` to jump back
+-- keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+-- keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+--
+-- -- Diagnostic jump with filter like Only jump to error
 -- keymap("n", "[E", function()
 --   require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
--- end, { silent = true })
+-- end)
 -- keymap("n", "]E", function()
 --   require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
--- end, { silent = true })
-
--- -- Outline
--- keymap("n","<leader>o", "<cmd>LSoutlineToggle<CR>",{ silent = true })
-
+-- end)
+--
+-- -- Toggle Outline
+-- keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
+--
 -- -- Hover Doc
--- keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
-
--- -- Signature help
--- keymap("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true })
-
+-- -- if there has no hover will have a notify no information available
+-- -- to disable it just Lspsaga hover_doc ++quiet
+-- keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
+--
+-- -- Callhierarchy
+-- keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
+-- keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+--
+-- -- Float terminal
+-- keymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
