@@ -89,30 +89,43 @@ if dein#tap('null-ls.nvim')
 endif
 
 if dein#tap('lspsaga.nvim')
-  nnoremap <silent> K :Lspsaga hover_doc<CR>
-  " nnoremap <silent> gd :Lspsaga preview_definition<CR>
-  nnoremap <silent> gf :Lspsaga lsp_finder<CR>
-  nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
-  vnoremap <silent> <leader>ca :Lspsaga range_code_action<CR>
-  nnoremap <silent> <leader>cr :Lspsaga rename<CR>
-  nnoremap <silent> [e :Lspsaga diagnostic_jump_prev<CR>
-  nnoremap <silent> ]e :Lspsaga diagnostic_jump_next<CR>
+  nnoremap <silent> K           <cmd>Lspsaga hover_doc<CR>
+  " nnoremap <silent> gd          <cmd>Lspsaga preview_definition<CR>
+  nnoremap <silent> gf          <cmd>Lspsaga lsp_finder<CR>
+  nnoremap <silent> <leader>ca  <cmd>Lspsaga code_action<CR>
+  vnoremap <silent> <leader>ca  <cmd>Lspsaga range_code_action<CR>
+  nnoremap <silent> <leader>cr  <cmd>Lspsaga rename<CR>
+  vnoremap <silent> <leader>ci  <cmd>Lspsaga incoming_calls<CR>
+  nnoremap <silent> <leader>co  <cmd>Lspsaga outgoing_calls<CR>
+  nnoremap <silent> <leader>cO  <cmd>Lspsaga outline<CR>
+  nnoremap <silent> [e          <cmd>Lspsaga diagnostic_jump_prev<CR>
+  nnoremap <silent> ]e          <cmd>Lspsaga diagnostic_jump_next<CR>
+  nnoremap <silent> [E          <cmd>lua require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>
+  nnoremap <silent> ]E          <cmd>lua require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>
+  nnoremap <silent> <C-\>       <cmd>Lspsaga term_toggle<CR>
 
   if s:enable_whichkey
     let g:which_key_map['c']['a'] = 'Code action'
-    let g:which_key_map['c']['o'] = 'Show code outline'
     let g:which_key_map['c']['r'] = 'LSP rename'
+    let g:which_key_map['c']['i'] = 'LSP peak step out function call'
+    let g:which_key_map['c']['o'] = 'LSP peak step in function call'
 
     let g:which_key_gmap['d'] = 'LSP go preview definition'
     let g:which_key_gmap['f'] = 'LSP finder'
 
     let g:which_key_lsbgmap['e'] = 'LSP Diagnostic prev'
     let g:which_key_rsbgmap['e'] = 'LSP Diagnostic next'
+    let g:which_key_lsbgmap['E'] = 'LSP Diagnostic prev error'
+    let g:which_key_rsbgmap['E'] = 'LSP Diagnostic next error'
   endif
 endif
 
 if dein#tap('symbols-outline.nvim')
-  nnoremap <silent> <leader>co :SymbolsOutline<CR>
+  nnoremap <silent> <leader>cO :SymbolsOutline<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['c']['O'] = 'Show code outline'
+  endif
 endif
 
 if dein#tap('mason.nvim')

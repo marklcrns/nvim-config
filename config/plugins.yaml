@@ -136,8 +136,9 @@
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
 
-- repo: akinsho/toggleterm.nvim
-  hook_source: luafile $VIM_PATH/config/plugins/toggleterm.lua
+# DEPRECATED by lspsaga.nvim
+# - repo: akinsho/toggleterm.nvim
+#   hook_source: luafile $VIM_PATH/config/plugins/toggleterm.lua
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
