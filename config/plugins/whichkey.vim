@@ -9,6 +9,21 @@ let g:which_key_display_names = {
       \    '<CR>': '↵',
       \ }
 
+          " \ 'a' : 'Jump to window with the disassembly',
+          " \ 'b' : 'Add line breapoint under current line',
+          " \ 'B' : 'Delete line breakpoint under current line',
+          " \ 'd' : 'Termdebug <exec>',
+          " \ 'e' : 'Evaluate variable undercursor or VISUAL',
+          " \ 'g' : 'Jump to gdb window',
+          " \ 'f' : 'Jump to window with the source code',
+          " \ 'h' : 'Continue until next breakpoint',
+          " \ 'j' : 'Step over (next)',
+          " \ 'k' : 'Step out (finish)',
+          " \ 'l' : 'Step into (step)',
+          " \ 'p' : 'Jump to window with running program',
+          " \ 'r' : 'Run program (accepts program cmdline arguments)',
+          " \ 'x' : 'Stop (interrupt) execution',
+          " \ 'A' : 'Set arguments for the next Run',
 let g:which_key_map = {
     \ 'name' : '+leader-key',
     \ ';' : {
@@ -28,21 +43,6 @@ let g:which_key_map = {
           \ },
     \ 'd' : {
           \ 'name' : '+debug',
-          \ 'a' : 'Jump to window with the disassembly',
-          \ 'b' : 'Add line breapoint under current line',
-          \ 'B' : 'Delete line breakpoint under current line',
-          \ 'd' : 'Termdebug <exec>',
-          \ 'e' : 'Evaluate variable undercursor or VISUAL',
-          \ 'g' : 'Jump to gdb window',
-          \ 'f' : 'Jump to window with the source code',
-          \ 'h' : 'Continue until next breakpoint',
-          \ 'j' : 'Step over (next)',
-          \ 'k' : 'Step out (finish)',
-          \ 'l' : 'Step into (step)',
-          \ 'p' : 'Jump to window with running program',
-          \ 'r' : 'Run program (accepts program cmdline arguments)',
-          \ 'x' : 'Stop (interrupt) execution',
-          \ 'A' : 'Set arguments for the next Run',
           \ },
     \ 'e' : {
           \ 'name' : '+file-explore',

@@ -334,6 +334,10 @@ function! WindowsManagementMappings()
   nnoremap  [Window]   <Nop>
   nmap      <C-w> [Window]
 
+  " Cycle through windows
+  nnoremap  [Window]w     <C-w><C-w>
+  nnoremap  [Window]<C-w> <C-w><C-w>
+
   " Splits
   nnoremap <silent> [Window]g  :<C-u>split<CR>
   nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
@@ -399,28 +403,28 @@ function! UtilityMappings()
   inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<C-k>"
   nnoremap <Leader>fg :call VimgrepWrapper("")<Left><Left>
   nnoremap <Leader>gD :GitOpenDirty<CR>
-  " Termdebug
-  packadd! termdebug
-  nnoremap <Leader>dA :<C-u>call feedkeys(':Arguments<Space>','t')<CR>
-  nnoremap <Leader>dd :<C-u>call feedkeys(':Termdebug<Space>','t')<CR>
-  nnoremap <Leader>db :<C-u>Break<CR>
-  nnoremap <Leader>dB :<C-u>Clear<CR>
-  nnoremap <Leader>de :execute "Evaluate " . expand('<cword>')<CR>
-  vnoremap <Leader>de :Evaluate<CR>
-  nnoremap <Leader>dh :<C-u>Continue<CR>
-  nnoremap <Leader>dl :<C-u>Step<CR>
-  nnoremap <Leader>dr :<C-u>call feedkeys(':Run<Space>','t')<CR>
-  nnoremap <Leader>dk :<C-u>Finish<CR>
-  nnoremap <Leader>dx :<C-u>Stop<CR>
-  if has('nvim')
-    nnoremap <Leader>dj :<C-u>Over<CR>
-  else
-    nnoremap <Leader>dj :<C-u>Next<CR>
-  endif
-  nnoremap <Leader>da :<C-u>Asm<CR>
-  nnoremap <Leader>dg :<C-u>Gdb<CR>
-  nnoremap <Leader>dp :<C-u>Program<CR>
-  nnoremap <Leader>df :<C-u>Source<CR>
+  " " Termdebug
+  " packadd! termdebug
+  " nnoremap <Leader>dA :<C-u>call feedkeys(':Arguments<Space>','t')<CR>
+  " nnoremap <Leader>dd :<C-u>call feedkeys(':Termdebug<Space>','t')<CR>
+  " nnoremap <Leader>db :<C-u>Break<CR>
+  " nnoremap <Leader>dB :<C-u>Clear<CR>
+  " nnoremap <Leader>de :execute "Evaluate " . expand('<cword>')<CR>
+  " vnoremap <Leader>de :Evaluate<CR>
+  " nnoremap <Leader>dh :<C-u>Continue<CR>
+  " nnoremap <Leader>dl :<C-u>Step<CR>
+  " nnoremap <Leader>dr :<C-u>call feedkeys(':Run<Space>','t')<CR>
+  " nnoremap <Leader>dk :<C-u>Finish<CR>
+  " nnoremap <Leader>dx :<C-u>Stop<CR>
+  " if has('nvim')
+  "   nnoremap <Leader>dj :<C-u>Over<CR>
+  " else
+  "   nnoremap <Leader>dj :<C-u>Next<CR>
+  " endif
+  " nnoremap <Leader>da :<C-u>Asm<CR>
+  " nnoremap <Leader>dg :<C-u>Gdb<CR>
+  " nnoremap <Leader>dp :<C-u>Program<CR>
+  " nnoremap <Leader>df :<C-u>Source<CR>
 endfunction
 
 function! CommandMappings()

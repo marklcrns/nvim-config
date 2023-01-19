@@ -165,6 +165,10 @@
 - repo: blueyed/vim-diminactive
   hook_source: source $VIM_PATH/config/plugins/vim-diminactive.vim
 
+# - repo: sunjon/shade.nvim
+#   if: "has('nvim-0.7')"
+#   hook_source: luafile $VIM_PATH/config/plugins/shade.lua
+
 - repo: sindrets/winshift.nvim
   if: "has('nvim-0.5')"
 
@@ -220,6 +224,25 @@
 - repo: monaqa/dial.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/dial.lua
+
+# Debugger
+- repo: rcarriga/nvim-dap-ui
+  if: "has('nvim-0.8')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-dap-ui.lua
+
+- repo: theHamsta/nvim-dap-virtual-text
+  if: "has('nvim-0.8')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-dap-virtual-text.lua
+
+- repo: mfussenegger/nvim-dap
+  if: "has('nvim-0.8')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-dap.lua
+  depends: [ 'nvim-dap-ui', 'nvim-dap-virtual-text' ]
+
+- repo: jayp0521/mason-nvim-dap.nvim
+  if: "has('nvim-0.8')"
+  hook_source: luafile $VIM_PATH/config/plugins/mason-nvim-dap.lua
+  depends: [ 'mason.nvim', 'nvim-dap' ]
 
 # Folds
 - repo: kevinhwang91/promise-async

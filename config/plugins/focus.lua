@@ -1,4 +1,4 @@
-require("focus").setup {
+require("focus").setup({
   enable = true,
   autoresize = true,
   hybridnumber = true,
@@ -6,7 +6,7 @@ require("focus").setup {
   treewidth = 30,
   -- width = vim.api.nvim_get_option('textwidth') + 10,
   absolutenumber_unfocussed = true,
-  colorcolumn = { enable = true, width = vim.api.nvim_get_option('textwidth') },
+  colorcolumn = { enable = true, width = vim.api.nvim_get_option("textwidth") },
   bufnew = true,
   excluded_filetypes = {
     "toggleterm",
@@ -18,9 +18,15 @@ require("focus").setup {
     "gina-commit",
     "NeogitStatus",
     "NeogitCommitMessage",
+    "dap-repl",
+    "dapui_scopes",
+    "dapui_breakpoints",
+    "dapui_stacks",
+    "dapui_watches",
+    "dapui_console",
   },
   compatible_filetrees = { "nvimtree", "nerdtree", "chadtree", "fern" },
   -- Covered in core/filetype.vim
   cursorline = false,
   cursorcolumn = false,
-}
+})

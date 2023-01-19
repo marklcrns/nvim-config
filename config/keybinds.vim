@@ -71,7 +71,8 @@ if dein#tap('nvim-lspconfig')
     let g:which_key_map['x'] = 'Open diagnostic float'
     let g:which_key_map['X'] = 'Set location list'
 
-    let g:which_key_gmap['D'] = 'LSP go to definition'
+    let g:which_key_gmap['d'] = 'LSP go to definition'
+    let g:which_key_gmap['D'] = 'LSP go to declaration'
     let g:which_key_gmap['i'] = 'LSP go to implementation'
     let g:which_key_gmap['r'] = 'LSP go to references'
     let g:which_key_gmap['t'] = 'LSP go to type definition'
@@ -110,13 +111,47 @@ if dein#tap('lspsaga.nvim')
     let g:which_key_map['c']['i'] = 'LSP peak step out function call'
     let g:which_key_map['c']['o'] = 'LSP peak step in function call'
 
-    let g:which_key_gmap['d'] = 'LSP go preview definition'
+    " let g:which_key_gmap['d'] = 'LSP go preview definition'
     let g:which_key_gmap['f'] = 'LSP finder'
 
     let g:which_key_lsbgmap['e'] = 'LSP Diagnostic prev'
     let g:which_key_rsbgmap['e'] = 'LSP Diagnostic next'
     let g:which_key_lsbgmap['E'] = 'LSP Diagnostic prev error'
     let g:which_key_rsbgmap['E'] = 'LSP Diagnostic next error'
+  endif
+endif
+
+if dein#tap('nvim-dap')
+  nnoremap <silent> <Leader>db <cmd>lua require('dap').toggle_breakpoint()<CR>
+  nnoremap <silent> <Leader>dc <cmd>lua require('dap').continue()<CR>
+  nnoremap <silent> <Leader>dd <cmd>lua require('dap').continue()<CR>
+  nnoremap <silent> <Leader>dh <cmd>lua require('dapui').eval(vim.call('expand','<cword>'), {enter=true})<CR>
+  nnoremap <silent> <Leader>dl <cmd>lua require('dap').run_last()<CR>
+  nnoremap <silent> <Leader>di <cmd>lua require('dap').step_into()<CR>
+  nnoremap <silent> <Leader>do <cmd>lua require('dap').step_out()<CR>
+  nnoremap <silent> <Leader>dO <cmd>lua require('dap').step_over()<CR>
+  nnoremap <silent> <Leader>dr <cmd>lua require('dap').repl.open()<CR>
+  nnoremap <silent> <Leader>dx <cmd>lua require('dap').terminate()<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['d']['b'] = 'Toggle line breakpoint'
+    let g:which_key_map['d']['c'] = 'Continue'
+    let g:which_key_map['d']['d'] = 'Continue'
+    let g:which_key_map['d']['h'] = 'Evaluate word under cursor'
+    let g:which_key_map['d']['l'] = 'Run last debug init'
+    let g:which_key_map['d']['i'] = 'Step into'
+    let g:which_key_map['d']['o'] = 'Step out'
+    let g:which_key_map['d']['O'] = 'Step over'
+    let g:which_key_map['d']['r'] = 'Open REPL'
+    let g:which_key_map['d']['x'] = 'Terminate debuger'
+  endif
+endif
+
+if dein#tap('nvim-dap-ui')
+  nnoremap <silent> <Leader>dt <cmd>lua require('dapui').toggle()<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['d']['t'] = 'Toggle debugger UI'
   endif
 endif
 
