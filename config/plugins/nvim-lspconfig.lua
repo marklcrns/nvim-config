@@ -69,16 +69,6 @@ local on_attach = function(client, bufnr)
   -- end
 end
 
-lspconfig.gopls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = { "gopls", "--remote=auto" },
-  init_options = {
-    usePlaceholders = true,
-    completeUnimported = true,
-  },
-})
-
 lspconfig.sumneko_lua.setup({
   on_attach = on_attach,
   capabilities = capabilities,
