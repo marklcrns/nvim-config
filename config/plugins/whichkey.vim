@@ -198,7 +198,7 @@ let g:which_key_localmap = {
                \ 'v' : 'Virtualedit mode toggle',
                \ 'w' : 'Text wrap view toggle',
                \ 'W' : 'Text wrapping toggle',
-               \ 'l' : {
+               \ 'c' : {
                      \ 'name' : '+cursor',
                      \ 'c' : 'Cursorcolumn toggle',
                      \ 'l' : 'Cursorline toggle',

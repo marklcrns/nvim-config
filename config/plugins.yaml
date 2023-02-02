@@ -60,6 +60,9 @@
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua
 
+- repo: WhoIsSethDaniel/toggle-lsp-diagnostics.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/toggle-lsp-diagnostics.lua
+
 - repo: simrat39/symbols-outline.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/symbols-outline.lua

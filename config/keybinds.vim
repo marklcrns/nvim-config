@@ -121,6 +121,34 @@ if dein#tap('lspsaga.nvim')
   endif
 endif
 
+if dein#tap('shade.nvim')
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['d'] = 'Toggle Shade'
+  endif
+endif
+
+if dein#tap('toggle-lsp-diagnostics.nvim')
+  nnoremap <LocalLeader>sldu <Plug>(toggle-lsp-diag-underline)
+  nnoremap <LocalLeader>slds <Plug>(toggle-lsp-diag-signs)
+  nnoremap <LocalLeader>sldv <Plug>(toggle-lsp-diag-vtext)
+  nnoremap <LocalLeader>sldp <Plug>(toggle-lsp-diag-update_in_insert)
+  nnoremap <LocalLeader>sldd <Plug>(toggle-lsp-diag)
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['l'] = {
+          \ 'name' : '+lsp-toggles',
+          \ 'd' : {
+                \ 'name' : '+diagnostics',
+                    \ 'd' : 'Toggle LSP diagnostics',
+                    \ 'p' : 'Toggle update in insert',
+                    \ 's' : 'Toggle signs',
+                    \ 'u' : 'Toggle underline',
+                    \ 'v' : 'Toggle virtualtext',
+                \ },
+          \ }
+  endif
+endif
+
 if dein#tap('nvim-dap')
   nnoremap <silent> <Leader>db <cmd>lua require('dap').toggle_breakpoint()<CR>
   nnoremap <silent> <Leader>dc <cmd>lua require('dap').continue()<CR>
@@ -933,10 +961,9 @@ if dein#tap('calendar.vim')
 endif
 
 if dein#tap('nvim-colorizer.lua')
-  nnoremap <LocalLeader>sc :<C-u>ColorizerToggle<CR>
+  nnoremap <LocalLeader>sx :<C-u>ColorizerToggle<CR>
   if s:enable_whichkey
-    let g:which_key_lsbgmap['f'] = 'Previouk fold and peek'
-    let g:which_key_rsbgmap['f'] = 'Next fold and peek'
+    let g:which_key_localmap['s']['x'] = 'Colorizer Toggle'
   endif
 endif
 

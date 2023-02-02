@@ -667,9 +667,9 @@ endfunction
 
 " SETTINGS TOGGLE MAPPINGS -------------------- {{{
 function! SettingsToggleMappings()
-  nnoremap <silent> <LocalLeader>sll :<C-u>call <SID>toggle_cursorline()<CR>
-  nnoremap <silent> <LocalLeader>slc :<C-u>call <SID>toggle_cursorcolumn()<CR>
-  nnoremap <silent> <LocalLeader>slx :<C-u>call <SID>toggle_crosshair()<CR>
+  nnoremap <silent> <LocalLeader>scl :<C-u>call <SID>toggle_cursorline()<CR>
+  nnoremap <silent> <LocalLeader>scc :<C-u>call <SID>toggle_cursorcolumn()<CR>
+  nnoremap <silent> <LocalLeader>scx :<C-u>call <SID>toggle_crosshair()<CR>
   nnoremap <silent> <LocalLeader>sb :<C-u>call <SID>toggle_background()<CR>
   nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
   nnoremap <silent> <LocalLeader>sf :<C-u>call <SID>toggle_format_on_save()<CR>
