@@ -260,6 +260,16 @@ if dein#tap('telescope.nvim')
   endif
 endif
 
+if dein#tap('todo-comments.nvim')
+  nnoremap <Leader>fdt <cmd>TodoTelescope<cr>
+  nnoremap <LocalLeader>oqt <cmd>TodoQuickFix<cr>
+
+  if s:enable_whichkey
+    let g:which_key_map['f']['d']['t'] = "Find TODOs"
+    let g:which_key_localmap['o']['q']['t'] = "Open TODOs in quickfix"
+  endif
+endif
+
 if dein#tap('dial.nvim')
   nmap  <C-a>  <Plug>(dial-increment)
   nmap  <C-x>  <Plug>(dial-decrement)

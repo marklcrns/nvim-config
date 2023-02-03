@@ -507,8 +507,8 @@ function! QuickFixLocationListMappings()
   nnoremap <silent> ]q :cnext<CR>
   nnoremap <silent> [Q :cfirst<CR>
   nnoremap <silent> ]Q :clast<CR>
-  nnoremap <silent> <LocalLeader>ol :call LocationlistToggle()<CR>
-  nnoremap <silent> <LocalLeader>oq :call QuickfixToggle()<CR>
+  nnoremap <silent> <LocalLeader>oll :call LocationlistToggle()<CR>
+  nnoremap <silent> <LocalLeader>oqq :call QuickfixToggle()<CR>
   " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
   autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
 endfunction

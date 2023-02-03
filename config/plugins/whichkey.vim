@@ -181,8 +181,14 @@ let g:which_key_localmap = {
       \ 'name' : '+local-leader-key'  ,
       \ 'o' : {
             \ 'name' : '+open',
-                \ 'l' : 'Toggle locationlist',
-                \ 'q' : 'Toggle quickfix',
+                \ 'l' : {
+                  \ 'name' : '+locationlist'  ,
+                  \ 'l' : 'Toggle locationlist',
+                  \ },
+                \ 'q' : {
+                  \ 'name' : '+quickfix'  ,
+                  \ 'q' : 'Toggle quickfix',
+                  \ },
             \ },
       \ 'r'    : 'Quick run',
       \ 's' : {
