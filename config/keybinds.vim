@@ -98,7 +98,7 @@ if dein#tap('lspsaga.nvim')
   nnoremap <silent> <leader>cr  <cmd>Lspsaga rename<CR>
   vnoremap <silent> <leader>ci  <cmd>Lspsaga incoming_calls<CR>
   nnoremap <silent> <leader>co  <cmd>Lspsaga outgoing_calls<CR>
-  nnoremap <silent> <leader>cO  <cmd>Lspsaga outline<CR>
+  " nnoremap <silent> <leader>cO  <cmd>Lspsaga outline<CR>
   nnoremap <silent> [e          <cmd>Lspsaga diagnostic_jump_prev<CR>
   nnoremap <silent> ]e          <cmd>Lspsaga diagnostic_jump_next<CR>
   nnoremap <silent> [E          <cmd>lua require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>
