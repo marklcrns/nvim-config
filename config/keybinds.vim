@@ -46,6 +46,29 @@ if dein#tap('any-jump.vim')
   endif
 endif
 
+if dein#tap('auto-session')
+  nnoremap <Leader>sd <cmd>Autosession delete<cr>
+  nnoremap <Leader>sr <cmd>RestoreSession<cr>
+  nnoremap <Leader>ss <cmd>SaveSession<cr>
+
+  if s:enable_whichkey
+    let g:which_key_map['s'] = {
+          \ 'name' : '+session',
+          \ 'd' : 'Delete session',
+          \ 'r' : 'Restore cwd session',
+          \ 's' : 'Save cwd session',
+          \ }
+  endif
+endif
+
+if dein#tap('session-lens')
+  nnoremap <Leader>sf <cmd>Telescope session-lens search_session<cr>
+  
+  if s:enable_whichkey
+    let g:which_key_map['s']['f'] = 'Find session and load'
+  endif
+endif
+
 if dein#tap('nvim-lspconfig')
   nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
   nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>

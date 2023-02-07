@@ -9,6 +9,7 @@ let g:which_key_display_names = {
       \    '<CR>': '↵',
       \ }
 
+    """" Termdebug
           " \ 'a' : 'Jump to window with the disassembly',
           " \ 'b' : 'Add line breapoint under current line',
           " \ 'B' : 'Delete line breakpoint under current line',
@@ -24,6 +25,18 @@ let g:which_key_display_names = {
           " \ 'r' : 'Run program (accepts program cmdline arguments)',
           " \ 'x' : 'Stop (interrupt) execution',
           " \ 'A' : 'Set arguments for the next Run',
+
+    """" Sessions
+    " \ 's' : {
+    "       \ 'name' : '+sessions',
+    "       \ 'd' : 'Detach session',
+    "       \ 'D' : 'Delete session {name}',
+    "       \ 'l' : 'Load session {name}',
+    "       \ 'L' : 'List sessions',
+    "       \ 's' : 'Save session {name}',
+    "       \ 'q' : 'Close session',
+    "       \ },
+          
 let g:which_key_map = {
     \ 'name' : '+leader-key',
     \ ';' : {
@@ -149,15 +162,6 @@ let g:which_key_map = {
           \ },
     \ 'q' : 'Quit without saving',
     \ 'Q' : 'Quit vim without saving',
-    \ 's' : {
-          \ 'name' : '+sessions',
-          \ 'd' : 'Detach session',
-          \ 'D' : 'Delete session {name}',
-          \ 'l' : 'Load session {name}',
-          \ 'L' : 'List sessions',
-          \ 's' : 'Save session {name}',
-          \ 'q' : 'Close session',
-          \ },
     \ 't' : {
           \ 'name' : '+tab-operate',
              \ 'n' : 'New tab',

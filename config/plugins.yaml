@@ -15,6 +15,13 @@
 - repo: glepnir/dashboard-nvim
   hook_source: luafile $VIM_PATH/config/plugins/dashboard.lua
 
+- repo:  rmagatti/auto-session
+  hook_source: luafile $VIM_PATH/config/plugins/auto-session.lua
+
+- repo: rmagatti/session-lens
+  hook_source: luafile $VIM_PATH/config/plugins/session-lens.lua
+  depends: [ 'telescope.nvim', 'auto-session' ]
+
 # Completion
 # ----------------------------------------
 - repo: liuchengxu/vim-which-key
