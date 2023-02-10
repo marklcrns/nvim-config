@@ -56,8 +56,8 @@ augroup user_plugin_filetype "{{{
   " https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
   autocmd FileType css,javascript,javascriptreact setlocal backupcopy=yes
 
-  " Python
-  autocmd FileType python
+  " Python and Markdown
+  autocmd FileType python,markdown,vimwiki
         \ setlocal expandtab smarttab nosmartindent
         \ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
 

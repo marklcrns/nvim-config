@@ -172,12 +172,12 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/focus.lua
 
-# - repo: blueyed/vim-diminactive
-#   hook_source: source $VIM_PATH/config/plugins/vim-diminactive.vim
+- repo: blueyed/vim-diminactive
+  hook_source: source $VIM_PATH/config/plugins/vim-diminactive.vim
 
-- repo: sunjon/shade.nvim
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/shade.lua
+# - repo: sunjon/shade.nvim
+#   if: "has('nvim-0.7')"
+#   hook_source: luafile $VIM_PATH/config/plugins/shade.lua
 
 - repo: sindrets/winshift.nvim
   if: "has('nvim-0.5')"
