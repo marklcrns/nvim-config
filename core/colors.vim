@@ -35,7 +35,7 @@ hi User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " Highlights: General GUI {{{
 " ----------------------------------------------------------------------------
 " Ref: https://github.com/mhinz/vim-janah
-hi Comment guifg=#585858 ctermfg=240 guibg=NONE ctermbg=NONE cterm=italic gui=italic 
+hi Comment guifg=#585858 ctermfg=240 guibg=NONE ctermbg=NONE cterm=italic gui=italic
 " Transparent bg
 " hi Normal guibg=NONE ctermbg=NONE
 hi clear Conceal
@@ -109,9 +109,31 @@ hi default link UfoPreviewCursorLine Visual
 hi default link UfoFoldedEllipsis Comment
 " }}}
 
+" Highlight unwanted spaces
+" Ref: https://vim.fandom.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace guifg=#30302c guibg=#30302c ctermfg=236 ctermbg=236
+augroup WhitespaceMatch
+  " Remove ALL autocommands for the WhitespaceMatch group.
+  autocmd!
+  autocmd BufWinEnter * let w:whitespace_match_number =
+        \ matchadd('ExtraWhitespace', '\s\+$')
+  autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
+  autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
+augroup END
+function! s:ToggleWhitespaceMatch(mode)
+  let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
+  if exists('w:whitespace_match_number')
+    call matchdelete(w:whitespace_match_number)
+    call matchadd('ExtraWhitespace', pattern, 10, w:whitespace_match_number)
+  else
+    " Something went wrong, try to be graceful.
+    let w:whitespace_match_number =  matchadd('ExtraWhitespace', pattern)
+  endif
+endfunction
+
 " GetColorSynatxGroup
 " ---------------------------------------------------------
-" nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
-"     \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-"     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
+    \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
