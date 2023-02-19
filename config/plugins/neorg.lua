@@ -1,4 +1,4 @@
-require('neorg').setup {
+require("neorg").setup({
   -- Tell Neorg what modules to load
   load = {
     ["core.defaults"] = {}, -- Load all the default modules
@@ -7,39 +7,39 @@ require('neorg').setup {
         default_keybinds = true, -- Generate the default keybinds
         neorg_leader = "<LocalLeader>n", -- This is the default if unspecified
         hook = function(keybinds)
-            keybinds.remap("toc-split", "n", "q", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
-            keybinds.remap("toc-split", "n", "<ESC>", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
+          keybinds.remap("toc-split", "n", "q", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
+          keybinds.remap("toc-split", "n", "<ESC>", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
         end,
-      }
+      },
     },
     ["core.norg.concealer"] = {}, -- Allows for use of icons
     ["core.norg.dirman"] = { -- Manage your directories with Neorg
       config = {
         workspaces = {
           main = "~/Documents/my-neorg/main",
-          gtd = '~/Documents/my-neorg/gtd',
-        }
-      }
-    },
-    ['core.gtd.base'] = {
-      config = {
-        workspace = 'gtd',
+          gtd = "~/Documents/my-neorg/gtd",
+        },
       },
     },
+    -- ["core.gtd.base"] = {
+    --   config = {
+    --     workspace = "gtd",
+    --   },
+    -- },
     ["core.norg.esupports.metagen"] = {
       config = {
         type = "auto",
-      }
+      },
     },
     ["core.norg.qol.toc"] = {
       config = {
         toc_split_placement = "right",
-      }
+      },
     },
     ["core.integrations.telescope"] = {}, -- Enable the telescope module
     ["core.integrations.nvim-cmp"] = {},
   },
-}
+})
 
 -- Telescope integration keybinds
 local neorg_callbacks = require("neorg.callbacks")

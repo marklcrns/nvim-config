@@ -619,7 +619,7 @@ if dein#tap('vimtex')
 endif
 
 if dein#tap('neorg')
-  nmap <LocalLeader>nw :<C-u>Neorg workspace<CR>
+  nmap <LocalLeader>nw :<C-u>call feedkeys(':Neorg workspace<Space><Tab>','t')<CR>
   nmap <LocalLeader>ns :<C-u>Neorg toc split<CR>
   if s:enable_whichkey
     let g:which_key_localmap['n'] = { 'name': '+neorg' }

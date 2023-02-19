@@ -305,6 +305,23 @@ endif
 " Note: make sure win32yank.exe is sourced in $PATH before other system
 " clipboard utility, such as xclip, for it to work. /usr/local/bin works.
 if exists('g:neovide')
-  let g:neovide_cursor_vfx_mode = "wireframe"
+  let g:neovide_cursor_vfx_mode = "ripple"
+  let g:neovide_scroll_animation_length = 0.25
+  let g:neovide_hide_mouse_when_typing = v:true
+  let g:neovide_cursor_trail_size = 0.8
+
+  let g:neovide_scale_factor=1.0
+  function! ChangeScaleFactor(delta)
+    let g:neovide_scale_factor = g:neovide_scale_factor * a:delta
+  endfunction
+  nnoremap <expr><C-=> ChangeScaleFactor(1.05)
+  nnoremap <expr><C--> ChangeScaleFactor(1/1.05)
+
+  " Allow copy paste in neovide
+  let g:neovide_input_use_logo = 1
+  map <C-S-v> "+p<CR>
+  map! <C-S-v> <C-R>+
+  tmap <C-S-v> <C-R>+
+  vmap <C-S-c> "+y<CR>
 endif
 " }}}

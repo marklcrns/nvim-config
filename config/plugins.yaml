@@ -394,7 +394,7 @@
   on_ft: 'norg'
   if: "has('nvim-0.5')"
   build: "Neorg sync-parsers"
-  depends: [plenary.nvim, nvim-treesitter, neorg-telescope, telescope.nvim]
+  depends: [ plenary.nvim, nvim-treesitter, neorg-telescope, telescope.nvim ]
   hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
 
 - repo: nvim-neorg/neorg-telescope
@@ -417,10 +417,11 @@
   hook_source: source $VIM_PATH/config/plugins/taskwiki.vim
   # rev: 925d8ed2f522229d32d4cc39486080c244d20f7a
 
-- repo: oberblastmeister/neuron.nvim
-  rev: unstable
-  if: "executable('neuron')"
-  hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
+# RECOMMENDED neuron vim plugin
+# - repo: oberblastmeister/neuron.nvim
+#   rev: unstable
+#   if: "executable('neuron')"
+#   hook_source: luafile $VIM_PATH/config/plugins/neuron.lua
 
 # - repo: pyrho/nerveux.nvim
 #   hook_source: luafile $VIM_PATH/config/plugins/nerveux.lua
