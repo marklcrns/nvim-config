@@ -1,7 +1,7 @@
-require("zen-mode").setup ({
+require("zen-mode").setup({
   window = {
     backdrop = 0.98,
-    width = vim.api.nvim_get_option('textwidth') + 30,
+    width = vim.api.nvim_get_option("textwidth") + 30,
     -- width = 120,
     height = 1,
     options = {
@@ -15,6 +15,6 @@ require("zen-mode").setup ({
     },
   },
   plugins = {
-    tmux = { enabled = true },
+    tmux = { enabled = false },
   },
 })
