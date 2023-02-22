@@ -113,7 +113,8 @@ if dein#tap('null-ls.nvim')
 endif
 
 if dein#tap('lspsaga.nvim')
-  nnoremap <silent> K           <cmd>Lspsaga hover_doc<CR>
+  " hover_doc is referenced in nvim-ufo peekOrHover()
+  " nnoremap <silent> K           <cmd>Lspsaga hover_doc<CR>
   nnoremap <silent> gd          <cmd>Lspsaga goto_definition<CR>
   nnoremap <silent> gf          <cmd>Lspsaga lsp_finder<CR>
   nnoremap <silent> <leader>ca  <cmd>Lspsaga code_action<CR>

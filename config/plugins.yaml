@@ -496,6 +496,7 @@
 
 - repo: andymass/vim-matchup
   depends: nvim-treesitter
+  hook_source: source $VIM_PATH/config/plugins/vim-matchup.vim
 
 - repo: kyazdani42/nvim-tree.lua
   if: "has('nvim-0.5')"
