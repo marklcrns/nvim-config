@@ -1,26 +1,31 @@
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
-require 'nvim-tree'.setup {
-  sort_by                            = "name",
-  disable_netrw                      = true,
-  hijack_netrw                       = true,
-  hijack_cursor                      = true,
-  open_on_setup                      = false,
-  open_on_setup_file                 = false,
-  ignore_buffer_on_setup             = false,
-  ignore_ft_on_setup                 = {
+require("nvim-tree").setup({
+  sort_by = "name",
+  disable_netrw = true,
+  hijack_netrw = true,
+  hijack_cursor = true,
+  open_on_setup = false,
+  open_on_setup_file = false,
+  ignore_buffer_on_setup = false,
+  ignore_ft_on_setup = {
     "startify",
     "dashboard",
     "alpha",
   },
-  auto_reload_on_write               = true,
+  auto_reload_on_write = true,
   hijack_unnamed_buffer_when_opening = false,
-  hijack_directories                 = {
+  hijack_directories = {
     enable = true,
     auto_open = true,
   },
-  open_on_tab                        = false,
-  diagnostics                        = {
+  tab = {
+    sync = {
+      open = true,
+      close = true,
+    },
+  },
+  diagnostics = {
     enable = true,
     show_on_dirs = true,
     icons = {
@@ -32,16 +37,16 @@ require 'nvim-tree'.setup {
   },
   sync_root_with_cwd = true,
   respect_buf_cwd = true,
-  update_focused_file                = {
+  update_focused_file = {
     enable = true,
     update_cwd = true,
     ignore_list = {},
   },
-  system_open                        = {
+  system_open = {
     cmd = nil,
     args = {},
   },
-  git                                = {
+  git = {
     enable = true,
     ignore = false,
     timeout = 200,
@@ -66,34 +71,34 @@ require 'nvim-tree'.setup {
       },
     },
   },
-  filters                            = {
+  filters = {
     dotfiles = false,
     custom = { "node_modules", "\\.cache" },
     exclude = {},
   },
-  view                               = {
+  view = {
     adaptive_size = true,
     hide_root_folder = false,
-    side = 'left',
+    side = "left",
     mappings = {
       custom_only = false,
       list = {
-        { key = "u",          action = "dir_up" },
-        { key = "s",          action = "" }, -- Disable default system_open mapping
-        { key = "<C-s>",      action = "system_open" },
-        { key = "<C-x>",      action = "" }, -- Disable default split mapping
-        { key = "<C-g>",      action = "split" },
+        { key = "u", action = "dir_up" },
+        { key = "s", action = "" }, -- Disable default system_open mapping
+        { key = "<C-s>", action = "system_open" },
+        { key = "<C-x>", action = "" }, -- Disable default split mapping
+        { key = "<C-g>", action = "split" },
       },
     },
     number = false,
     relativenumber = false,
-    signcolumn = "yes"
+    signcolumn = "yes",
   },
-  trash                              = {
+  trash = {
     cmd = "trash",
-    require_confirm = true
+    require_confirm = true,
   },
-  renderer                           = {
+  renderer = {
     indent_markers = {
       enable = true,
       inline_arrows = true,
@@ -139,4 +144,4 @@ require 'nvim-tree'.setup {
     special_files = { "Makefile", "README.md", "readme.md" },
     symlink_destination = true,
   },
-}
+})
