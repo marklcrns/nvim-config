@@ -81,7 +81,7 @@ function! Tabline()
 		if l:nr == l:current
 			let l:tabline .= '%#TabLineSel# %#TabLineFill#'
 		else
-			let l:tabline .= '%#TabLine# '
+			let l:tabline .= '%#TabLineAltShade# '
 		endif
 	endfor
 
