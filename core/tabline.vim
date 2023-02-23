@@ -46,9 +46,10 @@ function! Tabline()
 
 		" Left-side of single tab
 		if l:nr == l:current
-			let l:tabline .= '%#TabLineFill#%#TabLineSel# '
+			" let l:tabline .= '%#TabLineFill#%#TabLineSel# '
+			let l:tabline .= '%#TabLineSelSep#%#TabLineSel# '
 		else
-			let l:tabline .= '%#TabLine#  '
+			let l:tabline .= '%#TabLine# '
 		endif
 
 		" Get file-name with custom cutoff settings
@@ -78,9 +79,9 @@ function! Tabline()
 
 		" Right-side of single tab
 		if l:nr == l:current
-			let l:tabline .= '%#TabLineSel# %#TabLineFill#'
+			let l:tabline .= '%#TabLineSel# %#TabLineFill#'
 		else
-			let l:tabline .= '%#TabLine#  '
+			let l:tabline .= '%#TabLine# '
 		endif
 	endfor
 
