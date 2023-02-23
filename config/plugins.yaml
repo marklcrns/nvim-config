@@ -310,6 +310,8 @@
 - repo: lewis6991/gitsigns.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/gitsigns.lua
+
+- repo: itchyny/vim-gitbranch
 # }}}
 
 - repo: tyru/open-browser.vim

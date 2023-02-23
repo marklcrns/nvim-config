@@ -1,5 +1,6 @@
 " Tabline
 " ---
+" Ref characters: , , 
 
 " Configuration
 
