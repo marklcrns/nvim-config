@@ -22,7 +22,7 @@ let g:package_manager = 'dein_yaml'
 " Custom settings enable
 let g:custom_statusline_enable = 1
 let g:custom_tabline_enable = 1
-let g:custom_cursorline_enable = 1
+let g:custom_cursorline_enable = 0    " See modes.lua
 let g:custom_cursorcolumn_enable = 0
 let g:enable_format_on_save=1
 

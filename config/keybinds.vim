@@ -63,7 +63,7 @@ endif
 
 if dein#tap('session-lens')
   nnoremap <Leader>sf <cmd>Telescope session-lens search_session<cr>
-  
+
   if s:enable_whichkey
     let g:which_key_map['s']['f'] = 'Find session and load'
   endif
@@ -232,7 +232,7 @@ endif
 
 if dein#tap('vim-smartq')
   nmap <silent> <Leader>fq <Plug>(smartq_this_save)
-  nmap <silent> <Leader>wq <Plug>(smartq_close_splits) 
+  nmap <silent> <Leader>wq <Plug>(smartq_close_splits)
 
 
   if s:enable_whichkey
@@ -302,6 +302,18 @@ if dein#tap('dial.nvim')
   vmap g<C-a> g<Plug>(dial-increment)
   vmap g<C-x> g<Plug>(dial-decrement)
 endif
+
+if dein#tap('minimap.vim')
+  nnoremap <Leader>im <cmd>MinimapToggle<CR>
+  if s:enable_whichkey
+    let g:which_key_map['i']['m'] = 'Minimap Toggle'
+  endif
+endif
+
+" TODO: Add diffview mappings
+" if dein#tap('diffview.nvim')
+"
+" endif
 
 if dein#tap('neogen')
   nnoremap <Leader>nc <cmd>lua require('neogen').generate({ type = 'class' })<CR><CR>
@@ -580,6 +592,10 @@ if dein#tap('winshift.nvim')
   nnoremap <C-W>L     :WinShift right<CR>
   nnoremap <C-W>m     :WinShift swap<CR>
   nnoremap <C-W><C-M> :WinShift<CR>
+endif
+
+if dein#tap('vim-choosewin')
+  nmap <C-W>f <Plug>(choosewin)
 endif
 
 if dein#tap('markdown-preview.nvim')

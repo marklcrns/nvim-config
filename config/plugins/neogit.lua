@@ -1,4 +1,4 @@
-require('neogit').setup {
+require("neogit").setup({
   disable_signs = false,
   disable_hint = false,
   disable_context_highlighting = false,
@@ -16,16 +16,17 @@ require('neogit').setup {
   },
   -- Change the default way of opening popups
   popup = {
-    kind = "split",
+    kind = "floating",
   },
   -- customize displayed signs
   signs = {
     -- { CLOSED, OPENED }
-    section = { ">", "v" },
-    item = { ">", "v" },
+    section = { "", "" },
+    item = { "", "" },
     hunk = { "", "" },
   },
   integrations = {
+    diffview = true,
     -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `sindrets/diffview.nvim`.
     -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
     --
@@ -38,30 +39,29 @@ require('neogit').setup {
     --   }
     -- }
     --
-    diffview = false
   },
   -- Setting any section to `false` will make the section not render at all
   sections = {
     untracked = {
-      folded = false
+      folded = false,
     },
     unstaged = {
-      folded = false
+      folded = false,
     },
     staged = {
-      folded = false
+      folded = false,
     },
     stashes = {
-      folded = true
+      folded = true,
     },
     unpulled = {
-      folded = true
+      folded = true,
     },
     unmerged = {
-      folded = false
+      folded = false,
     },
     recent = {
-      folded = true
+      folded = true,
     },
   },
   -- override/add mappings
@@ -72,6 +72,6 @@ require('neogit').setup {
       ["B"] = "BranchPopup",
       -- Removes the default mapping of "s"
       -- ["s"] = "",
-    }
-  }
-}
+    },
+  },
+})

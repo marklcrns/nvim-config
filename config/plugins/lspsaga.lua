@@ -30,6 +30,31 @@ require("lspsaga").setup({
     },
     kind = {},
   },
+  outline = {
+    win_position = "right",
+    win_with = "",
+    win_width = 30,
+    show_detail = true,
+    auto_preview = true,
+    auto_refresh = true,
+    auto_close = true,
+    custom_sort = nil,
+    keys = {
+      jump = "<CR>",
+      expand_collapse = "o",
+      quit = "q",
+    },
+  },
+  symbol_in_winbar = {
+    enable = true,
+    separator = "",
+    ignore_patterns = {},
+    hide_keyword = true,
+    show_file = true,
+    folder_level = 2,
+    respect_root = false,
+    color_mode = false,
+  },
 })
 
 -- local keymap = vim.keymap.set

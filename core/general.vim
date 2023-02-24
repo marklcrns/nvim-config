@@ -253,17 +253,12 @@ set laststatus=2        " Always show a status line
 set colorcolumn=+0      " Column highlight at textwidth's max character-limit
 set display=lastline
 set cursorline
+set signcolumn=yes:2
 
 if has('folding') && has('vim_starting')
   set foldenable
   set foldmethod=syntax
   set foldlevelstart=99
-endif
-
-if has('nvim-0.4')
-  set signcolumn=auto:1
-elseif exists('&signcolumn')
-  set signcolumn=auto
 endif
 
 if has('conceal') && v:version >= 703
