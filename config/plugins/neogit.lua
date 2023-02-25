@@ -75,11 +75,3 @@ require("neogit").setup({
     },
   },
 })
-
--- Close neogit after push
-local group = vim.api.nvim_create_augroup("MyCustomNeogitEvents", { clear = true })
-vim.api.nvim_create_autocmd("User", {
-  pattern = "NeogitPushComplete",
-  group = group,
-  callback = require("neogit").close,
-})
