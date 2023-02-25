@@ -219,7 +219,9 @@ set noruler             " Disable default status ruler
 set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 5 lines left/right
+set fillchars+=eob:\ ,fold:\ ,foldopen:,foldsep:\ ,foldclose:
 set fillchars+=vert:\│  " add a bar for vertical splits
+set fillchars+=diff:╱   " Diagonal lines in place of deleted lines in diff-mode
 set list
 let &showbreak='↳  '
 " set listchars=tab:\│\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
