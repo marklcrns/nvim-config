@@ -362,19 +362,14 @@ function! WindowsManagementMappings()
   nnoremap <silent> <M-k> <C-w>k
   nnoremap <silent> <M-l> <C-w>l
   nnoremap <silent> <M-\> <C-w>p
-  " Resize splits
-  nnoremap <silent> [Window]K :resize -3<CR>
-  nnoremap <silent> [Window]J :resize +3<CR>
-  nnoremap <silent> [Window]H :vertical resize -3<CR>
-  nnoremap <silent> [Window]L :vertical resize +3<CR>
+  " Replace arrow keys for window resizing
+  nnoremap <silent> <Up>      :resize -4<CR>
+  nnoremap <silent> <Down>    :resize +4<CR>
+  nnoremap <silent> <Left>    :vertical resize -4<CR>
+  nnoremap <silent> <Right>   :vertical resize +4<CR>
   " Equalize splits
   nnoremap <silent> [Window]= :tabdo wincmd =<CR>
 
-  " Replace arrow keys for resizing
-  nnoremap <silent> <Up>      :resize -1<CR>
-  nnoremap <silent> <Down>    :resize +1<CR>
-  nnoremap <silent> <Left>    :vertical resize -2<CR>
-  nnoremap <silent> <Right>   :vertical resize +2<CR>
 endfunction
 " }}} FILE AND WINDOWS MAPPINGS
 
@@ -457,11 +452,11 @@ function! YankPasteMappings()
   nnoremap <leader>rp yap}pV`[v`]:s//gcI<Left><Left><Left><Left>
   vnoremap <Leader>rp y`]p`[v`]:s//gcI<Left><Left><Left><Left>
   " Yank and paste line under cursor to and from "x register
-  nnoremap <C-y> "xyy"xp$
+  nnoremap <M-y> "xyy"xp$
   inoremap <M-y> <Esc>"xyy"xpgi
   inoremap <C-y> <Esc>"xyy"xpV:s//gI<bar>norm`.A
         \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-  vnoremap <C-y> "xy`]"xp`[V`]
+  vnoremap <M-y> "xy`]"xp`[V`]
   autocmd BufWritePre * call AutoIndentPaste()
 endfunction
 

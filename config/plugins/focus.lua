@@ -31,7 +31,7 @@ require("focus").setup({
     "toggleterm",
     "lspsagaoutline",
   },
-  compatible_filetrees = { "nvimtree", "nerdtree", "chadtree", "fern" },
+  compatible_filetrees = { "nvim-tree", "nerdtree", "chadtree", "fern" },
   -- Covered in core/filetype.vim
   cursorline = false,
   cursorcolumn = false,

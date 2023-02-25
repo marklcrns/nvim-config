@@ -110,6 +110,14 @@ hi default link UfoPreviewCursorLine Visual
 hi default link UfoFoldedEllipsis Comment
 " }}}
 
+" Plugin: neogit {{{
+" ----------------------------------------------------------------------------
+hi NeogitNotificationInfo guifg=#80ff95
+hi NeogitNotificationWarning guifg=#fff454
+hi NeogitNotificationError guifg=#c44323
+" }}}
+
+
 " Highlight unwanted spaces
 " Ref: https://vim.fandom.com/wiki/Highlight_unwanted_spaces
 highlight ExtraWhitespace guifg=#30302c guibg=#30302c ctermfg=236 ctermbg=236

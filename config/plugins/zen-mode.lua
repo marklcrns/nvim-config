@@ -1,7 +1,7 @@
 require("zen-mode").setup({
   window = {
-    backdrop = 0.98,
-    width = vim.api.nvim_get_option("textwidth") + 30,
+    backdrop = 0.95,
+    width = vim.api.nvim_get_option("textwidth") + 40,
     -- width = 120,
     height = 1,
     options = {
@@ -15,6 +15,14 @@ require("zen-mode").setup({
     },
   },
   plugins = {
+    -- disable some global vim options (vim.o...)
+    -- comment the lines to not apply the options
+    options = {
+      enabled = true,
+      ruler = false, -- disables the ruler text in the cmd line area
+      showcmd = false, -- disables the command in the last line of the screen
+    },
+    gitsigns = { enabled = false },
     tmux = { enabled = false },
   },
 })
