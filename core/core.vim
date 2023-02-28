@@ -74,9 +74,6 @@ call utils#source_file($VIM_PATH, 'core/general.vim')
 call utils#source_file($VIM_PATH, 'core/filetype.vim')
 call utils#source_file($VIM_PATH, 'core/mappings.vim')
 
-call theme#init()
-autocmd VimEnter,ColorScheme * call utils#source_file($VIM_PATH, 'core/colors.vim')
-
 " Initialize plugin-manager and load plugins config files
 if get(g:, 'handle_plugins', 'full') !=# 'disable'
   call utils#source_file($VIM_PATH, 'core/package_manager.vim')
@@ -84,6 +81,9 @@ if get(g:, 'handle_plugins', 'full') !=# 'disable'
     call utils#source_file($VIM_PATH, 'config/keybinds.vim')
   endif
 endif
+
+call theme#init()
+autocmd VimEnter,ColorScheme * call utils#source_file($VIM_PATH, 'core/colors.vim')
 
 " Load custom status and tabline
 if get(g:, 'custom_statusline_enable', 1)

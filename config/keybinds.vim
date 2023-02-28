@@ -3,12 +3,11 @@ let s:enable_whichkey = dein#is_sourced('vim-which-key')
 
 if s:enable_whichkey
   " Extra mappings
-  nnoremap <silent> ?s :<c-u>WhichKey 's'<CR>
-  vnoremap <silent> ?s :<c-u>WhichKeyVisual 's'<CR>
-  nnoremap <silent> ?d :<c-u>WhichKey 'd'<CR>
-  vnoremap <silent> ?d :<c-u>WhichKeyVisual 'd'<CR>
-  nnoremap <silent> ?g :<c-u>WhichKey 'g'<CR>
-  vnoremap <silent> ?g :<c-u>WhichKeyVisual 'g'<CR>
+  nnoremap <silent> ?] :<c-u>silent! WhichKey ']'<CR>
+  nnoremap <silent> ?[ :<c-u>silent! WhichKey '['<CR>
+  nnoremap <silent> ?s :<c-u>silent! WhichKey 's'<CR>
+  nnoremap <silent> ?d :<c-u>silent! WhichKey 'd'<CR>
+  nnoremap <silent> ?g :<c-u>silent! WhichKey 'g'<CR>
 endif
 
 if dein#tap('dein.vim')
@@ -70,8 +69,9 @@ if dein#tap('session-lens')
 endif
 
 if dein#tap('nvim-lspconfig')
-  nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
-  nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
+  " DEPRECATED: Defined in nvim-treesitter-textobjects
+  " nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
+  " nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
   nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
   " nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
@@ -138,10 +138,10 @@ if dein#tap('lspsaga.nvim')
     let g:which_key_gmap['d'] = 'LSP go to definition'
     let g:which_key_gmap['f'] = 'LSP finder'
 
-    let g:which_key_lsbgmap['e'] = 'LSP Diagnostic prev'
-    let g:which_key_rsbgmap['e'] = 'LSP Diagnostic next'
-    let g:which_key_lsbgmap['E'] = 'LSP Diagnostic prev error'
-    let g:which_key_rsbgmap['E'] = 'LSP Diagnostic next error'
+    let g:which_key_lsbmap['e'] = 'LSP Diagnostic prev'
+    let g:which_key_rsbmap['e'] = 'LSP Diagnostic next'
+    let g:which_key_lsbmap['E'] = 'LSP Diagnostic prev error'
+    let g:which_key_rsbmap['E'] = 'LSP Diagnostic next error'
   endif
 endif
 
@@ -550,12 +550,10 @@ if dein#tap('nvim-ufo')
   endif
 endif
 
-if dein#tap('sideways.vim')
-  nnoremap <silent> <Leader><c-h> <cmd>SidewaysLeft<cr>
-  nnoremap <silent> <Leader><c-l> <cmd>SidewaysRight<cr>
+if dein#tap('nvim-treesitter-textobjects')
   if s:enable_whichkey
-    let g:which_key_map['<C-H>'] = 'Sideways Left'
-    let g:which_key_map['<C-L>'] = 'Sideways Right'
+    let g:which_key_gmap['s'] = 'Swap paramter next'
+    let g:which_key_gmap['S'] = 'Swap parameter previous'
   endif
 endif
 
@@ -956,8 +954,9 @@ if dein#tap('neogit')
 endif
 
 if dein#tap('gitsigns.nvim')
-  nmap [g <cmd>Gitsigns prev_hunk<CR>
-  nmap ]g <cmd>Gitsigns next_hunk<CR>
+  " DEPRECATED: Defined in nvim-treesitter-textobjects
+  " nmap [h <cmd>Gitsigns prev_hunk<CR>
+  " nmap ]h <cmd>Gitsigns next_hunk<CR>
   nnoremap <Leader>ghb <cmd>lua require"gitsigns".blame_line{full=true}<CR>
   nnoremap <Leader>ghd <cmd>Gitsigns diffthis<CR>
   nnoremap <Leader>ghD <cmd>lua require"gitsigns".diffthis("~")<CR>
@@ -970,8 +969,8 @@ if dein#tap('gitsigns.nvim')
   nnoremap <Leader>ghu <cmd>Gitsigns undo_stage_hunk<CR>
 
   if s:enable_whichkey
-    let g:which_key_rsbgmap['g'] = 'Git next hunk'
-    let g:which_key_lsbgmap['g'] = 'Git prev hunk'
+    let g:which_key_rsbmap['g'] = 'Git next hunk'
+    let g:which_key_lsbmap['g'] = 'Git prev hunk'
 
     let g:which_key_map['g']['h'] = {
           \ 'name' : '+git-hunks',
@@ -1045,8 +1044,8 @@ if dein#tap('vim-you-autocorrect')
 
   if s:enable_whichkey
     let g:which_key_localmap['s']['s'] = 'Toggle autocorrect (certain ft only)'
-    " let g:which_key_lsbgmap['s'] = 'Previous autocorrect'
-    " let g:which_key_rsbgmap['s'] = 'Next autocorrect'
+    " let g:which_key_lsbmap['s'] = 'Previous autocorrect'
+    " let g:which_key_rsbmap['s'] = 'Next autocorrect'
   endif
 endif
 

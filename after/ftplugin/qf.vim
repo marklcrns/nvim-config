@@ -28,7 +28,6 @@ silent! nunmap <buffer> p
 silent! nunmap <buffer> q
 silent! nunmap <buffer> s
 
-nnoremap <silent><buffer> <Esc>  :pclose!<CR>:quit<CR>
 nnoremap <silent><buffer> <CR>   :pclose!<CR><CR>:noautocmd wincmd b<CR>
 nnoremap <silent><buffer> q      :pclose!<CR>:quit<CR>
 nnoremap <silent><buffer> p      :call <SID>preview_file()<CR>

@@ -36,7 +36,7 @@ let g:which_key_display_names = {
     "       \ 's' : 'Save session {name}',
     "       \ 'q' : 'Close session',
     "       \ },
-          
+
 let g:which_key_map = {
     \ 'name' : '+leader-key',
     \ ';' : {
@@ -217,7 +217,7 @@ let g:which_key_localmap = {
             \ },
       \ }
 
-let g:which_key_lsbgmap = {
+let g:which_key_lsbmap = {
       \ 'name' : '+left-square-brackets',
          \ '[' : 'Prev function beginning',
          \ ']' : 'Prev function end',
@@ -237,7 +237,7 @@ let g:which_key_lsbgmap = {
          \ 'Q' : 'Quickfix first',
       \ }
 
-let g:which_key_rsbgmap = {
+let g:which_key_rsbmap = {
       \ 'name' : '+right-square-brackets',
          \ ']' : 'Next function beginning',
          \ '[' : 'Next function end',
@@ -275,25 +275,22 @@ let g:which_key_smap = {
 let g:which_key_map['c'] = { 'name': '+code' }
 let g:which_key_map['g'] = { 'name': '+git' }
 let g:which_key_map['g']['D'] = ['GitOpenDirty', 'Open all dirty in splits']
-
 let g:which_key_localmap['r'] = { 'name': '+code-runner' }
 
-call which_key#register('<Space>', 'g:which_key_map')
-call which_key#register(';', 'g:which_key_localmap')
-call which_key#register(']', 'g:which_key_rsbgmap')
-call which_key#register('[', 'g:which_key_lsbgmap')
-call which_key#register('d', 'g:which_key_dmap')
-call which_key#register('s', 'g:which_key_smap')
-call which_key#register('g', 'g:which_key_gmap')
+let s:leader_key=substitute(get(g:,'mapleader','\'), ' ', '<Space>', '')
+let s:localleader_key= get(g:,'maplocalleader','\')
+execute "nnoremap <silent> <Leader>       :<c-u>WhichKey '" . s:leader_key . "'<CR>"
+execute "vnoremap <silent> <Leader>       :<c-u>WhichKeyVisual '" . s:leader_key . "'<CR>"
+execute "nnoremap <silent> <LocalLeader>  :<c-u>WhichKey '" . s:localleader_key . "'<CR>"
+execute "vnoremap <silent> <LocalLeader>  :<c-u>WhichKeyVisual '" . s:localleader_key . "'<CR>"
 
-let s:leader_key=substitute(get(g:,'mapleader','\\'), ' ', '<Space>', '')
-let s:localleader_key= get(g:,'maplocalleader',';')
-execute 'nnoremap <silent> <Leader> :<c-u>WhichKey "'.s:leader_key.'"<CR>'
-execute 'vnoremap <silent> <Leader> :<c-u>WhichKeyVisual "'.s:leader_key.'"<CR>'
-execute 'nnoremap <silent> <LocalLeader> :<c-u>WhichKey "' .s:localleader_key.'"<CR>'
-execute 'vnoremap <silent> <LocalLeader> :<c-u>WhichKeyVisual "'.s:localleader_key.'"<CR>'
-execute 'nnoremap <silent> [ :<c-u>WhichKey "["<CR>'
-execute 'nnoremap <silent> ] :<c-u>WhichKey "]"<CR>'
+call which_key#register(s:leader_key, 'g:which_key_map')
+call which_key#register(s:localleader_key, 'g:which_key_localmap')
+call which_key#register(']', 'g:which_key_rsbmap', 'n')
+call which_key#register('[', 'g:which_key_lsbmap', 'n')
+call which_key#register('d', 'g:which_key_dmap', 'n')
+call which_key#register('s', 'g:which_key_smap', 'n')
+call which_key#register('g', 'g:which_key_gmap', 'n')
 
 augroup user_events
   autocmd! FileType which_key

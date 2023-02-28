@@ -9,6 +9,11 @@
 # Normal Loaded Plugins
 # ==========================================
 
+# Colorscheme {{{
+- repo: nyoom-engineering/oxocarbon.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/oxocarbon.lua
+# }}}
+
 # Startup {{{
 - repo: Shougo/dein.vim
 
@@ -25,7 +30,6 @@
 # Completion
 # ----------------------------------------
 - repo: liuchengxu/vim-which-key
-  on_event: BufRead
   hook_source: source $VIM_PATH/config/plugins/whichkey.vim
 
 - repo: nvim-treesitter/nvim-treesitter
@@ -34,7 +38,14 @@
   hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
 
 - repo: nvim-treesitter/nvim-treesitter-textobjects
+  depends: [ 'nvim-treesitter', 'nvim-ufo', 'lspsaga.nvim' ]
   if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textobjects.lua
+
+- repo: RRethy/nvim-treesitter-textsubjects
+  depends: nvim-treesitter
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textsubjects.lua
 
 - repo: williamboman/mason.nvim
   if: "has('nvim-0.7')"
@@ -316,7 +327,7 @@
 
 - repo: TimUntersberger/neogit
   if: "has('nvim-0.5')"
-  depends: [ diffview.nvim]
+  depends: diffview.nvim
   hook_source: luafile $VIM_PATH/config/plugins/neogit.lua
 
 - repo: rhysd/committia.vim
@@ -338,9 +349,16 @@
 
 # Markdown
 # ---------------------------------------
-- repo: preservim/vim-markdown
-  on_ft: [markdown, pandoc.markdown, rmd]
-  hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
+# - repo: preservim/vim-markdown
+#   on_ft: [markdown, pandoc.markdown, rmd]
+#   hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
+
+- repo: jghauser/follow-md-links.nvim
+  depends: nvim-treesitter
+
+- repo: AckslD/nvim-FeMaco.lua
+  depends: nvim-treesitter
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-FeMaco.lua
 
 - repo: iamcco/markdown-preview.nvim
   if: "has('nvim') && executable('yarn')"

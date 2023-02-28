@@ -36,6 +36,3 @@ require("focus").setup({
   cursorline = false,
   cursorcolumn = false,
 })
-
-vim.cmd("hi link UnfocusedWindow TabLine")
-vim.cmd("hi link FocusedWindow VisualNOS")

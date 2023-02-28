@@ -23,15 +23,15 @@ local function peekOrHover()
   end
 end
 
-local function goPreviousClosedAndPeek()
-  require("ufo").goPreviousClosedFold()
-  require("ufo").peekFoldedLinesUnderCursor()
-end
-
-local function goNextClosedAndPeek()
-  require("ufo").goNextClosedFold()
-  require("ufo").peekFoldedLinesUnderCursor()
-end
+-- local function goPreviousClosedAndPeek()
+--   require("ufo").goPreviousClosedFold()
+--   require("ufo").peekFoldedLinesUnderCursor()
+-- end
+--
+-- local function goNextClosedAndPeek()
+--   require("ufo").goNextClosedFold()
+--   require("ufo").peekFoldedLinesUnderCursor()
+-- end
 
 local function applyFoldsAndThenCloseAllFolds(providerName)
   require("async")(function()
@@ -137,5 +137,7 @@ vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
 vim.keymap.set("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
 vim.keymap.set("n", "K", peekOrHover)
-vim.keymap.set("n", "]f", goNextClosedAndPeek)
-vim.keymap.set("n", "[f", goPreviousClosedAndPeek)
+
+-- DEPRECATED: Defined in nvim-treesitter-textobjects
+-- vim.keymap.set("n", "]f", goNextClosedAndPeek)
+-- vim.keymap.set("n", "[f", goPreviousClosedAndPeek)

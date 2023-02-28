@@ -1,8 +1,8 @@
 " ==================== Mappings ==================== "
 
 " Set leader and localleader keys
-let g:mapleader="\<Space>"
-let g:maplocalleader=';'
+let g:mapleader=' '
+let g:maplocalleader='\'
 
 " Release keymappings prefixes, evict entirely for use of plug-ins.
 nnoremap <Space>  <Nop>
