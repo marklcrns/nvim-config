@@ -9,7 +9,13 @@
 # Normal Loaded Plugins
 # ==========================================
 
-# Colorscheme {{{
+# Colorschemes {{{
+- repo: folke/tokyonight.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/tokyonight.lua
+- repo: catppuccin/nvim
+  hook_source: luafile $VIM_PATH/config/plugins/catppuccin.lua
+- repo: EdenEast/nightfox.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/nightfox.lua
 - repo: nyoom-engineering/oxocarbon.nvim
   hook_source: luafile $VIM_PATH/config/plugins/oxocarbon.lua
 # }}}
@@ -18,7 +24,7 @@
 - repo: Shougo/dein.vim
 
 - repo: glepnir/dashboard-nvim
-  hook_source: luafile $VIM_PATH/config/plugins/dashboard.lua
+  # hook_source: luafile $VIM_PATH/config/plugins/dashboard.lua
 
 - repo:  rmagatti/auto-session
   hook_source: luafile $VIM_PATH/config/plugins/auto-session.lua
@@ -353,8 +359,9 @@
 #   on_ft: [markdown, pandoc.markdown, rmd]
 #   hook_add: source $VIM_PATH/config/plugins/vim-markdown.vim
 
-- repo: jghauser/follow-md-links.nvim
-  depends: nvim-treesitter
+# - repo: jghauser/follow-md-links.nvim
+#   on_ft: [markdown, pandoc.markdown, rmd]
+#   depends: nvim-treesitter
 
 - repo: AckslD/nvim-FeMaco.lua
   depends: nvim-treesitter

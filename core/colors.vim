@@ -33,14 +33,6 @@ hi User7 guifg=#99ad6a guibg=#30302c ctermfg=107 ctermbg=236
 hi User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " }}}
 
-" Core: General {{{
-" ----------------------------------------------------------------------------
-" Ref: https://github.com/mhinz/vim-janah
-hi Comment guibg=NONE ctermbg=NONE cterm=italic gui=italic
-" Transparent bg
-hi clear Conceal
-" }}}
-
 " Plugin: indent_blankline {{{
 highlight IndentBlanklineIndent1 guifg=#303030 gui=nocombine
 highlight IndentBlanklineIndent2 guifg=#454545 gui=nocombine
@@ -83,32 +75,13 @@ hi link UnfocusedWindow CursorLine
 hi link FocusedWindow NONE
 " }}}
 
-" Leading Whitespace {{{
-" Ref: https://vim.fandom.com/wiki/Highlight_unwanted_spaces
-highlight ExtraWhitespace guifg=#30302c guibg=#30302c ctermfg=236 ctermbg=236
-augroup WhitespaceMatch
-  " Remove ALL autocommands for the WhitespaceMatch group.
-  autocmd!
-  autocmd BufWinEnter * let w:whitespace_match_number =
-        \ matchadd('ExtraWhitespace', '\s\+$')
-  autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
-  autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
-augroup END
-function! s:ToggleWhitespaceMatch(mode)
-  let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
-  if exists('w:whitespace_match_number')
-    call matchdelete(w:whitespace_match_number)
-    call matchadd('ExtraWhitespace', pattern, 10, w:whitespace_match_number)
-  else
-    " Something went wrong, try to be graceful.
-    let w:whitespace_match_number =  matchadd('ExtraWhitespace', pattern)
-  endif
-endfunction
-" }}}
-
-
 if g:colors_name == "custom_hybrid_reverse"
   " Highlights: General GUI {{{
+  " Ref: https://github.com/mhinz/vim-janah
+  hi Comment guibg=NONE ctermbg=NONE cterm=italic gui=italic
+  " Transparent bg
+  hi clear Conceal
+
   " " OLD
   " hi DiffAdd ctermbg=235 ctermfg=108 cterm=reverse guibg=#262626 guifg=#87af87 gui=reverse
   " hi DiffChange ctermbg=235 ctermfg=103 cterm=reverse guibg=#262626 guifg=#8787af gui=reverse
@@ -159,6 +132,28 @@ if g:colors_name == "custom_hybrid_reverse"
   " }}}
 endif
 
+" " Leading Whitespace Highlight {{{
+" " Ref: https://vim.fandom.com/wiki/Highlight_unwanted_spaces
+" highlight ExtraWhitespace guifg=#30302c guibg=#30302c ctermfg=236 ctermbg=236
+" augroup WhitespaceMatch
+"   " Remove ALL autocommands for the WhitespaceMatch group.
+"   autocmd!
+"   autocmd BufWinEnter * let w:whitespace_match_number =
+"         \ matchadd('ExtraWhitespace', '\s\+$')
+"   autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
+"   autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
+" augroup END
+" function! s:ToggleWhitespaceMatch(mode)
+"   let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
+"   if exists('w:whitespace_match_number')
+"     call matchdelete(w:whitespace_match_number)
+"     call matchadd('ExtraWhitespace', pattern, 10, w:whitespace_match_number)
+"   else
+"     " Something went wrong, try to be graceful.
+"     let w:whitespace_match_number =  matchadd('ExtraWhitespace', pattern)
+"   endif
+" endfunction
+" " }}}
 
 " DEPRECATED: Detect color syntax group under cursor
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")

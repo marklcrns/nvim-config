@@ -1,12 +1,13 @@
 " Theme
 
 function! theme#init()
+  " Reset g:colors_name
+  unlet g:colors_name
   " Load cached colorscheme or hybrid by default
   let l:default = 'custom_hybrid_reverse'
-  let l:cache = s:theme_cache_file()
   if ! exists('g:colors_name')
     set background=dark
-    let l:scheme = filereadable(l:cache) ? readfile(l:cache)[0] : l:default
+    let l:scheme = s:theme_cached_scheme(l:default)
     silent! execute 'colorscheme' l:scheme
   endif
 endfunction

@@ -5,32 +5,32 @@ local handlers = require("nvim-autopairs.completion.handlers")
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
 local lsp_symbols = {
-  Text = "  ",
-  Method = "  ",
-  Function = "  ",
-  Constructor = "  ",
-  Field = " ﴲ ",
-  Variable = "  ",
-  Class = "  ",
-  Interface = " ﰮ ",
-  Module = "  ",
-  Property = " 襁 ",
-  Unit = "  ",
-  Value = "  ",
-  Enum = " 練 ",
-  Keyword = "  ",
-  Snippet = "  ",
-  Color = "  ",
-  File = "  ",
-  Reference = "  ",
-  Folder = "  ",
-  EnumMember = "  ",
-  Constant = " ﲀ ",
-  Struct = " ﳤ ",
-  Event = "  ",
-  Operator = "  ",
-  TypeParameter = "  ",
-  Copilot = "  ",
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "ﴲ",
+  Variable = "",
+  Class = "",
+  Interface = "ﰮ",
+  Module = "",
+  Property = "襁",
+  Unit = "",
+  Value = "",
+  Enum = "練",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "ﲀ",
+  Struct = "ﳤ",
+  Event = "",
+  Operator = "",
+  TypeParameter = "",
+  Copilot = "",
 }
 
 local has_words_before = function()
@@ -215,22 +215,9 @@ cmp.setup({
   }),
 
   formatting = {
+    fields = { "kind", "abbr", "menu" },
     format = function(entry, item)
-      item.kind = lsp_symbols[item.kind] .. " " .. item.kind
-
-      if entry.source.name == "cmp_tabnine" then
-        item.kind_hl_group = "CmpItemKindTabnine"
-      end
-      if entry.source.name == "copilot" then
-        item.kind_hl_group = "CmpItemKindCopilot"
-      end
-
-      if entry.source.name == "emoji" then
-        item.kind_hl_group = "CmpItemKindEmoji"
-      end
-
-      -- set a name for each source
-      item.menu = ({
+      local kind = {
         spell = "[Spell]",
         buffer = "[Buffer]",
         calc = "[Calc]",
@@ -247,7 +234,25 @@ cmp.setup({
         conventionalcommits = "[CC]",
         copilot = "[Copilot]",
         cmdline = "[Cmdline]",
-      })[entry.source.name]
+      }
+
+      if entry.source.name == "cmp_tabnine" then
+        item.kind_hl_group = "CmpItemKindTabnine"
+      end
+
+      if entry.source.name == "copilot" then
+        item.kind_hl_group = "CmpItemKindCopilot"
+      end
+
+      if entry.source.name == "emoji" then
+        item.kind_hl_group = "CmpItemKindEmoji"
+      end
+
+      -- set a name for each source
+      -- item.menu = lsp_symbols[item.kind]
+      -- item.kind = item.kind .. " " .. kind[entry.source.name]
+      item.menu = item.kind .. " " .. kind[entry.source.name]
+      item.kind = lsp_symbols[item.kind]
       return item
     end,
   },
