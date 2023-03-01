@@ -11,14 +11,14 @@ if s:enable_whichkey
 endif
 
 if dein#tap('dein.vim')
-  nnoremap <silent> <Leader>pu  :call dein#update()<CR>
-  nnoremap <silent> <Leader>pr  :call dein#recache_runtimepath()<CR>
-  nnoremap <silent> <Leader>pl  :echo dein#get_log()<CR>
-  nnoremap <silent> <Leader>pL  :echo dein#get_updates_log()<CR>
-  nnoremap <silent> <Leader>pd  :call map(dein#check_clean(), "delete(v:val, \"rf\")")<CR>
+  nnoremap <silent> <Leader>ppu  :call dein#update()<CR>
+  nnoremap <silent> <Leader>ppr  :call dein#recache_runtimepath()<CR>
+  nnoremap <silent> <Leader>ppl  :echo dein#get_log()<CR>
+  nnoremap <silent> <Leader>ppL  :echo dein#get_updates_log()<CR>
+  nnoremap <silent> <Leader>ppd  :call map(dein#check_clean(), "delete(v:val, \"rf\")")<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['p'] = {
+    let g:which_key_map['p']['p'] = {
           \ 'name' : '+plugin-manager',
           \ 'd' : 'Delete unused plugins',
           \ 'l' : 'Get log',
@@ -594,6 +594,14 @@ endif
 
 if dein#tap('vim-choosewin')
   nmap <C-W>f <Plug>(choosewin)
+endif
+
+if dein#tap('nvim-FeMaco.lua')
+  nnoremap <Leader>lmf <cmd>FeMaco<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['l']['m']['f'] = 'Edit code fence with lsp under cursor'
+  endif
 endif
 
 if dein#tap('markdown-preview.nvim')

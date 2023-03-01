@@ -160,6 +160,10 @@ let g:which_key_map = {
                   \ 'p' : 'Replace all with yanked texts',
                   \ },
           \ },
+    \ 'p' : {
+          \ 'name' : '+vim-manager',
+             \ 's' : 'Source VIMRC',
+          \ },
     \ 'q' : 'Quit without saving',
     \ 'Q' : 'Quit vim without saving',
     \ 't' : {

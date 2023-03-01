@@ -375,6 +375,7 @@ endfunction
 
 " UTILITIES MAPPINGS -------------------- {{{
 function! UtilityMappings()
+  nnoremap <Leader>ps <cmd>source $MYVIMRC<CR>
   " Undo break points
   inoremap , ,<C-g>u
   inoremap . .<C-g>u

@@ -2,14 +2,17 @@
 
 function! theme#init()
   " Reset g:colors_name
-  unlet g:colors_name
+  if exists('g:colors_name')
+    unlet g:colors_name
+  endif
+  
   " Load cached colorscheme or hybrid by default
   let l:default = 'custom_hybrid_reverse'
-  if ! exists('g:colors_name')
-    set background=dark
-    let l:scheme = s:theme_cached_scheme(l:default)
-    silent! execute 'colorscheme' l:scheme
-  endif
+  let l:scheme = s:theme_cached_scheme(l:default)
+
+  set background=dark
+  silent! execute 'colorscheme' l:scheme
+  autocmd VimEnter,ColorScheme * call utils#source_file($VIM_PATH, 'core/colors.vim')
 endfunction
 
 function! s:theme_autoload()
