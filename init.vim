@@ -11,6 +11,7 @@
 "  plugins_minimal_lazy.toml
 "  Yaml plugins does not need to be in a separate '_lazy' file and thus wont be
 "  loaded.
+
 let g:handle_plugins = 'full'
 
 " Initialize ~/.local-nvim.d/init.vim
@@ -20,6 +21,8 @@ let g:init_secondary_config = 0
 let g:package_manager = 'dein_yaml'
 
 " Custom settings enable
+let g:custom_colorscheme = 1
+let g:custom_colorscheme_persist = 1
 let g:custom_statusline_enable = 1
 let g:custom_tabline_enable = 1
 let g:custom_cursorline_enable = 0    " See modes.lua

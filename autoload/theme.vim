@@ -11,7 +11,13 @@ function! theme#init()
   let l:scheme = s:theme_cached_scheme(l:default)
 
   set background=dark
-  silent! execute 'colorscheme' l:scheme
+
+  try
+    execute 'colorscheme' l:scheme
+  catch /^Vim\%((\a\+)\)\=:E185/
+    execute 'colorscheme' l:default
+  endtry
+
   autocmd VimEnter,ColorScheme * call utils#source_file($VIM_PATH, 'core/colors.vim')
 endfunction
 
@@ -22,7 +28,9 @@ function! s:theme_autoload()
       execute 'source' fnameescape(theme_path)
     endif
     " Persist theme
-    call writefile([g:colors_name], s:theme_cache_file())
+    if get(g:, 'custom_colorscheme_persist', 1)
+      call writefile([g:colors_name], s:theme_cache_file())
+    endif
   endif
 endfunction
 

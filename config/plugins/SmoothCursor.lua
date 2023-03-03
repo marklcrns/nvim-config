@@ -36,7 +36,7 @@ require("smoothcursor").setup({
     tail = { cursor = nil, texthl = "SmoothCursor" },
   },
   flyin_effect = nil, -- "bottom" or "top"
-  speed = 30, -- max is 100 to stick to your current position
+  speed = 25, -- max is 100 to stick to your current position
   intervals = 35, -- tick interval
   priority = 10, -- set marker priority
   timeout = 3000, -- timout for animation
@@ -53,7 +53,7 @@ autocmd({ "ModeChanged" }, {
     local current_mode = vim.fn.mode()
     if current_mode == "n" then
       vim.api.nvim_set_hl(0, "SmoothCursor", { fg = "#ffd400" })
-      vim.fn.sign_define("smoothcursor", { text = "▷" })
+      vim.fn.sign_define("smoothcursor", { text = "" })
     elseif current_mode == "v" then
       vim.api.nvim_set_hl(0, "SmoothCursor", { fg = "#78ccc5" })
       vim.fn.sign_define("smoothcursor", { text = "" })

@@ -22,7 +22,8 @@ local sources = {
   formatting.latexindent.with({ extra_args = { "-g", "/dev/null" } }),
   -- HTML, JS, CSS
   -- formatting.prettierd,
-  formatting.eslint_d,
+  formatting.eslint,
+  -- formatting.eslint_d,
   -- Rust,
   formatting.rustfmt,
   -- Lua

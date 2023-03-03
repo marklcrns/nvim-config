@@ -82,7 +82,10 @@ if get(g:, 'handle_plugins', 'full') !=# 'disable'
   endif
 endif
 
-call theme#init()
+" Load custom colorscheme
+if get(g:, 'custom_colorscheme', 1)
+  call theme#init()
+endif
 
 " Load custom status and tabline
 if get(g:, 'custom_statusline_enable', 1)
