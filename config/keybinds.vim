@@ -310,10 +310,13 @@ if dein#tap('minimap.vim')
   endif
 endif
 
-" TODO: Add diffview mappings
-" if dein#tap('diffview.nvim')
-"
-" endif
+if dein#tap('diffview.nvim')
+  nnoremap <Leader>idd :<C-u>call feedkeys(':DiffviewOpen<Space><Tab>','t')<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['i']['d']['d'] = 'Diff for git rev'
+  endif
+endif
 
 if dein#tap('neogen')
   nnoremap <Leader>nc <cmd>lua require('neogen').generate({ type = 'class' })<CR><CR>
@@ -391,6 +394,14 @@ if dein#tap('accelerated-jk')
   " " Time-driven acceleration (has problems with repeating macro)
   " nmap j <Plug>(accelerated_jk_gj)
   " nmap k <Plug>(accelerated_jk_gk)
+endif
+
+if dein#tap('SmoothCursor.nvim')
+  nnoremap <LocalLeader>sm <cmd>SmoothCursorToggle<CR>
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['m'] = 'Toggle SmoothCursor'
+  endif
 endif
 
 if dein#tap('goyo.vim')

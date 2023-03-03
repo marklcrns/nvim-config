@@ -15,7 +15,7 @@ require("smoothcursor").setup({
   linehl = nil, -- highlight sub-cursor line like 'cursorline', "CursorLine" recommended
   type = "default", -- define cursor movement calculate function, "default" or "exp" (exponential).
   fancy = {
-    enable = true, -- enable fancy mode
+    enable = false, -- enable fancy mode
     head = { cursor = "▷", texthl = "SmoothCursor", linehl = nil },
     body = {
       -- { cursor = "", texthl = "SmoothCursorRed" },

@@ -26,7 +26,7 @@
 - repo: glepnir/dashboard-nvim
   hook_source: luafile $VIM_PATH/config/plugins/dashboard.lua
 
-- repo:  rmagatti/auto-session
+- repo: rmagatti/auto-session
   hook_source: luafile $VIM_PATH/config/plugins/auto-session.lua
 
 - repo: rmagatti/session-lens

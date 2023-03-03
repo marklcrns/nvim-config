@@ -534,8 +534,7 @@ function! DiffMappings()
   exe 'nnoremap <Leader>idh :diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
   exe 'nnoremap <Leader>idV :vert diffsplit $HOME/'.nr2char(&wildcharm)
   exe 'nnoremap <Leader>idH :diffsplit $HOME/'.nr2char(&wildcharm)
-
-  nmap <silent> <Leader>idd :DiffOrig<CR>
+  nmap <silent> <Leader>ido :DiffOrig<CR>
 
   function! PrintMergeDiffMappings()
     " Only display once if g:custom_diff_enable = 0

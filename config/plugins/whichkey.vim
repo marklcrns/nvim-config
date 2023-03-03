@@ -98,7 +98,7 @@ let g:which_key_map = {
           \ 'name' : '+interface',
           \ 'd' : {
                 \ 'name' : '+diff',
-                \ 'd' : 'Diff unsaved changes',
+                \ 'o' : 'Diff unsaved changes',
                 \ 'h' : 'Horizontal file diff split from current directory',
                 \ 'H' : 'Horizontal file diff split from $HOME',
                 \ 'v' : 'Vertical file diff split from current directory',
