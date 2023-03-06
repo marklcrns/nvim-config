@@ -132,6 +132,10 @@ let g:which_key_map = {
              \ 'g' : 'Open file in google chrome browser',
              \ 'o' : 'Open file with xdg',
           \ },
+    \ 'p' : {
+          \ 'name' : '+vim-manager',
+             \ 's' : 'Source VIMRC',
+          \ },
     \ 'r' : {
           \ 'name' : '+text-manipulate',
              \ ' ' : 'Remove whitespaces',
@@ -152,6 +156,7 @@ let g:which_key_map = {
             \ 'n' : 'Search forward and replace',
             \ 'N' : 'Search backward and replace',
             \ 'p' : 'Duplicate paragraph',
+            \ 'P' : 'Smart paste',
             \ 'r' : 'Search and replace',
             \ 'R' : 'Search and replace current line',
             \ 'y' : {
@@ -160,9 +165,14 @@ let g:which_key_map = {
                   \ 'p' : 'Replace all with yanked texts',
                   \ },
           \ },
-    \ 'p' : {
-          \ 'name' : '+vim-manager',
-             \ 's' : 'Source VIMRC',
+    \ 's' : {
+          \ 'name' : '+sessions',
+          \ 'd' : 'Detach session',
+          \ 'D' : 'Delete session {name}',
+          \ 'l' : 'Load session {name}',
+          \ 'L' : 'List sessions',
+          \ 's' : 'Save session {name}',
+          \ 'q' : 'Close session',
           \ },
     \ 'q' : 'Quit without saving',
     \ 'Q' : 'Quit vim without saving',

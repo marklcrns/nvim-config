@@ -229,49 +229,7 @@ augroup VimwikiEditMode
         \ autocmd InsertEnter <buffer> setlocal conceallevel=0
   autocmd FileType vimwiki
         \ autocmd InsertLeave <buffer> setlocal conceallevel=2
-  " Auto-indent, select, and auto-wrap texts at textwidth 80 after pasting.
-  " Useful for long lines. Depends on `gp` nmap. For more info `:verbose nmap gp`
-  autocmd FileType vimwiki
-        \ imap <expr><silent><buffer> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartInsertPaste()\<CR>" : "\<Esc>:call SmartInsertPaste()\<CR>"
 augroup END
-
-function! SubstituteOddChars()
-  " `e` flag silence errors, see `s_flags'
-  " TODO: turn into independent function with visual and normal mode support,
-  " and accepts arbitrary args for odd chars
-  silent exe "norm! gv:s/“/\"/ge\<CR>"
-  silent exe "norm! gv:s/”/\"/ge\<CR>"
-  silent exe "norm! gv:s/’/'/ge\<CR>"
-  silent exe "norm! gv:s/—/--/ge\<CR>"
-  silent exe "norm! gv:s/…/.../ge\<CR>"
-  silent exe "norm! gv:s/•/-/ge\<CR>"
-  silent exe "norm! gv:s/ ,/,/ge\<CR>"
-  silent exe 'norm! gv:s/  /\r\r/ge'."\<CR>"
-  silent exe "norm! gv:s/   / /ge\<CR>"
-  silent exe "norm! gv:s/ \\././ge\<CR>"
-  silent exe "norm! gv:s/​//ge\<CR>"
-  " Add (if not already) a backslash '\' in front of currencies
-  " e.g., $10,000 -> \$10,000
-  silent exe 'norm! gv:s/\(\\\)\@<!\((\)\?\$\([0-9,.]\+\)\(\s\|\n\|)\)/\2\\$\3\4/ge'."\<CR>"
-  " Clear commandline prompt
-  redraw
-endfunction
-
-" Ref:
-" Select last pasted line(s): https://vim.fandom.com/wiki/Selecting_your_pasted_text
-function! SmartInsertPaste()
-  " Paste and indent pasted
-  exe "norm! \<M-p>`[v`]="
-  " Remove whitespace
-  exe "norm! gv:WhitespaceErase\<CR>"
-  " Substitute odd chars
-  call SubstituteOddChars()
-  " Reindent and format lines
-  exe "norm! gv=gvgw"
-  echo "SmartInsertPaste complete"
-  " Go to the end of the last selected texts
-  exe "norm! 0`>"
-endfunction
 
 " Vimwiki custom mappings
 augroup VimwikiCustomMappings

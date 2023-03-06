@@ -46,13 +46,13 @@ if dein#tap('any-jump.vim')
 endif
 
 if dein#tap('auto-session')
-  nnoremap <Leader>sd <cmd>Autosession delete<cr>
-  nnoremap <Leader>sr <cmd>RestoreSession<cr>
-  nnoremap <Leader>ss <cmd>SaveSession<cr>
+  nnoremap <Leader>sad <cmd>Autosession delete<cr>
+  nnoremap <Leader>sar <cmd>RestoreSession<cr>
+  nnoremap <Leader>sas <cmd>SaveSession<cr>
 
   if s:enable_whichkey
-    let g:which_key_map['s'] = {
-          \ 'name' : '+session',
+    let g:which_key_map['s']['a'] = {
+          \ 'name' : '+auto-session',
           \ 'd' : 'Delete session',
           \ 'r' : 'Restore cwd session',
           \ 's' : 'Save cwd session',

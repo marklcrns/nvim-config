@@ -650,6 +650,9 @@ function! TextManipulationMappings()
   nnoremap <Leader>rya ggVGy:echom "Yanked all file contents!"<CR>
   " Replace all with yanked texts
   nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
+  " SmartPaste by replacing odd characters and autoformatting
+  nnoremap <silent><buffer> <Leader>rP <cmd>call SmartPaste()<CR>
+  imap <expr><silent><buffer> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartPaste()\<CR>" : "\<Esc>:call SmartPaste()\<CR>"
   " Jumps to previously misspelled word and fixes it with the first in the suggestion
   " Update: also echo changes and line and col number
   " Ref: https://castle.Dev/post/lecture-notes-1/
@@ -862,6 +865,43 @@ function! s:toggle_format_on_save()
   endif
 endfunction
 
+function! s:substitute_odd_characters()
+  " `e` flag silence errors, see `s_flags'
+  " TODO: turn into independent function with visual and normal mode support,
+  " and accepts arbitrary args for odd chars
+  silent exe "norm! gv:s/“/\"/ge\<CR>"
+  silent exe "norm! gv:s/”/\"/ge\<CR>"
+  silent exe "norm! gv:s/’/'/ge\<CR>"
+  silent exe "norm! gv:s/—/--/ge\<CR>"
+  silent exe "norm! gv:s/…/.../ge\<CR>"
+  silent exe "norm! gv:s/•/-/ge\<CR>"
+  silent exe "norm! gv:s/ ,/,/ge\<CR>"
+  silent exe 'norm! gv:s/  /\r\r/ge'."\<CR>"
+  silent exe "norm! gv:s/   / /ge\<CR>"
+  silent exe "norm! gv:s/ \\././ge\<CR>"
+  silent exe "norm! gv:s/​//ge\<CR>"
+  " Add (if not already) a backslash '\' in front of currencies
+  " e.g., $10,000 -> \$10,000
+  silent exe 'norm! gv:s/\(\\\)\@<!\((\)\?\$\([0-9,.]\+\)\(\s\|\n\|)\)/\2\\$\3\4/ge'."\<CR>"
+  " Clear commandline prompt
+  redraw
+endfunction
+
+" Ref: https://vim.fandom.com/wiki/Selecting_your_pasted_text
+" Select last pasted line(s)
+function! SmartPaste()
+  " Paste and indent pasted
+  exe "norm! \<M-p>`[v`]="
+  " Remove whitespace
+  exe "norm! gv:WhitespaceErase\<CR>"
+  " Substitute odd chars
+  call s:substitute_odd_characters()
+  " Reindent and format lines
+  exe "norm! gv=gvgw"
+  echo "SmartPaste complete"
+  " Go to the end of the last selected texts
+  exe "norm! 0`>"
+endfunction
 
 " DEPRECATED by vim-maximizer
 " " Simple zoom toggle
