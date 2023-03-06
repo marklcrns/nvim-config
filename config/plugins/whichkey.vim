@@ -1,5 +1,5 @@
 let g:which_key_timeout = 200
-let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>"]
+let g:which_key_exit = ["\<C-[>", "\<C-c>", "\<C-g>", "\<Esc>"]
 let g:which_key_sep = '»'
 
 let g:which_key_display_names = {
@@ -25,17 +25,6 @@ let g:which_key_display_names = {
           " \ 'r' : 'Run program (accepts program cmdline arguments)',
           " \ 'x' : 'Stop (interrupt) execution',
           " \ 'A' : 'Set arguments for the next Run',
-
-    """" Sessions
-    " \ 's' : {
-    "       \ 'name' : '+sessions',
-    "       \ 'd' : 'Detach session',
-    "       \ 'D' : 'Delete session {name}',
-    "       \ 'l' : 'Load session {name}',
-    "       \ 'L' : 'List sessions',
-    "       \ 's' : 'Save session {name}',
-    "       \ 'q' : 'Close session',
-    "       \ },
 
 let g:which_key_map = {
     \ 'name' : '+leader-key',

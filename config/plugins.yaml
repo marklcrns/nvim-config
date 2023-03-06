@@ -107,7 +107,7 @@
   hook_source: source $VIM_PATH/config/plugins/copilot.vim
 
 - repo: zbirenbaum/copilot.lua
-  on_event: VimEnter
+  depends: 'copilot.vim'
   hook_source: luafile $VIM_PATH/config/plugins/copilot.lua
 
 - repo: zbirenbaum/copilot-cmp
