@@ -102,12 +102,15 @@
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-cmp.lua
 
-# Make sure to run `:Copilot auth` after install
-- repo: github/copilot.vim
-  hook_source: source $VIM_PATH/config/plugins/copilot.vim
+# DEPRECATED: Replaced by copilot.lua
+# # Make sure to run `:Copilot auth` after install
+# - repo: github/copilot.vim
+#   hook_source: source $VIM_PATH/config/plugins/copilot.vim
 
+# Make sure to run `:Copilot auth` after install
 - repo: zbirenbaum/copilot.lua
-  depends: 'copilot.vim'
+  on_cmd: Copilot
+  on_event: InsertEnter
   hook_source: luafile $VIM_PATH/config/plugins/copilot.lua
 
 - repo: zbirenbaum/copilot-cmp
@@ -134,11 +137,11 @@
   if: "has('nvim-0.7')"
   depends: nvim-cmp
 
-- repo: tzachar/cmp-tabnine
-  if: "has('nvim-0.7')"
-  depends: nvim-cmp
-  build: "./install.sh"
-  hook_source: luafile $VIM_PATH/config/plugins/cmp-tabnine.lua
+# - repo: tzachar/cmp-tabnine
+#   if: "has('nvim-0.7')"
+#   depends: nvim-cmp
+#   build: "./install.sh"
+#   hook_source: luafile $VIM_PATH/config/plugins/cmp-tabnine.lua
 
 - repo: hrsh7th/cmp-emoji
   if: "has('nvim-0.7')"
