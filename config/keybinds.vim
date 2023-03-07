@@ -103,7 +103,7 @@ if dein#tap('nvim-lspconfig')
 endif
 
 if dein#tap('null-ls.nvim')
-  nnoremap <silent> <leader>cf :lua vim.lsp.buf.format({ async = true })<CR>
+  nnoremap <silent> <leader>cf :lua vim.lsp.buf.format()<CR>
   nnoremap <silent> <Leader>cln <cmd>NullLsInfo<CR>
 
   if s:enable_whichkey

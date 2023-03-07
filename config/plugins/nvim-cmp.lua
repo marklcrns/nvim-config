@@ -299,6 +299,7 @@ cmp.event:on(
 -- Set configuration for specific filetype.
 cmp.setup.filetype({ "gitcommit", "gina-commit", "NeogitCommitMessage" }, {
   sources = cmp.config.sources({
+    { name = "cmp_tabnine", group_index = 1 },
     { name = "git", group_index = 1 },
     { name = "conventionalcommits", group_index = 1 },
     { name = "spell", group_index = 1 },

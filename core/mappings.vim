@@ -138,6 +138,10 @@ command! RemoveQFItem :call RemoveQFItem()
 
 " BASIC MAPPINGS -------------------- {{{
 function! ExitMappings()
+" Remaps normal mode macro record q to Q and map q to :q
+  nnoremap Q q
+  nnoremap q :q<CR>
+  nnoremap <C-q> :q!<CR>
   " Quit without saving
   nnoremap <silent> <Leader>q :q!<CR>
   xnoremap <silent> <Leader>q <Esc>:q!<CR>

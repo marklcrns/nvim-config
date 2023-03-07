@@ -540,6 +540,9 @@
 - repo: karb94/neoscroll.nvim
   hook_source: luafile $VIM_PATH/config/plugins/neoscroll.lua
 
+- repo: petertriho/nvim-scrollbar
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-scrollbar.lua
+
 # - repo: gen740/SmoothCursor.nvim
 #   hook_source: luafile $VIM_PATH/config/plugins/SmoothCursor.lua
 
