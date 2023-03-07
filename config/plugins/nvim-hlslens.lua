@@ -1,7 +1,4 @@
 require("hlslens").setup({
-  build_position_cb = function(plist, _, _, _)
-    require("scrollbar.handlers.search").handler.show(plist.start_pos)
-  end,
   override_lens = function(render, posList, nearest, idx, relIdx)
     local sfw = vim.v.searchforward == 1
     local indicator, text, chunks

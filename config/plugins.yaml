@@ -535,6 +535,7 @@
   hook_source: luafile $VIM_PATH/config/plugins/neoscroll.lua
 
 - repo: kevinhwang91/nvim-hlslens
+  depends: nvim-ufo
   hook_source: luafile $VIM_PATH/config/plugins/nvim-hlslens.lua
 
 - repo: petertriho/nvim-scrollbar
