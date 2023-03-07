@@ -55,14 +55,15 @@ highlight AutocorrectGood ctermfg=Yellow guifg=Yellow gui=undercurl
 " }}}
 
 " Plugin: nvim-ufo {{{
-hi default UfoFoldedFg guifg=Normal.foreground
-hi default UfoFoldedBg guibg=Folded.background
+" hi default UfoFoldedFg guifg=Normal.foreground
+" hi default UfoFoldedBg guibg=Folded.background
 hi default link UfoPreviewSbar PmenuSbar
 hi default link UfoPreviewThumb PmenuThumb
 hi default link UfoPreviewWinBar UfoFoldedBg
 hi default link UfoPreviewCursorLine Visual
 hi default link UfoFoldedEllipsis Comment
 hi default link UfoCursorFoldedLine CursorLine
+hi Folded guibg=NONE
 " }}}
 
 " Plugin: vim-signature {{{
@@ -132,28 +133,28 @@ if g:colors_name == "custom_hybrid_reverse"
   " }}}
 endif
 
-" " Leading Whitespace Highlight {{{
-" " Ref: https://vim.fandom.com/wiki/Highlight_unwanted_spaces
-" highlight ExtraWhitespace guifg=#30302c guibg=#30302c ctermfg=236 ctermbg=236
-" augroup WhitespaceMatch
-"   " Remove ALL autocommands for the WhitespaceMatch group.
-"   autocmd!
-"   autocmd BufWinEnter * let w:whitespace_match_number =
-"         \ matchadd('ExtraWhitespace', '\s\+$')
-"   autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
-"   autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
-" augroup END
-" function! s:ToggleWhitespaceMatch(mode)
-"   let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
-"   if exists('w:whitespace_match_number')
-"     call matchdelete(w:whitespace_match_number)
-"     call matchadd('ExtraWhitespace', pattern, 10, w:whitespace_match_number)
-"   else
-"     " Something went wrong, try to be graceful.
-"     let w:whitespace_match_number =  matchadd('ExtraWhitespace', pattern)
-"   endif
-" endfunction
-" " }}}
+" Leading Whitespace Highlight {{{
+" Ref: https://vim.fandom.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace guifg=#30302c guibg=#30302c ctermfg=236 ctermbg=236
+augroup WhitespaceMatch
+  " Remove ALL autocommands for the WhitespaceMatch group.
+  autocmd!
+  autocmd BufWinEnter * let w:whitespace_match_number =
+        \ matchadd('ExtraWhitespace', '\s\+$')
+  autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
+  autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
+augroup END
+function! s:ToggleWhitespaceMatch(mode)
+  let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
+  if exists('w:whitespace_match_number')
+    call matchdelete(w:whitespace_match_number)
+    call matchadd('ExtraWhitespace', pattern, 10, w:whitespace_match_number)
+  else
+    " Something went wrong, try to be graceful.
+    let w:whitespace_match_number =  matchadd('ExtraWhitespace', pattern)
+  endif
+endfunction
+" }}}
 
 " DEPRECATED: Detect color syntax group under cursor
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")

@@ -40,6 +40,14 @@ require("dashboard").setup({
         key = "s",
       },
       {
+        icon = "📑 ",
+        icon_hl = "@variable",
+        desc = "Restore Session",
+        group = "@property",
+        action = "RestoreSession",
+        key = "S",
+      },
+      {
         icon = "🩺 ",
         icon_hl = "@variable",
         desc = "Check Health",
