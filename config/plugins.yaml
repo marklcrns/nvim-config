@@ -511,12 +511,6 @@
   on_cmd: [F, Far, Farr, Farf, Refar, Farundo]
   hook_add: source $VIM_PATH/config/plugins/far.vim
 
-- repo: pechorin/any-jump.vim
-  on_cmd: AnyJump
-  hook_source: source $VIM_PATH/config/plugins/any-jump.vim
-# }}}
-
-# UI{{{
 - repo: lukas-reineke/indent-blankline.nvim
   hook_source: luafile $VIM_PATH/config/plugins/indent-blankline.lua
 
@@ -540,6 +534,9 @@
 - repo: karb94/neoscroll.nvim
   hook_source: luafile $VIM_PATH/config/plugins/neoscroll.lua
 
+- repo: kevinhwang91/nvim-hlslens
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-hlslens.lua
+
 - repo: petertriho/nvim-scrollbar
   hook_source: luafile $VIM_PATH/config/plugins/nvim-scrollbar.lua
 
@@ -554,13 +551,6 @@
   depends: nvim-treesitter
   hook_source: source $VIM_PATH/config/plugins/vim-matchup.vim
 
-- repo: kyazdani42/nvim-tree.lua
-  if: "has('nvim-0.5')"
-  on_cmd: [NvimTreeToggle, NvimTreeOpen, NvimTreeFindFile]
-  hook_source: source $VIM_PATH/config/plugins/nvim-tree.lua
-
-- repo: nvim-lua/popup.nvim
-  if: "has('nvim-0.5')"
 - repo: nvim-lua/plenary.nvim
   if: "has('nvim-0.5')"
 - repo: nvim-telescope/telescope.nvim
