@@ -310,9 +310,11 @@ endif
 
 if dein#tap('diffview.nvim')
   nnoremap <Leader>idd :<C-u>call feedkeys(':DiffviewOpen<Space><Tab>','t')<CR>
+  nnoremap <Leader>idf :DiffviewFileHistory %<CR>
 
   if s:enable_whichkey
     let g:which_key_map['i']['d']['d'] = 'Diff for git rev'
+    let g:which_key_map['i']['d']['f'] = 'Diff for git file history'
   endif
 endif
 
