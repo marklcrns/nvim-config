@@ -247,7 +247,6 @@ if dein#tap('telescope.nvim')
   nnoremap <leader>fdc <cmd>Telescope colorscheme<cr>
   nnoremap <leader>fdf <cmd>Telescope find_files<cr>
   nnoremap <leader>fdF <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>
-  nnoremap <leader>fdd <cmd>Telescope file_browser<cr>
   nnoremap <leader>fdr <cmd>Telescope live_grep<cr>
   nnoremap <leader>fdh <cmd>Telescope help_tags<cr>
   nnoremap <leader>fdj <cmd>Telescope jumplist<cr>
@@ -264,7 +263,6 @@ if dein#tap('telescope.nvim')
           \ 'name' : '+finder',
           \ 'b' : 'Find buffers',
           \ 'c' : 'Find colorscheme',
-          \ 'd' : 'File browser',
           \ 'f' : 'Find files',
           \ 'F' : 'Find hidden files',
           \ 'g' : {

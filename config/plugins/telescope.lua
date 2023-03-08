@@ -9,8 +9,6 @@ require("telescope").setup({
       "--column",
       "--smart-case",
     },
-    prompt_prefix = "> ",
-    selection_caret = "> ",
     entry_prefix = "  ",
     initial_mode = "insert",
     selection_strategy = "reset",
@@ -27,9 +25,26 @@ require("telescope").setup({
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     file_ignore_patterns = {},
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-    winblend = 0,
+
+    winblend = 20,
+    width = 0.8,
+    show_line = false,
+    prompt_prefix = ">",
+    prompt_title = "",
+    results_title = "",
+    preview_title = "",
+    borderchars = {
+      prompt = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
+      results = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
+      preview = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
+    },
+
+    -- winblend = 0,
+    -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    -- prompt_prefix = "> ",
+    selection_caret = "> ",
+
     border = {},
-    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     color_devicons = true,
     use_less = true,
     path_display = {},
@@ -46,7 +61,6 @@ require("telescope").setup({
     -- Your special builtin config goes in here
     buffers = {
       sort_lastused = true,
-      theme = "dropdown",
       previewer = true,
       mappings = {
         i = {
@@ -56,13 +70,6 @@ require("telescope").setup({
           ["<c-d>"] = require("telescope.actions").delete_buffer,
         },
       },
-    },
-    find_files = {
-      theme = "dropdown",
-    },
-    dotfiles = {
-      theme = "dropdown",
-      previewer = true,
     },
   },
 })
