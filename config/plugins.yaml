@@ -91,6 +91,9 @@
   on_event: BufRead
   hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua
 
+- repo: SmiteshP/nvim-navic
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-navic.lua
+
 - repo: WhoIsSethDaniel/toggle-lsp-diagnostics.nvim
   hook_source: luafile $VIM_PATH/config/plugins/toggle-lsp-diagnostics.lua
 

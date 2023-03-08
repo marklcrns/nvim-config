@@ -82,6 +82,21 @@ hi def IlluminatedWordRead gui=underline
 hi def IlluminatedWordWrite gui=underline
 " }}}
 
+" Plugin: diffview.nvim {{{
+" Ref: https://github.com/sindrets/diffview.nvim/issues/241#issuecomment-1298862577
+hi DiffAdd gui=none guifg=none guibg=#103235
+hi DiffChange gui=none guifg=none guibg=#272D43
+hi DiffText gui=none guifg=none guibg=#394b70
+hi DiffDelete gui=none guifg=#27283b guibg=none
+hi DiffviewDiffAddAsDelete guibg=#3f2d3d gui=none guifg=none
+hi DiffviewDiffDelete gui=none guifg=#3B4252 guibg=none
+" Left panel
+hi DiffAddAsDelete gui=none guifg=none guibg=#3f2d3d
+hi DiffDeleteText gui=none guifg=none guibg=#4b1818
+" Right panel
+hi DiffAddText gui=none guifg=none guibg=#1c5458
+" }}}
+
 if g:colors_name == "custom_hybrid_reverse"
   " Highlights: General GUI {{{
   " Ref: https://github.com/mhinz/vim-janah

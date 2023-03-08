@@ -48,7 +48,6 @@ local lsp_formatting = function(bufnr)
       return client.name == "null-ls"
     end,
     bufnr = bufnr,
-    async = true,
   })
 end
 
