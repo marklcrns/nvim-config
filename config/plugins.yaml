@@ -274,6 +274,9 @@
   depends: [ plenary.nvim]
   hook_source: luafile $VIM_PATH/config/plugins/diffview.lua
 
+- repo: RRethy/vim-illuminate
+  hook_source: luafile $VIM_PATH/config/plugins/vim-illuminate.lua
+
 # Debugger
 - repo: rcarriga/nvim-dap-ui
   if: "has('nvim-0.8')"

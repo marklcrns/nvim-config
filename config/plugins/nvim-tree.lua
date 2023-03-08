@@ -84,7 +84,7 @@ require("nvim-tree").setup({
     },
     number = false,
     relativenumber = false,
-    signcolumn = "yes",
+    signcolumn = "auto",
   },
   trash = {
     cmd = "trash",
@@ -113,8 +113,10 @@ require("nvim-tree").setup({
         symlink = "",
         bookmark = "",
         folder = {
-          arrow_closed = "",
-          arrow_open = "",
+          -- arrow_closed = "",
+          -- arrow_open = "",
+          arrow_closed = "",
+          arrow_open = "",
           default = "",
           open = "",
           empty = "",

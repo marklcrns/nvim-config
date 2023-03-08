@@ -34,11 +34,11 @@ hi User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " }}}
 
 " Plugin: indent_blankline {{{
-highlight IndentBlanklineIndent1 guifg=#303030 gui=nocombine
-highlight IndentBlanklineIndent2 guifg=#454545 gui=nocombine
-highlight IndentBlanklineIndent3 guifg=#606060 gui=nocombine
-highlight IndentBlanklineIndent4 guifg=#757575 gui=nocombine
-highlight IndentBlanklineIndent5 guifg=#909090 gui=nocombine
+" highlight IndentBlanklineIndent1 guifg=#303030 gui=nocombine
+" highlight IndentBlanklineIndent2 guifg=#454545 gui=nocombine
+" highlight IndentBlanklineIndent3 guifg=#606060 gui=nocombine
+" highlight IndentBlanklineIndent4 guifg=#757575 gui=nocombine
+" highlight IndentBlanklineIndent5 guifg=#909090 gui=nocombine
 " }}}
 
 " Plugin: vim-choosewin {{{
@@ -74,6 +74,12 @@ hi SignatureMarkerText guifg=#4EA9D7 guibg=NONE
 " Plugin: focus.nvim {{{
 hi link UnfocusedWindow CursorLine
 hi link FocusedWindow NONE
+" }}}
+
+" Plugin: vim-illuminate {{{
+hi def IlluminatedWordText gui=underline
+hi def IlluminatedWordRead gui=underline
+hi def IlluminatedWordWrite gui=underline
 " }}}
 
 if g:colors_name == "custom_hybrid_reverse"
@@ -135,7 +141,7 @@ endif
 
 " Leading Whitespace Highlight {{{
 " Ref: https://vim.fandom.com/wiki/Highlight_unwanted_spaces
-highlight ExtraWhitespace guifg=#30302c guibg=#30302c ctermfg=236 ctermbg=236
+highlight ExtraWhitespace guifg=#27283b guibg=#27283b ctermfg=236 ctermbg=236
 augroup WhitespaceMatch
   " Remove ALL autocommands for the WhitespaceMatch group.
   autocmd!

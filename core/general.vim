@@ -226,6 +226,8 @@ set list
 let &showbreak='↳  '
 " set listchars=tab:\│\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 set listchars=tab:»·,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+set listchars+=eol:↴
+" set listchars+=space:⋅
 set title
 " Title length.
 set titlelen=95

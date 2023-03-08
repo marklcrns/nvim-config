@@ -1,6 +1,19 @@
 require("scrollbar").setup({
+  excluded_buftypes = {
+    "terminal",
+  },
+  excluded_filetypes = {
+    "prompt",
+    "TelescopePrompt",
+    "noice",
+    "NvimTree",
+    "minimap",
+    "toggleterm",
+    "lspsagaoutline",
+    "NvimTree",
+  },
   require("scrollbar.handlers.search").setup(),
-  require("scrollbar.handlers.gitsigns").setup(),
+  -- require("scrollbar.handlers.gitsigns").setup(),
 })
 
 vim.cmd([[
