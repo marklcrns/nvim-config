@@ -91,9 +91,6 @@
   on_event: BufRead
   hook_source: luafile $VIM_PATH/config/plugins/lspsaga.lua
 
-- repo: SmiteshP/nvim-navic
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-navic.lua
-
 - repo: WhoIsSethDaniel/toggle-lsp-diagnostics.nvim
   hook_source: luafile $VIM_PATH/config/plugins/toggle-lsp-diagnostics.lua
 
@@ -550,10 +547,6 @@
 # - repo: gen740/SmoothCursor.nvim
 #   hook_source: luafile $VIM_PATH/config/plugins/SmoothCursor.lua
 
-- repo: ahmedkhalf/project.nvim
-  if: "has('nvim-0.5')"
-  hook_source: luafile $VIM_PATH/config/plugins/project.lua
-
 - repo: andymass/vim-matchup
   depends: nvim-treesitter
   hook_source: source $VIM_PATH/config/plugins/vim-matchup.vim
@@ -570,6 +563,11 @@
 - repo: nvim-telescope/telescope.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/telescope.lua
+
+- repo: ahmedkhalf/project.nvim
+  if: "has('nvim-0.5')"
+  depends: telescope.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/project.lua
 # }}}
 
 # ETC {{{

@@ -1,18 +1,20 @@
-require("project_nvim").setup {
+require("project_nvim").setup({
   patterns = {
-    '=src',
-    '.git',
+    "=src",
+    ".git",
     "_darcs",
-    '.hg',
+    ".hg",
     ".bzr",
-    '.svn',
-    '.git/',
-    'README.*',
-    'pom.xml',
-    'env/',
-    '.root',
-    '.editorconfig',
+    ".svn",
+    ".git/",
+    "README.*",
+    "pom.xml",
+    "env/",
+    ".root",
+    ".editorconfig",
     "package.json",
-    'Makefile',
+    "Makefile",
+    "lua/", -- To prevent Telescope only looking into ./lua dir when in lua buf
   },
-}
+})
+require("telescope").load_extension("projects")
