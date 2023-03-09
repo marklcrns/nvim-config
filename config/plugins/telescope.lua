@@ -29,7 +29,7 @@ require("telescope").setup({
     winblend = 20,
     width = 0.8,
     show_line = false,
-    prompt_prefix = ">",
+    prompt_prefix = "🔍 ",
     prompt_title = "",
     results_title = "",
     preview_title = "",

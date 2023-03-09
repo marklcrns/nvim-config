@@ -2,7 +2,6 @@ require("scrollbar").setup({
   excluded_buftypes = {
     "terminal",
     "nowrite",
-    "",
   },
   excluded_filetypes = {
     "prompt",

@@ -222,12 +222,10 @@ let g:which_key_localmap = {
 
 let g:which_key_lsbmap = {
       \ 'name' : '+left-square-brackets',
-         \ '[' : 'Prev function beginning',
-         \ ']' : 'Prev function end',
-         \ '=' : 'Marker any prev',
-         \ '-' : 'Marker same prev',
-         \ "'" : 'Marker unique prev',
-         \ '"' : 'Comment prev',
+         \ '`' : 'Jump to prev mark',
+         \ "'" : 'Jump to start of prev line with mark',
+         \ '-' : 'Jump to start of prev line with marker of same type',
+         \ '=' : 'Jump to start of prev line with marker of any type',
          \ 'b' : 'Buffer prev',
          \ 'B' : 'Buffer first',
          \ 'c' : 'Diff jump prev',
@@ -242,12 +240,10 @@ let g:which_key_lsbmap = {
 
 let g:which_key_rsbmap = {
       \ 'name' : '+right-square-brackets',
-         \ ']' : 'Next function beginning',
-         \ '[' : 'Next function end',
-         \ '=' : 'Marker any next',
-         \ '-' : 'Marker same next',
-         \ "'" : 'Marker unique next',
-         \ '"' : 'Comment next',
+         \ '`' : 'Jump to next mark',
+         \ "'" : 'Jump to start of prev line with mark',
+         \ '-' : 'Jump to start of next line with marker of same type',
+         \ '=' : 'Jump to start of next line with marker of any type',
          \ 'b' : 'Buffer next',
          \ 'B' : 'Buffer last',
          \ 'c' : 'Diff jump next',

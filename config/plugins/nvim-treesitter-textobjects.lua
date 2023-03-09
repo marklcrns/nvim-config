@@ -146,8 +146,8 @@ end
 local next_fold_repeat, prev_fold_repeat =
   ts_repeat_move.make_repeatable_move_pair(goNextClosedAndPeek, goPreviousClosedAndPeek)
 
-vim.keymap.set("n", "]z", next_fold_repeat)
-vim.keymap.set("n", "[z", prev_fold_repeat)
+vim.keymap.set({ "n", "x", "o" }, "]z", next_fold_repeat)
+vim.keymap.set({ "n", "x", "o" }, "[z", prev_fold_repeat)
 
 -----------------------
 --  LSP integration  --
@@ -156,5 +156,81 @@ vim.keymap.set("n", "[z", prev_fold_repeat)
 local next_diagnostic_repeat, prev_diagnostic_repeat =
   ts_repeat_move.make_repeatable_move_pair(vim.diagnostic.goto_next, vim.diagnostic.goto_prev)
 
-vim.keymap.set("n", "]d", next_diagnostic_repeat)
-vim.keymap.set("n", "[d", prev_diagnostic_repeat)
+vim.keymap.set({ "n", "x", "o" }, "]d", next_diagnostic_repeat)
+vim.keymap.set({ "n", "x", "o" }, "[d", prev_diagnostic_repeat)
+
+--------------------------------
+--  Vim builtins integration  --
+--------------------------------
+
+-- Diff navigation
+
+local function goNextDiff()
+  vim.cmd("normal! ]c")
+end
+local function goPreviousDiff()
+  vim.cmd("normal! [c")
+end
+
+local next_diff_repeat, prev_diff_repeat = ts_repeat_move.make_repeatable_move_pair(goNextDiff, goPreviousDiff)
+
+vim.keymap.set({ "n", "x", "o" }, "]c", next_diff_repeat)
+vim.keymap.set({ "n", "x", "o" }, "[c", prev_diff_repeat)
+
+-- Tab navigation
+
+local function goNextTab()
+  vim.cmd("tabnext")
+end
+local function goPreviousTab()
+  vim.cmd("tabprevious")
+end
+
+local next_tab_repeat, prev_tab_repeat = ts_repeat_move.make_repeatable_move_pair(goNextTab, goPreviousTab)
+
+vim.keymap.set({ "n", "x", "o" }, "]t", next_tab_repeat)
+vim.keymap.set({ "n", "x", "o" }, "[t", prev_tab_repeat)
+
+-- Buffer navigation
+
+local function goNextBuffer()
+  vim.cmd("bnext")
+end
+local function goPreviousBuffer()
+  vim.cmd("bprevious")
+end
+
+local next_buffer_repeat, prev_buffer_repeat = ts_repeat_move.make_repeatable_move_pair(goNextBuffer, goPreviousBuffer)
+
+vim.keymap.set({ "n", "x", "o" }, "]b", next_buffer_repeat)
+vim.keymap.set({ "n", "x", "o" }, "[b", prev_buffer_repeat)
+
+-- Quickfix navigation
+
+local function goNextQuickfix()
+  vim.cmd("cnext")
+end
+local function goPreviousQuickfix()
+  vim.cmd("cprevious")
+end
+
+local next_quickfix_repeat, prev_quickfix_repeat =
+  ts_repeat_move.make_repeatable_move_pair(goNextQuickfix, goPreviousQuickfix)
+
+vim.keymap.set({ "n", "x", "o" }, "]q", next_quickfix_repeat)
+vim.keymap.set({ "n", "x", "o" }, "[q", prev_quickfix_repeat)
+
+-- Locationlist navigation
+
+local function goNextLocationlist()
+  vim.cmd("lnext")
+end
+local function goPreviousLocationlist()
+  vim.cmd("lprevious")
+end
+
+local next_locationlist_repeat, prev_locationlist_repeat =
+  ts_repeat_move.make_repeatable_move_pair(goNextLocationlist, goPreviousLocationlist)
+
+vim.keymap.set({ "n", "x", "o" }, "]l", next_locationlist_repeat)
+vim.keymap.set({ "n", "x", "o" }, "[l", prev_locationlist_repeat)

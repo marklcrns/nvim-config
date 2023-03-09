@@ -1,7 +1,21 @@
 -- Defer function call by 100 ms to let Copilot process catch up
 vim.defer_fn(function()
   require("copilot").setup({
-    suggestion = { enabled = false },
+    -- WARNING: copilot-cmp won't work if suggestion is enabled
+    -- As it is now, auto trigger is not working with copilot-cmp. So us this instead
+    suggestion = {
+      enabled = true,
+      auto_trigger = true,
+      debounce = 75,
+      keymap = {
+        accept = "<M-l>",
+        accept_word = false,
+        accept_line = false,
+        next = "<M-]>",
+        prev = "<M-[>",
+        dismiss = "<C-]>",
+      },
+    },
     panel = { enabled = false },
     filetypes = {
       yaml = false,

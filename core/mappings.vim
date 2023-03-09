@@ -229,8 +229,8 @@ function! ExtendedBasicMappings()
   " Allow <Esc> to exit terminal-mode back to normal:
   tnoremap <Esc> <C-\><C-n>
   " Esc from insert, visual and command mode shortcuts (also moves cursor to the right)
-  inoremap fd <Esc>`^
-  inoremap kj <Esc>`^
+  imap fd <Esc>`^
+  imap kj <Esc>`^
   vnoremap fd <Esc>`<
   vnoremap df <Esc>`>
   cnoremap <C-[> <C-c>

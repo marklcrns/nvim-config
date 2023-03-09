@@ -1,4 +1,5 @@
 require("project_nvim").setup({
+  detection_methods = { "lsp", "pattern" },
   patterns = {
     "=src",
     ".git",
@@ -14,7 +15,6 @@ require("project_nvim").setup({
     ".editorconfig",
     "package.json",
     "Makefile",
-    "lua/", -- To prevent Telescope only looking into ./lua dir when in lua buf
   },
 })
 require("telescope").load_extension("projects")

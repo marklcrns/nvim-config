@@ -48,22 +48,4 @@ vim.g.indent_blankline_space_char_blankline = " "
 vim.g.indent_blankline_strict_tabs = true
 vim.g.indent_blankline_debug = true
 vim.g.indent_blankline_show_current_context = true
-vim.g.indent_blankline_context_patterns = {
-  "class",
-  "^func",
-  "method",
-  "^if",
-  "while",
-  "for",
-  "with",
-  "try",
-  "except",
-  "arguments",
-  "argument_list",
-  "object",
-  "dictionary",
-  "element",
-  "table",
-  "tuple",
-  "do_block",
-}
+vim.g.indent_blankline_use_treesitter_scope = true

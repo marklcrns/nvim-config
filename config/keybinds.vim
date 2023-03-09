@@ -246,7 +246,8 @@ if dein#tap('telescope.nvim')
   nnoremap <leader>fdb <cmd>Telescope buffers<cr>
   nnoremap <leader>fdc <cmd>Telescope colorscheme<cr>
   nnoremap <leader>fdf <cmd>Telescope find_files<cr>
-  nnoremap <leader>fdF <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>
+  nnoremap <leader>fdF <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<cr>
+  nnoremap <leader>fdp <cmd>Telescope projects<cr>
   nnoremap <leader>fdr <cmd>Telescope live_grep<cr>
   nnoremap <leader>fdh <cmd>Telescope help_tags<cr>
   nnoremap <leader>fdj <cmd>Telescope jumplist<cr>
@@ -276,6 +277,7 @@ if dein#tap('telescope.nvim')
           \ 'j' : 'Find jumplist',
           \ 'm' : 'Find files with marks',
           \ 'o' : 'Find old files',
+          \ 'p' : 'Find from projects',
           \ 'r' : 'Find string live grep',
           \ 'w' : 'Find string undercursor',
           \ }
@@ -563,8 +565,26 @@ endif
 
 if dein#tap('nvim-treesitter-textobjects')
   if s:enable_whichkey
-    let g:which_key_gmap['s'] = 'Swap paramter next'
-    let g:which_key_gmap['S'] = 'Swap parameter previous'
+    let g:which_key_rsbmap['f'] = 'Go to next function'
+    let g:which_key_lsbmap['f'] = 'Go to previous function'
+    let g:which_key_rsbmap['F'] = 'Swap with next function'
+    let g:which_key_lsbmap['F'] = 'Swap with previous function'
+    let g:which_key_rsbmap['p'] = 'Go to next parameter'
+    let g:which_key_lsbmap['p'] = 'Go to previous parameter'
+    let g:which_key_rsbmap['P'] = 'Swap with next parameter'
+    let g:which_key_lsbmap['P'] = 'Swap with previous parameter'
+    let g:which_key_rsbmap['i'] = 'Go to next conditional'
+    let g:which_key_lsbmap['i'] = 'Go to previous conditional'
+    let g:which_key_rsbmap['I'] = 'Swap with next conditional'
+    let g:which_key_lsbmap['I'] = 'Swap with previous conditional'
+    let g:which_key_rsbmap['o'] = 'Go to next loop'
+    let g:which_key_lsbmap['o'] = 'Go to previous loop'
+    let g:which_key_rsbmap['O'] = 'Swap with next loop'
+    let g:which_key_lsbmap['O'] = 'Swap with previous loop'
+    let g:which_key_rsbmap['s'] = 'Go to scope'
+    let g:which_key_lsbmap['s'] = 'Go to score'
+    let g:which_key_rsbmap[']'] = 'Go to next class'
+    let g:which_key_lsbmap['['] = 'Go to previous class'
   endif
 endif
 
@@ -806,30 +826,10 @@ if dein#tap('vim-tmux-navigator')
 endif
 
 if dein#tap('vim-signature')
-  let g:SignatureIncludeMarks = 'abcdefghijkloqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  let g:SignatureMap = {
-        \ 'Leader':            'm',
-        \ 'ListBufferMarks':   'm/',
-        \ 'ListBufferMarkers': 'm?',
-        \ 'PlaceNextMark':     'm,',
-        \ 'ToggleMarkAtLine':  'mm',
-        \ 'PurgeMarksAtLine':  'm-',
-        \ 'DeleteMark':        'dm',
-        \ 'PurgeMarks':        'm<Space>',
-        \ 'PurgeMarkers':      'm<BS>',
-        \ 'GotoNextLineAlpha': "']",
-        \ 'GotoPrevLineAlpha': "'[",
-        \ 'GotoNextSpotAlpha': '`]',
-        \ 'GotoPrevSpotAlpha': '`[',
-        \ 'GotoNextLineByPos': "]'",
-        \ 'GotoPrevLineByPos': "['",
-        \ 'GotoNextSpotByPos': 'mn',
-        \ 'GotoPrevSpotByPos': 'mp',
-        \ 'GotoNextMarker':    ']-',
-        \ 'GotoPrevMarker':    '[-',
-        \ 'GotoNextMarkerAny': ']=',
-        \ 'GotoPrevMarkerAny': '[=',
-        \ }
+  if s:enable_whichkey
+    let g:which_key_rsbmap['-'] = 'Go next marker'
+    let g:which_key_lsbmap['-'] = 'Go next marker'
+  endif
 endif
 
 if dein#tap('open-browser.vim')

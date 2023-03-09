@@ -19,7 +19,7 @@ require("nvim-tree").setup({
   },
   diagnostics = {
     enable = true,
-    show_on_dirs = false,
+    show_on_dirs = true,
     icons = {
       error = " ",
       warning = " ",
@@ -31,7 +31,7 @@ require("nvim-tree").setup({
   respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
-    update_cwd = true,
+    update_root = true,
     ignore_list = {},
   },
   system_open = {

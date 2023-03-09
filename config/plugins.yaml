@@ -206,6 +206,9 @@
 #   if: "has('nvim-0.7')"
 #   hook_source: luafile $VIM_PATH/config/plugins/shade.lua
 
+- repo: levouh/tint.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/tint.lua
+
 - repo: sindrets/winshift.nvim
   if: "has('nvim-0.5')"
 
@@ -564,10 +567,10 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/telescope.lua
 
-- repo: ahmedkhalf/project.nvim
-  if: "has('nvim-0.5')"
-  depends: telescope.nvim
-  hook_source: luafile $VIM_PATH/config/plugins/project.lua
+# - repo: ahmedkhalf/project.nvim
+#   if: "has('nvim-0.5')"
+#   depends: telescope.nvim
+#   hook_source: luafile $VIM_PATH/config/plugins/project.lua
 # }}}
 
 # ETC {{{
