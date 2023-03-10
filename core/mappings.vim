@@ -655,8 +655,8 @@ function! TextManipulationMappings()
   " Replace all with yanked texts
   nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
   " SmartPaste by replacing odd characters and autoformatting
-  nnoremap <silent><buffer> <Leader>rP <cmd>call SmartPaste()<CR>
-  imap <expr><silent><buffer> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartPaste()\<CR>" : "\<Esc>:call SmartPaste()\<CR>"
+  nnoremap <silent> <Leader>rP <cmd>call SmartPaste()<CR>
+  imap <expr><silent> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartPaste()\<CR>" : "\<Esc>:call SmartPaste()\<CR>"
   " Jumps to previously misspelled word and fixes it with the first in the suggestion
   " Update: also echo changes and line and col number
   " Ref: https://castle.Dev/post/lecture-notes-1/

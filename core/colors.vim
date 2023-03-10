@@ -160,12 +160,27 @@ highlight ExtraWhitespace guifg=#27283b guibg=#27283b ctermfg=236 ctermbg=236
 augroup WhitespaceMatch
   " Remove ALL autocommands for the WhitespaceMatch group.
   autocmd!
-  autocmd BufWinEnter * let w:whitespace_match_number =
-        \ matchadd('ExtraWhitespace', '\s\+$')
+  " autocmd BufWinEnter * let w:whitespace_match_number =
+  "       \ matchadd('ExtraWhitespace', '\s\+$')
+  autocmd BufWinEnter * call s:ActivateWhitespaceMatch()
+  " Toggle whitespace highlighting between insert and normal mode
   autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
   autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
 augroup END
+
+function! s:ActivateWhitespaceMatch()
+  " Do not activate whitespace highlighting in readonly buffers, help files, etc.
+  if &readonly || &buftype ==# 'nofile' || &buftype ==# 'help'
+    return
+  endif
+  let w:whitespace_match_number = matchadd('ExtraWhitespace', '\s\+$')
+endfunction
+
 function! s:ToggleWhitespaceMatch(mode)
+  " Do not toggle whitespace highlighting in readonly buffers, help files, etc.
+  if &readonly || &buftype ==# 'nofile' || &buftype ==# 'help'
+    return
+  endif
   let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
   if exists('w:whitespace_match_number')
     call matchdelete(w:whitespace_match_number)

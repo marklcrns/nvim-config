@@ -432,6 +432,20 @@ if dein#tap('nvim-tree.lua')
   endif
 endif
 
+if dein#tap('neo-tree.nvim')
+  nnoremap <silent> <Leader>ee :Neotree filesystem toggle<CR>
+  nnoremap <silent> <Leader>ef :Neotree filesystem reveal<CR>
+  nnoremap <silent> <Leader>eb :Neotree buffers<CR>
+  nnoremap <silent> <Leader>eg :Neotree git_status<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['e']['e'] = 'Toggle explorer to current directory'
+    let g:which_key_map['e']['f'] = 'Toggle explorer to current file'
+    let g:which_key_map['e']['b'] = 'Toggle buffer explorer'
+    let g:which_key_map['e']['g'] = 'Toggle git status explorer'
+  endif
+endif
+
 if dein#tap('dashboard-nvim')
   nnoremap <silent> <leader>so :<C-u>Dashboard<CR>
   if s:enable_whichkey

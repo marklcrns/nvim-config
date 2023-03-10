@@ -2,6 +2,8 @@ require("scrollbar").setup({
   excluded_buftypes = {
     "terminal",
     "nowrite",
+    "nofile",
+    "prompt",
   },
   excluded_filetypes = {
     "prompt",
@@ -12,6 +14,7 @@ require("scrollbar").setup({
     "toggleterm",
     "lspsagaoutline",
     "NvimTree",
+    "neo-tree",
   },
   require("scrollbar.handlers.search").setup(),
   -- require("scrollbar.handlers.gitsigns").setup(),

@@ -172,6 +172,7 @@
 # Tools
 # ----------------------------------------
 - repo: marklcrns/vim-smartq
+  hook_source: source $VIM_PATH/config/plugins/vim-smartq.vim
 
 # DEPRECATED by lspsaga.nvim
 # - repo: akinsho/toggleterm.nvim
@@ -212,8 +213,8 @@
 - repo: sindrets/winshift.nvim
   if: "has('nvim-0.5')"
 
-- repo: t9md/vim-choosewin
-  hook_source: source $VIM_PATH/config/plugins/vim-choosewin.vim
+# - repo: t9md/vim-choosewin
+#   hook_source: source $VIM_PATH/config/plugins/vim-choosewin.vim
 
 # Improve CursorHold performance: https://github.com/neovim/neovim/issues/12587
 - repo: antoinemadec/FixCursorHold.nvim
@@ -554,10 +555,19 @@
   depends: nvim-treesitter
   hook_source: source $VIM_PATH/config/plugins/vim-matchup.vim
 
-- repo: kyazdani42/nvim-tree.lua
-  if: "has('nvim-0.5')"
-  on_cmd: [NvimTreeToggle, NvimTreeOpen, NvimTreeFindFile]
-  hook_source: source $VIM_PATH/config/plugins/nvim-tree.lua
+# - repo: kyazdani42/nvim-tree.lua
+#   if: "has('nvim-0.5')"
+#   on_cmd: [NvimTreeToggle, NvimTreeOpen, NvimTreeFindFile]
+#   hook_source: luafile $VIM_PATH/config/plugins/nvim-tree.lua
+
+- repo: MunifTanjim/nui.nvim
+- repo: s1n7ax/nvim-window-picker
+  rev: "v1.*"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-window-picker.lua
+
+- repo: nvim-neo-tree/neo-tree.nvim
+  depends: [ 'plenary.nvim', 'nvim-web-devicons', 'nui.nvim', 'nvim-window-picker' ]
+  hook_source: luafile $VIM_PATH/config/plugins/neo-tree.lua
 
 - repo: nvim-lua/popup.nvim
   if: "has('nvim-0.5')"
@@ -567,10 +577,10 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/telescope.lua
 
-# - repo: ahmedkhalf/project.nvim
-#   if: "has('nvim-0.5')"
-#   depends: telescope.nvim
-#   hook_source: luafile $VIM_PATH/config/plugins/project.lua
+- repo: ahmedkhalf/project.nvim
+  if: "has('nvim-0.5')"
+  depends: telescope.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/project.lua
 # }}}
 
 # ETC {{{
