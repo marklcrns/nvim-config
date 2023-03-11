@@ -1,4 +1,5 @@
 require("lspsaga").setup({
+  request_timeout = 2000,
   ui = {
     -- currently only round theme
     theme = "round",
@@ -30,6 +31,21 @@ require("lspsaga").setup({
     },
     kind = {},
   },
+  finder = {
+    --percentage
+    max_height = 0.5,
+    force_max_height = false,
+    keys = {
+      jump_to = "p",
+      edit = { "o", "<CR>" },
+      vsplit = "<C-v>",
+      split = "<C-g>",
+      tabe = "t",
+      tabnew = "<C-t>",
+      quit = { "q", "<ESC>" },
+      close_in_preview = "<ESC>",
+    },
+  },
   outline = {
     win_position = "right",
     win_with = "",
@@ -41,8 +57,44 @@ require("lspsaga").setup({
     custom_sort = nil,
     keys = {
       jump = "<CR>",
-      expand_collapse = "o",
+      expand_collapse = "<Tab>",
+      quit = { "q", "<ESC>" },
+    },
+  },
+  definition = {
+    edit = { "o", "<CR>" },
+    vsplit = "<C-v>",
+    split = "<C-g>",
+    tabe = "<C-t>",
+    quit = { "q", "<ESC>" },
+  },
+  callhierarchy = {
+    show_detail = false,
+    keys = {
+      jump = "<CR>",
+      edit = "o",
+      vsplit = "<C-v>",
+      split = "<C-g>",
+      tabe = "<C-t>",
+      quit = { "q", "<ESC>" },
+      expand_collapse = "<Tab>",
+    },
+  },
+  lightbulb = {
+    enable = true,
+    enable_in_insert = false,
+    sign = true,
+    sign_priority = 40,
+    virtual_text = false,
+  },
+  code_action = {
+    num_shortcut = true,
+    show_server_name = true,
+    extend_gitsigns = true,
+    keys = {
+      -- string | table type
       quit = "q",
+      exec = "<CR>",
     },
   },
   symbol_in_winbar = {

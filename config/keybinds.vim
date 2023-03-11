@@ -94,11 +94,11 @@ if dein#tap('nvim-lspconfig')
     let g:which_key_map['x'] = 'Open diagnostic float'
     let g:which_key_map['X'] = 'Set location list'
 
-    let g:which_key_gmap['d'] = 'LSP go to definition'
-    let g:which_key_gmap['D'] = 'LSP go to declaration'
-    let g:which_key_gmap['i'] = 'LSP go to implementation'
-    let g:which_key_gmap['r'] = 'LSP go to references'
-    let g:which_key_gmap['t'] = 'LSP go to type definition'
+    let g:which_key_gmap['d'] = 'LSP: go to definition'
+    let g:which_key_gmap['D'] = 'LSP: go to declaration'
+    let g:which_key_gmap['i'] = 'LSP: go to implementation'
+    let g:which_key_gmap['r'] = 'LSP: go to references'
+    let g:which_key_gmap['t'] = 'LSP: go to type definition'
   endif
 endif
 
@@ -113,14 +113,17 @@ if dein#tap('null-ls.nvim')
 endif
 
 if dein#tap('lspsaga.nvim')
-  " hover_doc is referenced in nvim-ufo peekOrHover()
+  " NOTE: hover_doc is defined in nvim-ufo peekOrHover()
   " nnoremap <silent> K           <cmd>Lspsaga hover_doc<CR>
-  nnoremap <silent> gd          <cmd>Lspsaga goto_definition<CR>
+  nnoremap <silent> gd          <cmd>Lspsaga peek_definition<CR>
+  nnoremap <silent> gD          <cmd>Lspsaga goto_definition<CR>
+  nnoremap <silent> gt          <cmd>Lspsaga peek_type_definition<CR>
+  nnoremap <silent> gT          <cmd>Lspsaga goto_type_definition<CR>
   nnoremap <silent> gf          <cmd>Lspsaga lsp_finder<CR>
   nnoremap <silent> <leader>ca  <cmd>Lspsaga code_action<CR>
   vnoremap <silent> <leader>ca  <cmd>Lspsaga range_code_action<CR>
-  nnoremap <silent> <leader>cr  <cmd>Lspsaga rename<CR>
-  vnoremap <silent> <leader>ci  <cmd>Lspsaga incoming_calls<CR>
+  nnoremap <silent> <leader>cr  <cmd>Lspsaga rename ++project<CR>
+  nnoremap <silent> <leader>ci  <cmd>Lspsaga incoming_calls<CR>
   nnoremap <silent> <leader>co  <cmd>Lspsaga outgoing_calls<CR>
   nnoremap <silent> <leader>cO  <cmd>Lspsaga outline<CR>
   nnoremap <silent> [e          <cmd>Lspsaga diagnostic_jump_prev<CR>
@@ -130,18 +133,22 @@ if dein#tap('lspsaga.nvim')
   nnoremap <silent> <C-\>       <cmd>Lspsaga term_toggle<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['c']['a'] = 'Code action'
-    let g:which_key_map['c']['r'] = 'LSP rename'
-    let g:which_key_map['c']['i'] = 'LSP peak step out function call'
-    let g:which_key_map['c']['o'] = 'LSP peak step in function call'
+    let g:which_key_map['c']['a'] = 'LSP: Code action'
+    let g:which_key_map['c']['r'] = 'LSP: rename'
+    let g:which_key_map['c']['i'] = 'LSP: peak step out function call'
+    let g:which_key_map['c']['o'] = 'LSP: peak step in function call'
+    let g:which_key_map['c']['O'] = 'LSP: show code outline'
 
-    let g:which_key_gmap['d'] = 'LSP go to definition'
-    let g:which_key_gmap['f'] = 'LSP finder'
+    let g:which_key_gmap['d'] = 'LSP: peek definition'
+    let g:which_key_gmap['D'] = 'LSP: go to definition'
+    let g:which_key_gmap['t'] = 'LSP: peek type definition'
+    let g:which_key_gmap['T'] = 'LSP: go to type definition'
+    let g:which_key_gmap['f'] = 'LSP: finder'
 
-    let g:which_key_lsbmap['e'] = 'LSP Diagnostic prev'
-    let g:which_key_rsbmap['e'] = 'LSP Diagnostic next'
-    let g:which_key_lsbmap['E'] = 'LSP Diagnostic prev error'
-    let g:which_key_rsbmap['E'] = 'LSP Diagnostic next error'
+    let g:which_key_lsbmap['e'] = 'LSP: Diagnostic prev'
+    let g:which_key_rsbmap['e'] = 'LSP: Diagnostic next'
+    let g:which_key_lsbmap['E'] = 'LSP: Diagnostic prev error'
+    let g:which_key_rsbmap['E'] = 'LSP: Diagnostic next error'
   endif
 endif
 
@@ -434,12 +441,16 @@ endif
 
 if dein#tap('neo-tree.nvim')
   nnoremap <silent> <Leader>ee :Neotree filesystem toggle<CR>
+  nnoremap <silent> <Leader>el :Neotree filesystem toggle position=left<CR>
+  nnoremap <silent> <Leader>er :Neotree filesystem toggle position=right<CR>
   nnoremap <silent> <Leader>ef :Neotree filesystem reveal<CR>
   nnoremap <silent> <Leader>eb :Neotree buffers<CR>
   nnoremap <silent> <Leader>eg :Neotree git_status<CR>
 
   if s:enable_whichkey
     let g:which_key_map['e']['e'] = 'Toggle explorer to current directory'
+    let g:which_key_map['e']['l'] = 'Toggle explorer to current directory (left)'
+    let g:which_key_map['e']['r'] = 'Toggle explorer to current directory (right)'
     let g:which_key_map['e']['f'] = 'Toggle explorer to current file'
     let g:which_key_map['e']['b'] = 'Toggle buffer explorer'
     let g:which_key_map['e']['g'] = 'Toggle git status explorer'
@@ -571,6 +582,14 @@ if dein#tap('vim-sandwich')
   xmap as <Plug>(textobj-sandwich-query-a)
 endif
 
+if dein#tap('vim-matchup')
+  nnoremap <LocalLeader>sm :<C-R>=exists("g:matchup_matchparen_enabled") ? ( (g:matchup_matchparen_enabled == 1) ? 'NoMatchParen': 'DoMatchParen'): 'DoMatchParen'<CR><CR>
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['m'] = 'Toggle matchup highlight'
+  endif
+endif
+
 if dein#tap('nvim-ufo')
   if s:enable_whichkey
     let g:which_key_localmap['s']['r'] = 'Toggle Auto-resize'
@@ -579,26 +598,34 @@ endif
 
 if dein#tap('nvim-treesitter-textobjects')
   if s:enable_whichkey
-    let g:which_key_rsbmap['f'] = 'Go to next function'
-    let g:which_key_lsbmap['f'] = 'Go to previous function'
-    let g:which_key_rsbmap['F'] = 'Swap with next function'
-    let g:which_key_lsbmap['F'] = 'Swap with previous function'
-    let g:which_key_rsbmap['p'] = 'Go to next parameter'
-    let g:which_key_lsbmap['p'] = 'Go to previous parameter'
-    let g:which_key_rsbmap['P'] = 'Swap with next parameter'
-    let g:which_key_lsbmap['P'] = 'Swap with previous parameter'
-    let g:which_key_rsbmap['i'] = 'Go to next conditional'
-    let g:which_key_lsbmap['i'] = 'Go to previous conditional'
-    let g:which_key_rsbmap['I'] = 'Swap with next conditional'
-    let g:which_key_lsbmap['I'] = 'Swap with previous conditional'
-    let g:which_key_rsbmap['o'] = 'Go to next loop'
-    let g:which_key_lsbmap['o'] = 'Go to previous loop'
-    let g:which_key_rsbmap['O'] = 'Swap with next loop'
-    let g:which_key_lsbmap['O'] = 'Swap with previous loop'
-    let g:which_key_rsbmap['s'] = 'Go to scope'
-    let g:which_key_lsbmap['s'] = 'Go to score'
-    let g:which_key_rsbmap[']'] = 'Go to next class'
-    let g:which_key_lsbmap['['] = 'Go to previous class'
+    let g:which_key_rsbmap['a'] = 'LSP: Go to next assignment'
+    let g:which_key_lsbmap['a'] = 'LSP: Go to previous assignment'
+    let g:which_key_rsbmap['f'] = 'LSP: Go to next function'
+    let g:which_key_lsbmap['f'] = 'LSP: Go to previous function'
+    let g:which_key_rsbmap['F'] = 'LSP: Swap with next function'
+    let g:which_key_lsbmap['F'] = 'LSP: Swap with previous function'
+    let g:which_key_rsbmap['n'] = 'LSP: Go to next number'
+    let g:which_key_lsbmap['n'] = 'LSP: Go to previous number'
+    let g:which_key_rsbmap['p'] = 'LSP: Go to next parameter'
+    let g:which_key_lsbmap['p'] = 'LSP: Go to previous parameter'
+    let g:which_key_rsbmap['P'] = 'LSP: Swap with next parameter'
+    let g:which_key_lsbmap['P'] = 'LSP: Swap with previous parameter'
+    let g:which_key_rsbmap['i'] = 'LSP: Go to next conditional'
+    let g:which_key_lsbmap['i'] = 'LSP: Go to previous conditional'
+    let g:which_key_rsbmap['I'] = 'LSP: Swap with next conditional'
+    let g:which_key_lsbmap['I'] = 'LSP: Swap with previous conditional'
+    let g:which_key_rsbmap['o'] = 'LSP: Go to next loop'
+    let g:which_key_lsbmap['o'] = 'LSP: Go to previous loop'
+    let g:which_key_rsbmap['O'] = 'LSP: Swap with next loop'
+    let g:which_key_lsbmap['O'] = 'LSP: Swap with previous loop'
+    let g:which_key_rsbmap['s'] = 'LSP: Go to next scope'
+    let g:which_key_lsbmap['s'] = 'LSP: Go to previous scope'
+    let g:which_key_rsbmap[']'] = 'LSP: Go to next class'
+    let g:which_key_rsbmap['['] = 'LSP: Go to next inner class'
+    let g:which_key_rsbmap['}'] = 'LSP: Go to next block'
+    let g:which_key_lsbmap['['] = 'LSP: Go to previous class'
+    let g:which_key_lsbmap[']'] = 'LSP: Go to previous inner class'
+    let g:which_key_lsbmap['{'] = 'LSP: Go to previous block'
   endif
 endif
 

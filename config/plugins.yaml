@@ -49,7 +49,7 @@
   hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
 
 - repo: nvim-treesitter/nvim-treesitter-textobjects
-  depends: [ 'nvim-treesitter', 'nvim-ufo', 'lspsaga.nvim' ]
+  depends: [ 'nvim-treesitter', 'nvim-ufo' ]
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textobjects.lua
 
@@ -542,7 +542,6 @@
   hook_source: luafile $VIM_PATH/config/plugins/neoscroll.lua
 
 - repo: kevinhwang91/nvim-hlslens
-  depends: nvim-ufo
   hook_source: luafile $VIM_PATH/config/plugins/nvim-hlslens.lua
 
 - repo: petertriho/nvim-scrollbar

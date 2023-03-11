@@ -19,10 +19,14 @@ require("nvim-treesitter.configs").setup({
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
+        ["]a"] = { query = "@assignment.outer", desc = "Next assignment start" },
+        ["]n"] = { query = "@number.inner", desc = "Next number start" },
         ["]p"] = { query = "@parameter.inner", desc = "Next parameter start" },
         ["]f"] = { query = "@function.outer", desc = "Next function start" },
-        ["]]"] = { query = "@class.outer", desc = "Next class start" },
         ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
+        ["]}"] = { query = "@block.outer", desc = "Next block start" },
+        ["]]"] = { query = "@class.outer", desc = "Next class start" },
+        ["]["] = { query = "@class.inner", desc = "Next class inner start" },
         -- ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
 
         -- You can use regex matching and/or pass a list in a "query" key to group multiple queires.
@@ -30,10 +34,14 @@ require("nvim-treesitter.configs").setup({
         -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } },
       },
       goto_previous_start = {
+        ["[a"] = { query = "@assignment.outer", desc = "Previous assignment start" },
+        ["[n"] = { query = "@number.inner", desc = "Previous number start" },
         ["[p"] = { query = "@parameter.inner", desc = "Previous parameter start" },
         ["[f"] = { query = "@function.outer", desc = "Previous function start" },
-        ["[["] = { query = "@class.outer", desc = "Previous class start" },
         ["[s"] = { query = "@scope", query_group = "locals", desc = "Previous scope" },
+        ["[}"] = { query = "@block.outer", desc = "Next block start" },
+        ["[["] = { query = "@class.outer", desc = "Previous class start" },
+        ["[]"] = { query = "@class.inner", desc = "Previous class inner start" },
         -- ["[z"] = { query = "@fold", query_group = "folds", desc = "Previous fold" },
 
         ["[o"] = "@loop.*",
