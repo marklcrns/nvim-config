@@ -152,8 +152,8 @@ function! ExitMappings()
   nnoremap <silent> <leader>fs :CustomBufferWrite<CR>
   xnoremap <silent> <leader>fs <Esc>:CustomBufferWrite<CR>
   " Write/Save all buffer
-  nnoremap <silent> <leader>fS :CustomBufferWrite a<CR>
-  xnoremap <silent> <leader>fS <Esc>:CustomBufferWrite a<CR>
+  nnoremap <silent> <leader>fa :CustomBufferWrite a<CR>
+  xnoremap <silent> <leader>fa <Esc>:CustomBufferWrite a<CR>
   " Save and quit
   nnoremap <silent> <leader>fq :CustomBufferWrite q<CR>
   xnoremap <silent> <leader>fq <Esc>:CustomBufferWrite q<CR>

@@ -270,10 +270,19 @@ if dein#tap('vim-smartq')
   nmap <silent> <Leader>fq <Plug>(smartq_this_save)
   nmap <silent> <Leader>wq <Plug>(smartq_close_splits)
 
-
   if s:enable_whichkey
     let g:which_key_map['f']['q'] = 'SmartQ Save'
     let g:which_key_map['w']['q'] = 'SmartQ Close all splits'
+  endif
+endif
+
+if dein#tap('vim-eunuch')
+  nmap <silent> <Leader>fS <cmd>SudoWrite<CR>
+  nmap <silent> <Leader>fe <cmd>SudoEdit<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['f']['s'] = 'Save buffer as root'
+    let g:which_key_map['f']['e'] = 'Edit buffer as root'
   endif
 endif
 

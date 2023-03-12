@@ -6,10 +6,14 @@
 # hook_post_update: executed after each plugin is updated
 # hook_done_update: executed after all plugins are updated
 
-# Normal Loaded Plugins
+# Startup Plugins
 # ==========================================
+- repo: Shougo/dein.vim
 
-# Colorschemes {{{
+# Colorschemes
+# ----------------------------------------
+- repo: kyazdani42/nvim-web-devicons
+  if: "has('nvim-0.5')"
 - repo: folke/tokyonight.nvim
   hook_source: luafile $VIM_PATH/config/plugins/tokyonight.lua
 - repo: catppuccin/nvim
@@ -18,14 +22,9 @@
   hook_source: luafile $VIM_PATH/config/plugins/nightfox.lua
 - repo: nyoom-engineering/oxocarbon.nvim
   hook_source: luafile $VIM_PATH/config/plugins/oxocarbon.lua
-# }}}
 
-# Startup {{{
-- repo: Shougo/dein.vim
-
-- repo: kyazdani42/nvim-web-devicons
-  if: "has('nvim-0.5')"
-
+# Session Manager
+# ----------------------------------------
 - repo: glepnir/dashboard-nvim
   on_event: VimEnter
   depends: [ 'nvim-web-devicons' ]
@@ -35,29 +34,24 @@
   hook_source: luafile $VIM_PATH/config/plugins/auto-session.lua
 
 - repo: rmagatti/session-lens
+  on_cmd: Telescope
   depends: [ 'telescope.nvim', 'auto-session' ]
   hook_source: luafile $VIM_PATH/config/plugins/session-lens.lua
 
-# Completion
+- repo: ahmedkhalf/project.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/project.lua
+
+# Mapping Manager
 # ----------------------------------------
 - repo: liuchengxu/vim-which-key
   hook_source: source $VIM_PATH/config/plugins/whichkey.vim
 
-- repo: nvim-treesitter/nvim-treesitter
-  if: "has('nvim-0.7')"
-  build: TSUpdate
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
+# LSP + Syntax + Completion
+# ==========================================
 
-- repo: nvim-treesitter/nvim-treesitter-textobjects
-  depends: [ 'nvim-treesitter', 'nvim-ufo' ]
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textobjects.lua
-
-- repo: RRethy/nvim-treesitter-textsubjects
-  depends: nvim-treesitter
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textsubjects.lua
-
+# LSP
+# ----------------------------------------
 - repo: williamboman/mason.nvim
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/mason.lua
@@ -98,9 +92,41 @@
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/symbols-outline.lua
 
+# Syntax
+# ----------------------------------------
+- repo: nvim-treesitter/nvim-treesitter
+  if: "has('nvim-0.7')"
+  build: TSUpdate
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter.lua
+
+- repo: nvim-treesitter/nvim-treesitter-textobjects
+  depends: [ 'nvim-treesitter', 'nvim-ufo' ]
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textobjects.lua
+
+- repo: RRethy/nvim-treesitter-textsubjects
+  depends: nvim-treesitter
+  if: "has('nvim-0.7')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textsubjects.lua
+
+# Comletion
+# ----------------------------------------
 - repo: hrsh7th/nvim-cmp
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-cmp.lua
+
+- repo: SirVer/ultisnips
+  if: has('python3')
+  hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
+
+- repo: honza/vim-snippets
+  if: has('python3')
+  depends: ultisnips
+  merged: 0
+
+- repo: mlaursen/vim-react-snippets
+  if: has('python3')
+  depends: ultisnips
 
 # DEPRECATED: Replaced by copilot.lua
 # # Make sure to run `:Copilot auth` after install
@@ -173,34 +199,10 @@
 - repo: sedm0784/vim-you-autocorrect
   hook_source: source $VIM_PATH/config/plugins/vim-you-autocorrect.vim
 
-# Tools
-# ----------------------------------------
-- repo: marklcrns/vim-smartq
-  hook_source: source $VIM_PATH/config/plugins/vim-smartq.vim
-
-# DEPRECATED by lspsaga.nvim
-# - repo: akinsho/toggleterm.nvim
-#   hook_source: luafile $VIM_PATH/config/plugins/toggleterm.lua
-
-- repo: christoomey/vim-tmux-navigator
-  if: "! (has('win32') || has('win64'))"
-  hook_add: |
-    let g:tmux_navigator_disable_when_zoomed = 1
-    let g:tmux_navigator_no_mappings = 1
-
-- repo: tpope/vim-eunuch
-- repo: Shougo/context_filetype.vim
-- repo: skywind3000/asyncrun.vim
-
-- repo: sgur/vim-editorconfig
-  hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
-
-- repo: folke/todo-comments.nvim
-  if: "has('nvim-0.5')"
-  hook_source: luafile $VIM_PATH/config/plugins/todo-comments.lua
-
 # Window management
+# ----------------------------------------
 - repo: beauwilliams/focus.nvim
+  on_event: VimEnter
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/focus.lua
 
@@ -219,36 +221,7 @@
 
 # - repo: t9md/vim-choosewin
 #   hook_source: source $VIM_PATH/config/plugins/vim-choosewin.vim
-
-# Improve CursorHold performance: https://github.com/neovim/neovim/issues/12587
-- repo: antoinemadec/FixCursorHold.nvim
-  if: "has('nvim')"
-
-# Vim8 only:
-- repo: roxma/nvim-yarp
-  if: "!has('nvim')"
-  depends: vim-hug-neovim-rpc
-
-- repo: roxma/vim-hug-neovim-rpc
-  if: "!has('nvim')"
 # }}}
-
-# Lazy Loading
-# ==========================================
-
-# Completion{{{
-- repo: SirVer/ultisnips
-  if: has('python3')
-  hook_add: source $VIM_PATH/config/plugins/ultisnips.vim
-
-- repo: honza/vim-snippets
-  if: has('python3')
-  depends: ultisnips
-  merged: 0
-
-- repo: mlaursen/vim-react-snippets
-  if: has('python3')
-  depends: ultisnips
 
 # Syntax{{{
 
@@ -274,6 +247,7 @@
   hook_source: luafile $VIM_PATH/config/plugins/dial.lua
 
 - repo: wfxr/minimap.vim
+  on_cmd: [ MinimapToggle ]
   build: 'cargo install --locked code-minimap'
   hook_source: source $VIM_PATH/config/plugins/minimap.vim
 
@@ -286,6 +260,11 @@
   hook_source: luafile $VIM_PATH/config/plugins/vim-illuminate.lua
 
 # Debugger
+- repo: mfussenegger/nvim-dap
+  if: "has('nvim-0.8')"
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-dap.lua
+  depends: [ nvim-dap-ui, nvim-dap-virtual-text ]
+
 - repo: rcarriga/nvim-dap-ui
   if: "has('nvim-0.8')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-dap-ui.lua
@@ -293,11 +272,6 @@
 - repo: theHamsta/nvim-dap-virtual-text
   if: "has('nvim-0.8')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-dap-virtual-text.lua
-
-- repo: mfussenegger/nvim-dap
-  if: "has('nvim-0.8')"
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-dap.lua
-  depends: [ nvim-dap-ui, nvim-dap-virtual-text ]
 
 - repo: jayp0521/mason-nvim-dap.nvim
   depends: [ mason.nvim, nvim-dap ]
@@ -308,11 +282,11 @@
   depends: [ telescope.nvim, nvim-dap ]
   if: "has('nvim-0.8')"
   hook_source: luafile $VIM_PATH/config/plugins/telescope-dap.lua
-  
 
 # Folds
 - repo: kevinhwang91/promise-async
 - repo: kevinhwang91/nvim-ufo
+  on_event: BufRead
   depends: [nvim-treesitter, promise-async]
   hook_source: luafile $VIM_PATH/config/plugins/nvim-ufo.lua
 
@@ -351,12 +325,13 @@
   hook_source: luafile $VIM_PATH/config/plugins/rest.lua
 
 # Git{{{
-- repo: lambdalisue/gina.vim
-  on_cmd: Gina
-  on_ft: [gitcommit, gitrebase]
-  hook_source: source $VIM_PATH/config/plugins/gina.vim
+# - repo: lambdalisue/gina.vim
+#   on_cmd: Gina
+#   on_ft: [gitcommit, gitrebase]
+#   hook_source: source $VIM_PATH/config/plugins/gina.vim
 
 - repo: TimUntersberger/neogit
+  on_cmd: Neogit
   if: "has('nvim-0.5')"
   depends: diffview.nvim
   hook_source: luafile $VIM_PATH/config/plugins/neogit.lua
@@ -458,14 +433,16 @@
   on_cmd: [VimuxPromptCommand, VimuxOpenRunner]
 
 - repo: nvim-neorg/neorg
-  on_ft: 'norg'
+  on_ft: norg
+  on_cmd: Neorg
   if: "has('nvim-0.5')"
   build: "Neorg sync-parsers"
   depends: [ plenary.nvim, nvim-treesitter, neorg-telescope, telescope.nvim ]
   hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
 
 - repo: nvim-neorg/neorg-telescope
-  on_ft: 'norg'
+  on_ft: norg
+  on_cmd: [ Telescope, Neorg ]
   depends: [neorg, telescope.nvim]
   hook_source: luafile $VIM_PATH/config/plugins/neorg.lua
 
@@ -516,9 +493,11 @@
 - repo: tpope/vim-repeat
   on_map: .*
 
-- repo: max397574/better-escape.nvim
-  if: "has('nvim')"
-  hook_source: luafile $VIM_PATH/config/plugins/better-escape.lua
+# NOTE: Temporarily disable to see if I can live without it
+# WARNING: Interferes with vim macro
+# - repo: max397574/better-escape.nvim
+#   if: "has('nvim')"
+#   hook_source: luafile $VIM_PATH/config/plugins/better-escape.lua
 
 - repo: ggandor/leap.nvim
   if: "has('nvim-0.7')"
@@ -529,6 +508,7 @@
   hook_add: source $VIM_PATH/config/plugins/far.vim
 
 - repo: lukas-reineke/indent-blankline.nvim
+  on_event: BufRead
   hook_source: luafile $VIM_PATH/config/plugins/indent-blankline.lua
 
 - repo: norcalli/nvim-colorizer.lua
@@ -536,7 +516,6 @@
   hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
 - repo: mvllow/modes.nvim
-  rev: v0.2.0
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/modes.lua
 
@@ -544,9 +523,6 @@
   on_ft: qf
   on_map: { n: <Plug> }
   hook_source: source $VIM_PATH/config/plugins/vim-qf.vim
-
-# - repo: rhysd/accelerated-jk
-#   on_map: { n: <Plug> }
 
 - repo: karb94/neoscroll.nvim
   hook_source: luafile $VIM_PATH/config/plugins/neoscroll.lua
@@ -564,17 +540,13 @@
   depends: nvim-treesitter
   hook_source: source $VIM_PATH/config/plugins/vim-matchup.vim
 
-# - repo: kyazdani42/nvim-tree.lua
-#   if: "has('nvim-0.5')"
-#   on_cmd: [NvimTreeToggle, NvimTreeOpen, NvimTreeFindFile]
-#   hook_source: luafile $VIM_PATH/config/plugins/nvim-tree.lua
-
 - repo: MunifTanjim/nui.nvim
 - repo: s1n7ax/nvim-window-picker
   rev: "v1.*"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-window-picker.lua
 
 - repo: nvim-neo-tree/neo-tree.nvim
+  on_cmd: [ NeoTree ]
   depends: [ 'plenary.nvim', 'nvim-web-devicons', 'nui.nvim', 'nvim-window-picker' ]
   hook_source: luafile $VIM_PATH/config/plugins/neo-tree.lua
 
@@ -584,12 +556,34 @@
   if: "has('nvim-0.5')"
 - repo: nvim-telescope/telescope.nvim
   if: "has('nvim-0.5')"
+  on_event: VimEnter
   hook_source: luafile $VIM_PATH/config/plugins/telescope.lua
 
-- repo: ahmedkhalf/project.nvim
+# Vim Utils
+# ----------------------------------------
+- repo: marklcrns/vim-smartq
+  on_event: VimEnter
+  hook_source: source $VIM_PATH/config/plugins/vim-smartq.vim
+
+- repo: christoomey/vim-tmux-navigator
+  on_event: VimEnter
+  if: "! (has('win32') || has('win64'))"
+  hook_add: |
+    let g:tmux_navigator_disable_when_zoomed = 1
+    let g:tmux_navigator_no_mappings = 1
+
+- repo: tpope/vim-eunuch
+
+- repo: skywind3000/asyncrun.vim
+
+- repo: sgur/vim-editorconfig
+  hook_add: source $VIM_PATH/config/plugins/vim-editorconfig.vim
+
+- repo: folke/todo-comments.nvim
+  on_event: BufRead
   if: "has('nvim-0.5')"
-  depends: telescope.nvim
-  hook_source: luafile $VIM_PATH/config/plugins/project.lua
+  hook_source: luafile $VIM_PATH/config/plugins/todo-comments.lua
+
 # }}}
 
 # ETC {{{

@@ -55,6 +55,7 @@ let g:which_key_map = {
           \ },
     \ 'f' : {
           \ 'name' : '+file-manager',
+          \ 'a' : 'Save all buffers',
           \ 'D' : 'Delete current file',
           \ 'g' : 'Vimgrep (project-wide) and load into quickfix',
           \ 'q' : 'Save and quit',
@@ -66,7 +67,6 @@ let g:which_key_map = {
                 \ 'l' : 'Change working directory to current file (window only)',
                 \ },
           \ 's' : 'Save buffer',
-          \ 'S' : 'Save all buffers',
           \ 'w' : 'Wipe buffer',
           \ 'y' : {
                 \ 'name' : '+yank-path',
