@@ -82,9 +82,9 @@
   hook_source: luafile $VIM_PATH/config/plugins/null-ls.lua
   depends: [ 'mason-null-ls.nvim' ]
 
-- repo: ray-x/lsp_signature.nvim
-  if: "has('nvim-0.7')"
-  hook_source: luafile $VIM_PATH/config/plugins/lsp_signature.lua
+# - repo: ray-x/lsp_signature.nvim
+#   if: "has('nvim-0.7')"
+#   hook_source: luafile $VIM_PATH/config/plugins/lsp_signature.lua
 
 - repo: glepnir/lspsaga.nvim
   if: "has('nvim-0.7')"
@@ -134,6 +134,10 @@
   depends: nvim-cmp
 
 - repo: hrsh7th/cmp-cmdline
+  if: "has('nvim-0.7')"
+  depends: nvim-cmp
+
+- repo: rcarriga/cmp-dap
   if: "has('nvim-0.7')"
   depends: nvim-cmp
 
@@ -207,8 +211,8 @@
 #   if: "has('nvim-0.7')"
 #   hook_source: luafile $VIM_PATH/config/plugins/shade.lua
 
-- repo: levouh/tint.nvim
-  hook_source: luafile $VIM_PATH/config/plugins/tint.lua
+# - repo: levouh/tint.nvim
+#   hook_source: luafile $VIM_PATH/config/plugins/tint.lua
 
 - repo: sindrets/winshift.nvim
   if: "has('nvim-0.5')"
@@ -293,12 +297,18 @@
 - repo: mfussenegger/nvim-dap
   if: "has('nvim-0.8')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-dap.lua
-  depends: [ 'nvim-dap-ui', 'nvim-dap-virtual-text' ]
+  depends: [ nvim-dap-ui, nvim-dap-virtual-text ]
 
 - repo: jayp0521/mason-nvim-dap.nvim
+  depends: [ mason.nvim, nvim-dap ]
   if: "has('nvim-0.8')"
   hook_source: luafile $VIM_PATH/config/plugins/mason-nvim-dap.lua
-  depends: [ 'mason.nvim', 'nvim-dap' ]
+
+- repo: nvim-telescope/telescope-dap.nvim
+  depends: [ telescope.nvim, nvim-dap ]
+  if: "has('nvim-0.8')"
+  hook_source: luafile $VIM_PATH/config/plugins/telescope-dap.lua
+  
 
 # Folds
 - repo: kevinhwang91/promise-async

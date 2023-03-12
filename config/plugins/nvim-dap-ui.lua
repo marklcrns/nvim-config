@@ -63,5 +63,3 @@ dapui.setup({
     max_type_length = nil, -- Can be integer or nil.
   },
 })
-
-vim.api.nvim_set_keymap("n", "<Leader>dt", "<CMD>lua require('dapui').toggle()<CR>", { noremap = true, silent = true })

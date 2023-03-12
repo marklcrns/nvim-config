@@ -46,6 +46,10 @@ local t = function(str)
 end
 
 cmp.setup({
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+  end,
+
   snippet = {
     expand = function(args)
       vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -266,6 +270,13 @@ cmp.event:on(
     },
   })
 )
+
+-- Dap completion
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  sources = {
+    { name = "dap" },
+  },
+})
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype({ "gitcommit", "gina-commit", "NeogitCommitMessage" }, {

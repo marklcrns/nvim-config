@@ -29,7 +29,7 @@ require("lspsaga").setup({
       white = "#d1d4cf",
       black = "#1c1c19",
     },
-    kind = {},
+    kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
   },
   finder = {
     --percentage
@@ -37,13 +37,32 @@ require("lspsaga").setup({
     force_max_height = false,
     keys = {
       jump_to = "p",
-      edit = { "o", "<CR>" },
+      edit = "<CR>",
       vsplit = "<C-v>",
       split = "<C-g>",
       tabe = "t",
       tabnew = "<C-t>",
       quit = { "q", "<ESC>" },
       close_in_preview = "<ESC>",
+    },
+  },
+  definition = {
+    edit = "<CR>",
+    vsplit = "<C-v>",
+    split = "<C-g>",
+    tabe = "<C-t>",
+    quit = "<ESC>",
+  },
+  callhierarchy = {
+    show_detail = false,
+    keys = {
+      edit = "p",
+      vsplit = "<C-v>",
+      split = "<C-g>",
+      tabe = "<C-t>",
+      jump = "<CR>",
+      quit = "<ESC>",
+      expand_collapse = "<Tab>",
     },
   },
   outline = {
@@ -58,26 +77,7 @@ require("lspsaga").setup({
     keys = {
       jump = "<CR>",
       expand_collapse = "<Tab>",
-      quit = { "q", "<ESC>" },
-    },
-  },
-  definition = {
-    edit = { "o", "<CR>" },
-    vsplit = "<C-v>",
-    split = "<C-g>",
-    tabe = "<C-t>",
-    quit = { "q", "<ESC>" },
-  },
-  callhierarchy = {
-    show_detail = false,
-    keys = {
-      jump = "<CR>",
-      edit = "o",
-      vsplit = "<C-v>",
-      split = "<C-g>",
-      tabe = "<C-t>",
-      quit = { "q", "<ESC>" },
-      expand_collapse = "<Tab>",
+      quit = "q",
     },
   },
   lightbulb = {
@@ -93,8 +93,8 @@ require("lspsaga").setup({
     extend_gitsigns = true,
     keys = {
       -- string | table type
-      quit = "q",
       exec = "<CR>",
+      quit = "<ESC>",
     },
   },
   symbol_in_winbar = {

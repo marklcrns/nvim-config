@@ -37,7 +37,7 @@ require("tokyonight").setup({
 
   -- Telescope borderless theme
   on_highlights = function(hl, c)
-    local prompt = "#2d3149"
+    local prompt = "#2c3048"
     hl.TelescopeNormal = {
       bg = c.bg_dark,
       fg = c.fg_dark,

@@ -154,7 +154,15 @@ endif
 
 if dein#tap('shade.nvim')
   if s:enable_whichkey
-    let g:which_key_localmap['s']['d'] = 'Toggle Shade'
+    let g:which_key_localmap['s']['d'] = 'Toggle dim inactive window'
+  endif
+endif
+
+if dein#tap('tint.nvim')
+  nnoremap <silent> <LocalLeader>sd :lua require("tint").toggle()<CR>
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['d'] = 'Toggle dim inactive window'
   endif
 endif
 
@@ -181,36 +189,57 @@ if dein#tap('toggle-lsp-diagnostics.nvim')
 endif
 
 if dein#tap('nvim-dap')
+  nnoremap <silent> <F5> <cmd>lua require('dap').continue()<CR>
+  nnoremap <silent> <F10> <cmd>lua require('dap').step_over()<CR>
+  nnoremap <silent> <F11> <cmd>lua require('dap').step_into()<CR>
+  nnoremap <silent> <F12> <cmd>lua require('dap').step_out()<CR>
   nnoremap <silent> <Leader>db <cmd>lua require('dap').toggle_breakpoint()<CR>
   nnoremap <silent> <Leader>dc <cmd>lua require('dap').continue()<CR>
-  nnoremap <silent> <Leader>dd <cmd>lua require('dap').continue()<CR>
   nnoremap <silent> <Leader>dh <cmd>lua require('dapui').eval(vim.call('expand','<cword>'), {enter=true})<CR>
   nnoremap <silent> <Leader>dl <cmd>lua require('dap').run_last()<CR>
   nnoremap <silent> <Leader>di <cmd>lua require('dap').step_into()<CR>
   nnoremap <silent> <Leader>do <cmd>lua require('dap').step_out()<CR>
   nnoremap <silent> <Leader>dO <cmd>lua require('dap').step_over()<CR>
   nnoremap <silent> <Leader>dr <cmd>lua require('dap').repl.open()<CR>
-  nnoremap <silent> <Leader>dx <cmd>lua require('dap').terminate()<CR>
+  nnoremap <silent> <Leader>dq <cmd>lua require('dap').terminate()<CR>
 
   if s:enable_whichkey
     let g:which_key_map['d']['b'] = 'Toggle line breakpoint'
-    let g:which_key_map['d']['c'] = 'Continue'
-    let g:which_key_map['d']['d'] = 'Continue'
+    let g:which_key_map['d']['c'] = 'Run/Continue <F5>'
     let g:which_key_map['d']['h'] = 'Evaluate word under cursor'
     let g:which_key_map['d']['l'] = 'Run last debug init'
-    let g:which_key_map['d']['i'] = 'Step into'
-    let g:which_key_map['d']['o'] = 'Step out'
-    let g:which_key_map['d']['O'] = 'Step over'
+    let g:which_key_map['d']['i'] = 'Step into <F11>'
+    let g:which_key_map['d']['o'] = 'Step out <F12>'
+    let g:which_key_map['d']['O'] = 'Step over <F10>'
     let g:which_key_map['d']['r'] = 'Open REPL'
-    let g:which_key_map['d']['x'] = 'Terminate debuger'
+    let g:which_key_map['d']['q'] = 'Terminate debuger'
   endif
 endif
 
 if dein#tap('nvim-dap-ui')
-  nnoremap <silent> <Leader>dt <cmd>lua require('dapui').toggle()<CR>
+  nnoremap <silent> <Leader>dd <cmd>lua require('dapui').toggle()<CR>
 
   if s:enable_whichkey
-    let g:which_key_map['d']['t'] = 'Toggle debugger UI'
+    let g:which_key_map['d']['d'] = 'Toggle debugger UI'
+  endif
+endif
+
+if dein#tap('telescope-dap.nvim')
+  nnoremap <silent> <Leader>dfc <cmd>lua require'telescope'.extensions.dap.commands{}<CR>
+  nnoremap <silent> <Leader>dfd <cmd>lua require'telescope'.extensions.dap.configurations{}<CR>
+  nnoremap <silent> <Leader>dfb <cmd>lua require'telescope'.extensions.dap.list_breakpoints{}<CR>
+  nnoremap <silent> <Leader>dfv <cmd>lua require'telescope'.extensions.dap.variables{}<CR>
+  nnoremap <silent> <Leader>dff <cmd>lua require'telescope'.extensions.dap.frames{}<CR>
+
+  if s:enable_whichkey
+    let g:which_key_map['d']['f'] = {
+          \ 'name' : '+telescope-dap',
+          \ 'c' : 'Commands',
+          \ 'd' : 'Configurations',
+          \ 'b' : 'Breakpoints',
+          \ 'v' : 'Variables',
+          \ 'f' : 'Frames',
+          \ }
   endif
 endif
 

@@ -118,12 +118,12 @@ require("ufo").setup({
   preview = {
     win_config = {
       border = { "", "─", "", "", "", "─", "", "" },
-      winhighlight = "Normal:Folded",
+      -- winhighlight = "Normal:Folded",
       winblend = 0,
     },
     mappings = {
-      scrollU = "<C-u>",
-      scrollD = "<C-d>",
+      scrollU = "<C-f>",
+      scrollD = "<C-b>",
     },
   },
   fold_virt_text_handler = handler,

@@ -30,27 +30,9 @@ end
 -- ╭──────────────────────────────────────────────────────────╮
 -- │ Icons                                                    │
 -- ╰──────────────────────────────────────────────────────────╯
+
 vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "" })
 vim.fn.sign_define("DapStopped", { text = "⭐️", texthl = "", linehl = "", numhl = "" })
-
--- ╭──────────────────────────────────────────────────────────╮
--- │ Keybindings                                              │
--- ╰──────────────────────────────────────────────────────────╯
-vim.api.nvim_set_keymap(
-  "n",
-  "<Leader>db",
-  "<CMD>lua require('dap').toggle_breakpoint()<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<Leader>dc", "<CMD>lua require('dap').continue()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dd", "<CMD>lua require('dap').continue()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dh", "<CMD>lua require('dapui').eval(vim.call('expand','<cword>'), {enter=true})<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dl", "<CMD>lua require('dap').run_last()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>di", "<CMD>lua require('dap').step_into()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>do", "<CMD>lua require('dap').step_out()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dO", "<CMD>lua require('dap').step_over()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dr", "<CMD>lua require('dap').repl.open()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dx", "<CMD>lua require('dap').terminate()<CR>", { noremap = true, silent = true })
 
 -- ╭──────────────────────────────────────────────────────────╮
 -- │ Adapters                                                 │
@@ -140,6 +122,8 @@ dap.configurations.cpp = {
     end,
     cwd = "${workspaceFolder}",
     stopAtEntry = true,
+    args = { "$arg1", "$arg2", "$arg3" },
+    runInTerminal = true,
   },
   {
     name = "Attach to gdbserver :1234",

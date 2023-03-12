@@ -11,7 +11,7 @@ require("focus").setup({
   absolutenumber_unfocussed = true,
   colorcolumn = { enable = true, width = vim.api.nvim_get_option("textwidth") },
   bufnew = true,
-  winhighlight = true,
+  winhighlight = false,
   excluded_filetypes = {
     "NeogitCommitMessage",
     "NeogitStatus",

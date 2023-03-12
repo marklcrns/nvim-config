@@ -55,15 +55,15 @@ highlight AutocorrectGood ctermfg=Yellow guifg=Yellow gui=undercurl
 " }}}
 
 " Plugin: nvim-ufo {{{
-" hi default UfoFoldedFg guifg=Normal.foreground
-" hi default UfoFoldedBg guibg=Folded.background
+hi Folded guibg=NONE
+hi default UfoFoldedFg guifg=Normal
+hi default UfoFoldedBg guibg=None
 hi default link UfoPreviewSbar PmenuSbar
 hi default link UfoPreviewThumb PmenuThumb
 hi default link UfoPreviewWinBar UfoFoldedBg
 hi default link UfoPreviewCursorLine Visual
 hi default link UfoFoldedEllipsis Comment
 hi default link UfoCursorFoldedLine CursorLine
-hi Folded guibg=NONE
 " }}}
 
 " Plugin: vim-signature {{{
@@ -82,20 +82,56 @@ hi def IlluminatedWordRead gui=underline
 hi def IlluminatedWordWrite gui=underline
 " }}}
 
-" Plugin: diffview.nvim {{{
-" Ref: https://github.com/sindrets/diffview.nvim/issues/241#issuecomment-1298862577
-hi DiffAdd gui=none guifg=none guibg=#103235
-hi DiffChange gui=none guifg=none guibg=#272D43
-hi DiffText gui=none guifg=none guibg=#394b70
-hi DiffDelete gui=none guifg=#27283b guibg=none
-hi DiffviewDiffAddAsDelete guibg=#3f2d3d gui=none guifg=none
-hi DiffviewDiffDelete gui=none guifg=#3B4252 guibg=none
-" Left panel
-hi DiffAddAsDelete gui=none guifg=none guibg=#3f2d3d
-hi DiffDeleteText gui=none guifg=none guibg=#4b1818
-" Right panel
-hi DiffAddText gui=none guifg=none guibg=#1c5458
-" }}}
+if g:colors_name == "tokyonight"
+  " Plugin: diffview.nvim {{{
+  " Ref: https://github.com/sindrets/diffview.nvim/issues/241#issuecomment-1298862577
+  hi DiffAdd gui=none guifg=none guibg=#103235
+  hi DiffChange gui=none guifg=none guibg=#272D43
+  hi DiffText gui=none guifg=none guibg=#394b70
+  hi DiffDelete gui=none guifg=#27283b guibg=none
+  hi DiffviewDiffAddAsDelete guibg=#3f2d3d gui=none guifg=none
+  hi DiffviewDiffDelete gui=none guifg=#3B4252 guibg=none
+  " Left panel
+  hi DiffAddAsDelete gui=none guifg=none guibg=#3f2d3d
+  hi DiffDeleteText gui=none guifg=none guibg=#4b1818
+  " Right panel
+  hi DiffAddText gui=none guifg=none guibg=#1c5458
+  " }}}
+endif
+
+if g:colors_name == "catppuccin"
+  " Plugin: diffview.nvim {{{
+  " Ref: https://github.com/sindrets/diffview.nvim/issues/241#issuecomment-1298862577
+  hi DiffAdd gui=none guifg=none guibg=#103235
+  hi DiffChange gui=none guifg=none guibg=#303347
+  hi DiffText gui=none guifg=none guibg=#394b70
+  hi DiffDelete gui=none guifg=#363a4f guibg=none
+  hi DiffviewDiffAddAsDelete guibg=#3f2d3d gui=none guifg=none
+  hi DiffviewDiffDelete gui=none guifg=#24273a guibg=none
+  " Left panel
+  hi DiffAddAsDelete gui=none guifg=none guibg=#3f2d3d
+  hi DiffDeleteText gui=none guifg=none guibg=#4b1818
+  " Right panel
+  hi DiffAddText gui=none guifg=none guibg=#1c5458
+  " }}}
+endif
+
+if g:colors_name == "oxocarbon"
+  lua << EOF
+  -- Telescope integration
+  local colors = require('oxocarbon.colors')
+  vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = oxocarbon.blend, bg = oxocarbon.blend })
+  vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = oxocarbon.base02, bg = oxocarbon.base02 })
+  vim.api.nvim_set_hl(0, "TelescopePromptNormal", { fg = oxocarbon.base05, bg = oxocarbon.base02 })
+  vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { fg = oxocarbon.base08, bg = oxocarbon.base02 })
+  vim.api.nvim_set_hl(0, "TelescopeNormal", { fg = oxocarbon.none, bg = oxocarbon.blend })
+  vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = oxocarbon.base02, bg = oxocarbon.base12 })
+  vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = oxocarbon.base02, bg = oxocarbon.base11 })
+  vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = oxocarbon.blend, bg = oxocarbon.blend })
+  vim.api.nvim_set_hl(0, "TelescopeSelection", { fg = oxocarbon.none, bg = oxocarbon.base02 })
+  vim.api.nvim_set_hl(0, "TelescopePreviewLine", { fg = oxocarbon.none, bg = oxocarbon.base01 })
+EOF
+endif
 
 if g:colors_name == "custom_hybrid_reverse"
   " Highlights: General GUI {{{
@@ -192,7 +228,3 @@ function! s:ToggleWhitespaceMatch(mode)
 endfunction
 " }}}
 
-" DEPRECATED: Detect color syntax group under cursor
-nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
-    \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
