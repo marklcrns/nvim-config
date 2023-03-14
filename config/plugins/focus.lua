@@ -31,6 +31,7 @@ require("focus").setup({
     "toggleterm",
     "lspsagaoutline",
     "lspsagafinder",
+    "neo-tree",
   },
   compatible_filetrees = { "neo-tree", "nvim-tree", "nerdtree", "chadtree", "fern" },
   -- Covered in core/filetype.vim

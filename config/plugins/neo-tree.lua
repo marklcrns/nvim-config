@@ -1,3 +1,25 @@
+local function getTelescopeOpts(state, path)
+  return {
+    cwd = path,
+    search_dirs = { path },
+    attach_mappings = function(prompt_bufnr, map)
+      local actions = require("telescope.actions")
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local action_state = require("telescope.actions.state")
+        local selection = action_state.get_selected_entry()
+        local filename = selection.filename
+        if filename == nil then
+          filename = selection[1]
+        end
+        -- any way to open the file without triggering auto-close event of neo-tree?
+        require("neo-tree.sources.filesystem").navigate(state, state.path, filename)
+      end)
+      return true
+    end,
+  }
+end
+
 require("neo-tree").setup({
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
   popup_border_style = "rounded",
@@ -77,7 +99,7 @@ require("neo-tree").setup({
       ["<C-g>"] = "split_with_window_picker",
       ["<C-v>"] = "vsplit_with_window_picker",
       ["<cr>"] = "open_with_window_picker",
-      ["o"] = "open_drop",
+      ["e"] = "open_drop",
       ["t"] = "open_tabnew",
       ["<Tab>"] = "toggle_node",
       ["<S-Tab>"] = "close_node",
@@ -99,15 +121,6 @@ require("neo-tree").setup({
       ["d"] = "delete",
       ["r"] = "rename",
       ["y"] = "copy_to_clipboard",
-      ["Y"] = function(state) -- copy the absolute path of the current node to clipboard
-        local node = state.tree:get_node()
-        local content = node.path
-        -- relative
-        -- local content = node.path:gsub(state.path, ""):sub(2)
-        vim.fn.setreg('"', content)
-        vim.fn.setreg("1", content)
-        vim.fn.setreg("+", content)
-      end,
       ["x"] = "cut_to_clipboard",
       ["p"] = "paste_from_clipboard",
       -- ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
@@ -122,7 +135,15 @@ require("neo-tree").setup({
       ["?"] = "show_help",
       ["<"] = "prev_source",
       [">"] = "next_source",
+      ["w"] = "toggle_auto_expand_width",
+      ["f"] = "none",
+      ["s"] = "none",
       ["q"] = "none", -- let smartq handle this
+      ["o"] = "system_open",
+      ["ff"] = "filter_on_submit",
+      ["fd"] = "telescope_find",
+      ["fr"] = "telescope_grep",
+      ["Y"] = "copy_absolute_path",
     },
   },
   filesystem = {
@@ -168,11 +189,49 @@ require("neo-tree").setup({
         ["D"] = "fuzzy_finder_directory",
         ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
         -- ["D"] = "fuzzy_sorter_directory",
-        ["f"] = "filter_on_submit",
-        ["<c-x>"] = "clear_filter",
+        ["<C-x>"] = "clear_filter",
         ["[g"] = "prev_git_modified",
         ["]g"] = "next_git_modified",
+        ["o"] = "system_open",
+        ["ff"] = "filter_on_submit",
+        ["fd"] = "telescope_find",
+        ["fr"] = "telescope_grep",
+        ["Y"] = "copy_absolute_path",
       },
+    },
+    commands = {
+      system_open = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        local sys = require("user.common.sys")
+
+        if sys.is_mac() then
+          vim.api.nvim_command("silent !open -g " .. path)
+        elseif sys.is_wsl() then
+          vim.api.nvim_command(string.format("silent !wsl-open '%s'", path))
+        elseif sys.is_linux() then
+          vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+        end
+      end,
+      telescope_find = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require("telescope.builtin").find_files(getTelescopeOpts(state, path))
+      end,
+      telescope_grep = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require("telescope.builtin").live_grep(getTelescopeOpts(state, path))
+      end,
+      copy_absolute_path = function(state) -- copy the absolute path of the current node to clipboard
+        local node = state.tree:get_node()
+        local content = node.path
+        -- relative
+        -- local content = node.path:gsub(state.path, ""):sub(2)
+        vim.fn.setreg('"', content)
+        vim.fn.setreg("1", content)
+        vim.fn.setreg("+", content)
+      end,
     },
   },
   buffers = {
@@ -185,7 +244,42 @@ require("neo-tree").setup({
         ["bd"] = "buffer_delete",
         ["<bs>"] = "navigate_up",
         ["."] = "set_root",
+        ["Y"] = "copy_absolute_path",
       },
+    },
+    commands = {
+      system_open = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        local sys = require("user.common.sys")
+
+        if sys.is_mac() then
+          vim.api.nvim_command("silent !open -g " .. path)
+        elseif sys.is_wsl() then
+          vim.api.nvim_command(string.format("silent !wsl-open '%s'", path))
+        elseif sys.is_linux() then
+          vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+        end
+      end,
+      telescope_find = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require("telescope.builtin").find_files(getTelescopeOpts(state, path))
+      end,
+      telescope_grep = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require("telescope.builtin").live_grep(getTelescopeOpts(state, path))
+      end,
+      copy_absolute_path = function(state) -- copy the absolute path of the current node to clipboard
+        local node = state.tree:get_node()
+        local content = node.path
+        -- relative
+        -- local content = node.path:gsub(state.path, ""):sub(2)
+        vim.fn.setreg('"', content)
+        vim.fn.setreg("1", content)
+        vim.fn.setreg("+", content)
+      end,
     },
   },
   git_status = {
@@ -199,7 +293,46 @@ require("neo-tree").setup({
         ["gc"] = "git_commit",
         ["gp"] = "git_push",
         ["gg"] = "git_commit_and_push",
+        ["o"] = "system_open",
+        ["ff"] = "filter_on_submit",
+        ["fd"] = "telescope_find",
+        ["fr"] = "telescope_grep",
+        ["Y"] = "copy_absolute_path",
       },
+    },
+    commands = {
+      system_open = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        local sys = require("user.common.sys")
+
+        if sys.is_mac() then
+          vim.api.nvim_command("silent !open -g " .. path)
+        elseif sys.is_wsl() then
+          vim.api.nvim_command(string.format("silent !wsl-open '%s'", path))
+        elseif sys.is_linux() then
+          vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+        end
+      end,
+      telescope_find = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require("telescope.builtin").find_files(getTelescopeOpts(state, path))
+      end,
+      telescope_grep = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require("telescope.builtin").live_grep(getTelescopeOpts(state, path))
+      end,
+      copy_absolute_path = function(state) -- copy the absolute path of the current node to clipboard
+        local node = state.tree:get_node()
+        local content = node.path
+        -- relative
+        -- local content = node.path:gsub(state.path, ""):sub(2)
+        vim.fn.setreg('"', content)
+        vim.fn.setreg("1", content)
+        vim.fn.setreg("+", content)
+      end,
     },
   },
 })
