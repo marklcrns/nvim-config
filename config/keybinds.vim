@@ -670,6 +670,13 @@ if dein#tap('nvim-treesitter-textobjects')
   endif
 endif
 
+if dein#tap('nvim-treesitter-context')
+  nnoremap <silent> <LocalLeader>slc <cmd>TSContextToggle<cr>
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['l']['c'] = 'Toggle treesiter context preview'
+  endif
+endif
+
 if dein#tap('splitjoin.vim')
   nnoremap <silent> <Leader><c-j> <cmd>SplitjoinJoin<cr>
   nnoremap <silent> <Leader><c-k> <cmd>SplitjoinSplit<cr>

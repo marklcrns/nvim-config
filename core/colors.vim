@@ -116,6 +116,23 @@ if g:colors_name == "catppuccin"
   " }}}
 endif
 
+if g:colors_name == "kanagawa"
+  " Plugin: diffview.nvim {{{
+  " Ref: https://github.com/sindrets/diffview.nvim/issues/241#issuecomment-1298862577
+  hi DiffAdd gui=none guifg=none guibg=#2f372c
+  hi DiffChange gui=none guifg=none guibg=#303347
+  hi DiffText gui=none guifg=none guibg=#394b70
+  hi DiffDelete gui=none guifg=#363a4f guibg=none
+  hi DiffviewDiffAddAsDelete guibg=#3f2d3d gui=none guifg=none
+  hi DiffviewDiffDelete gui=none guifg=#24273a guibg=none
+  " Left panel
+  hi DiffAddAsDelete gui=none guifg=none guibg=#3f2d3d
+  hi DiffDeleteText gui=none guifg=none guibg=#43242b
+  " Right panel
+  hi DiffAddText gui=none guifg=none guibg=#202d1b
+  " }}}
+endif
+
 if g:colors_name == "oxocarbon"
   lua << EOF
   -- Telescope integration

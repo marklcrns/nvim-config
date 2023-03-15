@@ -1,3 +1,4 @@
 require("session-lens").setup({
-  previewer = true,
+  theme = "dropdown",
+  previewer = false,
 })
