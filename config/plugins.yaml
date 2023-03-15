@@ -207,7 +207,7 @@
 
 # TODO: Lazy load plugins like this or move plugins into plugins_lazy.vim
 - repo: gelguy/wilder.nvim
-  hook_add: luafile $VIM_PATH/config/plugins/wilder.lua
+  hook_source: luafile $VIM_PATH/config/plugins/wilder.lua
   on_event' : 'CmdlineEnter'
   # lazy: 1
 

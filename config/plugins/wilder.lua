@@ -31,8 +31,7 @@ local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_palette_th
   border = "rounded",
   empty_message = wilder.popupmenu_empty_message_with_spinner(),
   highlights = {
-    gradient = gradient, -- must be set
-    -- selected_gradient key can be set to apply gradient highlighting for the selected candidate.
+    gradient = gradient,
   },
   highlighter = wilder.highlighter_with_gradient({
     wilder.basic_highlighter(),
@@ -51,15 +50,50 @@ local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_palette_th
   },
 }))
 
+local wildmenu_renderer = wilder.wildmenu_renderer({
+  highlighter = wilder.basic_highlighter(),
+  separator = " · ",
+  left = { " ", wilder.wildmenu_spinner(), " " },
+  right = { " ", wilder.wildmenu_index() },
+})
+
 local pipline = wilder.branch(
+  wilder.python_file_finder_pipeline({
+    file_command = function(ctx, arg)
+      if string.find(arg, ".") ~= nil then
+        return { "fdfind", "-tf", "-H" }
+      else
+        return { "fdfind", "-tf" }
+      end
+    end,
+    dir_command = { "fd", "-td" },
+    filters = { "cpsm_filter" },
+  }),
+  wilder.substitute_pipeline({
+    pipeline = wilder.python_search_pipeline({
+      skip_cmdtype_check = 1,
+      pattern = wilder.python_fuzzy_pattern({
+        start_at_boundary = 0,
+      }),
+    }),
+  }),
   wilder.cmdline_pipeline({
     fuzzy = 1,
     set_pcre2_pattern = 1,
   }),
   wilder.python_search_pipeline({
-    pattern = "fuzzy",
+    pattern = wilder.python_fuzzy_pattern({
+      start_at_boundary = 0,
+    }),
   })
 )
 
 wilder.set_option("pipeline", pipline)
-wilder.set_option("renderer", popupmenu_renderer)
+wilder.set_option(
+  "renderer",
+  wilder.renderer_mux({
+    [":"] = popupmenu_renderer,
+    ["/"] = wildmenu_renderer,
+    substitute = wildmenu_renderer,
+  })
+)
