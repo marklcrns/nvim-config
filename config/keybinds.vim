@@ -259,13 +259,6 @@ if dein#tap('mason.nvim')
   endif
 endif
 
-if dein#tap('wilder.nvim')
-  noremap <LocalLeader>so :call wilder#toggle()<CR>
-  if s:enable_whichkey
-    let g:which_key_localmap['s']['o'] = 'Toggle Wilder Completion'
-  endif
-endif
-
 if dein#tap('vim-smartq')
   nmap <silent> <Leader>fq <Plug>(smartq_this_save)
   nmap <silent> <Leader>wq <Plug>(smartq_close_splits)
@@ -686,6 +679,13 @@ if dein#tap('splitjoin.vim')
   endif
 endif
 
+if dein#tap('treesj')
+  nnoremap <silent> <Leader>cs <cmd>lua require('treesj').toggle({ split = { recursive = true } })<cr>
+  if s:enable_whichkey
+    let g:which_key_map['c']['s'] = 'Toggle split/join'
+  endif
+endif
+
 if dein#tap('project.nvim')
   nnoremap <Leader>frr :ProjectRoot<CR>
 
@@ -771,6 +771,24 @@ if dein#tap('neorg')
     let g:which_key_localmap['n']['t'] = { 'name': '+tree-sitter' }
     let g:which_key_localmap['n']['s'] = "TOC split"
     let g:which_key_localmap['n']['w'] = "Open Workspace"
+  endif
+endif
+
+if dein#tap('mind.nvim')
+  nnoremap <LocalLeader>mm <cmd>MindOpenMain<CR>
+  nnoremap <LocalLeader>mp <cmd>MindOpenProject<CR>
+  nnoremap <LocalLeader>ms <cmd>MindOpenSmartProject<CR>
+  nnoremap <LocalLeader>mr <cmd>MindReloadState<CR>
+  nnoremap <LocalLeader>mq <cmd>MindClose<CR>
+  if s:enable_whichkey
+    let g:which_key_localmap['m'] = {
+          \ 'name' : '+mind',
+          \ 'm' : 'Open main',
+          \ 'p' : 'Open project',
+          \ 's' : 'Open smart project',
+          \ 'r' : 'Reload mind state',
+          \ 'q' : 'Quit mind',
+          \ }
   endif
 endif
 

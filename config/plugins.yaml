@@ -22,6 +22,8 @@
   hook_source: luafile $VIM_PATH/config/plugins/nightfox.lua
 - repo: nyoom-engineering/oxocarbon.nvim
   hook_source: luafile $VIM_PATH/config/plugins/oxocarbon.lua
+- repo: rebelot/kanagawa.nvim
+  hook_source: luafile $VIM_PATH/config/plugins/kanagawa.lua
 
 # Session Manager
 # ----------------------------------------
@@ -108,6 +110,10 @@
   depends: nvim-treesitter
   if: "has('nvim-0.7')"
   hook_source: luafile $VIM_PATH/config/plugins/nvim-treesitter-textsubjects.lua
+
+- repo: nvim-treesitter/nvim-treesitter-context
+  depends: nvim-treesitter
+  if: "has('nvim-0.7')"
 
 # Comletion
 # ----------------------------------------
@@ -199,11 +205,11 @@
 - repo: sedm0784/vim-you-autocorrect
   hook_source: source $VIM_PATH/config/plugins/vim-you-autocorrect.vim
 
-# TODO: Lazy load plugins like this
+# TODO: Lazy load plugins like this or move plugins into plugins_lazy.vim
 - repo: gelguy/wilder.nvim
-  lazy: 1
   hook_add: luafile $VIM_PATH/config/plugins/wilder.lua
   on_event' : 'CmdlineEnter'
+  # lazy: 1
 
 # Window management
 # ----------------------------------------
@@ -236,8 +242,12 @@
 - repo: junegunn/vim-easy-align
   hook_add: source $VIM_PATH/config/plugins/vim-easy-align.vim
 
-- repo: AndrewRadev/sideways.vim
-- repo: AndrewRadev/splitjoin.vim
+# DEPRECATED: by nvim-treesitter-textobjects
+# - repo: AndrewRadev/sideways.vim
+# DEPRECATED: TreeSJ
+# - repo: AndrewRadev/splitjoin.vim
+- repo: Wansmer/treesj
+  hook_source: luafile $VIM_PATH/config/plugins/treesj.lua
 
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
@@ -440,6 +450,10 @@
 
 - repo: benmills/vimux
   on_cmd: [VimuxPromptCommand, VimuxOpenRunner]
+
+- repo: phaazon/mind.nvim
+  depends: [ plenary.nvim ]
+  hook_source: luafile $VIM_PATH/config/plugins/mind.lua
 
 - repo: nvim-neorg/neorg
   on_ft: norg
