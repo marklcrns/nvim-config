@@ -365,6 +365,16 @@ if dein#tap('diffview.nvim')
   endif
 endif
 
+if dein#tap('linediff.vim')
+  nnoremap <silent> <Leader>idl :Linediff<CR>
+  vnoremap <silent> <Leader>idl :Linediff<CR>
+  nnoremap <silent> <Leader>idL :LinediffReset<CR>
+  if s:enable_whichkey
+    let g:which_key_map['i']['d']['l'] = 'Diff visual line to another'
+    let g:which_key_map['i']['d']['L'] = 'Reset visual line diff'
+  endif
+endif
+
 if dein#tap('neogen')
   nnoremap <Leader>nc <cmd>lua require('neogen').generate({ type = 'class' })<CR><CR>
   nnoremap <Leader>nf <cmd>lua require('neogen').generate({ type = 'func' })<CR><CR>

@@ -159,9 +159,9 @@
   if: "has('nvim-0.7')"
   depends: nvim-cmp
 
-- repo: hrsh7th/cmp-cmdline
-  if: "has('nvim-0.7')"
-  depends: nvim-cmp
+# - repo: hrsh7th/cmp-cmdline
+#   if: "has('nvim-0.7')"
+#   depends: nvim-cmp
 
 - repo: rcarriga/cmp-dap
   if: "has('nvim-0.7')"
@@ -198,6 +198,12 @@
 
 - repo: sedm0784/vim-you-autocorrect
   hook_source: source $VIM_PATH/config/plugins/vim-you-autocorrect.vim
+
+# TODO: Lazy load plugins like this
+- repo: gelguy/wilder.nvim
+  lazy: 1
+  hook_add: luafile $VIM_PATH/config/plugins/wilder.lua
+  on_event' : 'CmdlineEnter'
 
 # Window management
 # ----------------------------------------
@@ -255,6 +261,9 @@
   if: "has('nvim-0.7')"
   depends: [ plenary.nvim]
   hook_source: luafile $VIM_PATH/config/plugins/diffview.lua
+
+- repo: AndrewRadev/linediff.vim
+  on_cmd: [ Linediff ]
 
 - repo: RRethy/vim-illuminate
   hook_source: luafile $VIM_PATH/config/plugins/vim-illuminate.lua
@@ -519,11 +528,6 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/modes.lua
 
-- repo: romainl/vim-qf
-  on_ft: qf
-  on_map: { n: <Plug> }
-  hook_source: source $VIM_PATH/config/plugins/vim-qf.vim
-
 - repo: karb94/neoscroll.nvim
   hook_source: luafile $VIM_PATH/config/plugins/neoscroll.lua
 
@@ -584,6 +588,10 @@
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/todo-comments.lua
 
+- repo: romainl/vim-qf
+  on_ft: qf
+  on_map: { n: <Plug> }
+  hook_source: source $VIM_PATH/config/plugins/vim-qf.vim
 # }}}
 
 # ETC {{{

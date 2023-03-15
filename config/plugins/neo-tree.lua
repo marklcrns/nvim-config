@@ -138,6 +138,7 @@ require("neo-tree").setup({
       ["w"] = "toggle_auto_expand_width",
       ["f"] = "none",
       ["s"] = "none",
+      ["S"] = "none",
       ["q"] = "none", -- let smartq handle this
     },
   },

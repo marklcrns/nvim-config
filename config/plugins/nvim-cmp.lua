@@ -72,13 +72,13 @@ cmp.setup({
   -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
   mapping = {
     ["<Tab>"] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        else
-          cmp.complete()
-        end
-      end,
+      -- c = function()
+      --   if cmp.visible() then
+      --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+      --   else
+      --     cmp.complete()
+      --   end
+      -- end,
       i = function(fallback)
         if has_words_before() then
           cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
@@ -94,13 +94,13 @@ cmp.setup({
       end,
     }),
     ["<S-Tab>"] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-        else
-          cmp.complete()
-        end
-      end,
+      -- c = function()
+      --   if cmp.visible() then
+      --     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+      --   else
+      --     cmp.complete()
+      --   end
+      -- end,
       i = function(fallback)
         cmp_ultisnips_mappings.jump_backwards(fallback)
       end,
@@ -117,13 +117,13 @@ cmp.setup({
     ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
     ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
     ["<C-n>"] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          vim.api.nvim_feedkeys(t("<Down>"), "n", true)
-        end
-      end,
+      -- c = function()
+      --   if cmp.visible() then
+      --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      --   else
+      --     vim.api.nvim_feedkeys(t("<Down>"), "n", true)
+      --   end
+      -- end,
       i = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -133,13 +133,13 @@ cmp.setup({
       end,
     }),
     ["<C-p>"] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          vim.api.nvim_feedkeys(t("<Up>"), "n", true)
-        end
-      end,
+      -- c = function()
+      --   if cmp.visible() then
+      --     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+      --   else
+      --     vim.api.nvim_feedkeys(t("<Up>"), "n", true)
+      --   end
+      -- end,
       i = function(fallback)
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
@@ -154,13 +154,13 @@ cmp.setup({
     ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
     ["<C-c>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
     ["<CR>"] = cmp.mapping({
-      c = function(fallback)
-        if cmp.visible() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-        else
-          fallback()
-        end
-      end,
+      -- c = function(fallback)
+      --   if cmp.visible() then
+      --     cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+      --   else
+      --     fallback()
+      --   end
+      -- end,
       i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
     }),
   },
