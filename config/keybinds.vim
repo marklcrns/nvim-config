@@ -292,8 +292,9 @@ if dein#tap('telescope.nvim')
   nnoremap <leader>fdm <cmd>Telescope marks<cr>
   nnoremap <leader>fdo <cmd>Telescope oldfiles<cr>
   nnoremap <leader>fdw <cmd>Telescope grep_string<cr>
-  nnoremap <leader>fdgb <cmd>Telescope git_branch<cr>
+  nnoremap <leader>fdgb <cmd>Telescope git_branches<cr>
   nnoremap <leader>fdgc <cmd>Telescope git_commits<cr>
+  nnoremap <leader>fdgC <cmd>Telescope git_bcommits<cr>
   nnoremap <leader>fdgf <cmd>Telescope git_files<cr>
   nnoremap <leader>fdgs <cmd>Telescope git_status<cr>
 
@@ -307,7 +308,8 @@ if dein#tap('telescope.nvim')
           \ 'g' : {
               \ 'name' : '+git',
               \ 'b' : 'Find git branch',
-              \ 'c' : 'Find git commits',
+              \ 'c' : 'Find git all commits',
+              \ 'C' : 'Find git current branch commits',
               \ 'f' : 'Find git files',
               \ 's' : 'Find git files with changes',
             \ },
