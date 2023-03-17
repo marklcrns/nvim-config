@@ -501,7 +501,7 @@
 
 - repo: michaelb/sniprun
   on_cmd: [SnipRun, SnipLive, SnipInfo]
-  build: 'sh -c "install.sh"'
+  build: 'bash ./install.sh'
   hook_source: source $VIM_PATH/config/plugins/sniprun.lua
 
 - repo: kshenoy/vim-signature
