@@ -213,7 +213,6 @@
 # Window management
 # ----------------------------------------
 - repo: beauwilliams/focus.nvim
-  on_event: VimEnter
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/focus.lua
 
@@ -226,6 +225,9 @@
 
 # - repo: levouh/tint.nvim
 #   hook_source: luafile $VIM_PATH/config/plugins/tint.lua
+
+- repo: TaDaa/vimade
+  hook_source: source $VIM_PATH/config/plugins/vimade.vim
 
 - repo: sindrets/winshift.nvim
   if: "has('nvim-0.5')"
@@ -274,6 +276,7 @@
 - repo: AndrewRadev/linediff.vim
   on_cmd: [ Linediff ]
 
+# CursorHold cword highlight
 - repo: RRethy/vim-illuminate
   hook_source: luafile $VIM_PATH/config/plugins/vim-illuminate.lua
 

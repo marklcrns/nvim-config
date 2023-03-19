@@ -61,10 +61,10 @@ if dein#tap('auto-session')
 endif
 
 if dein#tap('session-lens')
-  nnoremap <Leader>sf <cmd>Telescope session-lens search_session<cr>
+  nnoremap <Leader>saf <cmd>Telescope session-lens search_session<cr>
 
   if s:enable_whichkey
-    let g:which_key_map['s']['f'] = 'Find session and load'
+    let g:which_key_map['s']['a']['f'] = 'Find session'
   endif
 endif
 

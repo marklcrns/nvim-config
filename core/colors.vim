@@ -150,11 +150,17 @@ if g:colors_name == "oxocarbon"
 EOF
 endif
 
+
+" Highlights: General GUI {{{
+" Transparent background
+hi Normal guibg=NONE ctermbg=NONE
+hi NormalFloat guibg=NONE ctermbg=NONE
+" }}}
+
 if g:colors_name == "custom_hybrid_reverse"
   " Highlights: General GUI {{{
   " Ref: https://github.com/mhinz/vim-janah
   hi Comment guibg=NONE ctermbg=NONE cterm=italic gui=italic
-  " Transparent bg
   hi clear Conceal
 
   " " OLD

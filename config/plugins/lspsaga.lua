@@ -4,7 +4,7 @@ require("lspsaga").setup({
     -- currently only round theme
     theme = "round",
     -- border type can be single,double,rounded,solid,shadow.
-    border = "solid",
+    border = "shadow",
     winblend = 0,
     expand = "",
     collapse = "",

@@ -1,6 +1,6 @@
 require("focus").setup({
   enable = true,
-  autoresize = true,
+  autoresize = false,
   hybridnumber = true,
   signcolumn = true,
   treewidth = 30,
@@ -10,7 +10,7 @@ require("focus").setup({
   -- minheight = 10,
   absolutenumber_unfocussed = true,
   colorcolumn = { enable = true, width = vim.api.nvim_get_option("textwidth") },
-  bufnew = true,
+  bufnew = false,
   winhighlight = false,
   excluded_filetypes = {
     "NeogitCommitMessage",
