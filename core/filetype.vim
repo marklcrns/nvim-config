@@ -93,8 +93,18 @@ augroup user_cursorui
   "       \| endif
 augroup END
 
-augroup user_linenumbersui
-  autocmd!
+augroup user_signcolumnui
+  autocmd WinEnter * setlocal signcolumn=auto:2
+  autocmd WinLeave * setlocal signcolumn=no
+augroup END
+
+augroup user_numberui
+  " " Toggles on Window Enter
+  " autocmd WinEnter * setlocal number
+  " autocmd WinEnter * setlocal relativenumber
+  " autocmd WinLeave * setlocal nonumber
+  " autocmd WinLeave * setlocal norelativenumber
+
   " Toggles relativenumber on Insert Mode
   autocmd InsertEnter * setlocal norelativenumber
   autocmd InsertLeave * setlocal relativenumber

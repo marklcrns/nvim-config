@@ -212,19 +212,27 @@
 
 # Window management
 # ----------------------------------------
-- repo: beauwilliams/focus.nvim
-  if: "has('nvim-0.5')"
-  hook_source: luafile $VIM_PATH/config/plugins/focus.lua
-
+# DEPRECATED: Works well but I wan't shade-like plugin
 # - repo: blueyed/vim-diminactive
 #   hook_source: source $VIM_PATH/config/plugins/vim-diminactive.vim
 
+# DEPRECATED: Does not work well with Mason. Buggy.
 # - repo: sunjon/shade.nvim
 #   if: "has('nvim-0.7')"
 #   hook_source: luafile $VIM_PATH/config/plugins/shade.lua
 
+# DEPRECATED: Works well but and shade-like plugin, but saturation does not look good for me.
 # - repo: levouh/tint.nvim
 #   hook_source: luafile $VIM_PATH/config/plugins/tint.lua
+
+- repo: beauwilliams/focus.nvim
+  if: "has('nvim-0.5')"
+  hook_source: luafile $VIM_PATH/config/plugins/focus.lua
+
+- repo: camspiers/animate.vim
+  hook_source: source $VIM_PATH/config/plugins/animate.vim
+- repo: marklcrns/lens.vim
+  hook_source: source $VIM_PATH/config/plugins/lens.vim
 
 - repo: TaDaa/vimade
   hook_source: source $VIM_PATH/config/plugins/vimade.vim

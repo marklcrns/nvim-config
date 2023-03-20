@@ -1,6 +1,5 @@
-let g:goyo_width=100 "(default: 80)
-let g:goyo_height=100 "(default: 85%)
-let g:goyo_linenr=1 "(default: 0)
+let g:goyo_width=&textwidth+40 "(default: 80)
+let g:goyo_linenr=0 "(default: 0)
 
 function! s:goyo_enter()
   if has('gui_running')
@@ -22,8 +21,6 @@ function! s:goyo_enter()
     let g:showcmd_goyo_bak=1
     set noshowcmd
   endif
-  " Activate Limelight
-  Limelight
 endfunction
 
 " Enable visuals when leaving Goyo mode
@@ -41,16 +38,12 @@ function! s:goyo_leave()
   if g:showcmd_goyo_bak
     set showcmd
   endif
-  " De-activate Limelight
-  Limelight!
 endfunction
 
 augroup user_plugin_goyo
   autocmd!
-  autocmd! User GoyoEnter
-  autocmd! User GoyoLeave
-  autocmd  User GoyoEnter nested call <SID>goyo_enter()
-  autocmd  User GoyoLeave nested call <SID>goyo_leave()
+  autocmd! User GoyoEnter nested call <SID>goyo_enter()
+  autocmd! User GoyoLeave nested call <SID>goyo_leave()
   " Auto resize goyo width and height when resized or toggled fullscreen
   autocmd VimResized * if exists('#goyo') | exe "normal \<c-w>=" | endif
 augroup END

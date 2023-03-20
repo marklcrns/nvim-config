@@ -708,7 +708,15 @@ if dein#tap('focus.nvim')
   nnoremap <silent> [Window]z <cmd>FocusMaxOrEqual<CR>
 
   if s:enable_whichkey
-    let g:which_key_localmap['s']['r'] = 'Toggle Auto-resize'
+    let g:which_key_localmap['s']['r'] = 'Toggle Focus'
+  endif
+endif
+
+if dein#tap('lens.vim')
+  nnoremap <LocalLeader>sR <cmd>call lens#toggle()<CR>
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['R'] = 'Toggle Auto-resize'
   endif
 endif
 

@@ -5,5 +5,4 @@ let g:smartq_q_filetypes = [
   \ 'gina-commit',
   \ 'snippets',
   \ 'floaterm',
-  \ 'neo-tree',
 \ ]
