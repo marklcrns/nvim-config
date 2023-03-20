@@ -138,7 +138,7 @@ command! -nargs=+ -bar LSP          call s:lsp_init(<args>)
 
 function! utils#custom_buffer_write(bang, cmds)
   let l:command = "w" . a:cmds . a:bang
-  if g:enable_format_on_save == 0
+  if g:enable_format_on_save == v:false
     let l:command = "noautocmd " . l:command
   endif
   execute l:command

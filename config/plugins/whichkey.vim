@@ -200,7 +200,6 @@ let g:which_key_localmap = {
       \ 'r'    : 'Quick run',
       \ 's' : {
             \ 'name' : '+settings-toggles',
-               \ 'b' : 'dark/light background',
                \ 'e' : 'Conceal toggle',
                \ 'f' : 'Format on save toggle',
                \ 'F' : 'Foldcolumn toggle',
@@ -216,6 +215,10 @@ let g:which_key_localmap = {
                      \ 'c' : 'Cursorcolumn toggle',
                      \ 'l' : 'Cursorline toggle',
                      \ 'x' : 'Crosshair toggle',
+                     \ },
+               \ 'u' : {
+                     \ 'name' : '+ui',
+                     \ 'b' : 'dark/light background',
                      \ },
             \ },
       \ }

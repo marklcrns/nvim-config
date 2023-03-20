@@ -669,10 +669,7 @@ endfunction
 
 " SETTINGS TOGGLE MAPPINGS -------------------- {{{
 function! SettingsToggleMappings()
-  nnoremap <silent> <LocalLeader>scl :<C-u>call <SID>toggle_cursorline()<CR>
-  nnoremap <silent> <LocalLeader>scc :<C-u>call <SID>toggle_cursorcolumn()<CR>
-  nnoremap <silent> <LocalLeader>scx :<C-u>call <SID>toggle_crosshair()<CR>
-  nnoremap <silent> <LocalLeader>sb :<C-u>call <SID>toggle_background()<CR>
+  " General toggles
   nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
   nnoremap <silent> <LocalLeader>sf :<C-u>call <SID>toggle_format_on_save()<CR>
   nnoremap <silent> <LocalLeader>sF :<C-u>call <SID>toggle_foldcolumn1()<CR>
@@ -683,6 +680,14 @@ function! SettingsToggleMappings()
   " Smart wrap toggle (breakindent and colorcolumn toggle as-well)
   nnoremap <LocalLeader>sw :execute('setlocal wrap! breakindent! colorcolumn=' .
         \ (&colorcolumn == '' ? &textwidth : ''))<CR>
+
+  " Cursor toggles
+  nnoremap <silent> <LocalLeader>scl :<C-u>call <SID>toggle_cursorline()<CR>
+  nnoremap <silent> <LocalLeader>scc :<C-u>call <SID>toggle_cursorcolumn()<CR>
+  nnoremap <silent> <LocalLeader>scx :<C-u>call <SID>toggle_crosshair()<CR>
+
+  " UI toggles
+  nnoremap <silent> <LocalLeader>sub :<C-u>call <SID>toggle_background()<CR>
 endfunction
 " }}} SETTINGS TOGGLE MAPPINGS
 
@@ -861,10 +866,10 @@ endfunction
 " Toggle format on save with noautocmd
 function! s:toggle_format_on_save()
   if g:enable_format_on_save
-    let g:enable_format_on_save = 0
+    let g:enable_format_on_save = v:false
     echom 'Format on save deactivated'
   else
-    let g:enable_format_on_save = 1
+    let g:enable_format_on_save = v:true
     echom 'Format on save activated'
   endif
 endfunction

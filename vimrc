@@ -21,13 +21,14 @@ let g:init_secondary_config = 0
 let g:package_manager = 'dein_yaml'
 
 " Custom settings enable
-let g:custom_colorscheme = 1
-let g:custom_colorscheme_persist = 1
-let g:custom_statusline_enable = 1
-let g:custom_tabline_enable = 1
-let g:custom_cursorline_enable = 1    " See modes.lua
-let g:custom_cursorcolumn_enable = 0
-let g:enable_format_on_save=1
+let g:custom_colorscheme = v:true
+let g:custom_colorscheme_persist = v:true
+let g:transparent_background = v:true
+let g:custom_statusline_enable = v:true
+let g:custom_tabline_enable = v:true
+let g:custom_cursorline_enable = v:true    " See modes.luv:true
+let g:custom_cursorcolumn_enable = v:false
+let g:enable_format_on_save= v:true
 
 " Gui Fonts
 let g:guifontsize = 12

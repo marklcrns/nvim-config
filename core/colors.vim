@@ -153,8 +153,10 @@ endif
 
 " Highlights: General GUI {{{
 " Transparent background
-hi Normal guibg=NONE ctermbg=NONE
-hi NormalFloat guibg=NONE ctermbg=NONE
+if get(g:, 'transparent_background', 0)
+  hi Normal guibg=NONE ctermbg=NONE
+  hi NormalFloat guibg=NONE ctermbg=NONE
+endif
 " }}}
 
 if g:colors_name == "custom_hybrid_reverse"
