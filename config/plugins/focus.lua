@@ -5,7 +5,7 @@ require("focus").setup({
   signcolumn = true,
   hybridnumber = true,
   number = true,
-  absolutenumber_unfocussed = false,
+  absolutenumber_unfocussed = true,
   -- width = vim.api.nvim_get_option("textwidth") + 10,
   -- height = 40,
   -- minwidth = 10,

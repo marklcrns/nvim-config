@@ -152,6 +152,14 @@ if dein#tap('lspsaga.nvim')
   endif
 endif
 
+if dein#tap('vimade')
+  nnoremap <silent> <LocalLeader>sd :VimadeToggle<CR>
+
+  if s:enable_whichkey
+    let g:which_key_localmap['s']['d'] = 'Toggle dim inactive window'
+  endif
+endif
+
 if dein#tap('shade.nvim')
   if s:enable_whichkey
     let g:which_key_localmap['s']['d'] = 'Toggle dim inactive window'

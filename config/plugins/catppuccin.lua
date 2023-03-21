@@ -35,7 +35,7 @@ require("catppuccin").setup({
     local bg = "#1e2030"
     return {
       TelescopeNormal = {
-        bg = c.bg_dark,
+        bg = bg,
         fg = c.fg_dark,
       },
       TelescopeBorder = {
