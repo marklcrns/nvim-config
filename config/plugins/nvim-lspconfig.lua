@@ -36,12 +36,13 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config({
-  signs = false,
+  signs = true,
   update_in_insert = false,
   underline = true,
   severity_sort = true,
   virtual_text = {
     source = true,
+    severity = "ERROR",
   },
 })
 

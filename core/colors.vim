@@ -113,6 +113,9 @@ if g:colors_name == "catppuccin"
   hi DiffDeleteText gui=none guifg=none guibg=#4b1818
   " Right panel
   hi DiffAddText gui=none guifg=none guibg=#1c5458
+  if get(g:, 'transparent_background', 0)
+    hi CursorLine guibg=#363a4f
+  endif
   " }}}
 endif
 

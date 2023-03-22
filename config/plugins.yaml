@@ -555,11 +555,12 @@
 - repo: karb94/neoscroll.nvim
   hook_source: luafile $VIM_PATH/config/plugins/neoscroll.lua
 
-- repo: kevinhwang91/nvim-hlslens
-  hook_source: luafile $VIM_PATH/config/plugins/nvim-hlslens.lua
-
 - repo: petertriho/nvim-scrollbar
   hook_source: luafile $VIM_PATH/config/plugins/nvim-scrollbar.lua
+
+- repo: kevinhwang91/nvim-hlslens
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-hlslens.lua
+  depends: [ nvim-scrollbar]
 
 # - repo: gen740/SmoothCursor.nvim
 #   hook_source: luafile $VIM_PATH/config/plugins/SmoothCursor.lua
