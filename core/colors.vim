@@ -158,7 +158,7 @@ endif
 " Transparent background
 if get(g:, 'transparent_background', 0)
   hi Normal guibg=NONE ctermbg=NONE
-  hi NormalFloat guibg=NONE ctermbg=NONE
+  " hi NormalFloat guibg=NONE ctermbg=NONE
 endif
 " }}}
 

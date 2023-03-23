@@ -73,3 +73,14 @@ require("catppuccin").setup({
     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
   },
 })
+
+-- Ref: https://github.com/89iuv/dotfiles/blob/master/nvim/lua/plugins/configs/catppuccin.lua
+local base1 = "#2D3145"
+local colors = require("catppuccin.palettes").get_palette()
+require("catppuccin.lib.highlighter").syntax({
+  -- MsgArea = { bg = colors.mantle },
+  NormalFloat = { bg = base1 },
+  CursorLine = { bg = colors.surface0 },
+  -- PmenuSel = { fg = colors.mantle, bg = colors.blue },
+  -- FloatBorder = { fg = colors.surface0, bg = colors.surface0 },
+})

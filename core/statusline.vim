@@ -19,7 +19,7 @@ let s:stl .= '%{badge#format()} %4*%*'						" File format
 let s:stl .= '%( %{&fenc} %)'											" File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'									" File type
 let s:stl .= '%3*%2* '
-" let s:stl .= '%3b|0x%2B '													" ASCII value
+let s:stl .= '%3b|0x%2B '													" ASCII value
 let s:stl .= '%2l:%2c%4p%% '											" Line and column nr
 " let s:stl .= "%4*%{badge#scrollbar()}%*"
 
