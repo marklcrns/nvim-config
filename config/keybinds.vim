@@ -72,8 +72,8 @@ if dein#tap('nvim-lspconfig')
   " DEPRECATED: Defined in nvim-treesitter-textobjects
   " nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
   " nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
-  nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
   " nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
   nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
   nnoremap <silent> gt :lua vim.lsp.buf.type_definition()<CR>
@@ -974,45 +974,66 @@ if dein#tap('open-browser.vim')
 endif
 
 if dein#tap('text-case.nvim')
-  nnoremap <silent> gau :lua require('textcase').current_word('to_upper_case')<CR>
-  nnoremap <silent> gal :lua require('textcase').current_word('to_lower_case')<CR>
-  nnoremap <silent> gas :lua require('textcase').current_word('to_snake_case')<CR>
-  nnoremap <silent> gah :lua require('textcase').current_word('to_dash_case')<CR>
-  nnoremap <silent> gan :lua require('textcase').current_word('to_constant_case')<CR>
-  nnoremap <silent> gad :lua require('textcase').current_word('to_dot_case')<CR>
-  nnoremap <silent> gaa :lua require('textcase').current_word('to_phrase_case')<CR>
-  nnoremap <silent> gac :lua require('textcase').current_word('to_camel_case')<CR>
-  nnoremap <silent> gap :lua require('textcase').current_word('to_pascal_case')<CR>
-  nnoremap <silent> gat :lua require('textcase').current_word('to_title_case')<CR>
-  nnoremap <silent> gaf :lua require('textcase').current_word('to_path_case')<CR>
+  nnoremap gau <cmd>lua require('textcase').current_word('TO_UPPER_CASE')<CR>
+  nnoremap gal <cmd>lua require('textcase').current_word('to_lower_case')<CR>
+  nnoremap gas <cmd>lua require('textcase').current_word('to_snake_case')<CR>
+  nnoremap gad <cmd>lua require('textcase').current_word('to-dash-case')<CR>
+  nnoremap gan <cmd>lua require('textcase').current_word('TO_CONSTANT_CASE')<CR>
+  nnoremap gaa <cmd>lua require('textcase').current_word('To phrase case')<CR>
+  nnoremap gac <cmd>lua require('textcase').current_word('toCamelCase')<CR>
+  nnoremap gap <cmd>lua require('textcase').current_word('ToPascalCase')<CR>
+  nnoremap gat <cmd>lua require('textcase').current_word('To Title Case')<CR>
+  nnoremap gaf <cmd>lua require('textcase').current_word('to/path/case')<CR>
 
-  nnoremap <silent> gaU :lua require('textcase').lsp_rename('to_upper_case')<CR>
-  nnoremap <silent> gaL :lua require('textcase').lsp_rename('to_lower_case')<CR>
-  nnoremap <silent> gaS :lua require('textcase').lsp_rename('to_snake_case')<CR>
-  nnoremap <silent> gaH :lua require('textcase').lsp_rename('to_dash_case')<CR>
-  nnoremap <silent> gaN :lua require('textcase').lsp_rename('to_constant_case')<CR>
-  nnoremap <silent> gaD :lua require('textcase').lsp_rename('to_dot_case')<CR>
-  nnoremap <silent> gaA :lua require('textcase').lsp_rename('to_phrase_case')<CR>
-  nnoremap <silent> gaC :lua require('textcase').lsp_rename('to_camel_case')<CR>
-  nnoremap <silent> gaP :lua require('textcase').lsp_rename('to_pascal_case')<CR>
-  nnoremap <silent> gaT :lua require('textcase').lsp_rename('to_title_case')<CR>
-  nnoremap <silent> gaF :lua require('textcase').lsp_rename('to_path_case')<CR>
+  nnoremap gaU <cmd>lua require('textcase').lsp_rename('TO_UPPER_CASE')<CR>
+  nnoremap gaL <cmd>lua require('textcase').lsp_rename('to_lower_case')<CR>
+  nnoremap gaS <cmd>lua require('textcase').lsp_rename('to_snake_case')<CR>
+  nnoremap gaD <cmd>lua require('textcase').lsp_rename('to-dash-case')<CR>
+  nnoremap gaN <cmd>lua require('textcase').lsp_rename('TO_CONSTANT_CASE')<CR>
+  nnoremap gaA <cmd>lua require('textcase').lsp_rename('To phrase case')<CR>
+  nnoremap gaC <cmd>lua require('textcase').lsp_rename('toCamelCase')<CR>
+  nnoremap gaP <cmd>lua require('textcase').lsp_rename('ToPascalCase')<CR>
+  nnoremap gaT <cmd>lua require('textcase').lsp_rename('To Title Case')<CR>
+  nnoremap gaF <cmd>lua require('textcase').lsp_rename('to/path/case')<CR>
 
-  nnoremap <silent> gaou :lua require('textcase').operator('to_upper_case')<CR>
-  nnoremap <silent> gaol :lua require('textcase').operator('to_lower_case')<CR>
-  nnoremap <silent> gaos :lua require('textcase').operator('to_snake_case')<CR>
-  nnoremap <silent> gaoh :lua require('textcase').operator('to_dash_case')<CR>
-  nnoremap <silent> gaon :lua require('textcase').operator('to_constant_case')<CR>
-  nnoremap <silent> gaod :lua require('textcase').operator('to_dot_case')<CR>
-  nnoremap <silent> gaoa :lua require('textcase').operator('to_phrase_case')<CR>
-  nnoremap <silent> gaoc :lua require('textcase').operator('to_camel_case')<CR>
-  nnoremap <silent> gaop :lua require('textcase').operator('to_pascal_case')<CR>
-  nnoremap <silent> gaot :lua require('textcase').operator('to_title_case')<CR>
-  nnoremap <silent> gaof :lua require('textcase').operator('to_path_case')<CR>
+  nnoremap geu <cmd>lua require('textcase').operator('TO_UPPER_CASE')<CR>
+  nnoremap gel <cmd>lua require('textcase').operator('to_lower_case')<CR>
+  nnoremap ges <cmd>lua require('textcase').operator('to_snake_case')<CR>
+  nnoremap ged <cmd>lua require('textcase').operator('to-dash-case')<CR>
+  nnoremap gen <cmd>lua require('textcase').operator('TO_CONSTANT_CASE')<CR>
+  nnoremap gea <cmd>lua require('textcase').operator('To phrase case')<CR>
+  nnoremap gec <cmd>lua require('textcase').operator('toCamelCase')<CR>
+  nnoremap gep <cmd>lua require('textcase').operator('ToPascalCase')<CR>
+  nnoremap get <cmd>lua require('textcase').operator('To Title Case')<CR>
+  nnoremap gef <cmd>lua require('textcase').operator('to/path/case')<CR>
 
   if s:enable_whichkey
     let g:which_key_gmap['a'] = {
           \ 'name' : '+text-case-current-word',
+          \ 'u' : 'To upper case',
+          \ 'l' : 'To lower case',
+          \ 's' : 'To snake case',
+          \ 'd' : 'To dash case',
+          \ 'n' : 'To constant case',
+          \ 'a' : 'To phrase case',
+          \ 'c' : 'To camel case',
+          \ 'p' : 'To pascal case',
+          \ 't' : 'To title case',
+          \ 'f' : 'To path case',
+          \ 'U' : 'To upper case (lsp rename)',
+          \ 'L' : 'To lower case (lsp rename)',
+          \ 'S' : 'To snake case (lsp rename)',
+          \ 'D' : 'To dash case (lsp rename)',
+          \ 'N' : 'To constant case (lsp rename)',
+          \ 'A' : 'To phrase case (lsp rename)',
+          \ 'C' : 'To camel case (lsp rename)',
+          \ 'P' : 'To pascal case (lsp rename)',
+          \ 'T' : 'To title case (lsp rename)',
+          \ 'F' : 'To path case (lsp rename)',
+          \ '.' : 'Open text case Telescope',
+          \ }
+    let g:which_key_gmap['e'] = {
+          \ 'name' : '+text-case-operator',
           \ 'u' : 'To upper case',
           \ 'l' : 'To lower case',
           \ 's' : 'To snake case',
@@ -1024,31 +1045,6 @@ if dein#tap('text-case.nvim')
           \ 'p' : 'To pascal case',
           \ 't' : 'To title case',
           \ 'f' : 'To path case',
-          \ 'U' : 'To upper case (lsp rename)',
-          \ 'L' : 'To lower case (lsp rename)',
-          \ 'S' : 'To snake case (lsp rename)',
-          \ 'H' : 'To dash case (lsp rename)',
-          \ 'N' : 'To constant case (lsp rename)',
-          \ 'D' : 'To dot case (lsp rename)',
-          \ 'A' : 'To phrase case (lsp rename)',
-          \ 'C' : 'To camel case (lsp rename)',
-          \ 'P' : 'To pascal case (lsp rename)',
-          \ 'T' : 'To title case (lsp rename)',
-          \ 'F' : 'To path case (lsp rename)',
-          \ 'o' : {
-                \ 'name' : '+operator',
-                \ 'u' : 'To upper case',
-                \ 'l' : 'To lower case',
-                \ 's' : 'To snake case',
-                \ 'h' : 'To dash case',
-                \ 'n' : 'To constant case',
-                \ 'd' : 'To dot case',
-                \ 'a' : 'To phrase case',
-                \ 'c' : 'To camel case',
-                \ 'p' : 'To pascal case',
-                \ 't' : 'To title case',
-                \ 'f' : 'To path case',
-                \ },
           \ }
   endif
 endif

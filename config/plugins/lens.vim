@@ -16,7 +16,8 @@ let g:lens#disabled_filetypes = [
       \ 'qf', 'toggleterm',
       \ 'lspsagaoutline',
       \ 'lspsagafinder',
-      \ 'neo-tree'
+      \ 'neo-tree',
+      \ 'mind'
       \ ]
 
 let g:lens#disabled_buftypes = [

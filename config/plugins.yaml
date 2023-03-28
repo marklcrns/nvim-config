@@ -230,8 +230,10 @@
   hook_source: luafile $VIM_PATH/config/plugins/focus.lua
 
 - repo: camspiers/animate.vim
+  if: "!exists('g:neovide') && !exists('g:Gui') && !exists('g:GuiLoaded') && !has('gui_running') && !has('gui')"
   hook_source: source $VIM_PATH/config/plugins/animate.vim
 - repo: marklcrns/lens.vim
+  if: "!exists('g:neovide') && !exists('g:Gui') && !exists('g:GuiLoaded') && !has('gui_running') && !has('gui')"
   hook_source: source $VIM_PATH/config/plugins/lens.vim
 
 - repo: TaDaa/vimade
@@ -278,11 +280,17 @@
 
 - repo: sindrets/diffview.nvim
   if: "has('nvim-0.7')"
-  depends: [ plenary.nvim]
+  depends: [ plenary.nvim ]
   hook_source: luafile $VIM_PATH/config/plugins/diffview.lua
 
 - repo: AndrewRadev/linediff.vim
   on_cmd: [ Linediff ]
+
+
+- repo: bennypowers/nvim-regexplainer
+  if: "has('nvim-0.7')"
+  depends: [ nvim-treesitter, nui.nvim ]
+  hook_source: luafile $VIM_PATH/config/plugins/nvim-regexplainer.lua
 
 # CursorHold cword highlight
 - repo: RRethy/vim-illuminate
@@ -347,6 +355,7 @@
 # Titlecase
 - repo: johmsalas/text-case.nvim
   if: "has('nvim-0.5')"
+  on_event: "VimEnter"
   hook_source: luafile $VIM_PATH/config/plugins/text-case.lua
 
 - repo: rest-nvim/rest.nvim
@@ -541,7 +550,7 @@
   hook_add: source $VIM_PATH/config/plugins/far.vim
 
 - repo: lukas-reineke/indent-blankline.nvim
-  on_event: BufRead
+  on_event: VimEnter
   hook_source: luafile $VIM_PATH/config/plugins/indent-blankline.lua
 
 - repo: norcalli/nvim-colorizer.lua
