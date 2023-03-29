@@ -252,7 +252,12 @@ function! ExtendedBasicMappings()
   nnoremap <C-w>J <C-w>J<C-w>=
   " Select last paste
   nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
-
+  " Center search results and jumps
+  nnoremap n nzz
+  nnoremap N Nzz
+  nnoremap <C-o> <C-o>zz
+  nnoremap <C-i> <C-i>zz
+  " Shift char ascii
   vnoremap <silent> <M-c> :<C-u>call VShiftCharAscii(1)<CR>
   vnoremap <silent> <M-S-c> :<C-u>call VShiftCharAscii(-1)<CR>
   nnoremap <silent> <M-c> :<C-u>call ShiftCharAscii(matchstr(getline('.'), '\%' . col('.') . 'c.'), 1)<CR>
