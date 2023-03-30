@@ -309,7 +309,8 @@ if exists('g:neovide')
   let g:neovide_hide_mouse_when_typing = v:true
   let g:neovide_cursor_trail_size = 0.8
   let g:neovide_refresh_rate = 60
-  let g:neovide_refresh_rate_idle = 5
+  let g:neovide_no_idle = v:true
+  let g:neovide_transparency = 0.9
 
   " let g:neovide_scale_factor=1.0
   function! ChangeScaleFactor(delta)

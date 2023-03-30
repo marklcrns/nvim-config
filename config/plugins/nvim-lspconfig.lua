@@ -168,7 +168,7 @@ local servers = {
   "pyright",
   "tsserver",
   "bashls",
-  "yamlls",
+  -- "yamlls",
   "html",
   "cssls", -- css-lsp: for css and scss
   "vimls",
