@@ -136,7 +136,8 @@ buffer filetype
 Thanks to the following (Neo)Vim configs and to all the geniuses behind the
 plugins that made this repo possible.
 
-- [ThinkVim](https://github.com/hardcoreplayers/ThinkVim)
-- [Rafi's vim-config](https://github.com/rafi/vim-config)
-- [66RING's .vim](https://github.com/66RING/.vim)
+- [sindrets' nvim](https://github.com/sindrets/dotfiles/tree/master/.config/nvim)
+- [hardcoreplayers/ThinkVim](https://github.com/hardcoreplayers/ThinkVim)
+- [rafi/vim-config](https://github.com/rafi/vim-config)
+- [66RING/.vim](https://github.com/66RING/.vim)
 
