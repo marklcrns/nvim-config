@@ -47,6 +47,10 @@
 # ----------------------------------------
 - repo: liuchengxu/vim-which-key
   hook_source: source $VIM_PATH/config/plugins/whichkey.vim
+# - repo: gregorias/nvim-mapper
+#   depends: [ 'telescope.nvim' ]
+#   hook_source: luafile $VIM_PATH/config/plugins/nvim-mapper.lua
+
 
 # LSP + Syntax + Completion
 # ==========================================
@@ -285,7 +289,6 @@
 - repo: AndrewRadev/linediff.vim
   on_cmd: [ Linediff ]
 
-
 - repo: bennypowers/nvim-regexplainer
   if: "has('nvim-0.7')"
   depends: [ nvim-treesitter, nui.nvim ]
@@ -360,6 +363,12 @@
 - repo: rest-nvim/rest.nvim
   if: "has('nvim-0.5')"
   hook_source: luafile $VIM_PATH/config/plugins/rest.lua
+
+# Yank and Paste
+- repo: gbprod/yanky.nvim
+  if: "has('nvim-0.7')"
+  depends: [ 'telescope.nvim' ]
+  hook_source: luafile $VIM_PATH/config/plugins/yanky.lua
 
 # Git{{{
 # - repo: lambdalisue/gina.vim

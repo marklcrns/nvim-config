@@ -576,8 +576,8 @@ function! DiffMappings()
     echom 'dl :diffget LOCAL (git mergetool only)'
     echom 'dr :diffget REMOTE (git mergetool only)'
     echom 'cq :cquit'
-    echom ']c Next conflict'
-    echom '[c Previous conflict'
+    echom ']c or ]x Next conflict'
+    echom '[c or [x Previous conflict'
 
     " Only shows the first time this function is called
     if !exists("g:custom_diff_enable")

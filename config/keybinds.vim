@@ -1064,6 +1064,14 @@ if dein#tap('rest.nvim')
   endif
 endif
 
+if dein#tap('yanky.nvim')
+  nnoremap <leader>fdy <cmd>Telescope yank_history<cr>
+
+  if s:enable_whichkey
+    let g:which_key_map['f']['d']['y'] = 'Find yank history'
+  endif
+endif
+
 if dein#tap('gina.vim')
   nnoremap <silent> <Leader>ga :Gina add %:p<CR>
   nnoremap <silent> <Leader>gA :Gina add .<CR>
