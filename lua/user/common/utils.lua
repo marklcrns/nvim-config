@@ -169,6 +169,16 @@ function M.ternary(condition, if_true, if_false, plain)
   end
 end
 
+---Call the function `f` with autocommands disabled.
+---@param f function
+---@param ... any # Arguments
+function M.noautocmd(f, ...)
+  local last_eventignore = vim.o.eventignore
+  vim.o.eventignore = "all"
+  f(...)
+  vim.o.eventignore = last_eventignore
+end
+
 ---Call the function `f`, ignoring most of the window and buffer related
 ---events. The function is called in protected mode.
 ---@param f function
@@ -810,7 +820,7 @@ end
 ---unique among the currently listed buffers.
 ---
 ---Derived from feline.nvim.
----@see [feline.nvim](https://github.com/feline-nvim/feline.nvim)
+---Ref. https://github.com/feline-nvim/feline.nvim
 ---@param filename string
 ---@return string
 function M.get_unique_file_bufname(filename)
@@ -1108,6 +1118,30 @@ function M.unset_local(winids, option)
       vim.opt_local[option] = nil
     end)
   end
+end
+
+---Get the byte size of a buffer in kilo bytes.
+---
+---Approximations of file size going by number of lines in normal code
+---(i.e. not minified):
+---
+--- 2500 lines   ≅ 84.62 kb
+--- 5000 lines   ≅ 165.76 kb
+--- 10000 lines  ≅ 320.86 kb
+--- 20000 lines  ≅ 649.94 kb
+--- 40000 lines  ≅ 1314.56 kb
+--- 80000 lines  ≅ 2634.88 kb
+--- 160000 lines ≅ 5249.33 kb
+--- 320000 lines ≅ 10656.35 kb
+function M.buf_get_size(bufnr)
+  local bytes = api.nvim_buf_get_offset(bufnr, api.nvim_buf_line_count(bufnr))
+  return bytes / 1024
+end
+
+---@param winid integer
+---@return boolean
+function M.win_is_float(winid)
+  return api.nvim_win_get_config(winid).relative ~= ""
 end
 
 ---Get a list of all windows that contain the given buffer.

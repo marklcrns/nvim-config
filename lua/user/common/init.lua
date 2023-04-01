@@ -5,4 +5,5 @@ return {
   notify = require("user.common.notify"),
   sys = require("user.common.sys"),
   utils = require("user.common.utils"),
+  mapper = require("user.common.keymapper"),
 }
