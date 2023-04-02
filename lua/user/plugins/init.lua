@@ -32,41 +32,324 @@ end
 
 require("lazy").setup({
   -- UTILS
-  { "nvim-lua/popup.nvim" },
-  { "nvim-lua/plenary.nvim", lazy = true },
+  "nvim-lua/popup.nvim",
+  "nvim-lua/plenary.nvim",
+  "MunifTanjim/nui.nvim",
+
+  -- COLORSCHEMES
+  "sindrets/oxocarbon-lua.nvim",
+  "AlexvZyl/nordic.nvim",
+  {
+    -- Default colorscheme
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    config = conf("tokyonight"),
+  },
+
+  -- STARTUP
+  { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
+
+  -- BEHAVIOR
+  {
+    "marklcrns/vim-smartq",
+    event = "VimEnter",
+    config = conf("vim-smartq"),
+  },
+  -- TODO: map
+  { "kevinhwang91/nvim-bqf", config = conf("nvim-bqf") },
+  {
+    "sindrets/winshift.nvim",
+    init = require("user.core.utils").load_mappings("winshift"),
+    cmd = "WinShift",
+    config = conf("winshift"),
+  },
+  {
+    "beauwilliams/focus.nvim",
+    init = require("user.core.utils").load_mappings("focus"),
+    event = "VimEnter",
+    config = conf("vimade"),
+  },
+  {
+    "TaDaa/vimade",
+    init = require("user.core.utils").load_mappings("vimade"),
+    event = "VimEnter",
+    config = conf("vimade"),
+  },
+  {
+    "marklcrns/lens.vim",
+    init = require("user.core.utils").load_mappings("lens"),
+    event = "VimEnter",
+    config = conf("lens"),
+    dependencies = {
+      {
+        "camspiers/animate.vim",
+        cond = not Config.common.sys.is_gui(),
+        event = "VimEnter",
+        config = conf("animate"),
+      },
+    },
+  },
 
   -- UI STYLE
-  { "kyazdani42/nvim-web-devicons", name = "nvim-web-devicons", config = conf("nvim-web-devicons"), lazy = true },
+  { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
   { "rcarriga/nvim-notify", config = conf("nvim-notify") },
-  { "akinsho/bufferline.nvim", config = conf("bufferline"), dependencies = "nvim-web-devicons", event = "VimEnter" },
-  { "feline-nvim/feline.nvim", config = conf("feline"), event = "VeryLazy" },
-  { "lukas-reineke/indent-blankline.nvim", config = conf("indent-blankline"), event = "VimEnter" },
+  {
+    "RRethy/vim-illuminate",
+    init = require("user.core.utils").lazy_load("vim-illuminate"),
+    config = conf("vim-illuminate"),
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    init = require("user.core.utils").lazy_load("indent-blankline.nvim"),
+    config = conf("indent-blankline"),
+  },
   { "Darazaki/indent-o-matic", config = conf("indent-o-matic") },
-  { "RRethy/vim-illuminate", config = conf("vim-illuminate"), event = "VeryLazy" },
+  {
+    "akinsho/bufferline.nvim",
+    init = require("user.core.utils").lazy_load("bufferline.nvim"),
+    dependencies = "kyazdani42/nvim-web-devicons",
+    event = "VimEnter",
+    config = conf("bufferline"),
+  },
+  {
+    "feline-nvim/feline.nvim",
+    init = require("user.core.utils").lazy_load("feline.nvim"),
+    config = conf("feline"),
+  },
 
-  -- UI TOOLS
-  { "sindrets/diffview.nvim", config = conf("diffview") },
-  { "nvim-telescope/telescope.nvim", config = conf("telescope"), dependencies = "nvim-web-devicons" },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  { "nvim-telescope/telescope-media-files.nvim" },
-  { "nvim-telescope/telescope-ui-select.nvim" },
-  { "folke/which-key.nvim", config = conf("which-key"), lazy = true },
-  { "gregorias/nvim-mapper", config = conf("nvim-mapper"), dependencies = "nvim-telescope/telescope.nvim" },
+  -- UI INTERFACE
+  {
+    -- Needed by common.utils
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    init = require("user.core.utils").load_mappings("diffview"),
+    config = conf("diffview"),
+  },
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", "<localleader>" },
+    config = conf("which-key"),
+  },
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    init = require("user.core.utils").load_mappings("zen_mode"),
+    config = conf("zen-mode"),
+  },
+  {
+    "gregorias/nvim-mapper",
+    config = conf("nvim-mapper"),
+    dependencies = "nvim-telescope/telescope.nvim",
+  },
+  {
+    "simnalamburt/vim-mundo",
+    cmd = "MundoToggle",
+    init = require("user.core.utils").load_mappings("vim_mundo"),
+  },
+
+  -- FILE NAVIGATION
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    init = require("user.core.utils").load_mappings("telescope"),
+    config = conf("telescope"),
+  },
+  { "nvim-telescope/telescope-fzf-native.nvim", after = "telescope.nvim", build = "make" },
+  { "nvim-telescope/telescope-media-files.nvim", after = "telescope.nvim" },
+  { "nvim-telescope/telescope-ui-select.nvim", after = "telescope.nvim" },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    cmd = "Neotree",
+    init = require("user.core.utils").load_mappings("neo_tree"),
+    config = conf("neo-tree"),
+    dependencies = {
+      {
+        "s1n7ax/nvim-window-picker",
+        init = require("user.core.utils").load_mappings("nvim_window_picker"),
+        version = "1.*",
+        config = conf("nvim-window-picker"),
+      },
+    },
+  },
+
+  -- CODING HELPER
+  {
+    "numToStr/Comment.nvim",
+    init = require("user.core.utils").lazy_load("Comment.nvim"),
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+  {
+    "kylechui/nvim-surround",
+    init = require("user.core.utils").lazy_load("nvim-surround"),
+    config = function()
+      require("nvim-surround").setup()
+    end,
+  },
+  {
+    "windwp/nvim-autopairs",
+    init = require("user.core.utils").lazy_load("nvim-autopairs"),
+    config = conf("nvim-autopairs"),
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    init = require("user.core.utils").lazy_load("nvim-ts-autotag"),
+    config = conf("nvim-ts-autotag"),
+  },
+  {
+    "Wansmer/treesj",
+    init = require("user.core.utils").load_mappings("treesj"),
+    event = "BufRead",
+    config = conf("treesj"),
+  },
+  {
+    "monaqa/dial.nvim",
+    init = require("user.core.utils").load_mappings("dial"),
+    event = "BufRead",
+    config = conf("dial"),
+  },
+
+  -- VCS
+  {
+    "TimUntersberger/neogit",
+    cmd = "Neogit",
+    init = require("user.core.utils").load_mappings("neogit"),
+    config = conf("neogit"),
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    init = require("user.core.utils").lazy_load("gitsigns.nvim"),
+    config = conf("gitsigns"),
+  },
+
+  -- INTEGRATION
+  {
+    "alexghergh/nvim-tmux-navigation",
+    event = "VimEnter",
+    config = conf("nvim-tmux-navigation"),
+  },
 
   -- SYNTAX & FILETYPE PLUGINS
   {
     "nvim-treesitter/nvim-treesitter",
+    init = require("user.core.utils").lazy_load("nvim-treesitter"),
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     config = conf("nvim-treesitter"),
+    dependencies = {
+      { "RRethy/nvim-treesitter-textsubjects" },
+      {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        config = conf("nvim-treesitter-textobjects"),
+      },
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        config = conf("nvim-treesitter-context"),
+      },
+      {
+        "RRethy/nvim-treesitter-endwise",
+        config = conf("nvim-ts-autotag"),
+      },
+      {
+        "andymass/vim-matchup",
+        config = conf("vim-matchup"),
+      },
+    },
+  },
+  {
+    "folke/todo-comments.nvim",
+    init = require("user.core.utils").lazy_load("todo-comments.nvim"),
+    config = conf("todo-comments"),
   },
 
-  -- SYSTEM PLUGINS
-  { "marklcrns/vim-smartq", config = conf("vim-smartq") },
+  -- LANGUAGE SERVER PROTOCOL + TOOLS
+  {
+    "neovim/nvim-lspconfig",
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    init = require("user.core.utils").lazy_load("null-ls.nvim"),
+    config = conf("null-ls"),
+  },
+  {
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    config = conf("mason"),
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    init = require("user.core.utils").lazy_load("mason-lspconfig.nvim"),
+    config = conf("mason-lspconfig"),
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+  },
+  {
+    "jayp0521/mason-null-ls.nvim",
+    init = require("user.core.utils").lazy_load("mason-null-ls.nvim"),
+    config = conf("mason-null-ls"),
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+    config = conf("lsp_signature"),
+  },
+  {
+    init = require("user.core.utils").load_mappings("toggle_lsp_diagnostics"),
+    "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
+    config = conf("toggle-lsp-diagnostics"),
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    init = require("user.core.utils").load_mappings("symbols_outline"),
+    cmd = { "SymbolsOutline" },
+    config = conf("symbols-outline"),
+  },
 
-  -- COLORSCHEMES
-  { "folke/tokyonight.nvim", config = conf("tokyonight"), lazy = true },
-  { "sindrets/oxocarbon-lua.nvim", lazy = true },
-  { "AlexvZyl/nordic.nvim", opts = { cursorline = { hide_unfocused = false } }, lazy = true },
-})
-
-require("user.plugins.keymaps")
+  -- COMPLETION
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    config = conf("nvim-cmp"),
+    dependencies = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-path" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-cmdline" },
+      { "f3fora/cmp-spell" },
+      { "hrsh7th/cmp-emoji" },
+      { "petertriho/cmp-git" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "davidsierradz/cmp-conventionalcommits" },
+      {
+        "zbirenbaum/copilot-cmp",
+        config = conf("copilot-cmp"),
+        dependencies = {
+          {
+            -- Make sure to run `:Copilot auth` after install
+            "zbirenbaum/copilot.lua",
+            cmd = "Copilot",
+            config = conf("copilot"),
+          },
+        },
+      },
+      {
+        "L3MON4D3/LuaSnip",
+        version = "<CurrentMajor>.*",
+        config = conf("LuaSnip"),
+        dependencies = "rafamadriz/friendly-snippets",
+      },
+      {
+        "windwp/nvim-autopairs",
+        config = conf("nvim-autopairs"),
+      },
+    },
+  },
+}, require("user.plugins.lazy_nvim"))

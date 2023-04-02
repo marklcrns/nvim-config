@@ -196,29 +196,29 @@ return function()
   require("telescope").load_extension("ui-select")
   require("telescope").load_extension("mapper")
 
-  -- Mappings
-  local mapper = Config.common.mapper
-  local prog = "Telescope"
-  local opts = { silent = true }
-  local mappings = {}
-  mappings["<leader>fdf"] = { args = "find_files", id = "telescope_find_files", desc = "Find files" }
-  mappings["<leader>fdb"] = { args = "buffers", id = "telescope_buffers", desc = "Find buffers" }
-  mappings["<leader>fdc"] = { args = "colorscheme", id = "telescope_colorscheme", desc = "Pick colorscheme" }
-  mappings["<leader>fdp"] = { args = "projects", id = "telescope_projects", desc = "Find projects" }
-  mappings["<leader>fdr"] = { args = "live_grep", id = "telescope_live_grep", desc = "Live grep" }
-  mappings["<leader>fdh"] = { args = "help_tags", id = "telescope_help_tags", desc = "Find help tags" }
-  mappings["<leader>fdj"] = { args = "jumplist", id = "telescope_jumplist", desc = "Find jumplist" }
-  mappings["<leader>fdm"] = { args = "marks", id = "telescope_marks", desc = "Find marks" }
-  mappings["<leader>fdo"] = { args = "oldfiles", id = "telescope_oldfiles", desc = "Find oldfiles" }
-  mappings["<leader>fdw"] = { args = "grep_string", id = "telescope_grep_string", desc = "Find string" }
-  mappings["<leader>fdgb"] = { args = "git_branches", id = "telescope_git_branches", desc = "Find git branches" }
-  mappings["<leader>fdgc"] = { args = "git_commits", id = "telescope_git_commits", desc = "Find git commits" }
-  mappings["<leader>fdgC"] = { args = "git_bcommits", id = "telescope_git_bcommits", desc = "Find git branch commits" }
-  mappings["<leader>fdgf"] = { args = "git_files", id = "telescope_git_files", desc = "Find git files" }
-  mappings["<leader>fdgs"] = { args = "git_status", id = "telescope_git_status", desc = "Find git status" }
-
-  for k, v in pairs(mappings) do
-    local cmd = string.format(":%s %s<CR>", prog, v.args)
-    mapper.map("n", k, cmd, opts, prog, v.id, v.desc)
-  end
+  -- -- Mappings
+  -- local mapper = Config.common.mapper
+  -- local prog = "Telescope"
+  -- local opts = { silent = true }
+  -- local mappings = {}
+  -- mappings["<leader>fdf"] = { args = "find_files", id = "telescope_find_files", desc = "Find files" }
+  -- mappings["<leader>fdb"] = { args = "buffers", id = "telescope_buffers", desc = "Find buffers" }
+  -- mappings["<leader>fdc"] = { args = "colorscheme", id = "telescope_colorscheme", desc = "Pick colorscheme" }
+  -- mappings["<leader>fdp"] = { args = "projects", id = "telescope_projects", desc = "Find projects" }
+  -- mappings["<leader>fdr"] = { args = "live_grep", id = "telescope_live_grep", desc = "Live grep" }
+  -- mappings["<leader>fdh"] = { args = "help_tags", id = "telescope_help_tags", desc = "Find help tags" }
+  -- mappings["<leader>fdj"] = { args = "jumplist", id = "telescope_jumplist", desc = "Find jumplist" }
+  -- mappings["<leader>fdm"] = { args = "marks", id = "telescope_marks", desc = "Find marks" }
+  -- mappings["<leader>fdo"] = { args = "oldfiles", id = "telescope_oldfiles", desc = "Find oldfiles" }
+  -- mappings["<leader>fdw"] = { args = "grep_string", id = "telescope_grep_string", desc = "Find string" }
+  -- mappings["<leader>fdgb"] = { args = "git_branches", id = "telescope_git_branches", desc = "Find git branches" }
+  -- mappings["<leader>fdgc"] = { args = "git_commits", id = "telescope_git_commits", desc = "Find git commits" }
+  -- mappings["<leader>fdgC"] = { args = "git_bcommits", id = "telescope_git_bcommits", desc = "Find git branch commits" }
+  -- mappings["<leader>fdgf"] = { args = "git_files", id = "telescope_git_files", desc = "Find git files" }
+  -- mappings["<leader>fdgs"] = { args = "git_status", id = "telescope_git_status", desc = "Find git status" }
+  --
+  -- for k, v in pairs(mappings) do
+  --   local cmd = string.format(":%s %s<CR>", prog, v.args)
+  --   mapper.map("n", k, cmd, opts, prog, v.id, v.desc)
+  -- end
 end

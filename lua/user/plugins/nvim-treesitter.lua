@@ -40,10 +40,22 @@ return function()
     --   },
     -- },
 
-    -- vim-matchup configs
+    -- Plugin: nvim-treesitter-textsubjects
+    textsubjects = {
+      enable = true,
+      prev_selection = ";", -- (Optional) keymap to select the previous selection
+      keymaps = {
+        ["<cr>"] = "textsubjects-smart",
+      },
+    },
+    -- Plugin: vim-matchup
     matchup = {
       enable = true, -- mandatory, false will disable the whole extension
       -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+    },
+    -- Plugin: nvim-treesitter-endwise
+    endwise = {
+      enable = true,
     },
   })
 

@@ -43,6 +43,20 @@ api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- COMMAND ALIASES
+local alias = require("user.modules.cmd_alias").alias
+
+alias("T", "Telescope")
+alias("gs", "Telescope git_status")
+alias("gb", "Telescope git_branches")
+alias("gl", "Telescope git_commits")
+alias({ "Qa", "QA", "QA!" }, "qa")
+alias("N", "Neorg")
+alias("nim", "Neorg inject-metadata")
+alias("DO", "DiffviewOpen")
+-- Toggle conceallevel:
+alias("tcl", "exe 'setl conceallevel=' . (&conceallevel == 0 ? 2 : 0)")
+
 -- FUNCTIONS
 
 Config.fn.toggle_quickfix = lib.create_buf_toggler(function()

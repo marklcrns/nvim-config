@@ -18,7 +18,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.cmd("source " .. config_dir .. "/vimrc")
 vim.cmd("source " .. config_dir .. "/autocommands.vim")
 
+require("user.core.utils").load_mappings()
+
 require("user.core")
 require("user.plugins")
 
 require("user.colorscheme").apply()
+
+vim.schedule(function()
+  require("user.lsp")
+  vim.cmd("LspStart")
+end)
