@@ -35,6 +35,18 @@ require("lazy").setup({
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
+  {
+    "mrded/nvim-lsp-notify",
+    config = function()
+      require("lsp-notify").setup({ notify = require("notify") })
+    end,
+    dependencies = {
+      {
+        "rcarriga/nvim-notify",
+        config = conf("nvim-notify"),
+      },
+    },
+  },
 
   -- COLORSCHEMES
   "sindrets/oxocarbon-lua.nvim",
@@ -99,18 +111,6 @@ require("lazy").setup({
 
   -- UI STYLE
   { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
-  {
-    "mrded/nvim-lsp-notify",
-    config = function()
-      require("lsp-notify").setup({ notify = require("notify") })
-    end,
-    dependencies = {
-      {
-        "rcarriga/nvim-notify",
-        config = conf("nvim-notify"),
-      },
-    },
-  },
   {
     "RRethy/vim-illuminate",
     init = require("user.core.utils").lazy_load("vim-illuminate"),
