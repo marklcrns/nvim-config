@@ -1,5 +1,9 @@
 local M = {}
 
+function M.is_windows()
+  return vim.loop.os_uname().sysname == "Windows_NT"
+end
+
 function M.is_wsl()
   local output = vim.fn.systemlist("uname -r")
   return not not string.find(output[1] or "", "WSL")
@@ -10,7 +14,7 @@ function M.is_mac()
 end
 
 function M.is_linux()
-  return not M.is_wsl() and not M.is_mac()
+  return not is_windows() and not M.is_wsl() and not M.is_mac()
 end
 
 function M.is_gui()

@@ -143,10 +143,7 @@ lspconfig.clangd.setup(M.create_config())
 lspconfig.vimls.setup(M.create_config())
 
 -- Go
-lspconfig.gopls.setup(M.create_config())
-
--- Scheme, Racket
-lspconfig.racket_langserver.setup(M.create_config())
+-- lspconfig.gopls.setup(M.create_config())
 
 -- Misc
 lspconfig.eslint.setup(M.create_config())

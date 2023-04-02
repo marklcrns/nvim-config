@@ -49,14 +49,26 @@ require("lazy").setup({
   },
 
   -- COLORSCHEMES
-  "sindrets/oxocarbon-lua.nvim",
-  "AlexvZyl/nordic.nvim",
   {
     "folke/tokyonight.nvim", -- Default
     lazy = false,
     priority = 1000,
     config = conf("tokyonight"),
   },
+  {
+    "catppuccin/nvim",
+    config = conf("catppuccin"),
+  },
+  {
+    "EdenEast/nightfox.nvim",
+    config = conf("nightfox"),
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    config = conf("kanagawa"),
+  },
+  "sindrets/oxocarbon-lua.nvim",
+  "AlexvZyl/nordic.nvim",
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
@@ -67,6 +79,20 @@ require("lazy").setup({
     init = require("user.core.utils").load_mappings("smartq"),
     event = "VimEnter",
     config = conf("vim-smartq"),
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    init = require("user.core.utils").lazy_load("nvim-ufo"),
+    config = conf("nvim-ufo"),
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+  },
+  {
+    "kevinhwang91/nvim-hlslens",
+    init = require("user.core.utils").load_mappings("hlslens"),
+    event = "BufRead",
+    config = conf("nvim-hlslens"),
   },
   -- TODO: map
   { "kevinhwang91/nvim-bqf", config = conf("nvim-bqf") },
@@ -79,8 +105,8 @@ require("lazy").setup({
   {
     "beauwilliams/focus.nvim",
     init = require("user.core.utils").load_mappings("focus"),
-    event = "BufRead",
-    config = conf("vimade"),
+    event = "VimEnter",
+    config = conf("focus"),
   },
   {
     "TaDaa/vimade",
@@ -311,17 +337,18 @@ require("lazy").setup({
   {
     "williamboman/mason.nvim",
     init = require("user.core.utils").load_mappings("mason"),
+    build = ":MasonUpdate",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     config = conf("mason"),
   },
   {
     "williamboman/mason-lspconfig.nvim",
-    after = { "mason.nvim", "nvim-lspconfig" },
+    event = "VimEnter",
     config = conf("mason-lspconfig"),
   },
   {
     "jayp0521/mason-null-ls.nvim",
-    after = { "mason.nvim", "null-ls.nvim" },
+    event = "VimEnter",
     config = conf("mason-null-ls"),
   },
   {

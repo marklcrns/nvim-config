@@ -32,14 +32,14 @@ M.dial = {
   plugin = true,
 
   n = {
-    ["<C-a>"] = { "require('dial.map').inc_normal()", "increment next", opts = default_opts },
-    ["<C-x>"] = { "require('dial.map').dec_normal()", "decrement next", opts = default_opts },
+    ["<C-a>"] = { [[<cmd>lua require('dial.map').inc_normal()<CR>]], "increment next", opts = default_opts },
+    ["<C-x>"] = { [[<cmd>lua require('dial.map').dec_normal()<CR>]], "decrement next", opts = default_opts },
   },
   v = {
-    ["<C-a>"] = { "require('dial.map').inc_visual()", "increment next", opts = default_opts },
-    ["<C-x>"] = { "require('dial.map').dec_visual()", "decrement next", opts = default_opts },
-    ["g<C-a>"] = { "require('dial.map').inc_gvisual()", "increment next", opts = default_opts },
-    ["g<C-x>"] = { "require('dial.map').dec_gvisual()", "decrement next", opts = default_opts },
+    ["<C-a>"] = { [[<cmd>lua require('dial.map').inc_visual()<CR>]], "increment next", opts = default_opts },
+    ["<C-x>"] = { [[<cmd>lua require('dial.map').dec_visual()<CR>]], "decrement next", opts = default_opts },
+    ["g<C-a>"] = { [[<cmd>lua require('dial.map').inc_gvisual()<CR>]], "increment next", opts = default_opts },
+    ["g<C-x>"] = { [[<cmd>lua require('dial.map').dec_gvisual()<CR>]], "decrement next", opts = default_opts },
   },
 }
 
@@ -60,6 +60,27 @@ M.focus = {
   },
 }
 
+M.hlslens = {
+  plugin = true,
+
+  n = {
+    ["n"] = {
+      [[<cmd>execute('normal! ' . v:count1 . 'nzz')<CR><cmd>lua require('hlslens').start()<CR>]],
+      "next search fancy",
+      opts = default_opts,
+    },
+    ["N"] = {
+      [[<cmd>execute('normal! ' . v:count1 . 'Nzz')<CR><cmd>lua require('hlslens').start()<CR>]],
+      "previous search fancy",
+      opts = default_opts,
+    },
+    ["*"] = { [[*<cmd>lua require('hlslens').start()<CR>]], "start search fancy", opts = default_opts },
+    ["#"] = { [[#<cmd>lua require('hlslens').start()<CR>]], "start search fancy", opts = default_opts },
+    ["g*"] = { [[g*<cmd>lua require('hlslens').start()<CR>]], "start search fancy", opts = default_opts },
+    ["g#"] = { [[g#<cmd>lua require('hlslens').start()<CR>]], "start search fancy", opts = default_opts },
+  },
+}
+
 M.lens = {
   plugin = true,
 
@@ -75,8 +96,8 @@ M.lsp = {
     ["<leader>lS"] = { "<cmd>LspStop<CR>", "stop LSP", opts = default_opts },
     ["<leader>li"] = { "<cmd>LspInfo<CR>", "open LSP info", opts = default_opts },
     ["<leader>ll"] = { "<cmd>LspLog<CR>", "open LSP log", opts = default_opts },
+    ["<leader>lr"] = { "<cmd>LspRestart<CR>", "restart LSP", opts = default_opts },
     ["<leader>ls"] = { "<cmd>LspStart<CR>", "start LSP", opts = default_opts },
-    ["<leader>lr"] = { "<cmd>LspRestart<CR>", "stop LSP", opts = default_opts },
   },
 }
 
@@ -124,7 +145,7 @@ M.smartq = {
 
   n = {
     ["<leader>fq"] = { "<cmd>SmartQ<CR>", "smart save and quit" },
-    ["<leader>wq"] = { "<cmd>SmartQ<CR>", "close all splits" },
+    ["<leader>wq"] = { "<cmd>SmartQCloseSplits<CR>", "close all splits" },
   },
 }
 

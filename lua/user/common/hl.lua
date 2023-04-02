@@ -251,6 +251,16 @@ end
 ---@param groups string|string[] Syntax group name or a list of group names.
 ---@param opt hl.HiSpec
 function M.hi(groups, opt)
+  -- NOTE: Hacky workaround when using transparent opt in coloscheme plugins.
+  -- Getting opt = { fg = "bg", bg = "bg" } if using transparent bg which
+  -- produce benign error
+  if opt.fg == "bg" then
+    opt.fg = M.get_bg("Normal")
+  end
+  if opt.bg == "bg" then
+    opt.bg = M.get_bg("Normal")
+  end
+
   if type(groups) ~= "table" then
     groups = { groups }
   end

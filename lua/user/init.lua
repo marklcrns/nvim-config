@@ -20,6 +20,8 @@ vim.cmd("source " .. config_dir .. "/autocommands.vim")
 
 require("user.core.utils").load_mappings()
 
+vim.env.PATH = vim.env.PATH .. (Config.common.sys.is_windows() and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
+
 require("user.core")
 require("user.plugins")
 

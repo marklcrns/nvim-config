@@ -1,5 +1,6 @@
 return function()
   require("mason").setup({
+    PATH = "skip",
     ui = {
       icons = {
         package_pending = " ",
