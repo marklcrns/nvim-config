@@ -56,7 +56,7 @@ M.focus = {
   plugin = true,
 
   n = {
-    ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "Toggle window focus", opts = default_opts },
+    ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle window focus", opts = default_opts },
   },
 }
 
@@ -65,6 +65,26 @@ M.lens = {
 
   n = {
     ["<localleader>sr"] = { "<cmd>call lens#toggle()<CR>", "toggle auto-resize", opts = default_opts },
+  },
+}
+
+M.lsp = {
+  plugin = true,
+
+  n = {
+    ["<leader>lS"] = { "<cmd>LspStop<CR>", "stop LSP", opts = default_opts },
+    ["<leader>li"] = { "<cmd>LspInfo<CR>", "open LSP info", opts = default_opts },
+    ["<leader>ll"] = { "<cmd>LspLog<CR>", "open LSP log", opts = default_opts },
+    ["<leader>ls"] = { "<cmd>LspStart<CR>", "start LSP", opts = default_opts },
+    ["<leader>lr"] = { "<cmd>LspRestart<CR>", "stop LSP", opts = default_opts },
+  },
+}
+
+M.mason = {
+  plugin = true,
+
+  n = {
+    ["<leader>lp"] = { "<cmd>Mason<CR>", "open LSP installer", opts = default_opts },
   },
 }
 
@@ -99,7 +119,18 @@ M.nvim_window_picker = {
   },
 }
 
+M.smartq = {
+  plugin = true,
+
+  n = {
+    ["<leader>fq"] = { "<cmd>SmartQ<CR>", "smart save and quit" },
+    ["<leader>wq"] = { "<cmd>SmartQ<CR>", "close all splits" },
+  },
+}
+
 M.symbols_outline = {
+  plugin = true,
+
   n = {
     ["<leader>cO"] = { "<cmd>SymbolsOutline<CR>", "toggle code outline", opts = default_opts },
   },
@@ -112,15 +143,17 @@ M.telescope = {
     ["<leader>fdb"] = { "<cmd>Telescope buffers<CR>", "find buffers", opts = default_opts },
     ["<leader>fdc"] = { "<cmd>Telescope colorscheme<CR>", "pick colorscheme", opts = default_opts },
     ["<leader>fdf"] = { "<cmd>Telescope find_files<CR>", "find files", opts = default_opts },
+    ["<leader>fdg"] = { "<cmd>Telescope grep_string<CR>", "find grep string ", opts = default_opts },
     ["<leader>fdh"] = { "<cmd>Telescope help_tags<CR>", "find help tags", opts = default_opts },
     ["<leader>fdi"] = { "<cmd>Telescope media_files<CR>", "find images", opts = default_opts },
     ["<leader>fdj"] = { "<cmd>Telescope jumplist<CR>", "find jumplist", opts = default_opts },
+    ["<leader>fdk"] = { "<cmd>Telescope keymaps<CR>", "find keymappings", opts = default_opts },
     ["<leader>fdm"] = { "<cmd>Telescope marks<CR>", "find marks", opts = default_opts },
-    ["<leader>fdo"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
+    ["<leader>fdn"] = { "<cmd>Telescope notify<CR>", "find notification", opts = default_opts },
+    ["<leader>fdr"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
     ["<leader>fdp"] = { "<cmd>Telescope projects<CR>", "find projects", opts = default_opts },
-    ["<leader>fdr"] = { "<cmd>Telescope live_grep<CR>", "live grep", opts = default_opts },
     ["<leader>fdu"] = { "<cmd>Telescope ui-select<CR>", "find ui", opts = default_opts },
-    ["<leader>fdw"] = { "<cmd>Telescope grep_string<CR>", "find string", opts = default_opts },
+    ["<leader>fdw"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
     ["<leader>fdgC"] = { "<cmd>Telescope git_bcommits<CR>", "find git branch commits", opts = default_opts },
     ["<leader>fdgb"] = { "<cmd>Telescope git_branches<CR>", "find git branches", opts = default_opts },
     ["<leader>fdgc"] = { "<cmd>Telescope git_commits<CR>", "find git commits", opts = default_opts },
@@ -181,6 +214,18 @@ M.vim_mundo = {
 
   n = {
     ["<leader>iu"] = { "<cmd>MundoToggle<CR>", "toggle undo tree", opts = default_opts },
+  },
+}
+
+M.vimwiki = {
+  plugin = true,
+
+  n = {
+    ["<localleader>nww"] = { "<cmd>VimwikiUISelect<CR>", "open vimwiki index", opts = default_opts },
+    ["<localleader>nwd"] = { "<cmd>VimwikiDiaryIndex<CR>", "open vimwiki diary", opts = default_opts },
+    ["<localleader>nwh"] = { "<cmd>Vimwiki2HTML<CR>", "convert vimwiki to html", opts = default_opts },
+    ["<localleader>nwH"] = { "<cmd>Vimwiki2HTMLBrowse<CR>", "convert vimwiki to html and browse", opts = default_opts },
+    ["<localleader>nwl"] = { "<cmd>VimwikiGenerateLinks<CR>", "generate vimwiki links", opts = default_opts },
   },
 }
 

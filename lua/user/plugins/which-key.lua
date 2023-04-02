@@ -25,8 +25,8 @@ return function()
 
     triggers_blacklist = {
       -- list of mode / prefixes that should never be hooked by WhichKey
-      i = { "j", "k" },
-      v = { "j", "k" },
+      i = { "j", "k", "f" },
+      v = { "j", "k", "f" },
     },
   })
 
@@ -55,12 +55,24 @@ return function()
         name = "+diff",
       },
     },
+    l = {
+      name = "+lsp",
+    },
     p = {
       name = "+plugin-manager",
+    },
+    w = {
+      name = "+window-manager",
     },
   }, { prefix = "<leader>" })
 
   wk.register({
+    n = {
+      name = "+notetaker",
+      w = {
+        name = "+vimwiki",
+      },
+    },
     s = {
       name = "+settings-toggle",
       d = {
@@ -73,5 +85,5 @@ return function()
         },
       },
     },
-  }, { prefix = "<LocalLeader>" })
+  }, { prefix = "<localleader>" })
 end

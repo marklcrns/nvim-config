@@ -40,8 +40,7 @@ require("lazy").setup({
   "sindrets/oxocarbon-lua.nvim",
   "AlexvZyl/nordic.nvim",
   {
-    -- Default colorscheme
-    "folke/tokyonight.nvim",
+    "folke/tokyonight.nvim", -- Default
     lazy = false,
     priority = 1000,
     config = conf("tokyonight"),
@@ -53,6 +52,7 @@ require("lazy").setup({
   -- BEHAVIOR
   {
     "marklcrns/vim-smartq",
+    init = require("user.core.utils").load_mappings("smartq"),
     event = "VimEnter",
     config = conf("vim-smartq"),
   },
@@ -67,7 +67,7 @@ require("lazy").setup({
   {
     "beauwilliams/focus.nvim",
     init = require("user.core.utils").load_mappings("focus"),
-    event = "VimEnter",
+    event = "BufRead",
     config = conf("vimade"),
   },
   {
@@ -90,10 +90,27 @@ require("lazy").setup({
       },
     },
   },
+  {
+    "karb94/neoscroll.nvim",
+    cond = not Config.common.sys.is_gui(),
+    init = require("user.core.utils").lazy_load("neoscroll.nvim"),
+    config = conf("neoscroll"),
+  },
 
   -- UI STYLE
   { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
-  { "rcarriga/nvim-notify", config = conf("nvim-notify") },
+  {
+    "mrded/nvim-lsp-notify",
+    config = function()
+      require("lsp-notify").setup({ notify = require("notify") })
+    end,
+    dependencies = {
+      {
+        "rcarriga/nvim-notify",
+        config = conf("nvim-notify"),
+      },
+    },
+  },
   {
     "RRethy/vim-illuminate",
     init = require("user.core.utils").lazy_load("vim-illuminate"),
@@ -138,11 +155,6 @@ require("lazy").setup({
     config = conf("zen-mode"),
   },
   {
-    "gregorias/nvim-mapper",
-    config = conf("nvim-mapper"),
-    dependencies = "nvim-telescope/telescope.nvim",
-  },
-  {
     "simnalamburt/vim-mundo",
     cmd = "MundoToggle",
     init = require("user.core.utils").load_mappings("vim_mundo"),
@@ -155,9 +167,9 @@ require("lazy").setup({
     init = require("user.core.utils").load_mappings("telescope"),
     config = conf("telescope"),
   },
-  { "nvim-telescope/telescope-fzf-native.nvim", after = "telescope.nvim", build = "make" },
-  { "nvim-telescope/telescope-media-files.nvim", after = "telescope.nvim" },
-  { "nvim-telescope/telescope-ui-select.nvim", after = "telescope.nvim" },
+  { "nvim-telescope/telescope-fzf-native.nvim", "telescope.nvim", build = "make" },
+  { "nvim-telescope/telescope-media-files.nvim", "telescope.nvim" },
+  { "nvim-telescope/telescope-ui-select.nvim", "telescope.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
@@ -171,6 +183,18 @@ require("lazy").setup({
         config = conf("nvim-window-picker"),
       },
     },
+  },
+  {
+    "kshenoy/vim-signature",
+    init = require("user.core.utils").lazy_load("vim-signature"),
+    config = conf("vim-signature"),
+  },
+
+  -- PROJECT MANAGER
+  {
+    "ahmedkhalf/project.nvim",
+    event = "VimEnter",
+    config = conf("project"),
   },
 
   -- CODING HELPER
@@ -263,38 +287,42 @@ require("lazy").setup({
     init = require("user.core.utils").lazy_load("todo-comments.nvim"),
     config = conf("todo-comments"),
   },
+  {
+    "NvChad/nvim-colorizer.lua",
+    init = require("user.core.utils").lazy_load("nvim-colorizer.lua"),
+    config = function(_, opts)
+      require("colorizer").setup(opts)
+      -- execute colorizer as soon as possible
+      vim.defer_fn(function()
+        require("colorizer").attach_to_buffer(0)
+      end, 0)
+    end,
+  },
 
   -- LANGUAGE SERVER PROTOCOL + TOOLS
   {
     "neovim/nvim-lspconfig",
+    init = require("user.core.utils").load_mappings("lsp"),
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    init = require("user.core.utils").lazy_load("null-ls.nvim"),
     config = conf("null-ls"),
   },
   {
     "williamboman/mason.nvim",
+    init = require("user.core.utils").load_mappings("mason"),
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     config = conf("mason"),
   },
   {
     "williamboman/mason-lspconfig.nvim",
-    init = require("user.core.utils").lazy_load("mason-lspconfig.nvim"),
+    after = { "mason.nvim", "nvim-lspconfig" },
     config = conf("mason-lspconfig"),
-    dependencies = {
-      "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
   },
   {
     "jayp0521/mason-null-ls.nvim",
-    init = require("user.core.utils").lazy_load("mason-null-ls.nvim"),
+    after = { "mason.nvim", "null-ls.nvim" },
     config = conf("mason-null-ls"),
-    dependencies = {
-      "williamboman/mason.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
-    },
   },
   {
     "ray-x/lsp_signature.nvim",
@@ -351,5 +379,15 @@ require("lazy").setup({
         config = conf("nvim-autopairs"),
       },
     },
+  },
+
+  -- NOTETAKING
+  {
+    "vimwiki/vimwiki",
+    cmd = { "VimwikIndex", "VimwikiDiaryIndex", "VimwikiUISelect" },
+    init = require("user.core.utils").load_mappings("vimwiki"),
+    config = function()
+      vim.cmd("source " .. vim.fn.stdpath("config") .. "/usr/plugins/vimwiki.vim")
+    end,
   },
 }, require("user.plugins.lazy_nvim"))

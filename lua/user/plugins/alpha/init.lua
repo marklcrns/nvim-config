@@ -16,7 +16,7 @@ return function()
 
   local function get_banner()
     local height = api.nvim_win_get_height(0)
-    local list = { "majora", "nvim" }
+    local list = { "majora", "illuminati", "nvim" }
     local bg = vim.o.background
     local result
 
@@ -48,7 +48,7 @@ return function()
         cursor = 0,
         width = 40,
       },
-      keymap = { "n", mapping, callback, { nowait = true, silent = true } }
+      keymap = { "n", mapping, callback, { nowait = true, silent = true } },
     }
   end
 
@@ -89,7 +89,7 @@ return function()
 
     elements.footer = {
       type = "text",
-      val = { " " ..  version_lines[2] },
+      val = { " " .. version_lines[2] },
       opts = {
         position = "center",
         hl = "DashboardFooter",
@@ -98,9 +98,11 @@ return function()
 
     elements.buttons = {
       button("  New File", "<Cmd>enew<CR>", "n"),
-      button("  Find File", function() lib.workspace_files() end, "ff"),
+      button("  Find File", function()
+        lib.workspace_files()
+      end, "ff"),
       button("  Git Status", "<Cmd>Telescope git_status<CR>", "gs"),
-      button("  Recently Used Files", "<Cmd>Telescope oldfiles<CR>", "rf"),
+      button("  Recently Used Files", "<Cmd>Telescope oldfiles<CR>", "fr"),
       button("  Find Word", "<Cmd>Telescope live_grep<CR>", "fw"),
       button("  Jump to Mark", "<Cmd>Telescope marks<CR>", "fm"),
       button("  Quit", "<Cmd>wincmd q<CR>", "q"),
@@ -121,7 +123,7 @@ return function()
       callback = function(_)
         setup_highlights()
       end,
-    }
+    },
   })
 
   init_elements()
@@ -132,9 +134,9 @@ return function()
       margin = 5,
     },
     layout = {
-      { type = "padding", val = 1, },
+      { type = "padding", val = 1 },
       elements.header,
-      { type = "padding", val = 2, },
+      { type = "padding", val = 2 },
       {
         type = "group",
         opts = {

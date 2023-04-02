@@ -106,6 +106,20 @@ lspconfig.pyright.setup(M.create_config())
 
 -- Lua
 -- require("user.lsp.lua")
+lspconfig.lua_ls.setup(M.create_config({
+  settings = {
+    Lua = {
+      diagnostics = {
+        enable = true,
+        globals = { "vim", "packer_plugins" },
+      },
+      runtime = { version = "LuaJIT" },
+      workspace = {
+        library = vim.list_extend({ [vim.fn.expand("$VIMRUNTIME/lua")] = true }, {}),
+      },
+    },
+  },
+}))
 
 -- Teal
 -- require("user.lsp.teal")
