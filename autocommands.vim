@@ -86,9 +86,16 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 
         local kb = Config.common.utils.buf_get_size(ctx.buf)
 
-        if kb > 400 then
+        if kb > 320 then
             local ts_context = prequire("treesitter-context")
+            local todo_comments = prequire("todo-comments")
+            local illuminate = prequire("illuminate")
+            local vim_matchup = vim.g.loaded_matchup == 1
+
             if ts_context then ts_context.disable() end
+            if todo_comments then todo_comments.stop() end
+            if illuminate then illuminate.freeze_buf() end
+            if vim_matchup then vim.cmd("NoMatchParen") end
         end
     end,
 })

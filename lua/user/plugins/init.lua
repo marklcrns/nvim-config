@@ -36,16 +36,17 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   {
+    "rcarriga/nvim-notify",
+    event = "VimEnter",
+    config = conf("nvim-notify"),
+  },
+  {
     "mrded/nvim-lsp-notify",
+    after = "nvim-lspconfig",
+    event = "VimEnter",
     config = function()
       require("lsp-notify").setup({ notify = require("notify") })
     end,
-    dependencies = {
-      {
-        "rcarriga/nvim-notify",
-        config = conf("nvim-notify"),
-      },
-    },
   },
 
   -- COLORSCHEMES

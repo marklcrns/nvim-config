@@ -46,6 +46,7 @@ return function()
         return client.name == "null-ls"
       end,
       bufnr = bufnr,
+      async = true,
     })
   end
 
