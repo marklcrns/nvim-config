@@ -109,13 +109,8 @@ lspconfig.pyright.setup(M.create_config())
 lspconfig.lua_ls.setup(M.create_config({
   settings = {
     Lua = {
-      diagnostics = {
-        enable = true,
-        globals = { "vim", "packer_plugins" },
-      },
-      runtime = { version = "LuaJIT" },
-      workspace = {
-        library = vim.list_extend({ [vim.fn.expand("$VIMRUNTIME/lua")] = true }, {}),
+      completion = {
+        callSnippet = "Replace",
       },
     },
   },
@@ -148,7 +143,6 @@ lspconfig.vimls.setup(M.create_config())
 -- Misc
 lspconfig.eslint.setup(M.create_config())
 lspconfig.jsonls.setup(M.create_config())
-lspconfig.yamlls.setup(M.create_config())
 lspconfig.emmet_ls.setup(M.create_config({
   filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 }))

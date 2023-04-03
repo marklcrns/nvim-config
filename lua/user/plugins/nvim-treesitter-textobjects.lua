@@ -162,11 +162,11 @@ return function()
   --  LSP integration  --
   -----------------------
 
-  local next_diagnostic_repeat, prev_diagnostic_repeat =
-    ts_repeat_move.make_repeatable_move_pair(vim.diagnostic.goto_next, vim.diagnostic.goto_prev)
-
-  vim.keymap.set({ "n", "x", "o" }, "]d", next_diagnostic_repeat)
-  vim.keymap.set({ "n", "x", "o" }, "[d", prev_diagnostic_repeat)
+  -- local next_diagnostic_repeat, prev_diagnostic_repeat =
+  --   ts_repeat_move.make_repeatable_move_pair(vim.diagnostic.goto_next, vim.diagnostic.goto_prev)
+  --
+  -- vim.keymap.set({ "n", "x", "o" }, "]d", next_diagnostic_repeat)
+  -- vim.keymap.set({ "n", "x", "o" }, "[d", prev_diagnostic_repeat)
 
   --------------------------------
   --  Vim builtins integration  --
@@ -217,18 +217,18 @@ return function()
 
   -- Quickfix navigation
 
-  local function goNextQuickfix()
-    vim.cmd("cnext")
-  end
-  local function goPreviousQuickfix()
-    vim.cmd("cprevious")
-  end
-
-  local next_quickfix_repeat, prev_quickfix_repeat =
-    ts_repeat_move.make_repeatable_move_pair(goNextQuickfix, goPreviousQuickfix)
-
-  vim.keymap.set({ "n", "x", "o" }, "]q", next_quickfix_repeat)
-  vim.keymap.set({ "n", "x", "o" }, "[q", prev_quickfix_repeat)
+  -- local function goNextQuickfix()
+  --   vim.cmd("cnext")
+  -- end
+  -- local function goPreviousQuickfix()
+  --   vim.cmd("cprevious")
+  -- end
+  --
+  -- local next_quickfix_repeat, prev_quickfix_repeat =
+  --   ts_repeat_move.make_repeatable_move_pair(goNextQuickfix, goPreviousQuickfix)
+  --
+  -- vim.keymap.set({ "n", "x", "o" }, "]q", next_quickfix_repeat)
+  -- vim.keymap.set({ "n", "x", "o" }, "[q", prev_quickfix_repeat)
 
   -- Locationlist navigation
 

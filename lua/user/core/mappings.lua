@@ -41,16 +41,45 @@ M.general = {
       "goto implementation",
       opts = { noremap = false, silent = true },
     },
-    ["<leader>."] = { "<Cmd>lua vim.lsp.buf.code_action()<CR>", "code action", default_opts },
-    ["<leader>cf"] = { "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "code format async", default_opts },
+    ["<leader>."] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action", default_opts },
+    ["<leader>cf"] = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "code format async", default_opts },
     ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "code rename", default_opts },
+    -- Seek motions
+    ["[d"] = { "<cmd>exe 'lua vim.diagnostic.goto_prev({ float = false })'<CR>zz", "prev diagnostics", default_opts },
+    ["]d"] = { "<cmd>exe 'lua vim.diagnostic.goto_next({ float = false })'<CR>zz", "next diagnostics", default_opts },
+    ["[q"] = { "<cmd>cp<CR>zz", "prev quickfix", default_opts },
+    ["]q"] = { "<cmd>cn<CR>zz", "next quickfix", default_opts },
+    ["[l"] = { "<cmd>cp<CR>zz", "prev loclist", default_opts },
+    ["]l"] = { "<cmd>cn<CR>zz", "next loclist", default_opts },
+    ["[r"] = {
+      [[v:lua.Config.lib.expr.next_reference(v:true)]],
+      "prev reference",
+      opts = { expr = true, noremap = true, silent = true },
+    },
+    ["]r"] = {
+      [[v:lua.Config.lib.expr.next_reference()]],
+      "next reference",
+      opts = { expr = true, noremap = true, silent = true },
+    },
     -- Misc
     ["<F10>"] = { "<cmd>lua require'user.lib'.print_syn_group()<CR>", "show cursor hi group", default_opts },
+    -- Terminal
+    ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", default_opts },
   },
 
   v = {
-    ["<leader>."] = { "<Cmd>lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
-    ["<leader>cf"] = { "<Esc><Cmd>lua vim.lsp.buf.format({ range = {} })<CR>", "code format range", default_opts },
+    ["<leader>."] = { "<cmd>lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
+    ["<leader>cf"] = { "<Esc><cmd>lua vim.lsp.buf.format({ range = {} })<CR>", "code format range", default_opts },
+  },
+
+  t = {
+    -- Terminal
+    ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", default_opts },
+    ["<C-M-l>"] = {
+      "<C-a><C-k>clear<CR><cmd>setl scrollback=1 so=0 <bar> setl scrollback=10000 so<<CR>",
+      "clear terminal",
+      default_opts,
+    },
   },
 }
 
@@ -134,6 +163,63 @@ M.focus = {
 
   n = {
     ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle window focus", opts = default_opts },
+  },
+}
+
+M.fugitive = {
+  plugin = true,
+
+  n = {
+    ["<leader>gg"] = {
+      "<cmd>lua Config.plugin.fugitive.status_open('tab', { use_last = true })<CR>",
+      "git status last tab",
+      opts = default_opts,
+    },
+    ["<leader>gs"] = {
+      "<cmd>lua Config.plugin.fugitive.status_open('split')<CR>",
+      "git status",
+      opts = default_opts,
+    },
+    ["<leader>gl"] = {
+      "<cmd>exe 'Flogsplit -max-count=256' <bar> wincmd J<CR>",
+      "git log",
+      opts = default_opts,
+    },
+    ["<leader>ga"] = {
+      "<cmd>silent exe '!git add %' <bar> lua Config.common.notify.git('Staged ' .. Config.common.utils.str_quote(pl:vim_expand('%:.')))<CR>",
+      "git add buffer",
+      opts = default_opts,
+    },
+    ["<leader>gA"] = {
+      "<cmd>silent exe '!git add .' <bar>lua Config.common.notify.git('Staged ' .. Config.common.utils.str_quote(pl:vim_fnamemodify('.', ':~')))<CR> ",
+      "git add all",
+      opts = default_opts,
+    },
+    ["<leader>gcc"] = {
+      "<cmd>Git commit <bar> wincmd J<CR>",
+      "git commit",
+      opts = default_opts,
+    },
+    ["<leader>gca"] = {
+      "<cmd>Git commit --amend <bar> wincmd J<CR>",
+      "git commit --amend",
+      opts = default_opts,
+    },
+    ["<leader>gC"] = {
+      "<cmd>Git commit -a <bar> wincmd J<CR>",
+      "git commit",
+      opts = default_opts,
+    },
+    ["<leader>gb"] = {
+      "<cmd>Git blame <bar> wincmd p<CR>",
+      "git blame",
+      opts = default_opts,
+    },
+    ["<leader>gd"] = {
+      "<cmd>DiffviewOpen<CR>",
+      "git diff",
+      opts = default_opts,
+    },
   },
 }
 
@@ -243,19 +329,19 @@ M.telescope = {
     ["<leader>fdb"] = { "<cmd>Telescope buffers<CR>", "find buffers", opts = default_opts },
     ["<leader>fdc"] = { "<cmd>Telescope commands<CR>", "find commands", opts = default_opts },
     ["<leader>fdf"] = { "<cmd>Telescope find_files<CR>", "find files", opts = default_opts },
-    ["<leader>fdg"] = { "<cmd>Telescope grep_string<CR>", "find grep string ", opts = default_opts },
     ["<leader>fdh"] = { "<cmd>Telescope help_tags<CR>", "find help tags", opts = default_opts },
     ["<leader>fdi"] = { "<cmd>Telescope media_files<CR>", "find images", opts = default_opts },
     ["<leader>fdj"] = { "<cmd>Telescope jumplist<CR>", "find jumplist", opts = default_opts },
     ["<leader>fdk"] = { "<cmd>Telescope keymaps<CR>", "find keymappings", opts = default_opts },
+    ["<leader>fdl"] = { "<cmd>Telescope ui-select<CR>", "find ui", opts = default_opts },
     ["<leader>fdm"] = { "<cmd>Telescope marks<CR>", "find marks", opts = default_opts },
     ["<leader>fdn"] = { "<cmd>Telescope notify<CR>", "find notification", opts = default_opts },
+    ["<leader>fdo"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
     ["<leader>fdp"] = { "<cmd>Telescope projects<CR>", "find projects", opts = default_opts },
-    ["<leader>fdr"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
+    ["<leader>fdr"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
+    ["<leader>fds"] = { "<cmd>Telescope grep_string<CR>", "find grep string ", opts = default_opts },
     ["<leader>fdt"] = { "<cmd>Telescope colorscheme<CR>", "pick colorscheme", opts = default_opts },
     ["<leader>fdu"] = { "<cmd>Telescope undo<CR>", "find undo", opts = default_opts },
-    ["<leader>fds"] = { "<cmd>Telescope ui-select<CR>", "find ui", opts = default_opts },
-    ["<leader>fdw"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
     ["<leader>fdgC"] = { "<cmd>Telescope git_bcommits<CR>", "find git branch commits", opts = default_opts },
     ["<leader>fdgb"] = { "<cmd>Telescope git_branches<CR>", "find git branches", opts = default_opts },
     ["<leader>fdgc"] = { "<cmd>Telescope git_commits<CR>", "find git commits", opts = default_opts },

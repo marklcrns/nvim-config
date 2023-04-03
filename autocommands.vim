@@ -85,17 +85,17 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
         -- Disable stuff in big files
 
         local kb = Config.common.utils.buf_get_size(ctx.buf)
+        local notify = Config.common.notify
 
         if kb > 320 then
             local ts_context = prequire("treesitter-context")
             local todo_comments = prequire("todo-comments")
-            local illuminate = prequire("illuminate")
-            local vim_matchup = vim.g.loaded_matchup == 1
+            local illuminate = vim.g.loaded_illuminate == 1
 
             if ts_context then ts_context.disable() end
-            if todo_comments then todo_comments.stop() end
-            if illuminate then illuminate.freeze_buf() end
-            if vim_matchup then vim.cmd("NoMatchParen") end
+            if todo_comments then todo_comments.disable() end
+            if illuminate then require("illuminate").freeze_buf() end
+            notify.config.info("Big file detected: Disabled treesitter-context, todo-comments, and illuminate.")
         end
     end,
 })

@@ -51,6 +51,9 @@ return function()
     },
     g = {
       name = "+git",
+      c = {
+        name = "+commit",
+      },
     },
     i = {
       name = "+ui-interface",

@@ -42,7 +42,7 @@ require("lazy").setup({
   },
   {
     "mrded/nvim-lsp-notify",
-    after = "nvim-lspconfig",
+    after = "nvim-notify",
     event = "VimEnter",
     config = function()
       require("lsp-notify").setup({ notify = require("notify") })
@@ -109,31 +109,31 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("focus"),
   },
-  {
-    "TaDaa/vimade",
-    cond = not Config.common.sys.is_gui(),
-    init = function()
-      require("user.core.utils").lazy_load("vimade")
-      require("user.core.utils").load_mappings("vimade")
-    end,
-    config = conf("vimade"),
-  },
-  {
-    "marklcrns/lens.vim",
-    cond = not Config.common.sys.is_gui(),
-    init = function()
-      require("user.core.utils").lazy_load("lens.vim")
-      require("user.core.utils").load_mappings("lens")
-    end,
-    config = conf("lens"),
-    dependencies = {
-      {
-        "camspiers/animate.vim",
-        cond = not Config.common.sys.is_gui(),
-        config = conf("animate"),
-      },
-    },
-  },
+  -- {
+  --   "TaDaa/vimade",
+  --   cond = not Config.common.sys.is_gui(),
+  --   init = function()
+  --     require("user.core.utils").lazy_load("vimade")
+  --     require("user.core.utils").load_mappings("vimade")
+  --   end,
+  --   config = conf("vimade"),
+  -- },
+  -- {
+  --   "marklcrns/lens.vim",
+  --   cond = not Config.common.sys.is_gui(),
+  --   init = function()
+  --     require("user.core.utils").lazy_load("lens.vim")
+  --     require("user.core.utils").load_mappings("lens")
+  --   end,
+  --   config = conf("lens"),
+  --   dependencies = {
+  --     {
+  --       "camspiers/animate.vim",
+  --       cond = not Config.common.sys.is_gui(),
+  --       config = conf("animate"),
+  --     },
+  --   },
+  -- },
   {
     "karb94/neoscroll.nvim",
     cond = not Config.common.sys.is_gui(),
@@ -158,7 +158,11 @@ require("lazy").setup({
     init = require("user.core.utils").lazy_load("indent-blankline.nvim"),
     config = conf("indent-blankline"),
   },
-  { "Darazaki/indent-o-matic", config = conf("indent-o-matic") },
+  {
+    "Darazaki/indent-o-matic",
+    init = require("user.core.utils").lazy_load("indent-o-matic"),
+    config = conf("indent-o-matic"),
+  },
   {
     "akinsho/bufferline.nvim",
     event = "VimEnter",
@@ -198,10 +202,10 @@ require("lazy").setup({
     init = require("user.core.utils").load_mappings("telescope"),
     config = conf("telescope"),
   },
-  { "nvim-telescope/telescope-fzf-native.nvim", "telescope.nvim", build = "make" },
-  { "nvim-telescope/telescope-media-files.nvim", "telescope.nvim" },
-  { "nvim-telescope/telescope-ui-select.nvim", "telescope.nvim" },
-  { "debugloop/telescope-undo.nvim", "telescope.nvim" },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  { "nvim-telescope/telescope-media-files.nvim" },
+  { "nvim-telescope/telescope-ui-select.nvim" },
+  { "debugloop/telescope-undo.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
@@ -283,6 +287,26 @@ require("lazy").setup({
     cmd = "Neogit",
     init = require("user.core.utils").load_mappings("neogit"),
     config = conf("neogit"),
+  },
+  {
+    "sindrets/vim-fugitive",
+    init = function()
+      require("user.core.utils").lazy_load("vim-fugitive")
+      require("user.core.utils").load_mappings("fugitive")
+    end,
+    config = conf("vim-fugitive"),
+    dependencies = {
+      "tpope/vim-rhubarb",
+      {
+        "rbong/vim-flog",
+        init = function()
+          vim.g.flog_default_opts = { max_count = 512 }
+          vim.g.flog_override_default_mappings = {}
+          vim.g.flog_jumplist_default_mappings = {}
+          vim.g.flog_use_internal_lua = true
+        end,
+      },
+    },
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -397,6 +421,15 @@ require("lazy").setup({
     config = conf("symbols-outline"),
   },
 
+  -- LANGUAGES
+  {
+    "folke/neodev.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("neodev").setup({})
+    end,
+  },
+
   -- COMPLETION
   {
     "hrsh7th/nvim-cmp",
@@ -469,10 +502,9 @@ require("lazy").setup({
   {
     "vimwiki/vimwiki",
     branch = "dev",
-    cond = function()
-      return vim.fn.executable("pandoc") == 1
-    end,
+    cond = vim.fn.expand("%:p:h"):find("/Documents/my%-wiki/") ~= nil, -- NOTE: '-' is a special character and needs to be escaped
     cmd = { "VimwikIndex", "VimwikiDiaryIndex", "VimwikiUISelect" },
+    lazy = false,
     init = function()
       require("user.core.utils").load_mappings("vimwiki")
       conf("vimwiki")()
