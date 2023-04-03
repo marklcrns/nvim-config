@@ -110,22 +110,25 @@ require("lazy").setup({
   },
   {
     "TaDaa/vimade",
-    init = require("user.core.utils").load_mappings("vimade"),
     cond = not Config.common.sys.is_gui(),
-    event = "VimEnter",
+    init = function()
+      require("user.core.utils").lazy_load("vimade")
+      require("user.core.utils").load_mappings("vimade")
+    end,
     config = conf("vimade"),
   },
   {
     "marklcrns/lens.vim",
     cond = not Config.common.sys.is_gui(),
-    init = require("user.core.utils").load_mappings("lens"),
-    event = "VimEnter",
+    init = function()
+      require("user.core.utils").lazy_load("lens.vim")
+      require("user.core.utils").load_mappings("lens")
+    end,
     config = conf("lens"),
     dependencies = {
       {
         "camspiers/animate.vim",
         cond = not Config.common.sys.is_gui(),
-        event = "VimEnter",
         config = conf("animate"),
       },
     },
@@ -157,8 +160,8 @@ require("lazy").setup({
   { "Darazaki/indent-o-matic", config = conf("indent-o-matic") },
   {
     "akinsho/bufferline.nvim",
-    dependencies = "kyazdani42/nvim-web-devicons",
     event = "VimEnter",
+    dependencies = "kyazdani42/nvim-web-devicons",
     config = conf("bufferline"),
   },
   {
@@ -186,11 +189,6 @@ require("lazy").setup({
     init = require("user.core.utils").load_mappings("zen_mode"),
     config = conf("zen-mode"),
   },
-  {
-    "simnalamburt/vim-mundo",
-    cmd = "MundoToggle",
-    init = require("user.core.utils").load_mappings("vim_mundo"),
-  },
 
   -- FILE NAVIGATION
   {
@@ -202,6 +200,7 @@ require("lazy").setup({
   { "nvim-telescope/telescope-fzf-native.nvim", "telescope.nvim", build = "make" },
   { "nvim-telescope/telescope-media-files.nvim", "telescope.nvim" },
   { "nvim-telescope/telescope-ui-select.nvim", "telescope.nvim" },
+  { "debugloop/telescope-undo.nvim", "telescope.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
@@ -304,25 +303,31 @@ require("lazy").setup({
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     config = conf("nvim-treesitter"),
-    dependencies = {
-      { "RRethy/nvim-treesitter-textsubjects" },
-      {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        config = conf("nvim-treesitter-textobjects"),
-      },
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        config = conf("nvim-treesitter-context"),
-      },
-      {
-        "RRethy/nvim-treesitter-endwise",
-        config = conf("nvim-ts-autotag"),
-      },
-      {
-        "andymass/vim-matchup",
-        config = conf("vim-matchup"),
-      },
-    },
+    dependencies = {},
+  },
+  {
+    "RRethy/nvim-treesitter-textsubjects",
+    init = require("user.core.utils").lazy_load("nvim-treesitter-textsubjects"),
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    init = require("user.core.utils").lazy_load("nvim-treesitter-textobjects"),
+    config = conf("nvim-treesitter-textobjects"),
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    init = require("user.core.utils").lazy_load("nvim-treesitter-context"),
+    config = conf("nvim-treesitter-context"),
+  },
+  {
+    "RRethy/nvim-treesitter-endwise",
+    init = require("user.core.utils").lazy_load("nvim-treesitter-endwise"),
+    config = conf("nvim-ts-autotag"),
+  },
+  {
+    "andymass/vim-matchup",
+    init = require("user.core.utils").lazy_load("vim-matchup"),
+    config = conf("vim-matchup"),
   },
   {
     "folke/todo-comments.nvim",
@@ -387,6 +392,7 @@ require("lazy").setup({
   -- COMPLETION
   {
     "hrsh7th/nvim-cmp",
+    init = require("user.core.utils").lazy_load("nvim-cmp"),
     event = "InsertEnter",
     config = conf("nvim-cmp"),
     dependencies = {
@@ -455,6 +461,9 @@ require("lazy").setup({
   {
     "vimwiki/vimwiki",
     branch = "dev",
+    cond = function()
+      return vim.fn.executable("pandoc") == 1
+    end,
     cmd = { "VimwikIndex", "VimwikiDiaryIndex", "VimwikiUISelect" },
     init = function()
       require("user.core.utils").load_mappings("vimwiki")

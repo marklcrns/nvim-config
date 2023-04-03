@@ -51,6 +51,11 @@ return function()
           text_align = "center",
         },
         {
+          filetype = "neo-tree",
+          text = "Files",
+          text_align = "center",
+        },
+        {
           filetype = "DiffviewFiles",
           text = "Source Control",
           text_align = "center",

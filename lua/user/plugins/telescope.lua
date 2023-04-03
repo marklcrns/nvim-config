@@ -209,6 +209,15 @@ return function()
       ["ui-select"] = {
         require("telescope.themes").get_dropdown({}),
       },
+      undo = {
+        mappings = {
+          i = {
+            ["<CR>"] = require("telescope-undo.actions").yank_additions,
+            ["<M-CR>"] = require("telescope-undo.actions").yank_deletions,
+            ["<BS>"] = require("telescope-undo.actions").restore,
+          },
+        },
+      },
     },
   })
 
@@ -218,4 +227,5 @@ return function()
   require("telescope").load_extension("media_files")
   require("telescope").load_extension("ui-select")
   require("telescope").load_extension("projects")
+  require("telescope").load_extension("undo")
 end

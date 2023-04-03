@@ -208,7 +208,8 @@ M.telescope = {
     ["<leader>fdp"] = { "<cmd>Telescope projects<CR>", "find projects", opts = default_opts },
     ["<leader>fdr"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
     ["<leader>fdt"] = { "<cmd>Telescope colorscheme<CR>", "pick colorscheme", opts = default_opts },
-    ["<leader>fdu"] = { "<cmd>Telescope ui-select<CR>", "find ui", opts = default_opts },
+    ["<leader>fdu"] = { "<cmd>Telescope undo<CR>", "find undo", opts = default_opts },
+    ["<leader>fds"] = { "<cmd>Telescope ui-select<CR>", "find ui", opts = default_opts },
     ["<leader>fdw"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
     ["<leader>fdgC"] = { "<cmd>Telescope git_bcommits<CR>", "find git branch commits", opts = default_opts },
     ["<leader>fdgb"] = { "<cmd>Telescope git_branches<CR>", "find git branches", opts = default_opts },
@@ -262,14 +263,6 @@ M.vimade = {
     ["<localleader>sdb"] = { "<cmd>VimadeBufEnable<CR>", "enable dim on buffer", opts = default_opts },
     ["<localleader>sdd"] = { "<cmd>VimadeToggle<CR>", "toggle diminactive", opts = default_opts },
     ["<localleader>sds"] = { "<cmd>VimadeWinEnable<CR>", "enable dim on split", opts = default_opts },
-  },
-}
-
-M.vim_mundo = {
-  plugin = true,
-
-  n = {
-    ["<leader>iu"] = { "<cmd>MundoToggle<CR>", "toggle undo tree", opts = default_opts },
   },
 }
 
