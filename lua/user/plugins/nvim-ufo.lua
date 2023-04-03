@@ -142,4 +142,16 @@ return function()
   -- DEPRECATED: Defined in nvim-treesitter-textobjects
   -- vim.keymap.set("n", "]z", goNextClosedAndPeek)
   -- vim.keymap.set("n", "[z", goPreviousClosedAndPeek)
+
+  local hl = Config.common.hl
+  local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
+  hi("Folded", { bg = "NONE" })
+  hi_link("UfoFoldedFg", "Normal")
+  hi_link("UfoFoldedBg", "Folded")
+  hi_link("UfoPreviewSbar", "PmenuSbar")
+  hi_link("UfoPreviewThumb", "PmenuThumb")
+  hi_link("UfoPreviewWinBar", "UfoFoldedBg")
+  hi_link("UfoPreviewCursorLine", "Visual")
+  hi_link("UfoFoldedEllipsis", "Comment")
+  hi_link("UfoCursorFoldedLine", "CursorLine")
 end

@@ -1,7 +1,7 @@
 return function()
   require("project_nvim").setup({
-    detection_methods = { "pattern", "lsp" }, -- pattern first, then lsp
     -- detection_methods = { "lsp", "pattern" }, -- lsp first, then pattern
+    detection_methods = { "pattern", "lsp" }, -- pattern first, then lsp
     patterns = {
       "=src",
       ".git",
@@ -28,5 +28,4 @@ return function()
     -- * win
     scope_chdir = "tab",
   })
-  require("telescope").load_extension("projects")
 end

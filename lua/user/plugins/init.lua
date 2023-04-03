@@ -111,11 +111,13 @@ require("lazy").setup({
   {
     "TaDaa/vimade",
     init = require("user.core.utils").load_mappings("vimade"),
+    cond = not Config.common.sys.is_gui(),
     event = "VimEnter",
     config = conf("vimade"),
   },
   {
     "marklcrns/lens.vim",
+    cond = not Config.common.sys.is_gui(),
     init = require("user.core.utils").load_mappings("lens"),
     event = "VimEnter",
     config = conf("lens"),
@@ -134,6 +136,11 @@ require("lazy").setup({
     init = require("user.core.utils").lazy_load("neoscroll.nvim"),
     config = conf("neoscroll"),
   },
+  {
+    "mvllow/modes.nvim",
+    init = require("user.core.utils").lazy_load("modes.nvim"),
+    config = conf("modes"),
+  },
 
   -- UI STYLE
   { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
@@ -150,14 +157,13 @@ require("lazy").setup({
   { "Darazaki/indent-o-matic", config = conf("indent-o-matic") },
   {
     "akinsho/bufferline.nvim",
-    init = require("user.core.utils").lazy_load("bufferline.nvim"),
     dependencies = "kyazdani42/nvim-web-devicons",
     event = "VimEnter",
     config = conf("bufferline"),
   },
   {
     "feline-nvim/feline.nvim",
-    init = require("user.core.utils").lazy_load("feline.nvim"),
+    event = "VimEnter",
     config = conf("feline"),
   },
 
@@ -259,6 +265,16 @@ require("lazy").setup({
     init = require("user.core.utils").load_mappings("dial"),
     event = "BufRead",
     config = conf("dial"),
+  },
+  {
+    "tpope/vim-abolish",
+    init = require("user.core.utils").load_mappings("abolish"),
+    event = "BufRead",
+  },
+  {
+    "junegunn/vim-easy-align",
+    init = require("user.core.utils").load_mappings("easy_align"),
+    event = "BufRead",
   },
 
   -- VCS
@@ -380,9 +396,37 @@ require("lazy").setup({
       { "hrsh7th/cmp-cmdline" },
       { "f3fora/cmp-spell" },
       { "hrsh7th/cmp-emoji" },
-      { "petertriho/cmp-git" },
-      { "saadparwaiz1/cmp_luasnip" },
-      { "davidsierradz/cmp-conventionalcommits" },
+      {
+        "petertriho/cmp-git",
+        config = function()
+          require("cmp_git").setup({
+            filetypes = { "NeogitCommitMessage", "gitcommit", "octo" },
+          })
+        end,
+      },
+      {
+        "quangnguyen30192/cmp-nvim-ultisnips",
+        dependencies = {
+          {
+            "SirVer/ultisnips",
+            config = conf("ultisnips"),
+            dependencies = {
+              "honza/vim-snippets",
+            },
+          },
+        },
+      },
+      -- {
+      --   "saadparwaiz1/cmp_luasnip",
+      --   dependencies = {
+      --     {
+      --       "L3MON4D3/LuaSnip",
+      --       version = "<CurrentMajor>.*",
+      --       config = conf("LuaSnip"),
+      --       dependencies = "rafamadriz/friendly-snippets",
+      --     },
+      --   },
+      -- },
       {
         "zbirenbaum/copilot-cmp",
         config = conf("copilot-cmp"),
@@ -396,25 +440,25 @@ require("lazy").setup({
         },
       },
       {
-        "L3MON4D3/LuaSnip",
-        version = "<CurrentMajor>.*",
-        config = conf("LuaSnip"),
-        dependencies = "rafamadriz/friendly-snippets",
-      },
-      {
         "windwp/nvim-autopairs",
         config = conf("nvim-autopairs"),
       },
     },
   },
+  {
+    "lervag/vimtex",
+    ft = { "plaintex", "tex", "latex", "markdown" },
+    config = conf("vimtex"),
+  },
 
   -- NOTETAKING
   {
     "vimwiki/vimwiki",
+    branch = "dev",
     cmd = { "VimwikIndex", "VimwikiDiaryIndex", "VimwikiUISelect" },
-    init = require("user.core.utils").load_mappings("vimwiki"),
-    config = function()
-      vim.cmd("source " .. vim.fn.stdpath("config") .. "/usr/plugins/vimwiki.vim")
+    init = function()
+      require("user.core.utils").load_mappings("vimwiki")
+      conf("vimwiki")()
     end,
   },
 }, require("user.plugins.lazy_nvim"))

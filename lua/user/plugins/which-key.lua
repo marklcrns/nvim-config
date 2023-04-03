@@ -61,6 +61,9 @@ return function()
     p = {
       name = "+plugin-manager",
     },
+    r = {
+      name = "+text-editting",
+    },
     w = {
       name = "+window-manager",
     },

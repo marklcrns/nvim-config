@@ -28,18 +28,40 @@ M.lazy_nvim = {
 
 --------------------------------------------------------------------------------
 
+M.abolish = {
+  plugin = true,
+
+  n = {
+    ["<leader>rs"] = { ":<C-u>Subvert//g<Left><Left>", "subvert line /{pat}/{sub}/[flags]", opts = default_opts },
+    ["<leader>rS"] = { ":<C-u>%Subvert//g<Left><Left>", "subvert file /{pat}/{sub}/[flags]", opts = default_opts },
+    ["<leader>rp"] = {
+      "yap}pV`[v`]:Subvert//g<bar>norm`.$<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>",
+      "duplicate block and subvert /{pat}/{sub}/[flags]",
+      opts = default_opts,
+    },
+  },
+  v = {
+    ["<leader>rs"] = { ":Subvert//g<Left><Left>", "subvert", opts = default_opts },
+    ["<leader>rp"] = {
+      "y`]p`[v`]:Subvert//g<Left><Left>",
+      "duplicate select subvert /{pat}/{sub}/[flags]",
+      opts = default_opts,
+    },
+  },
+}
+
 M.dial = {
   plugin = true,
 
   n = {
-    ["<C-a>"] = { [[<cmd>lua require('dial.map').inc_normal()<CR>]], "increment next", opts = default_opts },
-    ["<C-x>"] = { [[<cmd>lua require('dial.map').dec_normal()<CR>]], "decrement next", opts = default_opts },
+    ["<C-a>"] = { [[<Plug>(dial-increment)]], "increment next", opts = { noremap = false, silent = true } },
+    ["<C-x>"] = { [[<Plug>(dial-decrement)]], "decrement next", opts = { noremap = false, silent = true } },
   },
   v = {
-    ["<C-a>"] = { [[<cmd>lua require('dial.map').inc_visual()<CR>]], "increment next", opts = default_opts },
-    ["<C-x>"] = { [[<cmd>lua require('dial.map').dec_visual()<CR>]], "decrement next", opts = default_opts },
-    ["g<C-a>"] = { [[<cmd>lua require('dial.map').inc_gvisual()<CR>]], "increment next", opts = default_opts },
-    ["g<C-x>"] = { [[<cmd>lua require('dial.map').dec_gvisual()<CR>]], "decrement next", opts = default_opts },
+    ["<C-a>"] = { [[<Plug>(dial-increment)]], "increment next", opts = { noremap = false, silent = true } },
+    ["<C-x>"] = { [[<Plug>(dial-decrement)]], "decrement next", opts = { noremap = false, silent = true } },
+    ["g<C-a>"] = { [[g<Plug>(dial-increment)]], "increment next", opts = { noremap = false, silent = true } },
+    ["g<C-x>"] = { [[g<Plug>(dial-decrement)]], "decrement next", opts = { noremap = false, silent = true } },
   },
 }
 
@@ -49,6 +71,19 @@ M.diffview = {
   n = {
     ["<leader>idd"] = { "<cmd>DiffviewOpen<CR>", "diff git", opts = default_opts },
     ["<leader>idf"] = { "<cmd>DiffviewFileHistory %<CR>", "diff buffer unsaved", opts = default_opts },
+  },
+}
+
+M.easy_align = {
+  plugin = true,
+
+  n = {
+    ["<leader>raa"] = { "<cmd>EasyAlign<CR>", "start easyalign", opts = default_opts },
+    ["<leader>rAA"] = { "<cmd>LiveEasyAlign<CR>", "start easyalign live", opts = default_opts },
+  },
+  v = {
+    ["<leader>raa"] = { "<cmd>EasyAlign<CR>", "start easyalign live", opts = default_opts },
+    ["<leader>rAA"] = { "<cmd>LiveEasyAlign<CR>", "start easyalign live", opts = default_opts },
   },
 }
 
@@ -62,7 +97,6 @@ M.focus = {
 
 M.hlslens = {
   plugin = true,
-
   n = {
     ["n"] = {
       [[<cmd>execute('normal! ' . v:count1 . 'nzz')<CR><cmd>lua require('hlslens').start()<CR>]],
@@ -162,7 +196,7 @@ M.telescope = {
 
   n = {
     ["<leader>fdb"] = { "<cmd>Telescope buffers<CR>", "find buffers", opts = default_opts },
-    ["<leader>fdc"] = { "<cmd>Telescope colorscheme<CR>", "pick colorscheme", opts = default_opts },
+    ["<leader>fdc"] = { "<cmd>Telescope commands<CR>", "find commands", opts = default_opts },
     ["<leader>fdf"] = { "<cmd>Telescope find_files<CR>", "find files", opts = default_opts },
     ["<leader>fdg"] = { "<cmd>Telescope grep_string<CR>", "find grep string ", opts = default_opts },
     ["<leader>fdh"] = { "<cmd>Telescope help_tags<CR>", "find help tags", opts = default_opts },
@@ -171,8 +205,9 @@ M.telescope = {
     ["<leader>fdk"] = { "<cmd>Telescope keymaps<CR>", "find keymappings", opts = default_opts },
     ["<leader>fdm"] = { "<cmd>Telescope marks<CR>", "find marks", opts = default_opts },
     ["<leader>fdn"] = { "<cmd>Telescope notify<CR>", "find notification", opts = default_opts },
-    ["<leader>fdr"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
     ["<leader>fdp"] = { "<cmd>Telescope projects<CR>", "find projects", opts = default_opts },
+    ["<leader>fdr"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
+    ["<leader>fdt"] = { "<cmd>Telescope colorscheme<CR>", "pick colorscheme", opts = default_opts },
     ["<leader>fdu"] = { "<cmd>Telescope ui-select<CR>", "find ui", opts = default_opts },
     ["<leader>fdw"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
     ["<leader>fdgC"] = { "<cmd>Telescope git_bcommits<CR>", "find git branch commits", opts = default_opts },

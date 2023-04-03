@@ -3,7 +3,8 @@ return function()
   local cmp = require("cmp")
   local cmp_autopairs = require("nvim-autopairs.completion.cmp")
   local handlers = require("nvim-autopairs.completion.handlers")
-  local luasnip = require("luasnip")
+  local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+  -- local luasnip = require("luasnip")
   local api = vim.api
   local utils = Config.common.utils
 
@@ -66,9 +67,9 @@ return function()
     snippet = {
       expand = function(args)
         -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+        -- require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
         -- require("snippy").expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       end,
     },
     window = {
@@ -108,7 +109,6 @@ return function()
     --       latex_symbols = "[Latex]",
     --       cmp_tabnine = "[Tab9]",
     --       git = "[Git]",
-    --       conventionalcommits = "[CC]",
     --       copilot = "[Copilot]",
     --       cmdline = "[Cmdline]",
     --     }
@@ -147,6 +147,7 @@ return function()
           neorg = "[Neorg]",
           orgmode = "[Org]",
           luasnip = "[Luasnip]",
+          ultisnips = "[UltiSnip]",
           buffer = "[Buffer]",
           spell = "[Spell]",
           git = "[VCS]",
@@ -154,7 +155,6 @@ return function()
           cmp_tabnine = "[Tab9]",
           latex_symbols = "[Latex]",
           treesitter = "[Treesitter]",
-          conventionalcommits = "[CC]",
           cmdline = "[Cmdline]",
         })[entry.source.name]
         return vim_item
@@ -184,7 +184,8 @@ return function()
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       { name = "nvim_lua", group_index = 1 },
-      { name = "luasnip", group_index = 2 },
+      { name = "ultisnips", group_index = 1, max_item_count = 10 },
+      -- { name = "luasnip", group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "spell", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },
@@ -199,68 +200,76 @@ return function()
     }),
 
     mapping = {
-      -- -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
-      -- ["<Tab>"] = cmp.mapping({
-      --   i = function(fallback)
-      --     if has_words_before() then
-      --       cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-      --     else
-      --       fallback()
-      --     end
-      --   end,
-      --   s = function(fallback)
-      --     cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-      --   end,
-      --   x = function()
-      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
-      --   end,
-      -- }),
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-        -- they way you will only jump inside the snippet region
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      -- ["<S-Tab>"] = cmp.mapping({
-      --   i = function(fallback)
-      --     cmp_ultisnips_mappings.jump_backwards(fallback)
-      --   end,
-      --   s = function(fallback)
-      --     cmp_ultisnips_mappings.jump_backwards(fallback)
-      --   end,
-      -- }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      -- ["<C-j>"] = cmp.mapping(function(fallback)
-      --   cmp_ultisnips_mappings.compose({ "jump_forwards", "select_next_item" })(fallback)
+      -- ["<Tab>"] = cmp.mapping(function(fallback)
+      --   if cmp.visible() then
+      --     cmp.select_next_item()
+      --   -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+      --   -- that way you will only jump inside the snippet region
+      --   elseif luasnip.expand_or_jumpable() then
+      --     luasnip.expand_or_jump()
+      --   elseif has_words_before() then
+      --     cmp.complete()
+      --   else
+      --     fallback()
+      --   end
       -- end, { "i", "s" }),
-      -- ["<C-k>"] = cmp.mapping(function(fallback)
-      --   cmp_ultisnips_mappings.compose({ "jump_backwards", "select_prev_item" })(fallback)
+      -- -- ["<S-Tab>"] = cmp.mapping({
+      -- --   i = function(fallback)
+      -- --     cmp_ultisnips_mappings.jump_backwards(fallback)
+      -- --   end,
+      -- --   s = function(fallback)
+      -- --     cmp_ultisnips_mappings.jump_backwards(fallback)
+      -- --   end,
+      -- -- }),
+      -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+      --   if cmp.visible() then
+      --     cmp.select_prev_item()
+      --   elseif luasnip.jumpable(-1) then
+      --     luasnip.jump(-1)
+      --   else
+      --     fallback()
+      --   end
       -- end, { "i", "s" }),
+
+      -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
+      ["<Tab>"] = cmp.mapping({
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
+        i = function(fallback)
+          if has_words_before() then
+            cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+          else
+            fallback()
+          end
+        end,
+        s = function(fallback)
+          cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+        end,
+        x = function()
+          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
+        end,
+      }),
+      ["<C-j>"] = cmp.mapping(function(fallback)
+        cmp_ultisnips_mappings.compose({ "jump_forwards", "select_next_item" })(fallback)
+      end, { "i", "s" }),
+      ["<C-k>"] = cmp.mapping(function(fallback)
+        cmp_ultisnips_mappings.compose({ "jump_backwards", "select_prev_item" })(fallback)
+      end, { "i", "s" }),
       ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
       ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
       ["<C-n>"] = cmp.mapping({
-        -- c = function()
-        --   if cmp.visible() then
-        --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        --   else
-        --     vim.api.nvim_feedkeys(t("<Down>"), "n", true)
-        --   end
-        -- end,
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          else
+            vim.api.nvim_feedkeys(t("<Down>"), "n", true)
+          end
+        end,
         i = function(fallback)
           if cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -270,13 +279,13 @@ return function()
         end,
       }),
       ["<C-p>"] = cmp.mapping({
-        -- c = function()
-        --   if cmp.visible() then
-        --     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        --   else
-        --     vim.api.nvim_feedkeys(t("<Up>"), "n", true)
-        --   end
-        -- end,
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+          else
+            vim.api.nvim_feedkeys(t("<Up>"), "n", true)
+          end
+        end,
         i = function(fallback)
           if cmp.visible() then
             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
@@ -336,7 +345,6 @@ return function()
     sources = cmp.config.sources({
       { name = "cmp_tabnine" },
       { name = "git" },
-      { name = "conventionalcommits" },
       { name = "spell" },
       {
         name = "buffer",
@@ -354,6 +362,8 @@ return function()
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       -- { name = 'spell', group_index = 1  },
+      -- { name = "luasnip", group_index = 1 },
+      { name = "ultisnips", group_index = 1, max_item_count = 10 },
       { name = "path", group_index = 2 },
       { name = "neorg", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },

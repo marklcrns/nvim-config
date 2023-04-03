@@ -347,7 +347,7 @@ function M.apply_tweaks()
   ---@type GenerateDiffColorsSpec
   local diff_gen_opt
   ---@type FelineThemeName
-  local feline_theme = "duo"
+  local feline_theme = "doom"
 
   if colors_name == "codedark" then
     hi("NonText", { bg = "NONE" })
