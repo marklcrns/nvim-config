@@ -1,4 +1,8 @@
 return function()
+  vim.env.PATH = vim.env.PATH
+    .. (Config.common.sys.is_windows() and ";" or ":")
+    .. vim.fn.stdpath("data")
+    .. "/mason/bin"
   require("mason").setup({
     PATH = "skip",
     ui = {

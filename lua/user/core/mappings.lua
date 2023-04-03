@@ -10,7 +10,49 @@ local default_opts = {
 
 -- GENERAL MAPPING
 
-M.general = {}
+M.general = {
+  i = {
+    -- Misc
+    ["<Tab>"] = { "<cmd>lua Config.lib.full_indent()<CR>", "indent", default_opts },
+  },
+
+  n = {
+    -- UI
+    ["<A-S-D>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", default_opts },
+    ["<C-M-o>"] = { "<cmd>lua Config.fn.toggle_outline()<CR>", "toggle outline", default_opts },
+    ["<M-CR>"] = { "<cmd>lua Config.fn.update_messages_win()<CR>", "open messages win", default_opts },
+    ["<M-q>"] = { "<cmd>lua Config.fn.toggle_quickfix()<CR>", "toggle quickfix", default_opts },
+    -- LSP
+    ["gd"] = {
+      "<cmd>lua vim.lsp.buf.definition()<CR>",
+      "goto definition",
+      opts = {
+        noremap = false,
+        silent = true,
+      },
+    },
+    ["gy"] = {
+      "<cmd>lua vim.lsp.buf.type_definition()<CR>",
+      "goto type definition",
+      opts = { noremap = false, silent = true },
+    },
+    ["gi"] = {
+      "<cmd>lua vim.lsp.buf.implementation()<CR>",
+      "goto implementation",
+      opts = { noremap = false, silent = true },
+    },
+    ["<leader>."] = { "<Cmd>lua vim.lsp.buf.code_action()<CR>", "code action", default_opts },
+    ["<leader>cf"] = { "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "code format async", default_opts },
+    ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "code rename", default_opts },
+    -- Misc
+    ["<F10>"] = { "<cmd>lua require'user.lib'.print_syn_group()<CR>", "show cursor hi group", default_opts },
+  },
+
+  v = {
+    ["<leader>."] = { "<Cmd>lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
+    ["<leader>cf"] = { "<Esc><Cmd>lua vim.lsp.buf.format({ range = {} })<CR>", "code format range", default_opts },
+  },
+}
 
 -- PLUGIN MAPPING
 
@@ -178,7 +220,7 @@ M.smartq = {
   plugin = true,
 
   n = {
-    ["<leader>fq"] = { "<cmd>SmartQ<CR>", "smart save and quit" },
+    ["<leader>fq"] = { "<cmd>SmartQSave<CR>", "smart save and quit" },
     ["<leader>wq"] = { "<cmd>SmartQCloseSplits<CR>", "close all splits" },
   },
 }
@@ -195,6 +237,9 @@ M.telescope = {
   plugin = true,
 
   n = {
+    -- LSP
+    ["gr"] = { "<cmd>Telescope lsp_references<CR>", "find cursor reference" },
+    -- Telescope
     ["<leader>fdb"] = { "<cmd>Telescope buffers<CR>", "find buffers", opts = default_opts },
     ["<leader>fdc"] = { "<cmd>Telescope commands<CR>", "find commands", opts = default_opts },
     ["<leader>fdf"] = { "<cmd>Telescope find_files<CR>", "find files", opts = default_opts },
@@ -254,6 +299,19 @@ M.treesj = {
   },
 }
 
+M.trouble = {
+  plugin = true,
+
+  n = {
+    ["<leader>ctt"] = { "<cmd>TroubleToggle<CR>", "toggle trouble", opts = default_opts },
+    ["<leader>ctw"] = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "toggle workspace", opts = default_opts },
+    ["<leader>ctd"] = { "<cmd>TroubleToggle document_diagnostics<CR>", "toggle document", opts = default_opts },
+    ["<leader>ctl"] = { "<cmd>TroubleToggle loclist<CR>", "toggle loclist", opts = default_opts },
+    ["<leader>ctq"] = { "<cmd>TroubleToggle quickfix<CR>", "toggle quickfix", opts = default_opts },
+    ["<leader>ctr"] = { "<cmd>TroubleToggle lsp_references<CR>", "toggle references", opts = default_opts },
+  },
+}
+
 M.vimade = {
   plugin = true,
 
@@ -286,8 +344,7 @@ M.winshift = {
     ["<C-w>J"] = { "<cmd>WinShift down<CR>", "", opts = default_opts },
     ["<C-w>K"] = { "<cmd>WinShift up<CR>", "", opts = default_opts },
     ["<C-w>L"] = { "<cmd>WinShift right<CR>", "", opts = default_opts },
-    ["<C-w>m"] = { "<cmd>WinShift swap<CR>", "", opts = default_opts },
-    ["<C-w>M"] = { "<cmd>WinShift<CR>", "", opts = default_opts },
+    ["<C-w>m"] = { "<cmd>WinShift<CR>", "", opts = default_opts },
   },
 }
 

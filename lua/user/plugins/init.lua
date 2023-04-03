@@ -383,9 +383,16 @@ require("lazy").setup({
     config = conf("toggle-lsp-diagnostics"),
   },
   {
+    "folke/trouble.nvim",
+    init = require("user.core.utils").load_mappings("trouble"),
+    cmd = { "TroubleToggle", "Trouble" },
+    config = conf("trouble"),
+    dependencies = "nvim-web-devicons",
+  },
+  {
     "simrat39/symbols-outline.nvim",
     init = require("user.core.utils").load_mappings("symbols_outline"),
-    cmd = { "SymbolsOutline" },
+    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
     config = conf("symbols-outline"),
   },
 

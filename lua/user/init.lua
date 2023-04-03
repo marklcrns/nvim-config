@@ -18,9 +18,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.cmd("source " .. config_dir .. "/vimrc")
 vim.cmd("source " .. config_dir .. "/autocommands.vim")
 
+-- General mappings
 require("user.core.utils").load_mappings()
-
-vim.env.PATH = vim.env.PATH .. (Config.common.sys.is_windows() and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
 
 require("user.core")
 require("user.plugins")

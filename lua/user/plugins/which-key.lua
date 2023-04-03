@@ -33,6 +33,9 @@ return function()
   wk.register({
     c = {
       name = "+code",
+      t = {
+        name = "+trouble",
+      },
     },
     e = {
       name = "+explorer",

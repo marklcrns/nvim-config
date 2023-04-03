@@ -1,12 +1,10 @@
 return function()
-  vim.cmd([[
-    let g:smartq_q_filetypes = [
-    \ 'diff',
-    \ 'git',
-    \ 'gina-status',
-    \ 'gina-commit',
-    \ 'snippets',
-    \ 'floaterm',
-    \ ]
-  ]])
+  vim.g.smartq_q_filetypes = {
+    "diff",
+    "git",
+    "gina-status",
+    "gina-commit",
+    "snippets",
+    "floaterm",
+  }
 end
