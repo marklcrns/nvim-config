@@ -26,7 +26,7 @@ return function()
     triggers_blacklist = {
       -- list of mode / prefixes that should never be hooked by WhichKey
       i = { "j", "k", "f" },
-      v = { "j", "k", "f" },
+      v = { "j", "k", "f", "d", "y" },
     },
   })
 

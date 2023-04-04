@@ -68,8 +68,11 @@ M.general = {
   },
 
   v = {
+    -- LSP
     ["<leader>."] = { "<cmd>lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
     ["<leader>cf"] = { "<Esc><cmd>lua vim.lsp.buf.format({ range = {} })<CR>", "code format range", default_opts },
+    -- Misc
+    ["@"] = { ":<C-u>lua Config.lib.execute_macro_over_visual_range()<CR>", "execute macro range", default_opts },
   },
 
   t = {

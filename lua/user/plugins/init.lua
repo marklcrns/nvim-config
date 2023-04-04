@@ -150,7 +150,7 @@ require("lazy").setup({
   { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
   {
     "RRethy/vim-illuminate",
-    init = require("user.core.utils").lazy_load("vim-illuminate"),
+    event = "VeryLazy",
     config = conf("vim-illuminate"),
   },
   {
@@ -341,7 +341,7 @@ require("lazy").setup({
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    init = require("user.core.utils").lazy_load("nvim-treesitter-context"),
+    event = "VeryLazy",
     config = conf("nvim-treesitter-context"),
   },
   {
@@ -351,7 +351,7 @@ require("lazy").setup({
   },
   {
     "andymass/vim-matchup",
-    init = require("user.core.utils").lazy_load("vim-matchup"),
+    event = "VeryLazy",
     config = conf("vim-matchup"),
   },
   {
