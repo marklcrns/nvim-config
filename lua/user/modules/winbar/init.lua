@@ -43,6 +43,7 @@ M.config = {
 
     if vim.tbl_contains({
       "quickfix",
+      "nofile",
     }, ctx.buftype) then
       return true
     end

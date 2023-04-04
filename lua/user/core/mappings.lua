@@ -274,6 +274,18 @@ M.mason = {
   },
 }
 
+M.neogen = {
+  plugin = true,
+
+  n = {
+    ["<Leader>nc"] = { "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "generate class docs", opts = default_opts },
+    ["<Leader>nf"] = { "<cmd>lua require('neogen').generate({ type = 'func' })<CR>", "generate function docs", opts = default_opts },
+    ["<Leader>nt"] = { "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "generate type docs", opts = default_opts },
+    ["<Leader>np"] = { "<cmd>lua require('neogen').generate({ type = 'file' })<CR>", "generate file docs", opts = default_opts },
+    ["<Leader>nn"] = { "<cmd>lua require('neogen').generate()<CR>", "generate docs", opts = default_opts },
+  },
+}
+
 M.neogit = {
   plugin = true,
 

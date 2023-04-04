@@ -61,7 +61,10 @@ return function()
         group = augroup,
         buffer = bufnr,
         callback = function()
-          lsp_formatting(bufnr)
+          -- format  if has changes
+          if vim.api.nvim_buf_get_option(bufnr, "modified") then
+            lsp_formatting(bufnr)
+          end
         end,
       })
     end

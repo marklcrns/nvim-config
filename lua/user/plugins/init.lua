@@ -42,7 +42,7 @@ require("lazy").setup({
   },
   {
     "mrded/nvim-lsp-notify",
-    after = "nvim-notify",
+    after = { "nvim-notify", "nvim-lspconfig" },
     event = "VimEnter",
     config = function()
       require("lsp-notify").setup({ notify = require("notify") })
@@ -148,11 +148,6 @@ require("lazy").setup({
 
   -- UI STYLE
   { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
-  {
-    "RRethy/vim-illuminate",
-    event = "VeryLazy",
-    config = conf("vim-illuminate"),
-  },
   {
     "lukas-reineke/indent-blankline.nvim",
     init = require("user.core.utils").lazy_load("indent-blankline.nvim"),
@@ -280,6 +275,26 @@ require("lazy").setup({
     init = require("user.core.utils").load_mappings("easy_align"),
     event = "BufRead",
   },
+  {
+    "danymat/neogen",
+    init = require("user.core.utils").load_mappings("neogen"),
+    cmd = "Neogen",
+    config = function()
+      require("neogen").setup({
+        enabled = true,
+      })
+    end,
+  },
+  {
+    "RRethy/vim-illuminate",
+    event = "VeryLazy",
+    config = conf("vim-illuminate"),
+  },
+  {
+    "andymass/vim-matchup",
+    event = "VeryLazy",
+    config = conf("vim-matchup"),
+  },
 
   -- VCS
   {
@@ -348,11 +363,6 @@ require("lazy").setup({
     "RRethy/nvim-treesitter-endwise",
     init = require("user.core.utils").lazy_load("nvim-treesitter-endwise"),
     config = conf("nvim-ts-autotag"),
-  },
-  {
-    "andymass/vim-matchup",
-    event = "VeryLazy",
-    config = conf("vim-matchup"),
   },
   {
     "folke/todo-comments.nvim",
