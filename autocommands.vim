@@ -76,6 +76,10 @@ augroup NvimConfig
 
     " Execute command from cmdline window while keeping it open.
     au CmdwinEnter * nnoremap <buffer> <C-x> <CR>q:
+
+  " Notification after file change
+  autocmd FileChangedShellPost *
+        \ lua Config.common.notify.config.info("File changed. Autoreloaded " .. vim.fn.expand("%"))
 augroup END
 
 lua <<EOF
