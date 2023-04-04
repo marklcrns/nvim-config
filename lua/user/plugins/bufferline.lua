@@ -21,15 +21,15 @@ return function()
       max_name_length = 18,
       max_prefix_length = 15, -- prefix used when a buffer is deduplicated
       tab_size = 18,
-      diagnostics = "nvim_lsp",
-      ---@diagnostic disable-next-line: unused-local
-      diagnostics_indicator = function(total_count, level, diagnostics_dict)
-        local s = ""
-        for kind, count in pairs(diagnostics_dict) do
-          s = string.format("%s %s %d", s, symbol_map[kind], count)
-        end
-        return s
-      end,
+      -- diagnostics = "nvim_lsp",
+      -- ---@diagnostic disable-next-line: unused-local
+      -- diagnostics_indicator = function(total_count, level, diagnostics_dict)
+      --   local s = ""
+      --   for kind, count in pairs(diagnostics_dict) do
+      --     s = string.format("%s %s %d", s, symbol_map[kind], count)
+      --   end
+      --   return s
+      -- end,
       show_buffer_close_icons = true,
       show_close_icon = false,
       persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
@@ -60,6 +60,40 @@ return function()
           text = "Source Control",
           text_align = "center",
         },
+      },
+      custom_areas = {
+        right = function()
+          local result = {}
+          local session = vim.api.nvim_call_function("fnamemodify", { vim.v.this_session, ":t:r" })
+
+          -- local seve = vim.diagnostic.severity
+          -- local error = #vim.diagnostic.get(0, { severity = seve.ERROR })
+          -- local warning = #vim.diagnostic.get(0, { severity = seve.WARN })
+          -- local info = #vim.diagnostic.get(0, { severity = seve.INFO })
+          -- local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
+          --
+          -- if error ~= 0 then
+          --   table.insert(result, { text = "  " .. error, fg = "#EC5241" })
+          -- end
+          --
+          -- if warning ~= 0 then
+          --   table.insert(result, { text = "  " .. warning, fg = "#EFB839" })
+          -- end
+          --
+          -- if hint ~= 0 then
+          --   table.insert(result, { text = "  " .. hint, fg = "#A3BA5E" })
+          -- end
+          --
+          -- if info ~= 0 then
+          --   table.insert(result, { text = "  " .. info, fg = "#7EA9A7" })
+          -- end
+
+          if session ~= "" then
+            table.insert(result, { text = "  " .. session, fg = "#7EA9A7" })
+          end
+
+          return result
+        end,
       },
     },
   })
