@@ -380,6 +380,10 @@ require("lazy").setup({
       end, 0)
     end,
   },
+  {
+    "chrisbra/csv.vim",
+    ft = "csv",
+  },
 
   -- LANGUAGE SERVER PROTOCOL + TOOLS
   {
