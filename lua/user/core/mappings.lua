@@ -266,6 +266,14 @@ M.lsp = {
   },
 }
 
+M.markdown_preview = {
+  plugin = true,
+
+  n = {
+    ["<leader>cmt"] = { "<cmd>MarkdownPreviewToggle<CR>", "toggle markdown preview", opts = default_opts },
+  },
+}
+
 M.mason = {
   plugin = true,
 

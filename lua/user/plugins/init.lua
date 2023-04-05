@@ -20,7 +20,7 @@ local function use_local(spec)
     name = name:gsub("%.git$", "")
   end
 
-  local local_path = spec.local_path or vim.env.NVIM_LOCAL_PLUGINS or (vim.env.HOME .. "/Documents/dev/nvim/plugins")
+  local local_path = spec.local_path or vim.env.NVIM_LOCAL_PLUGINS or (vim.env.HOME .. "/Dev/my-repos")
   local path = local_path .. "/" .. name
 
   if vim.fn.isdirectory(path) == 1 then
@@ -435,13 +435,20 @@ require("lazy").setup({
     config = conf("symbols-outline"),
   },
 
-  -- LANGUAGES
+  -- LANGUAGES + TOOLS
   {
     "folke/neodev.nvim",
     after = "nvim-lspconfig",
     config = function()
       require("neodev").setup({})
     end,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    init = require("user.core.utils").load_mappings("markdown_preview"),
+    build = "cd app && yarn install",
+    ft = { "markdown" },
+    config = conf("markdown-preview"),
   },
 
   -- COMPLETION
