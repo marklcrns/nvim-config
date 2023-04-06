@@ -151,6 +151,7 @@ return function()
           buffer = "[Buffer]",
           spell = "[Spell]",
           git = "[VCS]",
+          conventionalcommits = "[VCS]",
           copilot = "[Copilot]",
           cmp_tabnine = "[Tab9]",
           latex_symbols = "[Latex]",
@@ -345,6 +346,7 @@ return function()
     sources = cmp.config.sources({
       { name = "cmp_tabnine" },
       { name = "git" },
+      { name = "conventionalcommits" },
       { name = "spell" },
       {
         name = "buffer",

@@ -37,11 +37,15 @@ local lib = Config.lib
 local utils = Config.common.utils
 
 require("user")
-api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    require("user.modules.winbar").init()
-  end,
-})
+
+-- Doesn't look good with neovide currently
+if vim.fn.exists("g:neovide") == 0 then
+  api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+      require("user.modules.winbar").init()
+    end,
+  })
+end
 
 -- COMMAND ALIASES
 local alias = require("user.modules.cmd_alias").alias

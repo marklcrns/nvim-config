@@ -286,10 +286,26 @@ M.neogen = {
   plugin = true,
 
   n = {
-    ["<Leader>nc"] = { "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "generate class docs", opts = default_opts },
-    ["<Leader>nf"] = { "<cmd>lua require('neogen').generate({ type = 'func' })<CR>", "generate function docs", opts = default_opts },
-    ["<Leader>nt"] = { "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "generate type docs", opts = default_opts },
-    ["<Leader>np"] = { "<cmd>lua require('neogen').generate({ type = 'file' })<CR>", "generate file docs", opts = default_opts },
+    ["<Leader>nc"] = {
+      "<cmd>lua require('neogen').generate({ type = 'class' })<CR>",
+      "generate class docs",
+      opts = default_opts,
+    },
+    ["<Leader>nf"] = {
+      "<cmd>lua require('neogen').generate({ type = 'func' })<CR>",
+      "generate function docs",
+      opts = default_opts,
+    },
+    ["<Leader>nt"] = {
+      "<cmd>lua require('neogen').generate({ type = 'type' })<CR>",
+      "generate type docs",
+      opts = default_opts,
+    },
+    ["<Leader>np"] = {
+      "<cmd>lua require('neogen').generate({ type = 'file' })<CR>",
+      "generate file docs",
+      opts = default_opts,
+    },
     ["<Leader>nn"] = { "<cmd>lua require('neogen').generate()<CR>", "generate docs", opts = default_opts },
   },
 }
@@ -370,6 +386,14 @@ M.telescope = {
     ["<leader>fdgc"] = { "<cmd>Telescope git_commits<CR>", "find git commits", opts = default_opts },
     ["<leader>fdgf"] = { "<cmd>Telescope git_files<CR>", "find git files", opts = default_opts },
     ["<leader>fdgs"] = { "<cmd>Telescope git_status<CR>", "find git status", opts = default_opts },
+  },
+}
+
+M.todo_comments = {
+  plugin = true,
+
+  n = {
+    ["<leader>fdt"] = { "<cmd>TodoTelescope<CR>", "find todo comments", opts = default_opts },
   },
 }
 
