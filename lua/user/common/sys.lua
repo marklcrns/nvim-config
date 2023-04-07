@@ -14,7 +14,7 @@ function M.is_mac()
 end
 
 function M.is_linux()
-  return not is_windows() and not M.is_wsl() and not M.is_mac()
+  return not M.is_windows() and not M.is_wsl() and not M.is_mac()
 end
 
 function M.is_gui()

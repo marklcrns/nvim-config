@@ -33,6 +33,9 @@ return function()
   wk.register({
     c = {
       name = "+code",
+      m = {
+        name = "+markdown",
+      },
       t = {
         name = "+trouble",
       },
