@@ -12,7 +12,7 @@
 "  Yaml plugins does not need to be in a separate '_lazy' file and thus wont be
 "  loaded.
 
-let g:handle_plugins = 'full'
+let g:handle_plugins = 'disable'
 
 " Initialize ~/.local-nvim.d/init.vim
 let g:init_secondary_config = 0

@@ -124,6 +124,55 @@ M.abolish = {
   },
 }
 
+M.camel_case_motion = {
+  plugin = true,
+
+  n = {
+    ["w"] = {
+      [[<Plug>CamelCaseMotion_w]],
+      "camel case motion w",
+      opts = { noremap = false, silent = true },
+    },
+    ["b"] = {
+      [[<Plug>CamelCaseMotion_b]],
+      "camel case motion b",
+      opts = { noremap = false, silent = true },
+    },
+    ["e"] = {
+      [[<Plug>CamelCaseMotion_e]],
+      "camel case motion e",
+      opts = { noremap = false, silent = true },
+    },
+    ["ge"] = {
+      [[<Plug>CamelCaseMotion_ge]],
+      "camel case motion ge",
+      opts = { noremap = false, silent = true },
+    },
+  },
+  v = {
+    ["w"] = {
+      [[<Plug>CamelCaseMotion_w]],
+      "camel case motion w",
+      opts = { noremap = false, silent = true },
+    },
+    ["b"] = {
+      [[<Plug>CamelCaseMotion_b]],
+      "camel case motion b",
+      opts = { noremap = false, silent = true },
+    },
+    ["e"] = {
+      [[<Plug>CamelCaseMotion_e]],
+      "camel case motion e",
+      opts = { noremap = false, silent = true },
+    },
+    ["ge"] = {
+      [[<Plug>CamelCaseMotion_ge]],
+      "camel case motion ge",
+      opts = { noremap = false, silent = true },
+    },
+  },
+}
+
 M.dial = {
   plugin = true,
 

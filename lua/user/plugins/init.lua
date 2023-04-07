@@ -82,6 +82,11 @@ require("lazy").setup({
     config = conf("vim-smartq"),
   },
   {
+    "bkad/CamelCaseMotion",
+    init = require("user.core.utils").load_mappings("camel_case_motion"),
+    event = "VimEnter",
+  },
+  {
     "kevinhwang91/nvim-ufo",
     init = require("user.core.utils").lazy_load("nvim-ufo"),
     config = conf("nvim-ufo"),
