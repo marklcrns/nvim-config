@@ -319,7 +319,15 @@ M.markdown_preview = {
   plugin = true,
 
   n = {
-    ["<leader>cmt"] = { "<cmd>MarkdownPreviewToggle<CR>", "toggle markdown preview", opts = default_opts },
+    ["<leader>cmp"] = { "<cmd>MarkdownPreviewToggle<CR>", "toggle markdown preview", opts = default_opts },
+  },
+}
+
+M.markdown_toc = {
+  plugin = true,
+
+  n = {
+    ["<leader>cmt"] = { "<cmd>GetTocGFM<CR>", "generate markdown TOC GFM style", opts = default_opts },
   },
 }
 

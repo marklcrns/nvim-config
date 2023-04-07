@@ -42,10 +42,11 @@ require("lazy").setup({
   },
   {
     "mrded/nvim-lsp-notify",
-    after = { "nvim-notify", "nvim-lspconfig" },
+    after = { "nvim-lspconfig" },
     event = "VimEnter",
     config = function()
-      require("lsp-notify").setup({ notify = require("notify") })
+      -- require("lsp-notify").setup({ notify = require("notify") })
+      require("lsp-notify").setup()
     end,
   },
 
@@ -455,8 +456,20 @@ require("lazy").setup({
     "iamcco/markdown-preview.nvim",
     init = require("user.core.utils").load_mappings("markdown_preview"),
     build = "cd app && yarn install",
-    ft = { "markdown" },
+    ft = { "markdown", "pandoc.markdown", "rmd" },
     config = conf("markdown-preview"),
+  },
+  {
+    "mzlogin/vim-markdown-toc",
+    init = require("user.core.utils").load_mappings("markdown_toc"),
+    ft = { "markdown", "pandoc.markdown", "rmd" },
+    config = function()
+      vim.cmd([[
+        let g:vmt_fence_text = 'TOC'
+        let g:vmt_fence_closing_text = '/TOC'
+        let g:vmt_auto_update_on_save = 1
+      ]])
+    end,
   },
 
   -- COMPLETION

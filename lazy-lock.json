@@ -81,6 +81,7 @@
   "vim-flog": { "branch": "master", "commit": "c58f04c82174fc887bbd626e871c89bc393ba585" },
   "vim-fugitive": { "branch": "master", "commit": "36492d8f271d9a154b9f9c10e40c5a5ae1583c2b" },
   "vim-illuminate": { "branch": "master", "commit": "a2907275a6899c570d16e95b9db5fd921c167502" },
+  "vim-markdown-toc": { "branch": "master", "commit": "7ec05df27b4922830ace2246de36ac7e53bea1db" },
   "vim-matchup": { "branch": "master", "commit": "156367e4cbd123bc9a70eeabeaa16f7cf9239e12" },
   "vim-rhubarb": { "branch": "master", "commit": "ee69335de176d9325267b0fd2597a22901d927b1" },
   "vim-signature": { "branch": "master", "commit": "6bc3dd1294a22e897f0dcf8dd72b85f350e306bc" },
