@@ -313,7 +313,7 @@ end
 
 function M.indent_size()
   if vim.o.expandtab then
-    return vim.o.spaces
+    return vim.o.shiftwidth
   else
     return vim.o.tabstop
   end
@@ -461,7 +461,7 @@ end
 function M.comfy_grep(use_loclist, ...)
   local args = { ... }
   local cargs = vim.tbl_map(function(arg)
-    return vim.fn.shellescape(arg):gsub("[|]", { ["'"] = "''", ["|"] = "\\|" })
+    return (vim.fn.shellescape(arg):gsub("[|]", { ["'"] = "''", ["|"] = "\\|" }))
   end, args) --[[@as table ]]
 
   local command = use_loclist and "lgrep! " or "grep! "
@@ -626,7 +626,7 @@ function expr.next_reference(reverse)
   if type(reverse) ~= "boolean" then
     reverse = false
   end
-  if #vim.lsp.buf_get_clients(0) > 0 then
+  if #vim.lsp.get_active_clients({ bufnr = 0 }) > 0 then
     return utils.t(
       string.format('<Cmd>lua require("illuminate").goto_%s_reference()<CR>', reverse and "prev" or "next")
     )
@@ -778,8 +778,21 @@ end
 function cmd.windows(all)
   local tabs = all and api.nvim_list_tabpages() or { api.nvim_get_current_tabpage() }
   local curwin = api.nvim_get_current_win()
+  local alt_tabid, alt_winid
+
+  if all then
+    local alt_tabnr = vim.fn.tabpagenr("#")
+    if alt_tabnr > 0 then
+      alt_tabid = utils.tabnr_to_id(alt_tabnr)
+      alt_winid = api.nvim_tabpage_get_win(alt_tabid)
+    end
+  end
 
   local res = {}
+  local sigil_map = {
+    [curwin] = ">",
+    [alt_winid or -1] = "#",
+  }
 
   for i, tabid in ipairs(tabs) do
     res[#res + 1] = "Tab page " .. i
@@ -792,7 +805,7 @@ function cmd.windows(all)
         local name = api.nvim_buf_get_name(bufnr)
 
         return ("  %s %d  % 4d  %s%s"):format(
-          v == curwin and ">" or " ",
+          sigil_map[v] or " ",
           v,
           bufnr,
           ("%s%s"):format(

@@ -69,7 +69,7 @@ M.general = {
 
   v = {
     -- LSP
-    ["<leader>."] = { "<cmd>lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
+    ["<leader>."] = { ":lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
     ["<leader>cf"] = { "<Esc><cmd>lua vim.lsp.buf.format({ range = {} })<CR>", "code format range", default_opts },
     -- Misc
     ["@"] = { ":<C-u>lua Config.lib.execute_macro_over_visual_range()<CR>", "execute macro range", default_opts },
@@ -173,6 +173,14 @@ M.camel_case_motion = {
   },
 }
 
+M.colorizer = {
+  plugin = true,
+
+  n = {
+    ["<localleader>sx"] = { "<cmd>ColorizerToggle<CR>", "toggle colorizer", opts = default_opts },
+  },
+}
+
 M.dial = {
   plugin = true,
 
@@ -197,24 +205,12 @@ M.diffview = {
   },
 }
 
-M.easy_align = {
-  plugin = true,
-
-  n = {
-    ["<leader>raa"] = { "<cmd>EasyAlign<CR>", "start easyalign", opts = default_opts },
-    ["<leader>rAA"] = { "<cmd>LiveEasyAlign<CR>", "start easyalign live", opts = default_opts },
-  },
-  v = {
-    ["<leader>raa"] = { "<cmd>EasyAlign<CR>", "start easyalign live", opts = default_opts },
-    ["<leader>rAA"] = { "<cmd>LiveEasyAlign<CR>", "start easyalign live", opts = default_opts },
-  },
-}
-
 M.focus = {
   plugin = true,
 
   n = {
     ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle window focus", opts = default_opts },
+    ["<C-w>z"] = { "<cmd>FocusMaxOrEqual<CR>", "toggle window maximize", opts = default_opts },
   },
 }
 
@@ -272,6 +268,30 @@ M.fugitive = {
       "git diff",
       opts = default_opts,
     },
+  },
+}
+
+M.gitsigns = {
+  plugin = true,
+
+  n = {
+    ["<Leader>ghb"] = {
+      "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>",
+      "git blame hunk cursor",
+      opts = default_opts,
+    },
+    ["<Leader>ghd"] = { "<cmd>Gitsigns diffthis<CR>", "git diff hunk", opts = default_opts },
+    ["<Leader>ghD"] = { "<cmd>lua require'gitsigns'.diffthis('~')<CR>", "git diff hunk", opts = default_opts },
+    ["<Leader>ghp"] = { "<cmd>Gitsigns preview_hunk<CR>", "git preview hunk", opts = default_opts },
+    ["<Leader>ghr"] = { "<cmd>Gitsigns reset_hunk<CR>", "git reset hunk", opts = default_opts },
+    ["<Leader>ghR"] = { "<cmd>Gitsigns reset_buffer<CR>", "git reset entire buffer", opts = default_opts },
+    ["<Leader>ghs"] = { "<cmd>Gitsigns stage_hunk<CR>", "git stage hunk", opts = default_opts },
+    ["<Leader>ghu"] = { "<cmd>Gitsigns undo_stage_hunk<CR>", "git undo stage hunk", opts = default_opts },
+  },
+
+  v = {
+    ["<Leader>ghr"] = { ":Gitsigns reset_hunk<CR>", "git reset hunk", opts = default_opts },
+    ["<Leader>ghs"] = { ":Gitsigns stage_hunk<CR>", "git stage hunk", opts = default_opts },
   },
 }
 
@@ -384,6 +404,16 @@ M.neo_tree = {
   },
 }
 
+M.niceblock = {
+  plugin = true,
+
+  v = {
+    ["I"] = { [[<Plug>(niceblock-I)]], "niceblock I", opts = default_opts },
+    ["gI"] = { [[<Plug>(niceblock-gI)]], "niceblock gI", opts = default_opts },
+    ["A"] = { [[<Plug>(niceblock-A)]], "niceblock A", opts = default_opts },
+  },
+}
+
 M.nvim_window_picker = {
   plugin = true,
 
@@ -415,11 +445,31 @@ M.symbols_outline = {
   },
 }
 
+M.tabular = {
+  plugin = true,
+
+  n = {
+    ["<leader>ra|"] = { "<cmd>Tabularize /|<CR>", "tabularize |", opts = default_opts },
+    ["<leader>ra,"] = { "<cmd>Tabularize /,\zs<CR>", "tabularize ,", opts = default_opts },
+    ["<leader>ra:"] = { "<cmd>Tabularize /:\zs<CR>", "tabularize :", opts = default_opts },
+    ["<leader>ra<Space>"] = { "<cmd>Tabularize /\\s\\+<CR>", "tabularize spaces", opts = default_opts },
+    ["<leader>ra="] = { "<cmd>Tabularize /=<CR>", "tabularize =", opts = default_opts },
+  },
+  v = {
+    ["<leader>ra|"] = { ":Tabularize /|<CR>", "tabularize |", opts = default_opts },
+    ["<leader>ra,"] = { ":Tabularize /,\zs<CR>", "tabularize ,", opts = default_opts },
+    ["<leader>ra:"] = { ":Tabularize /:\zs<CR>", "tabularize :", opts = default_opts },
+    ["<leader>ra<Space>"] = { ":Tabularize /\\s\\+<CR>", "tabularize spaces", opts = default_opts },
+    ["<leader>ra="] = { ":Tabularize /=<CR>", "tabularize =", opts = default_opts },
+  },
+}
+
 M.telescope = {
   plugin = true,
 
   n = {
     -- LSP
+    ["z="] = { "<cmd>Telescope spell_suggest theme=get_cursor<CR>", "spell suggest cursor" },
     ["gr"] = { "<cmd>Telescope lsp_references<CR>", "find cursor reference" },
     -- Telescope
     ["<leader>fdb"] = { "<cmd>Telescope buffers<CR>", "find buffers", opts = default_opts },
@@ -429,15 +479,26 @@ M.telescope = {
     ["<leader>fdi"] = { "<cmd>Telescope media_files<CR>", "find images", opts = default_opts },
     ["<leader>fdj"] = { "<cmd>Telescope jumplist<CR>", "find jumplist", opts = default_opts },
     ["<leader>fdk"] = { "<cmd>Telescope keymaps<CR>", "find keymappings", opts = default_opts },
-    ["<leader>fdl"] = { "<cmd>Telescope ui-select<CR>", "find ui", opts = default_opts },
     ["<leader>fdm"] = { "<cmd>Telescope marks<CR>", "find marks", opts = default_opts },
     ["<leader>fdn"] = { "<cmd>Telescope notify<CR>", "find notification", opts = default_opts },
     ["<leader>fdo"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
     ["<leader>fdp"] = { "<cmd>Telescope projects<CR>", "find projects", opts = default_opts },
     ["<leader>fdr"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
-    ["<leader>fds"] = { "<cmd>Telescope grep_string<CR>", "find grep string ", opts = default_opts },
-    ["<leader>fdt"] = { "<cmd>Telescope colorscheme<CR>", "pick colorscheme", opts = default_opts },
+    ["<leader>fds"] = { "<cmd>Telescope grep_string<CR>", "find string grep", opts = default_opts },
+    ["<leader>fdS"] = {
+      "<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy<CR>",
+      "find string grep in buffer",
+      opts = default_opts,
+    },
+    ["<leader>fdz"] = { "<cmd>Telescope colorscheme<CR>", "pick colorscheme", opts = default_opts },
     ["<leader>fdu"] = { "<cmd>Telescope undo<CR>", "find undo", opts = default_opts },
+    ["<leader>fdlo"] = { "<cmd>Telescope lsp_document_symbols<CR>", "find lsp doc symbols", opts = default_opts },
+    ["<leader>fdlO"] = {
+      "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>",
+      "find lsp workspace symbols",
+      opts = default_opts,
+    },
+    ["<leader>fdld"] = { "<cmd>Telescope diagnostics<CR>", "find lsp doc diagnostics", opts = default_opts },
     ["<leader>fdgC"] = { "<cmd>Telescope git_bcommits<CR>", "find git branch commits", opts = default_opts },
     ["<leader>fdgb"] = { "<cmd>Telescope git_branches<CR>", "find git branches", opts = default_opts },
     ["<leader>fdgc"] = { "<cmd>Telescope git_commits<CR>", "find git commits", opts = default_opts },

@@ -1,7 +1,7 @@
 return function()
   require("project_nvim").setup({
-    -- detection_methods = { "lsp", "pattern" }, -- lsp first, then pattern
-    detection_methods = { "pattern", "lsp" }, -- pattern first, then lsp
+    detection_methods = { "lsp", "pattern" }, -- lsp first, then pattern
+    -- detection_methods = { "pattern", "lsp" }, -- pattern first, then lsp
     patterns = {
       "=src",
       ".git",

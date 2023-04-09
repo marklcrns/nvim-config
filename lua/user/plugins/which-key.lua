@@ -8,6 +8,15 @@ return function()
       group = "+", -- symbol prepended to a group
     },
 
+    key_labels = {
+      -- override the label used to display some keys. It doesn't effect WK in any other way.
+      -- For example:
+      ["<space>"] = "␣",
+      ["<cr>"] = "↵",
+      ["<tab>"] = "⇆",
+      ["<S-tab>"] = "S⇆",
+    },
+
     popup_mappings = {
       scroll_down = "<c-d>", -- binding to scroll down inside the popup
       scroll_up = "<c-u>", -- binding to scroll up inside the popup
@@ -47,6 +56,9 @@ return function()
       name = "+file-manager",
       d = {
         name = "+finder",
+        l = {
+          name = "+lsp",
+        },
         g = {
           name = "+git",
         },
@@ -56,6 +68,9 @@ return function()
       name = "+git",
       c = {
         name = "+commit",
+      },
+      c = {
+        name = "+hunk",
       },
     },
     i = {
@@ -72,6 +87,9 @@ return function()
     },
     r = {
       name = "+text-editting",
+      a = {
+        name = "+align",
+      },
     },
     w = {
       name = "+window-manager",

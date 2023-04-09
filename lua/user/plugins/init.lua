@@ -69,8 +69,11 @@ require("lazy").setup({
     "rebelot/kanagawa.nvim",
     config = conf("kanagawa"),
   },
+  {
+    "AlexvZyl/nordic.nvim",
+    config = conf("nordic"),
+  },
   "sindrets/oxocarbon-lua.nvim",
-  "AlexvZyl/nordic.nvim",
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
@@ -277,9 +280,19 @@ require("lazy").setup({
     event = "BufRead",
   },
   {
-    "junegunn/vim-easy-align",
-    init = require("user.core.utils").load_mappings("easy_align"),
-    event = "BufRead",
+    "godlygeek/tabular",
+    init = function()
+      require("user.core.utils").load_mappings("tabular")
+    end,
+    cmd = "Tabularize",
+  },
+  {
+    "kana/vim-niceblock",
+    init = function()
+      require("user.core.utils").lazy_load("vim-niceblock")
+      require("user.core.utils").load_mappings("niceblock")
+      vim.g.niceblock_use_default_mappings = 0
+    end,
   },
   {
     "danymat/neogen",
@@ -300,6 +313,16 @@ require("lazy").setup({
     "andymass/vim-matchup",
     event = "VeryLazy",
     config = conf("vim-matchup"),
+  },
+  {
+    "bennypowers/nvim-regexplainer",
+    conf = function()
+      require("regexplainer").setup({ auto = true })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "MunifTanjim/nui.nvim",
+    },
   },
 
   -- VCS
@@ -331,7 +354,10 @@ require("lazy").setup({
   },
   {
     "lewis6991/gitsigns.nvim",
-    init = require("user.core.utils").lazy_load("gitsigns.nvim"),
+    init = function()
+      require("user.core.utils").lazy_load("gitsigns.nvim")
+      require("user.core.utils").load_mappings("gitsigns")
+    end,
     config = conf("gitsigns"),
   },
 
@@ -380,7 +406,10 @@ require("lazy").setup({
   },
   {
     "NvChad/nvim-colorizer.lua",
-    init = require("user.core.utils").lazy_load("nvim-colorizer.lua"),
+    init = function()
+      require("user.core.utils").lazy_load("nvim-colorizer.lua")
+      require("user.core.utils").load_mappings("colorizer")
+    end,
     config = function(_, opts)
       require("colorizer").setup(opts)
       -- execute colorizer as soon as possible
@@ -448,9 +477,10 @@ require("lazy").setup({
   {
     "folke/neodev.nvim",
     after = "nvim-lspconfig",
-    config = function()
-      require("neodev").setup({})
-    end,
+    -- NOTE: Defined in lua/init.lua
+    -- config = function()
+    --   require("neodev").setup({})
+    -- end,
   },
   {
     "iamcco/markdown-preview.nvim",
