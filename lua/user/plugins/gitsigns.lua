@@ -75,6 +75,8 @@ return function()
         end
       end)
 
+      -- TODO: Properly map these
+
       -- Actions
       map("n", "<leader>hs", gs.stage_hunk)
       map("n", "<leader>hr", gs.reset_hunk)
