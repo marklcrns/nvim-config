@@ -209,8 +209,8 @@ M.focus = {
   plugin = true,
 
   n = {
-    ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle window focus", opts = default_opts },
-    ["<C-w>z"] = { "<cmd>FocusMaxOrEqual<CR>", "toggle window maximize", opts = default_opts },
+    ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle focus", opts = default_opts },
+    ["<C-w>z"] = { "<cmd>FocusMaxOrEqual<CR>", "toggle maximize-equalize", opts = default_opts },
   },
 }
 

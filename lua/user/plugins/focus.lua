@@ -15,6 +15,7 @@ return function()
     colorcolumn = { enable = true, width = vim.api.nvim_get_option("textwidth") },
     bufnew = false,
     winhighlight = Config.common.sys.is_gui(),
+    excluded_buftypes = { "terminal", "nofile", "help", "packer" },
     excluded_filetypes = {
       "NeogitCommitMessage",
       "NeogitStatus",
