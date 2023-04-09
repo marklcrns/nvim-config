@@ -271,6 +271,14 @@ M.fugitive = {
   },
 }
 
+M.gitignore = {
+  plugin = true,
+
+  n = {
+    ["<leader>gi"] = { "<cmd>Gitignore<CR>", "generate gitignore", opts = default_opts },
+  },
+}
+
 M.gitsigns = {
   plugin = true,
 

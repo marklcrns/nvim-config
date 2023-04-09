@@ -360,6 +360,14 @@ require("lazy").setup({
     end,
     config = conf("gitsigns"),
   },
+  {
+    "wintermute-cell/gitignore.nvim",
+    init = require("user.core.utils").load_mappings("gitignore"),
+    cmd = "Gitignore",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+  },
 
   -- INTEGRATION
   {
