@@ -457,14 +457,18 @@ M.tabular = {
   plugin = true,
 
   n = {
+    ["<leader>ra\\"] = { "<cmd>Tabularize /\\\\\\<CR>", "tabularize \\", opts = default_opts },
     ["<leader>ra|"] = { "<cmd>Tabularize /|<CR>", "tabularize |", opts = default_opts },
+    ["<leader>ra&"] = { "<cmd>Tabularize /&<CR>", "tabularize &", opts = default_opts },
     ["<leader>ra,"] = { "<cmd>Tabularize /,\zs<CR>", "tabularize ,", opts = default_opts },
     ["<leader>ra:"] = { "<cmd>Tabularize /:\zs<CR>", "tabularize :", opts = default_opts },
     ["<leader>ra<Space>"] = { "<cmd>Tabularize /\\s\\+<CR>", "tabularize spaces", opts = default_opts },
     ["<leader>ra="] = { "<cmd>Tabularize /=<CR>", "tabularize =", opts = default_opts },
   },
   v = {
+    ["<leader>ra\\"] = { ":Tabularize /\\\\\\<CR>", "tabularize \\", opts = default_opts },
     ["<leader>ra|"] = { ":Tabularize /|<CR>", "tabularize |", opts = default_opts },
+    ["<leader>ra&"] = { ":Tabularize /&<CR>", "tabularize &", opts = default_opts },
     ["<leader>ra,"] = { ":Tabularize /,\zs<CR>", "tabularize ,", opts = default_opts },
     ["<leader>ra:"] = { ":Tabularize /:\zs<CR>", "tabularize :", opts = default_opts },
     ["<leader>ra<Space>"] = { ":Tabularize /\\s\\+<CR>", "tabularize spaces", opts = default_opts },
@@ -604,6 +608,14 @@ M.winshift = {
     ["<C-w>K"] = { "<cmd>WinShift up<CR>", "", opts = default_opts },
     ["<C-w>L"] = { "<cmd>WinShift right<CR>", "", opts = default_opts },
     ["<C-w>m"] = { "<cmd>WinShift<CR>", "", opts = default_opts },
+  },
+}
+
+M.you_autocorrect = {
+  plugin = true,
+
+  n = {
+    ["<localleader>ss"] = { "<cmd>call ToggleAutoCorrect()<CR>", "toggle autocorrect", opts = default_opts },
   },
 }
 

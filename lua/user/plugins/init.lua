@@ -53,8 +53,6 @@ require("lazy").setup({
   -- COLORSCHEMES
   {
     "folke/tokyonight.nvim", -- Default
-    lazy = false,
-    priority = 1000,
     config = conf("tokyonight"),
   },
   {
@@ -72,6 +70,10 @@ require("lazy").setup({
   {
     "AlexvZyl/nordic.nvim",
     config = conf("nordic"),
+  },
+  {
+    "rose-pine/neovim",
+    config = conf("rose-pine"),
   },
   "sindrets/oxocarbon-lua.nvim",
 
@@ -589,6 +591,14 @@ require("lazy").setup({
     init = function()
       require("user.core.utils").load_mappings("vimwiki")
       conf("vimwiki")()
+    end,
+  },
+  {
+    "sedm0784/vim-you-autocorrect",
+    ft = { "markdown", "vimwiki", "norg" },
+    init = function()
+      conf("vim-you-autocorrect")()
+      require("user.core.utils").load_mappings("you_autocorrect")
     end,
   },
 }, require("user.plugins.lazy_nvim"))
