@@ -40,19 +40,29 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-notify"),
   },
-  {
-    "mrded/nvim-lsp-notify",
-    after = { "nvim-lspconfig" },
-    event = "VimEnter",
-    config = function()
-      -- require("lsp-notify").setup({ notify = require("notify") })
-      require("lsp-notify").setup()
-    end,
-  },
+  -- {
+  --   -- Overriding lsp_signature. See usr/lsp/init.lua
+  --   "folke/noice.nvim",
+  --   event = "VimEnter",
+  --   config = conf("noice"),
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   },
+  -- },
+  -- {
+  --   "mrded/nvim-lsp-notify",
+  --   after = { "nvim-lspconfig" },
+  --   event = "VimEnter",
+  --   config = function()
+  --     -- require("lsp-notify").setup({ notify = require("notify") })
+  --     require("lsp-notify").setup()
+  --   end,
+  -- },
 
   -- COLORSCHEMES
   {
-    "folke/tokyonight.nvim", -- Default
+    "folke/tokyonight.nvim",
     config = conf("tokyonight"),
   },
   {

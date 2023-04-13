@@ -2,7 +2,7 @@ return function()
   require("nordic").setup({
     -- Available themes: 'nordic', 'onedark'.
     -- Onedark is WIP.
-    theme = "nordic",
+    theme = "onedark",
     -- Enable bold keywords.
     bold_keywords = false,
     -- Enable italic comments.

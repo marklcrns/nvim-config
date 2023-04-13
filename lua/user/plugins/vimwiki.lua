@@ -252,7 +252,7 @@ return function()
             \ <C-]><Esc>:VimwikiReturn 1 5<CR>
       autocmd FileType vimwiki inoremap <silent><buffer> <S-CR>
             \ <Esc>:VimwikiReturn 4 1<CR>
-      autocmd Filetype vimwiki nnoremap <silent><buffer><LocalLeader>wL :call IndexResourcesLinks('# Resources', '')<CR>
+      autocmd Filetype vimwiki nnoremap <silent><buffer><LocalLeader>nwL :call IndexResourcesLinks('# Resources', '')<CR>
     augroup END
 
     " Quick fix hack on <CR> and <S-CR> being remapped when comming back to a session

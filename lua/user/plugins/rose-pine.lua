@@ -3,7 +3,7 @@ return function()
     --- @usage 'auto'|'main'|'moon'|'dawn'
     variant = "auto",
     --- @usage 'main'|'moon'|'dawn'
-    dark_variant = "main",
+    dark_variant = "moon",
     bold_vert_split = false,
     dim_nc_background = false,
     disable_background = vim.g.transparent_background,
@@ -41,10 +41,10 @@ return function()
     -- Change specific vim highlight groups
     -- https://github.com/rose-pine/neovim/wiki/Recipes
     highlight_groups = {
-      ColorColumn = { bg = "rose", blend = 20 },
+      ColorColumn = { bg = "rose", blend = 10 },
 
       -- Blend colours against the "base" background
-      CursorLine = { bg = "foam", blend = 10 },
+      CursorLine = { bg = "foam", blend = 20 },
       StatusLine = { fg = "love", bg = "love", blend = 10 },
     },
   })

@@ -8,7 +8,7 @@
 ---
 ---Override the default colorscheme by defining the environment variable
 ---`NVIM_COLORSCHEME` using the same format.
-local DEFAULT_COLORSCHEME = "rose-pine dark"
+local DEFAULT_COLORSCHEME = "tokyonight dark"
 
 local Color = Config.common.color.Color
 local utils = Config.common.utils
