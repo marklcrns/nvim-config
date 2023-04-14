@@ -41,6 +41,10 @@ return function()
     --   },
     -- },
 
+    -- Plugin: nvim-ts-autotag
+    autotag = {
+      enable = true,
+    },
     -- Plugin: nvim-treesitter-textsubjects
     textsubjects = {
       enable = true,

@@ -458,21 +458,25 @@ M.tabular = {
 
   n = {
     ["<leader>ra\\"] = { "<cmd>Tabularize /\\\\\\<CR>", "tabularize \\", opts = default_opts },
+    ["<leader>ra/"] = { "<cmd>Tabularize ////<CR>", "tabularize //", opts = default_opts },
     ["<leader>ra|"] = { "<cmd>Tabularize /|<CR>", "tabularize |", opts = default_opts },
     ["<leader>ra&"] = { "<cmd>Tabularize /&<CR>", "tabularize &", opts = default_opts },
     ["<leader>ra,"] = { "<cmd>Tabularize /,\zs<CR>", "tabularize ,", opts = default_opts },
     ["<leader>ra:"] = { "<cmd>Tabularize /:\zs<CR>", "tabularize :", opts = default_opts },
     ["<leader>ra<Space>"] = { "<cmd>Tabularize /\\s\\+<CR>", "tabularize spaces", opts = default_opts },
     ["<leader>ra="] = { "<cmd>Tabularize /=<CR>", "tabularize =", opts = default_opts },
+    ["<leader>ra{"] = { "<cmd>Tabularize /{<CR>", "tabularize {", opts = default_opts },
   },
   v = {
     ["<leader>ra\\"] = { ":Tabularize /\\\\\\<CR>", "tabularize \\", opts = default_opts },
+    ["<leader>ra/"] = { ":Tabularize ////<CR>", "tabularize //", opts = default_opts },
     ["<leader>ra|"] = { ":Tabularize /|<CR>", "tabularize |", opts = default_opts },
     ["<leader>ra&"] = { ":Tabularize /&<CR>", "tabularize &", opts = default_opts },
     ["<leader>ra,"] = { ":Tabularize /,\zs<CR>", "tabularize ,", opts = default_opts },
     ["<leader>ra:"] = { ":Tabularize /:\zs<CR>", "tabularize :", opts = default_opts },
     ["<leader>ra<Space>"] = { ":Tabularize /\\s\\+<CR>", "tabularize spaces", opts = default_opts },
     ["<leader>ra="] = { ":Tabularize /=<CR>", "tabularize =", opts = default_opts },
+    ["<leader>ra{"] = { ":Tabularize /{<CR>", "tabularize {", opts = default_opts },
   },
 }
 
