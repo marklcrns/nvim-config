@@ -387,6 +387,34 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-tmux-navigation"),
   },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup()
+      local chatgpt = require("chatgpt")
+      local wk = require("which-key")
+      wk.register({
+        a = {
+          name = "+chatgpt",
+          e = {
+            function()
+              chatgpt.edit_with_instructions()
+            end,
+            "edit with instructions",
+          },
+        },
+      }, {
+        prefix = "<leader>",
+        mode = "v",
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
 
   -- SYNTAX & FILETYPE PLUGINS
   {
