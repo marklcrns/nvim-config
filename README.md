@@ -29,6 +29,8 @@ with pure obsession and ❤
 - [x] File explorer (neo-tree.nvim)
 - [X] Diff (diffview.nvim)
 
+and many more...
+
 ## Requirements
 - Neovim 0.9+
 - Nodejs and npm
