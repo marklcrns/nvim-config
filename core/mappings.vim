@@ -686,11 +686,6 @@ function! SettingsToggleMappings()
   nnoremap <LocalLeader>sw :execute('setlocal wrap! breakindent! colorcolumn=' .
         \ (&colorcolumn == '' ? &textwidth : ''))<CR>
 
-  " Cursor toggles
-  nnoremap <silent> <LocalLeader>scl :<C-u>call <SID>toggle_cursorline()<CR>
-  nnoremap <silent> <LocalLeader>scc :<C-u>call <SID>toggle_cursorcolumn()<CR>
-  nnoremap <silent> <LocalLeader>scx :<C-u>call <SID>toggle_crosshair()<CR>
-
   " UI toggles
   nnoremap <silent> <LocalLeader>sub :<C-u>call <SID>toggle_background()<CR>
 endfunction
@@ -733,47 +728,6 @@ function! s:next_open_fold(direction)
     endwhile
   endif
   call cursor(start, 0)
-endfunction
-
-" Toggle cursorline
-function! s:toggle_cursorline()
-  if get(g:, 'custom_cursorline_enable', 1)
-    set nocursorline
-    let g:custom_cursorline_enable = 0
-    echom 'Cursorline deactivated'
-  else
-    set cursorline
-    let g:custom_cursorline_enable = 1
-    echom 'Cursorline activated'
-  endif
-endfunction
-
-" Toggle cursorcolumn
-function! s:toggle_cursorcolumn()
-  if get(g:, 'custom_cursorcolumn_enable', 0)
-    set nocursorcolumn
-    let g:custom_cursorcolumn_enable = 0
-    echom 'Cursorcolumn deactivated'
-  else
-    set cursorcolumn
-    let g:custom_cursorcolumn_enable = 1
-    echom 'Cursorcolumn activated'
-  endif
-endfunction
-
-" Toggle cursorline and cursorcolumn
-function! s:toggle_crosshair()
-  if (&cursorline || &cursorcolumn)
-    set nocursorline nocursorcolumn
-    let g:custom_cursorline_enable = 0
-    let g:custom_cursorcolumn_enable = 0
-    echom 'Crosshair activated'
-  else
-    set cursorline cursorcolumn
-    let g:custom_cursorline_enable = 1
-    let g:custom_cursorcolumn_enable = 1
-    echom 'Crosshair deactivated'
-  endif
 endfunction
 
 " Toggle conceallevel

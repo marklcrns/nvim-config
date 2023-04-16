@@ -4,8 +4,6 @@ if !exists('g:neovide') && !exists('g:Gui') && !exists('g:GuiLoaded') && !has('g
 else
   let g:transparent_background = v:false
 endif
-let g:custom_cursorline_enable = v:true    " See modes.luv:true
-let g:custom_cursorcolumn_enable = v:false
 let g:enable_format_on_save= v:true
 
 " Gui Fonts
