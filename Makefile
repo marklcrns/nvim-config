@@ -6,9 +6,9 @@ XDG_CONFIG_HOME ?= $(HOME)/.config
 
 default: install
 
-install: install-dep create-dirs update-plugins
+install: install-dep create-dirs
 
-update: update-repo update-plugins
+update: update-repo
 
 upgrade: update
 
@@ -21,33 +21,7 @@ create-dirs:
 update-repo:
 	git pull --ff --ff-only
 
-update-plugins:
-	$(vim) -V1 -es -i NONE -N --noplugin -u core/core.vim \
-		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
-
-clean-plugins:
-	rm -rf "$(XDG_CACHE_HOME)/vim/dein"
-
 clean:
-	rm -rf "$(XDG_CACHE_HOME)/vim" "$(XDG_CONFIG_HOME)/coc"
-
-test:
-ifeq ('$(vim)','nvim')
-	$(info Testing NVIM 0.5+...)
-	$(if $(shell echo "$(vim_version)" | egrep "NVIM v0\.[5-9]"),\
-		$(info OK),\
-		$(error		.. You need Neovim 0.5.x or newer))
-else
-	$(info Testing VIM 8.x...)
-	$(if $(shell echo "$(vim_version)" | egrep "VIM .* 8\."),\
-		$(info OK),\
-		$(error		.. You need Vim 8.x))
-
-	$(info Testing +python3... )
-	$(if $(findstring +python3,$(vim_version)),\
-		$(info OK),\
-		$(error .. MISSING! Install Vim 8.x with "+python3" enabled))
-endif
-	@echo All tests passed, hooray!
+	rm -rf "$(XDG_CACHE_HOME)/vim"
 
 .PHONY: install create-dirs update-repo update-plugins clean test

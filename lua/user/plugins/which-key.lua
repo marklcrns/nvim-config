@@ -49,6 +49,9 @@ return function()
         name = "+trouble",
       },
     },
+    d = {
+      name = "+documentation",
+    },
     e = {
       name = "+explorer",
     },

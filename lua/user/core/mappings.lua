@@ -371,27 +371,27 @@ M.neogen = {
   plugin = true,
 
   n = {
-    ["<Leader>nc"] = {
+    ["<Leader>dc"] = {
       "<cmd>lua require('neogen').generate({ type = 'class' })<CR>",
       "generate class docs",
       opts = default_opts,
     },
-    ["<Leader>nf"] = {
+    ["<Leader>df"] = {
       "<cmd>lua require('neogen').generate({ type = 'func' })<CR>",
       "generate function docs",
       opts = default_opts,
     },
-    ["<Leader>nt"] = {
+    ["<Leader>dt"] = {
       "<cmd>lua require('neogen').generate({ type = 'type' })<CR>",
       "generate type docs",
       opts = default_opts,
     },
-    ["<Leader>np"] = {
+    ["<Leader>dp"] = {
       "<cmd>lua require('neogen').generate({ type = 'file' })<CR>",
       "generate file docs",
       opts = default_opts,
     },
-    ["<Leader>nn"] = { "<cmd>lua require('neogen').generate()<CR>", "generate docs", opts = default_opts },
+    ["<Leader>dd"] = { "<cmd>lua require('neogen').generate()<CR>", "generate docs", opts = default_opts },
   },
 }
 

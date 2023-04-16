@@ -1,23 +1,40 @@
-# Neovim Configs
+# Neovim Config
 
 ⚡ Fast startup, lazy-loaded plugins, and featureful Neovim configurations made
-with obsession 🤤 and ❤
+with pure obsession and ❤
 
-![Dashboard](./demo/dashboard.png)
-![Neovim](./demo/neovim.png)
 ![Demo](./demo/demo.gif)
 
-Statusline and tabline plugin from [rafi/vim-config](https://github.com/rafi/vim-config).
+## Startup Time
+
+~ 100ms
+
+## Features
+
+- [x] Lazy loading (lazy.nvim)
+- [x] LSP (servers are auto-installed as needed)
+    - Mason, null-ls, and nvim-lspconfig are used to configure LSP
+- [x] Treesitter
+- [x] Telescope
+- [x] Vimwiki
+- [x] Markdown preview
+- [x] Git integration
+- [x] Autocomplete
+    - [x] nvim-cmp
+    - [x] UltiSnips
+- [x] Split auto-resize (focus.nvim)
+- [x] Dashboard (alpha-nvim)
+- [x] Statusline (feline.nvim)
+- [x] Tabline (bufferline.nvim)
+- [x] File explorer (neo-tree.nvim)
+- [X] Diff (diffview.nvim)
 
 ## Requirements
-
-- Neovim 0.5+
+- Neovim 0.9+
 - Nodejs and npm
 - Python 3+
-- Python 2+ (Required for taskwiki.vim)
 - pandoc (Required for vimwiki)
 - yarn (Required for markdown-preview.vim)
-- cargo (Required for minimap.vim)
 
 ## Installation
 
@@ -42,60 +59,42 @@ This will install all dependencies and create `env` python virtual environment
 in root directory for `python_host_prog` and `python3_host_prog` instead of
 using global python.
 
-### Plugin Handler
+## Preview
 
-Easy switch between `full`, `minimal`, `skip`, and `disable` plugin handler mode.
+Colorscheme: [tokyonight](https://github.com/folke/tokyonight.nvim)
 
-Just edit the global variable in `init.vim`
+![Preview](./demo/preview.png)
 
-```vim
-" NOTE: Must run `:call dein#recache_runtimepath()` when switching between modes
-" and toggling g:init_secondary_config
-" To delete unused plugins, run `:call map(dein#check_clean(), "delete(v:val, \"rf\")")`
-" ------
-" full    = loads /config/plugins/plugins.* (default)
-" minimal = loads /config/plugins/plugins_minimal.*
-" skip    = no load plugins (excluding ~/.local-nvim.d/config/plugins.*)
-" disable = disable package manager (no plugins will be loaded)
-let g:handle_plugins = 'full'
-let g:init_secondary_config = 0
-" Currently supported: dein_yaml, dein_toml
-let g:package_manager = 'dein_yaml'
-```
+Dashboard with [alpha-nvim](https://github.com/goolord/alpha-nvim) that changes
+according to terminal screen size.
 
-Secondary init.vim config should be located in `~/.local-nvim.d/init.vim` and
-would be loaded when `g:init_secondary_config = 1`. This will be sourced after
-all the main configs in `core` are sourced and can be modified freely.
+<div>
+    <a id="alpha_xl">
+        <img data-enlargeable style="cursor: zoom-in"
+        src="./demo/alpha_xl.png"
+        width="400" alt="alt">
+    </a>
+    <a id="alpha_l">
+        <img data-enlargeable style="cursor: zoom-in"
+        src="./demo/alpha_l.png"
+        width="400" alt="alt">
+    </a>
+</div>
 
-Also, local plugins can be installed in the same relative directory as the main
-one `~/.local-nvim.d/config/plugins.yaml`. Additionally, `$LOCAL_VIM_PATH` vim
-global variable can be used to refer to the home directory of the secondary
-config, that is `~/.local-nvim.d`.
-
-### Negating Existing Plugins In Local Config
-
-If you wan't to disable some plugins but don't want to mess with the main
-configuration, you can create a local config files as an extension of the main.
-
-The main configuration uses `/config/plugins.yaml` to manage plugins with
-[dein](https://github.com/Shougo/dein.vim) which most are lazy-loaded and can
-easily be disabled. see
-[manage-vim-plugins-via-yaml](http://genkisugimoto.com/blog/manage-vim-plugins-via-yaml/)
-blog post for more.
-
-By default, it uses `~/.local-nvim.d/config/plugins.yaml` as the secondary
-plugins installer file. Just simply add the plugins you want to disable as such:
-
-```vim
-- repo: andrep/vimacs
-  if: 0
-" Much cleaner syntax
-- {repo: andrep/vimacs, if: 0}
-```
+<div>
+    <a id="alpha_m">
+        <img data-enlargeable style="cursor: zoom-in"
+        src="./demo/alpha_m.png"
+        width="400" alt="alt">
+    </a>
+    <a id="alpha_s">
+        <img data-enlargeable style="cursor: zoom-in"
+        src="./demo/alpha_s.png"
+        width="400" alt="alt">
+    </a>
+</div>
 
 ## Notable Plugins
-
-Productivity plugins I use on the daily for all sorts of reason.
 
 ### Vimwiki
 
@@ -107,12 +106,6 @@ A powerful personal wiki creator for all sorts of needs.
 
 [Demo](https://marklcrns.github.io/wiki/docs/html/index.html) Wiki with custom
 css and [wiki2html script](https://github.com/marklcrns/nvim-config/blob/master/config/plugins/wiki2html.sh)
-
-### Taskwiki
-
-Task warrior and Vimwiki integration
-
-![Taskwiki](./demo/taskwiki.gif)
 
 ### UltiSnips
 
@@ -128,16 +121,25 @@ buffer filetype
 
 - [My personal UltiSnips snippets](https://github.com/marklcrns/ultisnips-snippets)
 
+### Vim-Smartq
+
+Shameless plug to my own plugin
+[vim-smartq](https://github.com/marklcrns/vim-smartq) which lets you bind your
+key `q` to smartly close the current buffer, split, tab, or floating window
+without having to remember/define different keybindings for each. It also
+preserves tab splits and auto-close empty buffers.
+
+
 <br>
-<br>
 
-## Credits
+## Spetial Thanks
 
-Thanks to the following (Neo)Vim configs and to all the geniuses behind the
-plugins that made this repo possible.
+Most of my configuration piggy backed from other people's configurations.
 
-- [sindrets' nvim](https://github.com/sindrets/dotfiles/tree/master/.config/nvim)
-- [hardcoreplayers/ThinkVim](https://github.com/hardcoreplayers/ThinkVim)
+- [sindrets' nvim config](https://github.com/sindrets/dotfiles/tree/master/.config/nvim)
+- [NvChad/NvChad](https://github.com/NvChad/NvChad)
+
+### Inspiration
+
 - [rafi/vim-config](https://github.com/rafi/vim-config)
-- [66RING/.vim](https://github.com/66RING/.vim)
 
