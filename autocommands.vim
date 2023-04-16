@@ -1,6 +1,20 @@
 augroup NvimConfig
     au!
 
+    " Disable swap/undo/viminfo/shada files in temp directories or shm
+    silent! au BufNewFile,BufReadPre
+            \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
+            \ setlocal noswapfile noundofile nobackup nowritebackup viminfo= shada=
+
+    " Automatically set read-only for files being edited elsewhere
+    au SwapExists * nested let v:swapchoice = 'o'
+
+    " Disables automatic commenting on newline:
+    au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+    " Force write shada on leaving nvim
+    au VimLeave * if has('nvim') | wshada! | else | wviminfo! | endif
+
     " nuke netrw brain damage
     au VimEnter * silent! au! FileExplorer *
     " au BufEnter * if isdirectory(expand('%')) | bd | endif
@@ -43,17 +57,6 @@ augroup NvimConfig
                 \ end
 
     au BufWinEnter,FileType fugitiveblame setl nolist
-
-    " Run PackerCompile when changes are made to plugin configs.
-    " au BufWritePost */lua/user/plugins/*.lua
-    "             \ exe "so " . stdpath("config") . "/lua/user/plugins/init.lua"
-    "             \ | PackerCompile
-
-    " au User PackerCompileDone exe 'lua Config.common.notify.config("Packer compiled!")'
-    "             \ | do <nomodeline> ColorScheme
-
-    " " Automatically update lockfile
-    " au User PackerComplete PackerSnapshot
 
     " Enable 'onemore' in visual mode.
     au ModeChanged *:[v]* setl virtualedit+=onemore

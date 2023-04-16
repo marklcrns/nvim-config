@@ -31,13 +31,13 @@ command! -range=% WhitespaceNext call <SID>WhitespaceJump(1, <line1>, <line2>)
 command! -range=% WhitespacePrev call <SID>WhitespaceJump(-1, <line1>, <line2>)
 
 " Whitespace events
-" if v:version >= 702
-"		augroup plugin_whitespace
-"			autocmd!
-"			autocmd InsertEnter * call <SID>ToggleWhitespace('i')
-"			autocmd InsertLeave * call <SID>ToggleWhitespace('n')
-"		augroup END
-" endif
+if v:version >= 702
+	augroup plugin_whitespace
+		autocmd!
+		autocmd InsertEnter * call <SID>ToggleWhitespace('i')
+		autocmd InsertLeave * call <SID>ToggleWhitespace('n')
+	augroup END
+endif
 
 let s:ws_chars = get(g:, 'whitespace_characters', '\s')
 let s:ws_pattern = get(g:, 'whitespace_pattern', s:ws_chars . '\+$')

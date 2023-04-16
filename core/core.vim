@@ -74,30 +74,4 @@ call utils#source_file($VIM_PATH, 'core/general.vim')
 " call utils#source_file($VIM_PATH, 'core/filetype.vim')
 call utils#source_file($VIM_PATH, 'core/mappings.vim')
 
-" " Initialize plugin-manager and load plugins config files
-" if get(g:, 'handle_plugins', 'full') !=# 'disable'
-"   call utils#source_file($VIM_PATH, 'core/package_manager.vim')
-"   if g:handle_plugins !=# 'skip'
-"     call utils#source_file($VIM_PATH, 'config/keybinds.vim')
-"   endif
-" endif
-
-" " Load custom colorscheme
-" if get(g:, 'custom_colorscheme', 1)
-"   call theme#init()
-" endif
-"
-" " Load custom status and tabline
-" if get(g:, 'custom_statusline_enable', 1)
-"   call utils#source_file($VIM_PATH, 'core/statusline.vim')
-" endif
-" if get(g:, 'custom_tabline_enable', 1)
-"   call utils#source_file($VIM_PATH, 'core/tabline.vim')
-" endif
-"
-" " Load secondary user init config
-" if get(g:, 'init_secondary_config', 1)
-"   call utils#check_source(g:user_init_config)
-" endif
-
 set secure

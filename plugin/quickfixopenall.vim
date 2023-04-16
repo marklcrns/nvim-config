@@ -26,4 +26,4 @@ function! QuickFixOpenAll()
     endfor
 endfunction
 
-command! QuickFixOpenAll         call QuickFixOpenAll()
+command! QuickFixOpenAll call QuickFixOpenAll()
