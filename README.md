@@ -134,7 +134,7 @@ preserves tab splits and auto-close empty buffers.
 
 <br>
 
-## Spetial Thanks
+## Special Thanks
 
 Most of my configuration piggy backed from other people's configurations.
 
