@@ -281,6 +281,11 @@ M.fugitive = {
       "git blame",
       opts = default_opts,
     },
+    ["<leader>go"] = {
+      "<cmd>GBrowse<CR>",
+      "open git repo in browser",
+      opts = default_opts,
+    },
     ["<leader>gd"] = {
       "<cmd>DiffviewOpen<CR>",
       "git diff",
