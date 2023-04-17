@@ -40,6 +40,9 @@ return function()
   })
 
   wk.register({
+    a = {
+      name = "+ai",
+    },
     c = {
       name = "+code",
       m = {

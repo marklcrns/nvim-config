@@ -173,6 +173,24 @@ M.camel_case_motion = {
   },
 }
 
+M.chatgpt = {
+  plugin = true,
+
+  n = {
+    ["<leader>ac"] = { "<cmd>ChatGPT<CR>", "open ChatGPT", opts = default_opts },
+  },
+
+  v = {
+    ["<leader>ac"] = {
+      function()
+        require("chatgpt").edit_with_instructions()
+      end,
+      "ChatGPT edit with instructions",
+      opts = default_opts,
+    },
+  },
+}
+
 M.colorizer = {
   plugin = true,
 
