@@ -3,10 +3,15 @@ return function()
     " Requires latexmk installation Debian:
     " sudo apt install -y latexmk
     "
-    " Additionally, to compile Xelatex, install texlive-xetex and add this line at
+    " To compile Xelatex, install texlive-xetex and add this line at
     " the top of .tex files:
     "
-    " "%! TeX program = xelatex
+    "   %! TeX program = xelatex
+    "
+    " To compile lualatex, install texlive-luatex and add this line at
+    " the top of .tex files:
+    "
+    "   %! TeX program = lualatex
     "
     " Ref: https://tex.stackexchange.com/questions/392198/vimtex-and-xelatex
 
@@ -38,6 +43,7 @@ return function()
 
     let g:vimtex_quickfix_ignore_filters = [
           \ 'LaTeX Font Warning',
+          \ 'Unused global option(s)'
           \ ]
 
     augroup LaTeXEditMode

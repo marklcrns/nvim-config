@@ -204,11 +204,11 @@ function! ImprovedDefaultMappings()
   " vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
   " Increment/Decrement next searcheable number by one. Wraps at end of file.
-  nnoremap <silent> <M-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
-  nnoremap <silent> <M-x> :<C-u>call AddSubtract("\<C-x>", '')<CR>
+  nnoremap <silent> <C-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
+  nnoremap <silent> <C-x> :<C-u>call AddSubtract("\<C-x>", '')<CR>
   " Increment/Decrement previous searcheable number by one. Wraps at start of file.
-  nnoremap <silent> <M-S-a> :<C-u>call AddSubtract("\<C-a>", 'b')<CR>
-  nnoremap <silent> <M-S-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
+  nnoremap <silent> <C-S-a> :<C-u>call AddSubtract("\<C-a>", 'b')<CR>
+  nnoremap <silent> <C-S-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
 
   " Improve scroll, credits: https://github.com/Shougo
   noremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
