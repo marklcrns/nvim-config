@@ -8,7 +8,7 @@ local default_opts = {
   nowait = true,
 }
 
--- GENERAL MAPPING
+-- GENERAL MAPPINGS
 
 M.general = {
   i = {
@@ -86,7 +86,7 @@ M.general = {
   },
 }
 
--- PLUGIN MAPPING
+-- PLUGIN MAPPINGS
 
 M.lazy_nvim = {
   n = {
@@ -106,8 +106,7 @@ M.abolish = {
   plugin = true,
 
   n = {
-    ["<leader>rs"] = { ":<C-u>Subvert//g<Left><Left>", "subvert line /{pat}/{sub}/[flags]", opts = default_opts },
-    ["<leader>rS"] = { ":<C-u>%Subvert//g<Left><Left>", "subvert file /{pat}/{sub}/[flags]", opts = default_opts },
+    ["<leader>rs"] = { ":<C-u>%Subvert//g<Left><Left>", "subvert /{pat}/{sub}/[flags]", opts = default_opts },
     ["<leader>rp"] = {
       "yap}pV`[v`]:Subvert//g<bar>norm`.$<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>",
       "duplicate block and subvert /{pat}/{sub}/[flags]",
@@ -551,6 +550,7 @@ M.todo_comments = {
 
   n = {
     ["<leader>fdt"] = { "<cmd>TodoTelescope<CR>", "find todo comments", opts = default_opts },
+    ["<leader>ctT"] = { "<cmd>TodoTrouble<CR>", "toggle todo quickfix", opts = default_opts },
   },
 }
 
