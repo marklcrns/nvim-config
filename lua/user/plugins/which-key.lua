@@ -75,7 +75,7 @@ return function()
       c = {
         name = "+commit",
       },
-      c = {
+      h = {
         name = "+hunk",
       },
     },
