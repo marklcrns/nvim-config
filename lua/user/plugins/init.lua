@@ -89,6 +89,7 @@ require("lazy").setup({
     config = conf("rose-pine"),
   },
   "sindrets/oxocarbon-lua.nvim",
+  "Mofiqul/vscode.nvim",
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },

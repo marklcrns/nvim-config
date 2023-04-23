@@ -92,48 +92,6 @@ return function()
       completeopt = "menu,menuone,noselect",
     },
 
-    -- formatting = {
-    --   fields = { "kind", "abbr", "menu" },
-    --   format = function(entry, item)
-    --     local kind = {
-    --       spell = "[Spell]",
-    --       buffer = "[Buffer]",
-    --       calc = "[Calc]",
-    --       emoji = "[Emoji]",
-    --       nvim_lsp = "[LSP]",
-    --       path = "[Path]",
-    --       look = "[Look]",
-    --       treesitter = "[treesitter]",
-    --       ultisnips = "[UltiSnip]",
-    --       nvim_lua = "[Lua]",
-    --       latex_symbols = "[Latex]",
-    --       cmp_tabnine = "[Tab9]",
-    --       git = "[Git]",
-    --       copilot = "[Copilot]",
-    --       cmdline = "[Cmdline]",
-    --     }
-    --
-    --     if entry.source.name == "cmp_tabnine" then
-    --       item.kind_hl_group = "CmpItemKindTabnine"
-    --     end
-    --
-    --     if entry.source.name == "copilot" then
-    --       item.kind_hl_group = "CmpItemKindCopilot"
-    --     end
-    --
-    --     if entry.source.name == "emoji" then
-    --       item.kind_hl_group = "CmpItemKindEmoji"
-    --     end
-    --
-    --     -- set a name for each source
-    --     -- item.menu = lsp_symbols[item.kind]
-    --     -- item.kind = item.kind .. " " .. kind[entry.source.name]
-    --     item.menu = item.kind .. " " .. kind[entry.source.name]
-    --     item.kind = lsp_kinds[item.kind]
-    --     return item
-    --   end,
-    -- },
-
     formatting = {
       deprecated = true,
       fields = { "kind", "abbr", "menu" },
@@ -364,8 +322,8 @@ return function()
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       -- { name = 'spell', group_index = 1  },
-      -- { name = "luasnip", group_index = 1 },
       { name = "ultisnips", group_index = 1, max_item_count = 10 },
+      -- { name = "luasnip", group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "neorg", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },
