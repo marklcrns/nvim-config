@@ -188,7 +188,7 @@ end
 
 local function extend_comps(components, config)
   return vim.tbl_map(function(comp)
-    return vim.tbl_extend("force", comp, config)
+    return vim.tbl_extend("keep", comp, config)
   end, components)
 end
 
@@ -513,6 +513,10 @@ M.components = {
         end,
       },
       icon = icons.git.branch .. " ",
+      left_sep = "█",
+      right_sep = "█ ",
+      -- left_sep = "█",
+      -- right_sep = "█ ",
     }),
     diff_add = StatusComponent({
       provider = "git_diff_added",

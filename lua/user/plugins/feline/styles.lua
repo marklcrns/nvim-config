@@ -199,8 +199,10 @@ M.themes = {
           style = "bold",
         },
         ["git.branch"] = {
-          fg = "dim300",
-          style = "bold",
+          fg = "dim200",
+          -- INFO: My changes
+          -- bg = "dim700",
+          -- style = "bold",
         },
       }
     end,
@@ -209,9 +211,7 @@ M.themes = {
   -- Doom emacs colors
   doom = {
     get = function()
-      local base_palette = vim.o.background == "light"
-          and M.color_palettes.doom_light
-          or M.color_palettes.doom_dark
+      local base_palette = vim.o.background == "light" and M.color_palettes.doom_light or M.color_palettes.doom_dark
 
       c.current_palette = vim.tbl_deep_extend("force", base_palette, {
         dim100 = hl.get_fg("StatusLineDim100"),
