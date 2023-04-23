@@ -15,8 +15,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
-vim.cmd("source " .. config_dir .. "/vimrc")
-vim.cmd("source " .. config_dir .. "/autocommands.vim")
+vim.cmd.source(config_dir .. "/vimrc")
+vim.cmd.source(config_dir .. "/autocommands.vim")
 
 -- General mappings
 require("user.core.utils").load_mappings()

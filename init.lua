@@ -14,11 +14,33 @@ end
 _G.uv = vim.loop
 
 _G.Config = {
-  common = require("user.common"),
-  fn = {},
+  fn = {
+    ---@param super_class? table
+    create_class = function(super_class)
+      return setmetatable({
+        super = function()
+          return super_class
+        end,
+      }, {
+        __index = super_class,
+        __call = function(t, ...)
+          local self = setmetatable({}, { __index = t })
+          function self:class()
+            return t
+          end
+          if self.init then
+            self:init(...)
+          end
+          return self
+        end,
+      })
+    end,
+  },
   plugin = {},
   state = {},
 }
+
+Config.common = require("user.common")
 
 ---Path library.
 _G.pl = Config.common.utils.pl
@@ -27,6 +49,8 @@ Config.lib = require("user.lib")
 Config.term = require("user.modules.term")
 
 local Cache = require("user.modules.cache")
+
+require("user.modules.buf_cleaner").enable()
 
 Config.state.git = {
   rev_name_cache = Cache(),
