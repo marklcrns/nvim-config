@@ -127,48 +127,20 @@ M.camel_case_motion = {
   plugin = true,
 
   n = {
-    ["w"] = {
-      [[<Plug>CamelCaseMotion_w]],
-      "camel case motion w",
-      opts = { noremap = false, silent = true },
-    },
-    ["b"] = {
-      [[<Plug>CamelCaseMotion_b]],
-      "camel case motion b",
-      opts = { noremap = false, silent = true },
-    },
-    ["e"] = {
-      [[<Plug>CamelCaseMotion_e]],
-      "camel case motion e",
-      opts = { noremap = false, silent = true },
-    },
-    ["ge"] = {
-      [[<Plug>CamelCaseMotion_ge]],
-      "camel case motion ge",
-      opts = { noremap = false, silent = true },
-    },
+    ["w"] = { [[<Plug>CamelCaseMotion_w]], "camel case motion w", opts = default_opts },
+    ["b"] = { [[<Plug>CamelCaseMotion_b]], "camel case motion b", opts = default_opts },
+    ["e"] = { [[<Plug>CamelCaseMotion_e]], "camel case motion e", opts = default_opts },
+    ["ge"] = { [[<Plug>CamelCaseMotion_ge]], "camel case motion ge", opts = default_opts },
   },
   v = {
-    ["w"] = {
-      [[<Plug>CamelCaseMotion_w]],
-      "camel case motion w",
-      opts = { noremap = false, silent = true },
-    },
-    ["b"] = {
-      [[<Plug>CamelCaseMotion_b]],
-      "camel case motion b",
-      opts = { noremap = false, silent = true },
-    },
-    ["e"] = {
-      [[<Plug>CamelCaseMotion_e]],
-      "camel case motion e",
-      opts = { noremap = false, silent = true },
-    },
-    ["ge"] = {
-      [[<Plug>CamelCaseMotion_ge]],
-      "camel case motion ge",
-      opts = { noremap = false, silent = true },
-    },
+    ["w"] = { [[<Plug>CamelCaseMotion_w]], "camel case motion w", opts = default_opts },
+    ["b"] = { [[<Plug>CamelCaseMotion_b]], "camel case motion b", opts = default_opts },
+    ["e"] = { [[<Plug>CamelCaseMotion_e]], "camel case motion e", opts = default_opts },
+    ["ge"] = { [[<Plug>CamelCaseMotion_ge]], "camel case motion ge", opts = default_opts },
+  },
+  i = {
+    ["<C-w>"] = { [[<C-\><C-o>d<Plug>CamelCaseMotion_b]], "camel case motion b delete", opts = default_opts },
+    ["<C-BS>"] = { [[<C-\><C-o>d<Plug>CamelCaseMotion_b]], "camel case motion b delete", opts = default_opts },
   },
 }
 
