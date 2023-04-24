@@ -155,7 +155,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   virtual_text = false,
   underline = true,
   signs = true,
-  update_in_insert = true,
+  -- INFO: My config
+  update_in_insert = false,
+  severity_sort = true,
 })
 
 -- DIAGNOSTICS: Only show the sign with the highest priority per line

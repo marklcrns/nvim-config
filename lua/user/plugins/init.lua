@@ -320,6 +320,7 @@ require("lazy").setup({
     config = function()
       require("neogen").setup({
         enabled = true,
+        snippet_engine = "luasnip",
       })
     end,
   },
@@ -562,29 +563,29 @@ require("lazy").setup({
           })
         end,
       },
-      {
-        "quangnguyen30192/cmp-nvim-ultisnips",
-        dependencies = {
-          {
-            "SirVer/ultisnips",
-            config = conf("ultisnips"),
-            dependencies = {
-              "honza/vim-snippets",
-            },
-          },
-        },
-      },
       -- {
-      --   "saadparwaiz1/cmp_luasnip",
+      --   "quangnguyen30192/cmp-nvim-ultisnips",
       --   dependencies = {
       --     {
-      --       "L3MON4D3/LuaSnip",
-      --       version = "<CurrentMajor>.*",
-      --       config = conf("LuaSnip"),
-      --       dependencies = "rafamadriz/friendly-snippets",
+      --       "SirVer/ultisnips",
+      --       config = conf("ultisnips"),
+      --       dependencies = {
+      --         "honza/vim-snippets",
+      --       },
       --     },
       --   },
       -- },
+      {
+        "saadparwaiz1/cmp_luasnip",
+        dependencies = {
+          {
+            "L3MON4D3/LuaSnip",
+            version = "<CurrentMajor>.*",
+            config = conf("LuaSnip"),
+            dependencies = "rafamadriz/friendly-snippets",
+          },
+        },
+      },
       {
         "zbirenbaum/copilot-cmp",
         config = conf("copilot-cmp"),
@@ -607,6 +608,11 @@ require("lazy").setup({
     "lervag/vimtex",
     ft = { "plaintex", "tex", "latex", "markdown" },
     config = conf("vimtex"),
+  },
+  {
+    "smjonas/snippet-converter.nvim",
+    cmd = { "ConvertSnippets" },
+    config = conf("snippet-converter"),
   },
 
   -- NOTETAKING
