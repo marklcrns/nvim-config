@@ -147,15 +147,15 @@ return function()
       -- { name = "luasnip", group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "spell", group_index = 2 },
-      { name = "emoji", group_index = 3, options = { insert = true } },
       {
         name = "buffer",
         group_index = 2,
-        max_item_count = 20,
+        max_item_count = 10,
         option = {
           get_bufnrs = get_bufnrs,
         },
       },
+      { name = "emoji", group_index = 3, options = { insert = true } },
     }),
 
     mapping = {
@@ -272,14 +272,9 @@ return function()
       ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
       ["<C-c>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
       ["<CR>"] = cmp.mapping({
-        -- c = function(fallback)
-        --   if cmp.visible() then
-        --     cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-        --   else
-        --     fallback()
-        --   end
-        -- end,
         i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+        s = cmp.mapping.confirm({ select = true }),
+        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
       }),
     },
   })
