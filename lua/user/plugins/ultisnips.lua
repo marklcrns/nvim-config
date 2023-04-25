@@ -1,10 +1,11 @@
 return function()
+  -- NOTE: Currently not working
   -- nvim-cmp integration
   -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
-  vim.g.UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
-  vim.g.UltiSnipsJumpForwardTrigger = "<Plug>(ultisnips_jump_forward)"
-  vim.g.UltiSnipsJumpBackwardTrigger = "<Plug>(ultisnips_jump_backward)"
-  vim.g.UltiSnipsListSnippets = "<c-x><c-s>"
+  -- vim.g.UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+  -- vim.g.UltiSnipsJumpForwardTrigger = "<Plug>(ultisnips_jump_forward)"
+  -- vim.g.UltiSnipsJumpBackwardTrigger = "<Plug>(ultisnips_jump_backward)"
+  -- vim.g.UltiSnipsListSnippets = "<c-x><c-s>"
   -- vim.g.UltiSnipsRemoveSelectModeMappings = 0
 
   vim.cmd([[
@@ -22,7 +23,7 @@ return function()
     let g:UltiSnipsEditSplit = 'vertical'
 
     " Manual mapping of Visual and Selection
-    " snoremap <silent> <Tab> <Esc>:call UltiSnips#ExpandSnippet()<cr>
-    " xnoremap <silent> <Tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
+    snoremap <silent> <Tab> <Esc>:call UltiSnips#ExpandSnippet()<cr>
+    xnoremap <silent> <Tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
   ]])
 end

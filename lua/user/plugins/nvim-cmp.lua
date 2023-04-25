@@ -3,8 +3,8 @@ return function()
   local cmp = require("cmp")
   local cmp_autopairs = require("nvim-autopairs.completion.cmp")
   local handlers = require("nvim-autopairs.completion.handlers")
-  -- local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
-  local luasnip = require("luasnip")
+  local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+  -- local luasnip = require("luasnip")
   local api = vim.api
   local utils = Config.common.utils
 
@@ -66,15 +66,15 @@ return function()
     -- end,
     snippet = {
       expand = function(args)
-        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+        -- require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
         -- require("snippy").expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       end,
     },
     window = {
-      --   completion = cmp.config.window.bordered(),
-      --   documentation = cmp.config.window.bordered(),
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
       -- documentation = false,
       documentation = {
         border = "rounded",
@@ -143,8 +143,8 @@ return function()
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       { name = "nvim_lua", group_index = 1 },
-      -- { name = "ultisnips", group_index = 1, max_item_count = 10 },
-      { name = "luasnip", group_index = 1 },
+      { name = "ultisnips", group_index = 1, max_item_count = 10 },
+      -- { name = "luasnip", group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "spell", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },
@@ -159,78 +159,78 @@ return function()
     }),
 
     mapping = {
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.confirm({ select = true })
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<C-j>"] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif cmp.visible() then
-          cmp.select_next_item()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<C-k>"] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        elseif cmp.visible() then
-          cmp.select_prev_item()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-
-      -- -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
-      -- ["<Tab>"] = cmp.mapping({
-      --   c = function()
-      --     if cmp.visible() then
-      --       cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-      --     else
-      --       cmp.complete()
-      --     end
-      --   end,
-      --   i = function(fallback)
-      --     if has_words_before() then
-      --       cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-      --     else
-      --       fallback()
-      --     end
-      --   end,
-      --   s = function(fallback)
-      --     cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-      --   end,
-      --   x = function()
-      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
-      --   end,
-      -- }),
-      -- ["<S-Tab>"] = cmp.mapping({
-      --   i = function(fallback)
-      --     cmp_ultisnips_mappings.jump_backwards(fallback)
-      --   end,
-      --   s = function(fallback)
-      --     cmp_ultisnips_mappings.jump_backwards(fallback)
-      --   end,
-      -- }),
+      -- ["<Tab>"] = cmp.mapping(function(fallback)
+      --   if luasnip.expand_or_jumpable() then
+      --     luasnip.expand_or_jump()
+      --   elseif has_words_before() then
+      --     cmp.confirm({ select = true })
+      --   else
+      --     fallback()
+      --   end
+      -- end, { "i", "s" }),
+      -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+      --   if luasnip.jumpable(-1) then
+      --     luasnip.jump(-1)
+      --   else
+      --     fallback()
+      --   end
+      -- end, { "i", "s" }),
       -- ["<C-j>"] = cmp.mapping(function(fallback)
-      --   cmp_ultisnips_mappings.compose({ "jump_forwards", "select_next_item" })(fallback)
+      --   if luasnip.expand_or_jumpable() then
+      --     luasnip.expand_or_jump()
+      --   elseif cmp.visible() then
+      --     cmp.select_next_item()
+      --   else
+      --     fallback()
+      --   end
       -- end, { "i", "s" }),
       -- ["<C-k>"] = cmp.mapping(function(fallback)
-      --   cmp_ultisnips_mappings.compose({ "jump_backwards", "select_prev_item" })(fallback)
+      --   if luasnip.jumpable(-1) then
+      --     luasnip.jump(-1)
+      --   elseif cmp.visible() then
+      --     cmp.select_prev_item()
+      --   else
+      --     fallback()
+      --   end
       -- end, { "i", "s" }),
+
+      -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
+      ["<Tab>"] = cmp.mapping({
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
+        i = function(fallback)
+          if has_words_before() then
+            cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+          else
+            fallback()
+          end
+        end,
+        s = function(fallback)
+          cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+        end,
+        x = function()
+          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
+        end,
+      }),
+      ["<S-Tab>"] = cmp.mapping({
+        i = function(fallback)
+          cmp_ultisnips_mappings.jump_backwards(fallback)
+        end,
+        s = function(fallback)
+          cmp_ultisnips_mappings.jump_backwards(fallback)
+        end,
+      }),
+      ["<C-j>"] = cmp.mapping(function(fallback)
+        cmp_ultisnips_mappings.compose({ "jump_forwards", "select_next_item" })(fallback)
+      end, { "i", "s" }),
+      ["<C-k>"] = cmp.mapping(function(fallback)
+        cmp_ultisnips_mappings.compose({ "jump_backwards", "select_prev_item" })(fallback)
+      end, { "i", "s" }),
 
       ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
       ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
@@ -335,8 +335,8 @@ return function()
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       -- { name = 'spell', group_index = 1  },
-      -- { name = "ultisnips", group_index = 1, max_item_count = 10 },
-      { name = "luasnip", group_index = 1 },
+      { name = "ultisnips", group_index = 1, max_item_count = 10 },
+      -- { name = "luasnip", group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "neorg", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },
