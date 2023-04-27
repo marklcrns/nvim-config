@@ -43,7 +43,8 @@ return function()
 
     let g:vimtex_quickfix_ignore_filters = [
           \ 'LaTeX Font Warning',
-          \ 'Unused global option(s)'
+          \ 'Unused global option(s)',
+          \ 'Overfull \\hbox'
           \ ]
 
     augroup LaTeXEditMode

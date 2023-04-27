@@ -17,6 +17,17 @@ M.general = {
   },
 
   n = {
+    -- Improved Defaults
+    ["j"] = {
+      "v:count == 0 ? 'gj' : 'j'",
+      "move j through display line",
+      opts = { expr = true, noremap = true, silent = true },
+    },
+    ["k"] = {
+      "v:count == 0 ? 'gk' : 'k'",
+      "move k through display line",
+      opts = { expr = true, noremap = true, silent = true },
+    },
     -- UI
     ["<A-S-D>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", default_opts },
     ["<C-M-o>"] = { "<cmd>lua Config.fn.toggle_outline()<CR>", "toggle outline", default_opts },
@@ -68,6 +79,17 @@ M.general = {
   },
 
   v = {
+    -- Improved Defaults
+    ["j"] = {
+      "v:count == 0 ? 'gj' : 'j'",
+      "move j through display line",
+      opts = { expr = true, noremap = true, silent = true },
+    },
+    ["k"] = {
+      "v:count == 0 ? 'gk' : 'k'",
+      "move k through display line",
+      opts = { expr = true, noremap = true, silent = true },
+    },
     -- LSP
     ["<leader>."] = { ":lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
     ["<leader>cf"] = { "<Esc><cmd>lua vim.lsp.buf.format({ range = {} })<CR>", "code format range", default_opts },
