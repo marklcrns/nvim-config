@@ -1,9 +1,9 @@
-let g:transparent_background = v:false
-" if !exists('g:neovide') && !exists('g:Gui') && !exists('g:GuiLoaded') && !has('gui_running') && !has('gui')
-"   let g:transparent_background = v:true
-" else
-"   let g:transparent_background = v:false
-" endif
+" let g:transparent_background = v:false
+if !exists('g:neovide') && !exists('g:Gui') && !exists('g:GuiLoaded') && !has('gui_running') && !has('gui')
+  let g:transparent_background = v:true
+else
+  let g:transparent_background = v:false
+endif
 let g:enable_format_on_save= v:true
 
 " Gui Fonts
