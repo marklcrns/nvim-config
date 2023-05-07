@@ -105,6 +105,9 @@ return function()
   wk.register({
     n = {
       name = "+notetaker",
+      n = {
+        name = "+neorg",
+      },
       w = {
         name = "+vimwiki",
       },

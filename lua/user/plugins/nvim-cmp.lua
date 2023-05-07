@@ -324,7 +324,7 @@ return function()
     }),
   })
 
-  cmp.setup.filetype({ "markdown", "vimwiki", "norg", "help", "text" }, {
+  cmp.setup.filetype({ "norg" }, {
     sources = cmp.config.sources({
       { name = "copilot", group_index = 1 },
       -- { name = "cmp_tabnine", group_index = 1 },
@@ -334,6 +334,27 @@ return function()
       -- { name = "luasnip", group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "neorg", group_index = 2 },
+      { name = "emoji", group_index = 3, options = { insert = true } },
+      {
+        name = "buffer",
+        group_index = 2,
+        max_item_count = 20,
+        option = {
+          get_bufnrs = get_bufnrs,
+        },
+      },
+    }),
+  })
+
+  cmp.setup.filetype({ "markdown", "vimwiki", "help", "text" }, {
+    sources = cmp.config.sources({
+      { name = "copilot", group_index = 1 },
+      -- { name = "cmp_tabnine", group_index = 1 },
+      { name = "nvim_lsp", group_index = 1 },
+      -- { name = 'spell', group_index = 1  },
+      { name = "ultisnips", group_index = 1, max_item_count = 10 },
+      -- { name = "luasnip", group_index = 1 },
+      { name = "path", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },
       {
         name = "buffer",

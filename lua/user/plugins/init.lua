@@ -626,6 +626,23 @@ require("lazy").setup({
 
   -- NOTETAKING
   {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    ft = "norg",
+    cmd = { "Neorg", "NeorgOpen", "NeorgNew", "NeorgDoc", "NeorgHelp" },
+    config = conf("neorg"),
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      {
+        "nvim-neorg/neorg-telescope",
+        ft = "norg",
+        config = conf("neorg-telescope"),
+        dependencies = "nvim-telescope/telescope.nvim",
+      },
+    },
+  },
+
+  {
     "vimwiki/vimwiki",
     branch = "dev",
     cond = vim.fn.expand("%:p:h"):find("/Documents/my%-wiki/") ~= nil, -- NOTE: '-' is a special character and needs to be escaped
