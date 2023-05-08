@@ -635,7 +635,6 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       {
         "nvim-neorg/neorg-telescope",
-        ft = "norg",
         config = conf("neorg-telescope"),
         dependencies = "nvim-telescope/telescope.nvim",
       },

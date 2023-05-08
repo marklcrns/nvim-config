@@ -97,10 +97,12 @@ return function()
     }
 
     elements.buttons = {
-      button("  New File", "<Cmd>enew<CR>", "n"),
+      button("  New File", "<Cmd>enew<CR>", "e"),
+      button("  Notes", "<Cmd>Neorg index<CR>", "n"),
       button("  Find File", function()
         lib.workspace_files()
       end, "ff"),
+      button("  Git Status", "<Cmd>Telescope git_status<CR>", "gs"),
       button("  Git Status", "<Cmd>Telescope git_status<CR>", "gs"),
       button("  Recently Used Files", "<Cmd>Telescope oldfiles<CR>", "fr"),
       button("  Find Word", "<Cmd>Telescope live_grep<CR>", "fw"),

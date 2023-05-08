@@ -17,7 +17,7 @@ return function()
       ["core.dirman"] = { -- Manage your directories with Neorg
         config = {
           workspaces = {
-            main = "~/Documents/my-neorg/main",
+            main = "~/Sync/notes",
           },
           default_workspace = "main",
         },
@@ -25,6 +25,12 @@ return function()
       ["core.qol.toc"] = {
         config = {
           toc_split_placement = "right",
+        },
+      },
+      ["core.norg.esupports.metagen"] = {
+        config = {
+          type = "auto",
+          update_date = true,
         },
       },
       ["core.integrations.telescope"] = {}, -- Enable the telescope module
