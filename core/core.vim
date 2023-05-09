@@ -28,6 +28,9 @@ let g:loaded_rrhelper = 1
 " let g:loaded_netrwSettings = 1
 " let g:loaded_netrwFileHandlers = 1
 
+" Session
+let g:session_directory = $SYNC_PATH . '/session'
+
 " Initialize start up base requirements
 if has('vim_starting')
   " Python interpreter settings
@@ -65,10 +68,10 @@ if has('vim_starting')
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   endif
 
-  " Vim only, Linux terminal settings
-  if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
-    call utils#source_file($VIM_PATH, 'core/terminal.vim')
-  endif
+  " " Vim only, Linux terminal settings
+  " if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
+  "   call utils#source_file($VIM_PATH, 'core/terminal.vim')
+  " endif
 endif
 
 call utils#source_file($VIM_PATH, 'core/general.vim')
