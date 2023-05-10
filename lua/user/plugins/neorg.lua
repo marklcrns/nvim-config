@@ -27,7 +27,7 @@ return function()
           toc_split_placement = "right",
         },
       },
-      ["core.norg.esupports.metagen"] = {
+      ["core.esupports.metagen"] = {
         config = {
           type = "auto",
           update_date = true,
