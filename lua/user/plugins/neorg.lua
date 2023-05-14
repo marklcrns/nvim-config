@@ -31,6 +31,30 @@ return function()
         config = {
           type = "auto",
           update_date = true,
+          template = {
+            {
+              "title",
+              function()
+                return vim.fn.expand("%:t:r")
+              end,
+            },
+            { "description", "" },
+            { "author", "Mark Lucernas" },
+            { "categories", "" },
+            {
+              "created",
+              function()
+                return os.date("%Y-%m-%d")
+              end,
+            },
+            {
+              "updated",
+              function()
+                return os.date("%Y-%m-%d")
+              end,
+            },
+            { "version", require("neorg.config").norg_version }, -- error here, why?
+          },
         },
       },
       ["core.integrations.telescope"] = {}, -- Enable the telescope module
