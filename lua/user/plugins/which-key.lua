@@ -96,6 +96,9 @@ return function()
       a = {
         name = "+align",
       },
+      m = {
+        name = "+muren",
+      },
     },
     w = {
       name = "+window-manager",

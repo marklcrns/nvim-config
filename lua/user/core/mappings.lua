@@ -383,6 +383,16 @@ M.mason = {
   },
 }
 
+M.muren = {
+  plugin = true,
+
+  n = {
+    ["<leader>rmm"] = { "<cmd>MurenToggle<CR>", "toggle multiple search/replace", opts = default_opts },
+    ["<leader>rmu"] = { "<cmd>MurenUnique<CR>", "open unique multiple search/replace", opts = default_opts },
+    ["<leader>rmr"] = { "<cmd>MurenFresh<CR>", "open new multiple search/replace", opts = default_opts },
+  },
+}
+
 M.neogen = {
   plugin = true,
 

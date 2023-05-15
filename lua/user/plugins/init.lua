@@ -344,6 +344,12 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
     },
   },
+  {
+    "AckslD/muren.nvim",
+    init = utils.load_mappings("muren"),
+    cmd = { "MurenToggle", "MurenOpen", "MurenUnique" },
+    config = conf("muren"),
+  },
 
   -- VCS
   {
