@@ -372,26 +372,26 @@ return function()
     }),
   })
 
-  -- Use buffer source for `/`.
+  -- `/` cmdline setup.
   cmp.setup.cmdline("/", {
-    completion = { autocomplete = false },
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      {
-        name = "buffer",
-        max_item_count = 20,
-        option = {
-          get_bufnrs = get_bufnrs,
-        },
-      },
+      { name = "buffer" },
     },
   })
 
-  -- Use cmdline & path source for ':'.
+  -- `:` cmdline setup.
   cmp.setup.cmdline(":", {
-    completion = { autocomplete = true },
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = "cmdline", group_index = 1 },
-      { name = "path", group_index = 1, priority = 999 },
+      { name = "path" },
+    }, {
+      {
+        name = "cmdline",
+        option = {
+          ignore_cmds = { "Man", "!" },
+        },
+      },
     }),
   })
 end
