@@ -218,6 +218,11 @@ return function()
         end,
       }),
       ["<S-Tab>"] = cmp.mapping({
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+          end
+        end,
         i = function(fallback)
           cmp_ultisnips_mappings.jump_backwards(fallback)
         end,

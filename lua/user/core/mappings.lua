@@ -371,7 +371,7 @@ M.markdown_toc = {
   plugin = true,
 
   n = {
-    ["<leader>cmt"] = { "<cmd>GetTocGFM<CR>", "generate markdown TOC GFM style", opts = default_opts },
+    ["<leader>cmt"] = { "<cmd>GenTocGFM<CR>", "generate markdown TOC GFM style", opts = default_opts },
   },
 }
 
@@ -435,6 +435,14 @@ M.neo_tree = {
     ["<leader>ef"] = { "<cmd>Neotree filesystem reveal<CR>", "toggle file exprorer focus buffer", opts = default_opts },
     ["<leader>eb"] = { "<cmd>Neotree buffers<CR>", "toggle buffer explorer", opts = default_opts },
     ["<leader>eg"] = { "<cmd>Neotree git_status<CR>", "toggle git status explorer", opts = default_opts },
+  },
+}
+
+M.neorg = {
+  plugin = true,
+
+  n = {
+    ["<LocalLeader>nnw"] = { "<cmd>Neorg workspace main<CR>", "open neorg main workspace", opts = default_opts },
   },
 }
 

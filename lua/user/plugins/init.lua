@@ -543,6 +543,7 @@ require("lazy").setup({
         let g:vmt_fence_text = 'TOC'
         let g:vmt_fence_closing_text = '/TOC'
         let g:vmt_auto_update_on_save = 1
+        let g:vmt_list_item_char = '-'
       ]])
     end,
   },
@@ -633,6 +634,7 @@ require("lazy").setup({
   -- NOTETAKING
   {
     "nvim-neorg/neorg",
+    init = utils.load_mappings("neorg"),
     build = ":Neorg sync-parsers",
     ft = "norg",
     cmd = { "Neorg", "NeorgOpen", "NeorgNew", "NeorgDoc", "NeorgHelp" },
