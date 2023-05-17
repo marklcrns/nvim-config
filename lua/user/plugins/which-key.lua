@@ -110,6 +110,9 @@ return function()
       name = "+notetaker",
       n = {
         name = "+neorg",
+        f = {
+          name = "+finder",
+        },
       },
       w = {
         name = "+vimwiki",

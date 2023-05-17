@@ -643,6 +643,7 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       {
         "nvim-neorg/neorg-telescope",
+        init = utils.load_mappings("neorg_telescope"),
         config = conf("neorg-telescope"),
         dependencies = "nvim-telescope/telescope.nvim",
       },

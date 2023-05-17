@@ -442,7 +442,32 @@ M.neorg = {
   plugin = true,
 
   n = {
-    ["<LocalLeader>nnw"] = { "<cmd>Neorg workspace main<CR>", "open neorg main workspace", opts = default_opts },
+    ["<LocalLeader>nnw"] = { "<cmd>Neorg workspace main<CR>", "open main workspace", opts = default_opts },
+  },
+}
+
+M.neorg_telescope = {
+  plugin = true,
+
+  n = {
+    ["<LocalLeader>nnff"] = { "<cmd>Telescope neorg find_norg_files<CR>", "find files", opts = default_opts },
+    ["<LocalLeader>nnfh"] = {
+      "<cmd>Telescope neorg search_headings<CR>",
+      "find neorg buffer headings",
+      opts = default_opts,
+    },
+    ["<LocalLeader>nnfl"] = { "<cmd>Telescope neorg find_linkable<CR>", "find linkables", opts = default_opts },
+    ["<LocalLeader>nnfi"] = { "<cmd>Telescope neorg insert_link<CR>", "insert link", opts = default_opts },
+    ["<LocalLeader>nnfI"] = {
+      "<cmd>Telescope insert_file_link<CR>",
+      "insert neorg file link",
+      opts = default_opts,
+    },
+    ["<LocalLeader>nnfw"] = {
+      "<cmd>Telescope switch_workspace<CR>",
+      "switch neorg workspace",
+      opts = default_opts,
+    },
   },
 }
 
