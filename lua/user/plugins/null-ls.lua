@@ -19,7 +19,7 @@ return function()
     -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
     formatting.latexindent.with({ extra_args = { "-g", "/dev/null" } }),
     -- HTML, JS, CSS
-    -- formatting.prettierd,
+    formatting.prettierd,
     formatting.eslint,
     -- formatting.eslint_d,
     -- Rust,
