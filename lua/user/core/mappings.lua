@@ -145,27 +145,6 @@ M.abolish = {
   },
 }
 
-M.camel_case_motion = {
-  plugin = true,
-
-  n = {
-    ["w"] = { [[<Plug>CamelCaseMotion_w]], "camel case motion w", opts = default_opts },
-    ["b"] = { [[<Plug>CamelCaseMotion_b]], "camel case motion b", opts = default_opts },
-    ["e"] = { [[<Plug>CamelCaseMotion_e]], "camel case motion e", opts = default_opts },
-    ["ge"] = { [[<Plug>CamelCaseMotion_ge]], "camel case motion ge", opts = default_opts },
-  },
-  v = {
-    ["w"] = { [[<Plug>CamelCaseMotion_w]], "camel case motion w", opts = default_opts },
-    ["b"] = { [[<Plug>CamelCaseMotion_b]], "camel case motion b", opts = default_opts },
-    ["e"] = { [[<Plug>CamelCaseMotion_e]], "camel case motion e", opts = default_opts },
-    ["ge"] = { [[<Plug>CamelCaseMotion_ge]], "camel case motion ge", opts = default_opts },
-  },
-  i = {
-    ["<C-w>"] = { [[<C-\><C-o>d<Plug>CamelCaseMotion_b]], "camel case motion b delete", opts = default_opts },
-    ["<C-BS>"] = { [[<C-\><C-o>d<Plug>CamelCaseMotion_b]], "camel case motion b delete", opts = default_opts },
-  },
-}
-
 M.chatgpt = {
   plugin = true,
 
@@ -623,6 +602,31 @@ M.treesj = {
       "<cmd>lua require('treesj').toggle({ split = { recursive = true } })<CR>",
       "toggle split/join context",
     },
+  },
+}
+
+M.spider = {
+  plugin = true,
+
+  n = {
+    ["w"] = { "<cmd>lua require('spider').motion('w')<CR>", "spider-w", opts = default_opts },
+    ["e"] = { "<cmd>lua require('spider').motion('e')<CR>", "spider-e", opts = default_opts },
+    ["b"] = { "<cmd>lua require('spider').motion('b')<CR>", "spider-b", opts = default_opts },
+    ["ge"] = { "<cmd>lua require('spider').motion('ge')<CR>", "spider-ge", opts = default_opts },
+  },
+
+  o = {
+    ["w"] = { "<cmd>lua require('spider').motion('w')<CR>", "spider-w", opts = default_opts },
+    ["e"] = { "<cmd>lua require('spider').motion('e')<CR>", "spider-e", opts = default_opts },
+    ["b"] = { "<cmd>lua require('spider').motion('b')<CR>", "spider-b", opts = default_opts },
+    ["ge"] = { "<cmd>lua require('spider').motion('ge')<CR>", "spider-ge", opts = default_opts },
+  },
+
+  x = {
+    ["w"] = { "<cmd>lua require('spider').motion('w')<CR>", "spider-w", opts = default_opts },
+    ["e"] = { "<cmd>lua require('spider').motion('e')<CR>", "spider-e", opts = default_opts },
+    ["b"] = { "<cmd>lua require('spider').motion('b')<CR>", "spider-b", opts = default_opts },
+    ["ge"] = { "<cmd>lua require('spider').motion('ge')<CR>", "spider-ge", opts = default_opts },
   },
 }
 

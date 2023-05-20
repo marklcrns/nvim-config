@@ -105,8 +105,13 @@ require("lazy").setup({
     config = conf("vim-smartq"),
   },
   {
-    "bkad/CamelCaseMotion",
-    init = utils.load_mappings("camel_case_motion"),
+    "chrisgrieser/nvim-spider",
+    init = utils.load_mappings("spider"),
+    config = function()
+      require("spider").setup({
+        skipInsignificantPunctuation = true,
+      })
+    end,
     event = "VimEnter",
   },
   {

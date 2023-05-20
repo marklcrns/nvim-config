@@ -1,5 +1,4 @@
 {
-  "CamelCaseMotion": { "branch": "master", "commit": "de439d7c06cffd0839a29045a103fe4b44b15cdc" },
   "ChatGPT.nvim": { "branch": "main", "commit": "5a6287cdd90838c727cb8ac8dbd4787702445680" },
   "Comment.nvim": { "branch": "master", "commit": "e1fe53117aab24c378d5e6deaad786789c360123" },
   "alpha-nvim": { "branch": "main", "commit": "1838ae926e8d49fe5330d1498ee8289ae2c340bc" },
@@ -54,6 +53,7 @@
   "nvim-lspconfig": { "branch": "master", "commit": "8dc45a5c142f0b5a5dd34e5cdba33217d5dc6a86" },
   "nvim-notify": { "branch": "master", "commit": "f3024b912073774111202f5fa6518b0cd2a74432" },
   "nvim-regexplainer": { "branch": "main", "commit": "ae651b187bdaa0fc6cbf60e660da5ebf74013d72" },
+  "nvim-spider": { "branch": "main", "commit": "1aa7054a1b8b7c3605839603c6015c8c7446d8a2" },
   "nvim-surround": { "branch": "main", "commit": "219bd66585aa467b1c90fd01b54a2a423aaed4ab" },
   "nvim-tmux-navigation": { "branch": "main", "commit": "543f090a45cef28156162883d2412fffecb6b750" },
   "nvim-treesitter": { "branch": "master", "commit": "102f1b2f55575f0a2f18be92eafc0e7142024ad1" },
