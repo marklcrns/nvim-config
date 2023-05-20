@@ -14,9 +14,13 @@ return function()
         end
 
         return vim.tbl_contains({
-          "tex",
+          -- "vim",
+          -- "help",
+          -- "markdown", -- NOTE: Parser seems immature. Revisit later.
+          "c", -- NOTE: Performance is abysmal in files of any notable length.
+          "cpp",
           "latex",
-          "plaintex",
+          "comment",
         }, lang)
       end,
 

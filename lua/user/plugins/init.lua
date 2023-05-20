@@ -207,7 +207,6 @@ require("lazy").setup({
   {
     -- Needed by common.utils
     "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     init = utils.load_mappings("diffview"),
     config = conf("diffview"),
   },

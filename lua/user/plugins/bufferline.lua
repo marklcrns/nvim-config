@@ -32,11 +32,13 @@ return function()
       -- end,
       show_buffer_close_icons = true,
       show_close_icon = false,
+      show_tab_indicators = true,
       persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
       -- can also be a table containing 2 custom separators
       -- [focused and unfocused]. eg: { '|', '|' }
       -- separator_style = { "▏", "▕" },
-      separator_style = { "│", "│" },
+      -- separator_style = { "│", "│" },
+      separator_style = "thin",
       -- separator_style = "thin",        --  "slant" | "thick" | "thin" | { 'any', 'any' },
       enforce_regular_tabs = false,
       always_show_bufferline = true,
@@ -44,6 +46,11 @@ return function()
       --   -- add custom logic
       --   return buffer_a.modified > buffer_b.modified
       -- end
+      hover = {
+        enabled = true,
+        delay = 10,
+        reveal = {'close'}
+      },
       offsets = {
         {
           filetype = "NvimTree",

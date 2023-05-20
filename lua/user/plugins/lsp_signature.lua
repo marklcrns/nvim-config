@@ -8,5 +8,6 @@ return function()
     handler_opts = {
       border = "single",
     },
+    timer_interval = 200,
   })
 end

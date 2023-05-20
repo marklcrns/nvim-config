@@ -6,9 +6,9 @@ local fmt = string.format
 
 local M = {}
 
----Expression mapping functions.
+  ---Expression mapping functions.
 local expr = {}
----Command callbacks.
+  ---Command callbacks.
 local cmd = {}
 
 local scratch_counter = 1
@@ -25,7 +25,7 @@ BufToggleEntry.__index = BufToggleEntry
 function BufToggleEntry.new(opts)
   opts = opts or {}
   local self = {
-    height = opts.height,
+    height = opts.height
   }
   setmetatable(self, BufToggleEntry)
   return self
@@ -120,7 +120,7 @@ end
 ---@param range CommandRange
 ---@param ... string
 function M.read_ex(range, ...)
-  local args = vim.tbl_map(function(v)
+  local args = vim.tbl_map(function (v)
     return vim.fn.expand(v)
   end, { ... })
 
@@ -199,7 +199,7 @@ function M.workspace_files(opt)
         "--others",
         "--cached",
         "--",
-        uv.cwd(),
+        uv.cwd()
       },
     })
   else
@@ -219,9 +219,7 @@ function M.remove_buffer(force, bufnr)
   local cur_bufnr = api.nvim_get_current_buf()
   bufnr = bufnr or cur_bufnr
 
-  if not api.nvim_buf_is_valid(bufnr) then
-    return
-  end
+  if not api.nvim_buf_is_valid(bufnr) then return end
 
   if not force and vim.bo[bufnr].modified then
     utils.err("No write since last change!")
@@ -289,10 +287,12 @@ function M.split_on_pattern(pattern, range, noformat)
   local epattern = pattern:gsub("/", "\\/")
   local last_line = api.nvim_win_get_cursor(0)[1]
 
-  local ok, err = pcall(
-    vim.cmd,
-    string.format([[%ss/%s/\0\r/g]], range[1] == 0 and "" or ("%d,%d"):format(range[2], range[3]), epattern, epattern)
-  )
+  local ok, err = pcall(vim.cmd, string.format(
+    [[%ss/%s/\0\r/g]],
+    range[1] == 0 and "" or ("%d,%d"):format(range[2], range[3]),
+    epattern,
+    epattern
+  ))
   vim.cmd("noh")
 
   if not ok then
@@ -323,9 +323,7 @@ end
 ---@return integer
 function M.get_cline_indent_size()
   local lnum = api.nvim_win_get_cursor(0)[1]
-  if lnum == 0 then
-    return 0
-  end
+  if lnum == 0 then return 0 end
 
   local ok, size
   local indentexpr = vim.bo.indentexpr
@@ -390,7 +388,10 @@ function M.full_indent()
     local ntabs = math.floor(indent / ts)
     local nspaces = indent - ntabs * ts
     vim.cmd("normal! d0x")
-    api.nvim_feedkeys(string.rep(tab_char, ntabs) .. string.rep(" ", nspaces), "n", false)
+    api.nvim_feedkeys(
+      string.rep(tab_char, ntabs) .. string.rep(" ", nspaces),
+      "n", false
+    )
   end
 end
 
@@ -486,18 +487,18 @@ end
 ---@return string
 function M.regex_to_pattern(exp)
   local subs = {
-    { "@", "\\@" }, -- Escape at sign
-    { "~", "\\~" }, -- Escape tilde
-    { "([^\\]?)%((%?<%=)([^)]-)%)", "%1(%3)@<=" }, -- Positive lookbehind
-    { "([^\\]?)%((%?<%!)([^)]-)%)", "%1(%3)@<!" }, -- Negative lookbehind
-    { "([^\\]?)%((%?%=)([^)]-)%)", "%1(%3)@=" }, -- Positive lookahead
-    { "([^\\]?)%((%?%!)([^)]-)%)", "%1(%3)@!" }, -- Negative lookahead
-    { "([^\\]?)%(%?:", "%1%%(" }, -- Non-capturing group
-    { "%*%?", "{-}" }, -- Lazy quantifier
-    { "([^?]?)<", "%1\\<" }, -- Escape chevrons
+    { "@", "\\@" },                                 -- Escape at sign
+    { "~", "\\~" },                                 -- Escape tilde
+    { "([^\\]?)%((%?<%=)([^)]-)%)", "%1(%3)@<=" },  -- Positive lookbehind
+    { "([^\\]?)%((%?<%!)([^)]-)%)", "%1(%3)@<!" },  -- Negative lookbehind
+    { "([^\\]?)%((%?%=)([^)]-)%)", "%1(%3)@=" },    -- Positive lookahead
+    { "([^\\]?)%((%?%!)([^)]-)%)", "%1(%3)@!" },    -- Negative lookahead
+    { "([^\\]?)%(%?:", "%1%%(" },                   -- Non-capturing group
+    { "%*%?", "{-}" },                              -- Lazy quantifier
+    { "([^?]?)<", "%1\\<" },                        -- Escape chevrons
     { "([^?]?)>", "%1\\>" },
-    { "\\b", "%%(<|>)" }, -- Word boundary
-    { "([^?<]?)=", "%1\\=" }, -- Escape equal sign
+    { "\\b", "%%(<|>)" },                           -- Word boundary
+    { "([^?<]?)=", "%1\\=" },                       -- Escape equal sign
   }
   for _, sub in ipairs(subs) do
     exp = exp:gsub(sub[1], sub[2])
@@ -517,7 +518,9 @@ function M.set_center_cursor(flag)
     flag = cur_scrolloff ~= scrolloff_center
   end
 
-  local last = Config.state.last_scrolloff or (cur_scrolloff ~= scrolloff_center and cur_scrolloff or 0)
+  local last = Config.state.last_scrolloff or (
+      cur_scrolloff ~= scrolloff_center and cur_scrolloff or 0
+  )
   local scrolloff_target = flag and scrolloff_center or last
 
   if cur_scrolloff == scrolloff_target then
@@ -573,9 +576,7 @@ end
 function cmd.read_new(...)
   local args = { ... }
 
-  if #args == 0 then
-    return
-  end
+  if #args == 0 then return end
 
   local prefix = args[1]:sub(1, 1) or nil
   local ex_mode, shell_mode = false, false
@@ -612,7 +613,12 @@ function expr.comfy_star(reverse, count)
   local ret = "<Cmd>set hlsearch <Bar> exe 'norm! wN'"
 
   if count > 0 then
-    ret = string.format("%s <Bar> norm! %d%s", ret, count, reverse and "N" or "n")
+    ret = string.format(
+      "%s <Bar> norm! %d%s",
+      ret,
+      count,
+      reverse and "N" or "n"
+    )
   end
 
   return utils.t(ret .. "<CR>")
@@ -627,9 +633,10 @@ function expr.next_reference(reverse)
     reverse = false
   end
   if #vim.lsp.get_active_clients({ bufnr = 0 }) > 0 then
-    return utils.t(
-      string.format('<Cmd>lua require("illuminate").goto_%s_reference()<CR>', reverse and "prev" or "next")
-    )
+    return utils.t(string.format(
+      '<Cmd>lua require("illuminate").goto_%s_reference()<CR>',
+      reverse and "prev" or "next"
+    ))
   else
     return expr.comfy_star(reverse, 1)
   end
@@ -685,8 +692,9 @@ function cmd.exec_selection(range)
   local lines
   ---@cast range integer[]
   if type(range) == "table" and range[1] > 0 then
-    table.sort(range)
-    lines = api.nvim_buf_get_lines(0, range[2] - 1, range[3], false)
+    local r = utils.vec_join(range[2], range[3])
+    table.sort(r)
+    lines = api.nvim_buf_get_lines(0, r[1] - 1, r[2], false)
   else
     lines = M.get_visual_selection()
   end
@@ -798,24 +806,21 @@ function cmd.windows(all)
     res[#res + 1] = "Tab page " .. i
     local wins = api.nvim_tabpage_list_wins(tabid)
 
-    utils.vec_push(
-      res,
-      unpack(vim.tbl_map(function(v)
-        local bufnr = api.nvim_win_get_buf(v)
-        local name = api.nvim_buf_get_name(bufnr)
+    utils.vec_push(res, unpack(vim.tbl_map(function(v)
+      local bufnr = api.nvim_win_get_buf(v)
+      local name = api.nvim_buf_get_name(bufnr)
 
-        return ("  %s %d  % 4d  %s%s"):format(
-          sigil_map[v] or " ",
-          v,
-          bufnr,
-          ("%s%s"):format(
-            (api.nvim_win_get_config(v).relative ~= "") and "[float] " or "",
-            (vim.bo[bufnr].buftype == "quickfix") and "[quickfix] " or ""
-          ),
-          utils.str_quote(name)
-        )
-      end, wins) --[[@as vector ]])
-    )
+      return ("  %s %d  % 4d  %s%s"):format(
+        sigil_map[v] or " ",
+        v,
+        bufnr,
+        ("%s%s"):format(
+          (api.nvim_win_get_config(v).relative ~= "") and "[float] " or "",
+          (vim.bo[bufnr].buftype == "quickfix") and "[quickfix] " or ""
+        ),
+        utils.str_quote(name)
+      )
+    end, wins) --[[@as vector ]]))
   end
 
   print(table.concat(res, "\n"))
@@ -844,7 +849,11 @@ function M.nav_display_line(delta)
   -- local dsp_line = full_line:sub(dsp_first[3], dsp_last[3])
 
   vim.fn.winrestview({
-    col = utils.clamp(dsp_first[3] + vim.api.nvim_strwidth(old_dsp_lead) - 1, dsp_first[3], dsp_last[3]),
+    col = utils.clamp(
+      dsp_first[3] + vim.api.nvim_strwidth(old_dsp_lead) - 1,
+      dsp_first[3],
+      dsp_last[3]
+    ),
     curswant = old_cursor[5],
   })
 end

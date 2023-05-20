@@ -686,6 +686,36 @@ function M.apply_tweaks()
     hi("DiffviewFolderName", { bg = "NONE" })
 
     M.unstyle_telescope()
+
+  elseif colors_name == "vscode" then
+    hi({ "Comment", "@comment" }, { fg = fg_normal:clone():blend(bg_normal, 0.5):to_css() })
+    hi("WarningMsg", { fg = hl.get_fg("Special") })
+    hi("DiagnosticHint", { fg = hl.get_fg("Structure") })
+    hi({ "CursorLine", "ColorColumn" }, { bg = bg_normal:clone():highlight(0.03):to_css() })
+    hi_link("CurSearch", "IncSearch")
+    hi_link("@text.literal", "@constructor")
+    hi("IndentBlanklineContextChar", { gui = "" })
+    hi("DiffviewFilePanelSelected", { fg = hl.get_fg("Function"), explicit = true })
+    hi_link("DiffviewReference", "@keyword")
+    hi_link("TelescopePromptPrefix", "Accent")
+
+    if bg == "dark" then
+      hi("Primary", { fg = hl.get_fg("@boolean") })
+      hi("Accent", { fg = hl.get_fg("Statement") })
+      hi("diffChanged", { fg = hl.get_fg("@boolean"), explicit = true })
+      hi(
+        { "BufferLineModified", "BufferLineModifiedVisible", "BufferLineModifiedSelected" },
+        { fg = hl.get_fg("@boolean") }
+      )
+    else
+      hi("Primary", { fg = hl.get_fg("@variable") })
+      hi("Accent", { fg = hl.get_fg("Structure") })
+      hi("diffChanged", { fg = hl.get_fg("@label"), explicit = true })
+      hi(
+        { "BufferLineModified", "BufferLineModifiedVisible", "BufferLineModifiedSelected" },
+        { fg = hl.get_fg("@variable") }
+      )
+    end
   end
 
   M.generate_base_colors()
@@ -763,6 +793,9 @@ function M.apply_tweaks()
   hi_link("NeogitCommitViewHeader", "Title")
   hi_link("NeogitDiffAddHighlight", "DiffInlineAdd")
   hi_link("NeogitDiffDeleteHighlight", "DiffInlineDelete")
+
+  hi("BufferLineModified", { bg = hl.get_bg("BufferLineBuffer") })
+  hi("BufferLineModifiedVisible", { bg = hl.get_bg("BufferLineBufferVisible") })
 
   for _, kind in ipairs({ "Error", "Warn", "Info", "Debug", "Trace" }) do
     local s = "Notify" .. kind:upper()

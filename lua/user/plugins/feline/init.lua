@@ -46,36 +46,36 @@ local icons = {
 }
 
 M.mode_name_map = {
-  n = "NORMAL",
-  no = "NORMAL",
-  nov = "NORMAL",
-  noV = "NORMAL",
-  nt = "NORMAL",
-  ["no"] = "NORMAL",
-  niI = "NORMAL",
-  niR = "NORMAL",
-  niV = "NORMAL",
-  v = "VISUAL",
-  V = "VISUAL LINE",
-  [""] = "VISUAL BLOCK",
-  s = "SELECT",
-  S = "SELECT LINE",
-  [""] = "SELECT BLOCK",
-  i = "INSERT",
-  ic = "COMPLETION",
-  ix = "COMPLETION",
-  R = "REPLACE",
-  Rc = "REPLACE",
-  Rv = "REPLACE",
-  Rx = "REPLACE",
-  c = "COMMAND",
-  cv = "EX",
-  ce = "NORMAL EX",
-  r = "PROMPT",
-  rm = "PROMPT",
-  ["r?"] = "CONFIRM",
-  ["!"] = "SHELL",
-  t = "TERMINAL",
+  n = 'NORMAL',
+  no = 'NORMAL',
+  nov = 'NORMAL',
+  noV = 'NORMAL',
+  nt = 'NORMAL',
+  ['no'] = 'NORMAL',
+  niI = 'NORMAL',
+  niR = 'NORMAL',
+  niV = 'NORMAL',
+  v = 'VISUAL',
+  V = 'VISUAL LINE',
+  [''] = 'VISUAL BLOCK',
+  s = 'SELECT',
+  S = 'SELECT LINE',
+  [''] = 'SELECT BLOCK',
+  i = 'INSERT',
+  ic = 'COMPLETION',
+  ix = 'COMPLETION',
+  R = 'REPLACE',
+  Rc = 'REPLACE',
+  Rv = 'REPLACE',
+  Rx = 'REPLACE',
+  c = 'COMMAND',
+  cv = 'EX',
+  ce = 'NORMAL EX',
+  r = 'PROMPT',
+  rm = 'PROMPT',
+  ['r?'] = 'CONFIRM',
+  ['!'] = 'SHELL',
+  t = 'TERMINAL'
 }
 
 ---@class FelineApplyThemeSpec
@@ -182,7 +182,7 @@ local function filler_section(size)
     hl = {
       fg = "NONE",
       bg = "bg",
-    },
+    }
   }
 end
 
@@ -204,9 +204,7 @@ M.components = {
   block = StatusComponent({
     provider = {
       update = { "VimEnter" },
-      get = function()
-        return "▊"
-      end,
+      get = function() return "▊" end,
     },
   }),
   vi_mode = StatusComponent({
@@ -215,7 +213,7 @@ M.components = {
       get = function()
         return M.mode_name_map[api.nvim_get_mode().mode] or ""
       end,
-    },
+    }
   }),
   paste_mode = StatusComponent({
     provider = function()
@@ -229,23 +227,18 @@ M.components = {
         local clients = {}
 
         for k, v in pairs(vim.lsp.buf_get_clients(0)) do
-          if type(k) == "number" then
-            table.insert(clients, v)
-          end
+          if type(k) == "number" then table.insert(clients, v) end
         end
 
         if next(clients) then
-          return table.concat(
-            vim.tbl_map(function(v)
-              return v.name
-            end, clients),
-            ","
-          )
+          return table.concat(vim.tbl_map(function(v)
+            return v.name
+          end, clients), ",")
         end
       end,
     },
     enabled = function()
-      local exclude = { [""] = true }
+      local exclude = { [''] = true }
       if exclude[vim.bo.filetype] then
         return false
       end
@@ -295,7 +288,7 @@ M.components = {
 
           local icon, _ = devicons.get_icon(basename, ext, { default = false })
           return (icon or "")
-        end,
+        end
       },
       enabled = function()
         return vim.fn.bufname() ~= ""
@@ -332,7 +325,9 @@ M.components = {
         end,
       },
       enabled = function()
-        if not vim.tbl_contains({ "", "nowrite" }, vim.bo.bt) and not vim.fn.bufname():match("^Scratch %d+$") then
+        if not vim.tbl_contains({ "", "nowrite" }, vim.bo.bt)
+          and not vim.fn.bufname():match("^Scratch %d+$")
+        then
           return false
         end
 
@@ -344,14 +339,14 @@ M.components = {
 
         return {
           str = (icon or "") .. " ",
-          hl = {
+          hl =  {
             fg = icon_hl and hl.get_fg(icon_hl) or "fg",
-          },
+          }
         }
       end,
     }),
     format = StatusComponent({
-      provider = function()
+      provider = function ()
         local format = vim.bo.fileformat
         local enc = vim.bo.fileencoding
         local icon
@@ -371,7 +366,7 @@ M.components = {
       truncate_hide = true,
     }),
     line_info = StatusComponent({
-      provider = function()
+      provider = function ()
         local cursor = api.nvim_win_get_cursor(0)
         local line = tostring(cursor[1])
         if #line % 2 ~= 0 then
@@ -392,7 +387,7 @@ M.components = {
       end,
     }),
     line_percent = StatusComponent({
-      provider = function()
+      provider = function ()
         local current_line = api.nvim_win_get_cursor(0)[1]
         local total_line = api.nvim_buf_line_count(0)
         local result, _ = math.modf((current_line / total_line) * 100)
@@ -400,16 +395,14 @@ M.components = {
       end,
     }),
     line_count = StatusComponent({
-      provider = function()
+      provider = function ()
         return tostring(api.nvim_buf_line_count(0))
       end,
       icon = icons.line_number .. " ",
     }),
     search = StatusComponent({
       provider = function()
-        if vim.v.hlsearch ~= 1 then
-          return ""
-        end
+        if vim.v.hlsearch ~= 1 then return "" end
 
         local ok, count = pcall(vim.fn.searchcount, { maxcount = 10000, timeout = 150 })
 
@@ -422,9 +415,7 @@ M.components = {
 
         if count.incomplete == 2 then
           total = ">" .. count.maxcount
-          if current > count.maxcount then
-            current = total
-          end
+          if current > count.maxcount then current = total end
         end
 
         return ("[%s/%s]"):format(current, total)
@@ -479,18 +470,23 @@ M.components = {
 
             -- Check reflog to find the last checkout
             local name = ""
-            local out = utils.system_list({
+            local out = utils.job({
               "git",
               "reflog",
               "--pretty=format:%gs",
-              "--grep-reflog=^checkout: ",
+              "-E",
+              "--grep-reflog=^checkout: |^rebase \\((start|finish)\\): (checkout|returning) ",
               "-n1",
             }, pl:readable(dir) and dir or pl:realpath("."))
 
             if out[1] and out[1] ~= "" then
-              name = out[1]:match("^checkout: moving from %S+ to (%S+)$")
+              name = utils.str_match(out[1], {
+                "^checkout: moving from %S+ to (%S+)$",
+                "^rebase %(start%): checkout (%S+)",
+                "^rebase %(finish%): returning (%S+)",
+              })
 
-              out = utils.system_list({
+              out = utils.job({
                 "git",
                 "name-rev",
                 "--name-only",
@@ -592,45 +588,54 @@ function M.update()
   local statusline = {
     active = {
       -- LEFT :
-      extend_comps({
-        comps.block(),
-        comps.vi_mode(),
-        comps.paste_mode(),
-        -- comps.file.info(),
-        comps.git.branch(),
-        comps.git.diff_add(),
-        comps.git.diff_mod(),
-        comps.git.diff_del(),
-      }, { right_sep = " " }),
+      extend_comps(
+        {
+          comps.block(),
+          comps.vi_mode(),
+          comps.paste_mode(),
+          -- comps.file.info(),
+          comps.git.branch(),
+          comps.git.diff_add(),
+          comps.git.diff_mod(),
+          comps.git.diff_del(),
+        },
+        { right_sep = " " }
+      ),
       -- MIDDLE :
       {},
       -- RIGHT :
       utils.vec_join(
-        extend_comps({
-          comps.diagnostic.err(),
-          comps.diagnostic.warn(),
-          comps.diagnostic.hint(),
-          comps.diagnostic.info(),
-          comps.file.search(),
-          comps.file.line_info(),
-          comps.file.line_percent(),
-          comps.file.line_count(),
-          comps.file.filetype(),
-          comps.lsp_server(),
-          comps.file.indent_info(),
-          comps.file.format(),
-          -- comps.git.branch(),
-        }, { left_sep = " " }),
+        extend_comps(
+          {
+            comps.diagnostic.err(),
+            comps.diagnostic.warn(),
+            comps.diagnostic.hint(),
+            comps.diagnostic.info(),
+            comps.file.search(),
+            comps.file.line_info(),
+            comps.file.line_percent(),
+            comps.file.line_count(),
+            comps.file.filetype(),
+            comps.lsp_server(),
+            comps.file.indent_info(),
+            comps.file.format(),
+            -- comps.git.branch(),
+          },
+          { left_sep = " " }
+        ),
         { filler_section(1) }
       ),
     },
     inactive = {
       -- LEFT :
-      extend_comps({
-        comps.block(),
-        comps.file.filetype(),
-        comps.file.info(),
-      }, { right_sep = " " }),
+      extend_comps(
+        {
+          comps.block(),
+          comps.file.filetype(),
+          comps.file.info(),
+        },
+        { right_sep = " " }
+      ),
       -- MIDDLE :
       {},
       -- RIGHT :

@@ -1,6 +1,7 @@
+---@diagnostic disable: duplicate-doc-field
 local lazy = require("user.lazy")
 
-local async = lazy.require("plenary.async") ---@module "plenary.async"
+local Job = lazy.access("diffview.job", "Job") ---@type diffview.Job|LazyModule
 local winshift_lib = lazy.require("winshift.lib") ---@module "winshift.lib"
 
 local api = vim.api
@@ -16,18 +17,6 @@ local path_sep = package.config:sub(1, 1)
 M.pl = lazy.require("diffview.path", function(m)
   return m.PathLib({ separator = "/" })
 end)
-
----@module "plenary.job"
-M.Job = lazy.require("plenary.job", function(m)
-  -- Ensure plenary's `new` method will use the right metatable when this is
-  -- invoked as a method.
-  local new = m.new
-  function m.new(_, ...)
-    return new(m, ...)
-  end
-  return m
-end)
-local Job = M.Job
 
 -- Set up completion wrapper used by `vim.ui.input()`
 vim.cmd([[
@@ -57,7 +46,7 @@ function M.echo_multiln(msg, hl, schedule)
 
   for _, line in ipairs(msg) do
     line = line:gsub('"', [[\"]])
-    line = line:gsub("\t", "    ")
+    line = line:gsub('\t', "    ")
     vim.cmd(string.format('echom "%s"', line))
   end
 
@@ -123,7 +112,7 @@ function M.exec_lua(code, ...)
 end
 
 function M.printi(...)
-  local args = vim.tbl_map(function(v)
+  local args = vim.tbl_map(function (v)
     return vim.inspect(v)
   end, M.tbl_pack(...))
   print(M.tbl_unpack(args))
@@ -187,7 +176,9 @@ end
 function M.no_win_event_call(f)
   local last = vim.o.eventignore
   ---@diagnostic disable-next-line: undefined-field
-  vim.opt.eventignore:prepend("WinEnter,WinLeave,WinNew,WinClosed,BufWinEnter,BufWinLeave,BufEnter,BufLeave")
+  vim.opt.eventignore:prepend(
+    "WinEnter,WinLeave,WinNew,WinClosed,BufWinEnter,BufWinLeave,BufEnter,BufLeave"
+  )
   local ok, err = pcall(f)
   vim.opt.eventignore = last
 
@@ -242,9 +233,7 @@ function M.str_right_pad(s, min_size, fill)
   if #s >= min_size then
     return s
   end
-  if not fill then
-    fill = " "
-  end
+  if not fill then fill = " " end
   return s .. string.rep(fill, math.ceil((min_size - #s) / #fill))
 end
 
@@ -252,9 +241,7 @@ function M.str_left_pad(s, min_size, fill)
   if #s >= min_size then
     return s
   end
-  if not fill then
-    fill = " "
-  end
+  if not fill then fill = " " end
   return string.rep(fill, math.ceil((min_size - #s) / #fill)) .. s
 end
 
@@ -262,9 +249,7 @@ function M.str_center_pad(s, min_size, fill)
   if #s >= min_size then
     return s
   end
-  if not fill then
-    fill = " "
-  end
+  if not fill then fill = " " end
   local left_len = math.floor((min_size - #s) / #fill / 2)
   local right_len = math.ceil((min_size - #s) / #fill / 2)
   return string.rep(fill, left_len) .. s .. string.rep(fill, right_len)
@@ -333,7 +318,7 @@ function M.str_match(str, patterns)
 end
 
 function M.tbl_pack(...)
-  return { n = select("#", ...), ... }
+  return { n = select('#',...); ... }
 end
 
 function M.tbl_unpack(t, i, j)
@@ -357,9 +342,7 @@ function M.tbl_clone(t)
 end
 
 function M.tbl_deep_clone(t)
-  if not t then
-    return
-  end
+  if not t then return end
   local clone = {}
 
   for k, v in pairs(t) do
@@ -436,7 +419,9 @@ end
 ---@param table_path string|string[] Either a `.` separated string of table keys, or a list.
 ---@return any?
 function M.tbl_access(t, table_path)
-  local keys = type(table_path) == "table" and table_path or vim.split(table_path, ".", { plain = true })
+  local keys = type(table_path) == "table"
+      and table_path
+      or vim.split(table_path, ".", { plain = true })
 
   local cur = t
 
@@ -456,7 +441,9 @@ end
 ---@param table_path string|string[] Either a `.` separated string of table keys, or a list.
 ---@param value any
 function M.tbl_set(t, table_path, value)
-  local keys = type(table_path) == "table" and table_path or vim.split(table_path, ".", { plain = true })
+  local keys = type(table_path) == "table"
+      and table_path
+      or vim.split(table_path, ".", { plain = true })
 
   local cur = t
 
@@ -477,7 +464,9 @@ end
 ---@param t table
 ---@param table_path string|string[] Either a `.` separated string of table keys, or a list.
 function M.tbl_ensure(t, table_path)
-  local keys = type(table_path) == "table" and table_path or vim.split(table_path, ".", { plain = true })
+  local keys = type(table_path) == "table"
+      and table_path
+      or vim.split(table_path, ".", { plain = true })
 
   if not M.tbl_access(t, keys) then
     M.tbl_set(t, keys, {})
@@ -523,7 +512,7 @@ end
 ---@return vector
 function M.vec_join(...)
   local result = {}
-  local args = { ... }
+  local args = {...}
   local c = 0
 
   for i = 1, select("#", ...) do
@@ -548,19 +537,19 @@ end
 ---@return vector
 function M.vec_union(...)
   local result = {}
-  local args = { ... }
+  local args = {...}
   local seen = {}
 
   for i = 1, select("#", ...) do
     if type(args[i]) ~= "nil" then
       if type(args[i]) ~= "table" and not seen[args[i]] then
         seen[args[i]] = true
-        result[#result + 1] = args[i]
+        result[#result+1] = args[i]
       else
         for _, v in ipairs(args[i]) do
           if not seen[v] then
             seen[v] = true
-            result[#result + 1] = v
+            result[#result+1] = v
           end
         end
       end
@@ -574,13 +563,13 @@ end
 ---@param ... vector
 ---@return vector
 function M.vec_diff(...)
-  local args = { ... }
+  local args = {...}
   local seen = {}
 
   for i = 1, select("#", ...) do
     if type(args[i]) ~= "nil" then
       if type(args[i]) ~= "table" then
-        if i == 1 then
+        if i == 1  then
           seen[args[i]] = true
         elseif seen[args[i]] then
           seen[args[i]] = nil
@@ -605,7 +594,7 @@ end
 ---@return vector
 function M.vec_symdiff(...)
   local result = {}
-  local args = { ... }
+  local args = {...}
   local seen = {}
 
   for i = 1, select("#", ...) do
@@ -622,7 +611,7 @@ function M.vec_symdiff(...)
 
   for v, state in pairs(seen) do
     if state == 1 then
-      result[#result + 1] = v
+      result[#result+1] = v
     end
   end
 
@@ -648,7 +637,7 @@ end
 ---@param t vector
 ---@return vector t
 function M.vec_push(t, ...)
-  for _, v in ipairs({ ... }) do
+  for _, v in ipairs({...}) do
     t[#t + 1] = v
   end
   return t
@@ -670,25 +659,17 @@ function M.vec_remove(t, v)
   return false
 end
 
----@class utils.system_list.Opt
+---@class utils.job.Opt
 ---@field cwd string Working directory of the job.
----@field fail_on_empty boolean Return code 1 if stdout is empty and code is 0.
----@field retry_on_empty integer Number of times to retry job if stdout is empty and code is 0. Implies `fail_on_empty`.
+---@field writer string|string[] Something that will write to the stdin of this job.
+---@field silent boolean Supress log output.
+---@field fail_on_empty boolean Return code 1 if stdout is empty.
+---@field retry integer Number of times the job will be retried if it fails.
+---@field log_opt Logger.log_job.Opt
 
----Get the output of a system command.
 ---@param cmd string[]
----@param cwd_or_opt? string|utils.system_list.Opt
----@return string[] stdout
----@return integer code
----@return string[] stderr
----@overload fun(cmd: string[], cwd: string?)
----@overload fun(cmd: string[], opt: utils.system_list.Opt?)
-function M.system_list(cmd, cwd_or_opt)
-  if vim.in_fast_event() then
-    async.util.scheduler()
-  end
-
-  ---@type utils.system_list.Opt
+---@param cwd_or_opt? string|utils.job.Opt
+function M.job(cmd, cwd_or_opt)
   local opt
 
   if type(cwd_or_opt) == "string" then
@@ -697,41 +678,27 @@ function M.system_list(cmd, cwd_or_opt)
     opt = cwd_or_opt or {}
   end
 
-  opt.fail_on_empty = vim.F.if_nil(opt.fail_on_empty, (opt.retry_on_empty or 0) > 0)
-
-  local command = table.remove(cmd, 1)
-  local num_retries = 0
-  local max_retries = opt.retry_on_empty or 0
-  local job, stdout, stderr, code, empty
-  local job_spec = {
-    command = command,
-    args = cmd,
+  local job = Job({
+    command = cmd[1],
+    args = M.vec_slice(cmd, 2),
     cwd = opt.cwd,
-    on_stderr = function(_, data)
-      table.insert(stderr, data)
-    end,
-  }
+    retry = opt.retry,
+    fail_cond = opt.fail_on_empty and Job.FAIL_COND.on_empty or nil,
+    writer = opt.writer,
+    log_opt = vim.tbl_extend("keep", opt.log_opt or {}, {
+      silent = opt.silent,
+      debuginfo = debug.getinfo(2, "Sl"),
+    }),
+  })
 
-  for i = 0, max_retries do
-    if i > 0 then
-      num_retries = num_retries + 1
-    end
+  local ok = job:sync()
+  local code = job.code
 
-    stderr = {}
-    job = Job:new(job_spec)
-    stdout, code = job:sync()
-    empty = not (stdout[1] and stdout[1] ~= "")
-
-    if code ~= 0 or not empty then
-      break
-    end
+  if not ok then
+    if opt.fail_on_empty then code = 1 end
   end
 
-  if opt.fail_on_empty and code == 0 and empty then
-    code = 1
-  end
-
-  return stdout, code, stderr
+  return job.stdout, code, job.stderr
 end
 
 ---@class ListBufsSpec
@@ -757,7 +724,7 @@ function M.list_bufs(opt)
     for _, winid in ipairs(wins) do
       bufnr = api.nvim_win_get_buf(winid)
       if not seen[bufnr] then
-        bufs[#bufs + 1] = bufnr
+        bufs[#bufs+1] = bufnr
       end
       seen[bufnr] = true
     end
@@ -954,9 +921,7 @@ function M.input_char(prompt, opt)
       end
     end
 
-    if valid or not opt.loop then
-      break
-    end
+    if valid or not opt.loop then break end
   end
 
   if not valid then
@@ -1000,7 +965,10 @@ end
 function M.confirm(prompt, opt)
   local ok, s = pcall(
     M.input_char,
-    ("%s %s: "):format(prompt, opt.default and "[Y/n]" or "[y/N]"),
+    ("%s %s: "):format(
+      prompt,
+      opt.default and "[Y/n]" or "[y/N]"
+    ),
     { filter = "[yYnN\27\r]", loop = true }
   )
 
@@ -1009,17 +977,12 @@ function M.confirm(prompt, opt)
   if not ok then
     opt.callback(false)
   else
-    if s == "\27" then
-      opt.callback(false)
-      return
-    end
+    if s == "\27" then opt.callback(false); return end
     local value = ({
       y = true,
       n = false,
     })[(s or ""):lower()]
-    if value == nil then
-      value = opt.default
-    end
+    if value == nil then value = opt.default end
     opt.callback(value)
   end
 end
@@ -1031,7 +994,10 @@ end
 ---@param msg? string
 function M.pause(msg)
   vim.cmd("redraw")
-  M.input_char("-- PRESS ANY KEY TO CONTINUE -- " .. (msg or ""), { allow_non_ascii = true, prompt_hl = "Directory" })
+  M.input_char(
+    "-- PRESS ANY KEY TO CONTINUE -- " .. (msg or ""),
+    { allow_non_ascii = true, prompt_hl = "Directory" }
+  )
 end
 
 ---Map of options that accept comma separated, list-like values, but don't work
@@ -1080,6 +1046,7 @@ function M.set_local(winids, option_map, opt)
 
         if o.method == "set" then
           vim.opt_local[option] = value
+
         else
           if o.method == "remove" then
             if is_list_like then
@@ -1087,15 +1054,21 @@ function M.set_local(winids, option_map, opt)
             else
               vim.opt_local[fullname]:remove(value)
             end
+
           elseif o.method == "append" then
             if is_list_like then
               vim.opt_local[fullname] = ("%s%s"):format(cur_value ~= "" and cur_value .. ",", value)
             else
               vim.opt_local[fullname]:append(value)
             end
+
           elseif o.method == "prepend" then
             if is_list_like then
-              vim.opt_local[fullname] = ("%s%s%s"):format(value, cur_value ~= "" and "," or "", cur_value)
+              vim.opt_local[fullname] = ("%s%s%s"):format(
+                value,
+                cur_value ~= "" and "," or "",
+                cur_value
+              )
             else
               vim.opt_local[fullname]:prepend(value)
             end
@@ -1119,6 +1092,7 @@ function M.unset_local(winids, option)
     end)
   end
 end
+
 
 ---Get the byte size of a buffer in kilo bytes.
 ---
@@ -1189,7 +1163,7 @@ function M.set_cursor(winid, line, column)
 
   pcall(api.nvim_win_set_cursor, winid, {
     M.clamp(line or 1, 1, api.nvim_buf_line_count(bufnr)),
-    math.max(0, column or 0),
+    math.max(0, column or 0)
   })
 end
 

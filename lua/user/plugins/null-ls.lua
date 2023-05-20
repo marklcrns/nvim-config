@@ -25,7 +25,7 @@ return function()
     -- Rust,
     formatting.rustfmt,
     -- Lua
-    formatting.stylua.with({ extra_args = { "--indent-type", "Spaces", "--indent-width", "2" } }),
+    -- formatting.stylua.with({ extra_args = { "--indent-type", "Spaces", "--indent-width", "2" } }),
     -- Shell (bash, etc.)
     formatting.shfmt,
     code_actions.shellcheck,
