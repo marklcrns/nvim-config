@@ -23,7 +23,7 @@ require("user.core.utils").load_mappings()
 
 require("user.core")
 require("user.plugins")
-require("user.commands")
+-- require("user.commands")
 
 require("user.colorscheme").apply()
 
