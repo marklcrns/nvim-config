@@ -474,6 +474,14 @@ M.nvim_window_picker = {
   },
 }
 
+M.regexplainer = {
+  plugin = true,
+
+  n = {
+    ["<leader>cx"] = { "<cmd>RegexplainerToggle<CR>", "toggle regexplainer under cursor", opts = default_opts },
+  },
+}
+
 M.smartq = {
   plugin = true,
 

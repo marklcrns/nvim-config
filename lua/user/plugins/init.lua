@@ -212,7 +212,7 @@ require("lazy").setup({
   },
   {
     "folke/which-key.nvim",
-    keys = { "<leader>", "<localleader>" },
+    keys = { "<leader>", "<localleader>", "]", "[" },
     config = conf("which-key"),
   },
   {
@@ -340,8 +340,10 @@ require("lazy").setup({
   },
   {
     "bennypowers/nvim-regexplainer",
+    init = utils.load_mappings("regexplainer"),
+    cmd = "RegexplainerToggle",
     conf = function()
-      require("regexplainer").setup({ auto = true })
+      require("regexplainer").setup({ auto = false })
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
