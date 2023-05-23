@@ -64,34 +64,13 @@ require("lazy").setup({
   -- },
 
   -- COLORSCHEMES
-  {
-    "folke/tokyonight.nvim",
-    config = conf("tokyonight"),
-  },
-  {
-    "catppuccin/nvim",
-    config = conf("catppuccin"),
-  },
-  {
-    "EdenEast/nightfox.nvim",
-    config = conf("nightfox"),
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    config = conf("kanagawa"),
-  },
-  {
-    "AlexvZyl/nordic.nvim",
-    config = conf("nordic"),
-  },
-  {
-    "rose-pine/neovim",
-    config = conf("rose-pine"),
-  },
-  {
-    "Mofiqul/vscode.nvim",
-    config = conf("vscode"),
-  },
+  { "folke/tokyonight.nvim", config = conf("tokyonight"), },
+  { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin" },
+  { "EdenEast/nightfox.nvim", config = conf("nightfox"), },
+  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), },
+  { "AlexvZyl/nordic.nvim", config = conf("nordic"), },
+  { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine" },
+  { "Mofiqul/vscode.nvim", config = conf("vscode"), },
   "sindrets/oxocarbon-lua.nvim",
 
   -- STARTUP
