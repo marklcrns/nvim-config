@@ -22,6 +22,7 @@
   "focus.nvim": { "branch": "master", "commit": "3d9df42aa4f9b572348418207b752f81adea09a5" },
   "gitignore.nvim": { "branch": "master", "commit": "b61e4a50b78f9a3702a4ed168ab6c9ceba5f6299" },
   "gitsigns.nvim": { "branch": "main", "commit": "c18b7ca0b5b50596722f3a1572eb9b8eb520c0f1" },
+  "hardtime.nvim": { "branch": "main", "commit": "6632ec95d7bbae510b35b7a24858d736620fc1b2" },
   "indent-blankline.nvim": { "branch": "master", "commit": "86d1b71c5c26168c3a3a9ff5f69e833889a09c1d" },
   "indent-o-matic": { "branch": "master", "commit": "f4138581fe4575b720eae2d123cbaed0d86c94cf" },
   "kanagawa.nvim": { "branch": "master", "commit": "42c33239b0460cbbcdb67bc9c7f0c420a95208e6" },

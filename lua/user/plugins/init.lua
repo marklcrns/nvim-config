@@ -64,13 +64,13 @@ require("lazy").setup({
   -- },
 
   -- COLORSCHEMES
-  { "folke/tokyonight.nvim", config = conf("tokyonight"), },
+  { "folke/tokyonight.nvim", config = conf("tokyonight") },
   { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin" },
-  { "EdenEast/nightfox.nvim", config = conf("nightfox"), },
-  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), },
-  { "AlexvZyl/nordic.nvim", config = conf("nordic"), },
+  { "EdenEast/nightfox.nvim", config = conf("nightfox") },
+  { "rebelot/kanagawa.nvim", config = conf("kanagawa") },
+  { "AlexvZyl/nordic.nvim", config = conf("nordic") },
   { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine" },
-  { "Mofiqul/vscode.nvim", config = conf("vscode"), },
+  { "Mofiqul/vscode.nvim", config = conf("vscode") },
   "sindrets/oxocarbon-lua.nvim",
 
   -- STARTUP
@@ -634,7 +634,6 @@ require("lazy").setup({
       },
     },
   },
-
   {
     "vimwiki/vimwiki",
     branch = "dev",
@@ -652,6 +651,22 @@ require("lazy").setup({
     init = function()
       conf("vim-you-autocorrect")()
       utils.load_mappings("you_autocorrect")
+    end,
+  },
+
+  -- MISC
+  {
+    "m4xshen/hardtime.nvim",
+    init = utils.lazy_load("hardtime.nvim"),
+    config = function()
+      require("hardtime").setup({
+        max_count = 3,
+        allow_different_key = true,
+        resetting_keys = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "c", "d" },
+        restricted_keys = { "h", "j", "k", "l", "-", "+" },
+        disabled_keys = {},
+        disabled_filetypes = { "qf", "netrw", "neo-tree", "lazy", "mason" },
+      })
     end,
   },
 }, require("user.plugins.lazy_nvim"))

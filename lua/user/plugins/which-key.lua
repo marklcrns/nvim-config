@@ -36,6 +36,7 @@ return function()
       -- list of mode / prefixes that should never be hooked by WhichKey
       i = { "j", "k", "f" },
       v = { "j", "k", "f", "d", "y" },
+      n = { "j", "k", "f", "d", "y" },
     },
   })
 
