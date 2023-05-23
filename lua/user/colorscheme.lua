@@ -660,7 +660,7 @@ function M.apply_tweaks()
     hi("PmenuThumb", { bg = Color.from_hl("PmenuSbar", "bg"):mod_value(0.15):to_css(), fg = "NONE" })
     hi("Search", { bg = bg_normal:clone():mod_value(0.1):to_css() })
     hi({ "CursorLine", "ColorColumn" }, { bg = bg_normal:clone():mod_value(-0.05):to_css() })
-    if not vim.g.transparent_background then
+    if not vim.g.transparent_enable then
       hi("CursorLineSB", { bg = Color.from_hl("NormalSB", "bg"):mod_value(0.02):to_css() })
     end
     hi("diffAdded", { fg = "#B1D196" })

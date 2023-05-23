@@ -71,7 +71,11 @@ require("lazy").setup({
   { "AlexvZyl/nordic.nvim", config = conf("nordic") },
   { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine" },
   { "Mofiqul/vscode.nvim", config = conf("vscode") },
-  "sindrets/oxocarbon-lua.nvim",
+  { "sindrets/oxocarbon-lua.nvim" },
+  {
+    "xiyaowong/transparent.nvim",
+    cmd = "TransparentToggle",
+  },
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
@@ -660,7 +664,7 @@ require("lazy").setup({
     init = utils.lazy_load("hardtime.nvim"),
     config = function()
       require("hardtime").setup({
-        max_count = 3,
+        max_count = 5,
         allow_different_key = true,
         resetting_keys = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "c", "d" },
         restricted_keys = { "h", "j", "k", "l", "-", "+" },

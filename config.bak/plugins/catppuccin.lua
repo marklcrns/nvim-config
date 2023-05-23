@@ -4,7 +4,7 @@ require("catppuccin").setup({
     light = "latte",
     dark = "macchiato",
   },
-  transparent_background = vim.api.nvim_get_var("transparent_background"),
+  transparent_background = vim.g.transparent_enable,
   show_end_of_buffer = false, -- show the '~' characters after the end of buffers
   term_colors = false,
   dim_inactive = {

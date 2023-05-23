@@ -82,6 +82,7 @@
   "todo-comments.nvim": { "branch": "main", "commit": "09b0b17d824d2d56f02ff15967e8a2499a89c731" },
   "toggle-lsp-diagnostics.nvim": { "branch": "main", "commit": "77399c5f8fc68541b222aeae278afd0988ab660c" },
   "tokyonight.nvim": { "branch": "main", "commit": "e59580ae7c5656404653d25ede13f208a243b8eb" },
+  "transparent.nvim": { "branch": "main", "commit": "f09966923f7e329ceda9d90fe0b7e8042b6bdf31" },
   "treesj": { "branch": "main", "commit": "b1e2976c2d7ba922371cc7f3ab08b75136c27231" },
   "trouble.nvim": { "branch": "main", "commit": "5da13b5007eb2b952834186cd640a22c765b64cf" },
   "ultisnips": { "branch": "master", "commit": "0ad238b1910d447476b2d98f593322c1cdb71285" },
