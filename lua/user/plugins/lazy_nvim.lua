@@ -1,7 +1,17 @@
 return {
   defaults = { lazy = true },
-  install = { colorscheme = { "tokyonight", "catppuccin", "nightfox", "kanagawa", "nordic", "rose-pine", "vscode", "oxocarbon-lua" } },
-
+  install = {
+    colorscheme = {
+      "tokyonight",
+      "catppuccin",
+      "nightfox",
+      "kanagawa",
+      "nordic",
+      "rose-pine",
+      "vscode",
+      "oxocarbon-lua",
+    },
+  },
   ui = {
     icons = {
       ft = "",

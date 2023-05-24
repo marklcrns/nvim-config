@@ -651,6 +651,14 @@ M.trouble = {
   },
 }
 
+M.venn = {
+  plugin = true,
+
+  n = {
+    ["<leader>v"] = { "<cmd>lua Toggle_venn()<CR>", "toggle venn", opts = default_opts },
+  },
+}
+
 M.vimade = {
   plugin = true,
 

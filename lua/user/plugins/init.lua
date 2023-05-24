@@ -657,6 +657,12 @@ require("lazy").setup({
       utils.load_mappings("you_autocorrect")
     end,
   },
+  {
+    "jbyuki/venn.nvim",
+    lazy = false,
+    init = utils.load_mappings("venn"),
+    config = conf("venn"),
+  },
 
   -- MISC
   {
@@ -669,7 +675,7 @@ require("lazy").setup({
         resetting_keys = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "c", "d" },
         restricted_keys = { "h", "j", "k", "l", "-", "+" },
         disabled_keys = {},
-        disabled_filetypes = { "qf", "netrw", "neo-tree", "lazy", "mason", "fugitive", "NeogitStatus" },
+        disabled_filetypes = { "qf", "netrw", "neo-tree", "lazy", "mason", "fugitive", "NeogitStatus", "" },
       })
     end,
   },
