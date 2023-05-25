@@ -15,11 +15,13 @@ return function()
           \ 'gina-status',
           \ 'help',
           \ 'minimap',
-          \ 'qf', 'toggleterm',
+          \ 'qf',
+          \ 'toggleterm',
           \ 'lspsagaoutline',
           \ 'lspsagafinder',
           \ 'neo-tree',
-          \ 'mind'
+          \ 'mind',
+          \ 'DiffviewFiles',
           \ ]
 
     let g:lens#disabled_buftypes = [

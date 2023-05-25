@@ -199,7 +199,7 @@ M.focus = {
   plugin = true,
 
   n = {
-    ["<localleader>sr"] = { "<cmd>FocusToggle<CR>", "toggle focus", opts = default_opts },
+    ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle focus", opts = default_opts },
     ["<C-w>z"] = { "<cmd>FocusMaxOrEqual<CR>", "toggle maximize-equalize", opts = default_opts },
   },
 }
@@ -699,7 +699,7 @@ M.you_autocorrect = {
   plugin = true,
 
   n = {
-    ["<localleader>ss"] = { "<cmd>call ToggleAutoCorrect()<CR>", "toggle autocorrect", opts = default_opts },
+    ["<localleader>sa"] = { "<cmd>call ToggleAutoCorrect()<CR>", "toggle autocorrect", opts = default_opts },
   },
 }
 

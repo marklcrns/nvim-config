@@ -676,7 +676,7 @@ endfunction
 function! SettingsToggleMappings()
   " General toggles
   nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
-  nnoremap <silent> <LocalLeader>sf :<C-u>call <SID>toggle_format_on_save()<CR>
+  nnoremap <silent> <LocalLeader>ss :<C-u>call <SID>toggle_format_on_save()<CR>
   nnoremap <silent> <LocalLeader>sF :<C-u>call <SID>toggle_foldcolumn1()<CR>
   nnoremap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
   nnoremap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>

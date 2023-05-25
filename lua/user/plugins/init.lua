@@ -62,6 +62,7 @@ require("lazy").setup({
   --     require("lsp-notify").setup()
   --   end,
   -- },
+  { "xiyaowong/transparent.nvim", lazy = false },
 
   -- COLORSCHEMES
   { "folke/tokyonight.nvim", config = conf("tokyonight") },
@@ -72,10 +73,6 @@ require("lazy").setup({
   { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine" },
   { "Mofiqul/vscode.nvim", config = conf("vscode") },
   { "sindrets/oxocarbon-lua.nvim" },
-  {
-    "xiyaowong/transparent.nvim",
-    cmd = "TransparentToggle",
-  },
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
@@ -125,31 +122,31 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("focus"),
   },
-  -- {
-  --   "TaDaa/vimade",
-  --   cond = not sys.is_gui(),
-  --   init = function()
-  --     utils.lazy_load("vimade")
-  --     utils.load_mappings("vimade")
-  --   end,
-  --   config = conf("vimade"),
-  -- },
-  -- {
-  --   "marklcrns/lens.vim",
-  --   cond = not sys.is_gui(),
-  --   init = function()
-  --     utils.lazy_load("lens.vim")
-  --     utils.load_mappings("lens")
-  --   end,
-  --   config = conf("lens"),
-  --   dependencies = {
-  --     {
-  --       "camspiers/animate.vim",
-  --       cond = not sys.is_gui(),
-  --       config = conf("animate"),
-  --     },
-  --   },
-  -- },
+  {
+    "TaDaa/vimade",
+    cond = not sys.is_gui(),
+    init = function()
+      utils.lazy_load("vimade")
+      utils.load_mappings("vimade")
+    end,
+    config = conf("vimade"),
+  },
+  {
+    "marklcrns/lens.vim",
+    cond = not sys.is_gui(),
+    init = function()
+      utils.lazy_load("lens.vim")
+      utils.load_mappings("lens")
+    end,
+    config = conf("lens"),
+    dependencies = {
+      {
+        "camspiers/animate.vim",
+        cond = not sys.is_gui(),
+        config = conf("animate"),
+      },
+    },
+  },
   {
     "karb94/neoscroll.nvim",
     cond = not sys.is_gui(),
@@ -652,6 +649,7 @@ require("lazy").setup({
   {
     "sedm0784/vim-you-autocorrect",
     ft = { "markdown", "vimwiki", "norg" },
+    cmd = { "EnableAutocorrect", "DisableAutocorrect" },
     init = function()
       conf("vim-you-autocorrect")()
       utils.load_mappings("you_autocorrect")
@@ -659,9 +657,11 @@ require("lazy").setup({
   },
   {
     "jbyuki/venn.nvim",
-    lazy = false,
-    init = utils.load_mappings("venn"),
-    config = conf("venn"),
+    cmd = { "VBox", "VBoxD", "VBoxH", "VFill" },
+    init = function()
+      conf("venn")()
+      utils.load_mappings("venn")
+    end,
   },
 
   -- MISC
