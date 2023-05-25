@@ -318,6 +318,20 @@ M.hlslens = {
   },
 }
 
+M.inc_rename = {
+  plugin = true,
+
+  n = {
+    ["<leader>rn"] = {
+      function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end,
+      "incremental rename",
+      opts = { expr = true, noremap = true, silent = true },
+    },
+  },
+}
+
 M.lens = {
   plugin = true,
 

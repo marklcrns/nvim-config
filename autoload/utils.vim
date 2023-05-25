@@ -141,7 +141,7 @@ function! utils#custom_buffer_write(bang, cmds)
   if g:enable_format_on_save == v:false
     let l:command = "noautocmd " . l:command
   endif
-  execute l:command
+  silent! execute l:command
 endfunction
 
 command! -bang -nargs=? CustomBufferWrite :call utils#custom_buffer_write(<q-bang>, <q-args>)

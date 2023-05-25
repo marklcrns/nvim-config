@@ -43,16 +43,16 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-notify"),
   },
-  -- {
-  --   -- Overriding lsp_signature. See usr/lsp/init.lua
-  --   "folke/noice.nvim",
-  --   event = "VimEnter",
-  --   config = conf("noice"),
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
+  {
+    -- Overriding lsp_signature. See usr/lsp/init.lua
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    config = conf("noice"),
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
   -- {
   --   "mrded/nvim-lsp-notify",
   --   after = { "nvim-lspconfig" },
@@ -335,6 +335,14 @@ require("lazy").setup({
     init = utils.load_mappings("muren"),
     cmd = { "MurenToggle", "MurenOpen", "MurenUnique" },
     config = conf("muren"),
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    init = utils.load_mappings("inc_rename"),
+    cmd = "IncRename",
+    config = function()
+      require("inc_rename").setup()
+    end,
   },
 
   -- VCS
