@@ -195,18 +195,18 @@ require("lazy").setup({
     keys = { "<leader>", "<localleader>", "]", "[" },
     config = conf("which-key"),
   },
-  -- {
-  --   "folke/zen-mode.nvim",
-  --   cmd = "ZenMode",
-  --   init = utils.load_mappings("zen_mode"),
-  --   config = conf("zen-mode"),
-  -- },
   {
-    "Pocco81/true-zen.nvim",
-    cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", "TZNarrow" },
-    init = utils.load_mappings("true_zen"),
-    config = conf("true-zen"),
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    init = utils.load_mappings("zen_mode"),
+    config = conf("zen-mode"),
   },
+  -- {
+  --   "Pocco81/true-zen.nvim",
+  --   cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", "TZNarrow" },
+  --   init = utils.load_mappings("true_zen"),
+  --   config = conf("true-zen"),
+  -- },
 
   -- FILE NAVIGATION
   {
