@@ -627,6 +627,21 @@ M.treesj = {
   },
 }
 
+M.true_zen = {
+  plugin = true,
+
+  n = {
+    ["<localleader>szn"] = { "<cmd>TZNarrow<CR>", "toggle true zen narrow", opts = default_opts },
+    ["<localleader>szf"] = { "<cmd>TZFocus<CR>", "toggle true zen focus", opts = default_opts },
+    ["<localleader>szm"] = { "<cmd>TZMinimalist<CR>", "toggle true zen minimalist", opts = default_opts },
+    ["<localleader>sza"] = { "<cmd>TZAtaraxis<CR>", "toggle true zen ataraxis", opts = default_opts },
+  },
+
+  v = {
+    ["<localleader>szn"] = { ":'<,'>TZNarrow<CR>", "toggle true zen narrow", opts = default_opts },
+  },
+}
+
 M.spider = {
   plugin = true,
 

@@ -122,31 +122,31 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("focus"),
   },
-  {
-    "TaDaa/vimade",
-    cond = not sys.is_gui(),
-    init = function()
-      utils.lazy_load("vimade")
-      utils.load_mappings("vimade")
-    end,
-    config = conf("vimade"),
-  },
-  {
-    "marklcrns/lens.vim",
-    cond = not sys.is_gui(),
-    init = function()
-      utils.lazy_load("lens.vim")
-      utils.load_mappings("lens")
-    end,
-    config = conf("lens"),
-    dependencies = {
-      {
-        "camspiers/animate.vim",
-        cond = not sys.is_gui(),
-        config = conf("animate"),
-      },
-    },
-  },
+  -- {
+  --   "TaDaa/vimade",
+  --   cond = not sys.is_gui(),
+  --   init = function()
+  --     utils.lazy_load("vimade")
+  --     utils.load_mappings("vimade")
+  --   end,
+  --   config = conf("vimade"),
+  -- },
+  -- {
+  --   "marklcrns/lens.vim",
+  --   cond = not sys.is_gui(),
+  --   init = function()
+  --     utils.lazy_load("lens.vim")
+  --     utils.load_mappings("lens")
+  --   end,
+  --   config = conf("lens"),
+  --   dependencies = {
+  --     {
+  --       "camspiers/animate.vim",
+  --       cond = not sys.is_gui(),
+  --       config = conf("animate"),
+  --     },
+  --   },
+  -- },
   {
     "karb94/neoscroll.nvim",
     cond = not sys.is_gui(),
@@ -195,11 +195,17 @@ require("lazy").setup({
     keys = { "<leader>", "<localleader>", "]", "[" },
     config = conf("which-key"),
   },
+  -- {
+  --   "folke/zen-mode.nvim",
+  --   cmd = "ZenMode",
+  --   init = utils.load_mappings("zen_mode"),
+  --   config = conf("zen-mode"),
+  -- },
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    init = utils.load_mappings("zen_mode"),
-    config = conf("zen-mode"),
+    "Pocco81/true-zen.nvim",
+    cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", "TZNarrow" },
+    init = utils.load_mappings("true_zen"),
+    config = conf("true-zen"),
   },
 
   -- FILE NAVIGATION
