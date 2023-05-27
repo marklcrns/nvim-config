@@ -37,6 +37,8 @@ return function()
       "lspsagafinder",
       "neo-tree",
       "Trouble",
+      "floggraph",
+      "git",
     },
     compatible_filetrees = { "neo-tree", "nvim-tree", "nerdtree", "chadtree", "fern" },
     -- Covered in core/filetype.vim
