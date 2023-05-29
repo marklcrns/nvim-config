@@ -195,6 +195,14 @@ M.diffview = {
   },
 }
 
+M.dropbar = {
+  plugin = true,
+
+  n = {
+    ["<leader>cud"] = { "<cmd>lua require('dropbar.api').pick()<CR>", "toggle dropbar picker", opts = default_opts },
+  },
+}
+
 M.focus = {
   plugin = true,
 

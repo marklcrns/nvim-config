@@ -52,6 +52,9 @@ return function()
       t = {
         name = "+trouble",
       },
+      u = {
+        name = "+ui",
+      },
     },
     d = {
       name = "+documentation",

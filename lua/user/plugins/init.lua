@@ -89,7 +89,7 @@ require("lazy").setup({
     init = utils.load_mappings("spider"),
     config = function()
       require("spider").setup({
-        skipInsignificantPunctuation = true,
+        skipInsignificantPunctuation = false,
       })
     end,
     event = "VimEnter",
@@ -207,6 +207,15 @@ require("lazy").setup({
   --   init = utils.load_mappings("true_zen"),
   --   config = conf("true-zen"),
   -- },
+  {
+    "Bekaboo/dropbar.nvim",
+    init = utils.load_mappings("dropbar"),
+    event = "VimEnter",
+    config = conf("dropbar"),
+    dependencies = {
+      "kyazdani42/nvim-web-devicons",
+    },
+  },
 
   -- FILE NAVIGATION
   {
@@ -684,12 +693,22 @@ require("lazy").setup({
     init = utils.lazy_load("hardtime.nvim"),
     config = function()
       require("hardtime").setup({
-        max_count = 5,
+        max_count = 3,
         allow_different_key = true,
         resetting_keys = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "c", "d" },
         restricted_keys = { "h", "j", "k", "l", "-", "+" },
         disabled_keys = {},
-        disabled_filetypes = { "qf", "netrw", "neo-tree", "lazy", "mason", "fugitive", "NeogitStatus", "" },
+        disabled_filetypes = {
+          "qf",
+          "netrw",
+          "neo-tree",
+          "lazy",
+          "mason",
+          "fugitive",
+          "NeogitStatus",
+          "dropbar_menu",
+          "",
+        },
       })
     end,
   },
