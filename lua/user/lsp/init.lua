@@ -145,6 +145,7 @@ lspconfig.vimls.setup(M.create_config())
 -- lspconfig.gopls.setup(M.create_config())
 
 -- Misc
+lspconfig.dockerls.setup(M.create_config())
 lspconfig.eslint.setup(M.create_config())
 lspconfig.jsonls.setup(M.create_config())
 lspconfig.emmet_ls.setup(M.create_config({
