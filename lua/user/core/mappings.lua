@@ -231,6 +231,13 @@ M.fugitive = {
       "git log",
       opts = default_opts,
     },
+    ["<leader>gL"] = {
+      function()
+        vim.fn.execute("Flogsplit -path=" .. vim.fn.fnamemodify(vim.fn.expand("%"), ":~:."))
+      end,
+      "git log current buffer",
+      opts = default_opts,
+    },
     ["<leader>ga"] = {
       "<cmd>silent exe '!git add %' <bar> lua Config.common.notify.git('Staged ' .. Config.common.utils.str_quote(pl:vim_expand('%:.')))<CR>",
       "git add buffer",
