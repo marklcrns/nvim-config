@@ -46,6 +46,7 @@ require("lazy").setup({
   {
     -- Overriding lsp_signature. See usr/lsp/init.lua
     "folke/noice.nvim",
+    cond = not sys.is_gui(),
     event = "VeryLazy",
     config = conf("noice"),
     dependencies = {
@@ -62,7 +63,11 @@ require("lazy").setup({
   --     require("lsp-notify").setup()
   --   end,
   -- },
-  { "xiyaowong/transparent.nvim", lazy = false },
+  {
+    "xiyaowong/transparent.nvim",
+    cond = not sys.is_gui(),
+    lazy = false,
+  },
 
   -- COLORSCHEMES
   { "folke/tokyonight.nvim", config = conf("tokyonight") },
@@ -209,6 +214,7 @@ require("lazy").setup({
   -- },
   {
     "Bekaboo/dropbar.nvim",
+    cond = not sys.is_gui(),
     init = utils.load_mappings("dropbar"),
     event = "VimEnter",
     config = conf("dropbar"),
