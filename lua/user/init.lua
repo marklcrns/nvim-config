@@ -15,6 +15,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
+-- require("user.settings")
+
 vim.cmd.source(config_dir .. "/vimrc")
 vim.cmd.source(config_dir .. "/autocommands.vim")
 

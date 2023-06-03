@@ -26,62 +26,6 @@ return function()
     popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
-    source_selector = {
-      winbar = true,
-      statusline = false,
-    },
-    default_component_configs = {
-      container = {
-        enable_character_fade = true,
-      },
-      indent = {
-        indent_size = 2,
-        padding = 1, -- extra padding on left hand side
-        -- indent guides
-        with_markers = true,
-        indent_marker = "│",
-        last_indent_marker = "└",
-        highlight = "NeoTreeIndentMarker",
-        -- expander config, needed for nesting files
-        with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
-        expander_collapsed = "",
-        expander_expanded = "",
-        expander_highlight = "NeoTreeExpander",
-      },
-      icon = {
-        folder_closed = "",
-        folder_open = "",
-        folder_empty = "ﰊ",
-        -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
-        -- then these will never be used.
-        default = "*",
-        highlight = "NeoTreeFileIcon",
-      },
-      modified = {
-        symbol = "[+]",
-        highlight = "NeoTreeModified",
-      },
-      name = {
-        trailing_slash = false,
-        use_git_status_colors = true,
-        highlight = "NeoTreeFileName",
-      },
-      git_status = {
-        symbols = {
-          -- Change type
-          added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-          modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
-          deleted = "✖", -- this can only be used in the git_status source
-          renamed = "", -- this can only be used in the git_status source
-          -- Status type
-          untracked = "",
-          ignored = "",
-          unstaged = "",
-          staged = "",
-          conflict = "",
-        },
-      },
-    },
     window = {
       position = "left",
       width = 35,
@@ -332,6 +276,51 @@ return function()
           vim.fn.setreg("1", content)
           vim.fn.setreg("+", content)
         end,
+      },
+    },
+
+    -- Nerd Font v3 Fix
+    default_component_configs = {
+      icon = {
+        folder_empty = "󰜌",
+        folder_empty_open = "󰜌",
+      },
+      git_status = {
+        symbols = {
+          renamed = "󰁕",
+          unstaged = "󰄱",
+        },
+      },
+    },
+    document_symbols = {
+      kinds = {
+        File = { icon = "󰈙", hl = "Tag" },
+        Namespace = { icon = "󰌗", hl = "Include" },
+        Package = { icon = "󰏖", hl = "Label" },
+        Class = { icon = "󰌗", hl = "Include" },
+        Property = { icon = "󰆧", hl = "@property" },
+        Enum = { icon = "󰒻", hl = "@number" },
+        Function = { icon = "󰊕", hl = "Function" },
+        String = { icon = "󰀬", hl = "String" },
+        Number = { icon = "󰎠", hl = "Number" },
+        Array = { icon = "󰅪", hl = "Type" },
+        Object = { icon = "󰅩", hl = "Type" },
+        Key = { icon = "󰌋", hl = "" },
+        Struct = { icon = "󰌗", hl = "Type" },
+        Operator = { icon = "󰆕", hl = "Operator" },
+        TypeParameter = { icon = "󰊄", hl = "Type" },
+        StaticMethod = { icon = "󰠄 ", hl = "Function" },
+      },
+    },
+    -- Add this section only if you've configured source selector.
+    sources = { "filesystem", "buffers", "git_status" },
+    source_selector = {
+      winbar = true,
+      sources = {
+        { source = "filesystem", display_name = " 󰉓 Files " },
+        { source = "buffers", display_name = "  Buffer " },
+        { source = "git_status", display_name = " 󰊢 Git " },
+        { source = "diagnostics", display_name = "  Diagnostics " },
       },
     },
   })

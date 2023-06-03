@@ -1,9 +1,3 @@
 return function()
-  require("dropbar").setup({
-    icons = {
-      kinds = {
-        use_devicons = true,
-      },
-    },
-  })
+  require("dropbar").setup({})
 end

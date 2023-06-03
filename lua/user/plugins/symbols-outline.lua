@@ -1,11 +1,11 @@
-return function()
+return function ()
   local hi_link = Config.common.hl.hi_link
 
   require("symbols-outline").setup({
     highlight_hovered_item = true,
     show_guides = true,
     auto_preview = false, -- experimental
-    position = "right",
+    position = 'right',
     relative_width = false,
     width = 50,
     keymaps = {
@@ -25,14 +25,14 @@ return function()
     lsp_blacklist = {},
     symbol_blacklist = {},
     symbols = {
-      File = { icon = "", hl = "@text.uri" },
-      Module = { icon = "", hl = "@namespace" },
-      Namespace = { icon = "", hl = "@namespace" },
-      Package = { icon = "", hl = "@namespace" },
+      File = { icon = "󰈔", hl = "@text.uri" },
+      Module = { icon = "󰆧", hl = "@namespace" },
+      Namespace = { icon = "󰅪", hl = "@namespace" },
+      Package = { icon = "󰏗", hl = "@namespace" },
       Class = { icon = "", hl = "@type" },
       Method = { icon = "", hl = "@method" },
       Property = { icon = "", hl = "@method" },
-      Field = { icon = "", hl = "@field" },
+      Field = { icon = "󰆨", hl = "@field" },
       Constructor = { icon = "", hl = "@constructor" },
       Enum = { icon = "", hl = "@type" },
       Interface = { icon = "", hl = "@type" },
@@ -50,8 +50,8 @@ return function()
       Struct = { icon = "", hl = "@type" },
       Event = { icon = "", hl = "@type" },
       Operator = { icon = "", hl = "@operator" },
-      TypeParameter = { icon = "", hl = "@parameter" },
-    },
+      TypeParameter = { icon = "", hl = "@parameter" }
+    }
   })
 
   hi_link("FocusedSymbol", "Visual")

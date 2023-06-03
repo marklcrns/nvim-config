@@ -1,8 +1,8 @@
-return function()
+return function ()
   local lib = require("user.lib")
   local utils = Config.common.utils
 
-  require("trouble").setup({
+  require("trouble").setup {
     height = 10, -- height of the trouble list
     icons = true, -- use dev-icons for filenames
     mode = "workspace_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
@@ -19,7 +19,7 @@ return function()
       cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
       open_folds = "zR", -- open all folds
       previous = "k", -- preview item
-      next = "j", -- next item
+      next = "j" -- next item
     },
     indent_lines = true, -- add an indent guide below the fold icons
     auto_open = false, -- automatically open the list when you have diagnostics
@@ -27,23 +27,28 @@ return function()
     auto_preview = false, -- automatically preview the location of the diagnostic. <esc> to close preview and go back
     signs = {
       -- icons / text used for a diagnostic
-      error = "",
+      error = "󰅚",
       warning = "",
-      hint = "",
-      information = "",
+      hint = "󰌶",
+      information = ""
     },
-    use_lsp_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
-  })
+    use_lsp_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+  }
 
-  Config.fn.toggle_diagnostics = lib.create_buf_toggler(function()
-    return utils.list_bufs({
-      options = { filetype = "Trouble" },
-      no_hidden = true,
-      tabpage = 0,
-    })[1]
-  end, function()
-    vim.cmd("Trouble")
-  end, function()
-    vim.cmd("wincmd p | TroubleClose")
-  end, { focus = true, remember_height = true })
+  Config.fn.toggle_diagnostics = lib.create_buf_toggler(
+    function ()
+      return utils.list_bufs({
+        options = { filetype = "Trouble" },
+        no_hidden = true,
+        tabpage = 0
+      })[1]
+    end,
+    function ()
+      vim.cmd("Trouble")
+    end,
+    function ()
+      vim.cmd("wincmd p | TroubleClose")
+    end,
+    { focus = true, remember_height = true }
+  )
 end

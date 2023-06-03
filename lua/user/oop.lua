@@ -43,44 +43,47 @@ local mt_func_names = {
   "__call",
 }
 
+local function new_instance(class, ...)
+  local inst = { class = class }
+  local mt = { __index = class }
+
+  for _, mt_name in ipairs(mt_func_names) do
+    local class_mt_func = class[mt_name]
+
+    if type(class_mt_func) == "function" then
+      mt[mt_name] = wrap_mt_func(class_mt_func, inst)
+    elseif class_mt_func ~= nil then
+      mt[mt_name] = class_mt_func
+    end
+  end
+
+  local self = setmetatable(inst, mt)
+  self:init(...)
+
+  return self
+end
+
+local function tostring(class)
+  return fmt("<class %s>", class.__name)
+end
+
 ---@generic T : user.Object
+---@generic U : user.Object
 ---@param name string
 ---@param super_class? T
+---@return U new_class
 function M.create_class(name, super_class)
   super_class = super_class or M.Object
 
-  return setmetatable(
-    {
-      __name = name,
-      super_class = super_class,
-    },
-    {
-      __index = super_class,
-      __call = function(t, ...)
-        local inst = { class = t }
-        local mt = { __index = t }
-
-        for _, mt_name in ipairs(mt_func_names) do
-          local class_mt_func = t[mt_name]
-
-          if type(class_mt_func) == "function" then
-            mt[mt_name] = wrap_mt_func(class_mt_func, inst)
-          elseif class_mt_func ~= nil then
-            mt[mt_name] = class_mt_func
-          end
-        end
-
-        local self = setmetatable(inst, mt)
-
-        if self.init then self:init(...) end
-
-        return self
-      end,
-      __tostring = function(_)
-        return fmt("<class %s>", name)
-      end,
-    }
-  )
+  return setmetatable({
+    __name = name,
+    super_class = super_class,
+    init = function(...) end,
+  }, {
+    __index = super_class,
+    __call = new_instance,
+    __tostring = tostring,
+  })
 end
 
 local function classm_safeguard(x)
@@ -117,7 +120,9 @@ end
 ---@return boolean
 function Object:ancestorof(other)
   classm_safeguard(self)
-  if not M.is_instance(other) then return false end
+  if not M.is_instance(other) then
+    return false
+  end
 
   return other:instanceof(self)
 end
@@ -130,6 +135,7 @@ function Object:classpath()
 
   while cur do
     ret = cur.__name .. "." .. ret
+    cur = cur.super_class
   end
 
   return ret
@@ -154,7 +160,9 @@ function Object:super(...)
     next_super = self.super_class
   end
 
-  if not next_super then return end
+  if not next_super then
+    return
+  end
 
   self.__init_caller = next_super
   next_super.init(self, ...)
@@ -168,7 +176,9 @@ function Object:instanceof(other)
   local cur = self.class
 
   while cur do
-    if cur == other then return true end
+    if cur == other then
+      return true
+    end
     cur = cur.super_class
   end
 
@@ -178,14 +188,18 @@ end
 ---@param x any
 ---@return boolean
 function M.is_class(x)
-  if type(x) ~= "table" then return false end
-  return type(rawget(x, "__name")) == "string" and rawget(x, "instanceof") == Object.instanceof
+  if type(x) ~= "table" then
+    return false
+  end
+  return type(rawget(x, "__name")) == "string" and x.instanceof == Object.instanceof
 end
 
 ---@param x any
 ---@return boolean
 function M.is_instance(x)
-  if type(x) ~= "table" then return false end
+  if type(x) ~= "table" then
+    return false
+  end
   return M.is_class(x.class)
 end
 

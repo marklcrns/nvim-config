@@ -2,12 +2,6 @@ return function()
   local wk = require("which-key")
 
   wk.setup({
-    icons = {
-      breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-      separator = "  ", -- symbol used between a key and it's label
-      group = "+", -- symbol prepended to a group
-    },
-
     key_labels = {
       -- override the label used to display some keys. It doesn't effect WK in any other way.
       -- For example:

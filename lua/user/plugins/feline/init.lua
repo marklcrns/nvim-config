@@ -22,7 +22,7 @@ M.statusline = {}
 M.components = {}
 
 local icons = {
-  modified = "",
+  modified = "󰆓",
   line_number = "",
   lsp_server = "",
   indent = "",
