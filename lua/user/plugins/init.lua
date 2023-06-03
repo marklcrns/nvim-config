@@ -34,6 +34,17 @@ local utils = require("user.core.utils")
 local sys = Config.common.sys
 
 require("lazy").setup({
+  -- SYNTAX & FILETYPE PLUGINS
+  {
+    "lervag/vimtex",
+    ft = { "plaintex", "tex", "latex", "markdown" },
+    config = conf("vimtex"),
+  },
+  {
+    "chrisbra/csv.vim",
+    ft = "csv",
+  },
+
   -- UTILS
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
@@ -319,17 +330,6 @@ require("lazy").setup({
     end,
   },
   {
-    "danymat/neogen",
-    init = utils.load_mappings("neogen"),
-    cmd = "Neogen",
-    config = function()
-      require("neogen").setup({
-        enabled = true,
-        -- snippet_engine = "luasnip",
-      })
-    end,
-  },
-  {
     "RRethy/vim-illuminate",
     event = "VeryLazy",
     config = conf("vim-illuminate"),
@@ -478,10 +478,6 @@ require("lazy").setup({
       end, 0)
     end,
   },
-  {
-    "chrisbra/csv.vim",
-    ft = "csv",
-  },
 
   -- LANGUAGE SERVER PROTOCOL + TOOLS
   {
@@ -587,6 +583,9 @@ require("lazy").setup({
       },
       {
         "quangnguyen30192/cmp-nvim-ultisnips",
+        cond = function()
+          return vim.g.snippet_engine == "ultisnips"
+        end,
         config = function()
           require("cmp_nvim_ultisnips").setup({
             filetype_source = "treesitter",
@@ -606,17 +605,20 @@ require("lazy").setup({
           },
         },
       },
-      -- {
-      --   "saadparwaiz1/cmp_luasnip",
-      --   dependencies = {
-      --     {
-      --       "L3MON4D3/LuaSnip",
-      --       version = "<CurrentMajor>.*",
-      --       config = conf("LuaSnip"),
-      --       dependencies = "rafamadriz/friendly-snippets",
-      --     },
-      --   },
-      -- },
+      {
+        "saadparwaiz1/cmp_luasnip",
+        cond = function()
+          return vim.g.snippet_engine == "luasnip"
+        end,
+        dependencies = {
+          {
+            "L3MON4D3/LuaSnip",
+            version = "<CurrentMajor>.*",
+            config = conf("LuaSnip"),
+            dependencies = "rafamadriz/friendly-snippets",
+          },
+        },
+      },
       {
         "zbirenbaum/copilot-cmp",
         config = conf("copilot-cmp"),
@@ -636,9 +638,15 @@ require("lazy").setup({
     },
   },
   {
-    "lervag/vimtex",
-    ft = { "plaintex", "tex", "latex", "markdown" },
-    config = conf("vimtex"),
+    "danymat/neogen",
+    init = utils.load_mappings("neogen"),
+    cmd = "Neogen",
+    config = function()
+      require("neogen").setup({
+        enabled = true,
+        snippet_engine = "luasnip",
+      })
+    end,
   },
   {
     "smjonas/snippet-converter.nvim",
@@ -694,6 +702,10 @@ require("lazy").setup({
   },
 
   -- MISC
+  {
+    "ThePrimeagen/harpoon",
+    event = "VimEnter",
+  },
   {
     "m4xshen/hardtime.nvim",
     init = utils.lazy_load("hardtime.nvim"),

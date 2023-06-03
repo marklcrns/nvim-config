@@ -110,6 +110,32 @@ return function()
         never_show_by_pattern = { -- uses glob style patterns
           --".null-ls_*",
         },
+        -- Harpoon integration {{{
+        components = {
+          harpoon_index = function(config, node, state)
+            local Marked = require("harpoon.mark")
+            local path = node:get_id()
+            local succuss, index = pcall(Marked.get_index_of, path)
+            if succuss and index and index > 0 then
+              return {
+                text = string.format(" ⥤ %d", index), -- <-- Add your favorite harpoon like arrow here
+                highlight = config.highlight or "NeoTreeDirectoryIcon",
+              }
+            else
+              return {}
+            end
+          end,
+        },
+        renderers = {
+          file = {
+            { "icon" },
+            { "name", use_git_status_colors = true },
+            { "harpoon_index" }, --> This is what actually adds the component in where you want it
+            { "diagnostics" },
+            { "git_status", highlight = "NeoTreeDimText" },
+          },
+        },
+        -- }}}
       },
       follow_current_file = false, -- This will find and focus the file in the active buffer every
       -- time the current file is changed while the tree is open.
@@ -279,7 +305,7 @@ return function()
       },
     },
 
-    -- Nerd Font v3 Fix
+    -- Nerd Font v3 Fix {{{
     default_component_configs = {
       icon = {
         folder_empty = "󰜌",
@@ -323,5 +349,6 @@ return function()
         { source = "diagnostics", display_name = "  Diagnostics " },
       },
     },
+    -- }}}
   })
 end
