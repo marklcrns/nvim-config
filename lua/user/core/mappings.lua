@@ -13,7 +13,7 @@ local default_opts = {
 M.general = {
   i = {
     -- Misc
-    ["<Tab>"] = { "<cmd>lua Config.lib.full_indent()<CR>", "indent", default_opts },
+    -- ["<Tab>"] = { "<cmd>lua Config.lib.full_indent()<CR>", "indent", default_opts },
   },
 
   n = {

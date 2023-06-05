@@ -166,22 +166,53 @@ return function()
 
     mapping = {
       -- INFO: If using luasnip snippet engine
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.confirm({ select = true })
-        else
+      -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+      ["<Tab>"] = cmp.mapping({
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+            cmp.complete()
+          end
+        end,
+        i = function(fallback)
+          if has_words_before() then
+            if luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+              return
+            end
+          end
           fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
+        end,
+        s = function(fallback)
+          if luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end,
+      }),
+      ["<S-Tab>"] = cmp.mapping({
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+          end
+        end,
+        i = function(fallback)
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end,
+        s = function(fallback)
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end,
+      }),
       ["<C-j>"] = cmp.mapping(function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
@@ -270,9 +301,20 @@ return function()
       ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
       ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
       ["<C-c>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+      -- ["<CR>"] = cmp.mapping({
+      --   i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+      --   s = cmp.mapping.confirm({ select = true }),
+      -- }),
       ["<CR>"] = cmp.mapping({
-        i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+        i = function(fallback)
+          if cmp.visible() and cmp.get_active_entry() then
+            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+          else
+            fallback()
+          end
+        end,
         s = cmp.mapping.confirm({ select = true }),
+        -- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
       }),
     },
   })
