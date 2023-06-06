@@ -542,13 +542,13 @@ require("lazy").setup({
     "iamcco/markdown-preview.nvim",
     init = utils.load_mappings("markdown_preview"),
     build = "cd app && yarn install",
-    ft = { "markdown", "pandoc.markdown", "rmd" },
+    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
     config = conf("markdown-preview"),
   },
   {
     "mzlogin/vim-markdown-toc",
     init = utils.load_mappings("markdown_toc"),
-    ft = { "markdown", "pandoc.markdown", "rmd" },
+    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
     config = function()
       vim.cmd([[
         let g:vmt_fence_text = 'TOC'
@@ -644,7 +644,7 @@ require("lazy").setup({
     config = function()
       require("neogen").setup({
         enabled = true,
-        snippet_engine = "luasnip",
+        -- snippet_engine = "luasnip",
       })
     end,
   },

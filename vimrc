@@ -7,7 +7,7 @@
 let g:enable_format_on_save= v:true
 " Must set proper snippet engine in /lua/user/plugins/nvim-cmp.lua
 " and modify snippet engine in neogen
-let g:snippet_engine = 'luasnip'
+let g:snippet_engine = 'ultisnips'
 
 " Gui Fonts
 let g:guifontsize = 12
