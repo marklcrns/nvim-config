@@ -725,6 +725,7 @@ require("lazy").setup({
           "fugitive",
           "NeogitStatus",
           "dropbar_menu",
+          "Outline",
           "",
         },
       })
