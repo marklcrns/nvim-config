@@ -305,11 +305,54 @@ M.gitsigns = {
     ["<Leader>ghR"] = { "<cmd>Gitsigns reset_buffer<CR>", "git reset entire buffer", opts = default_opts },
     ["<Leader>ghs"] = { "<cmd>Gitsigns stage_hunk<CR>", "git stage hunk", opts = default_opts },
     ["<Leader>ghu"] = { "<cmd>Gitsigns undo_stage_hunk<CR>", "git undo stage hunk", opts = default_opts },
+    ["<Leader>ghtb"] = {
+      "<cmd>Gitsigns toggle_current_line_blame<CR>",
+      "git toggle blame current line",
+      opts = default_opts,
+    },
+    ["<Leader>ghtd"] = { "<cmd>Gitsigns toggle_deleted<CR>", "git toggle show deleted hunk", opts = default_opts },
+    ["]c"] = {
+      function()
+        if vim.wo.diff then
+          vim.cmd("norm! ]c")
+        else
+          require("gitsigns").next_hunk({ wrap = false })
+        end
+      end,
+      "next git hunk",
+    },
+    ["[c"] = {
+      function()
+        if vim.wo.diff then
+          vim.cmd("norm! [c")
+        else
+          require("gitsigns").prev_hunk({ wrap = false })
+        end
+      end,
+      "prev git hunk",
+    },
   },
 
   v = {
     ["<Leader>ghr"] = { ":Gitsigns reset_hunk<CR>", "git reset hunk", opts = default_opts },
     ["<Leader>ghs"] = { ":Gitsigns stage_hunk<CR>", "git stage hunk", opts = default_opts },
+    ["ih"] = { ":<C-U>Gitsigns select_hunk<CR>", "git select hunk", opts = default_opts },
+  },
+}
+
+M.harpoon = {
+  plugin = true,
+
+  n = {
+    ["<Leader>ha"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "mark file", opts = default_opts },
+    ["<Leader>hf"] = {
+      "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
+      "quick menu toggle",
+      opts = default_opts,
+    },
+    ["<Leader>hh"] = { "<cmd>lua require('harpoon.ui').nav_prev()<CR>", "navigate to prev mark", opts = default_opts },
+    ["<Leader>hl"] = { "<cmd>lua require('harpoon.ui').nav_next()<CR>", "navigate to next mark", opts = default_opts },
+    ["<leader>fdh"] = { "<cmd>Telescope harpoon marks<CR>", "find harpoon marks", opts = default_opts },
   },
 }
 
@@ -566,7 +609,8 @@ M.telescope = {
     ["<leader>fdb"] = { "<cmd>Telescope buffers<CR>", "find buffers", opts = default_opts },
     ["<leader>fdc"] = { "<cmd>Telescope commands<CR>", "find commands", opts = default_opts },
     ["<leader>fdf"] = { "<cmd>Telescope find_files<CR>", "find files", opts = default_opts },
-    ["<leader>fdh"] = { "<cmd>Telescope help_tags<CR>", "find help tags", opts = default_opts },
+    -- Replaced by harpoon marks
+    -- ["<leader>fdh"] = { "<cmd>Telescope help_tags<CR>", "find help tags", opts = default_opts },
     ["<leader>fdi"] = { "<cmd>Telescope media_files<CR>", "find images", opts = default_opts },
     ["<leader>fdj"] = { "<cmd>Telescope jumplist<CR>", "find jumplist", opts = default_opts },
     ["<leader>fdk"] = { "<cmd>Telescope keymaps<CR>", "find keymappings", opts = default_opts },

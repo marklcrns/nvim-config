@@ -705,6 +705,7 @@ require("lazy").setup({
   {
     "ThePrimeagen/harpoon",
     event = "VimEnter",
+      utils.load_mappings("harpoon")
   },
   {
     "m4xshen/hardtime.nvim",

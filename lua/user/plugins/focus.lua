@@ -7,7 +7,7 @@ return function()
     number = true,
     absolutenumber_unfocussed = true,
     -- autoresize = Config.common.sys.is_gui(),
-    autoresize = true,
+    autoresize = false,
     -- width = vim.api.nvim_get_option("textwidth") + 10,
     -- height = 40,
     -- minwidth = 10,

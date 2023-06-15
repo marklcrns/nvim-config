@@ -75,7 +75,13 @@ return function()
       },
       h = {
         name = "+hunk",
+        t = {
+          name = "+toggle",
+        },
       },
+    },
+    h = {
+      name = "+harpoon",
     },
     i = {
       name = "+ui-interface",

@@ -227,4 +227,5 @@ return function()
   require("telescope").load_extension("ui-select")
   require("telescope").load_extension("projects")
   require("telescope").load_extension("undo")
+  require("telescope").load_extension('harpoon')
 end
