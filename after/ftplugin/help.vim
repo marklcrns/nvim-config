@@ -1,92 +1,15 @@
-" Snippets from vim-help
-" Credits: https://github.com/dahu/vim-help
+setl comments+=n:•
+setl formatoptions=tnqro
+" setl iskeyword=!-~,^*,^\|,^",192-255
 
-let s:save_cpo = &cpoptions
-set cpoptions&vim
+" Send all helptags to loclist
+nnoremap <buffer> <M-o> <Cmd>lvimgrep /\v.*\*\S+\*$/j % <bar> lopen<CR>
 
-function! s:setup_buffer()
-  let b:undo_ftplugin .= ' | setlocal spell< list< hidden< iskeyword<'
-    \ . " | execute 'nunmap <buffer> <CR>'"
-    \ . " | execute 'nunmap <buffer> <BS>'"
-    \ . " | execute 'nunmap <buffer> o'"
-    \ . " | execute 'nunmap <buffer> O'"
-    \ . " | execute 'nunmap <buffer> f'"
-    \ . " | execute 'nunmap <buffer> F'"
-    \ . " | execute 'nunmap <buffer> t'"
-    \ . " | execute 'nunmap <buffer> T'"
-    \ . " | execute 'nunmap <buffer> <leader>j'"
-    \ . " | execute 'nunmap <buffer> <leader>k'"
-    \ . " | execute 'nunmap <buffer> q'"
-
-  setlocal nospell
-  setlocal nolist
-  setlocal nohidden
-  setlocal iskeyword+=:
-  setlocal iskeyword+=#
-  setlocal iskeyword+=-
-
-  " unsilent echomsg 'help edit' &ft bufname() 'type:' &buftype
-
-  if s:count_windows() - 1 > 1
-    wincmd K
-  else
-    wincmd L
-  endif
-
-  " Exit help window with 'q'
-  nnoremap <silent><buffer> q :quit<CR>
-
-  " Jump to links with enter
-  nmap <buffer> <CR> <C-]>
-
-  " Jump back with backspace
-  nmap <buffer> <BS> <C-T>
-
-  " Skip to next option link
-  nmap <buffer> o /'[a-z]\{2,\}'<CR>
-
-  " Skip to previous option link
-  nmap <buffer> O ?'[a-z]\{2,\}'<CR>
-
-  " Skip to next subject link
-  nmap <buffer><nowait> f /\|\S\+\|<CR>l
-
-  " Skip to previous subject link
-  nmap <buffer> F h?\|\S\+\|<CR>l
-
-  " Skip to next tag (subject anchor)
-  nmap <buffer> t /\*\S\+\*<CR>l
-
-  " Skip to previous tag (subject anchor)
-  nmap <buffer> T h?\*\S\+\*<CR>l
-
-  " Skip to next/prev quickfix list entry (from a helpgrep)
-  nmap <buffer> <leader>j :cnext<CR>
-  nmap <buffer> <leader>k :cprev<CR>
+function! s:format_helptags() abort
+  let l:view = winsaveview()
+  %sub/\v(.{-})(\s{2,})(\*.*\*)/\=submatch(1) . repeat(" ", 48 - len(submatch(1))) . submatch(3)
+  noh
+  call winrestview(l:view)
 endfunction
 
-" Count tab page windows
-function! s:count_windows()
-  let l:count = 0
-  let l:tabnr = tabpagenr()
-  let l:ignore = '^\(hover\|fern\|clap_\|defx\|denite\)'
-  try
-    let l:windows = gettabinfo(l:tabnr)[0].windows
-    for l:win in l:windows
-      if getwinvar(l:win, '&filetype') !~# l:ignore
-        let l:count += 1
-      endif
-    endfor
-  catch
-    " Fallback
-    let l:count = tabpagewinnr(l:tabnr, '$')
-  endtry
-  return l:count
-endfunction
-
-" Setup only when viewing help pages
-if &buftype ==# 'help'
-  call s:setup_buffer()
-endif
-
-let &cpoptions = s:save_cpo
+nnoremap <buffer> <leader>ff <Cmd>call <sid>format_helptags()<CR>
