@@ -54,17 +54,17 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-notify"),
   },
-  {
-    -- Overriding lsp_signature. See usr/lsp/init.lua
-    "folke/noice.nvim",
-    cond = not sys.is_gui(),
-    event = "VeryLazy",
-    config = conf("noice"),
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-  },
+  -- {
+  --   -- Overriding lsp_signature. See usr/lsp/init.lua
+  --   "folke/noice.nvim",
+  --   cond = not sys.is_gui(),
+  --   event = "VeryLazy",
+  --   config = conf("noice"),
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   },
+  -- },
   -- {
   --   "mrded/nvim-lsp-notify",
   --   after = { "nvim-lspconfig" },
