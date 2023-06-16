@@ -198,6 +198,13 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("feline"),
   },
+  {
+    "HampusHauffman/block.nvim",
+    cmd = { "Block", "BlockOn" },
+    config = function()
+      require("block").setup({})
+    end,
+  },
 
   -- UI INTERFACE
   {
@@ -705,7 +712,7 @@ require("lazy").setup({
   {
     "ThePrimeagen/harpoon",
     event = "VimEnter",
-      utils.load_mappings("harpoon")
+    utils.load_mappings("harpoon"),
   },
   {
     "m4xshen/hardtime.nvim",
