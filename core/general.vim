@@ -1,7 +1,7 @@
 " ==================== General Settings ==================== "
 
 " General {{{
-set mouse=nv                 " Disable mouse in command-line mode
+set mouse=nv                 " Only allow mouse in normal and visual mode
 set report=0                 " Don't report on line changes
 set errorbells               " Trigger bell on error
 set visualbell               " Use visual bell instead of beeping
