@@ -54,6 +54,7 @@ endif
 " Wildmenu {{{
 " --------
 if has('wildmenu')
+  set wildcharm=<Tab>         " Use <Tab> to cycle through wildmenu
   if ! has('nvim')
     set nowildmenu
     set wildmode=list:longest,full

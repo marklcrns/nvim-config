@@ -45,7 +45,7 @@ return function()
         ["<C-v>"] = "vsplit_with_window_picker",
         ["<cr>"] = "open_with_window_picker",
         ["e"] = "open_drop",
-        ["t"] = "open_tabnew",
+        ["<C-t>"] = "open_tabnew",
         ["<Tab>"] = "toggle_node",
         ["<S-Tab>"] = "close_node",
         -- ["t"] = "open_tab_drop",

@@ -117,6 +117,12 @@ return function()
         f = {
           name = "+finder",
         },
+        j = {
+          name = "+journal",
+        },
+        m = {
+          name = "+navigation-modes",
+        },
       },
       w = {
         name = "+vimwiki",

@@ -44,6 +44,10 @@ require("lazy").setup({
     "chrisbra/csv.vim",
     ft = "csv",
   },
+  {
+    "aliou/bats.vim",
+    ft = "bats",
+  },
 
   -- UTILS
   "nvim-lua/popup.nvim",
@@ -201,9 +205,7 @@ require("lazy").setup({
   {
     "HampusHauffman/block.nvim",
     cmd = { "Block", "BlockOn" },
-    config = function()
-      require("block").setup({})
-    end,
+    config = true,
   },
 
   -- UI INTERFACE
@@ -283,16 +285,12 @@ require("lazy").setup({
   {
     "numToStr/Comment.nvim",
     init = utils.lazy_load("Comment.nvim"),
-    config = function()
-      require("Comment").setup()
-    end,
+    config = true,
   },
   {
     "kylechui/nvim-surround",
     init = utils.lazy_load("nvim-surround"),
-    config = function()
-      require("nvim-surround").setup()
-    end,
+    config = true,
   },
   {
     "windwp/nvim-autopairs",
@@ -368,9 +366,7 @@ require("lazy").setup({
     "smjonas/inc-rename.nvim",
     init = utils.load_mappings("inc_rename"),
     cmd = "IncRename",
-    config = function()
-      require("inc_rename").setup()
-    end,
+    config = true,
   },
 
   -- VCS
@@ -541,9 +537,7 @@ require("lazy").setup({
     "folke/neodev.nvim",
     after = "nvim-lspconfig",
     -- NOTE: Defined in lua/init.lua
-    -- config = function()
-    --   require("neodev").setup({})
-    -- end,
+    -- config = true,
   },
   {
     "iamcco/markdown-preview.nvim",
@@ -651,7 +645,7 @@ require("lazy").setup({
     config = function()
       require("neogen").setup({
         enabled = true,
-        -- snippet_engine = "luasnip",
+        snippet_engine = "luasnip",
       })
     end,
   },
@@ -713,6 +707,7 @@ require("lazy").setup({
     "ThePrimeagen/harpoon",
     event = "VimEnter",
     utils.load_mappings("harpoon"),
+    config = true,
   },
   {
     "m4xshen/hardtime.nvim",

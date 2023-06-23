@@ -13,7 +13,7 @@ local default_opts = {
 M.general = {
   i = {
     -- Misc
-    -- ["<Tab>"] = { "<cmd>lua Config.lib.full_indent()<CR>", "indent", default_opts },
+    -- ["<Tab>"] = { "<cmd>lua Config.lib.full_indent()<CR>", "indent", opts = default_opts },
   },
 
   n = {
@@ -28,11 +28,21 @@ M.general = {
       "move k through display line",
       opts = { expr = true, noremap = true, silent = true },
     },
+    ["}"] = {
+      ":<C-u>execute 'keepjumps norm! ' . v:count1 . '}'<CR>",
+      "move } without poluting jumplist",
+      opts = default_opts,
+    },
+    ["{"] = {
+      ":<C-u>execute 'keepjumps norm! ' . v:count1 . '{'<CR>",
+      "move { without poluting jumplist",
+      opts = default_opts,
+    },
     -- UI
-    ["<A-S-D>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", default_opts },
-    ["<C-M-o>"] = { "<cmd>lua Config.fn.toggle_outline()<CR>", "toggle outline", default_opts },
-    ["<M-CR>"] = { "<cmd>lua Config.fn.update_messages_win()<CR>", "open messages win", default_opts },
-    ["<M-q>"] = { "<cmd>lua Config.fn.toggle_quickfix()<CR>", "toggle quickfix", default_opts },
+    ["<A-S-D>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", opts = default_opts },
+    ["<C-M-o>"] = { "<cmd>lua Config.fn.toggle_outline()<CR>", "toggle outline", opts = default_opts },
+    ["<M-CR>"] = { "<cmd>lua Config.fn.update_messages_win()<CR>", "open messages win", opts = default_opts },
+    ["<M-q>"] = { "<cmd>lua Config.fn.toggle_quickfix()<CR>", "toggle quickfix", opts = default_opts },
     -- LSP
     ["gd"] = {
       "<cmd>lua vim.lsp.buf.definition()<CR>",
@@ -52,16 +62,24 @@ M.general = {
       "goto implementation",
       opts = { noremap = false, silent = true },
     },
-    ["<leader>."] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action", default_opts },
-    ["<leader>cf"] = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "code format async", default_opts },
-    ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "code rename", default_opts },
+    ["<leader>."] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action", opts = default_opts },
+    ["<leader>cf"] = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "code format async", opts = default_opts },
+    ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "code rename", opts = default_opts },
     -- Seek motions
-    ["[d"] = { "<cmd>exe 'lua vim.diagnostic.goto_prev({ float = false })'<CR>zz", "prev diagnostics", default_opts },
-    ["]d"] = { "<cmd>exe 'lua vim.diagnostic.goto_next({ float = false })'<CR>zz", "next diagnostics", default_opts },
-    ["[q"] = { "<cmd>cp<CR>zz", "prev quickfix", default_opts },
-    ["]q"] = { "<cmd>cn<CR>zz", "next quickfix", default_opts },
-    ["[l"] = { "<cmd>cp<CR>zz", "prev loclist", default_opts },
-    ["]l"] = { "<cmd>cn<CR>zz", "next loclist", default_opts },
+    ["[d"] = {
+      "<cmd>exe 'lua vim.diagnostic.goto_prev({ float = false })'<CR>zz",
+      "prev diagnostics",
+      opts = default_opts,
+    },
+    ["]d"] = {
+      "<cmd>exe 'lua vim.diagnostic.goto_next({ float = false })'<CR>zz",
+      "next diagnostics",
+      opts = default_opts,
+    },
+    ["[q"] = { "<cmd>cp<CR>zz", "prev quickfix", opts = default_opts },
+    ["]q"] = { "<cmd>cn<CR>zz", "next quickfix", opts = default_opts },
+    ["[l"] = { "<cmd>cp<CR>zz", "prev loclist", opts = default_opts },
+    ["]l"] = { "<cmd>cn<CR>zz", "next loclist", opts = default_opts },
     ["[r"] = {
       [[v:lua.Config.lib.expr.next_reference(v:true)]],
       "prev reference",
@@ -73,9 +91,9 @@ M.general = {
       opts = { expr = true, noremap = true, silent = true },
     },
     -- Misc
-    ["<F10>"] = { "<cmd>lua require'user.lib'.print_syn_group()<CR>", "show cursor hi group", default_opts },
+    ["<F10>"] = { "<cmd>lua require'user.lib'.print_syn_group()<CR>", "show cursor hi group", opts = default_opts },
     -- Terminal
-    ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", default_opts },
+    ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", opts = default_opts },
   },
 
   v = {
@@ -91,15 +109,19 @@ M.general = {
       opts = { expr = true, noremap = true, silent = true },
     },
     -- LSP
-    ["<leader>."] = { ":lua vim.lsp.buf.range_code_action()<CR>", "code action range", default_opts },
-    ["<leader>cf"] = { "<Esc><cmd>lua vim.lsp.buf.format({ range = {} })<CR>", "code format range", default_opts },
+    ["<leader>."] = { ":lua vim.lsp.buf.range_code_action()<CR>", "code action range", opts = default_opts },
+    ["<leader>cf"] = {
+      "<Esc><cmd>lua vim.lsp.buf.format({ range = {} })<CR>",
+      "code format range",
+      opts = default_opts,
+    },
     -- Misc
-    ["@"] = { ":<C-u>lua Config.lib.execute_macro_over_visual_range()<CR>", "execute macro range", default_opts },
+    ["@"] = { ":<C-u>lua Config.lib.execute_macro_over_visual_range()<CR>", "execute macro range", opts = default_opts },
   },
 
   t = {
     -- Terminal
-    ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", default_opts },
+    ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", opts = default_opts },
     ["<C-M-l>"] = {
       "<C-a><C-k>clear<CR><cmd>setl scrollback=1 so=0 <bar> setl scrollback=10000 so<<CR>",
       "clear terminal",
@@ -494,6 +516,17 @@ M.neorg = {
 
   n = {
     ["<LocalLeader>nnw"] = { "<cmd>Neorg workspace main<CR>", "open main workspace", opts = default_opts },
+    ["<LocalLeader>nnjj"] = { "<cmd>Neorg journal today<CR>", "open workspace journal today", opts = default_opts },
+    ["<LocalLeader>nnjt"] = {
+      "<cmd>Neorg journal tomorrow<CR>",
+      "open workspace journal tomorrow",
+      opts = default_opts,
+    },
+    ["<LocalLeader>nnjy"] = {
+      "<cmd>Neorg journal yesterday<CR>",
+      "open workspace journal yesterday",
+      opts = default_opts,
+    },
   },
 }
 
@@ -515,7 +548,7 @@ M.neorg_telescope = {
       opts = default_opts,
     },
     ["<LocalLeader>nnfw"] = {
-      "<cmd>Telescope switch_workspace<CR>",
+      "<cmd>Telescope neorg switch_workspace<CR>",
       "switch neorg workspace",
       opts = default_opts,
     },

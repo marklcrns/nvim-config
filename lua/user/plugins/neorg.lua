@@ -17,7 +17,8 @@ return function()
       ["core.dirman"] = { -- Manage your directories with Neorg
         config = {
           workspaces = {
-            main = "~/Sync/notes/neorg",
+            main = "~/Sync/notes/neorg/main",
+            work = "~/Sync/notes/neorg/work",
           },
           default_workspace = "main",
         },
