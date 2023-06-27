@@ -715,12 +715,9 @@ require("lazy").setup({
     config = function()
       require("hardtime").setup({
         max_count = 5,
-        hint = false,
+        notification = false,
         disable_mouse = false,
         allow_different_key = true,
-        resetting_keys = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "c", "d" },
-        restricted_keys = { "h", "j", "k", "l", "-", "+" },
-        hint_keys = { "h", "j", "k", "l", "-", "+" },
         disabled_keys = {},
         disabled_filetypes = {
           "qf",
