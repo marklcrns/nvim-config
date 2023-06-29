@@ -4,13 +4,30 @@ return function()
     load = {
       ["core.defaults"] = {}, -- Load all the default modules
       ["core.concealer"] = {}, -- Allows for use of icons
+      ["core.manoeuvre"] = {},
+      ["core.journal"] = {},
+      ["core.ui.calendar"] = {},
+      ["core.completion"] = {
+        config = {
+          engine = "nvim-cmp",
+        },
+      },
       ["core.keybinds"] = { -- Configure core.keybinds
         config = {
           default_keybinds = true, -- Generate the default keybinds
           neorg_leader = "<LocalLeader>nn", -- This is the default if unspecified
           hook = function(keybinds)
-            keybinds.remap("toc-split", "n", "q", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
-            keybinds.remap("toc-split", "n", "<ESC>", "<cmd>q<CR>") -- Temporary fix for toc mappings dripping down to norg mappings when closed
+            -- Keybinds to make moving sections up and down easily
+            keybinds.map("norg", "n", "gj", "<cmd>Neorg keybind norg core.manoeuvre.item_down<cr>")
+            keybinds.map("norg", "n", "gk", "<cmd>Neorg keybind norg core.manoeuvre.item_up<cr>")
+            keybinds.map("norg", "n", "]s", "<cmd>Neorg keybind norg core.integrations.treesitter.next.heading<cr>")
+            keybinds.map("norg", "n", "[s", "<cmd>Neorg keybind norg core.integrations.treesitter.previous.heading<cr>")
+            keybinds.map(
+              "norg",
+              "n",
+              "<LocalLeader>nnc",
+              '<cmd>:lua neorg.modules.get_module("core.ui.calendar").select_date({})<cr>'
+            )
           end,
         },
       },

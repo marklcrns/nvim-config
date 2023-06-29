@@ -6,5 +6,6 @@ return function()
     "gina-commit",
     "snippets",
     "floaterm",
+    "neo-tree",
   }
 end

@@ -256,6 +256,7 @@ require("lazy").setup({
   { "debugloop/telescope-undo.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
+    commit = "d883632",
     cmd = "Neotree",
     init = utils.load_mappings("neo_tree"),
     config = conf("neo-tree"),
