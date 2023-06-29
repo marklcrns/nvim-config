@@ -47,9 +47,10 @@ if has('mac')
         \ }
 endif
 
-if has('clipboard')
-  set clipboard& clipboard+=unnamedplus
-endif
+" DEPRECATED: PlusYank() is a better alternative. See mappings.vim
+" if has('clipboard')
+"   set clipboard& clipboard+=unnamedplus
+" endif
 
 " Wildmenu {{{
 " --------

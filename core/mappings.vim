@@ -134,7 +134,63 @@ function! RemoveQFItem()
   :copen
 endfunction
 command! RemoveQFItem :call RemoveQFItem()
-" }}} BASIC MAPPINGS
+
+" Temporarily set 'lazyredraw' and execute {cmd}.
+function! s:LazyCmd(cmd) abort
+    let l:save_lazyredraw = &lazyredraw
+    try
+        set lazyredraw
+        set eventignore=all
+        call execute(a:cmd)
+    catch /.*/
+        echohl ErrorMsg
+        echom v:exception
+        echohl NONE
+    finally
+        if !l:save_lazyredraw
+            set nolazyredraw
+        endif
+        set eventignore=
+    endtry
+endfunction
+
+" Temporarily set 'lazyredraw' and execute normal mode commands {cmd}.
+function! s:LazyNorm(cmd) abort
+    call s:LazyCmd("norm! " . a:cmd)
+endfunction
+
+" Always yank to plus registry by default. This is an alternative to setting
+" clipboard=unnamedplus, which polutes system clipboard with every yank, delete,
+" replace, etc.
+" This function replaces the default yank operator
+function! s:PlusYank(type = "") abort
+    if a:type == ''
+        let b:save_register = v:register
+        set opfunc=<SID>PlusYank
+        return 'g@'
+    endif
+
+    let l:reg = b:save_register == '"' ? '+' : b:save_register
+    let l:save_sel = &selection
+    let l:save_cb = &clipboard
+    let l:save_visual_marks = [getpos("'<"), getpos("'>")]
+
+    try
+        set clipboard= selection=inclusive
+        let commands = #{
+                    \ line: "'[V']\"" . l:reg . "y",
+                    \ char: "`[v`]\"" . l:reg . "y",
+                    \ block: "`[\<c-v>`]\"" . l:reg . "y",
+                    \ }
+        silent exe 'keepjumps normal! ' .. get(commands, a:type, '')
+    finally
+        call setpos("'<", l:save_visual_marks[0])
+        call setpos("'>", l:save_visual_marks[1])
+        let &clipboard = l:save_cb
+        let &selection = l:save_sel
+    endtry
+endfunction
+" }}} HELPER FUNCTIONS
 
 " BASIC MAPPINGS -------------------- {{{
 function! ExitMappings()
@@ -166,9 +222,33 @@ function! ExitMappings()
 endfunction
 
 function! ImprovedDefaultMappings()
-  " Prevent x from overriding what's in the clipboard.
-  noremap x "_x
-  noremap X "_X
+  " Use 'lazyredraw' when replaying macro
+  nnoremap @ <Cmd>call <SID>LazyNorm("@" . getcharstr())<CR>
+  nnoremap @@ <Cmd>call <SID>LazyNorm("@@")<CR>
+  nnoremap Q <Cmd>call <SID>LazyNorm("@@")<CR>
+
+  " Start search with very-magic mode
+  nnoremap / /\v
+  nnoremap ? ?\v
+
+  " Yank, delete, paste using PlusYank
+  nnoremap <expr> y <SID>PlusYank()
+  nnoremap <expr> yy v:register == '"' ? '"+yy' : 'yy'
+  nnoremap <expr> Y v:register == '"' ? '"+y$' : 'y$'
+  nnoremap <M-p> "+p
+  nnoremap <M-P> "+P
+  xnoremap <expr> y v:register == '"' ? '"+y' : 'y'
+  xnoremap <expr> <S-Y> v:register == '"' ? '"+Y' : 'Y'
+  xnoremap <expr> p v:register == '"' ? '"_dP' : '"_d"' . v:register . 'P'
+  xnoremap <M-p> "_d"+P
+  inoremap <M-p> <Cmd>set paste <bar> exe 'norm! "+p' <bar> set nopaste<CR><RIGHT>
+  inoremap <M-P> <Cmd>set paste <bar> exe 'norm! "+P' <bar> set nopaste<CR><RIGHT>
+
+  " DEPRECATED: PlusYank() is a better alternative
+  " " Prevent x from overriding what's in the clipboard.
+  " noremap x "_x
+  " noremap X "_X
+
   " Prevent selecting and pasting from overwriting what you originally copied.
   xnoremap p pgvy
   " Re-select blocks after indenting in visual/select mode
@@ -659,9 +739,11 @@ function! TextManipulationMappings()
   nnoremap <Leader>rya ggVGy:echom "Yanked all file contents!"<CR>
   " Replace all with yanked texts
   nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
-  " SmartPaste by replacing odd characters and autoformatting
-  nnoremap <silent> <Leader>rP <cmd>call SmartPaste()<CR>
-  imap <expr><silent> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartPaste()\<CR>" : "\<Esc>:call SmartPaste()\<CR>"
+
+  " " SmartPaste by replacing odd characters and autoformatting
+  " nnoremap <silent> <Leader>rP <cmd>call SmartPaste()<CR>
+  " imap <expr><silent> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartPaste()\<CR>" : "\<Esc>:call SmartPaste()\<CR>"
+
   " Jumps to previously misspelled word and fixes it with the first in the suggestion
   " Update: also echo changes and line and col number
   " Ref: https://castle.Dev/post/lecture-notes-1/
