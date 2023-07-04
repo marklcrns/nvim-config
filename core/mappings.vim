@@ -232,32 +232,33 @@ function! ImprovedDefaultMappings()
   nnoremap ? ?\v
 
   " Yank, delete, paste using PlusYank
+  " NOTE: Only normal y will be coppied to system clipboard
   nnoremap <expr> y <SID>PlusYank()
   nnoremap <expr> yy v:register == '"' ? '"+yy' : 'yy'
   nnoremap <expr> Y v:register == '"' ? '"+y$' : 'y$'
   nnoremap <M-p> "+p
   nnoremap <M-P> "+P
-  xnoremap <expr> y v:register == '"' ? '"+y' : 'y'
-  xnoremap <expr> <S-Y> v:register == '"' ? '"+Y' : 'Y'
+  xnoremap <expr> y v:register == '"' ? '"+ygv<Esc>' : 'ygv<Esc>'
+  xnoremap <expr> <S-Y> v:register == '"' ? '"+Ygv<Esc>' : 'Ygv<Esc>'
   xnoremap <expr> p v:register == '"' ? '"_dP' : '"_d"' . v:register . 'P'
   xnoremap <M-p> "_d"+P
   inoremap <M-p> <Cmd>set paste <bar> exe 'norm! "+p' <bar> set nopaste<CR><RIGHT>
   inoremap <M-P> <Cmd>set paste <bar> exe 'norm! "+P' <bar> set nopaste<CR><RIGHT>
 
-  " DEPRECATED: PlusYank() is a better alternative
+  " NOTE: Deprecated by PlusYank() is a better alternative
   " " Prevent x from overriding what's in the clipboard.
   " noremap x "_x
   " noremap X "_X
+  " " Keep cursor at the bottom of the visual selection after you yank it.
+  " vnoremap y ygv<Esc>
+  " " Yank to end
+  " nnoremap Y y$
+  " " Prevent selecting and pasting from overwriting what you originally copied.
+  " xnoremap p pgvy
 
-  " Prevent selecting and pasting from overwriting what you originally copied.
-  xnoremap p pgvy
   " Re-select blocks after indenting in visual/select mode
   xnoremap < <gv
   xnoremap > >gv|
-  " Keep cursor at the bottom of the visual selection after you yank it.
-  vnoremap y ygv<Esc>
-  " Yank to end
-  nnoremap Y y$
   " Keep centered when jumping
   nnoremap n nzzzv
   nnoremap N Nzzzv
