@@ -162,11 +162,19 @@ return function()
   --  LSP integration  --
   -----------------------
 
-  -- local next_diagnostic_repeat, prev_diagnostic_repeat =
-  --   ts_repeat_move.make_repeatable_move_pair(vim.diagnostic.goto_next, vim.diagnostic.goto_prev)
-  --
-  -- vim.keymap.set({ "n", "x", "o" }, "]d", next_diagnostic_repeat)
-  -- vim.keymap.set({ "n", "x", "o" }, "[d", prev_diagnostic_repeat)
+  local function goNextDiagnostic()
+    vim.diagnostic.goto_next({ float = false })
+  end
+
+  local function goPreviousDiagnostic()
+    vim.diagnostic.goto_prev({ float = false })
+  end
+
+  local next_diagnostic_repeat, prev_diagnostic_repeat =
+    ts_repeat_move.make_repeatable_move_pair(goNextDiagnostic, goPreviousDiagnostic)
+
+  vim.keymap.set({ "n", "x", "o" }, "]d", next_diagnostic_repeat)
+  vim.keymap.set({ "n", "x", "o" }, "[d", prev_diagnostic_repeat)
 
   --------------------------------
   --  Vim builtins integration  --

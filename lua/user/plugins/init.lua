@@ -388,12 +388,7 @@ require("lazy").setup({
       "tpope/vim-rhubarb",
       {
         "rbong/vim-flog",
-        init = function()
-          vim.g.flog_default_opts = { max_count = 512 }
-          vim.g.flog_override_default_mappings = {}
-          vim.g.flog_jumplist_default_mappings = {}
-          vim.g.flog_use_internal_lua = true
-        end,
+        config = conf("vim-flog"),
       },
     },
   },
@@ -730,6 +725,7 @@ require("lazy").setup({
           "NeogitStatus",
           "dropbar_menu",
           "Outline",
+          "floggraph",
           "",
         },
       })
