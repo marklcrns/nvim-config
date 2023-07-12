@@ -256,7 +256,6 @@ require("lazy").setup({
   { "debugloop/telescope-undo.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    commit = "d883632",
     cmd = "Neotree",
     init = utils.load_mappings("neo_tree"),
     config = conf("neo-tree"),
@@ -680,15 +679,26 @@ require("lazy").setup({
       conf("vimwiki")()
     end,
   },
-  {
-    "sedm0784/vim-you-autocorrect",
-    ft = { "markdown", "vimwiki", "norg" },
-    cmd = { "EnableAutocorrect", "DisableAutocorrect" },
-    init = function()
-      conf("vim-you-autocorrect")()
-      utils.load_mappings("you_autocorrect")
-    end,
-  },
+  -- Temporarily disabled because of errors when opening the following ft below
+  -- in a new tab
+  -- {{{
+  -- Error detected while processing CursorMovedI Autocommands for "<buffer=16>"..function <SNR>75_autocorrect:
+  -- line    3:
+  -- E121: Undefined variable: s:start_pos
+  -- Error detected while processing CursorMovedI Autocommands for "<buffer=16>"..function <SNR>75_autocorrect:
+  -- line    3:
+  -- E116: Invalid arguments for function s:pos_before
+  -- }}}
+  --
+  -- {
+  --   "sedm0784/vim-you-autocorrect",
+  --   ft = { "markdown", "vimwiki", "norg" },
+  --   cmd = { "EnableAutocorrect", "DisableAutocorrect" },
+  --   init = function()
+  --     conf("vim-you-autocorrect")()
+  --     utils.load_mappings("you_autocorrect")
+  --   end,
+  -- },
   {
     "jbyuki/venn.nvim",
     cmd = { "VBox", "VBoxD", "VBoxH", "VFill" },
