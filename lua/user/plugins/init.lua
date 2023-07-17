@@ -81,6 +81,7 @@ require("lazy").setup({
   {
     "xiyaowong/transparent.nvim",
     cond = not sys.is_gui(),
+    init = utils.load_mappings("transparent"),
     lazy = false,
   },
 
@@ -137,7 +138,7 @@ require("lazy").setup({
     config = conf("winshift"),
   },
   {
-    "beauwilliams/focus.nvim",
+    "nvim-focus/focus.nvim",
     init = utils.load_mappings("focus"),
     event = "VimEnter",
     config = conf("focus"),

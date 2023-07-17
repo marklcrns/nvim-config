@@ -708,6 +708,14 @@ M.toggle_lsp_diagnostics = {
   },
 }
 
+M.transparent = {
+  plugin = true,
+
+  n = {
+    ["<localleader>st"] = { "<cmd>TransparentToggle<CR>", "toggle transparent bg", opts = default_opts },
+  },
+}
+
 M.treesj = {
   plugin = true,
 

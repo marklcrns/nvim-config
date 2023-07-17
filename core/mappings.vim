@@ -766,7 +766,7 @@ function! SettingsToggleMappings()
   nnoremap <silent> <LocalLeader>ss :<C-u>call <SID>toggle_format_on_save()<CR>
   nnoremap <silent> <LocalLeader>sF :<C-u>call <SID>toggle_foldcolumn1()<CR>
   nnoremap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
-  nnoremap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>
+  " nnoremap <silent> <LocalLeader>st :<C-u>call <SID>toggle_tabchar()<CR>
   nnoremap <silent> <LocalLeader>sv :<C-u>call <SID>toggle_virtualedit()<CR>
   nnoremap <silent> <LocalLeader>sW :<C-u>call <SID>toggle_text_wrapping()<CR>
   " Smart wrap toggle (breakindent and colorcolumn toggle as-well)
