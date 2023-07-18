@@ -143,6 +143,12 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("focus"),
   },
+  {
+    "levouh/tint.nvim",
+    init = utils.load_mappings("tint"),
+    event = "WinEnter",
+    config = conf("tint"),
+  },
   -- {
   --   "TaDaa/vimade",
   --   cond = not sys.is_gui(),
@@ -718,7 +724,8 @@ require("lazy").setup({
   },
   {
     "m4xshen/hardtime.nvim",
-    init = utils.lazy_load("hardtime.nvim"),
+    commit = "d501be0",
+    event = "VimEnter",
     config = function()
       require("hardtime").setup({
         max_count = 5,
@@ -737,7 +744,6 @@ require("lazy").setup({
           "dropbar_menu",
           "Outline",
           "floggraph",
-          "",
         },
       })
     end,

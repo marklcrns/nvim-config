@@ -231,6 +231,10 @@ M.focus = {
   n = {
     ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle focus", opts = default_opts },
     ["<C-w>z"] = { "<cmd>FocusMaxOrEqual<CR>", "toggle maximize-equalize", opts = default_opts },
+    ["<C-w>v"] = { "<cmd>FocusSplitRight<CR>", "split tab vertically (right)", opts = default_opts },
+    ["<C-w>g"] = { "<cmd>FocusSplitDown<CR>", "split tab horizontally (down)", opts = default_opts },
+    ["<C-w><C-v>"] = { "<cmd>FocusSplitLeft<CR>", "split tab vertically (left)", opts = default_opts },
+    ["<C-w><C-g>"] = { "<cmd>FocusSplitUp<CR>", "split tab horizontally (up)", opts = default_opts },
   },
 }
 
@@ -672,6 +676,14 @@ M.telescope = {
     ["<leader>fdgc"] = { "<cmd>Telescope git_commits<CR>", "find git commits", opts = default_opts },
     ["<leader>fdgf"] = { "<cmd>Telescope git_files<CR>", "find git files", opts = default_opts },
     ["<leader>fdgs"] = { "<cmd>Telescope git_status<CR>", "find git status", opts = default_opts },
+  },
+}
+
+M.tint = {
+  plugin = true,
+
+  n = {
+    ["<localleader>sd"] = { "<cmd>lua require('tint').toggle()<CR>", "toggle diminactive", opts = default_opts },
   },
 }
 

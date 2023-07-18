@@ -25,7 +25,7 @@ return function()
       cursorline = false, -- Display a cursorline in the focussed window only
       cursorcolumn = false, -- Display cursorcolumn in the focussed window only
       colorcolumn = {
-        enable = false, -- Display colorcolumn in the foccused window only
+        enable = true, -- Display colorcolumn in the foccused window only
         list = "+1", -- Set the comma-saperated list for the colorcolumn
       },
       signcolumn = true, -- Display signcolumn in the focussed window only
