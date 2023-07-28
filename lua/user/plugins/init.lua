@@ -101,9 +101,11 @@ require("lazy").setup({
   -- BEHAVIOR
   {
     "marklcrns/vim-smartq",
-    init = utils.load_mappings("smartq"),
+    init = function()
+      utils.load_mappings("smartq")
+      conf("vim-smartq")()
+    end,
     event = "VimEnter",
-    config = conf("vim-smartq"),
   },
   {
     "chrisgrieser/nvim-spider",
@@ -459,7 +461,6 @@ require("lazy").setup({
   {
     "RRethy/nvim-treesitter-endwise",
     init = utils.lazy_load("nvim-treesitter-endwise"),
-    config = conf("nvim-ts-autotag"),
   },
   {
     "folke/todo-comments.nvim",

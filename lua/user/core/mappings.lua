@@ -231,10 +231,6 @@ M.focus = {
   n = {
     ["<localleader>sf"] = { "<cmd>FocusToggle<CR>", "toggle focus", opts = default_opts },
     ["<C-w>z"] = { "<cmd>FocusMaxOrEqual<CR>", "toggle maximize-equalize", opts = default_opts },
-    ["<C-w>v"] = { "<cmd>FocusSplitRight<CR>", "split tab vertically (right)", opts = default_opts },
-    ["<C-w>g"] = { "<cmd>FocusSplitDown<CR>", "split tab horizontally (down)", opts = default_opts },
-    ["<C-w><C-v>"] = { "<cmd>FocusSplitLeft<CR>", "split tab vertically (left)", opts = default_opts },
-    ["<C-w><C-g>"] = { "<cmd>FocusSplitUp<CR>", "split tab horizontally (up)", opts = default_opts },
   },
 }
 
@@ -597,6 +593,7 @@ M.smartq = {
   n = {
     ["<leader>fq"] = { "<cmd>SmartQSave<CR>", "smart save and quit" },
     ["<leader>wq"] = { "<cmd>SmartQCloseSplits<CR>", "close all splits" },
+    ["q"] = { [[<Plug>(smartq_this)]], "smart quit", opts = { noremap = false, silent = true } },
   },
 }
 

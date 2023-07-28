@@ -8,4 +8,5 @@ return function()
     "floaterm",
     "neo-tree",
   }
+  vim.g.smartq_default_mappings = 0
 end
