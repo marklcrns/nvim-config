@@ -217,15 +217,25 @@ return function()
           },
         },
       },
+      ast_grep = {
+        command = {
+          "sg",
+          "--json=stream",
+          "-p",
+        }, -- must have --json and -p
+        grep_open_files = false, -- search in opened files
+        lang = nil, -- string value, sepcify language for ast-grep `nil` for default
+      },
     },
   })
 
   -- Load extensions
-  require("telescope").load_extension("notify")
+  require("telescope").load_extension("frecency")
   require("telescope").load_extension("fzf")
+  require("telescope").load_extension("harpoon")
   require("telescope").load_extension("media_files")
-  require("telescope").load_extension("ui-select")
+  require("telescope").load_extension("notify")
   require("telescope").load_extension("projects")
+  require("telescope").load_extension("ui-select")
   require("telescope").load_extension("undo")
-  require("telescope").load_extension('harpoon')
 end

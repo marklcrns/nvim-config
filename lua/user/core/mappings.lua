@@ -234,6 +234,14 @@ M.focus = {
   },
 }
 
+M.frecency = {
+  plugin = true,
+
+  n = {
+    ["<leader>fdo"] = { "<cmd>Telescope frecency<CR>", "find frecency", opts = default_opts },
+  },
+}
+
 M.fugitive = {
   plugin = true,
 
@@ -650,7 +658,8 @@ M.telescope = {
     ["<leader>fdk"] = { "<cmd>Telescope keymaps<CR>", "find keymappings", opts = default_opts },
     ["<leader>fdm"] = { "<cmd>Telescope marks<CR>", "find marks", opts = default_opts },
     ["<leader>fdn"] = { "<cmd>Telescope notify<CR>", "find notification", opts = default_opts },
-    ["<leader>fdo"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
+    -- Replaced by telescope-frecency
+    -- ["<leader>fdo"] = { "<cmd>Telescope oldfiles<CR>", "find oldfiles", opts = default_opts },
     ["<leader>fdp"] = { "<cmd>Telescope projects<CR>", "find projects", opts = default_opts },
     ["<leader>fdr"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
     ["<leader>fds"] = { "<cmd>Telescope grep_string<CR>", "find string grep", opts = default_opts },
