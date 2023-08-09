@@ -241,16 +241,16 @@ require("lazy").setup({
   --   init = utils.load_mappings("true_zen"),
   --   config = conf("true-zen"),
   -- },
-  {
-    "Bekaboo/dropbar.nvim",
-    cond = not sys.is_gui(),
-    init = utils.load_mappings("dropbar"),
-    event = "VimEnter",
-    config = conf("dropbar"),
-    dependencies = {
-      "kyazdani42/nvim-web-devicons",
-    },
-  },
+  -- {
+  --   "Bekaboo/dropbar.nvim",
+  --   cond = not sys.is_gui(),
+  --   init = utils.load_mappings("dropbar"),
+  --   event = "VimEnter",
+  --   config = conf("dropbar"),
+  --   dependencies = {
+  --     "kyazdani42/nvim-web-devicons",
+  --   },
+  -- },
 
   -- FILE NAVIGATION
   {
@@ -262,11 +262,11 @@ require("lazy").setup({
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-media-files.nvim" },
   { "nvim-telescope/telescope-ui-select.nvim" },
-  {
-    "nvim-telescope/telescope-frecency.nvim",
-    init = utils.load_mappings("frecency"),
-    dependencies = { "kkharji/sqlite.lua" },
-  },
+  -- {
+  --   "nvim-telescope/telescope-frecency.nvim",
+  --   init = utils.load_mappings("frecency"),
+  --   dependencies = { "kkharji/sqlite.lua" },
+  -- },
   { "debugloop/telescope-undo.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -666,7 +666,6 @@ require("lazy").setup({
   -- NOTETAKING
   {
     "nvim-neorg/neorg",
-    commit = "e76f0cb",
     init = utils.load_mappings("neorg"),
     build = ":Neorg sync-parsers",
     ft = "norg",

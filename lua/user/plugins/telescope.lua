@@ -230,7 +230,7 @@ return function()
   })
 
   -- Load extensions
-  require("telescope").load_extension("frecency")
+  -- require("telescope").load_extension("frecency")
   require("telescope").load_extension("fzf")
   require("telescope").load_extension("harpoon")
   require("telescope").load_extension("media_files")
