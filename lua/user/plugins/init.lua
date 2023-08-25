@@ -730,28 +730,9 @@ require("lazy").setup({
   },
   {
     "m4xshen/hardtime.nvim",
-    commit = "d501be0",
     event = "VimEnter",
-    config = function()
-      require("hardtime").setup({
-        max_count = 5,
-        notification = false,
-        disable_mouse = false,
-        allow_different_key = true,
-        disabled_keys = {},
-        disabled_filetypes = {
-          "qf",
-          "netrw",
-          "neo-tree",
-          "lazy",
-          "mason",
-          "fugitive",
-          "NeogitStatus",
-          "dropbar_menu",
-          "Outline",
-          "floggraph",
-        },
-      })
-    end,
+    utils.load_mappings("hardtime"),
+    config = conf("hardtime"),
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
   },
 }, require("user.plugins.lazy_nvim"))
