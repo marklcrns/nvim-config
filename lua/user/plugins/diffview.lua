@@ -102,11 +102,38 @@ return function()
         { "n", "ca", "<Cmd>Git commit --amend <bar> wincmd J<CR>", { desc = "Amend the last commit" } },
         { "n", "c<space>", ":Git commit ", { desc = 'Populate command line with ":Git commit "' } },
         { "n", "rr", "<Cmd>Git rebase --continue <bar> wincmd J<CR>", { desc = "Continue the current rebase" } },
+        { "n", "re", "<Cmd>Git rebase --edit-todo <bar> wincmd J<CR>", { desc = "Edit the current rebase todo list." }, },
         {
-          "n",
-          "re",
-          "<Cmd>Git rebase --edit-todo <bar> wincmd J<CR>",
-          { desc = "Edit the current rebase todo list." },
+          "n", "[c",
+          actions.view_windo(function(_, sym)
+            if sym == "b" then
+              vim.cmd("norm! [c")
+            end
+          end)
+        },
+        {
+          "n", "]c",
+          actions.view_windo(function(_, sym)
+            if sym == "b" then
+              vim.cmd("norm! ]c")
+            end
+          end)
+        },
+        {
+          "n", "do",
+          actions.view_windo(function(_, sym)
+            if sym == "b" then
+              vim.cmd("norm! do")
+            end
+          end)
+        },
+        {
+          "n", "dp",
+          actions.view_windo(function(_, sym)
+            if sym == "b" then
+              vim.cmd("norm! dp")
+            end
+          end)
         },
       },
       file_history_panel = {

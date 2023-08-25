@@ -370,6 +370,14 @@ M.gitsigns = {
   },
 }
 
+M.hardtime = {
+  plugin = true,
+
+  n = {
+    ["<LocalLeader>sh"] = { "<cmd>Hardtime toggle<CR>", "toggle hardtime", opts = default_opts },
+  },
+}
+
 M.harpoon = {
   plugin = true,
 
@@ -523,8 +531,13 @@ M.neorg = {
   plugin = true,
 
   n = {
-    ["<LocalLeader>nnw"] = { "<cmd>Neorg workspace main<CR>", "open main workspace", opts = default_opts },
+    ["<LocalLeader>nnw"] = { "<cmd>Neorg index<CR>", "open default workspace index", opts = default_opts },
     ["<LocalLeader>nnjj"] = { "<cmd>Neorg journal today<CR>", "open workspace journal today", opts = default_opts },
+    ["<LocalLeader>nnjo"] = {
+      "<cmd>Neorg journal toc<CR>",
+      "open workspace journal index",
+      opts = default_opts,
+    },
     ["<LocalLeader>nnjt"] = {
       "<cmd>Neorg journal tomorrow<CR>",
       "open workspace journal tomorrow",

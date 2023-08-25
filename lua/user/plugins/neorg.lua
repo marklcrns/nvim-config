@@ -2,11 +2,17 @@ return function()
   require("neorg").setup({
     -- Tell Neorg what modules to load
     load = {
-      ["core.defaults"] = {}, -- Load all the default modules
+      ["core.defaults"] = {
+        config = {
+          disable = {
+            "core.norg.esupports.indent",
+          },
+        },
+      },
       ["core.concealer"] = {}, -- Allows for use of icons
       ["core.manoeuvre"] = {},
       ["core.journal"] = {},
-      ["core.ui.calendar"] = {},
+      ["core.ui.calendar"] = (vim.fn.has("nvim-0.10") == 1) and {} or nil,
       ["core.completion"] = {
         config = {
           engine = "nvim-cmp",
@@ -35,15 +41,20 @@ return function()
       ["core.dirman"] = { -- Manage your directories with Neorg
         config = {
           workspaces = {
-            main = "~/Sync/notes/neorg/main",
             work = "~/Sync/notes/neorg/work",
+            main = "~/Sync/notes/neorg/main",
           },
-          default_workspace = "main",
+          default_workspace = "work",
         },
       },
       ["core.qol.toc"] = {
         config = {
           toc_split_placement = "right",
+        },
+      },
+      ["core.neorgcmd"] = {
+        config = {
+          load = { "core.journal" },
         },
       },
       ["core.esupports.metagen"] = {

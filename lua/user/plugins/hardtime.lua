@@ -2,9 +2,14 @@ return function()
   require("hardtime").setup({
     max_count = 2,
     notification = true,
-    disable_mouse = true,
+    disable_mouse = false,
     allow_different_key = true,
-    disabled_keys = {},
+    disabled_keys = {
+      ["<Up>"] = { "i" },
+      ["<Down>"] = { "i" },
+      ["<Left>"] = { "i" },
+      ["<Right>"] = { "i" },
+    },
     disabled_filetypes = {
       "qf",
       "netrw",

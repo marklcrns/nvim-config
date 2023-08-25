@@ -104,6 +104,7 @@ return function()
 
           -- disable c-j because we dont want to allow new lines #2123
           ["<C-j>"] = actions.nop,
+          ["<c-k>"] = actions.nop,
         },
 
         n = {

@@ -224,12 +224,11 @@ function! ImprovedDefaultMappings()
   " Use 'lazyredraw' when replaying macro
   nnoremap @ <Cmd>call <SID>LazyNorm("@" . getcharstr())<CR>
   nnoremap @@ <Cmd>call <SID>LazyNorm("@@")<CR>
-  nnoremap Q <Cmd>call <SID>LazyNorm("@@")<CR>
+  " nnoremap Q <Cmd>call <SID>LazyNorm("@@")<CR>
 
   " Start search with very-magic mode
   nnoremap / /\v
   nnoremap ? ?\v
-
 
   " WARN: This is problematic since it mess up the default behavior of p and P
   " where sometimes p behaves like P and vice versa
