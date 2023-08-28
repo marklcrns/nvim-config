@@ -8,7 +8,7 @@ return function()
     -- Enable italic comments.
     italic_comments = true,
     -- Enable general editor background transparency.
-    transparent_bg = vim.g.transparent_enable,
+    transparent_bg = vim.g.transparent_enabled,
     -- Enable brighter float border.
     bright_border = true,
     -- Nordic specific options.

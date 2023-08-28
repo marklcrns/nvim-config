@@ -1,8 +1,8 @@
-" " let g:transparent_enable = v:false
+" " let g:transparent_enabled = v:false
 " if !exists('g:neovide') && !exists('g:Gui') && !exists('g:GuiLoaded') && !has('gui_running') && !has('gui')
-"   let g:transparent_enable = v:true
+"   let g:transparent_enabled = v:true
 " else
-"   let g:transparent_enable = v:false
+"   let g:transparent_enabled = v:false
 " endif
 let g:enable_format_on_save= v:true
 " Must set proper snippet engine in /lua/user/plugins/nvim-cmp.lua

@@ -6,7 +6,7 @@ return function()
     dark_variant = "moon",
     bold_vert_split = false,
     dim_nc_background = false,
-    disable_background = vim.g.transparent_enable,
+    disable_background = vim.g.transparent_enabled,
     disable_float_background = false,
     disable_italics = false,
 

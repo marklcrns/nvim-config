@@ -10,6 +10,7 @@ return {
       "rose-pine",
       "vscode",
       "oxocarbon-lua",
+      "rasmus",
     },
   },
   ui = {

@@ -4,7 +4,7 @@ return function()
     -- style = 'light'
 
     -- Enable transparent background
-    transparent = vim.g.transparent_enable,
+    transparent = vim.g.transparent_enabled,
 
     -- Enable italic comment
     italic_comments = true,

@@ -86,15 +86,15 @@ require("lazy").setup({
   },
 
   -- COLORSCHEMES
-  { "folke/tokyonight.nvim", config = conf("tokyonight") },
-  { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin" },
-  { "EdenEast/nightfox.nvim", config = conf("nightfox") },
-  { "rebelot/kanagawa.nvim", config = conf("kanagawa") },
-  { "AlexvZyl/nordic.nvim", config = conf("nordic") },
-  { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine" },
-  { "Mofiqul/vscode.nvim", config = conf("vscode") },
-  { "sindrets/oxocarbon-lua.nvim" },
-  { "kvrohit/rasmus.nvim" },
+  { "folke/tokyonight.nvim", config = conf("tokyonight"), lazy = false },
+  { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin", lazy = false },
+  { "EdenEast/nightfox.nvim", config = conf("nightfox"), lazy = false },
+  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), lazy = false },
+  { "AlexvZyl/nordic.nvim", config = conf("nordic"), lazy = false },
+  { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine", lazy = false },
+  { "Mofiqul/vscode.nvim", config = conf("vscode"), lazy = false },
+  { "sindrets/oxocarbon-lua.nvim", lazy = false },
+  { "kvrohit/rasmus.nvim", lazy = false },
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
@@ -132,8 +132,26 @@ require("lazy").setup({
     event = "BufRead",
     config = conf("nvim-hlslens"),
   },
+  {
+    url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+    ft = { "qf" },
+    config = function()
+      require("pqf").setup({
+        signs = {
+          error = "",
+          warning = "",
+          info = "",
+          hint = "",
+        },
+      })
+    end,
+  },
   -- TODO: map
-  { "kevinhwang91/nvim-bqf", config = conf("nvim-bqf") },
+  {
+    "kevinhwang91/nvim-bqf",
+    ft = { "qf" },
+    config = conf("nvim-bqf"),
+  },
   {
     "sindrets/winshift.nvim",
     init = utils.load_mappings("winshift"),
@@ -530,7 +548,7 @@ require("lazy").setup({
   {
     "folke/trouble.nvim",
     init = utils.load_mappings("trouble"),
-    cmd = { "TroubleToggle", "Trouble" },
+    event = "VimEnter", -- NOTE: This is needed to load Config.fn.toggle_diagnostics()
     config = conf("trouble"),
     dependencies = "nvim-web-devicons",
   },

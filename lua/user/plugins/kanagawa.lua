@@ -7,8 +7,8 @@ return function()
     keywordStyle = { italic = true },
     statementStyle = { bold = true },
     typeStyle = {},
-    transparent = vim.g.transparent_enable, -- do not set background color
-    dimInactive = not vim.g.transparent_enable, -- dim inactive window `:h hl-NormalNC`
+    transparent = vim.g.transparent_enabled, -- do not set background color
+    dimInactive = not vim.g.transparent_enabled, -- dim inactive window `:h hl-NormalNC`
     terminalColors = true, -- define vim.g.terminal_color_{0,17}
     colors = { -- add/modify theme and palette colors
       palette = {},
