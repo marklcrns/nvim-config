@@ -95,6 +95,7 @@ require("lazy").setup({
   { "Mofiqul/vscode.nvim", config = conf("vscode"), lazy = false },
   { "sindrets/oxocarbon-lua.nvim", lazy = false },
   { "kvrohit/rasmus.nvim", lazy = false },
+  { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim", lazy = false },
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },

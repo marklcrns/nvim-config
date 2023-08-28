@@ -11,6 +11,7 @@ return {
       "vscode",
       "oxocarbon-lua",
       "rasmus",
+      "zenbones",
     },
   },
   ui = {
