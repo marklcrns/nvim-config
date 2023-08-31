@@ -26,6 +26,6 @@ return function()
 
     -- Disable modes highlights in specified filetypes
     -- Please PR commonly ignored filetypes
-    ignore_filetypes = { "NvimTree", "TelescopePrompt" },
+    ignore_filetypes = { "NvimTree", "TelescopePrompt", "Codewindow" },
   })
 end

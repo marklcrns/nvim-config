@@ -255,6 +255,12 @@ require("lazy").setup({
     init = utils.load_mappings("zen_mode"),
     config = conf("zen-mode"),
   },
+  {
+    "gorbit99/codewindow.nvim",
+    init = utils.load_mappings("codewindow"),
+    event = "VimEnter",
+    config = conf("codewindow"),
+  },
   -- {
   --   "Pocco81/true-zen.nvim",
   --   cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", "TZNarrow" },

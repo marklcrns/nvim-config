@@ -168,6 +168,7 @@ return function()
         sort_mru = true,
         mappings = {
           i = {
+            ["<CR>"] = actions.select_tab_drop,
             ["<c-d>"] = require("telescope.actions").delete_buffer,
           },
           n = {

@@ -36,6 +36,7 @@ return function()
   -- FileType/BufType to ignore
 
   local ignore_filetypes = {
+    "Codewindow",
     "NeogitCommitMessage",
     "NeogitStatus",
     "Outline",

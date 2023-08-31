@@ -185,6 +185,23 @@ M.chatgpt = {
   },
 }
 
+M.codewindow = {
+  plugin = true,
+
+  n = {
+    ["<leader>imm"] = {
+      "<cmd>lua require('codewindow').toggle_minimap()<CR>",
+      "toggle minimap window",
+      opts = default_opts,
+    },
+    ["<leader>imf"] = {
+      "<cmd>lua require('codewindow').toggle_focus()<CR>",
+      "toggle minimap focus",
+      opts = default_opts,
+    },
+  },
+}
+
 M.colorizer = {
   plugin = true,
 
