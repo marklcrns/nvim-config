@@ -749,15 +749,30 @@ require("lazy").setup({
 
   -- MISC
   {
+    "Dhanus3133/LeetBuddy.nvim",
+    cmd = { "LBQuestions" },
+    init = utils.load_mappings("leetbuddy"),
+    config = function()
+      require("leetbuddy").setup({
+        domain = "com", -- `cn` for chinese leetcode
+        language = "py",
+      })
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
+  {
     "ThePrimeagen/harpoon",
     event = "VimEnter",
-    utils.load_mappings("harpoon"),
+    init = utils.load_mappings("harpoon"),
     config = true,
   },
   {
     "m4xshen/hardtime.nvim",
     event = "VimEnter",
-    utils.load_mappings("hardtime"),
+    init = utils.load_mappings("hardtime"),
     config = conf("hardtime"),
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
   },

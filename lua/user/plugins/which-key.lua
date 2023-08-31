@@ -88,6 +88,12 @@ return function()
       d = {
         name = "+diff",
       },
+      l = {
+        name = "+leetcode",
+      },
+      m = {
+        name = "+minimap",
+      },
     },
     l = {
       name = "+lsp",

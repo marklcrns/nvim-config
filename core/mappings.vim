@@ -780,8 +780,8 @@ endfunction
 " ==================== Custom single purpose functions and mappings ==================== "
 
 " Append '.md' to clipboard register yanked file path and :edit from current directory
+nnoremap <Leader>E <cmd>call EliteModeToggle()<CR>
 nnoremap <Leader>;m :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
-
 
 " Ref: https://stackoverflow.com/a/9407015/11850077
 function! s:next_closed_fold(direction)
@@ -970,6 +970,32 @@ endfunction
 "     normal! ze
 "   endif
 " endfunction
+
+function! EliteModeToggle()
+  if get(g:, 'elite_mode', 0) ==# 1
+    " Enable lsp
+    if exists(':LspStart')
+      LspStart
+    endif
+    " Enable Copilot
+    if exists(':Copilot')
+      Copilot enable
+    endif
+    echom 'Elite mode off'
+    let g:elite_mode=v:false
+  else
+    " Disable lsp
+    if exists(':LspStop')
+      LspStop
+    endif
+    " Disable Copilot
+    if exists(':Copilot')
+      Copilot disable
+    endif
+    echom 'Elite mode on'
+    let g:elite_mode=v:true
+  endif
+endfunction
 
 " ==================== Mappings Function Calls ==================== "
 

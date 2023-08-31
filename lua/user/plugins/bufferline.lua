@@ -77,6 +77,10 @@ return function()
             table.insert(result, { text = "  " .. session, fg = "#7EA9A7" })
           end
 
+          if vim.g.elite_mode then
+            table.insert(result, { text = " 🦾", fg = "#7EA9A7" })
+          end
+
           return result
         end,
       },

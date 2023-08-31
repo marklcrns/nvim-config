@@ -1,7 +1,7 @@
 return function()
   require("hardtime").setup({
     max_count = 2,
-    notification = true,
+    notification = false,
     disable_mouse = false,
     allow_different_key = true,
     disabled_keys = {

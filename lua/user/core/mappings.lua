@@ -445,6 +445,19 @@ M.inc_rename = {
   },
 }
 
+M.leetbuddy = {
+  plugin = true,
+
+  n = {
+    ["<leader>ilq"] = { "<cmd>LBQuestion<CR>", "close leetbuddy", opts = default_opts },
+    ["<leader>ilv"] = { "<cmd>LBQuestion<CR>", "view question", opts = default_opts },
+    ["<leader>ill"] = { "<cmd>LBQuestions<CR>", "list all questions", opts = default_opts },
+    ["<leader>ilr"] = { "<cmd>LBReset<CR>", "reset code", opts = default_opts },
+    ["<leader>ils"] = { "<cmd>LBSubmit<CR>", "submit code", opts = default_opts },
+    ["<leader>ilt"] = { "<cmd>LBTest<CR>", "test code", opts = default_opts },
+  },
+}
+
 M.lens = {
   plugin = true,
 
