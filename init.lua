@@ -52,6 +52,9 @@ if vim.fn.exists("g:neovide") == 0 then
   })
 end
 
+-- Lastplace
+require("user.modules.lastplace")
+
 -- COMMAND ALIASES
 local alias = require("user.modules.cmd_alias").alias
 
