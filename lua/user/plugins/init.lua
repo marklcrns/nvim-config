@@ -752,12 +752,7 @@ require("lazy").setup({
     "Dhanus3133/LeetBuddy.nvim",
     cmd = { "LBQuestions" },
     init = utils.load_mappings("leetbuddy"),
-    config = function()
-      require("leetbuddy").setup({
-        domain = "com", -- `cn` for chinese leetcode
-        language = "py",
-      })
-    end,
+    config = conf("leetbuddy"),
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
