@@ -211,6 +211,7 @@ return function()
       show_unloaded = true,
       window = {
         mappings = {
+          ["<cr>"] = "open_tab_drop",
           ["bd"] = "buffer_delete",
           ["<bs>"] = "navigate_up",
           ["."] = "set_root",
