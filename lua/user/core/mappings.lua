@@ -167,6 +167,15 @@ M.abolish = {
   },
 }
 
+M.cellular_automaton = {
+  plugin = true,
+
+  n = {
+    ["<leader>mcm"] = { "<cmd>CellularAutomaton make_it_rain<CR>", "make it rain animation", opts = default_opts },
+    ["<leader>mcg"] = { "<cmd>CellularAutomaton game_of_life<CR>", "game of life animation", opts = default_opts },
+  },
+}
+
 M.chatgpt = {
   plugin = true,
 

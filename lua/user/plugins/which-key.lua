@@ -98,6 +98,12 @@ return function()
     l = {
       name = "+lsp",
     },
+    m = {
+      name = "+misc",
+      c = {
+        name = "+cellular-automaton",
+      },
+    },
     p = {
       name = "+plugin-manager",
     },

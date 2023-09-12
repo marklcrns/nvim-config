@@ -771,4 +771,9 @@ require("lazy").setup({
     config = conf("hardtime"),
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
   },
+  {
+    "Eandrju/cellular-automaton.nvim",
+    cmd = { "CellularAutomaton" },
+    init = utils.load_mappings("cellular_automaton"),
+  },
 }, require("user.plugins.lazy_nvim"))
