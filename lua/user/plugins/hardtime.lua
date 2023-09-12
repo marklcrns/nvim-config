@@ -5,10 +5,10 @@ return function()
     disable_mouse = false,
     allow_different_key = true,
     disabled_keys = {
-      ["<Up>"] = { "i" },
-      ["<Down>"] = { "i" },
-      ["<Left>"] = { "i" },
-      ["<Right>"] = { "i" },
+      ["<Up>"] = {},
+      ["<Down>"] = {},
+      ["<Left>"] = {},
+      ["<Right>"] = {},
     },
     disabled_filetypes = {
       "qf",
