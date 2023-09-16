@@ -403,6 +403,15 @@ require("lazy").setup({
     config = conf("muren"),
   },
   {
+    "nvim-pack/nvim-spectre",
+    event = "VeryLazy",
+    init = utils.load_mappings("spectre"),
+    config = conf("nvim-spectre"),
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+  {
     "smjonas/inc-rename.nvim",
     init = utils.load_mappings("inc_rename"),
     cmd = "IncRename",

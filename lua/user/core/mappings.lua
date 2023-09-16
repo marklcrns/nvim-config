@@ -657,6 +657,32 @@ M.smartq = {
   },
 }
 
+M.spectre = {
+  plugin = true,
+
+  n = {
+    ["<leader>rtt"] = { "<cmd>lua require('spectre').toggle()<CR>", "toggle spectre", opts = default_opts },
+    ["<leader>rtw"] = {
+      "<cmd>lua require('spectre').open_visual({select_word=true})<CR>",
+      "search current word",
+      opts = default_opts,
+    },
+    ["<leader>rtf"] = {
+      "<cmd>lua require('spectre').open_file_search({select_word=true})<CR>",
+      "search on current file",
+      opts = default_opts,
+    },
+  },
+
+  v = {
+    ["<leader>rtw"] = {
+      "<esc><cmd>lua require('spectre').open_visual()<CR>",
+      "search current word",
+      opts = default_opts,
+    },
+  },
+}
+
 M.symbols_outline = {
   plugin = true,
 

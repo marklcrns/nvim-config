@@ -104,6 +104,9 @@ return function()
         name = "+cellular-automaton",
       },
     },
+    o = {
+      name = "+open",
+    },
     p = {
       name = "+plugin-manager",
     },
@@ -112,9 +115,24 @@ return function()
       a = {
         name = "+align",
       },
+      e = {
+        name = "+register",
+      },
       m = {
         name = "+muren",
       },
+      t = {
+        name = "+search-and-replace",
+      },
+      y = {
+        name = "+yank",
+      },
+    },
+    s = {
+      name = "+session",
+    },
+    t = {
+      name = "+tab-manager",
     },
     w = {
       name = "+window-manager",
