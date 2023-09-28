@@ -211,10 +211,17 @@ require("lazy").setup({
   -- UI STYLE
   { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
   {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "BufRead",
+    config = conf("rainbow-delimiters"),
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
     "lukas-reineke/indent-blankline.nvim",
     init = utils.lazy_load("indent-blankline.nvim"),
     main = "ibl",
     config = conf("indent-blankline"),
+    dependencies = { "HiPhish/rainbow-delimiters.nvim" },
   },
   {
     "Darazaki/indent-o-matic",
@@ -383,12 +390,12 @@ require("lazy").setup({
   },
   {
     "RRethy/vim-illuminate",
-    event = "VeryLazy",
+    event = "BufRead",
     config = conf("vim-illuminate"),
   },
   {
     "andymass/vim-matchup",
-    event = "VeryLazy",
+    event = "BufRead",
     config = conf("vim-matchup"),
   },
   {

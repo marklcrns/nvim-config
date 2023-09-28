@@ -99,12 +99,17 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
         if kb > 320 then
             local ts_context = prequire("treesitter-context")
             local todo_comments = prequire("todo-comments")
+            local rainbow_delimiters = prequire("rainbow_delimiters")
             local illuminate = vim.g.loaded_illuminate == 1
+            -- local matchup = vim.g.loaded_matchit == 1 or vim.g.loaded_matchparen == 1
 
             if ts_context then ts_context.disable() end
             if todo_comments then todo_comments.disable() end
+            if rainbow_delimiters then rainbow_delimiters.disable() end
             if illuminate then require("illuminate").freeze_buf() end
-            notify.config.info("Big file detected: Disabled treesitter-context, todo-comments, and illuminate.")
+            -- if matchup then vim.cmd("NoMatchParen") end
+
+            notify.config.info("Big file detected: Disabled treesitter-context, todo-comments, illuminate, and rainbow-delimiters.")
         end
     end,
 })
