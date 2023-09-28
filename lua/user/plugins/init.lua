@@ -222,6 +222,12 @@ require("lazy").setup({
     config = conf("indent-o-matic"),
   },
   {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "BufRead",
+    config = conf("rainbow-delimiters"),
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
     "akinsho/bufferline.nvim",
     event = "VimEnter",
     dependencies = "kyazdani42/nvim-web-devicons",
