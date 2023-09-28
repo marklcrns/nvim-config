@@ -213,6 +213,7 @@ require("lazy").setup({
   {
     "lukas-reineke/indent-blankline.nvim",
     init = utils.lazy_load("indent-blankline.nvim"),
+    main = "ibl",
     config = conf("indent-blankline"),
   },
   {

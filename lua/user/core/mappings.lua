@@ -742,7 +742,7 @@ M.telescope = {
     ["<leader>fdr"] = { "<cmd>Telescope live_grep<CR>", "find word", opts = default_opts },
     ["<leader>fds"] = { "<cmd>Telescope grep_string<CR>", "find string grep", opts = default_opts },
     ["<leader>fdS"] = {
-      "<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy<CR>",
+      "<cmd>Telescope current_buffer_fuzzy_find<CR>",
       "find string grep in buffer",
       opts = default_opts,
     },

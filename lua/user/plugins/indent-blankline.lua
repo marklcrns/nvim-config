@@ -1,5 +1,5 @@
 return function()
-  require("indent_blankline").setup({
+  require("ibl").setup({
     char = "▏",
     context_char = "▏",
     -- space_char = " ",

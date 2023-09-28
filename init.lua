@@ -58,17 +58,24 @@ require("user.modules.lastplace")
 -- COMMAND ALIASES
 local alias = require("user.modules.cmd_alias").alias
 
+alias("gh", "Git ++curwin")
 alias("T", "Telescope")
 alias("gs", "Telescope git_status")
 alias("gb", "Telescope git_branches")
-alias("gl", "Telescope git_commits")
-alias({ "Q" }, "q")
-alias({ "Wq", "WQ" }, "wq")
+alias({ "gd", "DO" }, "DiffviewOpen")
+alias("gl", "DiffviewFileHistory")
+alias("Q", "q")
+alias({ "Qa", "QA", "QA!" }, "qa")
+alias({ "WQA", "WQa", "Wqa" }, "wqa")
+alias("we", "w | e")
+alias("ws", "w | so %")
+alias("ftd", "filetype detect")
 alias("N", "Neorg")
 alias("nim", "Neorg inject-metadata")
-alias("DO", "DiffviewOpen")
 -- Toggle conceallevel:
 alias("tcl", "exe 'setl conceallevel=' . (&conceallevel == 0 ? 2 : 0)")
+alias("do", "diffget")
+alias("dp", "diffput")
 
 -- FUNCTIONS
 

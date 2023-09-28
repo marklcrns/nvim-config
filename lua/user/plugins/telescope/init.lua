@@ -1,6 +1,7 @@
 return function()
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")
+  require("user.plugins.telescope.layout_strategies")
 
   local function deep_extend(...)
     local args = { ... }
@@ -61,7 +62,7 @@ return function()
       file_sorter = require("telescope.sorters").get_fuzzy_file,
       file_ignore_patterns = {},
       generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-      winblend = 5,
+      winblend = 0,
       border = {},
       borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
       color_devicons = true,
@@ -70,10 +71,15 @@ return function()
       file_previewer = require("telescope.previewers").vim_buffer_cat.new,
       grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
       qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+
       -- Developer configurations: Not meant for general override
       buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
       mappings = {
         i = {
+          ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+          ["<C-b>"] = actions.preview_scrolling_up,
+          ["<C-f>"] = actions.preview_scrolling_down,
+
           ["<C-n>"] = actions.move_selection_next,
           ["<C-p>"] = actions.move_selection_previous,
 
@@ -108,6 +114,9 @@ return function()
         },
 
         n = {
+          ["<C-b>"] = actions.preview_scrolling_up,
+          ["<C-f>"] = actions.preview_scrolling_down,
+
           ["<esc>"] = actions.close,
           ["<CR>"] = actions.select_default,
           ["<C-g>"] = actions.select_horizontal,
@@ -154,27 +163,18 @@ return function()
       git_commits = {
         mappings = {
           i = {
-            ["<M-d>"] = function()
+            ["<C-M-d>"] = function()
               -- Open in diffview
               local entry = action_state.get_selected_entry()
               -- close Telescope window properly prior to switching windows
               actions.close(vim.api.nvim_get_current_buf())
               vim.cmd(("DiffviewOpen %s^!"):format(entry.value))
             end,
-          },
-        },
+          }
+        }
       },
       buffers = {
         sort_mru = true,
-        mappings = {
-          i = {
-            ["<CR>"] = actions.select_tab_drop,
-            ["<c-d>"] = require("telescope.actions").delete_buffer,
-          },
-          n = {
-            ["<c-d>"] = require("telescope.actions").delete_buffer,
-          },
-        },
       },
       quickfix = deep_extend(picker_presets.vertical_preview_bottom),
       loclist = deep_extend(picker_presets.vertical_preview_bottom),
@@ -186,6 +186,19 @@ return function()
       lsp_workspace_symbols = deep_extend(picker_presets.vertical_preview_bottom),
       lsp_dynamic_workspace_symbols = deep_extend(picker_presets.vertical_preview_bottom),
       current_buffer_fuzzy_find = {
+        layout_strategy = "flex_bottom_pane",
+        layout_config = {
+          height = 25,
+          vertical = {
+            preview_cutoff = 13,
+          },
+        },
+        border = true,
+        borderchars = {
+          prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+          results = { "─", " ", " ", " ", "─", "─", " ", " " },
+          preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+        },
         tiebreak = function(a, b)
           -- Sort tiebreaks by line number
           return a.lnum < b.lnum
@@ -194,21 +207,23 @@ return function()
     },
     extensions = {
       fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+        fuzzy = true,                    -- false will only do exact matching
+        override_generic_sorter = true,  -- override the generic sorter
+        override_file_sorter = true,     -- override the file sorter
+        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       },
       media_files = {
         -- filetypes whitelist
         -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
         filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "webm", "pdf" },
-        -- find command (defaults to `fd`)
-        find_cmd = "rg",
+        find_cmd = "fd"
+        -- find_cmd = "rg" -- find command (defaults to `fd`)
       },
       ["ui-select"] = {
-        require("telescope.themes").get_dropdown({}),
+        require("telescope.themes").get_dropdown({
+          layout_strategy = "cursor",
+        })
       },
       undo = {
         mappings = {
@@ -236,8 +251,8 @@ return function()
   require("telescope").load_extension("fzf")
   require("telescope").load_extension("harpoon")
   require("telescope").load_extension("media_files")
+  require("telescope").load_extension("ui-select")
   require("telescope").load_extension("notify")
   require("telescope").load_extension("projects")
-  require("telescope").load_extension("ui-select")
   require("telescope").load_extension("undo")
 end

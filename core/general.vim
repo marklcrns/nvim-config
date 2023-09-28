@@ -19,6 +19,7 @@ set formatoptions+=n         " Numbered list
 set formatoptions-=o         " Disable comment-continuation (normal 'o'/'O')
 set spelllang=en,cjk         " Set spell language and exclude 'cjk' or east asian charactes
 set spellsuggest=best,9      " Only show 9 best spell suggest with z=
+set jumpoptions=stack        " Use the new Neovim :h jumplist-stack
 if has('patch-7.3.541')
   set formatoptions+=j       " Remove comment leader when joining lines
 endif

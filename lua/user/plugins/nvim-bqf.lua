@@ -2,12 +2,14 @@ return function()
   require("bqf").setup({
     preview = {
       auto_preview = false,
-      border_chars = { "│", "│", "─", "─", "┌", "┐", "└", "┘", "█" },
+      border = "single",
       delay_syntax = 50,
+      winblend = 0,
       win_height = 15,
       win_vheight = 15,
       wrap = false,
-      should_preview_cb = nil,
+      buf_label = true,
+      should_preview_cb = nil
     },
   })
 end

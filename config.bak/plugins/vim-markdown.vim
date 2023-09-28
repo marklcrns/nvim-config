@@ -12,17 +12,20 @@ let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_edit_url_in = 'vsplit'
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_fenced_languages = [
-  \ 'c++=cpp',
-  \ 'viml=vim',
-  \ 'bash=sh',
-  \ 'ini=dosini',
-  \ 'js=javascript',
-  \ 'json=javascript',
-  \ 'jsx=javascriptreact',
-  \ 'tsx=typescriptreact',
-  \ 'docker=Dockerfile',
-  \ 'makefile=make',
-  \ 'py=python'
+      \ 'html',
+      \ 'python',
+      \ 'sh',
+      \ 'bash',
+      \ 'console=bash',
+      \ 'dosini',
+      \ 'ini=dosini',
+      \ 'lua',
+      \ 'cpp',
+      \ 'c++=cpp',
+      \ 'javascript',
+      \ 'java',
+      \ 'vim',
+      \ 'log',
   \ ]
 
 augroup MarkdownEditMode
