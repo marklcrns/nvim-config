@@ -738,15 +738,15 @@ require("lazy").setup({
   -- E116: Invalid arguments for function s:pos_before
   -- }}}
   --
-  -- {
-  --   "sedm0784/vim-you-autocorrect",
-  --   ft = { "markdown", "vimwiki", "norg" },
-  --   cmd = { "EnableAutocorrect", "DisableAutocorrect" },
-  --   init = function()
-  --     conf("vim-you-autocorrect")()
-  --     utils.load_mappings("you_autocorrect")
-  --   end,
-  -- },
+  {
+    "sedm0784/vim-you-autocorrect",
+    ft = { "markdown", "vimwiki", "norg" },
+    cmd = { "EnableAutocorrect", "DisableAutocorrect" },
+    init = function()
+      conf("vim-you-autocorrect")()
+      utils.load_mappings("you_autocorrect")
+    end,
+  },
   {
     "jbyuki/venn.nvim",
     cmd = { "VBox", "VBoxD", "VBoxH", "VFill" },

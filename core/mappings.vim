@@ -429,6 +429,7 @@ function! WindowsManagementMappings()
   " Cycle through windows
   nnoremap  [Window]w     <C-w><C-w>
   nnoremap  [Window]<C-w> <C-w><C-w>
+  nnoremap  [Window]<C-p> <C-w><C-p>
 
   " Splits
   nnoremap <silent> <C-q> :<C-u>close<CR>

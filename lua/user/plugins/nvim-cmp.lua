@@ -6,10 +6,13 @@ return function()
   local api = vim.api
   local utils = Config.common.utils
 
-  -- INFO: If using UltiSnips snippet engine
-  -- local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
-  -- INFO: If using UltiSnips snippet engine
-  local luasnip = require("luasnip")
+  local cmp_ultisnips_mappings
+  local luasnip
+  if vim.g.snippet_engine == "ultisnips" then
+    cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+  elseif vim.g.snippet_engine == "luasnip" then
+    luasnip = require("luasnip")
+  end
 
   local lsp_kinds = {
     Method = "  ",
@@ -62,6 +65,163 @@ return function()
 
   -- Prevent event listeners from stacking whenever packer reloads the config.
   cmp.event:clear()
+
+  local mapping = {
+    ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
+    ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
+    ["<C-n>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end,
+    }),
+    ["<C-p>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end,
+    }),
+    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+    ["<C-c>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+    -- ["<CR>"] = cmp.mapping({
+    --   i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+    --   s = cmp.mapping.confirm({ select = true }),
+    -- }),
+    ["<CR>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        else
+          fallback()
+        end
+      end,
+      s = cmp.mapping.confirm({ select = true }),
+      -- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+    }),
+  }
+
+  -- INFO: If using luasnip snippet engine
+  -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+  if vim.g.snippet_engine == "luasnip" then
+    mapping["<Tab>"] = cmp.mapping({
+      c = function()
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        else
+          cmp.complete()
+        end
+      end,
+      i = function(fallback)
+        if has_words_before() then
+          if luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+            return
+          end
+        end
+        fallback()
+      end,
+      s = function(fallback)
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        else
+          fallback()
+        end
+      end,
+    })
+    mapping["<S-Tab>"] = cmp.mapping({
+      c = function()
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        end
+      end,
+      i = function(fallback)
+        if luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end,
+      s = function(fallback)
+        if luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end,
+    })
+    mapping["<C-j>"] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { "i", "s" })
+    mapping["<C-k>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      elseif cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { "i", "s" })
+
+  -- INFO: If using UltiSnips snippet engine
+  -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
+  elseif vim.g.snippet_engine == "ultisnips" then
+    mapping["<Tab>"] = cmp.mapping({
+      c = function()
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        else
+          cmp.complete()
+        end
+      end,
+      i = function(fallback)
+        if has_words_before() then
+          cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+        else
+          fallback()
+        end
+      end,
+      s = function(fallback)
+        cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+      end,
+      x = function()
+        vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
+      end,
+    })
+    mapping["<S-Tab>"] = cmp.mapping({
+      c = function()
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        end
+      end,
+      i = function(fallback)
+        cmp_ultisnips_mappings.jump_backwards(fallback)
+      end,
+      s = function(fallback)
+        cmp_ultisnips_mappings.jump_backwards(fallback)
+      end,
+    })
+    mapping["<C-j>"] = cmp.mapping(function(fallback)
+      cmp_ultisnips_mappings.compose({ "jump_forwards", "select_next_item" })(fallback)
+    end, { "i", "s" })
+    mapping["<C-k>"] = cmp.mapping(function(fallback)
+      cmp_ultisnips_mappings.compose({ "jump_backwards", "select_prev_item" })(fallback)
+    end, { "i", "s" })
+  end
 
   cmp.setup({
     -- enabled = function()
@@ -164,159 +324,7 @@ return function()
       { name = "emoji", group_index = 3, options = { insert = true } },
     }),
 
-    mapping = {
-      -- INFO: If using luasnip snippet engine
-      -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
-      ["<Tab>"] = cmp.mapping({
-        c = function()
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            cmp.complete()
-          end
-        end,
-        i = function(fallback)
-          if has_words_before() then
-            if luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-              return
-            end
-          end
-          fallback()
-        end,
-        s = function(fallback)
-          if luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-          else
-            fallback()
-          end
-        end,
-      }),
-      ["<S-Tab>"] = cmp.mapping({
-        c = function()
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-          end
-        end,
-        i = function(fallback)
-          if luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end,
-        s = function(fallback)
-          if luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end,
-      }),
-      ["<C-j>"] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif cmp.visible() then
-          cmp.select_next_item()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<C-k>"] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        elseif cmp.visible() then
-          cmp.select_prev_item()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-
-      -- -- INFO: If using UltiSnips snippet engine
-      -- -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
-      -- ["<Tab>"] = cmp.mapping({
-      --   c = function()
-      --     if cmp.visible() then
-      --       cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-      --     else
-      --       cmp.complete()
-      --     end
-      --   end,
-      --   i = function(fallback)
-      --     if has_words_before() then
-      --       cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-      --     else
-      --       fallback()
-      --     end
-      --   end,
-      --   s = function(fallback)
-      --     cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-      --   end,
-      --   x = function()
-      --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
-      --   end,
-      -- }),
-      -- ["<S-Tab>"] = cmp.mapping({
-      --   c = function()
-      --     if cmp.visible() then
-      --       cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-      --     end
-      --   end,
-      --   i = function(fallback)
-      --     cmp_ultisnips_mappings.jump_backwards(fallback)
-      --   end,
-      --   s = function(fallback)
-      --     cmp_ultisnips_mappings.jump_backwards(fallback)
-      --   end,
-      -- }),
-      -- ["<C-j>"] = cmp.mapping(function(fallback)
-      --   cmp_ultisnips_mappings.compose({ "jump_forwards", "select_next_item" })(fallback)
-      -- end, { "i", "s" }),
-      -- ["<C-k>"] = cmp.mapping(function(fallback)
-      --   cmp_ultisnips_mappings.compose({ "jump_backwards", "select_prev_item" })(fallback)
-      -- end, { "i", "s" }),
-
-      ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
-      ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
-      ["<C-n>"] = cmp.mapping({
-        i = function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end,
-      }),
-      ["<C-p>"] = cmp.mapping({
-        i = function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end,
-      }),
-      ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-      ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-      ["<C-c>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-      -- ["<CR>"] = cmp.mapping({
-      --   i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
-      --   s = cmp.mapping.confirm({ select = true }),
-      -- }),
-      ["<CR>"] = cmp.mapping({
-        i = function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-          else
-            fallback()
-          end
-        end,
-        s = cmp.mapping.confirm({ select = true }),
-        -- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-      }),
-    },
+    mapping = mapping,
   })
 
   -- autopairs config
