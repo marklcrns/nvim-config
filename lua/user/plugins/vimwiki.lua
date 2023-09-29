@@ -221,24 +221,19 @@ return function()
       echo "Auto generated Resources header"
     endfunction
 
-    " Deprecated by coc-spell-checker
-    " augroup SpellCheck
-    "   autocmd!
-    "   autocmd Filetype vimwiki
-    "        \ autocmd BufRead <buffer> setlocal spell
-    " augroup END
-
-    " augroup VimwikiEditMode
-    "   autocmd!
-    "   autocmd FileType vimwiki setlocal textwidth=80
-    "   autocmd FileType vimwiki setlocal foldlevel=99
-    "   autocmd FileType vimwiki setlocal nowrap
-    "   " Toggle conceallevel on and after insert mode
-    "   autocmd FileType vimwiki
-    "         \ autocmd InsertEnter <buffer> setlocal conceallevel=0
-    "   autocmd FileType vimwiki
-    "         \ autocmd InsertLeave <buffer> setlocal conceallevel=2
-    " augroup END
+    augroup VimwikiEditMode
+      autocmd!
+      autocmd FileType vimwiki setlocal textwidth=80
+      autocmd FileType vimwiki setlocal foldlevel=99
+      autocmd FileType vimwiki setlocal nowrap
+      " Toggle conceallevel on and after insert mode
+      autocmd FileType vimwiki
+            \ autocmd BufEnter <buffer> setlocal concealcursor=cv
+      autocmd FileType vimwiki
+            \ autocmd InsertEnter <buffer> setlocal conceallevel=0
+      autocmd FileType vimwiki
+            \ autocmd InsertLeave <buffer> setlocal conceallevel=2
+    augroup END
 
     " Vimwiki custom mappings
     augroup VimwikiCustomMappings
