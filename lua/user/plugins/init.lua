@@ -54,6 +54,11 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   {
+    "tpope/vim-eunuch",
+    event = "VimEnter",
+    config = conf("eunuch"),
+  },
+  {
     "rcarriga/nvim-notify",
     event = "VimEnter",
     config = conf("nvim-notify"),

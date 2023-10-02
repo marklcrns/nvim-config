@@ -228,7 +228,7 @@ return function()
       autocmd FileType vimwiki setlocal nowrap
       " Toggle conceallevel on and after insert mode
       autocmd FileType vimwiki
-            \ autocmd BufEnter <buffer> setlocal concealcursor=cv
+            \ autocmd BufEnter <buffer> setlocal concealcursor=c
       autocmd FileType vimwiki
             \ autocmd InsertEnter <buffer> setlocal conceallevel=0
       autocmd FileType vimwiki
