@@ -37,7 +37,7 @@ require("lazy").setup({
   -- SYNTAX & FILETYPE PLUGINS
   {
     "lervag/vimtex",
-    ft = { "plaintex", "tex", "latex", "markdown" },
+    ft = { "plaintex", "tex", "latex", "markdown", "vimwiki" },
     config = conf("vimtex"),
   },
   {
