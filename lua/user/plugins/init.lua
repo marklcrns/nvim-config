@@ -482,17 +482,18 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-tmux-navigation"),
   },
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    init = utils.load_mappings("chatgpt"),
-    config = conf("ChatGPT"),
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  },
+  -- Disabled because I ran out of free OpenAI API credits
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   init = utils.load_mappings("chatgpt"),
+  --   config = conf("ChatGPT"),
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  -- },
 
   -- SYNTAX & FILETYPE PLUGINS
   {
@@ -746,17 +747,6 @@ require("lazy").setup({
       conf("vimwiki")()
     end,
   },
-  -- Temporarily disabled because of errors when opening the following ft below
-  -- in a new tab
-  -- {{{
-  -- Error detected while processing CursorMovedI Autocommands for "<buffer=16>"..function <SNR>75_autocorrect:
-  -- line    3:
-  -- E121: Undefined variable: s:start_pos
-  -- Error detected while processing CursorMovedI Autocommands for "<buffer=16>"..function <SNR>75_autocorrect:
-  -- line    3:
-  -- E116: Invalid arguments for function s:pos_before
-  -- }}}
-  --
   {
     "sedm0784/vim-you-autocorrect",
     ft = { "markdown", "vimwiki", "norg" },
