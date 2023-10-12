@@ -631,7 +631,8 @@ M.nvim_window_picker = {
   n = {
     ["<C-w>f"] = {
       function()
-        local picked_window_id = require("window-picker").pick_window() or vim.api.nvim_get_current_win()
+        local picked_window_id = require("window-picker").pick_window({ hint = "floating-big-letter" })
+          or vim.api.nvim_get_current_win()
         vim.api.nvim_set_current_win(picked_window_id)
       end,
       "pick window",

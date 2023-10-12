@@ -227,8 +227,8 @@ function! ImprovedDefaultMappings()
   " nnoremap Q <Cmd>call <SID>LazyNorm("@@")<CR>
 
   " Start search with very-magic mode
-  nnoremap / /\v
-  nnoremap ? ?\v
+  " nnoremap / /\v
+  " nnoremap ? ?\v
 
   " WARN: This is problematic since it mess up the default behavior of p and P
   " where sometimes p behaves like P and vice versa

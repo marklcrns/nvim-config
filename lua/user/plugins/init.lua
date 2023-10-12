@@ -63,17 +63,17 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-notify"),
   },
-  -- {
-  --   -- Overriding lsp_signature. See usr/lsp/init.lua
-  --   "folke/noice.nvim",
-  --   cond = not sys.is_gui(),
-  --   event = "VeryLazy",
-  --   config = conf("noice"),
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
+  {
+    -- Overriding lsp_signature. See usr/lsp/init.lua
+    "folke/noice.nvim",
+    cond = not sys.is_gui(),
+    event = "VeryLazy",
+    config = conf("noice"),
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
   -- {
   --   "mrded/nvim-lsp-notify",
   --   after = { "nvim-lspconfig" },
@@ -214,7 +214,7 @@ require("lazy").setup({
   },
 
   -- UI STYLE
-  { "kyazdani42/nvim-web-devicons", config = conf("nvim-web-devicons") },
+  { "nvim-tree/nvim-web-devicons", config = conf("nvim-web-devicons") },
   {
     "HiPhish/rainbow-delimiters.nvim",
     event = "BufRead",
@@ -242,7 +242,7 @@ require("lazy").setup({
   {
     "akinsho/bufferline.nvim",
     event = "VimEnter",
-    dependencies = "kyazdani42/nvim-web-devicons",
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = conf("bufferline"),
   },
   {
@@ -293,7 +293,7 @@ require("lazy").setup({
   --   event = "VimEnter",
   --   config = conf("dropbar"),
   --   dependencies = {
-  --     "kyazdani42/nvim-web-devicons",
+  --     "nvim-tree/nvim-web-devicons",
   --   },
   -- },
 
@@ -315,14 +315,18 @@ require("lazy").setup({
   { "debugloop/telescope-undo.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     cmd = "Neotree",
     init = utils.load_mappings("neo_tree"),
     config = conf("neo-tree"),
     dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
       {
         "s1n7ax/nvim-window-picker",
         init = utils.load_mappings("nvim_window_picker"),
-        version = "1.*",
+        version = "2.*",
         config = conf("nvim-window-picker"),
       },
     },
@@ -586,7 +590,7 @@ require("lazy").setup({
     init = utils.load_mappings("trouble"),
     event = "VimEnter", -- NOTE: This is needed to load Config.fn.toggle_diagnostics()
     config = conf("trouble"),
-    dependencies = "nvim-web-devicons",
+    dependencies = "nvim-tree/nvim-web-devicons",
   },
   {
     "simrat39/symbols-outline.nvim",
