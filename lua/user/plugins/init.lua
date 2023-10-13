@@ -64,7 +64,7 @@ require("lazy").setup({
     config = conf("nvim-notify"),
   },
   {
-    -- Overriding lsp_signature. See usr/lsp/init.lua
+    -- (DEPRECATED INFO) Overriding lsp_signature. See usr/lsp/init.lua
     "folke/noice.nvim",
     cond = not sys.is_gui(),
     event = "VeryLazy",

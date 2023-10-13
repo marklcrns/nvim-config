@@ -11,16 +11,19 @@ return function()
         enabled = false,
       },
     },
+    smart_move = {
+      -- noice tries to move out of the way of existing floating windows.
+      enabled = true, -- you can disable this behaviour here
+      -- add any filetypes here, that shouldn't trigger smart move.
+      excluded_filetypes = { "cmp_menu", "cmp_docs", "notify" },
+    },
     -- you can enable a preset for easier configuration
     presets = {
       bottom_search = false, -- use a classic bottom cmdline for search
       command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = true, -- long messages will be sent to a split
+      long_message_to_split = false, -- long messages will be sent to a split
       inc_rename = true, -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = false, -- add a border to hover docs and signature help
-    },
-    messages = {
-      enabled = false, -- enables the Noice messages UI
     },
     views = {
       cmdline_popup = {
@@ -33,15 +36,6 @@ return function()
           winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
         },
       },
-    },
-    notify = {
-      -- Noice can be used as `vim.notify` so you can route any notification like other messages
-      -- Notification messages have their level and other properties set.
-      -- event is always "notify" and kind can be any log level as a string
-      -- The default routes will forward notifications to nvim-notify
-      -- Benefit of using Noice for this is the routing and consistent history view
-      enabled = true,
-      view = "notify",
     },
   })
 end
