@@ -764,6 +764,46 @@ M.telescope = {
   },
 }
 
+M.text_case = {
+  n = {
+    ["<leader>rcau"] = { "<cmd>lua require('textcase').current_word('to_upper_case')<CR>", "TO UPPER CASE", opts = default_opts },
+    ["<leader>rcal"] = { "<cmd>lua require('textcase').current_word('to_lower_case')<CR>", "to lower case", opts = default_opts },
+    ["<leader>rcas"] = { "<cmd>lua require('textcase').current_word('to_snake_case')<CR>", "to_snake_case", opts = default_opts },
+    ["<leader>rca-"] = { "<cmd>lua require('textcase').current_word('to_dash_case')<CR>", "to-dash-case", opts = default_opts },
+    ["<leader>rcan"] = { "<cmd>lua require('textcase').current_word('to_constant_case')<CR>", "TO_CONSTANT_CASE", opts = default_opts },
+    ["<leader>rca."] = { "<cmd>lua require('textcase').current_word('to_dot_case')<CR>", "to.dot.case", opts = default_opts },
+    ["<leader>rcaa"] = { "<cmd>lua require('textcase').current_word('to_phrase_case')<CR>", "To phrase case", opts = default_opts },
+    ["<leader>rcac"] = { "<cmd>lua require('textcase').current_word('to_camel_case')<CR>", "toCamelCase", opts = default_opts },
+    ["<leader>rcap"] = { "<cmd>lua require('textcase').current_word('to_pascal_case')<CR>", "ToPascalCase", opts = default_opts },
+    ["<leader>rcat"] = { "<cmd>lua require('textcase').current_word('to_title_case')<CR>", "To Title Case", opts = default_opts },
+    ["<leader>rca/"] = { "<cmd>lua require('textcase').current_word('to_path_case')<CR>", "to/path/case", opts = default_opts },
+
+    ["<leader>rcaU"] = { "<cmd>lua require('textcase').lsp_rename('to_upper_case')<CR>", "TO UPPER CASE", opts = default_opts },
+    ["<leader>rcaL"] = { "<cmd>lua require('textcase').lsp_rename('to_lower_case')<CR>", "to lower case", opts = default_opts },
+    ["<leader>rcaS"] = { "<cmd>lua require('textcase').lsp_rename('to_snake_case')<CR>", "to_snake_case", opts = default_opts },
+    ["<leader>rca_"] = { "<cmd>lua require('textcase').lsp_rename('to_dash_case')<CR>", "to-dash-case", opts = default_opts },
+    ["<leader>rcaN"] = { "<cmd>lua require('textcase').lsp_rename('to_constant_case')<CR>", "toConstantCase", opts = default_opts },
+    ["<leader>rca>"] = { "<cmd>lua require('textcase').lsp_rename('to_dot_case')<CR>", "to.dot.case", opts = default_opts },
+    ["<leader>rcaA"] = { "<cmd>lua require('textcase').lsp_rename('to_phrase_case')<CR>", "To phrase case", opts = default_opts },
+    ["<leader>rcaC"] = { "<cmd>lua require('textcase').lsp_rename('to_camel_case')<CR>", "toCamelCase", opts = default_opts },
+    ["<leader>rcaP"] = { "<cmd>lua require('textcase').lsp_rename('to_pascal_case')<CR>", "ToPascalCase", opts = default_opts },
+    ["<leader>rcaT"] = { "<cmd>lua require('textcase').lsp_rename('to_title_case')<CR>", "To Title Case", opts = default_opts },
+    ["<leader>rca?"] = { "<cmd>lua require('textcase').lsp_rename('to_path_case')<CR>", "to/path/case", opts = default_opts },
+
+    ["<leader>rceu"] = { "<cmd>lua require('textcase').operator('to_upper_case')<CR>", "TO UPPER CASE", opts = default_opts },
+    ["<leader>rcel"] = { "<cmd>lua require('textcase').operator('to_lower_case')<CR>", "to lower case", opts = default_opts },
+    ["<leader>rces"] = { "<cmd>lua require('textcase').operator('to_snake_case')<CR>", "to_snake_case", opts = default_opts },
+    ["<leader>rce-"] = { "<cmd>lua require('textcase').operator('to_dash_case')<CR>", "to-dash-case", opts = default_opts },
+    ["<leader>rcen"] = { "<cmd>lua require('textcase').operator('to_constant_case')<CR>", "TO_CONSTANT_CASE", opts = default_opts },
+    ["<leader>rce."] = { "<cmd>lua require('textcase').operator('to_dot_case')<CR>", "to.dot.case", opts = default_opts },
+    ["<leader>rcea"] = { "<cmd>lua require('textcase').operator('to_phrase_case')<CR>", "To phrase case", opts = default_opts },
+    ["<leader>rcec"] = { "<cmd>lua require('textcase').operator('to_camel_case')<CR>", "toCamelCase", opts = default_opts },
+    ["<leader>rcep"] = { "<cmd>lua require('textcase').operator('to_pascal_case')<CR>", "ToPascalCase", opts = default_opts },
+    ["<leader>rcet"] = { "<cmd>lua require('textcase').operator('to_title_case')<CR>", "To Title Case", opts = default_opts },
+    ["<leader>rce/"] = { "<cmd>lua require('textcase').operator('to_path_case')<CR>", "to/path/case", opts = default_opts },
+  }
+}
+
 M.tint = {
   plugin = true,
 
@@ -874,14 +914,6 @@ M.trouble = {
     ["<leader>ctl"] = { "<cmd>TroubleToggle loclist<CR>", "toggle loclist", opts = default_opts },
     ["<leader>ctq"] = { "<cmd>TroubleToggle quickfix<CR>", "toggle quickfix", opts = default_opts },
     ["<leader>ctr"] = { "<cmd>TroubleToggle lsp_references<CR>", "toggle references", opts = default_opts },
-  },
-}
-
-M.venn = {
-  plugin = true,
-
-  n = {
-    ["<leader>v"] = { "<cmd>lua Toggle_venn()<CR>", "toggle venn", opts = default_opts },
   },
 }
 

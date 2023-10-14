@@ -115,6 +115,15 @@ return function()
       a = {
         name = "+align",
       },
+      c = {
+        name = "+text-case",
+        a = {
+          name = "+cursor-and-rename",
+        },
+        e = {
+          name = "+operator",
+        },
+      },
       e = {
         name = "+register",
       },

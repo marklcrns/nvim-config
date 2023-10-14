@@ -731,15 +731,6 @@ function! TextManipulationMappings()
   vnoremap <silent> <Leader>rl :<C-U>let i=1 \| '<,'>g/^/s//\=i.'. '/ \| let i=i+1 \| nohl<CR>
   " Fix indentation of whole buffer
   nnoremap <silent><Leader>ri :call Preserve("normal gg=G")<CR>
-  " Ref: https://stackoverflow.com/a/17440797/11850077
-  " Capitaliz each word of the selected
-  vnoremap <Leader>rC :s/\<./\u&/g \| nohl<CR>
-  " Capitalize each word of current entire file
-  nnoremap <Leader>rC :%s/\<./\u&/g<CR>:nohl<CR>
-  " Lowercase each word of the selected
-  vnoremap <Leader>rc :s/\<./\l&/g<CR>:nohl<CR>
-  " Lowercase each word of current entire file
-  nnoremap <Leader>rc :%s/\<./\l&/g<CR>:nohl<CR>
   " Yank everything from current file
   nnoremap <Leader>rya ggVGy:echom "Yanked all file contents!"<CR>
   " Replace all with yanked texts

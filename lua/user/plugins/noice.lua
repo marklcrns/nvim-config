@@ -3,9 +3,12 @@ return function()
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-        ["vim.lsp.util.stylize_markdown"] = true,
-        ["cmp.entry.get_documentation"] = true,
+        -- override the default lsp markdown formatter with Noice
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+        -- override the lsp markdown formatter with Noice
+        ["vim.lsp.util.stylize_markdown"] = false,
+        -- override cmp documentation with Noice (needs the other options to work)
+        ["cmp.entry.get_documentation"] = false,
       },
       signature = {
         enabled = false,
@@ -25,6 +28,16 @@ return function()
       inc_rename = true, -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = false, -- add a border to hover docs and signature help
     },
+    messages = {
+      -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+      -- This is a current Neovim limitation.
+      enabled = true, -- enables the Noice messages UI
+      view = "notify", -- default view for messages
+      view_error = "notify", -- view for errors
+      view_warn = "notify", -- view for warnings
+      view_history = "messages", -- view for :messages
+      view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+    },
     views = {
       cmdline_popup = {
         border = {
@@ -36,6 +49,15 @@ return function()
           winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
         },
       },
+    },
+    notify = {
+      -- Noice can be used as `vim.notify` so you can route any notification like other messages
+      -- Notification messages have their level and other properties set.
+      -- event is always "notify" and kind can be any log level as a string
+      -- The default routes will forward notifications to nvim-notify
+      -- Benefit of using Noice for this is the routing and consistent history view
+      enabled = true,
+      view = "notify",
     },
   })
 end

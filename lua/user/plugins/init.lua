@@ -63,17 +63,17 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-notify"),
   },
-  {
-    -- (DEPRECATED INFO) Overriding lsp_signature. See usr/lsp/init.lua
-    "folke/noice.nvim",
-    cond = not sys.is_gui(),
-    event = "VeryLazy",
-    config = conf("noice"),
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-  },
+  -- {
+  --   -- (DEPRECATED INFO) Overriding lsp_signature. See usr/lsp/init.lua
+  --   "folke/noice.nvim",
+  --   cond = not sys.is_gui(),
+  --   event = "VeryLazy",
+  --   config = conf("noice"),
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   },
+  -- },
   -- {
   --   "mrded/nvim-lsp-notify",
   --   after = { "nvim-lspconfig" },
@@ -201,11 +201,17 @@ require("lazy").setup({
   --     },
   --   },
   -- },
+  -- {
+  --   "karb94/neoscroll.nvim",
+  --   cond = not sys.is_gui(),
+  --   init = utils.lazy_load("neoscroll.nvim"),
+  --   config = conf("neoscroll"),
+  -- },
   {
-    "karb94/neoscroll.nvim",
+    "gen740/SmoothCursor.nvim",
     cond = not sys.is_gui(),
-    init = utils.lazy_load("neoscroll.nvim"),
-    config = conf("neoscroll"),
+    init = utils.lazy_load("SmoothCursor.nvim"),
+    config = conf("SmoothCursor"),
   },
   {
     "mvllow/modes.nvim",
@@ -232,12 +238,6 @@ require("lazy").setup({
     "Darazaki/indent-o-matic",
     init = utils.lazy_load("indent-o-matic"),
     config = conf("indent-o-matic"),
-  },
-  {
-    "HiPhish/rainbow-delimiters.nvim",
-    event = "BufRead",
-    config = conf("rainbow-delimiters"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
   {
     "akinsho/bufferline.nvim",
@@ -439,6 +439,11 @@ require("lazy").setup({
     init = utils.load_mappings("inc_rename"),
     cmd = "IncRename",
     config = true,
+  },
+  {
+    "johmsalas/text-case.nvim",
+    event = "BufRead",
+    init = utils.load_mappings("text_case"),
   },
 
   -- VCS
@@ -758,14 +763,6 @@ require("lazy").setup({
     init = function()
       conf("vim-you-autocorrect")()
       utils.load_mappings("you_autocorrect")
-    end,
-  },
-  {
-    "jbyuki/venn.nvim",
-    cmd = { "VBox", "VBoxD", "VBoxH", "VFill" },
-    init = function()
-      conf("venn")()
-      utils.load_mappings("venn")
     end,
   },
 

@@ -27,17 +27,17 @@ return function()
       endif
     endfunction
 
-    augroup ILoveCorrections
-      autocmd!
-      autocmd BufEnter *
-            \ if (&ft ==# 'markdown' || &ft ==# 'vimwiki' || &ft ==# 'norg') && get(g:, 'loaded_vim_you_autocorrect', 0) && get(g:, 'vim_you_autocorrect_autotoggle', v:false)
-            \| call s:enable_autocorrect()
-            \| endif
-      autocmd BufLeave *
-            \ if (&ft ==# 'markdown' || &ft ==# 'vimwiki' || &ft ==# 'norg') && get(g:, 'loaded_vim_you_autocorrect', 0) && get(g:, 'vim_you_autocorrect_autotoggle', v:false)
-            \| call s:disable_autocorrect()
-            \| endif
-    augroup END
+    " augroup ILoveCorrections
+    "   autocmd!
+    "   autocmd BufEnter *
+    "         \ if (&ft ==# 'markdown' || &ft ==# 'vimwiki' || &ft ==# 'norg') && get(g:, 'loaded_vim_you_autocorrect', 0) && get(g:, 'vim_you_autocorrect_autotoggle', v:false)
+    "         \| call s:enable_autocorrect()
+    "         \| endif
+    "   autocmd BufLeave *
+    "         \ if (&ft ==# 'markdown' || &ft ==# 'vimwiki' || &ft ==# 'norg') && get(g:, 'loaded_vim_you_autocorrect', 0) && get(g:, 'vim_you_autocorrect_autotoggle', v:false)
+    "         \| call s:disable_autocorrect()
+    "         \| endif
+    " augroup END
 
     highlight AutocorrectGood ctermfg=Yellow guifg=Yellow gui=undercurl
 
