@@ -1,5 +1,6 @@
 return function()
   require("project_nvim").setup({
+    manual_mode = false,
     -- detection_methods = { "lsp", "pattern" }, -- lsp first, then pattern
     detection_methods = { "pattern", "lsp" }, -- pattern first, then lsp
     patterns = {

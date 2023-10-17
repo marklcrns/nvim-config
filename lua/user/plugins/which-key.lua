@@ -40,6 +40,9 @@ return function()
     },
     c = {
       name = "+code",
+      d = {
+        name = "+documentation",
+      },
       m = {
         name = "+markdown",
       },
@@ -51,7 +54,7 @@ return function()
       },
     },
     d = {
-      name = "+documentation",
+      name = "+debugger",
     },
     e = {
       name = "+explorer",

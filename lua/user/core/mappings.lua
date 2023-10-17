@@ -52,6 +52,14 @@ M.general = {
         silent = true,
       },
     },
+    ["gD"] = {
+      "<cmd>lua vim.lsp.buf.declaration()<CR>",
+      "goto declaration",
+      opts = {
+        noremap = false,
+        silent = true,
+      },
+    },
     ["gy"] = {
       "<cmd>lua vim.lsp.buf.type_definition()<CR>",
       "goto type definition",
@@ -525,27 +533,27 @@ M.neogen = {
   plugin = true,
 
   n = {
-    ["<Leader>dc"] = {
+    ["<Leader>cdc"] = {
       "<cmd>lua require('neogen').generate({ type = 'class' })<CR>",
       "generate class docs",
       opts = default_opts,
     },
-    ["<Leader>df"] = {
+    ["<Leader>cdf"] = {
       "<cmd>lua require('neogen').generate({ type = 'func' })<CR>",
       "generate function docs",
       opts = default_opts,
     },
-    ["<Leader>dt"] = {
+    ["<Leader>cdt"] = {
       "<cmd>lua require('neogen').generate({ type = 'type' })<CR>",
       "generate type docs",
       opts = default_opts,
     },
-    ["<Leader>dp"] = {
+    ["<Leader>cdp"] = {
       "<cmd>lua require('neogen').generate({ type = 'file' })<CR>",
       "generate file docs",
       opts = default_opts,
     },
-    ["<Leader>dd"] = { "<cmd>lua require('neogen').generate()<CR>", "generate docs", opts = default_opts },
+    ["<Leader>cdd"] = { "<cmd>lua require('neogen').generate()<CR>", "generate docs", opts = default_opts },
   },
 }
 
@@ -625,6 +633,42 @@ M.niceblock = {
   },
 }
 
+M.nvim_dap = {
+  plugin = true,
+  n = {
+    ["<F5>"] = { "<cmd>lua require('dap').continue()<CR>", "debugger run/continue", opts = default_opts },
+    ["<F10>"] = { "<cmd>lua require('dap').step_over()<CR>", "debugger step over", opts = default_opts },
+    ["<F11>"] = { "<cmd>lua require('dap').step_into()<CR>", "debugger step into", opts = default_opts },
+    ["<F12>"] = { "<cmd>lua require('dap').step_out()<CR>", "debugger step out", opts = default_opts },
+    ["<Leader>db"] = {
+      "<cmd>lua require('dap').toggle_breakpoint()<CR>",
+      "toggle line breakpoint",
+      opts = default_opts,
+    },
+    ["<Leader>dB"] = { "<cmd>lua require('dap').clear_breakpoints()<CR>", "clear all breakpoint", opts = default_opts },
+    ["<Leader>dc"] = { "<cmd>lua require('dap').continue()<CR>", "run/continue <F5>", opts = default_opts },
+    ["<Leader>dC"] = { "<cmd>lua require('dap').reverse_continue()<CR>", "reverse continue", opts = default_opts },
+    ["<Leader>dh"] = {
+      "<cmd>lua require('dapui').eval(vim.call('expand','<cword>'), {enter=true})<CR>",
+      "evaluate word under cursor",
+      opts = default_opts,
+    },
+    ["<Leader>dl"] = { "<cmd>lua require('dap').run_last()<CR>", "run last debug init", opts = default_opts },
+    ["<Leader>di"] = { "<cmd>lua require('dap').step_into()<CR>", "step into <F11>", opts = default_opts },
+    ["<Leader>do"] = { "<cmd>lua require('dap').step_out()<CR>", "step out <F12>", opts = default_opts },
+    ["<Leader>dO"] = { "<cmd>lua require('dap').step_over()<CR>", "step over <F10>", opts = default_opts },
+    ["<Leader>dr"] = { "<cmd>lua require('dap').repl.open()<CR>", "open REPL", opts = default_opts },
+    ["<Leader>dq"] = { "<cmd>lua require('dap').terminate()<CR>", "close debugger", opts = default_opts },
+  },
+}
+
+M.nvim_dap_ui = {
+  plugin = true,
+  n = {
+    ["<Leader>dd"] = { "<cmd>lua require('dapui').toggle()<CR>", "toggle debugger UI", opts = default_opts },
+  },
+}
+
 M.nvim_window_picker = {
   plugin = true,
 
@@ -655,6 +699,14 @@ M.smartq = {
     ["<leader>fq"] = { "<cmd>SmartQSave<CR>", "smart save and quit" },
     ["<leader>wq"] = { "<cmd>SmartQCloseSplits<CR>", "close all splits" },
     ["q"] = { [[<Plug>(smartq_this)]], "smart quit", opts = { noremap = false, silent = true } },
+  },
+}
+
+M.SmoothCursor = {
+  plugin = true,
+
+  n = {
+    ["<LocalLeader>sc"] = { "<cmd>SmoothCursorToggle<CR>", "toggle SmoothCursor", opts = default_opts },
   },
 }
 
@@ -766,42 +818,174 @@ M.telescope = {
 
 M.text_case = {
   n = {
-    ["<leader>rcau"] = { "<cmd>lua require('textcase').current_word('to_upper_case')<CR>", "TO UPPER CASE", opts = default_opts },
-    ["<leader>rcal"] = { "<cmd>lua require('textcase').current_word('to_lower_case')<CR>", "to lower case", opts = default_opts },
-    ["<leader>rcas"] = { "<cmd>lua require('textcase').current_word('to_snake_case')<CR>", "to_snake_case", opts = default_opts },
-    ["<leader>rca-"] = { "<cmd>lua require('textcase').current_word('to_dash_case')<CR>", "to-dash-case", opts = default_opts },
-    ["<leader>rcan"] = { "<cmd>lua require('textcase').current_word('to_constant_case')<CR>", "TO_CONSTANT_CASE", opts = default_opts },
-    ["<leader>rca."] = { "<cmd>lua require('textcase').current_word('to_dot_case')<CR>", "to.dot.case", opts = default_opts },
-    ["<leader>rcaa"] = { "<cmd>lua require('textcase').current_word('to_phrase_case')<CR>", "To phrase case", opts = default_opts },
-    ["<leader>rcac"] = { "<cmd>lua require('textcase').current_word('to_camel_case')<CR>", "toCamelCase", opts = default_opts },
-    ["<leader>rcap"] = { "<cmd>lua require('textcase').current_word('to_pascal_case')<CR>", "ToPascalCase", opts = default_opts },
-    ["<leader>rcat"] = { "<cmd>lua require('textcase').current_word('to_title_case')<CR>", "To Title Case", opts = default_opts },
-    ["<leader>rca/"] = { "<cmd>lua require('textcase').current_word('to_path_case')<CR>", "to/path/case", opts = default_opts },
+    ["<leader>rcau"] = {
+      "<cmd>lua require('textcase').current_word('to_upper_case')<CR>",
+      "TO UPPER CASE",
+      opts = default_opts,
+    },
+    ["<leader>rcal"] = {
+      "<cmd>lua require('textcase').current_word('to_lower_case')<CR>",
+      "to lower case",
+      opts = default_opts,
+    },
+    ["<leader>rcas"] = {
+      "<cmd>lua require('textcase').current_word('to_snake_case')<CR>",
+      "to_snake_case",
+      opts = default_opts,
+    },
+    ["<leader>rca-"] = {
+      "<cmd>lua require('textcase').current_word('to_dash_case')<CR>",
+      "to-dash-case",
+      opts = default_opts,
+    },
+    ["<leader>rcan"] = {
+      "<cmd>lua require('textcase').current_word('to_constant_case')<CR>",
+      "TO_CONSTANT_CASE",
+      opts = default_opts,
+    },
+    ["<leader>rca."] = {
+      "<cmd>lua require('textcase').current_word('to_dot_case')<CR>",
+      "to.dot.case",
+      opts = default_opts,
+    },
+    ["<leader>rcaa"] = {
+      "<cmd>lua require('textcase').current_word('to_phrase_case')<CR>",
+      "To phrase case",
+      opts = default_opts,
+    },
+    ["<leader>rcac"] = {
+      "<cmd>lua require('textcase').current_word('to_camel_case')<CR>",
+      "toCamelCase",
+      opts = default_opts,
+    },
+    ["<leader>rcap"] = {
+      "<cmd>lua require('textcase').current_word('to_pascal_case')<CR>",
+      "ToPascalCase",
+      opts = default_opts,
+    },
+    ["<leader>rcat"] = {
+      "<cmd>lua require('textcase').current_word('to_title_case')<CR>",
+      "To Title Case",
+      opts = default_opts,
+    },
+    ["<leader>rca/"] = {
+      "<cmd>lua require('textcase').current_word('to_path_case')<CR>",
+      "to/path/case",
+      opts = default_opts,
+    },
 
-    ["<leader>rcaU"] = { "<cmd>lua require('textcase').lsp_rename('to_upper_case')<CR>", "TO UPPER CASE", opts = default_opts },
-    ["<leader>rcaL"] = { "<cmd>lua require('textcase').lsp_rename('to_lower_case')<CR>", "to lower case", opts = default_opts },
-    ["<leader>rcaS"] = { "<cmd>lua require('textcase').lsp_rename('to_snake_case')<CR>", "to_snake_case", opts = default_opts },
-    ["<leader>rca_"] = { "<cmd>lua require('textcase').lsp_rename('to_dash_case')<CR>", "to-dash-case", opts = default_opts },
-    ["<leader>rcaN"] = { "<cmd>lua require('textcase').lsp_rename('to_constant_case')<CR>", "toConstantCase", opts = default_opts },
-    ["<leader>rca>"] = { "<cmd>lua require('textcase').lsp_rename('to_dot_case')<CR>", "to.dot.case", opts = default_opts },
-    ["<leader>rcaA"] = { "<cmd>lua require('textcase').lsp_rename('to_phrase_case')<CR>", "To phrase case", opts = default_opts },
-    ["<leader>rcaC"] = { "<cmd>lua require('textcase').lsp_rename('to_camel_case')<CR>", "toCamelCase", opts = default_opts },
-    ["<leader>rcaP"] = { "<cmd>lua require('textcase').lsp_rename('to_pascal_case')<CR>", "ToPascalCase", opts = default_opts },
-    ["<leader>rcaT"] = { "<cmd>lua require('textcase').lsp_rename('to_title_case')<CR>", "To Title Case", opts = default_opts },
-    ["<leader>rca?"] = { "<cmd>lua require('textcase').lsp_rename('to_path_case')<CR>", "to/path/case", opts = default_opts },
+    ["<leader>rcaU"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_upper_case')<CR>",
+      "TO UPPER CASE",
+      opts = default_opts,
+    },
+    ["<leader>rcaL"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_lower_case')<CR>",
+      "to lower case",
+      opts = default_opts,
+    },
+    ["<leader>rcaS"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_snake_case')<CR>",
+      "to_snake_case",
+      opts = default_opts,
+    },
+    ["<leader>rca_"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_dash_case')<CR>",
+      "to-dash-case",
+      opts = default_opts,
+    },
+    ["<leader>rcaN"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_constant_case')<CR>",
+      "toConstantCase",
+      opts = default_opts,
+    },
+    ["<leader>rca>"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_dot_case')<CR>",
+      "to.dot.case",
+      opts = default_opts,
+    },
+    ["<leader>rcaA"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_phrase_case')<CR>",
+      "To phrase case",
+      opts = default_opts,
+    },
+    ["<leader>rcaC"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_camel_case')<CR>",
+      "toCamelCase",
+      opts = default_opts,
+    },
+    ["<leader>rcaP"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_pascal_case')<CR>",
+      "ToPascalCase",
+      opts = default_opts,
+    },
+    ["<leader>rcaT"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_title_case')<CR>",
+      "To Title Case",
+      opts = default_opts,
+    },
+    ["<leader>rca?"] = {
+      "<cmd>lua require('textcase').lsp_rename('to_path_case')<CR>",
+      "to/path/case",
+      opts = default_opts,
+    },
 
-    ["<leader>rceu"] = { "<cmd>lua require('textcase').operator('to_upper_case')<CR>", "TO UPPER CASE", opts = default_opts },
-    ["<leader>rcel"] = { "<cmd>lua require('textcase').operator('to_lower_case')<CR>", "to lower case", opts = default_opts },
-    ["<leader>rces"] = { "<cmd>lua require('textcase').operator('to_snake_case')<CR>", "to_snake_case", opts = default_opts },
-    ["<leader>rce-"] = { "<cmd>lua require('textcase').operator('to_dash_case')<CR>", "to-dash-case", opts = default_opts },
-    ["<leader>rcen"] = { "<cmd>lua require('textcase').operator('to_constant_case')<CR>", "TO_CONSTANT_CASE", opts = default_opts },
-    ["<leader>rce."] = { "<cmd>lua require('textcase').operator('to_dot_case')<CR>", "to.dot.case", opts = default_opts },
-    ["<leader>rcea"] = { "<cmd>lua require('textcase').operator('to_phrase_case')<CR>", "To phrase case", opts = default_opts },
-    ["<leader>rcec"] = { "<cmd>lua require('textcase').operator('to_camel_case')<CR>", "toCamelCase", opts = default_opts },
-    ["<leader>rcep"] = { "<cmd>lua require('textcase').operator('to_pascal_case')<CR>", "ToPascalCase", opts = default_opts },
-    ["<leader>rcet"] = { "<cmd>lua require('textcase').operator('to_title_case')<CR>", "To Title Case", opts = default_opts },
-    ["<leader>rce/"] = { "<cmd>lua require('textcase').operator('to_path_case')<CR>", "to/path/case", opts = default_opts },
-  }
+    ["<leader>rceu"] = {
+      "<cmd>lua require('textcase').operator('to_upper_case')<CR>",
+      "TO UPPER CASE",
+      opts = default_opts,
+    },
+    ["<leader>rcel"] = {
+      "<cmd>lua require('textcase').operator('to_lower_case')<CR>",
+      "to lower case",
+      opts = default_opts,
+    },
+    ["<leader>rces"] = {
+      "<cmd>lua require('textcase').operator('to_snake_case')<CR>",
+      "to_snake_case",
+      opts = default_opts,
+    },
+    ["<leader>rce-"] = {
+      "<cmd>lua require('textcase').operator('to_dash_case')<CR>",
+      "to-dash-case",
+      opts = default_opts,
+    },
+    ["<leader>rcen"] = {
+      "<cmd>lua require('textcase').operator('to_constant_case')<CR>",
+      "TO_CONSTANT_CASE",
+      opts = default_opts,
+    },
+    ["<leader>rce."] = {
+      "<cmd>lua require('textcase').operator('to_dot_case')<CR>",
+      "to.dot.case",
+      opts = default_opts,
+    },
+    ["<leader>rcea"] = {
+      "<cmd>lua require('textcase').operator('to_phrase_case')<CR>",
+      "To phrase case",
+      opts = default_opts,
+    },
+    ["<leader>rcec"] = {
+      "<cmd>lua require('textcase').operator('to_camel_case')<CR>",
+      "toCamelCase",
+      opts = default_opts,
+    },
+    ["<leader>rcep"] = {
+      "<cmd>lua require('textcase').operator('to_pascal_case')<CR>",
+      "ToPascalCase",
+      opts = default_opts,
+    },
+    ["<leader>rcet"] = {
+      "<cmd>lua require('textcase').operator('to_title_case')<CR>",
+      "To Title Case",
+      opts = default_opts,
+    },
+    ["<leader>rce/"] = {
+      "<cmd>lua require('textcase').operator('to_path_case')<CR>",
+      "to/path/case",
+      opts = default_opts,
+    },
+  },
 }
 
 M.tint = {

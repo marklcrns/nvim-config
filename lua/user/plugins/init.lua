@@ -210,7 +210,8 @@ require("lazy").setup({
   {
     "gen740/SmoothCursor.nvim",
     cond = not sys.is_gui(),
-    init = utils.lazy_load("SmoothCursor.nvim"),
+    event = "VimEnter",
+    init = utils.load_mappings("SmoothCursor"),
     config = conf("SmoothCursor"),
   },
   {
@@ -236,7 +237,7 @@ require("lazy").setup({
   },
   {
     "Darazaki/indent-o-matic",
-    init = utils.lazy_load("indent-o-matic"),
+    event = "BufRead",
     config = conf("indent-o-matic"),
   },
   {
@@ -445,6 +446,32 @@ require("lazy").setup({
     event = "BufRead",
     init = utils.load_mappings("text_case"),
   },
+  {
+    "mfussenegger/nvim-dap",
+    event = "VimEnter",
+    init = utils.load_mappings("nvim_dap"),
+    config = conf("nvim-dap"),
+    dependencies = {
+      -- "mfussenegger/nvim-dap-python",
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        config = conf("nvim-dap-virtual-text"),
+      },
+      {
+        "rcarriga/nvim-dap-ui",
+        init = utils.load_mappings("nvim_dap_ui"),
+        config = conf("nvim-dap-ui"),
+      },
+    },
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VimEnter",
+    config = conf("mason-nvim-dap"),
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
+  },
 
   -- VCS
   {
@@ -610,6 +637,12 @@ require("lazy").setup({
     after = "nvim-lspconfig",
     -- NOTE: Defined in lua/init.lua
     -- config = true,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "rcarriga/nvim-dap-ui",
+    },
   },
   {
     "iamcco/markdown-preview.nvim",

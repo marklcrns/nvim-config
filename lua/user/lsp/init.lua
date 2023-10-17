@@ -1,12 +1,25 @@
 require("neodev").setup({
   library = {
-    vimruntime = false, -- runtime path
+    enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
+    -- these settings will be used for your Neovim config directory
+    runtime = true, -- runtime path
     types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
     -- plugins = false, -- installed opt or start plugins in packpath
     -- you can also specify the list of plugins to make available as a workspace library
-    plugins = false,
+    plugins = {
+      "nvim-treesitter",
+      "plenary",
+      "telescope.nvim",
+      "nvim-dap-ui",
+    },
   },
-  runtime_path = false, -- enable this to get completion in require strings. Slow!
+  -- With lspconfig, Neodev will automatically setup your lua-language-server
+  -- If you disable this, then you have to set {before_init=require("neodev.lsp").before_init}
+  -- in your lsp start options
+  lspconfig = true,
+  -- much faster, but needs a recent built of lua-language-server
+  -- needs lua-language-server >= 3.6.0
+  pathStrict = true,
 })
 
 local cmp = prequire("cmp")
