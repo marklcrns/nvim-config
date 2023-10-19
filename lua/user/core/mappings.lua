@@ -138,8 +138,6 @@ M.general = {
   },
 }
 
--- PLUGIN MAPPINGS
-
 M.lazy_nvim = {
   n = {
     ["<leader>pU"] = { "<cmd>Lazy update<CR>", "update and lock", opts = default_opts },
@@ -153,6 +151,8 @@ M.lazy_nvim = {
 }
 
 --------------------------------------------------------------------------------
+
+-- PLUGIN MAPPINGS
 
 M.abolish = {
   plugin = true,
@@ -255,7 +255,7 @@ M.dropbar = {
   plugin = true,
 
   n = {
-    ["<leader>cud"] = { "<cmd>lua require('dropbar.api').pick()<CR>", "toggle dropbar picker", opts = default_opts },
+    ["<leader>fdd"] = { "<cmd>lua require('dropbar.api').pick()<CR>", "toggle dropbar picker", opts = default_opts },
   },
 }
 

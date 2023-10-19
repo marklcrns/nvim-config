@@ -27,10 +27,8 @@ _G.pl = Config.common.utils.pl
 Config.lib = require("user.lib")
 Config.term = require("user.modules.term")
 
-if not vim.g.low_performance_mode then
-  Config.buf_cleaner = require("user.modules.buf_cleaner")
-  Config.buf_cleaner.enable()
-end
+Config.buf_cleaner = require("user.modules.buf_cleaner")
+Config.buf_cleaner.enable()
 
 local Cache = require("user.modules.cache")
 
@@ -44,15 +42,16 @@ local utils = Config.common.utils
 
 require("user")
 
--- Custom winbar
--- Disable for neovide. Doesn't work well with it.
-if vim.fn.exists("g:neovide") == 0 then
-  api.nvim_create_autocmd("VimEnter", {
-    callback = function()
-      require("user.modules.winbar").init()
-    end,
-  })
-end
+-- DEPRECATED: by Bekaboo/dropbar.nvim
+-- -- Custom winbar
+-- -- Disable for neovide. Doesn't work well with it.
+-- if vim.fn.exists("g:neovide") == 0 then
+--   api.nvim_create_autocmd("VimEnter", {
+--     callback = function()
+--       require("user.modules.winbar").init()
+--     end,
+--   })
+-- end
 
 -- Lastplace
 require("user.modules.lastplace")

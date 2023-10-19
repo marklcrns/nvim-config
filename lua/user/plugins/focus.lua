@@ -61,6 +61,7 @@ return function()
     "neo-tree",
     "qf",
     "toggleterm",
+    "dropbar_menu",
   }
   local ignore_buftypes = {
     "help",

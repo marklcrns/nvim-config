@@ -1,17 +1,20 @@
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/utils.vim'
+
+
 let g:enable_format_on_save= v:true
 " Must set proper snippet engine in /lua/user/plugins/nvim-cmp.lua
 " and modify snippet engine in neogen
 " options: ultisnips, luasnip
 let g:snippet_engine = 'ultisnips'
 
-" Enable this to disable cpu intensive plugins/modules
-let g:low_performance_mode = v:false
-
 " Gui Fonts
 let g:guifontsize = 12
 " let g:guifont = 'Source\ Code\ Pro\ iCursive\ S12'
 " let g:guifont = 'OperatorMono\ Nerd\ Font'
 let g:guifont = 'VictorMono\ Nerd\ Font'
+
+" Enable this to disable cpu intensive plugins/modules
+let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false)
 
 " DEPRECTED: by xiyaowong/transparent.nvim
 " " let g:transparent_enabled = v:false
@@ -20,6 +23,9 @@ let g:guifont = 'VictorMono\ Nerd\ Font'
 " else
 "   let g:transparent_enabled = v:false
 " endif
+
+
+
 
 " Load core files. Will be deprecated soon!
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/rtp.vim'

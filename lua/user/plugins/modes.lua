@@ -52,6 +52,7 @@ return function()
       "neo-tree",
       "qf",
       "toggleterm",
+      "dropbar_menu",
     },
   })
 end

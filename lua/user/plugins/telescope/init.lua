@@ -170,8 +170,8 @@ return function()
               actions.close(vim.api.nvim_get_current_buf())
               vim.cmd(("DiffviewOpen %s^!"):format(entry.value))
             end,
-          }
-        }
+          },
+        },
       },
       buffers = {
         sort_mru = true,
@@ -207,23 +207,23 @@ return function()
     },
     extensions = {
       fzf = {
-        fuzzy = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+        fuzzy = true, -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true, -- override the file sorter
+        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       },
       media_files = {
         -- filetypes whitelist
         -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
         filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "webm", "pdf" },
-        find_cmd = "fd"
+        find_cmd = "fd",
         -- find_cmd = "rg" -- find command (defaults to `fd`)
       },
       ["ui-select"] = {
         require("telescope.themes").get_dropdown({
           layout_strategy = "cursor",
-        })
+        }),
       },
       undo = {
         mappings = {
@@ -252,7 +252,9 @@ return function()
   require("telescope").load_extension("harpoon")
   require("telescope").load_extension("media_files")
   require("telescope").load_extension("ui-select")
-  require("telescope").load_extension("notify")
   require("telescope").load_extension("projects")
   require("telescope").load_extension("undo")
+  if not vim.g.low_performance_mode then
+    require("telescope").load_extension("notify")
+  end
 end

@@ -1,5 +1,5 @@
 -- TODO:
--- - Move all `utils.load_mappings("transparent")` out of `init` and into the
+-- - Move all `utils.load_mappings()` out of `init` and into the
 --   plugin's `config` or conf()
 
 ---Use local development version if it exists.
@@ -125,13 +125,14 @@ require("lazy").setup({
   {
     "chrisgrieser/nvim-spider",
     cond = not vim.g.low_performance_mode,
+    event = "VimEnter",
+    -- NOTE: using conf("spider", "spider") does not work as the plugin is loaded to boot
     config = function()
       utils.load_mappings("spider")
       require("spider").setup({
         skipInsignificantPunctuation = false,
       })
     end,
-    event = "VimEnter",
   },
   {
     "kevinhwang91/nvim-ufo",
@@ -177,19 +178,13 @@ require("lazy").setup({
     "nvim-focus/focus.nvim",
     cond = not vim.g.low_performance_mode,
     event = "VimEnter",
-    config = function()
-      utils.load_mappings("focus")
-      conf("focus")
-    end,
+    config = conf("focus", "focus"),
   },
   {
     "levouh/tint.nvim",
     cond = not vim.g.low_performance_mode,
     event = "WinEnter",
-    config = function()
-      utils.load_mappings("tint")
-      conf("tint")
-    end,
+    config = conf("tint", "tint"),
   },
   -- {
   --   "TaDaa/vimade",
@@ -303,25 +298,21 @@ require("lazy").setup({
   --   init = utils.load_mappings("true_zen"),
   --   config = conf("true-zen"),
   -- },
-  -- {
-  --   "Bekaboo/dropbar.nvim",
-  --   cond = not sys.is_gui(),
-  --   init = utils.load_mappings("dropbar"),
-  --   event = "VimEnter",
-  --   config = conf("dropbar"),
-  --   dependencies = {
-  --     "nvim-tree/nvim-web-devicons",
-  --   },
-  -- },
+  {
+    "Bekaboo/dropbar.nvim",
+    cond = not sys.is_gui() and not vim.g.low_performance_mode,
+    event = "VimEnter",
+    config = conf("dropbar", "dropbar"),
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+    },
+  },
 
   -- FILE NAVIGATION
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    config = function()
-      conf("telescope")
-      utils.load_mappings("telescope")
-    end,
+    config = conf("telescope", "telescope"),
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-media-files.nvim" },
@@ -571,6 +562,7 @@ require("lazy").setup({
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
+    cond = not vim.g.low_performance_mode,
     event = "VeryLazy",
     config = conf("nvim-treesitter-context"),
   },

@@ -190,6 +190,7 @@ function! s:PlusYank(type = "") abort
         let &selection = l:save_sel
     endtry
 endfunction
+
 " }}} HELPER FUNCTIONS
 
 " BASIC MAPPINGS -------------------- {{{
@@ -711,9 +712,12 @@ function! TextManipulationMappings()
   " Change current word in a repeatable manner (repeatable with ".")
   nnoremap <leader>rn *``cgn
   nnoremap <leader>rN *``cgN
+
+  " INFO: Disabled because it messes up TreeSitter highlighting
   " Change selected word in a repeatable manner
-  vnoremap <expr> <leader>rn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
-  vnoremap <expr> <leader>rN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
+  " vnoremap <expr> <leader>rn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
+  " vnoremap <expr> <leader>rN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
+
   " Search and replace whole buffer
   nnoremap <Leader>rr :%s//gc<Left><Left><Left>
   " Search and replace current line only
@@ -766,6 +770,9 @@ function! SettingsToggleMappings()
 
   " UI toggles
   nnoremap <silent> <LocalLeader>sub :<C-u>call <SID>toggle_background()<CR>
+
+  " Config toggles
+  nnoremap <LocalLeader>sL :<C-u>call <SID>toggle_low_performance_mode()<CR>
 endfunction
 " }}} SETTINGS TOGGLE MAPPINGS
 
@@ -931,6 +938,18 @@ function! s:substitute_odd_characters()
   silent exe 'norm! gv:s/\(\\\)\@<!\((\)\?\$\([0-9,.]\+\)\(\s\|\n\|)\)/\2\\$\3\4/ge'."\<CR>"
   " Clear commandline prompt
   redraw
+endfunction
+
+function! s:toggle_low_performance_mode()
+  if get(g:, 'low_performance_mode', v:false)
+    echom 'Low performance mode OFF. Restart nvim to take effect'
+    let g:low_performance_mode=v:false
+    call g:CacheToDataDir('low_performance_mode', v:false)
+  else
+    echom 'Low performance mode ON. Restart nvim to take effect'
+    let g:low_performance_mode=v:true
+    call g:CacheToDataDir('low_performance_mode', v:true)
+  endif
 endfunction
 
 " Ref: https://vim.fandom.com/wiki/Selecting_your_pasted_text
