@@ -1,3 +1,7 @@
+-- TODO:
+-- - Move all `utils.load_mappings("transparent")` out of `init` and into the
+--   plugin's `config`
+
 local function conf(config_name)
   return require(string.format("user.plugins.%s", config_name))
 end
@@ -116,8 +120,9 @@ require("lazy").setup({
   },
   {
     "chrisgrieser/nvim-spider",
-    init = utils.load_mappings("spider"),
+    cond = not vim.g.low_performance_mode,
     config = function()
+      utils.load_mappings("spider")
       require("spider").setup({
         skipInsignificantPunctuation = false,
       })
@@ -126,6 +131,7 @@ require("lazy").setup({
   },
   {
     "kevinhwang91/nvim-ufo",
+    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-ufo"),
     config = conf("nvim-ufo"),
     dependencies = {
@@ -134,9 +140,12 @@ require("lazy").setup({
   },
   {
     "kevinhwang91/nvim-hlslens",
-    init = utils.load_mappings("hlslens"),
+    cond = not vim.g.low_performance_mode,
     event = "BufRead",
-    config = conf("nvim-hlslens"),
+    config = function()
+      utils.load_mappings("hlslens")
+      conf("nvim-hlslens")
+    end,
   },
   {
     url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
@@ -166,15 +175,21 @@ require("lazy").setup({
   },
   {
     "nvim-focus/focus.nvim",
-    init = utils.load_mappings("focus"),
+    cond = not vim.g.low_performance_mode,
     event = "VimEnter",
-    config = conf("focus"),
+    config = function()
+      utils.load_mappings("focus")
+      conf("focus")
+    end,
   },
   {
     "levouh/tint.nvim",
-    init = utils.load_mappings("tint"),
+    cond = not vim.g.low_performance_mode,
     event = "WinEnter",
-    config = conf("tint"),
+    config = function()
+      utils.load_mappings("tint")
+      conf("tint")
+    end,
   },
   -- {
   --   "TaDaa/vimade",
@@ -230,6 +245,7 @@ require("lazy").setup({
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("indent-blankline.nvim"),
     main = "ibl",
     config = conf("indent-blankline"),
@@ -237,7 +253,7 @@ require("lazy").setup({
   },
   {
     "Darazaki/indent-o-matic",
-    event = "BufRead",
+    event = "VimEnter",
     config = conf("indent-o-matic"),
   },
   {
@@ -302,8 +318,10 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    init = utils.load_mappings("telescope"),
-    config = conf("telescope"),
+    config = function()
+      conf("telescope")
+      utils.load_mappings("telescope")
+    end,
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-media-files.nvim" },
@@ -358,11 +376,13 @@ require("lazy").setup({
   },
   {
     "windwp/nvim-autopairs",
+    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-autopairs"),
     config = conf("nvim-autopairs"),
   },
   {
     "windwp/nvim-ts-autotag",
+    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-ts-autotag"),
     config = conf("nvim-ts-autotag"),
   },
@@ -400,11 +420,13 @@ require("lazy").setup({
   },
   {
     "RRethy/vim-illuminate",
+    cond = not vim.g.low_performance_mode,
     event = "BufRead",
     config = conf("vim-illuminate"),
   },
   {
     "andymass/vim-matchup",
+    cond = not vim.g.low_performance_mode,
     event = "BufRead",
     config = conf("vim-matchup"),
   },
@@ -560,19 +582,18 @@ require("lazy").setup({
   },
   {
     "folke/todo-comments.nvim",
-    init = function()
+    init = utils.lazy_load("todo-comments.nvim"),
+    config = function()
       utils.load_mappings("todo_comments")
-      utils.lazy_load("todo-comments.nvim")
+      conf("todo-comments")
     end,
-    config = conf("todo-comments"),
   },
   {
     "NvChad/nvim-colorizer.lua",
-    init = function()
-      utils.lazy_load("nvim-colorizer.lua")
-      utils.load_mappings("colorizer")
-    end,
+    cond = not vim.g.low_performance_mode,
+    init = utils.lazy_load("nvim-colorizer.lua"),
     config = function(_, opts)
+      utils.load_mappings("colorizer")
       require("colorizer").setup(opts)
       -- execute colorizer as soon as possible
       vim.defer_fn(function()
@@ -609,6 +630,7 @@ require("lazy").setup({
   },
   {
     "ray-x/lsp_signature.nvim",
+    cond = not vim.g.low_performance_mode,
     event = "InsertEnter",
     config = conf("lsp_signature"),
   },
@@ -737,10 +759,6 @@ require("lazy").setup({
           },
         },
       },
-      {
-        "windwp/nvim-autopairs",
-        config = conf("nvim-autopairs"),
-      },
     },
   },
   {
@@ -791,11 +809,12 @@ require("lazy").setup({
   },
   {
     "sedm0784/vim-you-autocorrect",
+    cond = not vim.g.low_performance_mode,
     ft = { "markdown", "vimwiki", "norg" },
     cmd = { "EnableAutocorrect", "DisableAutocorrect" },
     init = function()
-      conf("vim-you-autocorrect")()
       utils.load_mappings("you_autocorrect")
+      conf("vim-you-autocorrect")()
     end,
   },
 

@@ -226,8 +226,13 @@ set fillchars+=vert:\│  " add a bar for vertical splits
 set fillchars+=diff:╱   " Diagonal lines in place of deleted lines in diff-mode
 set list
 let &showbreak='↳  '
-" set listchars=tab:\│\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
-set listchars=tab:»·,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+
+if get(g:, 'low_performance_mode', v:false)
+  set listchars=tab:\│\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+else
+  set listchars=tab:»·,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+endif
+
 set listchars+=eol:↴
 " set listchars+=space:⋅
 set title

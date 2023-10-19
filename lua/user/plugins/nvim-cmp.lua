@@ -1,17 +1,24 @@
 return function()
   -- Setup nvim-cmp.
   local cmp = require("cmp")
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  local handlers = require("nvim-autopairs.completion.handlers")
   local api = vim.api
   local utils = Config.common.utils
 
+  -- Snippet support
   local cmp_ultisnips_mappings
   local luasnip
   if vim.g.snippet_engine == "ultisnips" then
     cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
   elseif vim.g.snippet_engine == "luasnip" then
     luasnip = require("luasnip")
+  end
+
+  -- Autopairs support
+  local cmp_autopairs
+  local handlers
+  if not vim.g.low_performance_mode then
+    cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    handlers = require("nvim-autopairs.completion.handlers")
   end
 
   local lsp_kinds = {
@@ -328,25 +335,27 @@ return function()
   })
 
   -- autopairs config
-  cmp.event:on(
-    "confirm_done",
-    cmp_autopairs.on_confirm_done({
-      filetypes = {
-        -- "*" is a alias to all filetypes
-        ["*"] = {
-          ["("] = {
-            kind = {
-              cmp.lsp.CompletionItemKind.Function,
-              cmp.lsp.CompletionItemKind.Method,
+  if not vim.g.low_performance_mode then
+    cmp.event:on(
+      "confirm_done",
+      cmp_autopairs.on_confirm_done({
+        filetypes = {
+          -- "*" is a alias to all filetypes
+          ["*"] = {
+            ["("] = {
+              kind = {
+                cmp.lsp.CompletionItemKind.Function,
+                cmp.lsp.CompletionItemKind.Method,
+              },
+              handler = handlers["*"],
             },
-            handler = handlers["*"],
           },
+          -- Disable for tex
+          -- tex = false
         },
-        -- Disable for tex
-        -- tex = false
-      },
-    })
-  )
+      })
+    )
+  end
 
   -- Dap completion
   cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {

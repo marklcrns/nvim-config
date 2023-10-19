@@ -12,7 +12,7 @@ return function()
     },
 
     -- Set opacity for cursorline and number background
-    line_opacity = 0.20,
+    line_opacity = 0.40,
 
     -- Enable cursor highlights
     set_cursor = false,
