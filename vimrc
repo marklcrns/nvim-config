@@ -5,7 +5,7 @@ let g:enable_format_on_save= v:true
 let g:snippet_engine = 'luasnip'
 
 " Enable this to disable cpu intensive plugins/modules
-let g:low_performance_mode = v:true
+let g:low_performance_mode = v:false
 
 " Gui Fonts
 let g:guifontsize = 12
