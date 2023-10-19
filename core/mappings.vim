@@ -552,7 +552,7 @@ function! YankPasteMappings()
   inoremap <C-y> <Esc>"xyy"xpV:s//gI<bar>norm`.A
         \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
   vnoremap <M-y> "xy`]"xp`[V`]
-  autocmd BufWritePre * call AutoIndentPaste()
+  " autocmd BufWritePre * call AutoIndentPaste()
 endfunction
 
 function! EmacsLikeMappings()
