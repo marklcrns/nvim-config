@@ -144,16 +144,8 @@ require("lazy").setup({
   },
   {
     "kevinhwang91/nvim-hlslens",
-    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-hlslens"),
-    -- NOTE: Only nvim-hlslens should be in this multi-line format because it
-    -- loads the config to boot, including mappings, regardless of the cond.
-    -- Using in-line format loads the config to boot and if in
-    -- low_performance_mode, the plugin will not be loaded but the mappings will.
-    -- Therefore, it produces an error when ever I hit its mappings.
-    config = function()
-      conf("nvim-hlslens", "hlslens")
-    end,
+    config = conf("nvim-hlslens", "hlslens"),
   },
   {
     url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
