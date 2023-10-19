@@ -1,10 +1,6 @@
 -- TODO:
 -- - Move all `utils.load_mappings("transparent")` out of `init` and into the
---   plugin's `config`
-
-local function conf(config_name)
-  return require(string.format("user.plugins.%s", config_name))
-end
+--   plugin's `config` or conf()
 
 ---Use local development version if it exists.
 ---NOTE: Remember to run `:PackerClean :PackerInstall` to update symlinks.
@@ -37,6 +33,13 @@ end
 local utils = require("user.core.utils")
 local sys = Config.common.sys
 
+local function conf(config_name, mappings_name)
+  if mappings_name then
+    utils.load_mappings(mappings_name)
+  end
+  return require(string.format("user.plugins.%s", config_name))
+end
+
 require("lazy").setup({
   -- SYNTAX & FILETYPE PLUGINS
   {
@@ -64,6 +67,7 @@ require("lazy").setup({
   },
   {
     "rcarriga/nvim-notify",
+    cond = not vim.g.low_performance_mode,
     event = "VimEnter",
     config = conf("nvim-notify"),
   },
@@ -141,10 +145,14 @@ require("lazy").setup({
   {
     "kevinhwang91/nvim-hlslens",
     cond = not vim.g.low_performance_mode,
-    event = "BufRead",
+    init = utils.lazy_load("nvim-hlslens"),
+    -- NOTE: Only nvim-hlslens should be in this multi-line format because it
+    -- loads the config to boot, including mappings, regardless of the cond.
+    -- Using in-line format loads the config to boot and if in
+    -- low_performance_mode, the plugin will not be loaded but the mappings will.
+    -- Therefore, it produces an error when ever I hit its mappings.
     config = function()
-      utils.load_mappings("hlslens")
-      conf("nvim-hlslens")
+      conf("nvim-hlslens", "hlslens")
     end,
   },
   {
@@ -218,13 +226,13 @@ require("lazy").setup({
   -- },
   -- {
   --   "karb94/neoscroll.nvim",
-  --   cond = not sys.is_gui(),
+  --   cond = not sys.is_gui() or vim.g.low_performance_mode,
   --   init = utils.lazy_load("neoscroll.nvim"),
   --   config = conf("neoscroll"),
   -- },
   {
     "gen740/SmoothCursor.nvim",
-    cond = not sys.is_gui(),
+    cond = not sys.is_gui() and not vim.g.low_performance_mode,
     event = "VimEnter",
     init = utils.load_mappings("SmoothCursor"),
     config = conf("SmoothCursor"),
@@ -245,11 +253,11 @@ require("lazy").setup({
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("indent-blankline.nvim"),
     main = "ibl",
     config = conf("indent-blankline"),
-    dependencies = { "HiPhish/rainbow-delimiters.nvim" },
+    -- WARN: Integration with rainbow-delimiters degrades performance
+    -- dependencies = { "HiPhish/rainbow-delimiters.nvim" },
   },
   {
     "Darazaki/indent-o-matic",
@@ -376,13 +384,11 @@ require("lazy").setup({
   },
   {
     "windwp/nvim-autopairs",
-    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-autopairs"),
     config = conf("nvim-autopairs"),
   },
   {
     "windwp/nvim-ts-autotag",
-    cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-ts-autotag"),
     config = conf("nvim-ts-autotag"),
   },
@@ -583,10 +589,7 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     init = utils.lazy_load("todo-comments.nvim"),
-    config = function()
-      utils.load_mappings("todo_comments")
-      conf("todo-comments")
-    end,
+    config = conf("todo-comments", "todo_comments"),
   },
   {
     "NvChad/nvim-colorizer.lua",
@@ -837,6 +840,7 @@ require("lazy").setup({
   },
   {
     "m4xshen/hardtime.nvim",
+    cond = not vim.g.low_performance_mode,
     event = "VimEnter",
     init = utils.load_mappings("hardtime"),
     config = conf("hardtime"),
