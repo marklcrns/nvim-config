@@ -26,7 +26,7 @@ return function()
       cursorcolumn = false, -- Display cursorcolumn in the focussed window only
       colorcolumn = {
         enable = true, -- Display colorcolumn in the foccused window only
-        list = "+1", -- Set the comma-saperated list for the colorcolumn
+        list = "+1,+2", -- Set the comma-saperated list for the colorcolumn
       },
       signcolumn = true, -- Display signcolumn in the focussed window only
       winhighlight = false, -- Auto highlighting for focussed/unfocussed windows
@@ -62,6 +62,7 @@ return function()
     "qf",
     "toggleterm",
     "dropbar_menu",
+    "DiffviewFiles",
   }
   local ignore_buftypes = {
     "help",
@@ -71,6 +72,7 @@ return function()
     "popup",
     "prompt",
     "terminal",
+    "nowrite",
   }
 
   local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })

@@ -12,7 +12,7 @@ return function()
   ]])
 
   require("smoothcursor").setup({
-    type = "default", -- define cursor movement calculate function, "default" or "exp" (exponential).
+    type = "exp", -- define cursor movement calculate function, "default" or "exp" (exponential).
     autostart = true,
     cursor = "", -- cursor shape (need nerd font)
     texthl = "SmoothCursor", -- highlight group, default is { bg = nil, fg = "#FFD400" }
@@ -83,11 +83,11 @@ return function()
       unstop = true, -- Determines if the cursor should stop or not (false means it will stop)
     },
     flyin_effect = nil, -- "bottom" or "top"
-    speed = 20, -- max is 100 to stick to your current position
-    intervals = 35, -- tick interval
+    speed = 40, -- max is 100 to stick to your current position
+    intervals = 30, -- tick interval
     priority = 10, -- set marker priority
     timeout = 3000, -- timout for animation
-    threshold = 1, -- animate if threshold lines jump
+    threshold = 3, -- animate if threshold lines jump
     disable_float_win = true, -- disable on float window
     enabled_filetypes = nil, -- example: { "lua", "vim" }
     disabled_filetypes = nil, -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
