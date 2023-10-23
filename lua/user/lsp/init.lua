@@ -117,6 +117,8 @@ function M.create_config(...)
   return M.create_local_config(config)
 end
 
+-- START LSP CONFIG ------------------------------------------------------------
+
 -- Java
 -- require("user.lsp.java")
 
@@ -166,6 +168,12 @@ lspconfig.jsonls.setup(M.create_config())
 lspconfig.emmet_ls.setup(M.create_config({
   filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 }))
+-- Weird languages for school
+lspconfig.svlangserver.setup(M.create_config({
+  filetypes = { "systemverilog", "verilog" },
+}))
+
+-- END LSP CONFIG --------------------------------------------------------------
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
