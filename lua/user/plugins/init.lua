@@ -149,7 +149,7 @@ require("lazy").setup({
     config = conf("nvim-hlslens", "hlslens"),
   },
   {
-    url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+    "yorickpeterse/nvim-pqf",
     ft = { "qf" },
     config = function()
       require("pqf").setup({
