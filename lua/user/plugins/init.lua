@@ -72,6 +72,8 @@ require("lazy").setup({
     config = conf("nvim-notify"),
   },
   -- {
+  --   -- INFO: Need to enable Cursor highlight in colorscheme.lua.
+  --   -- i.e. comment out `hi_clear({ "Cursor", "TermCursor" })`
   --   -- (DEPRECATED INFO) Overriding lsp_signature. See usr/lsp/init.lua
   --   "folke/noice.nvim",
   --   cond = not sys.is_gui(),

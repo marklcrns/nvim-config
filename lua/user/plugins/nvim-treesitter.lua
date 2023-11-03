@@ -1,17 +1,24 @@
 return function()
+  -- Map filetypes to TS parsers
+  for ft, parser in pairs({
+    handlebars = "glimmer",
+  }) do
+    vim.treesitter.language.register(ft, parser)
+  end
+
   require("nvim-treesitter.configs").setup({
     -- Only install what has been seen at least once
     -- ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     auto_install = true,
-    -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+    ignore_install = {
+      "luap",
+    },
     highlight = {
       enable = true,
       disable = function(lang, bufnr)
         local kb = Config.common.utils.buf_get_size(bufnr)
 
-        if kb > 320 then
-          return true
-        end
+        if kb > 320 then return true end
 
         return vim.tbl_contains({
           -- "vim",
@@ -23,12 +30,6 @@ return function()
           "comment",
         }, lang)
       end,
-
-      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-      -- Using this option may slow down your editor, and you may see some duplicate highlights.
-      -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = false,
     },
 
     -- Defined in nvim-treesitter-textobjects

@@ -1,96 +1,65 @@
 return function()
-  local setup = {
+  local hooks = require("ibl.hooks")
+  local hi = Config.common.hl.hi
+
+  hooks.register(hooks.type.HIGHLIGHT_SETUP, vim.schedule_wrap(function()
+    -- Remove `nocombine`
+    hi(
+      {
+        "@ibl.indent.char.1",
+        "@ibl.whitespace.char.1",
+        "@ibl.scope.char.1",
+        "@ibl.scope.underline.1",
+      },
+      { style = "NONE" }
+    )
+  end))
+
+  require("ibl").setup({
+    enabled = true,
+    debounce = 200,
     indent = {
       char = "▏",
+      tab_char = "▏",
+      smart_indent_cap = true,
+      highlight = "Whitespace",
     },
-    whitespace = { highlight = { "Whitespace", "NonText" } },
+    scope = {
+      enabled = true,
+      char = "▏",
+      show_start = false,
+    },
     exclude = {
-      buftypes = { "terminal", "nofile" },
+      buftypes = {
+        "terminal",
+        "nofile",
+      },
       filetypes = {
-        "DiffviewFileHistory",
-        "DiffviewFiles",
-        "LspSagaCodeAction",
-        "NeogitCommitMessage",
-        "NeogitCommitView",
-        "NeogitLogView",
-        "NeogitPopup",
-        "NeogitStatus",
-        "NvimTree",
-        "Outline",
-        "TelescopePrompt",
-        "Trouble",
-        "alpha",
-        "any-jump",
-        "calendar",
-        "clap_input",
-        "coc-explorer",
-        "codi",
-        "dashboard",
-        "defx",
-        "denite",
-        "denite-filter",
-        "fern",
-        "floaterm",
-        "fugitive",
-        "fzf",
-        "gina-commit",
-        "gina-log",
-        "gina-status",
         "help",
-        "help",
-        "lsp-hover",
-        "lsp-quickpick-filter",
-        "lspinfo",
-        "lspsagafinder",
-        "man",
-        "minimap",
-        "norg",
-        "packer",
-        "quickpick-filter",
-        "sagahover",
-        "sagasignature",
         "startify",
-        "tagbar",
-        "taskreport",
-        "vista",
-        "vista_kind",
-        "which_key",
+        "dashboard",
+        "alpha",
+        "packer",
+        "NeogitStatus",
+        "NeogitCommitView",
+        "NeogitPopup",
+        "NeogitLogView",
+        "NeogitCommitMessage",
+        "man",
+        "sagasignature",
+        "sagahover",
+        "lspsagafinder",
+        "LspSagaCodeAction",
+        "TelescopePrompt",
+        "NvimTree",
+        "Trouble",
+        "DiffviewFiles",
+        "DiffviewFileHistory",
+        "Outline",
+        "lspinfo",
+        "fugitive",
+        "norg",
       },
     },
-  }
-
-  require("ibl").setup(setup)
-
-  -- WARN: Integration with rainbow-delimiters degrades performance
-  -- if not vim.g.low_performance_mode then
-  --   local highlight = {
-  --     "RainbowRed",
-  --     "RainbowYellow",
-  --     "RainbowBlue",
-  --     "RainbowOrange",
-  --     "RainbowGreen",
-  --     "RainbowViolet",
-  --     "RainbowCyan",
-  --   }
-  --   local hooks = require("ibl.hooks")
-  --   -- create the highlight groups in the highlight setup hook, so they are reset
-  --   -- every time the colorscheme changes
-  --   hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-  --     vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-  --     vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-  --     vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-  --     vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-  --     vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-  --     vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-  --     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-  --   end)
-  --   vim.g.rainbow_delimiters = { highlight = highlight }
-  --
-  --   setup.scope = { highlight = highlight }
-  --   require("ibl").setup(setup)
-  --
-  --   hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-  -- else
-  --   require("ibl").setup(setup)
-  -- end
+  })
 end

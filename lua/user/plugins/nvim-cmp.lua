@@ -324,10 +324,17 @@ return function()
       { name = "spell", group_index = 2 },
       {
         name = "buffer",
-        group_index = 2,
-        max_item_count = 10,
+        max_item_count = 20,
         option = {
-          get_bufnrs = get_bufnrs,
+          get_bufnrs = function()
+            return vim.tbl_filter(
+              function(bufnr) return utils.buf_get_size(bufnr) < 1024 end,
+              utils.vec_union(
+                utils.list_bufs({ listed = true }),
+                utils.list_bufs({ no_hidden = true })
+              )
+            )
+          end,
         },
       },
       { name = "emoji", group_index = 3, options = { insert = true } },

@@ -365,8 +365,7 @@ function M.apply_tweaks()
   local colors_name = vim.g.colors_name or ""
   local base_colors = M.find_base_colors()
 
-  -- INFO: Disabled because it conflicts with noice.nvim
-  -- hi_clear({ "Cursor", "TermCursor" })
+  hi_clear({ "Cursor", "TermCursor" })
   hi("TermCursor", { style = "reverse" })
   hi("NonText", { style = "nocombine" })
   hi("Hidden", { fg = "bg", bg = "bg" })

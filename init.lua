@@ -36,12 +36,12 @@ Config.state.git = {
   rev_name_cache = Cache(),
 }
 
+local alias = require("user.modules.cmd_alias").alias
 local api = vim.api
 local lib = Config.lib
 local utils = Config.common.utils
 
 require("user")
-
 -- DEPRECATED: by Bekaboo/dropbar.nvim
 -- -- Custom winbar
 -- -- Disable for neovide. Doesn't work well with it.
@@ -57,8 +57,12 @@ require("user")
 require("user.modules.lastplace")
 
 -- COMMAND ALIASES
-local alias = require("user.modules.cmd_alias").alias
 
+alias("brm", "BRemove")
+alias("sch", "Scratch")
+alias("wins", "Windows")
+alias("hh", "HelpHere")
+alias("mh", "ManHere")
 alias("gh", "Git ++curwin")
 alias("T", "Telescope")
 alias("gs", "Telescope git_status")
@@ -80,34 +84,39 @@ alias("dp", "diffput")
 
 -- FUNCTIONS
 
-Config.fn.toggle_quickfix = lib.create_buf_toggler(function()
-  return utils.list_bufs({
-    options = { buftype = "quickfix" },
-    no_hidden = true,
-    tabpage = 0,
-  })[1]
-end, function()
-  if #vim.fn.getloclist(0) > 0 then
-    vim.cmd("belowright lope")
-  else
-    vim.cmd("100 wincmd j | belowright cope")
-  end
-end, function()
-  if vim.fn.win_gettype() == "quickfix" then
-    vim.cmd("ccl")
-  else
-    vim.cmd("lcl")
-  end
-end, { focus = true, remember_height = true })
+Config.fn.toggle_quickfix = lib.create_buf_toggler(
+  function()
+    return utils.list_bufs({
+      options = { buftype = "quickfix" },
+      no_hidden = true,
+      tabpage = 0,
+    })[1]
+  end,
+  function()
+    if #vim.fn.getloclist(0) > 0 then
+      vim.cmd("belowright lope")
+    else
+      vim.cmd("100 wincmd j | belowright cope")
+    end
+  end,
+  function()
+    if vim.fn.win_gettype() == "quickfix" then
+      vim.cmd("ccl")
+    else
+      vim.cmd("lcl")
+    end
+  end,
+  { focus = true, remember_height = true }
+)
 
-Config.fn.toggle_outline = lib.create_buf_toggler(function()
-  return utils.list_bufs({ pattern = "OUTLINE" })[1]
-end, function()
-  vim.cmd("SymbolsOutlineOpen")
-end, function()
-  vim.cmd("SymbolsOutlineClose")
-  vim.cmd("wincmd =")
-end)
+Config.fn.toggle_outline = lib.create_buf_toggler(
+  function() return utils.list_bufs({ pattern = "OUTLINE" })[1] end,
+  function() vim.cmd("SymbolsOutlineOpen") end,
+  function()
+    vim.cmd("SymbolsOutlineClose")
+    vim.cmd("wincmd =")
+  end
+)
 
 ---@return string[]
 local function get_messages()
