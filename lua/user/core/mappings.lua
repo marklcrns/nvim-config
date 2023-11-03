@@ -38,11 +38,13 @@ M.general = {
       "move { without poluting jumplist",
       opts = default_opts,
     },
+
     -- UI
     ["<A-S-D>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", opts = default_opts },
     ["<C-M-o>"] = { "<cmd>lua Config.fn.toggle_outline()<CR>", "toggle outline", opts = default_opts },
     ["<M-CR>"] = { "<cmd>lua Config.fn.update_messages_win()<CR>", "open messages win", opts = default_opts },
     ["<M-q>"] = { "<cmd>lua Config.fn.toggle_quickfix()<CR>", "toggle quickfix", opts = default_opts },
+
     -- LSP
     ["gd"] = {
       "<cmd>lua vim.lsp.buf.definition()<CR>",
@@ -73,6 +75,7 @@ M.general = {
     ["<leader>."] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action", opts = default_opts },
     ["<leader>cf"] = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "code format async", opts = default_opts },
     ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "code rename", opts = default_opts },
+
     -- Seek motions
     ["[d"] = {
       "<cmd>exe 'lua vim.diagnostic.goto_prev({ float = false })'<CR>zz",
@@ -98,10 +101,16 @@ M.general = {
       "next reference",
       opts = { expr = true, noremap = true, silent = true },
     },
+
     -- Misc
     ["<F10>"] = { "<cmd>lua require'user.lib'.print_syn_group()<CR>", "show cursor hi group", opts = default_opts },
+
     -- Terminal
     ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", opts = default_opts },
+
+    -- Text manipulation
+    ["<Leader>rw"] = { "*``cgn", "forward search & change cword ", opts = default_opts },
+    ["<Leader>rW"] = { "*``cgN", "backward search & change cword ", opts = default_opts },
   },
 
   v = {

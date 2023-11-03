@@ -485,12 +485,12 @@ require("lazy").setup({
   },
 
   -- VCS
-  {
-    "TimUntersberger/neogit",
-    cmd = "Neogit",
-    init = utils.load_mappings("neogit"),
-    config = conf("neogit"),
-  },
+  -- {
+  --   "TimUntersberger/neogit",
+  --   cmd = "Neogit",
+  --   init = utils.load_mappings("neogit"),
+  --   config = conf("neogit"),
+  -- },
   {
     "sindrets/vim-fugitive",
     init = function()
@@ -622,8 +622,9 @@ require("lazy").setup({
     config = conf("lsp_signature"),
   },
   {
-    init = utils.load_mappings("toggle_lsp_diagnostics"),
     "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
+    cmd = { "ToggleDiagOn", "ToggleDiagOff" },
+    init = utils.load_mappings("toggle_lsp_diagnostics"),
     config = conf("toggle-lsp-diagnostics"),
   },
   {
@@ -728,7 +729,8 @@ require("lazy").setup({
         dependencies = {
           {
             "L3MON4D3/LuaSnip",
-            version = "<CurrentMajor>.*",
+            version = "v2.*",
+            build = "make install_jsregexp",
             config = conf("LuaSnip"),
             dependencies = "rafamadriz/friendly-snippets",
           },

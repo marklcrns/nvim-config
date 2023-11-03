@@ -6,7 +6,8 @@ return function()
     max_width = 80,
     max_height = 15,
     top_down = false,
-    render = "compact",
+    render = "wrapped-compact",
+    stages = "static",
   })
   vim.opt.cmdheight = 1
 end

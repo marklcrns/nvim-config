@@ -23,10 +23,7 @@ if command -v python2 &>/dev/null; then
 	if source ${DATA_PATH}/venv/python/env/bin/activate; then
 		pip install wheel neovim PyYAML Send2Trash
 		# Optionals
-		pip install tasklib   # For tbabej/taskwiki
-		pip install packaging # For tbabej/taskwiki
 		pip install pynvim
-		pip install six
 		pip install keyring browser_cookie3 # for leetcode.vim
 		pip install keyrings.alt
 		deactivate
@@ -48,10 +45,7 @@ if command -v python3 &>/dev/null; then
 	if source ${DATA_PATH}/venv/python3/env/bin/activate; then
 		pip install wheel neovim PyYAML Send2Trash
 		# Optionals
-		pip install tasklib   # For tbabej/taskwiki
-		pip install packaging # For tbabej/taskwiki
 		pip install pynvim
-		pip install six
 		pip install keyring browser_cookie3 # for leetcode.vim
 		pip install keyrings.alt
 		pip install neovim-remote
@@ -72,6 +66,13 @@ if ! command -v tree-sitter &>/dev/null; then
 	fi
 fi
 
-npm -g install prettier
-
 ok "===> Global npm packages installed"
+
+if command -v luarocks &>/dev/null; then
+	luarocks --local install jsregexp
+else
+	error "luarocks not found... Please install luarocks"
+	exit 1
+fi
+
+ok "===> lua provider pass"

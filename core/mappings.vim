@@ -709,9 +709,6 @@ function! TextManipulationMappings()
   " whitespace.vim
   nnoremap <silent><Leader>r<Space> :<C-u>WhitespaceErase<CR>
   vnoremap <silent><Leader>r<Space> :WhitespaceErase<CR>
-  " Change current word in a repeatable manner (repeatable with ".")
-  nnoremap <leader>rn *``cgn
-  nnoremap <leader>rN *``cgN
 
   " INFO: Disabled because it messes up TreeSitter highlighting
   " Change selected word in a repeatable manner
@@ -778,8 +775,8 @@ endfunction
 
 " ==================== Custom single purpose functions and mappings ==================== "
 
+nnoremap <LocalLeader>sE <cmd>call EliteModeToggle()<CR>
 " Append '.md' to clipboard register yanked file path and :edit from current directory
-nnoremap <Leader>E <cmd>call EliteModeToggle()<CR>
 nnoremap <Leader>;m :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
 
 " Ref: https://stackoverflow.com/a/9407015/11850077
