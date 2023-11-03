@@ -128,17 +128,19 @@ return function()
         end
       end,
       i = function(fallback)
-        if has_words_before() then
-          if luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-            return
-          end
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        elseif has_words_before() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        else
+          fallback()
         end
-        fallback()
       end,
       s = function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
+        elseif has_words_before() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
         else
           fallback()
         end
@@ -262,7 +264,7 @@ return function()
       ghost_text = true,
     },
     completion = {
-      completeopt = "menu,menuone,noselect",
+      completeopt = "menu,menuone",
     },
 
     formatting = {
