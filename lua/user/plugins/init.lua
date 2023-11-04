@@ -290,6 +290,7 @@ require("lazy").setup({
   },
   {
     "gorbit99/codewindow.nvim",
+    cond = not vim.g.low_performance_mode,
     init = utils.load_mappings("codewindow"),
     event = "VimEnter",
     config = conf("codewindow"),
@@ -828,7 +829,7 @@ require("lazy").setup({
   },
   {
     "m4xshen/hardtime.nvim",
-    cond = not vim.g.low_performance_mode and not vim.g.vscode,
+    cond = not vim.g.low_performance_mode,
     event = "VimEnter",
     init = utils.load_mappings("hardtime"),
     config = conf("hardtime"),

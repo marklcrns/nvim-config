@@ -15,6 +15,9 @@ let g:guifont = 'VictorMono\ Nerd\ Font'
 
 " Enable this to disable cpu intensive plugins/modules
 let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false) == 0 ? v:false : v:true
+if exists("g:vscode")
+  let g:low_performance_mode = v:true
+endif
 
 " DEPRECTED: by xiyaowong/transparent.nvim
 " " let g:transparent_enabled = v:false

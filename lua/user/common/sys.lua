@@ -20,7 +20,8 @@ end
 function M.is_gui()
   local has = vim.fn.has
   local exists = vim.fn.exists
-  return exists("g:neovide") == 1
+  return exists("g:vscode") == 1
+    or exists("g:neovide") == 1
     or exists("g:Gui") == 1
     or exists("g:GuiLoaded") == 1
     or has("gui_running") == 1

@@ -24,12 +24,16 @@ vim.cmd.source(config_dir .. "/autocommands.vim")
 require("user.core.utils").load_mappings()
 
 require("user.core")
-require("user.plugins")
+if vim.fn.exists("g:vscode") == 0 then
+  require("user.plugins")
+end
 require("user.commands")
 
 require("user.colorscheme").apply()
 
-vim.schedule(function()
-  require("user.lsp")
-  vim.cmd("LspStart")
-end)
+if vim.fn.exists("g:vscode") == 0 then
+  vim.schedule(function()
+    require("user.lsp")
+    vim.cmd("LspStart")
+  end)
+end
