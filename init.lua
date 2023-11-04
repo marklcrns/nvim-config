@@ -42,16 +42,15 @@ local lib = Config.lib
 local utils = Config.common.utils
 
 require("user")
--- DEPRECATED: by Bekaboo/dropbar.nvim
--- -- Custom winbar
--- -- Disable for neovide. Doesn't work well with it.
--- if vim.fn.exists("g:neovide") == 0 then
---   api.nvim_create_autocmd("VimEnter", {
---     callback = function()
---       require("user.modules.winbar").init()
---     end,
---   })
--- end
+-- Custom winbar
+-- Disable for neovide. Doesn't work well with it.
+if vim.fn.exists("g:neovide") == 0 then
+  api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+      require("user.modules.winbar").init()
+    end,
+  })
+end
 
 -- Lastplace
 require("user.modules.lastplace")

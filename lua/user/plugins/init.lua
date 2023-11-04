@@ -300,15 +300,15 @@ require("lazy").setup({
   --   init = utils.load_mappings("true_zen"),
   --   config = conf("true-zen"),
   -- },
-  {
-    "Bekaboo/dropbar.nvim",
-    cond = not sys.is_gui() and not vim.g.low_performance_mode,
-    event = "VimEnter",
-    config = conf("dropbar", "dropbar"),
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-    },
-  },
+  -- {
+  --   "Bekaboo/dropbar.nvim",
+  --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
+  --   event = "VimEnter",
+  --   config = conf("dropbar", "dropbar"),
+  --   dependencies = {
+  --     "nvim-telescope/telescope-fzf-native.nvim",
+  --   },
+  -- },
 
   -- FILE NAVIGATION
   {
@@ -828,7 +828,7 @@ require("lazy").setup({
   },
   {
     "m4xshen/hardtime.nvim",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not vim.g.vscode,
     event = "VimEnter",
     init = utils.load_mappings("hardtime"),
     config = conf("hardtime"),

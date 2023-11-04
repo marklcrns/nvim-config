@@ -295,8 +295,8 @@ function! ImprovedDefaultMappings()
   nnoremap <silent> <C-S-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
 
   " Improve scroll, credits: https://github.com/Shougo
-  noremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
-        \ 'zt' : (winline() == 1) ? 'zb' : 'zz'
+  " noremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
+  "       \ 'zt' : (winline() == 1) ? 'zb' : 'zz'
   noremap <expr> <C-f> max([winheight(0) - 2, 1])
         \ ."\<C-d>".(line('w$') >= line('$') ? "L" : "M")
   noremap <expr> <C-b> max([winheight(0) - 2, 1])

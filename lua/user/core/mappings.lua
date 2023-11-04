@@ -589,6 +589,7 @@ M.neorg = {
   n = {
     ["<LocalLeader>nnw"] = { "<cmd>Neorg index<CR>", "open default workspace index", opts = default_opts },
     ["<LocalLeader>nnjj"] = { "<cmd>Neorg journal today<CR>", "open workspace journal today", opts = default_opts },
+    ["<LocalLeader>nnjJ"] = { "<cmd>Neorg journal toc<CR>", "open workspace journal toc", opts = default_opts },
     ["<LocalLeader>nnjo"] = {
       "<cmd>Neorg journal toc<CR>",
       "open workspace journal index",
