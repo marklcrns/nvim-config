@@ -316,7 +316,7 @@ return function()
       { name = "nvim_lsp", group_index = 1 },
       { name = "nvim_lua", group_index = 1 },
       { name = "ultisnips", group_index = 1, max_item_count = 10 },
-      { name = "luasnip", group_index = 1 },
+      { name = "luasnip", option = { show_autosnippets = true }, group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "spell", group_index = 2 },
       {
@@ -390,7 +390,7 @@ return function()
       { name = "nvim_lsp", group_index = 1 },
       -- { name = 'spell', group_index = 1  },
       { name = "ultisnips", group_index = 1, max_item_count = 10 },
-      { name = "luasnip", group_index = 1 },
+      { name = "luasnip", option = { show_autosnippets = true }, group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "neorg", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },
@@ -412,7 +412,7 @@ return function()
       { name = "nvim_lsp", group_index = 1 },
       -- { name = 'spell', group_index = 1  },
       { name = "ultisnips", group_index = 1, max_item_count = 10 },
-      { name = "luasnip", group_index = 1 },
+      { name = "luasnip", option = { show_autosnippets = true }, group_index = 1 },
       { name = "path", group_index = 2 },
       { name = "emoji", group_index = 3, options = { insert = true } },
       {
