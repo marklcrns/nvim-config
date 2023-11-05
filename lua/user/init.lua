@@ -16,24 +16,17 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 -- require("user.settings")
-
-vim.cmd.source(config_dir .. "/vimrc")
 vim.cmd.source(config_dir .. "/autocommands.vim")
 
 -- General mappings
 require("user.core.utils").load_mappings()
-
 require("user.core")
-if vim.fn.exists("g:vscode") == 0 then
-  require("user.plugins")
-end
-require("user.commands")
 
+require("user.plugins")
+require("user.commands")
 require("user.colorscheme").apply()
 
-if vim.fn.exists("g:vscode") == 0 then
-  vim.schedule(function()
-    require("user.lsp")
-    vim.cmd("LspStart")
-  end)
-end
+vim.schedule(function()
+  require("user.lsp")
+  vim.cmd("LspStart")
+end)

@@ -275,17 +275,16 @@ function! ImprovedDefaultMappings()
   nnoremap zh z4h
   " Open file under the cursor in a vsplit
   nnoremap go :vertical wincmd f<CR>
-  " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
-  " these mappings will move through display-lines in visual mode too.
-  vnoremap j gj
-  vnoremap k gk
 
-  " DISABLE: Conflict with rhysd/accelerated-jk
-  " " Makes Relative Number jumps work with text wrap
-  " noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-  " noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-  " vnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-  " vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+  " Makes Relative Number jumps work with text wrap
+  noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+  noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+  vnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+  vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
+  " Move to the start/end of the line without poluting jump list
+  nnoremap <silent> } :<C-u>execute 'keepjumps norm! ' . v:count1 . '}zz'<CR>
+  nnoremap <silent> { :<C-u>execute 'keepjumps norm! ' . v:count1 . '{zz'<CR>
 
   " Increment/Decrement next searcheable number by one. Wraps at end of file.
   nnoremap <silent> <C-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
@@ -709,6 +708,9 @@ function! TextManipulationMappings()
   " whitespace.vim
   nnoremap <silent><Leader>r<Space> :<C-u>WhitespaceErase<CR>
   vnoremap <silent><Leader>r<Space> :WhitespaceErase<CR>
+  " Change current word in a repeatable manner (repeatable with ".")
+  nnoremap <leader>rw *``cgn
+  nnoremap <leader>rW *``cgN
 
   " INFO: Disabled because it messes up TreeSitter highlighting
   " Change selected word in a repeatable manner

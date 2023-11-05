@@ -75,7 +75,6 @@ if has('vim_starting')
 endif
 
 call utils#source_file($VIM_PATH, 'core/general.vim')
-" call utils#source_file($VIM_PATH, 'core/filetype.vim')
 call utils#source_file($VIM_PATH, 'core/mappings.vim')
 
 set secure

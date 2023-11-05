@@ -17,28 +17,6 @@ M.general = {
   },
 
   n = {
-    -- Improved Defaults
-    ["j"] = {
-      "v:count == 0 ? 'gj' : 'j'",
-      "move j through display line",
-      opts = { expr = true, noremap = true, silent = true },
-    },
-    ["k"] = {
-      "v:count == 0 ? 'gk' : 'k'",
-      "move k through display line",
-      opts = { expr = true, noremap = true, silent = true },
-    },
-    ["}"] = {
-      ":<C-u>execute 'keepjumps norm! ' . v:count1 . '}'<CR>",
-      "move } without poluting jumplist",
-      opts = default_opts,
-    },
-    ["{"] = {
-      ":<C-u>execute 'keepjumps norm! ' . v:count1 . '{'<CR>",
-      "move { without poluting jumplist",
-      opts = default_opts,
-    },
-
     -- UI
     ["<A-S-D>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", opts = default_opts },
     ["<C-M-o>"] = { "<cmd>lua Config.fn.toggle_outline()<CR>", "toggle outline", opts = default_opts },
@@ -107,24 +85,9 @@ M.general = {
 
     -- Terminal
     ["<C-\\>"] = { "<cmd>TermToggle<CR>", "toggle terminal", opts = default_opts },
-
-    -- Text manipulation
-    ["<Leader>rw"] = { "*``cgn", "forward search & change cword ", opts = default_opts },
-    ["<Leader>rW"] = { "*``cgN", "backward search & change cword ", opts = default_opts },
   },
 
   v = {
-    -- Improved Defaults
-    ["j"] = {
-      "v:count == 0 ? 'gj' : 'j'",
-      "move j through display line",
-      opts = { expr = true, noremap = true, silent = true },
-    },
-    ["k"] = {
-      "v:count == 0 ? 'gk' : 'k'",
-      "move k through display line",
-      opts = { expr = true, noremap = true, silent = true },
-    },
     -- LSP
     ["<leader>."] = { ":lua vim.lsp.buf.range_code_action()<CR>", "code action range", opts = default_opts },
     ["<leader>cf"] = {

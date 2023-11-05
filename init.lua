@@ -1,3 +1,11 @@
+-- Load legacy vimrc config
+vim.cmd.source(vim.fn.stdpath("config") .. "/vimrc")
+
+-- Only load the rest of the config if we're not in VSCode.
+if vim.g.vscode then
+  return
+end
+
 _G.prequire = function(modname)
   local ok, mod = pcall(require, modname)
   if ok then
@@ -83,39 +91,34 @@ alias("dp", "diffput")
 
 -- FUNCTIONS
 
-Config.fn.toggle_quickfix = lib.create_buf_toggler(
-  function()
-    return utils.list_bufs({
-      options = { buftype = "quickfix" },
-      no_hidden = true,
-      tabpage = 0,
-    })[1]
-  end,
-  function()
-    if #vim.fn.getloclist(0) > 0 then
-      vim.cmd("belowright lope")
-    else
-      vim.cmd("100 wincmd j | belowright cope")
-    end
-  end,
-  function()
-    if vim.fn.win_gettype() == "quickfix" then
-      vim.cmd("ccl")
-    else
-      vim.cmd("lcl")
-    end
-  end,
-  { focus = true, remember_height = true }
-)
-
-Config.fn.toggle_outline = lib.create_buf_toggler(
-  function() return utils.list_bufs({ pattern = "OUTLINE" })[1] end,
-  function() vim.cmd("SymbolsOutlineOpen") end,
-  function()
-    vim.cmd("SymbolsOutlineClose")
-    vim.cmd("wincmd =")
+Config.fn.toggle_quickfix = lib.create_buf_toggler(function()
+  return utils.list_bufs({
+    options = { buftype = "quickfix" },
+    no_hidden = true,
+    tabpage = 0,
+  })[1]
+end, function()
+  if #vim.fn.getloclist(0) > 0 then
+    vim.cmd("belowright lope")
+  else
+    vim.cmd("100 wincmd j | belowright cope")
   end
-)
+end, function()
+  if vim.fn.win_gettype() == "quickfix" then
+    vim.cmd("ccl")
+  else
+    vim.cmd("lcl")
+  end
+end, { focus = true, remember_height = true })
+
+Config.fn.toggle_outline = lib.create_buf_toggler(function()
+  return utils.list_bufs({ pattern = "OUTLINE" })[1]
+end, function()
+  vim.cmd("SymbolsOutlineOpen")
+end, function()
+  vim.cmd("SymbolsOutlineClose")
+  vim.cmd("wincmd =")
+end)
 
 ---@return string[]
 local function get_messages()
