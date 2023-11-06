@@ -283,8 +283,8 @@ function! ImprovedDefaultMappings()
   vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
   " Move to the start/end of the line without poluting jump list
-  nnoremap <silent> } :<C-u>execute 'keepjumps norm! ' . v:count1 . '}zz'<CR>
-  nnoremap <silent> { :<C-u>execute 'keepjumps norm! ' . v:count1 . '{zz'<CR>
+  nnoremap <silent> } :<C-u>execute 'keepjumps norm! ' . v:count1 . '}'<CR>
+  nnoremap <silent> { :<C-u>execute 'keepjumps norm! ' . v:count1 . '{'<CR>
 
   " Increment/Decrement next searcheable number by one. Wraps at end of file.
   nnoremap <silent> <C-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
