@@ -434,6 +434,17 @@ M.inc_rename = {
   },
 }
 
+M.iron = {
+  plugin = true,
+
+  n = {
+    ["<Leader>irs"] = { "<cmd>IronRepl<CR><Esc><C-w>w", "start REPL", opts = default_opts },
+    ["<Leader>irr"] = { "<cmd>IronRestart<CR><Esc><C-w>w", "restart REPL", opts = default_opts },
+    ["<Leader>irf"] = { "<cmd>IronFocus<CR>", "focus on REPL", opts = default_opts },
+    ["<Leader>irh"] = { "<cmd>IronHide<CR>", "hide REPL", opts = default_opts },
+  },
+}
+
 M.leetbuddy = {
   plugin = true,
 

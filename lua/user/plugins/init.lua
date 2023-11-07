@@ -771,6 +771,15 @@ require("lazy").setup({
     config = conf("snippet-converter"),
   },
 
+  -- CODE RUNNER
+  {
+    "Vigemus/iron.nvim",
+    version = "v3.*",
+    init = utils.load_mappings("iron"),
+    cmd = { "IronRepl" },
+    config = conf("iron"),
+  },
+
   -- NOTETAKING
   {
     "nvim-neorg/neorg",
