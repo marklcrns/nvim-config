@@ -131,16 +131,18 @@ M.abolish = {
 
   n = {
     ["<leader>rs"] = { ":<C-u>%Subvert//g<Left><Left>", "subvert /{pat}/{sub}/[flags]", opts = default_opts },
+    -- Use "x register to store yanked line(s)
     ["<leader>rp"] = {
-      "yap}pV`[v`]:Subvert//g<bar>norm`.$<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>",
+      '"xyap}"xpV`[v`]:Subvert//g<bar>norm`.$<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>',
       "duplicate block and subvert /{pat}/{sub}/[flags]",
       opts = default_opts,
     },
   },
   v = {
     ["<leader>rs"] = { ":Subvert//g<Left><Left>", "subvert", opts = default_opts },
+    -- Use "x register to store yanked line(s)
     ["<leader>rp"] = {
-      "y`]p`[v`]:Subvert//g<Left><Left>",
+      '"xy`]"xp`[v`]:Subvert//g<Left><Left>',
       "duplicate select subvert /{pat}/{sub}/[flags]",
       opts = default_opts,
     },

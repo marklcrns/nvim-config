@@ -542,10 +542,10 @@ function! CommandMappings()
 endfunction
 
 function! YankPasteMappings()
-  " Duplicate line(s) and substitute
+  " Duplicate line(s) and substitute. Use register "x to store the yanked line
   " Ref: https://stackoverflow.com/a/3806683/11850077
-  nnoremap <leader>rp yap}pV`[v`]:s//gcI<Left><Left><Left><Left>
-  vnoremap <Leader>rp y`]p`[v`]:s//gcI<Left><Left><Left><Left>
+  nnoremap <leader>rp "xyap}"xpV`[v`]:s//gcI<Left><Left><Left><Left>
+  vnoremap <Leader>rp "xy`]"xp`[v`]:s//gcI<Left><Left><Left><Left>
   " Yank and paste line under cursor to and from "x register
   nnoremap <M-y> "xyy"xp$
   inoremap <M-y> <Esc>"xyy"xpgi
