@@ -37,7 +37,25 @@ local function conf(config_name, mappings_name)
   if mappings_name then
     utils.load_mappings(mappings_name)
   end
-  return require(string.format("user.plugins.%s", config_name))
+
+  local config_path = string.format("user.plugins.%s", config_name)
+
+  -- If config is not in path
+  if not pcall(require, config_path) then
+    -- If config_name is not valid
+    if not pcall(require, config_name) then
+      print(string.format("Config not found for '%s'", config_name))
+      return
+    end
+
+    -- Generic fallback config setup
+    return function()
+      require(config_name).setup({})
+    end
+  end
+
+  -- Else, return the config in path
+  return require(config_path)
 end
 
 require("lazy").setup({
@@ -773,11 +791,16 @@ require("lazy").setup({
 
   -- CODE RUNNER
   {
+    "michaelb/sniprun",
+    build = "sh install.sh",
+    cmd = { "SnipRun", "SnipLive", "SnipInfo" },
+    config = conf("sniprun", "sniprun"),
+  },
+  {
     "Vigemus/iron.nvim",
     version = "v3.*",
-    init = utils.load_mappings("iron"),
     cmd = { "IronRepl" },
-    config = conf("iron"),
+    config = conf("iron", "iron"),
   },
 
   -- NOTETAKING

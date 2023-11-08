@@ -97,6 +97,12 @@ return function()
       m = {
         name = "+minimap",
       },
+      r = {
+        name = "+repl",
+      },
+      s = {
+        name = "+code-runner",
+      },
     },
     l = {
       name = "+lsp",

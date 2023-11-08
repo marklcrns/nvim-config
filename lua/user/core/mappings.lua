@@ -438,8 +438,8 @@ M.iron = {
   plugin = true,
 
   n = {
-    ["<Leader>irs"] = { "<cmd>IronRepl<CR><Esc><C-w>w", "start REPL", opts = default_opts },
-    ["<Leader>irr"] = { "<cmd>IronRestart<CR><Esc><C-w>w", "restart REPL", opts = default_opts },
+    ["<Leader>irr"] = { "<cmd>IronRepl<CR><Esc><C-w>w", "start REPL", opts = default_opts },
+    ["<Leader>irR"] = { "<cmd>IronRestart<CR><Esc><C-w>w", "restart REPL", opts = default_opts },
     ["<Leader>irf"] = { "<cmd>IronFocus<CR>", "focus on REPL", opts = default_opts },
     ["<Leader>irh"] = { "<cmd>IronHide<CR>", "hide REPL", opts = default_opts },
   },
@@ -691,6 +691,21 @@ M.SmoothCursor = {
 
   n = {
     ["<LocalLeader>sc"] = { "<cmd>SmoothCursorToggle<CR>", "toggle SmoothCursor", opts = default_opts },
+  },
+}
+
+M.sniprun = {
+  plugin = true,
+
+  n = {
+    ["<leader>isc"] = { "<cmd>SnipClose<CR>", "close code runner", opts = default_opts },
+    ["<leader>isl"] = { "<cmd>SnipLive<CR>", "start live code runner", opts = default_opts },
+    ["<leader>isi"] = { "<cmd>SnipInfo<CR>", "code runner info", opts = default_opts },
+    ["<leader>iss"] = { "<cmd>SnipRun<CR>", "run code under cursor", opts = default_opts },
+    ["<leader>isr"] = { "<cmd>SnipReset<CR>", "reset code runner", opts = default_opts },
+  },
+  v = {
+    ["<leader>iss"] = { ":SnipRun<CR>", "run selected code", opts = default_opts },
   },
 }
 
