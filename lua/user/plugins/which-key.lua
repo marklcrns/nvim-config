@@ -117,6 +117,9 @@ return function()
       name = "+text-editting",
       a = {
         name = "+align",
+        a = {
+          name = "+after",
+        },
       },
       c = {
         name = "+text-case",
