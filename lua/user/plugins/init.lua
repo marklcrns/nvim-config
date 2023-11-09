@@ -309,9 +309,8 @@ require("lazy").setup({
   {
     "gorbit99/codewindow.nvim",
     cond = not vim.g.low_performance_mode,
-    init = utils.load_mappings("codewindow"),
     event = "VimEnter",
-    config = conf("codewindow"),
+    config = conf("codewindow", "codewindow"),
   },
   -- {
   --   "Pocco81/true-zen.nvim",
@@ -357,7 +356,7 @@ require("lazy").setup({
       {
         "s1n7ax/nvim-window-picker",
         init = utils.load_mappings("nvim_window_picker"),
-        version = "2.*",
+        version = "v2.*",
         config = conf("nvim-window-picker"),
       },
     },
@@ -798,7 +797,7 @@ require("lazy").setup({
   },
   {
     "Vigemus/iron.nvim",
-    version = "v3.*",
+    version = "3.*",
     cmd = { "IronRepl" },
     config = conf("iron", "iron"),
   },
