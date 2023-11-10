@@ -255,14 +255,18 @@ function! ImprovedDefaultMappings()
   " Prevent selecting and pasting from overwriting what you originally copied.
   xnoremap p pgvy
 
-  " Prevent x from overriding what's in the clipboard.
+  " Prevent from overriding what's in the clipboard.
   noremap x "_x
   noremap X "_X
+  noremap c "_c
+  noremap C "_C
+  noremap s "_s
+  noremap S "_S
 
   " Re-select blocks after indenting in visual/select mode
   xnoremap < <gv
   xnoremap > >gv|
-  " Keep centered when jumping
+  " Keep centered when jumping and unfold
   nnoremap n nzzzv
   nnoremap N Nzzzv
   " Keep cursor position when joining lines
