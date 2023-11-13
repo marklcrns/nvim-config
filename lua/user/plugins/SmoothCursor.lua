@@ -1,16 +1,4 @@
 return function()
-  -- Define highlight groups
-  vim.cmd([[
-    hi SmoothCursorGreen0 guifg=#3e7e50 guibg=NONE gui=NONE
-    hi SmoothCursorGreen1 guifg=#366e47 guibg=NONE gui=NONE
-    hi SmoothCursorGreen2 guifg=#2d5e3d guibg=NONE gui=NONE
-    hi SmoothCursorGreen3 guifg=#154e33 guibg=NONE gui=NONE
-    hi SmoothCursorGreen4 guifg=#0c3f28 guibg=NONE gui=NONE
-    hi SmoothCursorGreen5 guifg=#142f1e guibg=NONE gui=NONE
-    hi SmoothCursorGreen6 guifg=#0b1f15 guibg=NONE gui=NONE
-    hi SmoothCursorGreen7 guifg=#040f0a guibg=NONE gui=NONE
-  ]])
-
   require("smoothcursor").setup({
     type = "exp", -- define cursor movement calculate function, "default" or "exp" (exponential).
     autostart = true,
@@ -20,6 +8,7 @@ return function()
     fancy = {
       enable = true, -- enable fancy mode
       head = { cursor = "󱥒", texthl = "SmoothCursorGreen0", linehl = nil },
+      -- NOTE: highlights defined in lua/user/colorscheme.lua
       body = {
         -- 'ｱ', 'ｲ', 'ｳ', 'ｴ', 'ｵ',
         -- 'ｶ', 'ｷ', 'ｸ', 'ｹ', 'ｺ',

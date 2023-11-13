@@ -42,13 +42,7 @@ local function conf(config_name, mappings_name)
 
   -- If config is not in path
   if not pcall(require, config_path) then
-    -- If config_name is not valid
-    if not pcall(require, config_name) then
-      print(string.format("Config not found for '%s'", config_name))
-      return
-    end
-
-    -- Generic fallback config setup
+    -- Generic fallback config setup if config file not found
     return function()
       require(config_name).setup({})
     end
@@ -231,19 +225,19 @@ require("lazy").setup({
   --     },
   --   },
   -- },
-  -- {
-  --   "karb94/neoscroll.nvim",
-  --   cond = not sys.is_gui() or vim.g.low_performance_mode,
-  --   init = utils.lazy_load("neoscroll.nvim"),
-  --   config = conf("neoscroll"),
-  -- },
   {
-    "gen740/SmoothCursor.nvim",
-    cond = not sys.is_gui() and not vim.g.low_performance_mode,
-    event = "VimEnter",
-    init = utils.load_mappings("SmoothCursor"),
-    config = conf("SmoothCursor"),
+    "karb94/neoscroll.nvim",
+    cond = not sys.is_gui() or vim.g.low_performance_mode,
+    init = utils.lazy_load("neoscroll.nvim"),
+    config = conf("neoscroll"),
   },
+  -- {
+  --   "gen740/SmoothCursor.nvim",
+  --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
+  --   event = "VimEnter",
+  --   init = utils.load_mappings("SmoothCursor"),
+  --   config = conf("SmoothCursor"),
+  -- },
   {
     "mvllow/modes.nvim",
     init = utils.lazy_load("modes.nvim"),

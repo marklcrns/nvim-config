@@ -772,7 +772,7 @@ function! SettingsToggleMappings()
         \ (&colorcolumn == '' ? &textwidth : ''))<CR>
 
   " UI toggles
-  nnoremap <silent> <LocalLeader>sub :<C-u>call <SID>toggle_background()<CR>
+  nnoremap <silent> <LocalLeader>sb :<C-u>call <SID>toggle_background()<CR>
 
   " Config toggles
   nnoremap <LocalLeader>sL :<C-u>call <SID>toggle_low_performance_mode()<CR>
