@@ -175,6 +175,9 @@ return function()
       },
       buffers = {
         sort_mru = true,
+        mappings = {
+          i = { ["<CR>"] = actions.select_tab_drop },
+        },
       },
       quickfix = deep_extend(picker_presets.vertical_preview_bottom),
       loclist = deep_extend(picker_presets.vertical_preview_bottom),

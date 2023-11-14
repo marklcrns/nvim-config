@@ -404,17 +404,21 @@ endfunction
 
 function! WindowsManagementMappings()
   " Tab operation
-  nnoremap <silent> <Leader>1 :<C-u>tabfirst<CR>
-  nnoremap <silent> <Leader>5 :<C-u>tabprevious<CR>
-  nnoremap <silent> <Leader>9 :<C-u>tablast<CR>
-  nnoremap <silent> <Leader>tn :tabnew<cr>
-  nnoremap <silent> <Leader>tq :tabclose<cr>
-  nnoremap <silent> <Leader>te :tabedit
-  nnoremap <silent> <Leader>tm :tabmove
+  nnoremap <silent> <Leader>tn :tabnew<CR>
+  nnoremap <silent> <Leader>tq :tabclose<CR>
+  nnoremap <silent> <Leader>te :tabedit<CR>
+  nnoremap <silent> <Leader>tm :tabmove<CR>
+  nnoremap <silent> <Leader>t> :tabmove+<CR>
+  nnoremap <silent> <Leader>t< :tabmove-<CR>
   nnoremap <silent> [t :tabprevious<CR>
   nnoremap <silent> ]t :tabnext<CR>
-  nnoremap <silent> ]T :tabmove+<CR>
-  nnoremap <silent> [T :tabmove-<CR>
+  nnoremap <silent> ]T :tablast<CR>
+  nnoremap <silent> [T :tabfirst<CR>
+
+  " Go to last active tab
+  au TabLeave * let g:lasttab = tabpagenr()
+  nnoremap <silent> <Leader>tl :exe "tabn ".g:lasttab<cr>
+  vnoremap <silent> <Leader>tl :exe "tabn ".g:lasttab<cr>
 
   " Move between buffers
   nnoremap <silent> ]b :bnext<CR>
