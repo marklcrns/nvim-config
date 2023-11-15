@@ -300,12 +300,6 @@ require("lazy").setup({
     init = utils.load_mappings("zen_mode"),
     config = conf("zen-mode"),
   },
-  {
-    "gorbit99/codewindow.nvim",
-    cond = not vim.g.low_performance_mode,
-    event = "VimEnter",
-    config = conf("codewindow", "codewindow"),
-  },
   -- {
   --   "Pocco81/true-zen.nvim",
   --   cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", "TZNarrow" },
@@ -498,6 +492,25 @@ require("lazy").setup({
     },
   },
 
+  -- CODE NAVIGATION
+  {
+    "gorbit99/codewindow.nvim",
+    cond = not vim.g.low_performance_mode,
+    event = "VimEnter",
+    config = conf("codewindow", "codewindow"),
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    init = utils.load_mappings("symbols_outline"),
+    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+    config = conf("symbols-outline"),
+  },
+  {
+    "ggandor/leap.nvim",
+    keys = { "s" },
+    config = conf("leap"),
+  },
+
   -- VCS
   -- {
   --   "TimUntersberger/neogit",
@@ -537,7 +550,7 @@ require("lazy").setup({
     },
   },
 
-  -- INTEGRATION
+  -- INTEGRATIONS
   {
     "alexghergh/nvim-tmux-navigation",
     event = "VimEnter",
@@ -647,12 +660,6 @@ require("lazy").setup({
     event = "VimEnter", -- NOTE: This is needed to load Config.fn.toggle_diagnostics()
     config = conf("trouble"),
     dependencies = "nvim-tree/nvim-web-devicons",
-  },
-  {
-    "simrat39/symbols-outline.nvim",
-    init = utils.load_mappings("symbols_outline"),
-    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
-    config = conf("symbols-outline"),
   },
 
   -- LANGUAGES + TOOLS
