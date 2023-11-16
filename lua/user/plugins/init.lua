@@ -113,16 +113,16 @@ require("lazy").setup({
   },
 
   -- COLORSCHEMES
-  { "folke/tokyonight.nvim", config = conf("tokyonight"), lazy = false },
-  { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin", lazy = false },
-  { "EdenEast/nightfox.nvim", config = conf("nightfox"), lazy = false },
-  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), lazy = false },
   { "AlexvZyl/nordic.nvim", config = conf("nordic"), lazy = false },
-  { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine", lazy = false },
+  { "EdenEast/nightfox.nvim", config = conf("nightfox"), lazy = false },
   { "Mofiqul/vscode.nvim", config = conf("vscode"), lazy = false },
-  { "sindrets/oxocarbon-lua.nvim", lazy = false },
-  { "kvrohit/rasmus.nvim", lazy = false },
+  { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin", lazy = false },
+  { "folke/tokyonight.nvim", config = conf("tokyonight"), lazy = false },
   { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim", lazy = false },
+  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), lazy = false },
+  { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine", lazy = false },
+  { "sainnhe/gruvbox-material", config = conf("gruvbox-material"), lazy = false },
+  { "sindrets/oxocarbon-lua.nvim", lazy = false },
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
