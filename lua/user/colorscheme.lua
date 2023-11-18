@@ -10,11 +10,11 @@
 ---`NVIM_COLORSCHEME` using the same format.
 local DEFAULT_COLORSCHEME = "default_dark"
 
--- define default colorscheme based on time of day
-local hour = tonumber(os.date("%H"))
-if hour >= 6 and hour < 18 then
-  DEFAULT_COLORSCHEME = "default_light"
-end
+-- -- define default colorscheme based on time of day
+-- local hour = tonumber(os.date("%H"))
+-- if hour >= 6 and hour < 18 then
+--   DEFAULT_COLORSCHEME = "default_light"
+-- end
 
 local Color = Config.common.color.Color
 local utils = Config.common.utils
@@ -24,7 +24,7 @@ local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
 local M = {}
 
 M.DEFAULT_DARK = "tokyonight"
-M.DEFAULT_LIGHT = "dawnfox"
+M.DEFAULT_LIGHT = "seoulbones"
 
 do
   local name, bg

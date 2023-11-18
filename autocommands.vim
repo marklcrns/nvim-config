@@ -82,9 +82,13 @@ augroup NvimConfig
     " Execute command from cmdline window while keeping it open.
     au CmdwinEnter * nnoremap <buffer> <C-x> <CR>q:
 
-  " Notification after file change
-  autocmd FileChangedShellPost *
-        \ lua Config.common.notify.config.info("File changed. Autoreloaded " .. vim.fn.expand("%"))
+    " Notification after file change
+    autocmd FileChangedShellPost *
+            \ lua Config.common.notify.config.info("File changed. Autoreloaded " .. vim.fn.expand("%"))
+
+    " OpenGL Shading Language: GLSL support
+    " Make sure to install glsl via Tree-sitter `TSInstall glsl`
+    autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 augroup END
 
 lua <<EOF
