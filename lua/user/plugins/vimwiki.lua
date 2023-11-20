@@ -235,6 +235,11 @@ return function()
             \ autocmd InsertLeave <buffer> setlocal conceallevel=2
     augroup END
 
+    augroup VimwikiCustomMappings
+      autocmd!
+      autocmd Filetype vimwiki nnoremap <silent><buffer><LocalLeader>nwL :call IndexResourcesLinks('# Resources', '')<CR>
+    augroup END
+
     " DEPRECATED: nvim-cmp is smart enough to handle fallbacks
     " " Vimwiki custom mappings
     " augroup VimwikiCustomMappings

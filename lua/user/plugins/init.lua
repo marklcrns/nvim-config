@@ -512,12 +512,12 @@ require("lazy").setup({
   },
 
   -- VCS
-  -- {
-  --   "TimUntersberger/neogit",
-  --   cmd = "Neogit",
-  --   init = utils.load_mappings("neogit"),
-  --   config = conf("neogit"),
-  -- },
+  {
+    "TimUntersberger/neogit",
+    cmd = "Neogit",
+    init = utils.load_mappings("neogit"),
+    config = conf("neogit"),
+  },
   {
     "sindrets/vim-fugitive",
     init = function()

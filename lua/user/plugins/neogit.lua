@@ -1,7 +1,7 @@
 return function()
   local M = {}
 
-  require('neogit').setup {
+  require("neogit").setup({
     disable_signs = false,
     disable_hint = true,
     disable_context_highlighting = false,
@@ -17,22 +17,14 @@ return function()
       hunk = { "", "" },
     },
     integrations = {
-      diffview = true
+      diffview = true,
     },
     sections = {
       recent = {
         folded = false,
       },
     },
-    -- override/add mappings
-    mappings = {
-      -- modify status buffer mappings
-      status = {
-        -- Adds a mapping with "B" as key that does the "BranchPopup" command
-        ["B"] = "BranchPopup",
-      }
-    }
-  }
+  })
 
   Config.common.au.declare_group("neogit_config", {}, {
     { "FileType", pattern = "Neogit*", command = "setl nolist" },
