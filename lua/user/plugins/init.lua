@@ -752,7 +752,7 @@ require("lazy").setup({
             "L3MON4D3/LuaSnip",
             event = "BufReadPre",
             version = "v2.*",
-            build = "make install_jsregexp",
+            build = "sudo make install_jsregexp",
             config = conf("LuaSnip"),
             dependencies = "rafamadriz/friendly-snippets",
           },
