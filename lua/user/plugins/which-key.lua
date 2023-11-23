@@ -152,15 +152,18 @@ return function()
     s = {
       name = "+session",
     },
-    t = {
-      name = "+tab-manager",
-    },
     w = {
       name = "+window-manager",
     },
   }, { prefix = "<leader>" })
 
   wk.register({
+    b = {
+      name = "+buffer-manager",
+      o = {
+        name = "+open",
+      },
+    },
     n = {
       name = "+notetaker",
       n = {
@@ -179,6 +182,15 @@ return function()
         name = "+vimwiki",
       },
     },
+    o = {
+      name = "+open-ui",
+      l = {
+        name = "+locationlist",
+      },
+      q = {
+        name = "+quickfix",
+      },
+    },
     s = {
       name = "+settings-toggle",
       d = {
@@ -190,6 +202,12 @@ return function()
           name = "+diagnostics",
         },
       },
+    },
+    t = {
+      name = "+tab-manager",
+    },
+    w = {
+      name = "+window-split-manager",
     },
   }, { prefix = "<localleader>" })
 end

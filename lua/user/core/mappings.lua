@@ -678,6 +678,16 @@ M.regexplainer = {
   },
 }
 
+M.rest = {
+  plugin = true,
+
+  n = {
+    ["<leader>wrr"] = { [[<Plug>RestNvim]], "run request under cursor", opts = default_opts },
+    ["<leader>wrp"] = { [[<Plug>RestNvimPreview]], "preview request cURL command", opts = default_opts },
+    ["<leader>wrl"] = { [[<Plug>RestNvimLast]], "run last request", opts = default_opts },
+  },
+}
+
 M.smartq = {
   plugin = true,
 

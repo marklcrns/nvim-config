@@ -803,6 +803,16 @@ require("lazy").setup({
     config = conf("iron", "iron"),
   },
 
+  -- WEB DEVELOPMENT
+  {
+    "rest-nvim/rest.nvim",
+    ft = { "http" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = conf("rest", "rest"),
+  },
+
   -- NOTETAKING
   {
     "nvim-neorg/neorg",

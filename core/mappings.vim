@@ -223,8 +223,8 @@ endfunction
 
 function! ImprovedDefaultMappings()
   " Use 'lazyredraw' when replaying macro
-  nnoremap @ <Cmd>call <SID>LazyNorm("@" . getcharstr())<CR>
-  nnoremap @@ <Cmd>call <SID>LazyNorm("@@")<CR>
+  " nnoremap @ <Cmd>call <SID>LazyNorm("@" . getcharstr())<CR>
+  " nnoremap @@ <Cmd>call <SID>LazyNorm("@@")<CR>
   " nnoremap Q <Cmd>call <SID>LazyNorm("@@")<CR>
 
   " Start search with very-magic mode
@@ -404,12 +404,12 @@ endfunction
 
 function! WindowsManagementMappings()
   " Tab operation
-  nnoremap <silent> <Leader>tn :tabnew<CR>
-  nnoremap <silent> <Leader>tq :tabclose<CR>
-  nnoremap <silent> <Leader>te :tabedit<CR>
-  nnoremap <silent> <Leader>tm :tabmove<CR>
-  nnoremap <silent> <Leader>t> :tabmove+<CR>
-  nnoremap <silent> <Leader>t< :tabmove-<CR>
+  nnoremap <silent> <LocalLeader>tn :tabnew<CR>
+  nnoremap <silent> <LocalLeader>tq :tabclose<CR>
+  nnoremap <silent> <LocalLeader>te :tabedit<CR>
+  nnoremap <silent> <LocalLeader>tm :tabmove<CR>
+  nnoremap <silent> <LocalLeader>t> :tabmove+<CR>
+  nnoremap <silent> <LocalLeader>t< :tabmove-<CR>
   nnoremap <silent> [t :tabprevious<CR>
   nnoremap <silent> ]t :tabnext<CR>
   nnoremap <silent> ]T :tablast<CR>
@@ -427,8 +427,8 @@ function! WindowsManagementMappings()
   nnoremap <silent> [B :bfirst<CR>
 
   " Open all buffers
-  nnoremap <silent> <Leader>bah :sba<CR>
-  nnoremap <silent> <Leader>bav :vert sba<CR>
+  nnoremap <silent> <LocalLeader>boh :sba<CR>
+  nnoremap <silent> <LocalLeader>bov :vert sba<CR>
 
   " Window-control prefix
   nnoremap  [Window]   <Nop>
@@ -444,15 +444,15 @@ function! WindowsManagementMappings()
   nnoremap <silent> [Window]g  :<C-u>split<CR>
   nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
   nnoremap <silent> [Window]c  :<C-u>close<CR>
-  nnoremap <silent> <Leader>wg :<C-u>split<CR>
-  nnoremap <silent> <Leader>wv :<C-u>vsplit<CR>
-  nnoremap <silent> <Leader>wc :<C-u>close<CR>
+  nnoremap <silent> <LocalLeader>wg :<C-u>split<CR>
+  nnoremap <silent> <LocalLeader>wv :<C-u>vsplit<CR>
+  nnoremap <silent> <LocalLeader>wc :<C-u>close<CR>
   " nnoremap <silent> [Window]z  :<C-u>call <SID>custom_zoom()<CR>
   " Split current buffer, go to previous window
   nnoremap <silent> [Window]<C-v> :vsplit<CR>:wincmd p<CR>
   nnoremap <silent> [Window]<C-g> :split<CR>:wincmd p<CR>
-  nnoremap <silent> <Leader>wV    :vsplit<CR>:wincmd p<CR>
-  nnoremap <silent> <Leader>wG    :split<CR>:wincmd p<CR>
+  nnoremap <silent> <LocalLeader>wV    :vsplit<CR>:wincmd p<CR>
+  nnoremap <silent> <LocalLeader>wG    :split<CR>:wincmd p<CR>
   " Switch between splits
   nnoremap <silent> [Window]h <C-w>h
   nnoremap <silent> [Window]j <C-w>j
