@@ -153,7 +153,10 @@ return function()
       name = "+session",
     },
     w = {
-      name = "+window-manager",
+      name = "+web-dev",
+      r = {
+        name = "+rest",
+      },
     },
   }, { prefix = "<leader>" })
 

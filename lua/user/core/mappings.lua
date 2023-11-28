@@ -693,7 +693,7 @@ M.smartq = {
 
   n = {
     ["<leader>fq"] = { "<cmd>SmartQSave<CR>", "smart save and quit" },
-    ["<leader>wq"] = { "<cmd>SmartQCloseSplits<CR>", "close all splits" },
+    ["<localleader>wq"] = { "<cmd>SmartQCloseSplits<CR>", "close all splits" },
     ["q"] = { [[<Plug>(smartq_this)]], "smart quit", opts = { noremap = false, silent = true } },
   },
 }
