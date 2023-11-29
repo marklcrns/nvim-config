@@ -507,7 +507,7 @@ require("lazy").setup({
   },
   {
     "ggandor/leap.nvim",
-    keys = { "s" },
+    keys = { "s", "S" },
     config = conf("leap"),
   },
 
