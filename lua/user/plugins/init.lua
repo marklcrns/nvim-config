@@ -371,7 +371,7 @@ require("lazy").setup({
   {
     "kylechui/nvim-surround",
     init = utils.lazy_load("nvim-surround"),
-    config = true,
+    config = conf("nvim-surround"),
   },
   {
     "windwp/nvim-autopairs",
