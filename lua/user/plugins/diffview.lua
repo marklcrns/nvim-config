@@ -1,9 +1,9 @@
-return function ()
+return function()
   local actions = require("diffview.actions")
 
   local M = {}
 
-  require('diffview').setup({
+  require("diffview").setup({
     diff_binaries = false,
     enhanced_diff_hl = false, -- Set up hihglights in the hooks instead
     git_cmd = { "git" },
@@ -65,7 +65,7 @@ return function ()
       },
     },
     default_args = {
-      DiffviewOpen = {},
+      DiffviewOpen = { "--imply-local" },
       DiffviewFileHistory = {},
     },
     hooks = {
@@ -101,40 +101,57 @@ return function ()
       file_panel = {
         { "n", "<cr>", actions.focus_entry, { desc = "Focus the selected entry" } },
         { "n", "s", actions.toggle_stage_entry, { desc = "Stage / unstage the selected entry" } },
-        { "n", "cc",  "<Cmd>Git commit <bar> wincmd J<CR>", { desc = "Commit staged changes" } },
-        { "n", "ca",   "<Cmd>Git commit --amend <bar> wincmd J<CR>", { desc = "Amend the last commit" } },
-        { "n", "c<space>",  ":Git commit ", { desc = "Populate command line with \":Git commit \"" } },
-        { "n", "rr",  "<Cmd>Git rebase --continue <bar> wincmd J<CR>", { desc = "Continue the current rebase" } },
-        { "n", "re",  "<Cmd>Git rebase --edit-todo <bar> wincmd J<CR>", { desc = "Edit the current rebase todo list." } },
+        { "n", "cc", "<Cmd>Git commit <bar> wincmd J<CR>", { desc = "Commit staged changes" } },
+        { "n", "ca", "<Cmd>Git commit --amend <bar> wincmd J<CR>", { desc = "Amend the last commit" } },
+        { "n", "c<space>", ":Git commit ", { desc = 'Populate command line with ":Git commit "' } },
+        { "n", "rr", "<Cmd>Git rebase --continue <bar> wincmd J<CR>", { desc = "Continue the current rebase" } },
         {
-          "n", "[c",
-          actions.view_windo(function(_, sym)
-            if sym == "b" then vim.cmd("norm! [c") end
-          end)
+          "n",
+          "re",
+          "<Cmd>Git rebase --edit-todo <bar> wincmd J<CR>",
+          { desc = "Edit the current rebase todo list." },
         },
         {
-          "n", "]c",
+          "n",
+          "[c",
           actions.view_windo(function(_, sym)
-            if sym == "b" then vim.cmd("norm! ]c") end
-          end)
+            if sym == "b" then
+              vim.cmd("norm! [c")
+            end
+          end),
         },
         {
-          "n", "do",
+          "n",
+          "]c",
           actions.view_windo(function(_, sym)
-            if sym == "b" then vim.cmd("norm! do") end
-          end)
+            if sym == "b" then
+              vim.cmd("norm! ]c")
+            end
+          end),
         },
         {
-          "n", "dp",
+          "n",
+          "do",
           actions.view_windo(function(_, sym)
-            if sym == "b" then vim.cmd("norm! dp") end
-          end)
+            if sym == "b" then
+              vim.cmd("norm! do")
+            end
+          end),
+        },
+        {
+          "n",
+          "dp",
+          actions.view_windo(function(_, sym)
+            if sym == "b" then
+              vim.cmd("norm! dp")
+            end
+          end),
         },
       },
       file_history_panel = {
         { "n", "<cr>", actions.focus_entry, { desc = "Focus the selected entry" } },
       },
-    }
+    },
   })
 
   _G.Config.plugin.diffview = M

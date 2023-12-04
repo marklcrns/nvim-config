@@ -220,8 +220,31 @@ M.diffview = {
   plugin = true,
 
   n = {
-    ["<leader>idd"] = { "<cmd>DiffviewOpen<CR>", "diff git", opts = default_opts },
-    ["<leader>idf"] = { "<cmd>DiffviewFileHistory %<CR>", "diff buffer unsaved", opts = default_opts },
+    ["<leader>tdb"] = { "<cmd>DiffviewFileHistory<CR>", "git diff branch history", opts = default_opts },
+    ["<leader>tdd"] = { "<cmd>DiffviewOpen<CR>", "git diff", opts = default_opts },
+    ["<leader>tdD"] = {
+      "<cmd>call feedkeys(':DiffviewOpen<Space><Tab>','t')<CR>",
+      "git diff select",
+      opts = default_opts,
+    },
+    ["<leader>tde"] = { "<cmd>DiffviewToggleFiles<CR>", "git diff toggle file panel", opts = default_opts },
+    ["<leader>tdf"] = { "<cmd>DiffviewFileHistory %<CR>", "git diff file history", opts = default_opts },
+    ["<leader>tdp"] = {
+      "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<CR>",
+      "git diff pr against base",
+      opts = default_opts,
+    },
+    ["<leader>tdP"] = {
+      "<cmd>DiffviewFileHistory --range=origin/HEAD...HEAD --right-only --no-merges<CR>",
+      "git diff pr commits against base",
+      opts = default_opts,
+    },
+    ["<leader>tdq"] = { "<cmd>DiffviewClose<CR>", "git diff clost ", opts = default_opts },
+    ["<leader>tdr"] = { "<cmd>DiffviewRefresh<CR>", "git diff refresh", opts = default_opts },
+    ["<leader>tds"] = { "<cmd>DiffviewFileHistory -g --range=stash<CR>", "git diff stash history", opts = default_opts },
+  },
+  v = {
+    ["<leader>tdf"] = { ":DiffviewFileHistory<CR>", "git diff file range history", opts = default_opts },
   },
 }
 
@@ -440,10 +463,10 @@ M.iron = {
   plugin = true,
 
   n = {
-    ["<Leader>irr"] = { "<cmd>IronRepl<CR><Esc><C-w>w", "start REPL", opts = default_opts },
-    ["<Leader>irR"] = { "<cmd>IronRestart<CR><Esc><C-w>w", "restart REPL", opts = default_opts },
-    ["<Leader>irf"] = { "<cmd>IronFocus<CR>", "focus on REPL", opts = default_opts },
-    ["<Leader>irh"] = { "<cmd>IronHide<CR>", "hide REPL", opts = default_opts },
+    ["<Leader>trr"] = { "<cmd>IronRepl<CR><Esc><C-w>w", "start REPL", opts = default_opts },
+    ["<Leader>trR"] = { "<cmd>IronRestart<CR><Esc><C-w>w", "restart REPL", opts = default_opts },
+    ["<Leader>trf"] = { "<cmd>IronFocus<CR>", "focus on REPL", opts = default_opts },
+    ["<Leader>trh"] = { "<cmd>IronHide<CR>", "hide REPL", opts = default_opts },
   },
 }
 
@@ -451,12 +474,12 @@ M.leetbuddy = {
   plugin = true,
 
   n = {
-    ["<leader>ilq"] = { "<cmd>LBQuestion<CR>", "close leetbuddy", opts = default_opts },
-    ["<leader>ilv"] = { "<cmd>LBQuestion<CR>", "view question", opts = default_opts },
-    ["<leader>ill"] = { "<cmd>LBQuestions<CR>", "list all questions", opts = default_opts },
-    ["<leader>ilr"] = { "<cmd>LBReset<CR>", "reset code", opts = default_opts },
-    ["<leader>ils"] = { "<cmd>LBSubmit<CR>", "submit code", opts = default_opts },
-    ["<leader>ilt"] = { "<cmd>LBTest<CR>", "test code", opts = default_opts },
+    ["<leader>tlq"] = { "<cmd>LBQuestion<CR>", "close leetbuddy", opts = default_opts },
+    ["<leader>tlv"] = { "<cmd>LBQuestion<CR>", "view question", opts = default_opts },
+    ["<leader>tll"] = { "<cmd>LBQuestions<CR>", "list all questions", opts = default_opts },
+    ["<leader>tlr"] = { "<cmd>LBReset<CR>", "reset code", opts = default_opts },
+    ["<leader>tls"] = { "<cmd>LBSubmit<CR>", "submit code", opts = default_opts },
+    ["<leader>tlt"] = { "<cmd>LBTest<CR>", "test code", opts = default_opts },
   },
 }
 
@@ -710,14 +733,14 @@ M.sniprun = {
   plugin = true,
 
   n = {
-    ["<leader>isc"] = { "<cmd>SnipClose<CR>", "close code runner", opts = default_opts },
-    ["<leader>isl"] = { "<cmd>SnipLive<CR>", "start live code runner", opts = default_opts },
-    ["<leader>isi"] = { "<cmd>SnipInfo<CR>", "code runner info", opts = default_opts },
-    ["<leader>iss"] = { "<cmd>SnipRun<CR>", "run code under cursor", opts = default_opts },
-    ["<leader>isr"] = { "<cmd>SnipReset<CR>", "reset code runner", opts = default_opts },
+    ["<leader>tsc"] = { "<cmd>SnipClose<CR>", "close code runner", opts = default_opts },
+    ["<leader>tsl"] = { "<cmd>SnipLive<CR>", "start live code runner", opts = default_opts },
+    ["<leader>tsi"] = { "<cmd>SnipInfo<CR>", "code runner info", opts = default_opts },
+    ["<leader>tss"] = { "<cmd>SnipRun<CR>", "run code under cursor", opts = default_opts },
+    ["<leader>tsr"] = { "<cmd>SnipReset<CR>", "reset code runner", opts = default_opts },
   },
   v = {
-    ["<leader>iss"] = { ":SnipRun<CR>", "run selected code", opts = default_opts },
+    ["<leader>tss"] = { ":SnipRun<CR>", "run selected code", opts = default_opts },
   },
 }
 

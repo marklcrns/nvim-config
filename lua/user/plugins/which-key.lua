@@ -88,20 +88,8 @@ return function()
     },
     i = {
       name = "+ui-interface",
-      d = {
-        name = "+diff",
-      },
-      l = {
-        name = "+leetcode",
-      },
       m = {
         name = "+minimap",
-      },
-      r = {
-        name = "+repl",
-      },
-      s = {
-        name = "+code-runner",
       },
     },
     l = {
@@ -151,6 +139,21 @@ return function()
     },
     s = {
       name = "+session",
+    },
+    t = {
+      name = "+tools",
+      d = {
+        name = "+diff",
+      },
+      l = {
+        name = "+leetcode",
+      },
+      r = {
+        name = "+repl",
+      },
+      s = {
+        name = "+code-runner",
+      },
     },
     w = {
       name = "+web-dev",

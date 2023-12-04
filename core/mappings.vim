@@ -417,8 +417,8 @@ function! WindowsManagementMappings()
 
   " Go to last active tab
   au TabLeave * let g:lasttab = tabpagenr()
-  nnoremap <silent> <Leader>tl :exe "tabn ".g:lasttab<cr>
-  vnoremap <silent> <Leader>tl :exe "tabn ".g:lasttab<cr>
+  nnoremap <silent> <LocalLeader>tl :exe "tabn ".g:lasttab<cr>
+  vnoremap <silent> <LocalLeader>tl :exe "tabn ".g:lasttab<cr>
 
   " Move between buffers
   nnoremap <silent> ]b :bnext<CR>
@@ -632,11 +632,15 @@ endfunction
 function! DiffMappings()
   " Diff split with a file (auto wildcharm trigger)
   if !&wildcharm | set wildcharm=<C-z> | endif
-  exe 'nnoremap <Leader>idv :vert diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
-  exe 'nnoremap <Leader>idh :diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
-  exe 'nnoremap <Leader>idV :vert diffsplit $HOME/'.nr2char(&wildcharm)
-  exe 'nnoremap <Leader>idH :diffsplit $HOME/'.nr2char(&wildcharm)
-  nmap <silent> <Leader>ido :DiffOrig<CR>
+  " exe 'nnoremap <Leader>tdv :vert diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
+  " exe 'nnoremap <Leader>tdh :diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
+  " exe 'nnoremap <Leader>tdV :vert diffsplit $HOME/'.nr2char(&wildcharm)
+  " exe 'nnoremap <Leader>tdH :diffsplit $HOME/'.nr2char(&wildcharm)
+  nnoremap <Leader>tdv :call feedkeys(':vert diffsplit<Space><Tab>','t')<CR>
+  nnoremap <Leader>tdh :call feedkeys(':diffsplit<Space><Tab>','t')<CR>
+  nnoremap <Leader>tdV :call feedkeys(':vert diffsplit $HOME/<Tab>','t')<CR>
+  nnoremap <Leader>tdH :call feedkeys(':diffsplit $HOME/<Tab>','t')<CR>
+  nmap <silent> <Leader>tdo :DiffOrig<CR>
 
   function! PrintMergeDiffMappings()
     " Only display once if g:custom_diff_enable = 0
@@ -741,7 +745,7 @@ function! TextManipulationMappings()
   " Ref: https://stackoverflow.com/a/51291652
   vnoremap <silent> <Leader>rl :<C-U>let i=1 \| '<,'>g/^/s//\=i.'. '/ \| let i=i+1 \| nohl<CR>
   " Fix indentation of whole buffer
-  nnoremap <silent><Leader>ri :call Preserve("normal gg=G")<CR>
+  nnoremap <silent> <Leader>ri :call Preserve("normal gg=G")<CR>
   " Yank everything from current file
   nnoremap <Leader>rya ggVGy:echom "Yanked all file contents!"<CR>
   " Replace all with yanked texts
