@@ -164,6 +164,21 @@ return function()
   }, { prefix = "<leader>" })
 
   wk.register({
+    r = {
+      name = "+text-editting",
+    },
+    t = {
+      name = "+tools",
+      d = {
+        name = "+diff",
+      },
+      s = {
+        name = "+code-runner",
+      },
+    },
+  }, { mode = "v", prefix = "<leader>" })
+
+  wk.register({
     b = {
       name = "+buffer-manager",
       o = {

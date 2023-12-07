@@ -107,7 +107,6 @@ require("lazy").setup({
   -- },
   {
     "xiyaowong/transparent.nvim",
-    cond = not sys.is_gui(),
     init = utils.load_mappings("transparent"),
     lazy = false,
   },

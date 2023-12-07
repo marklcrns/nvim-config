@@ -310,15 +310,32 @@ endif
 " https://github.com/Kethku/neovide/issues/544#issuecomment-820519937
 " Note: make sure win32yank.exe is sourced in $PATH before other system
 " clipboard utility, such as xclip, for it to work. /usr/local/bin works.
+" Ref: https://neovide.dev/configuration.html
 if exists('g:neovide')
+  " Animation
   let g:neovide_cursor_vfx_mode = "ripple"
   let g:neovide_scroll_animation_length = 0.25
   let g:neovide_hide_mouse_when_typing = v:true
   let g:neovide_cursor_trail_size = 0.8
   let g:neovide_refresh_rate = 60
-  let g:neovide_no_idle = v:true
-  let g:neovide_transparency = 0.9
 
+  " Floating window
+  let g:neovide_float_blur = v:true
+  let g:neovide_floating_opacity = 0.5
+  let g:neovide_floating_shadow = v:true
+  let g:neovide_floating_z_height = 10
+  let g:neovide_light_angle_degrees = 45
+  let g:neovide_light_radius = 5
+
+  " Transparency
+  " g:neovide_transparency should be 0 if you want to unify transparency of
+  " content and title bar.
+  " Set transparency and background color (title bar color)
+  let g:neovide_transparency=0.9
+  let g:neovide_transparency_point=0.8
+  let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:neovide_transparency_point))
+
+  " Scale factor
   " let g:neovide_scale_factor=1.0
   function! ChangeScaleFactor(delta)
     let g:neovide_scale_factor = g:neovide_scale_factor * a:delta

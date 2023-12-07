@@ -1,17 +1,10 @@
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/utils.vim'
 
-
 let g:enable_format_on_save= v:true
 " Must set proper snippet engine in /lua/user/plugins/nvim-cmp.lua
 " and modify snippet engine in neogen
 " options: ultisnips, luasnip
 let g:snippet_engine = 'luasnip'
-
-" Gui Fonts
-let g:guifontsize = 12
-" let g:guifont = 'Source\ Code\ Pro\ iCursive\ S12'
-" let g:guifont = 'OperatorMono\ Nerd\ Font'
-let g:guifont = 'VictorMono\ Nerd\ Font'
 
 " Enable this to disable cpu intensive plugins/modules
 let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false) == 0 ? v:false : v:true

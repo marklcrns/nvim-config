@@ -4,7 +4,7 @@ local function list(value, str, sep)
   sep = sep or ","
   str = str or ""
   value = type(value) == "table" and table.concat(value, sep) or value
-  return str ~= "" and table.concat({value, str}, sep) or value
+  return str ~= "" and table.concat({ value, str }, sep) or value
 end
 
 opt.number = true
@@ -22,11 +22,11 @@ opt.mouse = "a"
 opt.mousemoveevent = true
 opt.hidden = true
 opt.cursorline = true
-opt.guicursor = list {
+opt.guicursor = list({
   "n-v-c-sm:block-Cursor/lCursor",
   "i-ci-ve:ver25-Cursor/lCursor",
   "r-cr-o:hor20",
-}
+})
 opt.splitbelow = true
 opt.splitright = true
 opt.wrap = true
@@ -36,27 +36,27 @@ opt.swapfile = true
 opt.shortmess = "filnxtToOFIAS"
 opt.updatetime = 4096 -- change cursorhold time with 'vim.g.cursorhold_updatetime'
 opt.termguicolors = true
-opt.backspace = list { "indent", "eol", "start" }
+opt.backspace = list({ "indent", "eol", "start" })
 opt.inccommand = "split"
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- opt.foldlevelstart = 99
 opt.foldlevel = 99 -- 'foldlevelstart' isn't working correctly?
 opt.scrolloff = 3
-opt.completeopt = list { "menuone", "noselect" }
-opt.virtualedit = list { "block" }
+opt.completeopt = list({ "menuone", "noselect" })
+opt.virtualedit = list({ "block" })
 opt.signcolumn = "yes:2"
-opt.colorcolumn = list { "100" }
-opt.sessionoptions = list {
+opt.colorcolumn = list({ "100" })
+opt.sessionoptions = list({
   "blank",
   "buffers",
   "curdir",
   "folds",
   "help",
   "tabpages",
-  "winsize"
-}
-opt.diffopt = list {
+  "winsize",
+})
+opt.diffopt = list({
   "algorithm:histogram",
   "internal",
   "indent-heuristic",
@@ -65,9 +65,9 @@ opt.diffopt = list {
   "iwhite",
   "vertical",
   "linematch:100",
-}
+})
 opt.pyxversion = 3
-opt.shada = list {
+opt.shada = list({
   "!",
   "'10",
   "/100",
@@ -76,19 +76,19 @@ opt.shada = list {
   "@1",
   "f1",
   "h",
-  "s1"
-}
+  "s1",
+})
 opt.list = true
-opt.listchars = list {
+opt.listchars = list({
   "tab: ──",
   "lead:·",
   "trail:•",
   "nbsp:␣",
   -- "eol:↵",
   "precedes:«",
-  "extends:»"
-}
-opt.fillchars = list {
+  "extends:»",
+})
+opt.fillchars = list({
   -- "vert:▏",
   "vert:│",
   "diff:╱",
@@ -96,7 +96,7 @@ opt.fillchars = list {
   "foldopen:",
   "fold: ",
   "msgsep:─",
-}
+})
 opt.showbreak = "⤷ "
 opt.concealcursor = "nc"
 opt.writebackup = true
@@ -139,14 +139,9 @@ vim.env.MANWIDTH = 80 -- Text width in man pages.
 local init_extra_path = vim.fn.fnamemodify(vim.fn.expand("$MYVIMRC"), ":h") .. "/init_extra.vim"
 if vim.fn.filereadable(init_extra_path) == 1 then
   local data = vim.secure.read(init_extra_path)
-  if data then vim.cmd.source(init_extra_path) end
+  if data then
+    vim.cmd.source(init_extra_path)
+  end
 end
 
 vim.g.mapleader = " "
-
-if vim.g.neovide then
-  vim.g.neovide_cursor_trail_size = 0
-  vim.g.neovide_cursor_trail_length = 0
-  vim.g.neovide_floating_blur = false
-  vim.g.neovide_floating_opacity = 1.0
-end
