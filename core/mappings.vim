@@ -405,6 +405,7 @@ endfunction
 function! WindowsManagementMappings()
   " Tab operation
   nnoremap <silent> <LocalLeader>tn :tabnew<CR>
+  nnoremap <silent> <LocalLeader>tN :-tabnew<CR>
   nnoremap <silent> <LocalLeader>tq :tabclose<CR>
   nnoremap <silent> <LocalLeader>te :tabedit<CR>
   nnoremap <silent> <LocalLeader>tm :tabmove<CR>

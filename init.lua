@@ -35,8 +35,10 @@ _G.pl = Config.common.utils.pl
 Config.lib = require("user.lib")
 Config.term = require("user.modules.term")
 
-Config.buf_cleaner = require("user.modules.buf_cleaner")
-Config.buf_cleaner.enable()
+-- Disabled for now since it creates issues with Sessions and Remote files in
+-- windows (e.g. OneDrive files)
+-- Config.buf_cleaner = require("user.modules.buf_cleaner")
+-- Config.buf_cleaner.enable()
 
 local Cache = require("user.modules.cache")
 
