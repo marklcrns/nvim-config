@@ -48,6 +48,7 @@ return function()
     Value = " 󰎠 ",
     EnumMember = "  ",
     Copilot = "  ",
+    Codeium = "  ",
   }
 
   local has_words_before = function()
@@ -283,6 +284,7 @@ return function()
           git = "[VCS]",
           conventionalcommits = "[VCS]",
           copilot = "[Copilot]",
+          codeium = "[Codeium]",
           cmp_tabnine = "[Tab9]",
           latex_symbols = "[Latex]",
           treesitter = "[Treesitter]",
@@ -312,6 +314,7 @@ return function()
     },
     sources = cmp.config.sources({
       { name = "copilot", group_index = 1 },
+      { name = "codeium", group_index = 1 },
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       { name = "nvim_lua", group_index = 1 },
@@ -386,6 +389,7 @@ return function()
   cmp.setup.filetype({ "norg" }, {
     sources = cmp.config.sources({
       { name = "copilot", group_index = 1 },
+      { name = "codeium", group_index = 1 },
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       -- { name = 'spell', group_index = 1  },
@@ -408,6 +412,7 @@ return function()
   cmp.setup.filetype({ "markdown", "vimwiki", "help", "text" }, {
     sources = cmp.config.sources({
       { name = "copilot", group_index = 1 },
+      { name = "codeium", group_index = 1 },
       -- { name = "cmp_tabnine", group_index = 1 },
       { name = "nvim_lsp", group_index = 1 },
       -- { name = 'spell', group_index = 1  },
