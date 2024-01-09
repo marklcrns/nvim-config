@@ -17,7 +17,6 @@ return function()
     },
     panel = { enabled = false },
     filetypes = {
-      yaml = false,
       -- markdown = false,
       help = false,
       gitcommit = false,
