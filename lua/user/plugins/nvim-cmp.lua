@@ -324,7 +324,7 @@ return function()
       { name = "spell", group_index = 2 },
       {
         name = "buffer",
-        max_item_count = 20,
+        max_item_count = 10,
         option = {
           get_bufnrs = function()
             return vim.tbl_filter(function(bufnr)
@@ -378,9 +378,13 @@ return function()
       { name = "spell" },
       {
         name = "buffer",
-        max_item_count = 20,
+        max_item_count = 10,
         option = {
-          get_bufnrs = get_bufnrs,
+          get_bufnrs = function()
+            return vim.tbl_filter(function(bufnr)
+              return utils.buf_get_size(bufnr) < 1024
+            end, utils.vec_union(utils.list_bufs({ listed = true }), utils.list_bufs({ no_hidden = true })))
+          end,
         },
       },
     }),
@@ -401,9 +405,13 @@ return function()
       {
         name = "buffer",
         group_index = 2,
-        max_item_count = 20,
+        max_item_count = 10,
         option = {
-          get_bufnrs = get_bufnrs,
+          get_bufnrs = function()
+            return vim.tbl_filter(function(bufnr)
+              return utils.buf_get_size(bufnr) < 1024
+            end, utils.vec_union(utils.list_bufs({ listed = true }), utils.list_bufs({ no_hidden = true })))
+          end,
         },
       },
     }),
@@ -423,9 +431,13 @@ return function()
       {
         name = "buffer",
         group_index = 2,
-        max_item_count = 20,
+        max_item_count = 10,
         option = {
-          get_bufnrs = get_bufnrs,
+          get_bufnrs = function()
+            return vim.tbl_filter(function(bufnr)
+              return utils.buf_get_size(bufnr) < 1024
+            end, utils.vec_union(utils.list_bufs({ listed = true }), utils.list_bufs({ no_hidden = true })))
+          end,
         },
       },
     }),

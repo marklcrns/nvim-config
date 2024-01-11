@@ -4,7 +4,7 @@ let g:enable_format_on_save= v:true
 " Must set proper snippet engine in /lua/user/plugins/nvim-cmp.lua
 " and modify snippet engine in neogen
 " options: ultisnips, luasnip
-let g:snippet_engine = 'luasnip'
+let g:snippet_engine = 'ultisnips'
 
 " Enable this to disable cpu intensive plugins/modules
 let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false) == 0 ? v:false : v:true
