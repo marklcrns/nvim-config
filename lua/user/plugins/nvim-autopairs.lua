@@ -89,12 +89,13 @@ return function()
     -- press % => %% only while inside a comment or string (lua)
     Rule("%", "%", "lua"):with_pair(ts_conds.is_ts_node({ "string", "comment" })),
 
-    -- Bracket-like $$ behavior
-    Rule("$", "$", { "tex", "latex", "plaintex", "markdown", "vimwiki" })
-      -- move right when repeat character
-      :with_move(function(opts)
-        return opts.char == "$"
-      end),
+    -- -- Bracket-like $$ behavior
+    -- Rule("$", "$", { "tex", "latex", "plaintex", "markdown", "vimwiki" })
+    --   -- move right when repeat character
+    --   :with_move(function(opts)
+    --     return opts.char == "$"
+    --   end),
+
     -- Add $$ in new line after $$<CR>
     Rule("$$", "", { "tex", "latex", "plaintex", "markdown", "vimwiki" })
       :with_pair(function(opts)
