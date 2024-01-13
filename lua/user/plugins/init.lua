@@ -98,12 +98,14 @@ require("lazy").setup({
   -- },
   -- {
   --   "mrded/nvim-lsp-notify",
-  --   after = { "nvim-lspconfig" },
   --   event = "VimEnter",
   --   config = function()
   --     -- require("lsp-notify").setup({ notify = require("notify") })
   --     require("lsp-notify").setup()
   --   end,
+  --   dependencies = {
+  --     "neovim/nvim-lspconfig",
+  --   },
   -- },
   {
     "xiyaowong/transparent.nvim",
@@ -430,7 +432,7 @@ require("lazy").setup({
     "bennypowers/nvim-regexplainer",
     init = utils.load_mappings("regexplainer"),
     cmd = "RegexplainerToggle",
-    conf = function()
+    config = function()
       require("regexplainer").setup({ auto = false })
     end,
     dependencies = {
@@ -664,10 +666,10 @@ require("lazy").setup({
   -- LANGUAGES + TOOLS
   {
     "folke/neodev.nvim",
-    after = "nvim-lspconfig",
     -- NOTE: Defined in lua/init.lua
     -- config = true,
     dependencies = {
+      "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",

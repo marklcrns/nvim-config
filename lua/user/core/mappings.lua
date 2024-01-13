@@ -793,6 +793,7 @@ M.tabular = {
     ["<leader>ra="] = { "<cmd>Tabularize /=<CR>", "tabularize =", opts = default_opts },
     ["<leader>ra-"] = { "<cmd>Tabularize /--<CR>", "tabularize --", opts = default_opts },
     ["<leader>ra{"] = { "<cmd>Tabularize /{<CR>", "tabularize {", opts = default_opts },
+    ["<leader>ra#"] = { "<cmd>Tabularize /#<CR>", "tabularize #", opts = default_opts },
     -- tabularize after the symbol
     ["<leader>raa\\"] = { "<cmd>Tabularize /\\\\\\\\zs<CR>", "tabularize after \\\\", opts = default_opts },
     ["<leader>raa/"] = { "<cmd>Tabularize ////\\zs<CR>", "tabularize after //", opts = default_opts },
@@ -805,6 +806,7 @@ M.tabular = {
     ["<leader>raa="] = { "<cmd>Tabularize /=\\zs<CR>", "tabularize after =", opts = default_opts },
     ["<leader>raa-"] = { "<cmd>Tabularize /--\\zs<CR>", "tabularize after --", opts = default_opts },
     ["<leader>raa{"] = { "<cmd>Tabularize /{\\zs<CR>", "tabularize after {", opts = default_opts },
+    ["<leader>raa#"] = { "<cmd>Tabularize /#\\zs<CR>", "tabularize after #", opts = default_opts },
   },
   v = {
     ["<leader>ra\\"] = { ":Tabularize /\\\\\\<CR>", "tabularize \\\\", opts = default_opts },
@@ -820,6 +822,7 @@ M.tabular = {
     ["<leader>ra("] = { ":Tabularize /(<CR>", "tabularize (", opts = default_opts },
     ["<leader>ra["] = { ":Tabularize /[<CR>", "tabularize [", opts = default_opts },
     ["<leader>ra{"] = { ":Tabularize /{<CR>", "tabularize {", opts = default_opts },
+    ["<leader>ra#"] = { ":Tabularize /#<CR>", "tabularize #", opts = default_opts },
     -- tabularize after the symbol
     ["<leader>raa\\"] = { ":Tabularize /\\\\\\\\zs<CR>", "tabularize after \\\\", opts = default_opts },
     ["<leader>raa/"] = { ":Tabularize ////\\zs<CR>", "tabularize after //", opts = default_opts },
@@ -832,6 +835,7 @@ M.tabular = {
     ["<leader>raa="] = { ":Tabularize /=\\zs<CR>", "tabularize after =", opts = default_opts },
     ["<leader>raa-"] = { ":Tabularize /--\\zs<CR>", "tabularize after --", opts = default_opts },
     ["<leader>raa{"] = { ":Tabularize /{\\zs<CR>", "tabularize after {", opts = default_opts },
+    ["<leader>raa#"] = { ":Tabularize /#\\zs<CR>", "tabularize after #", opts = default_opts },
   },
 }
 

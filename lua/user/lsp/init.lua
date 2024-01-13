@@ -320,4 +320,7 @@ Config.common.au.declare_group("lsp_init", {}, {
   { "CursorHold", callback = M.show_position_diagnostics },
 })
 
+-- Turn off LSP logging
+vim.lsp.set_log_level("off")
+
 return M
