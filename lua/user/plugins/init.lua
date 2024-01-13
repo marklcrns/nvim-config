@@ -307,15 +307,16 @@ require("lazy").setup({
   --   init = utils.load_mappings("true_zen"),
   --   config = conf("true-zen"),
   -- },
-  {
-    "Bekaboo/dropbar.nvim",
-    cond = not sys.is_gui() and not vim.g.low_performance_mode,
-    event = "VimEnter",
-    config = conf("dropbar", "dropbar"),
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-    },
-  },
+  -- WARN: Disabled because it affects startup time by good amount
+  -- {
+  --   "Bekaboo/dropbar.nvim",
+  --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
+  --   event = "VimEnter",
+  --   config = conf("dropbar", "dropbar"),
+  --   dependencies = {
+  --     "nvim-telescope/telescope-fzf-native.nvim",
+  --   },
+  -- },
 
   -- FILE NAVIGATION
   {
@@ -357,11 +358,12 @@ require("lazy").setup({
   },
 
   -- PROJECT MANAGER
-  {
-    "ahmedkhalf/project.nvim",
-    event = "VimEnter",
-    config = conf("project"),
-  },
+  -- INFO: Unused plugin
+  -- {
+  --   "ahmedkhalf/project.nvim",
+  --   event = "VimEnter",
+  --   config = conf("project"),
+  -- },
 
   -- CODING HELPER
   {
