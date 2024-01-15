@@ -1205,6 +1205,7 @@ M.vimwiki = {
   n = {
     ["<localleader>nww"] = { "<cmd>VimwikiUISelect<CR>", "open vimwiki index", opts = default_opts },
     ["<localleader>nwd"] = { "<cmd>VimwikiDiaryIndex<CR>", "open vimwiki diary", opts = default_opts },
+    ["<localleader>nwD"] = { "<cmd>VimwikiDeleteFile<CR>", "delete vimwiki file", opts = default_opts },
     ["<localleader>nwh"] = { "<cmd>Vimwiki2HTML<CR>", "convert vimwiki to html", opts = default_opts },
     ["<localleader>nwH"] = { "<cmd>Vimwiki2HTMLBrowse<CR>", "convert vimwiki to html and browse", opts = default_opts },
     ["<localleader>nwl"] = { "<cmd>VimwikiGenerateLinks<CR>", "generate vimwiki links", opts = default_opts },
