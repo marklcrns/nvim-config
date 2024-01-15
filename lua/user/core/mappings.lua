@@ -693,6 +693,24 @@ M.nvim_window_picker = {
   },
 }
 
+M.obsidian = {
+  plugin = true,
+
+  n = {
+    ["<LocalLeader>nob"] = { "<cmd>ObsidianBacklinks<CR>", "backlinks", opts = default_opts },
+    ["<LocalLeader>noS"] = { "<cmd>ObsidianSearch<CR>", "search notes", opts = default_opts },
+    ["<LocalLeader>non"] = { "<cmd>ObsidianNew<CR>", "new note", opts = default_opts },
+    ["<LocalLeader>noo"] = { "<cmd>ObsidianOpen<CR>", "open note", opts = default_opts },
+    ["<LocalLeader>nor"] = { ":ObsidianRename ", "rename note", opts = default_opts },
+    ["<LocalLeader>nos"] = { "<cmd>ObsidianQuickSwitch<CR>", "quick switch", opts = default_opts },
+    ["<LocalLeader>now"] = { "<cmd>ObsidianWorkspace<CR>", "open workspace", opts = default_opts },
+  },
+
+  v = {
+    ["<LocalLeader>nol"] = { ":ObsidianLink<CR>", "link text selection", opts = default_opts },
+  },
+}
+
 M.regexplainer = {
   plugin = true,
 

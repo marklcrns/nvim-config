@@ -850,6 +850,15 @@ require("lazy").setup({
     end,
   },
   {
+    "epwalsh/obsidian.nvim",
+    cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
+    cmd = { "ObsidianOpen", "ObsidianSearch", "ObsidianQuickSwitch" },
+    init = function()
+      utils.load_mappings("obsidian")
+      conf("obsidian")()
+    end,
+  },
+  {
     "sedm0784/vim-you-autocorrect",
     cond = not vim.g.low_performance_mode,
     ft = { "markdown", "vimwiki", "norg" },
