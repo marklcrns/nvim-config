@@ -1,6 +1,7 @@
 " NOTE: These patterns assumes the qf format provided by nvim-pqf.
 
-syn clear qfPath
+" INFO: Commented because it complains that qfPath highlight group is not defined.
+" syn clear qfPath
 
 syn match qfPathBasename /\v(.{-})(:\d+(:\d+)?)@=/ nextgroup=qfPosition contained
 syn match qfPath /\v(\S*\/)?/ nextgroup=qfPathBasename contained
