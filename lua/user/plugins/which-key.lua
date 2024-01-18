@@ -199,6 +199,9 @@ return function()
           name = "+navigation-modes",
         },
       },
+      o = {
+        name = "+obsidian",
+      },
       w = {
         name = "+vimwiki",
       },

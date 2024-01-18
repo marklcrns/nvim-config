@@ -226,12 +226,12 @@ require("lazy").setup({
   --     },
   --   },
   -- },
-  {
-    "karb94/neoscroll.nvim",
-    cond = not sys.is_gui() or vim.g.low_performance_mode,
-    init = utils.lazy_load("neoscroll.nvim"),
-    config = conf("neoscroll"),
-  },
+  -- {
+  --   "karb94/neoscroll.nvim",
+  --   cond = not sys.is_gui() or vim.g.low_performance_mode,
+  --   init = utils.lazy_load("neoscroll.nvim"),
+  --   config = conf("neoscroll"),
+  -- },
   -- {
   --   "gen740/SmoothCursor.nvim",
   --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
@@ -239,11 +239,11 @@ require("lazy").setup({
   --   init = utils.load_mappings("SmoothCursor"),
   --   config = conf("SmoothCursor"),
   -- },
-  {
-    "mvllow/modes.nvim",
-    init = utils.lazy_load("modes.nvim"),
-    config = conf("modes"),
-  },
+  -- {
+  --   "mvllow/modes.nvim",
+  --   init = utils.lazy_load("modes.nvim"),
+  --   config = conf("modes"),
+  -- },
 
   -- UI STYLE
   { "nvim-tree/nvim-web-devicons", config = conf("nvim-web-devicons") },
@@ -276,11 +276,6 @@ require("lazy").setup({
     "feline-nvim/feline.nvim",
     event = "VimEnter",
     config = conf("feline"),
-  },
-  {
-    "HampusHauffman/block.nvim",
-    cmd = { "Block", "BlockOn" },
-    config = true,
   },
 
   -- UI INTERFACE
