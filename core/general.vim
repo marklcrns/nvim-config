@@ -162,7 +162,7 @@ set ignorecase    " Search ignoring case
 set smartcase     " Keep case when searching with *
 set infercase     " Adjust case in insert completion mode
 set incsearch     " Incremental search
-set wrapscan      " Searches wrap around the end of the file
+set nowrapscan    " Searches don't wrap around the end of the file
 set hlsearch      " Highlight search results
 
 set complete=.,w,b,k  " C-n completion: Scan buffers, windows and dictionary
