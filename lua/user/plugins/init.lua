@@ -768,10 +768,10 @@ require("lazy").setup({
           },
         },
       },
-      {
-        "Exafunction/codeium.nvim",
-        config = conf("codeium"),
-      },
+      -- {
+      --   "Exafunction/codeium.nvim",
+      --   config = conf("codeium"),
+      -- },
     },
   },
   {
