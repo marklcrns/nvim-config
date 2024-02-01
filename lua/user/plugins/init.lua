@@ -705,8 +705,8 @@ require("lazy").setup({
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-cmdline" },
-      { "f3fora/cmp-spell" },
-      { "hrsh7th/cmp-emoji" },
+      -- { "f3fora/cmp-spell" },
+      -- { "hrsh7th/cmp-emoji" },
       { "davidsierradz/cmp-conventionalcommits" },
       {
         "petertriho/cmp-git",
