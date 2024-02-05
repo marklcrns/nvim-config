@@ -16,12 +16,12 @@ return function()
       tmux = false, -- Create tmux splits instead of neovim splits
     },
     ui = {
-      number = true, -- Display line numbers in the focussed window only
+      number = false, -- Display line numbers in the focussed window only
       relativenumber = false, -- Display relative line numbers in the focussed window only
-      hybridnumber = true, -- Display hybrid line numbers in the focussed window only
-      absolutenumber_unfocussed = true, -- Preserve absolute numbers in the unfocussed windows
+      hybridnumber = true, -- Display hybrid line numbers in the focused window only
+      absolutenumber_unfocussed = false, -- Preserve absolute numbers in the unfocussed windows
 
-      -- Covered in core/filetype.vim
+      -- Delegated to mvllow/modes.nvim
       cursorline = false, -- Display a cursorline in the focussed window only
       cursorcolumn = false, -- Display cursorcolumn in the focussed window only
       colorcolumn = {

@@ -1123,6 +1123,12 @@ M.transparent = {
   },
 }
 
+M.treesitter_context = {
+  n = {
+    ["<localleader>slc"] = { "<cmd>TSContextToggle<CR>", "toggle treesitter context", opts = default_opts },
+  },
+}
+
 M.treesj = {
   plugin = true,
 

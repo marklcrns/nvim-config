@@ -18,18 +18,18 @@ return function()
 
   -- https://github.com/windwp/nvim-autopairs/wiki/Custom-rules
   npairs.add_rules({
-    -- Add spaces between parenthesis and brackets
+    -- Add spaces between parenthesis and brackets, excluding square brackets
     Rule(" ", " ")
       :with_pair(function(opts)
         local pair = opts.line:sub(opts.col - 1, opts.col)
-        return vim.tbl_contains({ "()", "{}", "[]" }, pair)
+        return vim.tbl_contains({ "()", "{}" }, pair)
       end)
       :with_move(cond.none())
       :with_cr(cond.none())
       :with_del(function(opts)
         local col = vim.api.nvim_win_get_cursor(0)[2]
         local context = opts.line:sub(col - 1, col + 2)
-        return vim.tbl_contains({ "(  )", "{  }", "[  ]" }, context)
+        return vim.tbl_contains({ "(  )", "{  }" }, context)
       end),
     -- Match open parenthesis and brackets
     Rule("", " )")

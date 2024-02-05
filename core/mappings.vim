@@ -752,8 +752,8 @@ function! TextManipulationMappings()
   " Replace all with yanked texts
   nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
 
-  " " SmartPaste by replacing odd characters and autoformatting
-  " nnoremap <silent> <Leader>rP <cmd>call SmartPaste()<CR>
+  " SmartPaste by replacing odd characters and autoformatting
+  nnoremap <silent> <Leader>rP <cmd>call SmartPaste()<CR>
   " imap <expr><silent> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartPaste()\<CR>" : "\<Esc>:call SmartPaste()\<CR>"
 
   " Jumps to previously misspelled word and fixes it with the first in the suggestion
@@ -975,7 +975,6 @@ function! SmartPaste()
   call s:substitute_odd_characters()
   " Reindent and format lines
   exe "norm! gv=gvgw"
-  echo "SmartPaste complete"
   " Go to the end of the last selected texts
   exe "norm! 0`>"
 endfunction

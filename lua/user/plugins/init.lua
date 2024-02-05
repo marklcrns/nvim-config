@@ -67,6 +67,11 @@ require("lazy").setup({
     "aliou/bats.vim",
     ft = "bats",
   },
+  {
+    "fei6409/log-highlight.nvim",
+    ft = { "log", "txt" },
+    config = conf("log-highlight"),
+  },
 
   -- UTILS
   "nvim-lua/popup.nvim",
@@ -239,11 +244,11 @@ require("lazy").setup({
   --   init = utils.load_mappings("SmoothCursor"),
   --   config = conf("SmoothCursor"),
   -- },
-  -- {
-  --   "mvllow/modes.nvim",
-  --   init = utils.lazy_load("modes.nvim"),
-  --   config = conf("modes"),
-  -- },
+  {
+    "mvllow/modes.nvim",
+    init = utils.lazy_load("modes.nvim"),
+    config = conf("modes"),
+  },
 
   -- UI STYLE
   { "nvim-tree/nvim-web-devicons", config = conf("nvim-web-devicons") },
@@ -588,8 +593,9 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter-context",
     cond = not vim.g.low_performance_mode,
+    cmd = { "TSContextEnable", "TSContextToggle" },
     event = "VeryLazy",
-    config = conf("nvim-treesitter-context"),
+    config = conf("nvim-treesitter-context", "treesitter_context"),
   },
   {
     "RRethy/nvim-treesitter-endwise",
