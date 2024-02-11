@@ -63,10 +63,11 @@ return function()
           },
         },
         ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
-        ["d"] = "delete",
+        ["dD"] = "delete",
         ["r"] = "rename",
-        ["y"] = "copy_to_clipboard",
-        ["x"] = "cut_to_clipboard",
+        ["yy"] = "copy_to_clipboard",
+        ["d"] = "",
+        ["dd"] = "cut_to_clipboard",
         ["p"] = "paste_from_clipboard",
         -- ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
         ["c"] = {

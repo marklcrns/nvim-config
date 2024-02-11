@@ -852,7 +852,8 @@ require("lazy").setup({
   },
   {
     "epwalsh/obsidian.nvim",
-    cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
+    -- cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
+    ft = { "markdown" },
     cmd = { "ObsidianOpen", "ObsidianSearch", "ObsidianQuickSwitch" },
     init = function()
       utils.load_mappings("obsidian")
