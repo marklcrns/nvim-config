@@ -442,6 +442,7 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
     },
   },
+  -- DEPRECATED: in favor of nvim-spectre (much more intuitive)
   {
     "AckslD/muren.nvim",
     init = utils.load_mappings("muren"),
