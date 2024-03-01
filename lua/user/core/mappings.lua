@@ -491,6 +491,18 @@ M.lens = {
   },
 }
 
+M.linediff = {
+  plugin = true,
+
+  n = {
+    ["<leader>tdl"] = { "<cmd>Linediff<CR>", "toggle linediff", opts = default_opts },
+  },
+
+  v = {
+    ["<leader>tdl"] = { ":Linediff<CR>", "toggle linediff", opts = default_opts },
+  },
+}
+
 M.lsp = {
   plugin = true,
 

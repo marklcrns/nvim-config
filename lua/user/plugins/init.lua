@@ -291,6 +291,11 @@ require("lazy").setup({
     config = conf("diffview"),
   },
   {
+    "AndrewRadev/linediff.vim",
+    init = utils.load_mappings("linediff"),
+    cmd = { "Linediff" },
+  },
+  {
     "folke/which-key.nvim",
     keys = { "<leader>", "<localleader>", "]", "[" },
     config = conf("which-key"),
