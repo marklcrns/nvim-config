@@ -203,7 +203,7 @@ require("lazy").setup({
   {
     "levouh/tint.nvim",
     cond = not vim.g.low_performance_mode,
-    event = "WinEnter",
+    event = "VimEnter",
     config = conf("tint", "tint"),
   },
   -- {
@@ -637,15 +637,10 @@ require("lazy").setup({
   },
   {
     "williamboman/mason.nvim",
-    init = utils.load_mappings("mason"),
     build = ":MasonUpdate",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-    config = conf("mason"),
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    event = "VimEnter",
-    config = conf("mason-lspconfig"),
+    init = utils.load_mappings("mason"),
+    dependencies = { { "williamboman/mason-lspconfig.nvim", config = false } },
+    config = false,
   },
   {
     "jayp0521/mason-null-ls.nvim",

@@ -1,3 +1,44 @@
+local mason = prequire("mason")
+local mason_lspconfig = prequire("mason-lspconfig")
+
+if mason then
+  vim.env.PATH = vim.env.PATH
+    .. (Config.common.sys.is_windows() and ";" or ":")
+    .. vim.fn.stdpath("data")
+    .. "/mason/bin"
+  mason.setup({
+    PATH = "skip",
+    ui = {
+      icons = {
+        package_pending = " ",
+        package_installed = " ",
+        package_uninstalled = " ﮊ",
+      },
+
+      keymaps = {
+        toggle_server_expand = "<CR>",
+        install_server = "i",
+        update_server = "u",
+        check_server_version = "c",
+        update_all_servers = "U",
+        check_outdated_servers = "C",
+        uninstall_server = "X",
+        cancel_installation = "<C-c>",
+      },
+    },
+
+    max_concurrent_installers = 10,
+    -- Installation directory. Usually in ~/.local/share/nvim
+    -- See :lua print(vim.fn.stdpath("data"))
+    -- install_root_dir = vim.fn.stdpath("data") .. "/mason",
+  })
+end
+if mason_lspconfig then
+  mason_lspconfig.setup({
+    automatic_installation = true,
+  })
+end
+
 require("neodev").setup({
   library = {
     enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
@@ -215,7 +256,7 @@ vim.diagnostic.handlers.signs = {
   end,
 }
 
-local pop_opts = { border = "single", max_width = 80 }
+local pop_opts = { border = "single", max_width = 84 }
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, pop_opts)
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, pop_opts)
 

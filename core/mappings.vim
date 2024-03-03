@@ -386,6 +386,10 @@ function! FilePathMappings()
   nnoremap <Leader>fyx :let @+=expand("%:e")<bar>echo 'Yanked file extension'<CR>
   " :edit file path from clipboard register
   nnoremap <Leader>fyo :execute "e " . getreg('+')<bar>echo 'Opened ' . expand("%:p")<CR>
+  nnoremap gyp <CMD>let @+ = expand("%") \| let @0 = @+<CR>
+  nnoremap gyP <CMD>let @+ = expand("%:p") \| let @0 = @+<CR>
+  nnoremap gyl <CMD>let @+ = printf("%s:%d", expand("%"), getcurpos()[1]) \| let @0 = @+<CR>
+  nnoremap gyL <CMD>let @+ = printf("%s:%d", expand("%:p"), getcurpos()[1]) \| let @0 = @+<CR>
 endfunction
 
 function! FileManagementMappings()
@@ -415,6 +419,9 @@ function! WindowsManagementMappings()
   nnoremap <silent> ]t :tabnext<CR>
   nnoremap <silent> ]T :tablast<CR>
   nnoremap <silent> [T :tabfirst<CR>
+nnoremap <M-[> <Cmd>tabp<CR>
+nnoremap <M-]> <Cmd>tabn<CR>
+nnoremap <leader>x <Cmd>tabc<CR>
 
   " Go to last active tab
   au TabLeave * let g:lasttab = tabpagenr()
@@ -747,8 +754,8 @@ function! TextManipulationMappings()
   vnoremap <silent> <Leader>rl :<C-U>let i=1 \| '<,'>g/^/s//\=i.'. '/ \| let i=i+1 \| nohl<CR>
   " Fix indentation of whole buffer
   nnoremap <silent> <Leader>ri :call Preserve("normal gg=G")<CR>
-  " Yank everything from current file
-  nnoremap <Leader>rya ggVGy:echom "Yanked all file contents!"<CR>
+  " Yank everything from current file without moving cursor
+  nnoremap <Leader>rya :%y<CR>
   " Replace all with yanked texts
   nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
 
