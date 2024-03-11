@@ -1,13 +1,15 @@
-return function ()
+return function()
   local hi_link = Config.common.hl.hi_link
 
   require("symbols-outline").setup({
     highlight_hovered_item = true,
     show_guides = true,
     auto_preview = false, -- experimental
-    position = 'right',
+    position = "right",
     relative_width = false,
     width = 50,
+    autofold_depth = 0,
+    auto_unfold_hover = false,
     keymaps = {
       close = "q",
       goto_location = "<Cr>",
@@ -50,8 +52,8 @@ return function ()
       Struct = { icon = "", hl = "@type" },
       Event = { icon = "", hl = "@type" },
       Operator = { icon = "", hl = "@operator" },
-      TypeParameter = { icon = "", hl = "@parameter" }
-    }
+      TypeParameter = { icon = "", hl = "@parameter" },
+    },
   })
 
   hi_link("FocusedSymbol", "Visual")
