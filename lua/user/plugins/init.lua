@@ -154,15 +154,15 @@ require("lazy").setup({
       })
     end,
   },
-  {
-    "kevinhwang91/nvim-ufo",
-    cond = not vim.g.low_performance_mode,
-    init = utils.lazy_load("nvim-ufo"),
-    config = conf("nvim-ufo"),
-    dependencies = {
-      "kevinhwang91/promise-async",
-    },
-  },
+  -- {
+  --   "kevinhwang91/nvim-ufo",
+  --   cond = not vim.g.low_performance_mode,
+  --   init = utils.lazy_load("nvim-ufo"),
+  --   config = conf("nvim-ufo"),
+  --   dependencies = {
+  --     "kevinhwang91/promise-async",
+  --   },
+  -- },
   {
     "kevinhwang91/nvim-hlslens",
     init = utils.lazy_load("nvim-hlslens"),
@@ -489,6 +489,9 @@ require("lazy").setup({
         "rcarriga/nvim-dap-ui",
         init = utils.load_mappings("nvim_dap_ui"),
         config = conf("nvim-dap-ui"),
+        dependencies = {
+          "folke/neodev.nvim"
+        },
       },
     },
   },
@@ -677,7 +680,6 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
-      "rcarriga/nvim-dap-ui",
     },
   },
   {

@@ -203,6 +203,7 @@ lspconfig.vimls.setup(M.create_config())
 -- lspconfig.gopls.setup(M.create_config())
 
 -- Misc
+lspconfig.clojure_lsp.setup(M.create_config())
 lspconfig.dockerls.setup(M.create_config())
 lspconfig.eslint.setup(M.create_config())
 lspconfig.jsonls.setup(M.create_config())

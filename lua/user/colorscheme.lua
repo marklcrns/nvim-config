@@ -23,7 +23,7 @@ local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
 
 local M = {}
 
-M.DEFAULT_DARK = "kanagawa-dragon"
+M.DEFAULT_DARK = "tokyonight"
 M.DEFAULT_LIGHT = "seoulbones"
 
 do
