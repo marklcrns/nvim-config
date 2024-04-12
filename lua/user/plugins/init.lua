@@ -78,6 +78,11 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+  },
+  {
     "tpope/vim-eunuch",
     event = "VimEnter",
     config = conf("eunuch"),
@@ -826,20 +831,20 @@ require("lazy").setup({
 
   -- NOTETAKING
   {
+    "nvim-neorg/neorg-telescope",
+    init = utils.load_mappings("neorg_telescope"),
+    config = conf("neorg-telescope"),
+    dependencies = "nvim-telescope/telescope.nvim",
+  },
+  {
     "nvim-neorg/neorg",
     init = utils.load_mappings("neorg"),
-    build = ":Neorg sync-parsers",
     ft = "norg",
     cmd = { "Neorg", "NeorgOpen", "NeorgNew", "NeorgDoc", "NeorgHelp" },
     config = conf("neorg"),
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      {
-        "nvim-neorg/neorg-telescope",
-        init = utils.load_mappings("neorg_telescope"),
-        config = conf("neorg-telescope"),
-        dependencies = "nvim-telescope/telescope.nvim",
-      },
+      "vhyrro/luarocks.nvim",
+      "nvim-neorg/neorg-telescope"
     },
   },
   {

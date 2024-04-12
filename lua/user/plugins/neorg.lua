@@ -88,6 +88,7 @@ return function()
         },
       },
       ["core.integrations.telescope"] = {}, -- Enable the telescope module
+      ["core.integrations.treesitter"] = {},
       ["core.integrations.nvim-cmp"] = {},
     },
   })
