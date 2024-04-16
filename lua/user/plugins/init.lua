@@ -430,7 +430,6 @@ require("lazy").setup({
   },
   {
     "RRethy/vim-illuminate",
-    cond = not vim.g.low_performance_mode,
     event = "BufRead",
     config = conf("vim-illuminate"),
   },
@@ -495,7 +494,7 @@ require("lazy").setup({
         init = utils.load_mappings("nvim_dap_ui"),
         config = conf("nvim-dap-ui"),
         dependencies = {
-          "folke/neodev.nvim"
+          "folke/neodev.nvim",
         },
       },
     },
@@ -844,7 +843,7 @@ require("lazy").setup({
     config = conf("neorg"),
     dependencies = {
       "vhyrro/luarocks.nvim",
-      "nvim-neorg/neorg-telescope"
+      "nvim-neorg/neorg-telescope",
     },
   },
   {
