@@ -63,15 +63,15 @@ require("lazy").setup({
     "chrisbra/csv.vim",
     ft = "csv",
   },
-  {
-    "aliou/bats.vim",
-    ft = "bats",
-  },
-  {
-    "fei6409/log-highlight.nvim",
-    ft = { "log", "txt" },
-    config = conf("log-highlight"),
-  },
+  -- {
+  --   "aliou/bats.vim",
+  --   ft = "bats",
+  -- },
+  -- {
+  --   "fei6409/log-highlight.nvim",
+  --   ft = { "log", "txt" },
+  --   config = conf("log-highlight"),
+  -- },
 
   -- UTILS
   "nvim-lua/popup.nvim",
@@ -168,11 +168,11 @@ require("lazy").setup({
   --     "kevinhwang91/promise-async",
   --   },
   -- },
-  {
-    "kevinhwang91/nvim-hlslens",
-    init = utils.lazy_load("nvim-hlslens"),
-    config = conf("nvim-hlslens", "hlslens"),
-  },
+  -- {
+  --   "kevinhwang91/nvim-hlslens",
+  --   init = utils.lazy_load("nvim-hlslens"),
+  --   config = conf("nvim-hlslens", "hlslens"),
+  -- },
   {
     "yorickpeterse/nvim-pqf",
     ft = { "qf" },
@@ -305,12 +305,12 @@ require("lazy").setup({
     keys = { "<leader>", "<localleader>", "]", "[" },
     config = conf("which-key"),
   },
-  {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    init = utils.load_mappings("zen_mode"),
-    config = conf("zen-mode"),
-  },
+  -- {
+  --   "folke/zen-mode.nvim",
+  --   cmd = "ZenMode",
+  --   init = utils.load_mappings("zen_mode"),
+  --   config = conf("zen-mode"),
+  -- },
   -- {
   --   "Pocco81/true-zen.nvim",
   --   cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", "TZNarrow" },
@@ -452,12 +452,12 @@ require("lazy").setup({
     },
   },
   -- DEPRECATED: in favor of nvim-spectre (much more intuitive)
-  {
-    "AckslD/muren.nvim",
-    init = utils.load_mappings("muren"),
-    cmd = { "MurenToggle", "MurenOpen", "MurenUnique" },
-    config = conf("muren"),
-  },
+  -- {
+  --   "AckslD/muren.nvim",
+  --   init = utils.load_mappings("muren"),
+  --   cmd = { "MurenToggle", "MurenOpen", "MurenUnique" },
+  --   config = conf("muren"),
+  -- },
   {
     "nvim-pack/nvim-spectre",
     event = "VeryLazy",
@@ -478,43 +478,43 @@ require("lazy").setup({
     event = "BufRead",
     init = utils.load_mappings("text_case"),
   },
-  {
-    "mfussenegger/nvim-dap",
-    event = "VimEnter",
-    init = utils.load_mappings("nvim_dap"),
-    config = conf("nvim-dap"),
-    dependencies = {
-      -- "mfussenegger/nvim-dap-python",
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        config = conf("nvim-dap-virtual-text"),
-      },
-      {
-        "rcarriga/nvim-dap-ui",
-        init = utils.load_mappings("nvim_dap_ui"),
-        config = conf("nvim-dap-ui"),
-        dependencies = {
-          "folke/neodev.nvim",
-        },
-      },
-    },
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    event = "VimEnter",
-    config = conf("mason-nvim-dap"),
-    dependencies = {
-      "williamboman/mason.nvim",
-    },
-  },
+  -- {
+  --   "mfussenegger/nvim-dap",
+  --   event = "VimEnter",
+  --   init = utils.load_mappings("nvim_dap"),
+  --   config = conf("nvim-dap"),
+  --   dependencies = {
+  --     -- "mfussenegger/nvim-dap-python",
+  --     {
+  --       "theHamsta/nvim-dap-virtual-text",
+  --       config = conf("nvim-dap-virtual-text"),
+  --     },
+  --     {
+  --       "rcarriga/nvim-dap-ui",
+  --       init = utils.load_mappings("nvim_dap_ui"),
+  --       config = conf("nvim-dap-ui"),
+  --       dependencies = {
+  --         "folke/neodev.nvim",
+  --       },
+  --     },
+  --   },
+  -- },
+  -- {
+  --   "jay-babu/mason-nvim-dap.nvim",
+  --   event = "VimEnter",
+  --   config = conf("mason-nvim-dap"),
+  --   dependencies = {
+  --     "williamboman/mason.nvim",
+  --   },
+  -- },
 
   -- CODE NAVIGATION
-  {
-    "gorbit99/codewindow.nvim",
-    cond = not vim.g.low_performance_mode,
-    event = "VimEnter",
-    config = conf("codewindow", "codewindow"),
-  },
+  -- {
+  --   "gorbit99/codewindow.nvim",
+  --   cond = not vim.g.low_performance_mode,
+  --   event = "VimEnter",
+  --   config = conf("codewindow", "codewindow"),
+  -- },
   {
     "simrat39/symbols-outline.nvim",
     init = utils.load_mappings("symbols_outline"),
@@ -798,25 +798,25 @@ require("lazy").setup({
       })
     end,
   },
-  {
-    "smjonas/snippet-converter.nvim",
-    cmd = { "ConvertSnippets" },
-    config = conf("snippet-converter"),
-  },
+  -- {
+  --   "smjonas/snippet-converter.nvim",
+  --   cmd = { "ConvertSnippets" },
+  --   config = conf("snippet-converter"),
+  -- },
 
   -- CODE RUNNER
-  {
-    "michaelb/sniprun",
-    build = "sh install.sh",
-    cmd = { "SnipRun", "SnipLive", "SnipInfo" },
-    config = conf("sniprun", "sniprun"),
-  },
-  {
-    "Vigemus/iron.nvim",
-    version = "3.*",
-    cmd = { "IronRepl" },
-    config = conf("iron", "iron"),
-  },
+  -- {
+  --   "michaelb/sniprun",
+  --   build = "sh install.sh",
+  --   cmd = { "SnipRun", "SnipLive", "SnipInfo" },
+  --   config = conf("sniprun", "sniprun"),
+  -- },
+  -- {
+  --   "Vigemus/iron.nvim",
+  --   version = "3.*",
+  --   cmd = { "IronRepl" },
+  --   config = conf("iron", "iron"),
+  -- },
 
   -- WEB DEVELOPMENT
   {
