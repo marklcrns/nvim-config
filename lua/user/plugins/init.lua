@@ -236,19 +236,19 @@ require("lazy").setup({
   --     },
   --   },
   -- },
-  -- {
-  --   "karb94/neoscroll.nvim",
-  --   cond = not sys.is_gui() or vim.g.low_performance_mode,
-  --   init = utils.lazy_load("neoscroll.nvim"),
-  --   config = conf("neoscroll"),
-  -- },
-  -- {
-  --   "gen740/SmoothCursor.nvim",
-  --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
-  --   event = "VimEnter",
-  --   init = utils.load_mappings("SmoothCursor"),
-  --   config = conf("SmoothCursor"),
-  -- },
+  {
+    "karb94/neoscroll.nvim",
+    cond = not sys.is_gui(),
+    init = utils.lazy_load("neoscroll.nvim"),
+    config = conf("neoscroll"),
+  },
+  {
+    "gen740/SmoothCursor.nvim",
+    cond = not sys.is_gui(),
+    event = "VimEnter",
+    init = utils.load_mappings("SmoothCursor"),
+    config = conf("SmoothCursor"),
+  },
   {
     "mvllow/modes.nvim",
     init = utils.lazy_load("modes.nvim"),
