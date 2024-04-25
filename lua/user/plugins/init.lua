@@ -236,12 +236,12 @@ require("lazy").setup({
   --     },
   --   },
   -- },
-  {
-    "karb94/neoscroll.nvim",
-    cond = not sys.is_gui(),
-    init = utils.lazy_load("neoscroll.nvim"),
-    config = conf("neoscroll"),
-  },
+  -- {
+  --   "karb94/neoscroll.nvim",
+  --   cond = not sys.is_gui(),
+  --   init = utils.lazy_load("neoscroll.nvim"),
+  --   config = conf("neoscroll"),
+  -- },
   {
     "gen740/SmoothCursor.nvim",
     cond = not sys.is_gui(),
