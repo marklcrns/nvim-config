@@ -654,14 +654,21 @@ function M.apply_tweaks()
     diff_gen_opt = { no_derive = { mod = true } }
     M.apply_terminal_defaults()
     M.unstyle_telescope()
-  elseif colors_name == "kanagawa" then
+    hi(
+      { "NormalFloat", "StatusLine", "StatusLineNC", "TablineSel", "MsgArea" },
+      { fg = fg_normal:to_css() }
+    )
     hi("WinSeparator", { bg = "NONE", fg = "#444444" })
-    hi({ "CursorLine", "ColorColumn" }, { bg = bg_normal:highlight(0.06):to_css(), explicit = true })
+    hi(
+      { "CursorLine", "ColorColumn" },
+      { bg = bg_normal:highlight(0.06):to_css(), explicit = true }
+    )
     hi("diffAdded", { fg = Color.from_hl("diffAdded", "fg"):mod_value(0.1):to_css() })
     hi("diffRemoved", { fg = Color.from_hl("diffRemoved", "fg"):mod_saturation(-0.1):to_css() })
     hi("diffChanged", { fg = "#7E9CD8" })
     hi("Whitespace", { fg = bg_normal:highlight(0.18):to_css() })
     hi("BufferLineIndicatorSelected", { fg = "#7E9CD8" })
+    hi_link("CurSearch", "IncSearch", { clear = true })
     hi_link("@lsp.type.comment", "Comment", { clear = true })
 
     vim.g.terminal_color_0 = bg_normal:mod_value(0.15):to_css()

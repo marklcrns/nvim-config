@@ -160,9 +160,6 @@ end
 
 -- START LSP CONFIG ------------------------------------------------------------
 
--- Java
--- require("user.lsp.java")
-
 -- Typescript, Javascript
 lspconfig.tsserver.setup(M.create_config())
 
@@ -177,9 +174,6 @@ lspconfig.jedi_language_server.setup(M.create_config())
 
 -- Lua
 require("user.lsp.lua")
-
--- Teal
--- require("user.lsp.teal")
 
 -- Bash
 lspconfig.bashls.setup(M.create_config())

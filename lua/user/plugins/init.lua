@@ -614,11 +614,11 @@ require("lazy").setup({
     "RRethy/nvim-treesitter-endwise",
     init = utils.lazy_load("nvim-treesitter-endwise"),
   },
-  {
-    "folke/todo-comments.nvim",
-    init = utils.lazy_load("todo-comments.nvim"),
-    config = conf("todo-comments", "todo_comments"),
-  },
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   init = utils.lazy_load("todo-comments.nvim"),
+  --   config = conf("todo-comments", "todo_comments"),
+  -- },
   {
     "NvChad/nvim-colorizer.lua",
     cond = not vim.g.low_performance_mode,
