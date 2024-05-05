@@ -880,16 +880,6 @@ require("lazy").setup({
 
   -- MISC
   {
-    "Dhanus3133/LeetBuddy.nvim",
-    cmd = { "LBQuestions" },
-    init = utils.load_mappings("leetbuddy"),
-    config = conf("leetbuddy"),
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  },
-  {
     "ThePrimeagen/harpoon",
     event = "VimEnter",
     init = utils.load_mappings("harpoon"),
