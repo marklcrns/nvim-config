@@ -614,11 +614,11 @@ require("lazy").setup({
     "RRethy/nvim-treesitter-endwise",
     init = utils.lazy_load("nvim-treesitter-endwise"),
   },
-  -- {
-  --   "folke/todo-comments.nvim",
-  --   init = utils.lazy_load("todo-comments.nvim"),
-  --   config = conf("todo-comments", "todo_comments"),
-  -- },
+  {
+    "folke/todo-comments.nvim",
+    init = utils.lazy_load("todo-comments.nvim"),
+    config = conf("todo-comments", "todo_comments"),
+  },
   {
     "NvChad/nvim-colorizer.lua",
     cond = not vim.g.low_performance_mode,
@@ -857,16 +857,16 @@ require("lazy").setup({
       conf("vimwiki")()
     end,
   },
-  {
-    "epwalsh/obsidian.nvim",
-    -- cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
-    ft = { "markdown" },
-    cmd = { "ObsidianOpen", "ObsidianSearch", "ObsidianQuickSwitch" },
-    init = function()
-      utils.load_mappings("obsidian")
-      conf("obsidian")()
-    end,
-  },
+  -- {
+  --   "epwalsh/obsidian.nvim",
+  --   -- cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
+  --   ft = { "markdown" },
+  --   cmd = { "ObsidianOpen", "ObsidianSearch", "ObsidianQuickSwitch" },
+  --   init = function()
+  --     utils.load_mappings("obsidian")
+  --     conf("obsidian")()
+  --   end,
+  -- },
   {
     "sedm0784/vim-you-autocorrect",
     cond = not vim.g.low_performance_mode,
@@ -879,12 +879,12 @@ require("lazy").setup({
   },
 
   -- MISC
-  {
-    "ThePrimeagen/harpoon",
-    event = "VimEnter",
-    init = utils.load_mappings("harpoon"),
-    config = true,
-  },
+  -- {
+  --   "ThePrimeagen/harpoon",
+  --   event = "VimEnter",
+  --   init = utils.load_mappings("harpoon"),
+  --   config = true,
+  -- },
   {
     "m4xshen/hardtime.nvim",
     cond = not vim.g.low_performance_mode,
@@ -898,4 +898,21 @@ require("lazy").setup({
     cmd = { "CellularAutomaton" },
     init = utils.load_mappings("cellular_automaton"),
   },
+  {
+    "kawre/leetcode.nvim",
+    cmd = "Leet",
+    lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
+    build = ":TSUpdate html",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim", -- required by telescope
+      "MunifTanjim/nui.nvim",
+
+      -- optional
+      "nvim-treesitter/nvim-treesitter",
+      "rcarriga/nvim-notify",
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = conf("leetcode"),
+  }
 }, require("user.plugins.lazy_nvim"))
