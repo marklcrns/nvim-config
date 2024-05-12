@@ -233,7 +233,7 @@ else
   set listchars=tab:»·,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 endif
 
-set listchars+=eol:↴
+" set listchars+=eol:↴
 " set listchars+=space:⋅
 set title
 " Title length.

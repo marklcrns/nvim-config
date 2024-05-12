@@ -75,22 +75,36 @@ return function()
     ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
     ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
     ["<C-n>"] = cmp.mapping({
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
+      c = function()
+          if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          else
+              vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
+          end
       end,
+      i = function(fallback)
+          if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          else
+              fallback()
+          end
+      end
     }),
     ["<C-p>"] = cmp.mapping({
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
+      c = function()
+          if cmp.visible() then
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+          else
+              vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
+          end
       end,
+      i = function(fallback)
+          if cmp.visible() then
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+          else
+              fallback()
+          end
+      end
     }),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
@@ -102,15 +116,14 @@ return function()
     --   s = cmp.mapping.confirm({ select = true }),
     -- }),
     ["<CR>"] = cmp.mapping({
-      i = function(fallback)
-        if cmp.visible() and cmp.get_active_entry() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-        else
-          fallback()
-        end
-      end,
-      s = cmp.mapping.confirm({ select = true }),
-      -- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+      i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+      c = function(fallback)
+          if cmp.visible() then
+              cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+          else
+              fallback()
+          end
+      end
     }),
   }
 
@@ -187,40 +200,91 @@ return function()
   -- INFO: If using UltiSnips snippet engine
   -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#ultisnips--cmp-cmdline
   elseif vim.g.snippet_engine == "ultisnips" then
+    -- INFO: Super <TAB> keybindings
+    -- mapping["<Tab>"] = cmp.mapping({
+    --   c = function()
+    --       if cmp.visible() then
+    --           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+    --       else
+    --           cmp.complete()
+    --       end
+    --   end,
+    --   i = function(fallback)
+    --     if has_words_before() then
+    --       cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+    --       else
+    --           fallback()
+    --       end
+    --   end,
+    --   s = function(fallback)
+    --     cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
+    --   end,
+    --   x = function()
+    --     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
+    --   end,
+    -- })
+    -- mapping["<S-Tab>"] = cmp.mapping({
+    --   c = function()
+    --       if cmp.visible() then
+    --           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+    --       end
+    --   end,
+    --   i = function(fallback)
+    --     cmp_ultisnips_mappings.jump_backwards(fallback)
+    --   end,
+    --   s = function(fallback)
+    --     cmp_ultisnips_mappings.jump_backwards(fallback)
+    --   end,
+    -- })
     mapping["<Tab>"] = cmp.mapping({
       c = function()
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        else
-          cmp.complete()
-        end
+          if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+              cmp.complete()
+          end
       end,
       i = function(fallback)
-        if has_words_before() then
-          cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-        else
-          fallback()
-        end
+          if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+              vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+          else
+              fallback()
+          end
       end,
       s = function(fallback)
-        cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
-      end,
-      x = function()
-        vim.api.nvim_feedkeys(t("<Plug>(ultisnips_expand)"), "m", true)
-      end,
+          if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+              vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+          else
+              fallback()
+          end
+      end
     })
     mapping["<S-Tab>"] = cmp.mapping({
       c = function()
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-        end
+          if cmp.visible() then
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+          else
+              cmp.complete()
+          end
       end,
       i = function(fallback)
-        cmp_ultisnips_mappings.jump_backwards(fallback)
+          if cmp.visible() then
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+          elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+              return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+          else
+              fallback()
+          end
       end,
       s = function(fallback)
-        cmp_ultisnips_mappings.jump_backwards(fallback)
-      end,
+          if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+              return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+          else
+              fallback()
+          end
+      end
     })
     mapping["<C-j>"] = cmp.mapping(function(fallback)
       cmp_ultisnips_mappings.compose({ "jump_forwards", "select_next_item" })(fallback)
@@ -241,8 +305,6 @@ return function()
         elseif vim.g.snippet_engine == "luasnip" then
           require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
         end
-        -- require("snippy").expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       end,
     },
     window = {
@@ -261,9 +323,10 @@ return function()
     experimental = {
       ghost_text = true,
     },
-    completion = {
-      completeopt = "menu,menuone",
-    },
+    -- NOTE: Enable this when Super <TAB> keybindings are used
+    -- completion = {
+    --   completeopt = "menu,menuone",
+    -- },
 
     formatting = {
       deprecated = true,
@@ -445,24 +508,21 @@ return function()
 
   -- `/` cmdline setup.
   cmp.setup.cmdline("/", {
+    completion = { autocomplete = false },
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      { name = "buffer" },
-    },
+      -- { name = 'buffer' }
+      { name = 'buffer', options = { keyword_pattern = [=[[^[:blank:]].*]=] } }
+    }
   })
 
   -- `:` cmdline setup.
   cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
+    completion = { autocomplete = false },
     sources = cmp.config.sources({
-      { name = "path" },
-    }, {
-      {
-        name = "cmdline",
-        option = {
-          ignore_cmds = { "Man", "!" },
-        },
-      },
-    }),
+      { name = 'path' }
+      }, {
+      { name = 'cmdline' }
+    })
   })
 end

@@ -98,7 +98,7 @@ require("lazy").setup({
   --   -- i.e. comment out `hi_clear({ "Cursor", "TermCursor" })`
   --   -- (DEPRECATED INFO) Overriding lsp_signature. See usr/lsp/init.lua
   --   "folke/noice.nvim",
-  --   cond = not sys.is_gui(),
+  --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
   --   event = "VeryLazy",
   --   config = conf("noice"),
   --   dependencies = {
@@ -451,13 +451,6 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
     },
   },
-  -- DEPRECATED: in favor of nvim-spectre (much more intuitive)
-  -- {
-  --   "AckslD/muren.nvim",
-  --   init = utils.load_mappings("muren"),
-  --   cmd = { "MurenToggle", "MurenOpen", "MurenUnique" },
-  --   config = conf("muren"),
-  -- },
   {
     "nvim-pack/nvim-spectre",
     event = "VeryLazy",
@@ -531,6 +524,7 @@ require("lazy").setup({
   {
     "TimUntersberger/neogit",
     cmd = "Neogit",
+    branch = "nightly",
     init = utils.load_mappings("neogit"),
     config = conf("neogit"),
   },
