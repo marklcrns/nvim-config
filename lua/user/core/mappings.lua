@@ -535,7 +535,7 @@ M.mason = {
   plugin = true,
 
   n = {
-    ["<leader>lp"] = { "<cmd>Mason<CR>", "open LSP installer", opts = default_opts },
+    ["<leader>pm"] = { "<cmd>Mason<CR>", "open Mason LSP installer", opts = default_opts },
   },
 }
 

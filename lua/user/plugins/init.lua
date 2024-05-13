@@ -805,12 +805,12 @@ require("lazy").setup({
   --   cmd = { "SnipRun", "SnipLive", "SnipInfo" },
   --   config = conf("sniprun", "sniprun"),
   -- },
-  -- {
-  --   "Vigemus/iron.nvim",
-  --   version = "3.*",
-  --   cmd = { "IronRepl" },
-  --   config = conf("iron", "iron"),
-  -- },
+  {
+    "Vigemus/iron.nvim",
+    version = "3.*",
+    cmd = { "IronRepl" },
+    config = conf("iron", "iron"),
+  },
 
   -- WEB DEVELOPMENT
   {
@@ -851,16 +851,16 @@ require("lazy").setup({
       conf("vimwiki")()
     end,
   },
-  -- {
-  --   "epwalsh/obsidian.nvim",
-  --   -- cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
-  --   ft = { "markdown" },
-  --   cmd = { "ObsidianOpen", "ObsidianSearch", "ObsidianQuickSwitch" },
-  --   init = function()
-  --     utils.load_mappings("obsidian")
-  --     conf("obsidian")()
-  --   end,
-  -- },
+  {
+    "epwalsh/obsidian.nvim",
+    -- cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
+    ft = { "markdown" },
+    cmd = { "ObsidianOpen", "ObsidianSearch", "ObsidianQuickSwitch" },
+    init = function()
+      utils.load_mappings("obsidian")
+      conf("obsidian")()
+    end,
+  },
   {
     "sedm0784/vim-you-autocorrect",
     cond = not vim.g.low_performance_mode,
