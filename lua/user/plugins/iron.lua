@@ -1,6 +1,5 @@
 return function()
   local iron = require("iron.core")
-  local view = require("iron.view")
 
   iron.setup {
     config = {
@@ -15,12 +14,7 @@ return function()
         }
       },
       -- How the repl window will be displayed
-      repl_open_cmd = view.split("40%", {
-        winfixwidth = false,
-        winfixheight = false,
-        -- any window-local configuration can be used here
-        number = true
-      })
+      repl_open_cmd = "vertical botright 80 split"
     },
     -- Iron doesn't set keymaps by default anymore.
     -- You can set them here or manually add keymaps to the functions in iron.core
