@@ -1,3 +1,4 @@
+
 -- TODO:
 -- - Move all `utils.load_mappings()` out of `init` and into the
 --   plugin's `config` or conf()
@@ -861,16 +862,16 @@ require("lazy").setup({
       conf("obsidian")()
     end,
   },
-  {
-    "sedm0784/vim-you-autocorrect",
-    cond = not vim.g.low_performance_mode,
-    ft = { "markdown", "vimwiki", "norg" },
-    cmd = { "EnableAutocorrect", "DisableAutocorrect" },
-    init = function()
-      utils.load_mappings("you_autocorrect")
-      conf("vim-you-autocorrect")()
-    end,
-  },
+  -- {
+  --   "sedm0784/vim-you-autocorrect",
+  --   cond = not vim.g.low_performance_mode,
+  --   ft = { "markdown", "vimwiki", "norg" },
+  --   cmd = { "EnableAutocorrect", "DisableAutocorrect" },
+  --   init = function()
+  --     utils.load_mappings("you_autocorrect")
+  --     conf("vim-you-autocorrect")()
+  --   end,
+  -- },
 
   -- MISC
   -- {
