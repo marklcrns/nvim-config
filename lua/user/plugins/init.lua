@@ -162,7 +162,7 @@ require("lazy").setup({
   },
   {
     "kevinhwang91/nvim-ufo",
-    cond = not vim.g.low_performance_mode,
+    -- cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-ufo"),
     config = conf("nvim-ufo"),
     dependencies = {
