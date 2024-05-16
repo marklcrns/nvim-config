@@ -160,15 +160,15 @@ require("lazy").setup({
       })
     end,
   },
-  -- {
-  --   "kevinhwang91/nvim-ufo",
-  --   cond = not vim.g.low_performance_mode,
-  --   init = utils.lazy_load("nvim-ufo"),
-  --   config = conf("nvim-ufo"),
-  --   dependencies = {
-  --     "kevinhwang91/promise-async",
-  --   },
-  -- },
+  {
+    "kevinhwang91/nvim-ufo",
+    cond = not vim.g.low_performance_mode,
+    init = utils.lazy_load("nvim-ufo"),
+    config = conf("nvim-ufo"),
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+  },
   -- {
   --   "kevinhwang91/nvim-hlslens",
   --   init = utils.lazy_load("nvim-hlslens"),
