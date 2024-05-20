@@ -168,9 +168,9 @@ lspconfig.html.setup(M.create_config())
 lspconfig.cssls.setup(M.create_config())
 
 -- Python
--- lspconfig.pyright.setup(M.create_config())
+lspconfig.pyright.setup(M.create_config())
 -- lspconfig.pylsp.setup(M.create_config())
-lspconfig.jedi_language_server.setup(M.create_config())
+-- lspconfig.jedi_language_server.setup(M.create_config())
 
 -- Lua
 require("user.lsp.lua")

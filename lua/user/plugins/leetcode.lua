@@ -3,8 +3,8 @@ return function()
   leetcode.setup({
     lang = "python3",
     storage = {
-        home = "~/Sync/dev/leetcode/",
-        cache = vim.fn.stdpath("cache") .. "/leetcode",
+        home = "~/Sync/dev/leetcode/code/",
+        cache = vim.fn.stdpath("cache") .. "/leetcode/",
     },
     keys = {
       toggle = { "q", "<ESC>" }, ---@type string|string[]

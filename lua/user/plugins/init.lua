@@ -283,11 +283,11 @@ require("lazy").setup({
     dependencies = "nvim-tree/nvim-web-devicons",
     config = conf("bufferline"),
   },
-  {
-    "feline-nvim/feline.nvim",
-    event = "VimEnter",
-    config = conf("feline"),
-  },
+  -- {
+  --   "feline-nvim/feline.nvim",
+  --   event = "VimEnter",
+  --   config = conf("feline"),
+  -- },
 
   -- UI INTERFACE
   {
@@ -902,7 +902,6 @@ require("lazy").setup({
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim", -- required by telescope
       "MunifTanjim/nui.nvim",
-
       -- optional
       "nvim-treesitter/nvim-treesitter",
       "rcarriga/nvim-notify",

@@ -642,7 +642,7 @@ function expr.next_reference(reverse)
   if type(reverse) ~= "boolean" then
     reverse = false
   end
-  if #vim.lsp.get_active_clients({ bufnr = 0 }) > 0 then
+  if #vim.lsp.get_clients({ bufnr = 0 }) > 0 then
     return utils.t(string.format(
       '<Cmd>lua require("illuminate").goto_%s_reference()<CR>',
       reverse and "prev" or "next"
