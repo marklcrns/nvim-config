@@ -283,11 +283,11 @@ require("lazy").setup({
     dependencies = "nvim-tree/nvim-web-devicons",
     config = conf("bufferline"),
   },
-  -- {
-  --   "feline-nvim/feline.nvim",
-  --   event = "VimEnter",
-  --   config = conf("feline"),
-  -- },
+  {
+    "feline-nvim/feline.nvim",
+    event = "VimEnter",
+    config = conf("feline"),
+  },
 
   -- UI INTERFACE
   {
@@ -377,11 +377,12 @@ require("lazy").setup({
   -- },
 
   -- CODING HELPER
-  {
-    "numToStr/Comment.nvim",
-    init = utils.lazy_load("Comment.nvim"),
-    config = true,
-  },
+  -- DEPRECATED as of Neovim 0.10.0. Made built-in
+  -- {
+  --   "numToStr/Comment.nvim",
+  --   init = utils.lazy_load("Comment.nvim"),
+  --   config = true,
+  -- },
   {
     "kylechui/nvim-surround",
     init = utils.lazy_load("nvim-surround"),
