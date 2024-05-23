@@ -393,11 +393,11 @@ require("lazy").setup({
     init = utils.lazy_load("nvim-autopairs"),
     config = conf("nvim-autopairs"),
   },
-  {
-    "windwp/nvim-ts-autotag",
-    init = utils.lazy_load("nvim-ts-autotag"),
-    config = conf("nvim-ts-autotag"),
-  },
+  -- {
+  --   "windwp/nvim-ts-autotag",
+  --   init = utils.lazy_load("nvim-ts-autotag"),
+  --   config = conf("nvim-ts-autotag"),
+  -- },
   {
     "Wansmer/treesj",
     init = utils.load_mappings("treesj"),
@@ -715,7 +715,7 @@ require("lazy").setup({
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-cmdline" },
       -- { "f3fora/cmp-spell" },
-      -- { "hrsh7th/cmp-emoji" },
+      { "hrsh7th/cmp-emoji" },
       { "davidsierradz/cmp-conventionalcommits" },
       {
         "petertriho/cmp-git",

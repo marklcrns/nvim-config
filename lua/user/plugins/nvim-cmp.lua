@@ -490,7 +490,7 @@ return function()
       { name = "ultisnips", group_index = 1, max_item_count = 10 },
       { name = "luasnip", option = { show_autosnippets = true }, group_index = 1 },
       { name = "path", group_index = 2 },
-      -- { name = "emoji", group_index = 3, options = { insert = true } },
+      { name = "emoji", group_index = 3, options = { insert = true } },
       {
         name = "buffer",
         group_index = 2,
