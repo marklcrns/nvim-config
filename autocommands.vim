@@ -106,12 +106,14 @@ aucmd("BufRead", {
             local ts_context = prequire("treesitter-context")
             local todo_comments = prequire("todo-comments")
             local rainbow_delimiters = prequire("rainbow_delimiters")
+            local smooth_cursor_utils = prequire("smoothcursor.utils")
             local illuminate = vim.g.loaded_illuminate == 1
             -- local matchup = vim.g.loaded_matchit == 1 or vim.g.loaded_matchparen == 1
 
             if ts_context then ts_context.disable() end
             if todo_comments then todo_comments.disable() end
             if rainbow_delimiters then rainbow_delimiters.disable() end
+            if smooth_cursor_utils then smooth_cursor_utils.smoothcursor_stop() end
             if illuminate then require("illuminate").freeze_buf() end
             -- if matchup then vim.cmd("NoMatchParen") end
 
