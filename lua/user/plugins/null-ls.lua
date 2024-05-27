@@ -89,7 +89,9 @@ return function()
 
   nls.setup({
     sources = {
-      builtins.formatting.prettier,
+      builtins.formatting.prettierd,
+      builtins.formatting.eslint_d,
+      builtins.formatting.black,
     },
   })
 end
