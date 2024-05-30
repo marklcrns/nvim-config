@@ -732,10 +732,11 @@ function! TextManipulationMappings()
   nnoremap <leader>rw *``cgn
   nnoremap <leader>rW *``cgN
 
-  " INFO: Disabled because it messes up TreeSitter highlighting
   " Change selected word in a repeatable manner
-  " vnoremap <expr> <leader>rn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
-  " vnoremap <expr> <leader>rN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
+  vnoremap <expr> <leader>rn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
+  vnoremap <expr> <leader>rN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
+  nnoremap <expr> <leader>rn "yiw/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
+  nnoremap <expr> <leader>rN "yiw/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
 
   " Search and replace whole buffer
   nnoremap <Leader>rr :%s//gc<Left><Left><Left>

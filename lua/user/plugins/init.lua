@@ -378,11 +378,11 @@ require("lazy").setup({
 
   -- CODING HELPER
   -- DEPRECATED as of Neovim 0.10.0. Made built-in
-  -- {
-  --   "numToStr/Comment.nvim",
-  --   init = utils.lazy_load("Comment.nvim"),
-  --   config = true,
-  -- },
+  {
+    "numToStr/Comment.nvim",
+    init = utils.lazy_load("Comment.nvim"),
+    config = true,
+  },
   {
     "kylechui/nvim-surround",
     init = utils.lazy_load("nvim-surround"),
@@ -393,11 +393,28 @@ require("lazy").setup({
     init = utils.lazy_load("nvim-autopairs"),
     config = conf("nvim-autopairs"),
   },
-  -- {
-  --   "windwp/nvim-ts-autotag",
-  --   init = utils.lazy_load("nvim-ts-autotag"),
-  --   config = conf("nvim-ts-autotag"),
-  -- },
+  {
+    "windwp/nvim-ts-autotag",
+    init = utils.lazy_load("nvim-ts-autotag"),
+    ft = {
+      "html",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "svelte",
+      "vue",
+      "tsx",
+      "jsx",
+      "rescript",
+      "xml",
+      "php",
+      "glimmer",
+      "handlebars",
+      "hbs",
+    },
+    config = conf("nvim-ts-autotag"),
+  },
   {
     "Wansmer/treesj",
     init = utils.load_mappings("treesj"),
@@ -462,12 +479,13 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
     },
   },
-  {
-    "smjonas/inc-rename.nvim",
-    init = utils.load_mappings("inc_rename"),
-    cmd = "IncRename",
-    config = true,
-  },
+  -- INFO: Disabled since its not working properly
+  -- {
+  --   "smjonas/inc-rename.nvim",
+  --   init = utils.load_mappings("inc_rename"),
+  --   cmd = "IncRename",
+  --   config = true,
+  -- },
   {
     "johmsalas/text-case.nvim",
     event = "BufRead",
