@@ -166,6 +166,7 @@ lspconfig.tsserver.setup(M.create_config())
 -- HTML + CSS
 lspconfig.html.setup(M.create_config())
 lspconfig.cssls.setup(M.create_config())
+lspconfig.tailwindcss.setup(M.create_config())
 
 -- Python
 lspconfig.pyright.setup(M.create_config())
