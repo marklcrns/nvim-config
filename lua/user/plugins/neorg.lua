@@ -10,7 +10,6 @@ return function()
         },
       },
       ["core.concealer"] = {}, -- Allows for use of icons
-      ["core.manoeuvre"] = {},
       ["core.journal"] = {},
       ["core.ui.calendar"] = (vim.fn.has("nvim-0.10") == 1) and {} or nil,
       ["core.completion"] = {
