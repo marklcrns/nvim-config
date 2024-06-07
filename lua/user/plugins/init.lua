@@ -733,7 +733,10 @@ require("lazy").setup({
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-cmdline" },
       -- { "f3fora/cmp-spell" },
-      { "hrsh7th/cmp-emoji" },
+      { "max397574/cmp-greek" },        -- triggered by ':'
+      { "hrsh7th/cmp-emoji" },          -- triggered by ':'
+      { "chrisgrieser/cmp-nerdfont" },  -- triggered by ':'
+      { "kdheepak/cmp-latex-symbols" }, -- triggered by '\'
       { "davidsierradz/cmp-conventionalcommits" },
       {
         "petertriho/cmp-git",
@@ -795,10 +798,12 @@ require("lazy").setup({
           },
         },
       },
-      -- {
-      --   "Exafunction/codeium.nvim",
-      --   config = conf("codeium"),
-      -- },
+      {
+        -- Make sure to run `:Codeium Auth` after install
+        -- Use `:Codeium Chat` to chat with the AI
+        "Exafunction/codeium.nvim",
+        config = conf("codeium"),
+      },
     },
   },
   {

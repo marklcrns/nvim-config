@@ -22,33 +22,33 @@ return function()
   end
 
   local lsp_kinds = {
-    Method = "  ",
-    Function = " ƒ ",
-    Variable = "  ",
-    Field = "  ",
-    TypeParameter = "  ",
-    Constant = "  ",
     Class = "  ",
-    Interface = "  ",
-    Struct = "  ",
-    Event = "  ",
-    Operator = " 󰆕 ",
-    Module = " 󰅩 ",
-    Property = "  ",
+    Codeium = "  ",
+    Color = "  ",
+    Constant = "  ",
+    Constructor = "  ",
+    Copilot = "  ",
     Enum = "  ",
-    Reference = "  ",
-    Keyword = "  ",
+    EnumMember = "  ",
+    Event = "  ",
+    Field = "  ",
     File = "  ",
     Folder = " 󰝰 ",
-    Color = "  ",
-    Unit = " 󰑭 ",
+    Function = " ƒ ",
+    Interface = "  ",
+    Keyword = "  ",
+    Method = "  ",
+    Module = " 󰅩 ",
+    Operator = " 󰆕 ",
+    Property = "  ",
+    Reference = "  ",
     Snippet = "  ",
+    Struct = "  ",
     Text = "  ",
-    Constructor = "  ",
+    TypeParameter = "  ",
+    Unit = " 󰑭 ",
     Value = " 󰎠 ",
-    EnumMember = "  ",
-    Copilot = "  ",
-    Codeium = "  ",
+    Variable = "  ",
   }
 
   local has_words_before = function()
@@ -336,24 +336,26 @@ return function()
       format = function(entry, vim_item)
         vim_item.kind = lsp_kinds[vim_item.kind]
         vim_item.menu = ({
-          nvim_lsp = "[LSP]",
-          emoji = "[Emoji]",
-          path = "[Path]",
-          calc = "[Calc]",
-          neorg = "[Neorg]",
-          orgmode = "[Org]",
-          luasnip = "[Luasnip]",
-          ultisnips = "[UltiSnip]",
           buffer = "[Buffer]",
-          spell = "[Spell]",
-          git = "[VCS]",
+          calc = "[Calc]",
+          cmdline = "[Cmdline]",
+          cmp_tabnine = "[Tab9]",
+          codeium = "[Codeium]",
           conventionalcommits = "[VCS]",
           copilot = "[Copilot]",
-          codeium = "[Codeium]",
-          cmp_tabnine = "[Tab9]",
+          emoji = "[Emoji]",
+          git = "[VCS]",
+          greek = "[Greek]",
           latex_symbols = "[Latex]",
+          luasnip = "[Luasnip]",
+          neorg = "[Neorg]",
+          nerdfont = "[Nerdfont]",
+          nvim_lsp = "[LSP]",
+          orgmode = "[Org]",
+          path = "[Path]",
+          spell = "[Spell]",
           treesitter = "[Treesitter]",
-          cmdline = "[Cmdline]",
+          ultisnips = "[UltiSnip]",
         })[entry.source.name]
         return vim_item
       end,
@@ -389,6 +391,7 @@ return function()
       { name = "spell", group_index = 2 },
       {
         name = "buffer",
+        group_index = 2,
         max_item_count = 10,
         option = {
           get_bufnrs = function()
@@ -398,7 +401,7 @@ return function()
           end,
         },
       },
-      -- { name = "emoji", group_index = 3, options = { insert = true } },
+      { name = "nerdfont", group_index = 3 },
     }),
 
     mapping = mapping,
@@ -440,9 +443,10 @@ return function()
       { name = "cmp_tabnine" },
       { name = "git" },
       { name = "conventionalcommits" },
-      -- { name = "spell" },
+      { name = "spell" },
       {
         name = "buffer",
+        group_index = 2,
         max_item_count = 10,
         option = {
           get_bufnrs = function()
@@ -452,6 +456,7 @@ return function()
           end,
         },
       },
+      { name = "nerdfont", group_index = 3 },
     }),
   })
 
@@ -465,8 +470,6 @@ return function()
       { name = "ultisnips", group_index = 1, max_item_count = 10 },
       { name = "luasnip", option = { show_autosnippets = true }, group_index = 1 },
       { name = "path", group_index = 2 },
-      { name = "neorg", group_index = 2 },
-      -- { name = "emoji", group_index = 3, options = { insert = true } },
       {
         name = "buffer",
         group_index = 2,
@@ -479,6 +482,10 @@ return function()
           end,
         },
       },
+      { name = "neorg", group_index = 2 },
+      { name = "greek", group_index = 3 },
+      { name = "nerdfont", group_index = 3 },
+      { name = "latex_symbols", group_index = 3, option = { strategy = 0 } },
     }),
   })
 
@@ -492,7 +499,6 @@ return function()
       { name = "ultisnips", group_index = 1, max_item_count = 10 },
       { name = "luasnip", option = { show_autosnippets = true }, group_index = 1 },
       { name = "path", group_index = 2 },
-      { name = "emoji", group_index = 3, options = { insert = true } },
       {
         name = "buffer",
         group_index = 2,
@@ -505,6 +511,10 @@ return function()
           end,
         },
       },
+      { name = "greek", group_index = 3 },
+      { name = "nerdfont", group_index = 3 },
+      { name = "emoji", group_index = 3, option = { insert = true } },
+      { name = "latex_symbols", group_index = 3, option = { strategy = 0 } },
     }),
   })
 
@@ -514,7 +524,7 @@ return function()
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
       -- { name = 'buffer' }
-      { name = 'buffer', options = { keyword_pattern = [=[[^[:blank:]].*]=] } }
+      { name = 'buffer', option = { keyword_pattern = [=[[^[:blank:]].*]=] } }
     }
   })
 
