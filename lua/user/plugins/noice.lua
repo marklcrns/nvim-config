@@ -1,25 +1,5 @@
 return function()
   require("noice").setup({
-    lsp = {
-      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-      override = {
-        -- override the default lsp markdown formatter with Noice
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
-        -- override the lsp markdown formatter with Noice
-        ["vim.lsp.util.stylize_markdown"] = false,
-        -- override cmp documentation with Noice (needs the other options to work)
-        ["cmp.entry.get_documentation"] = false,
-      },
-      signature = {
-        enabled = false,
-      },
-    },
-    smart_move = {
-      -- noice tries to move out of the way of existing floating windows.
-      enabled = true, -- you can disable this behaviour here
-      -- add any filetypes here, that shouldn't trigger smart move.
-      excluded_filetypes = { "cmp_menu", "cmp_docs", "notify" },
-    },
     -- you can enable a preset for easier configuration
     presets = {
       bottom_search = false, -- use a classic bottom cmdline for search

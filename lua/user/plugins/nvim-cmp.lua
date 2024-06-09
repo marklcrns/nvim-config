@@ -213,7 +213,8 @@ return function()
         if has_words_before() then
           cmp_ultisnips_mappings.compose({ "expand", "jump_forwards" })(fallback)
           else
-              fallback()
+            print("fallback")
+            fallback()
           end
       end,
       s = function(fallback)

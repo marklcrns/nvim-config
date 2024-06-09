@@ -94,19 +94,19 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-notify"),
   },
-  -- {
-  --   -- INFO: Need to enable Cursor highlight in colorscheme.lua.
-  --   -- i.e. comment out `hi_clear({ "Cursor", "TermCursor" })`
-  --   -- (DEPRECATED INFO) Overriding lsp_signature. See usr/lsp/init.lua
-  --   "folke/noice.nvim",
-  --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
-  --   event = "VeryLazy",
-  --   config = conf("noice"),
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
+  {
+    -- INFO: Need to enable Cursor highlight in colorscheme.lua.
+    -- i.e. comment out `hi_clear({ "Cursor", "TermCursor" })`
+    -- Must comment out vim.lsp.handlers["textDocument/signatureHelp"] override. See usr/lsp/init.lua
+    "folke/noice.nvim",
+    cond = not sys.is_gui() and not vim.g.low_performance_mode,
+    event = "VeryLazy",
+    config = conf("noice"),
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
   -- {
   --   "mrded/nvim-lsp-notify",
   --   event = "VimEnter",
@@ -377,7 +377,6 @@ require("lazy").setup({
   -- },
 
   -- CODING HELPER
-  -- DEPRECATED as of Neovim 0.10.0. Made built-in
   {
     "numToStr/Comment.nvim",
     init = utils.lazy_load("Comment.nvim"),
@@ -798,12 +797,12 @@ require("lazy").setup({
           },
         },
       },
-      {
-        -- Make sure to run `:Codeium Auth` after install
-        -- Use `:Codeium Chat` to chat with the AI
-        "Exafunction/codeium.nvim",
-        config = conf("codeium"),
-      },
+      -- {
+      --   -- Make sure to run `:Codeium Auth` after install
+      --   -- Use `:Codeium Chat` to chat with the AI
+      --   "Exafunction/codeium.nvim",
+      --   config = conf("codeium"),
+      -- },
     },
   },
   {
