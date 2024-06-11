@@ -93,34 +93,67 @@ alias("dp", "diffput")
 
 -- FUNCTIONS
 
-Config.fn.toggle_quickfix = lib.create_buf_toggler(function()
-  return utils.list_bufs({
-    options = { buftype = "quickfix" },
-    no_hidden = true,
-    tabpage = 0,
-  })[1]
-end, function()
-  if #vim.fn.getloclist(0) > 0 then
-    vim.cmd("belowright lope")
-  else
-    vim.cmd("100 wincmd j | belowright cope")
-  end
-end, function()
-  if vim.fn.win_gettype() == "quickfix" then
-    vim.cmd("ccl")
-  else
-    vim.cmd("lcl")
-  end
-end, { focus = true, remember_height = true })
+Config.fn.toggle_quickfix = lib.create_buf_toggler({
+  find = function()
+    return utils.list_bufs({
+      options = { buftype = "quickfix" },
+      no_hidden = true,
+      tabpage = 0,
+    })[1]
+  end,
+  open = function()
+    if #vim.fn.getloclist(0) > 0 then
+      vim.cmd("belowright lope")
+    else
+      vim.cmd("belowright cope | wincmd J")
+    end
+  end,
+  close = function()
+    if vim.fn.win_gettype() == "quickfix" then
+      vim.cmd("ccl")
+    else
+      vim.cmd("lcl")
+    end
+  end,
+  focus = true,
+  remember_height = true,
+})
 
-Config.fn.toggle_outline = lib.create_buf_toggler(function()
-  return utils.list_bufs({ pattern = "OUTLINE" })[1]
-end, function()
-  vim.cmd("SymbolsOutlineOpen")
-end, function()
-  vim.cmd("SymbolsOutlineClose")
-  vim.cmd("wincmd =")
-end)
+Config.fn.toggle_outline = lib.create_buf_toggler({
+  find = function() return utils.list_bufs({ pattern = "OUTLINE" })[1] end,
+  open = function()
+    vim.api.nvim_create_autocmd("BufWinEnter", {
+      callback = function()
+        vim.schedule(function() vim.cmd("wincmd =") end)
+        return true
+      end,
+    })
+
+    vim.cmd("Outline")
+  end,
+  close = function()
+    vim.cmd("OutlineClose")
+    vim.cmd("wincmd =")
+  end,
+})
+
+Config.fn.toggle_diagnostics = lib.create_buf_toggler({
+  find = function ()
+    return utils.list_bufs({
+      options = { filetype = "trouble" },
+      no_hidden = true,
+      tabpage = 0,
+    })[1]
+  end,
+  open = function() vim.cmd("Trouble diagnostics") end,
+  close = function()
+    local winid = vim.api.nvim_get_current_win()
+    vim.cmd("wincmd p")
+    vim.api.nvim_win_close(winid, false)
+  end,
+  focus = true,
+  remember_height = true,
+})
 
 ---@return string[]
 local function get_messages()

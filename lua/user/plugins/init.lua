@@ -162,14 +162,22 @@ require("lazy").setup({
       })
     end,
   },
+  -- {
+  --   "kevinhwang91/nvim-ufo",
+  --   -- cond = not vim.g.low_performance_mode,
+  --   init = utils.lazy_load("nvim-ufo"),
+  --   config = conf("nvim-ufo"),
+  --   dependencies = {
+  --     "kevinhwang91/promise-async",
+  --   },
+  -- },
   {
-    "kevinhwang91/nvim-ufo",
-    -- cond = not vim.g.low_performance_mode,
-    init = utils.lazy_load("nvim-ufo"),
-    config = conf("nvim-ufo"),
-    dependencies = {
-      "kevinhwang91/promise-async",
-    },
+    "anuvyklack/pretty-fold.nvim",
+    config = conf("pretty-fold"),
+    cond = function()
+      -- NOTE: seems like some FFI stuff has broken here
+      return vim.fn.has("nvim-0.10") ~= 1
+    end
   },
   -- {
   --   "kevinhwang91/nvim-hlslens",
@@ -365,6 +373,13 @@ require("lazy").setup({
     },
   },
   {
+    "stevearc/oil.nvim",
+    init = utils.load_mappings("oil"),
+    cmd = "Oil",
+    config = conf("oil"),
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
     "kshenoy/vim-signature",
     init = utils.lazy_load("vim-signature"),
     config = conf("vim-signature"),
@@ -530,10 +545,10 @@ require("lazy").setup({
   --   config = conf("codewindow", "codewindow"),
   -- },
   {
-    "simrat39/symbols-outline.nvim",
-    init = utils.load_mappings("symbols_outline"),
-    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
-    config = conf("symbols-outline"),
+    "hedyhli/outline.nvim",
+    init = utils.load_mappings("outline"),
+    config = conf("outline"),
+    cmd = { "Outline", "OutlineClose", "OutlineOpen" },
   },
   {
     "ggandor/leap.nvim",
@@ -683,8 +698,8 @@ require("lazy").setup({
   },
   {
     "folke/trouble.nvim",
+    cmd = { "Trouble" },
     init = utils.load_mappings("trouble"),
-    event = "VimEnter", -- NOTE: This is needed to load Config.fn.toggle_diagnostics()
     config = conf("trouble"),
     dependencies = "nvim-tree/nvim-web-devicons",
   },

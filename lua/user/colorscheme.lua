@@ -544,11 +544,12 @@ function M.apply_tweaks()
       hi("LspReferenceText", { bg = bg_normal:mod_value(0.1):to_css() })
       vim.opt.pumblend = 0
     end
-  elseif colors_name == "catppuccin" then
+  elseif colors_name:match("^catppuccin") then
     hi("Primary", { fg = hl.get_fg("Function") })
     hi("Accent", { fg = hl.get_fg("Constant") })
     hi_link("ColorColumn", "CursorLine")
     hi("CursorLine", { style = "NONE", bg = bg_normal:highlight(0.07):to_css() })
+    hi("WinSeparator", { fg = "#11111b", explicit = true })
     hi({ "TsNumber", "TsFloat" }, { style = "NONE" })
     hi("Visual", {
       style = "NONE",
@@ -564,6 +565,7 @@ function M.apply_tweaks()
       hi("diffAdded", { fg = "#B3E1A3" })
       hi("diffChanged", { fg = "#A4B9EF" })
       hi("ModeMsg", { fg = "#98BBF5" })
+      hi("@ibl.scope.char.1", { fg = "#B5E8E0" })
       hi("IndentBlanklineContextChar", { fg = "#B5E8E0" })
       hi("BufferLineFill", { bg = bg_normal:highlight(-0.07):to_css() })
       hi("TelescopePromptPrefix", { fg = "#F08FA9" })
@@ -571,6 +573,8 @@ function M.apply_tweaks()
       hi({ "NormalFloat", "StatusLine" }, { bg = bg_normal:mod_value(-0.05):to_css() })
       hi("VertSplit", { fg = bg_normal:mod_value(-0.25):to_css() })
     end
+
+    M.unstyle_telescope()
 
     -- Remove bg for diagnostics.
     for _, name in ipairs(diagnostic_kinds) do
@@ -825,6 +829,8 @@ function M.apply_tweaks()
   hi({ "WinBar", "WinBarNC" }, { style = "bold", explicit = true })
 
   -- Treesitter
+  hi_link({ "@conditional", "@repeat" }, "Keyword", { clear = true })
+  hi_link("@method", "Function", { default = true, clear = true })
   hi("@text.emphasis", { style = "italic" })
   hi("@text.uri", { style = "underline" })
   hi_link("@variable.builtin", "Special", { clear = true })
@@ -934,6 +940,12 @@ function M.apply_tweaks()
 
   hi("LspReferenceText", {
     bg = Color.from_hl("CursorLine", "bg"):highlight(0.08):to_css(),
+    link = -1,
+    explicit = true,
+  })
+  hi("LspInlayHint", {
+    fg = bg_normal:highlight(0.3):to_css(),
+    style = "italic",
     link = -1,
     explicit = true,
   })

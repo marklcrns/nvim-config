@@ -777,7 +777,7 @@ endfunction
 " SETTINGS TOGGLE MAPPINGS -------------------- {{{
 function! SettingsToggleMappings()
   " General toggles
-  nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal2()<CR>
+  nnoremap <silent> <LocalLeader>se :<C-u>call <SID>toggle_conceal()<CR>
   nnoremap <silent> <LocalLeader>ss :<C-u>call <SID>toggle_format_on_save()<CR>
   nnoremap <silent> <LocalLeader>sF :<C-u>call <SID>toggle_foldcolumn1()<CR>
   nnoremap <silent> <LocalLeader>sg :<C-u>call <SID>toggle_gutter()<CR>
@@ -836,13 +836,13 @@ function! s:next_open_fold(direction)
 endfunction
 
 " Toggle conceallevel
-function! s:toggle_conceal2()
+function! s:toggle_conceal()
   if &conceallevel
     set conceallevel=0
     echom 'Conceallevel 0'
   else
-    set conceallevel=2
-    echom 'Conceallevel 2'
+    set conceallevel=3
+    echom 'Conceallevel 3'
   end
 endfunction
 

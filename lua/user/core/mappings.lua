@@ -737,6 +737,22 @@ M.obsidian = {
   },
 }
 
+M.oil = {
+  plugin = true,
+
+  n = {
+    ["-"] = { "<cmd>Oil<CR>", "open oil", opts = default_opts },
+  },
+}
+
+M.outline = {
+  plugin = true,
+
+  n = {
+    ["<leader>cO"] = { "<cmd>Outline<CR>", "toggle outline", opts = default_opts },
+  },
+}
+
 M.regexplainer = {
   plugin = true,
 
@@ -811,14 +827,6 @@ M.spectre = {
       "search current word",
       opts = default_opts,
     },
-  },
-}
-
-M.symbols_outline = {
-  plugin = true,
-
-  n = {
-    ["<leader>cO"] = { "<cmd>SymbolsOutline<CR>", "toggle code outline", opts = default_opts },
   },
 }
 

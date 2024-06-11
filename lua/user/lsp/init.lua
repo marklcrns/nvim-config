@@ -334,7 +334,10 @@ end
 -- Only show diagnostics if current word + line is not the same as last call.
 local last_diagnostics_word = nil
 function M.show_position_diagnostics()
-  if cmp and (cmp.core.view:visible() or vim.fn.pumvisible() == 1) then
+  if not vim.diagnostic.is_enabled({ bufnr = 0 })
+    -- NOTE: `cmp.visible()` is very slow (at least 10ms) ! Avoid.
+    or (cmp and cmp.core.view:visible() or vim.fn.pumvisible() == 1)
+  then
     return
   end
 
@@ -365,6 +368,17 @@ M.define_diagnostic_signs({
 -- LSP auto commands
 Config.common.au.declare_group("lsp_init", {}, {
   { "CursorHold", callback = M.show_position_diagnostics },
+  {
+    "LspAttach",
+    callback = function(state)
+      local client = vim.lsp.get_client_by_id(state.data.client_id)
+
+      if client and client.server_capabilities.inlayHintProvider then
+        -- Enable inlay hints:
+        vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+      end
+    end,
+  }
 })
 
 -- Turn off LSP logging

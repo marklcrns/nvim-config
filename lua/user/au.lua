@@ -31,21 +31,17 @@ function M.source_project_config()
         local ext = pl:extension(file)
         if ext == "lua" or ext == nil then
           local data = vim.secure.read(file)
-          if not data then
-            return
-          end
+          if not data then return end
           local code_chunk = loadfile(file)
 
           if code_chunk then
             local ok, out = pcall(code_chunk)
 
             if not ok then
-              notify.config.error(
-                utils.vec_join(
-                  ("Failed to load project config %s:"):format(utils.str_quote(file)),
-                  vim.split(out, "\n")
-                )
-              )
+              notify.config.error(utils.vec_join(
+                ("Failed to load project config %s:"):format(utils.str_quote(file)),
+                vim.split(out, "\n")
+              ))
               return
             end
 
@@ -53,13 +49,14 @@ function M.source_project_config()
           end
         else
           local data = vim.secure.read(file)
-          if data then
-            vim.cmd.source(file)
-          end
+          if data then vim.cmd.source(file) end
         end
 
         last_sourced_config = project_config_path
-        notify.config("Using project config: " .. utils.str_quote(vim.fn.fnamemodify(file, ":.")))
+        notify.config(
+          "Using project config: "
+          .. utils.str_quote(vim.fn.fnamemodify(file, ":."))
+        )
         break
       end
     end

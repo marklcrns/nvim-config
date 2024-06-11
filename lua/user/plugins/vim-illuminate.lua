@@ -26,6 +26,7 @@ return function()
       "Outline",
       "lir",
       "dropbar_menu",
+      "oil",
     },
     -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
     filetypes_allowlist = {},

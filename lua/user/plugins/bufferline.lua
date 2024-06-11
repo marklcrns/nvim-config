@@ -1,23 +1,26 @@
 return function()
+  local lz = require("user.lazy")
+
   local hi = Config.common.hl.hi
 
-  local symbol_map = {
-    error = "",
-    warning = "",
-    info = "",
-    hint = "",
-  }
+  local symbol_map = lz.wrap({}, function()
+    return {
+      error = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
+      warning = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+      info = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+      hint = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+    }
+  end)
 
-  require("bufferline").setup({
+  require('bufferline').setup({
     options = {
-      mode = "tabs",
       view = "default",
       numbers = "none",
-      buffer_close_icon = "󰅖",
-      modified_icon = "●",
-      close_icon = "",
-      left_trunc_marker = "",
-      right_trunc_marker = "",
+      buffer_close_icon = '󰅖',
+      modified_icon = '●',
+      close_icon = '',
+      left_trunc_marker = '',
+      right_trunc_marker = '',
       max_name_length = 18,
       max_prefix_length = 15, -- prefix used when a buffer is deduplicated
       tab_size = 18,
@@ -26,13 +29,13 @@ return function()
       diagnostics_indicator = function(total_count, level, diagnostics_dict)
         local s = ""
         for kind, count in pairs(diagnostics_dict) do
-          s = string.format("%s %s %d", s, symbol_map[kind], count)
+          s = string.format("%s %s%d", s, symbol_map[kind], count)
         end
         return s
       end,
       show_buffer_close_icons = true,
       show_close_icon = false,
-      show_tab_indicators = false,
+      show_tab_indicators = true,
       persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
       -- can also be a table containing 2 custom separators
       -- [focused and unfocused]. eg: { '|', '|' }
@@ -49,7 +52,7 @@ return function()
       hover = {
         enabled = true,
         delay = 10,
-        reveal = { "close" },
+        reveal = {'close'}
       },
       offsets = {
         {
@@ -58,31 +61,10 @@ return function()
           text_align = "center",
         },
         {
-          filetype = "neo-tree",
-          text = "Files",
-          text_align = "center",
-        },
-        {
           filetype = "DiffviewFiles",
           text = "Source Control",
           text_align = "center",
         },
-      },
-      custom_areas = {
-        right = function()
-          local result = {}
-          local session = vim.api.nvim_call_function("fnamemodify", { vim.v.this_session, ":t:r" })
-
-          if session ~= "" then
-            table.insert(result, { text = "  " .. session, fg = "#7EA9A7" })
-          end
-
-          if vim.g.elite_mode then
-            table.insert(result, { text = " 🦾", fg = "#7EA9A7" })
-          end
-
-          return result
-        end,
       },
     },
   })
