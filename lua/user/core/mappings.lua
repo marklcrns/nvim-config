@@ -654,6 +654,20 @@ M.niceblock = {
   },
 }
 
+M.nvim_notify = {
+  plugin = true,
+
+  n = {
+    ["<leader><Space>"] = {
+      function()
+        require("notify").dismiss()
+        -- Clear search highlighting
+        vim.cmd("nohlsearch")
+      end,
+      "clear screen", opts = default_opts },
+  },
+}
+
 M.nvim_dap = {
   plugin = true,
   n = {

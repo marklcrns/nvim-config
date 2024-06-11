@@ -92,12 +92,14 @@ require("lazy").setup({
     "rcarriga/nvim-notify",
     cond = not vim.g.low_performance_mode,
     event = "VimEnter",
+    init = utils.load_mappings("nvim_notify"),
     config = conf("nvim-notify"),
   },
   {
     -- INFO: Need to enable Cursor highlight in colorscheme.lua.
     -- i.e. comment out `hi_clear({ "Cursor", "TermCursor" })`
-    -- Must comment out vim.lsp.handlers["textDocument/signatureHelp"] override. See usr/lsp/init.lua
+    -- Must comment out vim.lsp.handlers["textDocument/signatureHelp"] override. See usr/lsp/init.lua.
+    -- Additionally, must disable `lsp.signature` in noice.lua.
     "folke/noice.nvim",
     cond = not sys.is_gui() and not vim.g.low_performance_mode,
     event = "VeryLazy",
