@@ -14,6 +14,7 @@ return function()
 
   require('bufferline').setup({
     options = {
+      mode = "tabs",
       view = "default",
       numbers = "none",
       buffer_close_icon = '󰅖',
@@ -65,6 +66,22 @@ return function()
           text = "Source Control",
           text_align = "center",
         },
+      },
+      custom_areas = {
+        right = function()
+          local result = {}
+          local session = vim.api.nvim_call_function("fnamemodify", { vim.v.this_session, ":t:r" })
+
+          if session ~= "" then
+            table.insert(result, { text = "  " .. session, fg = "#7EA9A7" })
+          end
+
+          if vim.g.elite_mode then
+            table.insert(result, { text = " 🦾", fg = "#7EA9A7" })
+          end
+
+          return result
+        end,
       },
     },
   })
