@@ -162,23 +162,24 @@ require("lazy").setup({
       })
     end,
   },
-  -- {
-  --   "kevinhwang91/nvim-ufo",
-  --   -- cond = not vim.g.low_performance_mode,
-  --   init = utils.lazy_load("nvim-ufo"),
-  --   config = conf("nvim-ufo"),
-  --   dependencies = {
-  --     "kevinhwang91/promise-async",
-  --   },
-  -- },
   {
-    "anuvyklack/pretty-fold.nvim",
-    config = conf("pretty-fold"),
-    cond = function()
-      -- NOTE: seems like some FFI stuff has broken here
-      return vim.fn.has("nvim-0.10") ~= 1
-    end
+    "kevinhwang91/nvim-ufo",
+    cond = not vim.g.low_performance_mode,
+    init = utils.lazy_load("nvim-ufo"),
+    config = conf("nvim-ufo"),
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
   },
+  -- {
+  --   "anuvyklack/pretty-fold.nvim",
+  --   config = conf("pretty-fold"),
+  --   event = "BufRead",
+  --   cond = function()
+  --     -- NOTE: seems like some FFI stuff has broken here
+  --     return vim.fn.has("nvim-0.10") ~= 1
+  --   end,
+  -- },
   -- {
   --   "kevinhwang91/nvim-hlslens",
   --   init = utils.lazy_load("nvim-hlslens"),

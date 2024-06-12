@@ -11,7 +11,7 @@ return function()
     messages = {
       -- NOTE: If you enable messages, then the cmdline is enabled automatically.
       -- This is a current Neovim limitation.
-      enabled = true, -- enables the Noice messages UI
+      enabled = false, -- enables the Noice messages UI
       view = "notify", -- default view for messages
       view_error = "notify", -- view for errors
       view_warn = "notify", -- view for warnings
