@@ -855,14 +855,14 @@ require("lazy").setup({
   },
 
   -- WEB DEVELOPMENT
-  {
-    "rest-nvim/rest.nvim",
-    ft = { "http" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    config = conf("rest", "rest"),
-  },
+  -- {
+  --   "rest-nvim/rest.nvim",
+  --   ft = { "http" },
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   config = conf("rest", "rest"),
+  -- },
 
   -- NOTETAKING
   {
