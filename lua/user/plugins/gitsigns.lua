@@ -5,34 +5,34 @@ return function()
     -- debug_mode = true,
     signs = {
       add = {
-        hl = "GitSignsAdd",
         text = "▍",
-        numhl = "GitSignsAddNr",
-        linehl = "GitSignsAddLn",
+        -- hl = "GitSignsAdd",
+        -- numhl = "GitSignsAddNr",
+        -- linehl = "GitSignsAddLn",
       },
       change = {
-        hl = "GitSignsChange",
         text = "▍",
-        numhl = "GitSignsChangeNr",
-        linehl = "GitSignsChangeLn",
+        -- hl = "GitSignsChange",
+        -- numhl = "GitSignsChangeNr",
+        -- linehl = "GitSignsChangeLn",
       },
       delete = {
-        hl = "GitSignsDelete",
         text = "▍",
-        numhl = "GitSignsDeleteNr",
-        linehl = "GitSignsDeleteLn",
+        -- hl = "GitSignsDelete",
+        -- numhl = "GitSignsDeleteNr",
+        -- linehl = "GitSignsDeleteLn",
       },
       changedelete = {
-        hl = "GitSignsChange",
         text = "▍",
-        numhl = "GitSignsChangeNr",
-        linehl = "GitSignsChangeLn",
+        -- hl = "GitSignsChange",
+        -- numhl = "GitSignsChangeNr",
+        -- linehl = "GitSignsChangeLn",
       },
       topdelete = {
-        hl = "GitSignsDelete",
         text = "‾",
-        numhl = "GitSignsDeleteNr",
-        linehl = "GitSignsDeleteLn",
+        -- hl = "GitSignsDelete",
+        -- numhl = "GitSignsDeleteNr",
+        -- linehl = "GitSignsDeleteLn",
       },
     },
     numhl = false,
@@ -51,6 +51,7 @@ return function()
     status_formatter = nil, -- Use default
   })
 
+  -- Diff highlights integration
   hi_link("GitSignsAdd", "diffAdded", { default = true })
   hi_link("GitSignsChange", "diffChanged", { default = true })
   hi_link("GitSignsDelete", "diffRemoved", { default = true })
