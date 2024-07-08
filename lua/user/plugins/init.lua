@@ -64,15 +64,6 @@ require("lazy").setup({
     "chrisbra/csv.vim",
     ft = "csv",
   },
-  -- {
-  --   "aliou/bats.vim",
-  --   ft = "bats",
-  -- },
-  -- {
-  --   "fei6409/log-highlight.nvim",
-  --   ft = { "log", "txt" },
-  --   config = conf("log-highlight"),
-  -- },
 
   -- UTILS
   "nvim-lua/popup.nvim",
@@ -736,6 +727,19 @@ require("lazy").setup({
         let g:vmt_list_item_char = '-'
       ]])
     end,
+  },
+  {
+    'MeanderingProgrammer/markdown.nvim',
+    name = 'render-markdown',
+    event = "BufRead",
+    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
+    init = utils.load_mappings("render_markdown"),
+    config = conf("render-markdown"),
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    "jghauser/follow-md-links.nvim",
+    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
   },
 
   -- COMPLETION

@@ -761,6 +761,14 @@ M.regexplainer = {
   },
 }
 
+M.render_markdown = {
+  plugin = true,
+
+  n = {
+    ["<leader>cmr"] = { "<cmd>RenderMarkdownToggle<CR>", "toggle render markdown", opts = default_opts },
+  },
+}
+
 M.rest = {
   plugin = true,
 

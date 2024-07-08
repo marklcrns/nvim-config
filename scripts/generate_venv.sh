@@ -24,8 +24,9 @@ if command -v python2 &>/dev/null; then
 		pip install wheel neovim PyYAML Send2Trash
 		# Optionals
 		pip install pynvim
-		pip install keyring browser_cookie3 # for leetcode.vim
 		pip install keyrings.alt
+		pip install keyring browser_cookie3 # for leetcode.vim
+		pip install pylatexenc # for MeanderingProgrammer/markdown.nvim
 		deactivate
 	fi
 else
@@ -46,9 +47,10 @@ if command -v python3 &>/dev/null; then
 		pip install wheel neovim PyYAML Send2Trash
 		# Optionals
 		pip install pynvim
-		pip install keyring browser_cookie3 # for leetcode.vim
 		pip install keyrings.alt
 		pip install neovim-remote
+		pip install keyring browser_cookie3 # for leetcode.vim
+		pip install pylatexenc # for MeanderingProgrammer/markdown.nvim
 		deactivate
 	fi
 else

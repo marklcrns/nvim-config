@@ -6,5 +6,8 @@ return function()
         path = "/mnt/c/Users/markl/obsidian/personal",
       },
     },
+    ui = {
+      enable = false,
+    }
   })
 end
