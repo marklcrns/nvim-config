@@ -729,14 +729,13 @@ require("lazy").setup({
     end,
   },
   {
-    "Nedra1998/nvim-mdlink",
-    ft = { "markdown" },
-    config = conf("nvim-mdlink"),
+    "jakewvincent/mkdnflow.nvim",
+    ft = { "markdown", "rmd", },
+    config = conf("mkdnflow"),
   },
   {
     'MeanderingProgrammer/markdown.nvim',
     name = "render-markdown",
-    event = "BufRead",
     ft = { "markdown", "vimwiki" },
     init = utils.load_mappings("render_markdown"),
     config = conf("render-markdown"),
