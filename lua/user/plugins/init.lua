@@ -729,17 +729,18 @@ require("lazy").setup({
     end,
   },
   {
+    "Nedra1998/nvim-mdlink",
+    ft = { "markdown" },
+    config = conf("nvim-mdlink"),
+  },
+  {
     'MeanderingProgrammer/markdown.nvim',
-    name = 'render-markdown',
+    name = "render-markdown",
     event = "BufRead",
-    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
+    ft = { "markdown", "vimwiki" },
     init = utils.load_mappings("render_markdown"),
     config = conf("render-markdown"),
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-  },
-  {
-    "jghauser/follow-md-links.nvim",
-    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
   },
 
   -- COMPLETION

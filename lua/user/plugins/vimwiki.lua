@@ -86,6 +86,11 @@ return function()
     },
   }
 
+  -- Register markdown as the parser for vimwiki files
+  -- Very important to integrate to treesitter and other markdown plugins.
+  -- e.g. MeanderingProgrammer/markdown.nvim
+  vim.treesitter.language.register('markdown', 'vimwiki')
+
   vim.cmd([[
     " Custom link handler for external files
     " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
