@@ -275,7 +275,7 @@ endif
 if has('conceal') && v:version >= 703
   " For snippet_complete marker
   set conceallevel=2
-  " set concealcursor=niv
+  set concealcursor=c
 endif
 
 if exists('+previewpopup')
