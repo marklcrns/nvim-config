@@ -800,7 +800,7 @@ endfunction
 
 nnoremap <LocalLeader>sE <cmd>call EliteModeToggle()<CR>
 " Append '.md' to clipboard register yanked file path and :edit from current directory
-nnoremap <Leader>;m :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
+" nnoremap <Leader>;m :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
 
 " Ref: https://stackoverflow.com/a/9407015/11850077
 function! s:next_closed_fold(direction)

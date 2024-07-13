@@ -34,204 +34,82 @@ return function()
     },
   })
 
-  wk.register({
-    a = {
-      name = "+ai",
+  -- Using the new add function
+  wk.add({
+    -- Global
+    { "<leader>a", group = "ai" },
+    { "<leader>c", group = "code" },
+    { "<leader>cd", group = "documentation" },
+    { "<leader>cm", group = "markdown" },
+    { "<leader>ct", group = "trouble" },
+    { "<leader>cu", group = "ui" },
+    { "<leader>d", group = "debugger" },
+    { "<leader>e", group = "explorer" },
+    { "<leader>f", group = "file-manager" },
+    { "<leader>fd", group = "finder" },
+    { "<leader>fdg", group = "git" },
+    { "<leader>fdl", group = "lsp" },
+    { "<leader>g", group = "git" },
+    { "<leader>gc", group = "commit" },
+    { "<leader>gh", group = "hunk" },
+    { "<leader>ght", group = "toggle" },
+    { "<leader>G", group = "grep-operator" },
+    { "<leader>h", group = "harpoon" },
+    { "<leader>i", group = "ui-interface" },
+    { "<leader>im", group = "minimap" },
+    { "<leader>l", group = "lsp" },
+    { "<leader>m", group = "misc" },
+    { "<leader>mc", group = "cellular-automaton" },
+    { "<leader>o", group = "open" },
+    { "<leader>p", group = "plugin-manager" },
+    { "<leader>r", group = "text-editting" },
+    { "<leader>ra", group = "align" },
+    { "<leader>raa", group = "after" },
+    { "<leader>rc", group = "text-case" },
+    { "<leader>rca", group = "cursor-and-rename" },
+    { "<leader>rce", group = "operator" },
+    { "<leader>re", group = "register" },
+    { "<leader>rm", group = "muren" },
+    { "<leader>rt", group = "search-and-replace" },
+    { "<leader>ry", group = "yank" },
+    { "<leader>s", group = "session" },
+    { "<leader>t", group = "tools" },
+    { "<leader>td", group = "diff" },
+    { "<leader>tl", group = "leetcode" },
+    { "<leader>tr", group = "repl" },
+    { "<leader>ts", group = "code-runner" },
+    { "<leader>w", group = "web-dev" },
+    { "<leader>wr", group = "rest" },
+    { "<leader>z", desc = "toggle fold" },
+    { "<leader>Z", desc = "fold all except current" },
+    -- LocalLeader
+    { "<localleader>b", group = "buffer-manager" },
+    { "<localleader>bo", group = "open" },
+    { "<localleader>n", group = "notetaker" },
+    { "<localleader>nn", group = "neorg" },
+    { "<localleader>nnf", group = "finder" },
+    { "<localleader>nnj", group = "journal" },
+    { "<localleader>nnm", group = "navigation-modes" },
+    { "<localleader>no", group = "obsidian" },
+    { "<localleader>nw", group = "vimwiki" },
+    { "<localleader>o", group = "open-ui" },
+    { "<localleader>ol", group = "locationlist" },
+    { "<localleader>oq", group = "quickfix" },
+    { "<localleader>s", group = "settings-toggle" },
+    { "<localleader>sd", group = "diminactive" },
+    { "<localleader>sl", group = "lsp" },
+    { "<localleader>sld", group = "diagnostics" },
+    { "<localleader>t", group = "tab-manager" },
+    { "<localleader>w", group = "window-split-manager" },
+    -- Visual mode
+    {
+      mode = { "v" },
+      { "<leader>r", group = "text-editting" },
+      { "<leader>t", group = "tools" },
+      { "<leader>td", group = "diff" },
+      { "<leader>ts", group = "code-runner" },
     },
-    c = {
-      name = "+code",
-      d = {
-        name = "+documentation",
-      },
-      m = {
-        name = "+markdown",
-      },
-      t = {
-        name = "+trouble",
-      },
-      u = {
-        name = "+ui",
-      },
-    },
-    d = {
-      name = "+debugger",
-    },
-    e = {
-      name = "+explorer",
-    },
-    f = {
-      name = "+file-manager",
-      d = {
-        name = "+finder",
-        l = {
-          name = "+lsp",
-        },
-        g = {
-          name = "+git",
-        },
-      },
-    },
-    g = {
-      name = "+git",
-      c = {
-        name = "+commit",
-      },
-      h = {
-        name = "+hunk",
-        t = {
-          name = "+toggle",
-        },
-      },
-    },
-    h = {
-      name = "+harpoon",
-    },
-    i = {
-      name = "+ui-interface",
-      m = {
-        name = "+minimap",
-      },
-    },
-    l = {
-      name = "+lsp",
-    },
-    m = {
-      name = "+misc",
-      c = {
-        name = "+cellular-automaton",
-      },
-    },
-    o = {
-      name = "+open",
-    },
-    p = {
-      name = "+plugin-manager",
-    },
-    r = {
-      name = "+text-editting",
-      a = {
-        name = "+align",
-        a = {
-          name = "+after",
-        },
-      },
-      c = {
-        name = "+text-case",
-        a = {
-          name = "+cursor-and-rename",
-        },
-        e = {
-          name = "+operator",
-        },
-      },
-      e = {
-        name = "+register",
-      },
-      m = {
-        name = "+muren",
-      },
-      t = {
-        name = "+search-and-replace",
-      },
-      y = {
-        name = "+yank",
-      },
-    },
-    s = {
-      name = "+session",
-    },
-    t = {
-      name = "+tools",
-      d = {
-        name = "+diff",
-      },
-      l = {
-        name = "+leetcode",
-      },
-      r = {
-        name = "+repl",
-      },
-      s = {
-        name = "+code-runner",
-      },
-    },
-    w = {
-      name = "+web-dev",
-      r = {
-        name = "+rest",
-      },
-    },
-  }, { prefix = "<leader>" })
+  })
 
-  wk.register({
-    r = {
-      name = "+text-editting",
-    },
-    t = {
-      name = "+tools",
-      d = {
-        name = "+diff",
-      },
-      s = {
-        name = "+code-runner",
-      },
-    },
-  }, { mode = "v", prefix = "<leader>" })
-
-  wk.register({
-    b = {
-      name = "+buffer-manager",
-      o = {
-        name = "+open",
-      },
-    },
-    n = {
-      name = "+notetaker",
-      n = {
-        name = "+neorg",
-        f = {
-          name = "+finder",
-        },
-        j = {
-          name = "+journal",
-        },
-        m = {
-          name = "+navigation-modes",
-        },
-      },
-      o = {
-        name = "+obsidian",
-      },
-      w = {
-        name = "+vimwiki",
-      },
-    },
-    o = {
-      name = "+open-ui",
-      l = {
-        name = "+locationlist",
-      },
-      q = {
-        name = "+quickfix",
-      },
-    },
-    s = {
-      name = "+settings-toggle",
-      d = {
-        name = "+diminactive",
-      },
-      l = {
-        name = "+lsp",
-        d = {
-          name = "+diagnostics",
-        },
-      },
-    },
-    t = {
-      name = "+tab-manager",
-    },
-    w = {
-      name = "+window-split-manager",
-    },
-  }, { prefix = "<localleader>" })
+  
 end

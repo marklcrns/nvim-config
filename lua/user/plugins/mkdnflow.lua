@@ -141,7 +141,9 @@ return function ()
           -- MkdnCreateLinkFromClipboard = {{'n', 'v'}, '<leader>p'}, -- see MkdnEnter
           -- MkdnFollowLink = false, -- see MkdnEnter
           -- MkdnDestroyLink = {'n', '<M-CR>'},
+          MkdnDestroyLink = false,
           -- MkdnTagSpan = {'v', '<M-CR>'},
+          MkdnTagSpan = false,
           -- MkdnMoveSource = {'n', '<F2>'},
           -- MkdnYankAnchorLink = {'n', 'yaa'},
           -- MkdnYankFileAnchorLink = {'n', 'yfa'},

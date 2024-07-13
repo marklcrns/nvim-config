@@ -18,4 +18,21 @@ return function()
             rendered = 'c',
         },
     },
+    code = {
+        -- Turn on / off code block & inline code rendering
+        enabled = true,
+        -- Determines how code blocks & inline code are rendered:
+        --  none: disables all rendering
+        --  normal: adds highlight group to code blocks & inline code
+        --  language: adds language icon to sign column and icon + name above code blocks
+        --  full: normal + language
+        style = 'full',
+        -- Highlight for code blocks & inline code
+        highlight = 'ColorColumn',
+    },
+    heading = {
+        -- Turn on / off heading rendering
+        enabled = true,
+    }
+  })
 end

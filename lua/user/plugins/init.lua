@@ -57,7 +57,7 @@ require("lazy").setup({
   -- SYNTAX & FILETYPE PLUGINS
   {
     "lervag/vimtex",
-    ft = { "plaintex", "tex", "latex", "markdown", "vimwiki" },
+    ft = { "plaintex", "tex", "latex" },
     config = conf("vimtex"),
   },
   {
@@ -239,19 +239,19 @@ require("lazy").setup({
   --     },
   --   },
   -- },
-  -- {
-  --   "karb94/neoscroll.nvim",
-  --   cond = not sys.is_gui(),
-  --   init = utils.lazy_load("neoscroll.nvim"),
-  --   config = conf("neoscroll"),
-  -- },
   {
-    "gen740/SmoothCursor.nvim",
+    "karb94/neoscroll.nvim",
     cond = not sys.is_gui(),
-    event = "VimEnter",
-    init = utils.load_mappings("SmoothCursor"),
-    config = conf("SmoothCursor"),
+    init = utils.lazy_load("neoscroll.nvim"),
+    config = conf("neoscroll"),
   },
+  -- {
+  --   "gen740/SmoothCursor.nvim",
+  --   cond = not sys.is_gui(),
+  --   event = "VimEnter",
+  --   init = utils.load_mappings("SmoothCursor"),
+  --   config = conf("SmoothCursor"),
+  -- },
   {
     "mvllow/modes.nvim",
     init = utils.lazy_load("modes.nvim"),
@@ -736,10 +736,14 @@ require("lazy").setup({
   {
     'MeanderingProgrammer/markdown.nvim',
     name = "render-markdown",
+    event = "BufRead",
     ft = { "markdown", "vimwiki" },
     init = utils.load_mappings("render_markdown"),
     config = conf("render-markdown"),
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
   },
 
   -- COMPLETION
