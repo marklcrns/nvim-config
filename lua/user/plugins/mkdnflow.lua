@@ -24,7 +24,7 @@ return function ()
           nvim_wd_heel = false,
           update = false
       },
-      wrap = false,
+      wrap = true,
       bib = {
           default_path = nil,
           find_in_root = true
@@ -154,7 +154,7 @@ return function ()
           MkdnNewListItemBelowInsert = {'n', 'o'},
           MkdnNewListItemAboveInsert = {'n', 'O'},
           -- MkdnExtendList = false,
-          -- MkdnUpdateNumbering = {'n', '<leader>nn'},
+          MkdnUpdateNumbering = {'n', '<leader>cmn'},
           MkdnTableNextCell = {'i', '<Tab>'},
           MkdnTablePrevCell = {'i', '<S-Tab>'},
           MkdnTableNextRow = false,

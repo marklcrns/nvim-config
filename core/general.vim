@@ -141,7 +141,7 @@ set smartindent     " Smart autoindenting on new lines
 set shiftround      " Round indent to multiple of 'shiftwidth'
 
 if exists('&breakindent')
-  set breakindentopt=shift:2,min:20
+  set breakindentopt=shift:2,min:20,list:-1
 endif
 
 " }}}
