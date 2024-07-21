@@ -118,18 +118,26 @@ require("lazy").setup({
   },
 
   -- COLORSCHEMES
+  { "scottmckendry/cyberdream.nvim", config = conf("cyberdream"), lazy = false },
+  { "folke/tokyonight.nvim", config = conf("tokyonight"), lazy = false },
+  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), lazy = false },
+  { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim", lazy = false },
   { "AlexvZyl/nordic.nvim", config = conf("nordic"), lazy = false },
   { "EdenEast/nightfox.nvim", config = conf("nightfox"), lazy = false },
   { "Mofiqul/vscode.nvim", config = conf("vscode"), lazy = false },
   { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin", lazy = false },
-  { "folke/tokyonight.nvim", config = conf("tokyonight"), lazy = false },
-  { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim", lazy = false },
-  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), lazy = false },
   { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine", lazy = false },
   { "sainnhe/gruvbox-material", config = conf("gruvbox-material"), lazy = false },
   { "sindrets/oxocarbon-lua.nvim", lazy = false },
 
   -- STARTUP
+  {
+    "levouh/tint.nvim",
+    lazy = false,
+    cond = not vim.g.low_performance_mode,
+    event = "VimEnter",
+    config = conf("tint", "tint"),
+  },
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
 
   -- BEHAVIOR
@@ -207,12 +215,6 @@ require("lazy").setup({
     cond = not vim.g.low_performance_mode,
     event = "VimEnter",
     config = conf("focus", "focus"),
-  },
-  {
-    "levouh/tint.nvim",
-    cond = not vim.g.low_performance_mode,
-    event = "VimEnter",
-    config = conf("tint", "tint"),
   },
   -- {
   --   "TaDaa/vimade",

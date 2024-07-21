@@ -2,36 +2,31 @@ return function()
   local wk = require("which-key")
 
   wk.setup({
-    key_labels = {
-      -- override the label used to display some keys. It doesn't effect WK in any other way.
-      -- For example:
-      ["<space>"] = "␣",
-      ["<cr>"] = "↵",
-      ["<tab>"] = "⇆",
-      ["<S-tab>"] = "S⇆",
-    },
-
-    popup_mappings = {
-      scroll_down = "<c-d>", -- binding to scroll down inside the popup
-      scroll_up = "<c-u>", -- binding to scroll up inside the popup
-    },
-
-    window = {
-      border = "none", -- none/single/double/shadow
-    },
-
-    layout = {
-      spacing = 6, -- spacing between columns
-    },
-
-    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
-
-    triggers_blacklist = {
-      -- list of mode / prefixes that should never be hooked by WhichKey
-      i = { "j", "k", "f" },
-      v = { "j", "k", "f", "d", "y" },
-      n = { "j", "k", "f", "d", "y" },
-    },
+    -- key_labels = {
+    --   -- override the label used to display some keys. It doesn't effect WK in any other way.
+    --   -- For example:
+    --   ["<space>"] = "␣",
+    --   ["<cr>"] = "↵",
+    --   ["<tab>"] = "⇆",
+    --   ["<S-tab>"] = "S⇆",
+    -- },
+    -- popup_mappings = {
+    --   scroll_down = "<c-d>", -- binding to scroll down inside the popup
+    --   scroll_up = "<c-u>", -- binding to scroll up inside the popup
+    -- },
+    -- window = {
+    --   border = "none", -- none/single/double/shadow
+    -- },
+    -- layout = {
+    --   spacing = 6, -- spacing between columns
+    -- },
+    -- hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
+    -- triggers_blacklist = {
+    --   -- list of mode / prefixes that should never be hooked by WhichKey
+    --   i = { "j", "k", "f" },
+    --   v = { "j", "k", "f", "d", "y" },
+    --   n = { "j", "k", "f", "d", "y" },
+    -- },
   })
 
   -- Using the new add function
