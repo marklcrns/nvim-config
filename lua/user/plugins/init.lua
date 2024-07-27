@@ -118,17 +118,17 @@ require("lazy").setup({
   },
 
   -- COLORSCHEMES
-  { "scottmckendry/cyberdream.nvim", config = conf("cyberdream"), lazy = false },
-  { "folke/tokyonight.nvim", config = conf("tokyonight"), lazy = false },
-  { "rebelot/kanagawa.nvim", config = conf("kanagawa"), lazy = false },
-  { "mcchrish/zenbones.nvim", dependencies = "rktjmp/lush.nvim", lazy = false },
-  { "AlexvZyl/nordic.nvim", config = conf("nordic"), lazy = false },
-  { "EdenEast/nightfox.nvim", config = conf("nightfox"), lazy = false },
-  { "Mofiqul/vscode.nvim", config = conf("vscode"), lazy = false },
-  { "catppuccin/nvim", config = conf("catppuccin"), name = "catppuccin", lazy = false },
-  { "rose-pine/neovim", config = conf("rose-pine"), name = "rose-pine", lazy = false },
-  { "sainnhe/gruvbox-material", config = conf("gruvbox-material"), lazy = false },
-  { "sindrets/oxocarbon-lua.nvim", lazy = false },
+  { "scottmckendry/cyberdream.nvim", config = conf("cyberdream"),       lazy = false },
+  { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false },
+  { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = false },
+  { "mcchrish/zenbones.nvim",        dependencies = "rktjmp/lush.nvim", lazy = false },
+  { "AlexvZyl/nordic.nvim",          config = conf("nordic"),           lazy = false },
+  { "EdenEast/nightfox.nvim",        config = conf("nightfox"),         lazy = false },
+  { "Mofiqul/vscode.nvim",           config = conf("vscode"),           lazy = false },
+  { "catppuccin/nvim",               config = conf("catppuccin"),       name = "catppuccin", lazy = false },
+  { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = false },
+  { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
+  { "sindrets/oxocarbon-lua.nvim",   lazy = false },
 
   -- STARTUP
   {
@@ -138,7 +138,7 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("tint", "tint"),
   },
-  { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
+  { "goolord/alpha-nvim",          config = conf("alpha"),            event = "VimEnter" },
 
   -- BEHAVIOR
   {
@@ -662,9 +662,20 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
     init = utils.load_mappings("lsp"),
   },
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   config = conf("null-ls"),
+  -- },
+  -- {
+  --   "jayp0521/mason-null-ls.nvim",
+  --   event = "VimEnter",
+  --   config = conf("mason-null-ls"),
+  -- },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    config = conf("null-ls"),
+    "stevearc/conform.nvim",
+    init = utils.load_mappings("conform"),
+    config = conf("conform"),
+    lazy = false,
   },
   {
     "williamboman/mason.nvim",
@@ -672,11 +683,6 @@ require("lazy").setup({
     init = utils.load_mappings("mason"),
     dependencies = { { "williamboman/mason-lspconfig.nvim", config = false } },
     config = false,
-  },
-  {
-    "jayp0521/mason-null-ls.nvim",
-    event = "VimEnter",
-    config = conf("mason-null-ls"),
   },
   {
     "ray-x/lsp_signature.nvim",

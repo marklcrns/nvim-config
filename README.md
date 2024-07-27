@@ -13,25 +13,26 @@ with pure obsession and ❤
 
 - [x] Lazy loading (lazy.nvim)
 - [x] LSP (servers are auto-installed as needed)
-    - Mason, null-ls, and nvim-lspconfig are used to configure LSP
+  - Mason, null-ls, and nvim-lspconfig are used to configure LSP
 - [x] Treesitter
 - [x] Telescope
 - [x] Vimwiki
 - [x] Markdown preview
 - [x] Git integration
 - [x] Autocomplete
-    - [x] nvim-cmp
-    - [x] UltiSnips
+  - [x] nvim-cmp
+  - [x] UltiSnips
 - [x] Split auto-resize (focus.nvim)
 - [x] Dashboard (alpha-nvim)
 - [x] Statusline (feline.nvim)
 - [x] Tabline (bufferline.nvim)
 - [x] File explorer (neo-tree.nvim)
-- [X] Diff (diffview.nvim)
+- [x] Diff (diffview.nvim)
 
 and many more...
 
 ## Requirements
+
 - Neovim 0.9+
 - Nodejs and npm
 - Python 3+
@@ -131,7 +132,6 @@ key `q` to smartly close the current buffer, split, tab, or floating window
 without having to remember/define different keybindings for each. It also
 preserves tab splits and auto-close empty buffers.
 
-
 <br>
 
 ## Special Thanks
@@ -144,4 +144,3 @@ Most of my configuration piggy backed from other people's configurations.
 ### Inspiration
 
 - [rafi/vim-config](https://github.com/rafi/vim-config)
-

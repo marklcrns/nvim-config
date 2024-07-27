@@ -201,6 +201,17 @@ M.colorizer = {
   },
 }
 
+M.conform = {
+  plugin = true,
+
+  n = {
+    ["<leader>cf"] = { "<Cmd>lua require('conform').format({ async = true, lsp_format = 'fallback' })<CR>", "conform format", opts = default_opts },
+  },
+  v = {
+    ["<leader>cf"] = { "<Cmd>lua require('conform').format({ async = true, lsp_format = 'fallback' })<CR>", "conform format", opts = default_opts },
+  },
+}
+
 M.dial = {
   plugin = true,
 
