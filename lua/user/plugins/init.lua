@@ -662,15 +662,6 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
     init = utils.load_mappings("lsp"),
   },
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   config = conf("null-ls"),
-  -- },
-  -- {
-  --   "jayp0521/mason-null-ls.nvim",
-  --   event = "VimEnter",
-  --   config = conf("mason-null-ls"),
-  -- },
   {
     "stevearc/conform.nvim",
     init = utils.load_mappings("conform"),
