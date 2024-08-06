@@ -310,18 +310,12 @@ require("lazy").setup({
     keys = { "<leader>", "<localleader>", "]", "[" },
     config = conf("which-key"),
   },
-  -- {
-  --   "folke/zen-mode.nvim",
-  --   cmd = "ZenMode",
-  --   init = utils.load_mappings("zen_mode"),
-  --   config = conf("zen-mode"),
-  -- },
-  -- {
-  --   "Pocco81/true-zen.nvim",
-  --   cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", "TZNarrow" },
-  --   init = utils.load_mappings("true_zen"),
-  --   config = conf("true-zen"),
-  -- },
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    init = utils.load_mappings("zen_mode"),
+    config = conf("zen-mode"),
+  },
   -- WARN: Disabled because it affects startup time by good amount
   -- {
   --   "Bekaboo/dropbar.nvim",
@@ -378,14 +372,6 @@ require("lazy").setup({
     init = utils.lazy_load("vim-signature"),
     config = conf("vim-signature"),
   },
-
-  -- PROJECT MANAGER
-  -- INFO: Unused plugin
-  -- {
-  --   "ahmedkhalf/project.nvim",
-  --   event = "VimEnter",
-  --   config = conf("project"),
-  -- },
 
   -- CODING HELPER
   {
@@ -469,18 +455,6 @@ require("lazy").setup({
     config = conf("vim-matchup"),
   },
   {
-    "bennypowers/nvim-regexplainer",
-    init = utils.load_mappings("regexplainer"),
-    cmd = "RegexplainerToggle",
-    config = function()
-      require("regexplainer").setup({ auto = false })
-    end,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "MunifTanjim/nui.nvim",
-    },
-  },
-  {
     "nvim-pack/nvim-spectre",
     event = "VeryLazy",
     init = utils.load_mappings("spectre"),
@@ -490,12 +464,12 @@ require("lazy").setup({
     },
   },
   -- INFO: Disabled since its not working properly
-  -- {
-  --   "smjonas/inc-rename.nvim",
-  --   init = utils.load_mappings("inc_rename"),
-  --   cmd = "IncRename",
-  --   config = true,
-  -- },
+  {
+    "smjonas/inc-rename.nvim",
+    init = utils.load_mappings("inc_rename"),
+    cmd = "IncRename",
+    config = true,
+  },
   {
     "johmsalas/text-case.nvim",
     event = "BufRead",
@@ -848,12 +822,6 @@ require("lazy").setup({
   -- },
 
   -- CODE RUNNER
-  -- {
-  --   "michaelb/sniprun",
-  --   build = "sh install.sh",
-  --   cmd = { "SnipRun", "SnipLive", "SnipInfo" },
-  --   config = conf("sniprun", "sniprun"),
-  -- },
   {
     "Vigemus/iron.nvim",
     version = "3.*",
@@ -910,16 +878,6 @@ require("lazy").setup({
       conf("obsidian")()
     end,
   },
-  -- {
-  --   "sedm0784/vim-you-autocorrect",
-  --   cond = not vim.g.low_performance_mode,
-  --   ft = { "markdown", "vimwiki", "norg" },
-  --   cmd = { "EnableAutocorrect", "DisableAutocorrect" },
-  --   init = function()
-  --     utils.load_mappings("you_autocorrect")
-  --     conf("vim-you-autocorrect")()
-  --   end,
-  -- },
 
   -- MISC
   -- {
