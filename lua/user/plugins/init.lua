@@ -707,17 +707,26 @@ require("lazy").setup({
     config = conf("mkdnflow"),
   },
   {
-    'MeanderingProgrammer/markdown.nvim',
-    name = "render-markdown",
-    event = "BufRead",
-    ft = { "markdown", "vimwiki" },
-    init = utils.load_mappings("render_markdown"),
-    config = conf("render-markdown"),
+    "OXY2DEV/markview.nvim",
+    lazy = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons"
     },
+    config = conf("markview"),
   },
+  -- {
+  --   'MeanderingProgrammer/markdown.nvim',
+  --   name = "render-markdown",
+  --   event = "BufRead",
+  --   ft = { "markdown", "vimwiki" },
+  --   init = utils.load_mappings("render_markdown"),
+  --   config = conf("render-markdown"),
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  -- },
 
   -- COMPLETION
   {
