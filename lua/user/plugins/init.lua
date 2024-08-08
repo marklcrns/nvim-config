@@ -708,25 +708,13 @@ require("lazy").setup({
   },
   {
     "OXY2DEV/markview.nvim",
-    lazy = false,
+    lazy = false, -- markview is already lazy loaded
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons"
     },
     config = conf("markview"),
   },
-  -- {
-  --   'MeanderingProgrammer/markdown.nvim',
-  --   name = "render-markdown",
-  --   event = "BufRead",
-  --   ft = { "markdown", "vimwiki" },
-  --   init = utils.load_mappings("render_markdown"),
-  --   config = conf("render-markdown"),
-  --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "nvim-tree/nvim-web-devicons",
-  --   },
-  -- },
 
   -- COMPLETION
   {
