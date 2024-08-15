@@ -6,7 +6,7 @@ return function()
     headings = presets.headings.glow_labels, -- to prevent heading indentation
     modes = { "n", "no", "c" }, -- Change these modes
                                 -- to what you need
-    hybrid_modes = { "n" },     -- Uses this feature on
+    hybrid_modes = { "i" },     -- Uses this feature on
                                 -- normal mode
     -- This is nice to have
     callbacks = {
