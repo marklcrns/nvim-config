@@ -92,7 +92,7 @@ require("lazy").setup({
     -- Must comment out vim.lsp.handlers["textDocument/signatureHelp"] override. See usr/lsp/init.lua.
     -- Additionally, must disable `lsp.signature` in noice.lua.
     "folke/noice.nvim",
-    cond = not sys.is_gui() and not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode,
     event = "VeryLazy",
     config = conf("noice"),
     dependencies = {
@@ -212,7 +212,7 @@ require("lazy").setup({
   },
   {
     "nvim-focus/focus.nvim",
-    cond = not vim.g.low_performance_mode,
+    cond = not sys.is_gui() and not vim.g.low_performance_mode,
     event = "VimEnter",
     config = conf("focus", "focus"),
   },
@@ -371,6 +371,10 @@ require("lazy").setup({
     "kshenoy/vim-signature",
     init = utils.lazy_load("vim-signature"),
     config = conf("vim-signature"),
+  },
+  {
+    "ahmedkhalf/project.nvim",
+    config = conf("project"),
   },
 
   -- CODING HELPER
