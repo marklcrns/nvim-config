@@ -336,11 +336,11 @@ require("lazy").setup({
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-media-files.nvim" },
   { "nvim-telescope/telescope-ui-select.nvim" },
-  -- {
-  --   "nvim-telescope/telescope-frecency.nvim",
-  --   init = utils.load_mappings("frecency"),
-  --   dependencies = { "kkharji/sqlite.lua" },
-  -- },
+  {
+    "nvim-telescope/telescope-frecency.nvim",
+    init = utils.load_mappings("frecency"),
+    dependencies = { "kkharji/sqlite.lua" },
+  },
   { "debugloop/telescope-undo.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
