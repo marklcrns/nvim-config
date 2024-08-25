@@ -15,6 +15,7 @@ return function()
     },
     highlight = {
       enable = true,
+      additional_vim_regex_highlighting = true,
       disable = function(lang, bufnr)
         local kb = Config.common.utils.buf_get_size(bufnr)
 
@@ -29,6 +30,9 @@ return function()
           "comment",
         }, lang)
       end,
+    },
+    indent = {
+      enable = true,
     },
 
     -- Defined in nvim-treesitter-textobjects
