@@ -33,6 +33,11 @@ return function()
     },
     indent = {
       enable = true,
+      disable = {
+        -- NOTE: This cause some issues with `gw` (format line) in normal mode not
+        -- being properly indented in markdown files bullet points
+        "markdown",
+      }
     },
 
     -- Defined in nvim-treesitter-textobjects

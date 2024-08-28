@@ -77,7 +77,6 @@ return function()
       buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
       mappings = {
         i = {
-          ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
           ["<C-b>"] = actions.preview_scrolling_up,
           ["<C-f>"] = actions.preview_scrolling_down,
 
@@ -255,7 +254,7 @@ return function()
   require("telescope").load_extension("fzf")
   require("telescope").load_extension("media_files")
   require("telescope").load_extension("ui-select")
-  require("telescope").load_extension("projects")
+  -- require("telescope").load_extension("projects")
   require("telescope").load_extension("undo")
   -- require("telescope").load_extension("harpoon")
   if not vim.g.low_performance_mode then

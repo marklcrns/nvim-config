@@ -161,12 +161,83 @@ end
 -- START LSP CONFIG ------------------------------------------------------------
 
 -- Typescript, Javascript
-lspconfig.tsserver.setup(M.create_config())
+local TSOrganizeImports = function()
+  vim.lsp.buf.code_action({
+    apply = true,
+    context = {
+      only = { "source.organizeImports.ts" },
+      diagnostics = {},
+    },
+  })
+end
+local TSRemoveUnused = function()
+  vim.lsp.buf.code_action({
+    apply = true,
+    context = {
+      only = { "source.removeUnused.ts" },
+      diagnostics = {},
+    },
+  })
+end
+lspconfig.tsserver.setup(M.create_config({
+  single_file_support = true,
+  commands = {
+    TSOrganizeImports = {
+      TSOrganizeImports,
+      description = "Organize Imports",
+    },
+    TSRemoveUnused = {
+      TSRemoveUnused,
+      description = "Remove unused",
+    },
+  },
+
+  completions = {
+    completeFunctionCalls = true,
+  },
+  settings = {
+    javascript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = "none", -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = false,
+      },
+    },
+
+    typescript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = "none", -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = false,
+      },
+    },
+  },
+}))
 
 -- HTML + CSS
 lspconfig.html.setup(M.create_config())
 lspconfig.cssls.setup(M.create_config())
-lspconfig.tailwindcss.setup(M.create_config())
+lspconfig.tailwindcss.setup(M.create_config({
+  completions = {
+    completeFunctionCalls = true,
+  },
+  root_dir = lspconfig.util.root_pattern(
+    "tailwind.config.js",
+    "tailwind.config.cjs",
+    "tailwind.config.ts",
+    "postcss.config.js",
+    "postcss.config.cjs",
+    "postcss.config.ts"
+  ),
+}))
 
 -- Python
 lspconfig.pyright.setup(M.create_config())
@@ -180,13 +251,7 @@ require("user.lsp.lua")
 lspconfig.bashls.setup(M.create_config())
 
 -- C#
-lspconfig.omnisharp.setup(M.create_config({
-  cmd = { "/usr/bin/omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-  filetypes = { "cs", "vb" },
-  init_options = {},
-  -- root_dir = lspconfig.util.root_pattern(".csproj", ".sln"),
-  -- root_dir = vim.fn.getcwd
-}))
+lspconfig.omnisharp.setup(M.create_config())
 
 -- C, C++
 lspconfig.clangd.setup(M.create_config())
@@ -200,11 +265,28 @@ lspconfig.vimls.setup(M.create_config())
 -- Misc
 lspconfig.clojure_lsp.setup(M.create_config())
 lspconfig.dockerls.setup(M.create_config())
-lspconfig.eslint.setup(M.create_config())
 lspconfig.jsonls.setup(M.create_config())
 lspconfig.emmet_ls.setup(M.create_config({
-  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+  filetypes = {
+    "html",
+    "typescriptreact",
+    "javascriptreact",
+    "css",
+    "sass",
+    "scss",
+    "less",
+  },
 }))
+lspconfig.eslint.setup(M.create_config({
+  on_attach = function(bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = tonumber(bufnr),
+      command = "EslintFixAll",
+    })
+  end,
+  completions = { completeFunctionCalls = true, },
+}))
+
 -- Weird languages for school
 lspconfig.svlangserver.setup(M.create_config({
   filetypes = { "systemverilog", "verilog" },

@@ -9,7 +9,7 @@ return function()
 
     -- If line after join will be longer than max value,
     -- node will not be formatted
-    max_join_length = 120,
+    max_join_length = 240,
 
     -- hold|start|end:
     -- hold - cursor follows the node/place on which it was called

@@ -287,11 +287,11 @@ require("lazy").setup({
     dependencies = "nvim-tree/nvim-web-devicons",
     config = conf("bufferline"),
   },
-  {
-    "feline-nvim/feline.nvim",
-    event = "VimEnter",
-    config = conf("feline"),
-  },
+  -- {
+  --   "feline-nvim/feline.nvim",
+  --   event = "VimEnter",
+  --   config = conf("feline"),
+  -- },
 
   -- UI INTERFACE
   {
@@ -372,10 +372,11 @@ require("lazy").setup({
     init = utils.lazy_load("vim-signature"),
     config = conf("vim-signature"),
   },
-  {
-    "ahmedkhalf/project.nvim",
-    config = conf("project"),
-  },
+  -- WARN: Disabled because it slows down splits navigation significantly
+  -- {
+  --   "ahmedkhalf/project.nvim",
+  --   config = conf("project"),
+  -- },
 
   -- CODING HELPER
   {
@@ -671,6 +672,11 @@ require("lazy").setup({
     init = utils.load_mappings("trouble"),
     config = conf("trouble"),
     dependencies = "nvim-tree/nvim-web-devicons",
+  },
+  {
+    "Chaitanyabsprip/fastaction.nvim",
+    init = utils.load_mappings("fastaction"),
+    config = conf("fastaction"),
   },
 
   -- LANGUAGES + TOOLS

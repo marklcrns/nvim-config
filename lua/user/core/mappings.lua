@@ -50,7 +50,7 @@ M.general = {
       "goto implementation",
       opts = { noremap = false, silent = true },
     },
-    ["<leader>."] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action", opts = default_opts },
+    ["<leader>ca"] = { "<cmd>lua vim.lsp.buf.code_action({apply=true})<CR>", "code action", opts = default_opts },
     ["<leader>cf"] = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "code format async", opts = default_opts },
     ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "code rename", opts = default_opts },
 
@@ -264,6 +264,18 @@ M.dropbar = {
 
   n = {
     ["<leader>fdd"] = { "<cmd>lua require('dropbar.api').pick()<CR>", "toggle dropbar picker", opts = default_opts },
+  },
+}
+
+M.fastaction = {
+  plugin = true,
+
+  n = {
+    ["<leader>ca"] = { "<cmd>lua require('fastaction').code_action()<CR>", "code action", opts = default_opts },
+  },
+
+  v = {
+    ["<leader>ca"] = { "<cmd>lua require('fastaction').range_code_action()<CR>", "range code action", opts = default_opts },
   },
 }
 

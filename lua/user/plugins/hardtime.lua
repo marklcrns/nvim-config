@@ -14,6 +14,7 @@ return function()
       "qf",
       "netrw",
       "neo-tree",
+      "neo-tree-popup",
       "lazy",
       "mason",
       "fugitive",
@@ -21,6 +22,8 @@ return function()
       "dropbar_menu",
       "Outline",
       "floggraph",
+      "lspinfo",
+      "checkhealth",
     },
   })
 
