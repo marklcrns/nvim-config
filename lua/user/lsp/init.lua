@@ -179,7 +179,7 @@ local TSRemoveUnused = function()
     },
   })
 end
-lspconfig.tsserver.setup(M.create_config({
+lspconfig.ts_ls.setup(M.create_config({
   single_file_support = true,
   commands = {
     TSOrganizeImports = {
