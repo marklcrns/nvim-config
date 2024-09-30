@@ -122,7 +122,6 @@ require("lazy").setup({
   { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false },
   { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = false },
   { "mcchrish/zenbones.nvim",        dependencies = "rktjmp/lush.nvim", lazy = false },
-  { "AlexvZyl/nordic.nvim",          config = conf("nordic"),           lazy = false },
   { "EdenEast/nightfox.nvim",        config = conf("nightfox"),         lazy = false },
   { "Mofiqul/vscode.nvim",           config = conf("vscode"),           lazy = false },
   { "catppuccin/nvim",               config = conf("catppuccin"),       name = "catppuccin", lazy = false },
