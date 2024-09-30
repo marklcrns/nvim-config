@@ -216,44 +216,12 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("focus", "focus"),
   },
-  -- {
-  --   "TaDaa/vimade",
-  --   cond = not sys.is_gui(),
-  --   init = function()
-  --     utils.lazy_load("vimade")
-  --     utils.load_mappings("vimade")
-  --   end,
-  --   config = conf("vimade"),
-  -- },
-  -- {
-  --   "marklcrns/lens.vim",
-  --   cond = not sys.is_gui(),
-  --   init = function()
-  --     utils.lazy_load("lens.vim")
-  --     utils.load_mappings("lens")
-  --   end,
-  --   config = conf("lens"),
-  --   dependencies = {
-  --     {
-  --       "camspiers/animate.vim",
-  --       cond = not sys.is_gui(),
-  --       config = conf("animate"),
-  --     },
-  --   },
-  -- },
   {
     "karb94/neoscroll.nvim",
     cond = not sys.is_gui(),
     init = utils.lazy_load("neoscroll.nvim"),
     config = conf("neoscroll"),
   },
-  -- {
-  --   "gen740/SmoothCursor.nvim",
-  --   cond = not sys.is_gui(),
-  --   event = "VimEnter",
-  --   init = utils.load_mappings("SmoothCursor"),
-  --   config = conf("SmoothCursor"),
-  -- },
   {
     "mvllow/modes.nvim",
     init = utils.lazy_load("modes.nvim"),
