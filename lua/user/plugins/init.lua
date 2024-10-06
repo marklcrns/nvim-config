@@ -128,6 +128,7 @@ require("lazy").setup({
   { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = false },
   { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
   { "sindrets/oxocarbon-lua.nvim",   lazy = false },
+  { "ferdinandrau/lavish.nvim", lazy = false },
 
   -- STARTUP
   {
@@ -610,9 +611,9 @@ require("lazy").setup({
   },
   {
     "stevearc/conform.nvim",
+    event = "VeryLazy",
     init = utils.load_mappings("conform"),
     config = conf("conform"),
-    lazy = false,
   },
   {
     "williamboman/mason.nvim",

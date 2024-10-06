@@ -340,8 +340,11 @@ function! ExtendedBasicMappings()
   " Select last paste
   nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
   " Center search results and jumps
-  nnoremap n nzz
-  nnoremap N Nzz
+  " nnoremap n nzz
+  " nnoremap N Nzz
+  nnoremap n <Cmd>set hlsearch <bar> call <SID>LazyNorm(v:searchforward ? "nzz" : "Nzz")<CR>
+  nnoremap N <Cmd>set hlsearch <bar> call <SID>LazyNorm(v:searchforward ? "Nzz" : "nzz")<CR>
+
   nnoremap <C-o> <C-o>zz
   nnoremap <C-i> <C-i>zz
   " Shift char ascii

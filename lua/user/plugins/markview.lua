@@ -3,7 +3,10 @@ return function()
   local presets = require("markview.presets");
 
   markview.setup({
-    headings = presets.headings.glow_labels, -- to prevent heading indentation
+    headings = {
+      enable = true,
+      shift_width = 0,
+    },
     modes = { "n", "no", "c" }, -- Change these modes
                                 -- to what you need
 

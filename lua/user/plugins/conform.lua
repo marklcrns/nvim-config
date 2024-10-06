@@ -14,6 +14,8 @@ return function()
       sass = { "prettierd", "prettier", stop_after_first = true },
       html = { "prettierd", "prettier", stop_after_first = true },
       markdown = { "prettierd", "prettier", stop_after_first = true },
+      json = { "jq" },
+      rust = { "rustfmt" }
     },
     default_format_opts = {
       lsp_format = "fallback",
@@ -25,6 +27,8 @@ return function()
     -- Conform will notify you when no formatters are available for the buffer
     notify_no_formatters = true,
   })
+
+  vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
   Config.common.au.declare_group("user.conform.nvim", {}, {
     {
