@@ -255,11 +255,11 @@ require("lazy").setup({
     dependencies = "nvim-tree/nvim-web-devicons",
     config = conf("bufferline"),
   },
-  -- {
-  --   "feline-nvim/feline.nvim",
-  --   event = "VimEnter",
-  --   config = conf("feline"),
-  -- },
+  {
+    "feline-nvim/feline.nvim",
+    event = "VimEnter",
+    config = conf("feline"),
+  },
 
   -- UI INTERFACE
   {
