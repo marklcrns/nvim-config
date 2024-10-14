@@ -69,7 +69,7 @@ return function()
     },
     -- Plugin: nvim-treesitter-endwise
     endwise = {
-      enable = true,
+      enable = false,
     },
   })
 

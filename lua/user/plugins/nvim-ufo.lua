@@ -3,24 +3,22 @@ return function()
 
   ------------------------------------------enhanceAction---------------------------------------------
   local function peekOrHover()
-      local winid = require('ufo').peekFoldedLinesUnderCursor()
-      if winid then
-          local bufnr = vim.api.nvim_win_get_buf(winid)
-          local keys = {'a', 'i', 'o', 'A', 'I', 'O', 'gd', 'gr'}
-          for _, k in ipairs(keys) do
-              -- Add a prefix key to fire `trace` action,
-              -- if Neovim is 0.8.0 before, remap yourself
-              vim.keymap.set('n', k, '<CR>' .. k, {noremap = false, buffer = bufnr})
-          end
-      else
-          -- coc.nvim
-          -- vim.fn.CocActionAsync('definitionHover')
-
-          -- nvimlsp
-          vim.lsp.buf.hover()
+    local winid = require('ufo').peekFoldedLinesUnderCursor()
+    if winid then
+      local bufnr = vim.api.nvim_win_get_buf(winid)
+      local keys = { 'a', 'i', 'o', 'A', 'I', 'O', 'gd', 'gr' }
+      for _, k in ipairs(keys) do
+        -- Add a prefix key to fire `trace` action,
+        -- if Neovim is 0.8.0 before, remap yourself
+        vim.keymap.set('n', k, '<CR>' .. k, { noremap = false, buffer = bufnr })
       end
+    else
+      -- nvimlsp
+      vim.lsp.buf.hover()
+    end
   end
 
+  -- DEPRECATED: Defined in nvim-treesitter-textobjects
   -- local function goPreviousClosedAndPeek()
   --     require('ufo').goPreviousClosedFold()
   --     require('ufo').peekFoldedLinesUnderCursor()
@@ -64,7 +62,7 @@ return function()
       else
         chunkText = truncate(chunkText, targetWidth - curWidth)
         local hlGroup = chunk[2]
-        table.insert(newVirtText, {chunkText, hlGroup})
+        table.insert(newVirtText, { chunkText, hlGroup })
         chunkWidth = vim.fn.strdisplaywidth(chunkText)
         -- str width returned from truncate() may less than 2nd argument, need padding
         if curWidth + chunkWidth < targetWidth then
@@ -74,15 +72,15 @@ return function()
       end
       curWidth = curWidth + chunkWidth
     end
-    table.insert(newVirtText, {suffix, 'MoreMsg'})
+    table.insert(newVirtText, { suffix, 'MoreMsg' })
     return newVirtText
   end
 
   ---------------------------------------setFoldVirtTextHandler---------------------------------------
 
-  vim.o.foldcolumn = "0" -- '0' is not bad
-  vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-  vim.o.foldlevelstart = 99
+  vim.o.foldcolumn = "0"    -- '0' is not bad
+  vim.o.foldlevel = 99      -- Using ufo provider need a large value, feel free to decrease the value
+  vim.o.foldlevelstart = -1 -- Open buffer with all folds closed
   vim.o.foldenable = true
 
   local ftMap = {
@@ -105,16 +103,16 @@ return function()
     return require('ufo').getFolds(bufnr, 'lsp'):catch(function(err)
       return handleFallbackException(err, 'treesitter')
     end):catch(function(err)
-    return handleFallbackException(err, 'indent')
-  end)
-end
+      return handleFallbackException(err, 'indent')
+    end)
+  end
 
   require("ufo").setup({
     open_fold_hl_timeout = 150,
     close_fold_kinds_for_ft = {
-      default = {'imports', 'comment'},
-      json = {'array'},
-      c = {'comment', 'region'}
+      default = { 'imports', 'comment' },
+      json = { 'array' },
+      c = { 'comment', 'region' }
     },
     preview = {
       win_config = {
@@ -128,6 +126,7 @@ end
       },
     },
     fold_virt_text_handler = handler,
+    -- NOTE: This causes annoying auto closing all folds on buffer write and any movements outside of folds
     provider_selector = function(bufnr, filetype, buftype)
       return ftMap[filetype] or customizeSelector
     end,

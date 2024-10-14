@@ -3,7 +3,7 @@ return function()
     sections = {
       left = {
         "content",
-        "⋯",
+        "",
       },
       right = {
         " ", "number_of_folded_lines", ": ", "percentage", " ",
