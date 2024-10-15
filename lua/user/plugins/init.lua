@@ -161,15 +161,15 @@ require("lazy").setup({
       })
     end,
   },
-  {
-    "kevinhwang91/nvim-ufo",
-    cond = not vim.g.low_performance_mode,
-    init = utils.lazy_load("nvim-ufo"),
-    config = conf("nvim-ufo"),
-    dependencies = {
-      "kevinhwang91/promise-async",
-    },
-  },
+  -- {
+  --   "kevinhwang91/nvim-ufo",
+  --   cond = not vim.g.low_performance_mode,
+  --   init = utils.lazy_load("nvim-ufo"),
+  --   config = conf("nvim-ufo"),
+  --   dependencies = {
+  --     "kevinhwang91/promise-async",
+  --   },
+  -- },
   -- {
   --   "anuvyklack/pretty-fold.nvim",
   --   config = conf("pretty-fold"),
@@ -493,7 +493,7 @@ require("lazy").setup({
   },
   {
     "ggandor/leap.nvim",
-    keys = { "s", "S" },
+    keys = { "s", "S", "gs", "gS", "ga", "gA" },
     config = conf("leap"),
   },
 
