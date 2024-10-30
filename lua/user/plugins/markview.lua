@@ -5,7 +5,7 @@ return function()
   markview.setup({
     headings = {
       enable = true,
-      shift_width = 0,
+      -- shift_width = 0,
     },
     modes = { "n", "no", "c" }, -- Change these modes
                                 -- to what you need
