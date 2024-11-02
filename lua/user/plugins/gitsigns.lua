@@ -46,7 +46,7 @@ return function()
       internal = true,
       indent_heuristic = true,
     },
-    sign_priority = 100,
+    sign_priority = 1,
     update_debounce = 100,
     status_formatter = nil, -- Use default
   })
