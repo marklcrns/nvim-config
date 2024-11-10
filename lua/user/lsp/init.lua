@@ -247,6 +247,9 @@ lspconfig.pyright.setup(M.create_config())
 -- Lua
 require("user.lsp.lua")
 
+-- Luau
+lspconfig.luau_lsp.setup(M.create_config())
+
 -- Bash
 lspconfig.bashls.setup(M.create_config())
 
@@ -262,10 +265,27 @@ lspconfig.vimls.setup(M.create_config())
 -- Go
 -- lspconfig.gopls.setup(M.create_config())
 
--- Misc
+-- Clojure
 lspconfig.clojure_lsp.setup(M.create_config())
+
+-- Docker
 lspconfig.dockerls.setup(M.create_config())
+
+-- Json
 lspconfig.jsonls.setup(M.create_config())
+
+-- Toml
+lspconfig.taplo.setup(M.create_config())
+
+-- Rust
+lspconfig.rust_analyzer.setup(M.create_config())
+
+-- Weird languages for school
+lspconfig.svlangserver.setup(M.create_config({
+  filetypes = { "systemverilog", "verilog" },
+}))
+
+-- Web development
 lspconfig.emmet_ls.setup(M.create_config({
   filetypes = {
     "html",
@@ -277,6 +297,7 @@ lspconfig.emmet_ls.setup(M.create_config({
     "less",
   },
 }))
+
 lspconfig.eslint.setup(M.create_config({
   on_attach = function(bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -285,11 +306,6 @@ lspconfig.eslint.setup(M.create_config({
     })
   end,
   completions = { completeFunctionCalls = true, },
-}))
-
--- Weird languages for school
-lspconfig.svlangserver.setup(M.create_config({
-  filetypes = { "systemverilog", "verilog" },
 }))
 
 -- END LSP CONFIG --------------------------------------------------------------

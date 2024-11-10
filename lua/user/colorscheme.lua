@@ -10,12 +10,6 @@
 ---`NVIM_COLORSCHEME` using the same format.
 local DEFAULT_COLORSCHEME = "default_dark"
 
--- -- define default colorscheme based on time of day
--- local hour = tonumber(os.date("%H"))
--- if hour >= 6 and hour < 18 then
---   DEFAULT_COLORSCHEME = "default_light"
--- end
-
 local Color = Config.common.color.Color
 local utils = Config.common.utils
 local hl = Config.common.hl
@@ -23,7 +17,7 @@ local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
 
 local M = {}
 
-M.DEFAULT_DARK = "tokyonight"
+M.DEFAULT_DARK = "jellybeans"
 M.DEFAULT_LIGHT = "seoulbones"
 
 do
@@ -75,7 +69,7 @@ function M.apply_sp_underline()
     hi("DiagnosticUnderline" .. name, {
       style = "underline",
       sp = hl.get_fg("Diagnostic" .. name),
-      fg = "NONE",
+      fg = "NONE"
     })
   end
 end
@@ -122,13 +116,9 @@ function M.parametric_ease_out(k)
   ---@param x number # [0,1]
   ---@return number # Progression
   return function(x)
-    if x <= 0 then
-      return 0
-    end
-    if x >= 1 then
-      return 1
-    end
-    return math.pow(1 - x, 2 * (k + 1 / 2)) * -1 + 1
+    if x <= 0 then return 0 end
+    if x >= 1 then return 1 end
+    return math.pow(1 - x, 2 * (k + 1 / 2)) * (-1) + 1
   end
 end
 
@@ -295,7 +285,7 @@ function M.find_base_colors()
 
   return {
     primary = primary,
-    accent = accent,--[[@as Color ]]
+    accent = accent --[[@as Color ]],
   }
 end
 
@@ -311,7 +301,7 @@ function M.setup_colorscheme(colors_name)
     vim.g.gruvbox_contrast_dark = "medium"
     vim.g.gruvbox_invert_selection = 0
   elseif colors_name == "gruvbox-material" then
-    vim.g.gruvbox_material_background = "medium"
+    vim.g.gruvbox_material_background = 'medium'
     vim.g.gruvbox_material_enable_italic = 1
     vim.g.gruvbox_material_diagnostic_line_highlight = 1
   elseif colors_name:match("^base16") then
@@ -359,7 +349,9 @@ end
 ---Tweaks applied after loading a colorscheme.
 function M.apply_tweaks()
   if not vim.o.termguicolors then
-    Config.common.utils.warn("'termguicolors' is not set! Color scheme tweaks might have unexpected results!")
+    Config.common.utils.warn(
+      "'termguicolors' is not set! Color scheme tweaks might have unexpected results!"
+    )
   end
 
   if not vim.g.colors_name then
@@ -374,17 +366,23 @@ function M.apply_tweaks()
   end
 
   local bg = vim.o.bg
-  local bg_normal = Color.from_hl("Normal", "bg") or Color.from_hex(bg == "dark" and "#111111" or "#eeeeee")
+  local bg_normal = Color.from_hl("Normal", "bg")
+      or Color.from_hex(bg == "dark" and "#111111" or "#eeeeee")
   local colors_name = vim.g.colors_name or ""
   local base_colors = M.find_base_colors()
 
-  -- hi_clear({ "Cursor", "TermCursor" })
+  hi_clear({ "Cursor", "TermCursor" })
   hi("TermCursor", { style = "reverse" })
   hi("NonText", { style = "nocombine" })
   hi("Hidden", { fg = "bg", bg = "bg" })
   hi("CursorLine", { sp = fg_normal:to_css() })
   hi("Primary", { fg = base_colors.primary:to_css() })
   hi("Accent", { fg = base_colors.accent:to_css() })
+
+  local identifier_sat = (Color.from_hl("Identifier", "fg") or {}).saturation --[[@as number? ]]
+  if not identifier_sat or identifier_sat < 0.1 then
+    hi_link({ "fugitiveHash", "DiffviewHash", "DiffviewSecondary" }, "Primary", { clear = true })
+  end
 
   ---Controls whether or not diff hl is generated.
   local do_diff_gen = true
@@ -394,177 +392,191 @@ function M.apply_tweaks()
   local feline_theme = "duo"
 
   if colors_name == "codedark" then
-    hi("NonText", { bg = "NONE" })
+    hi("NonText", { bg = "NONE", })
+
   elseif colors_name == "tender" then
-    hi("Visual", { style = "NONE", bg = "#293b44" })
-    hi("VertSplit", { fg = "#202020", bg = "NONE" })
-    hi("Search", { style = "bold", fg = "#dddddd", bg = "#7a6a24" })
+    hi("Visual", { style = "NONE", bg = "#293b44", })
+    hi("VertSplit", { fg = "#202020", bg = "NONE", })
+    hi("Search", { style = "bold", fg = "#dddddd", bg = "#7a6a24", })
+
   elseif colors_name == "horizon" then
-    hi("NonText", { fg = "#414559", bg = "NONE" })
-    hi("VertSplit", { style = "bold", fg = "#0f1117", bg = "NONE" })
-    hi("Pmenu", { bg = "#272c42", fg = "#eff0f4" })
-    hi("PmenuSel", { bg = "#5b6389" })
-    hi("PmenuSbar", { bg = "#3d425b" })
-    hi("PmenuThumb", { bg = "#0f1117" })
-    hi("CursorLineNr", { style = "bold", fg = "#09f7a0", bg = "NONE" })
-    hi("QuickFixLine", { bg = "#335172", fg = "NONE" })
+    hi("NonText", { fg = "#414559", bg = "NONE", })
+    hi("VertSplit", { style = "bold", fg = "#0f1117", bg = "NONE", })
+    hi("Pmenu", { bg = "#272c42", fg = "#eff0f4", })
+    hi("PmenuSel", { bg = "#5b6389", })
+    hi("PmenuSbar", { bg = "#3d425b", })
+    hi("PmenuThumb", { bg = "#0f1117", })
+    hi("CursorLineNr", { style = "bold", fg = "#09f7a0", bg = "NONE", })
+    hi("QuickFixLine", { bg = "#335172", fg = "NONE", })
     hi_link("vimVar")
     hi_link("vimFuncVar")
     hi_link("vimUserFunc")
     hi_link("jsonQuote")
+
   elseif colors_name == "monokai_pro" then
-    hi("NonText", { fg = "#5b595c", bg = "None" })
-    hi("VertSplit", { fg = "#696769", bg = "None" })
-    hi("Pmenu", { fg = "#a9dc76", bg = "#252226" })
-    hi("PmenuSel", { bg = "#403e41" })
-    hi("PmenuSbar", { bg = "Grey" })
-    hi("PmenuThumb", { bg = "White" })
-    hi("CursorLineNr", { style = "bold", fg = "Yellow", bg = "#423f42" })
-    hi("SignColumn", { bg = "#423f42" })
-    hi("FoldColumn", { fg = "Cyan", bg = "#423f42" })
-    hi("QuickFixLine", { bg = "#714754", fg = "NONE" })
-    hi("Search", { fg = "#ffd866", style = "bold,underline" })
+    hi("NonText", { fg = "#5b595c", bg = "None", })
+    hi("VertSplit", { fg = "#696769", bg = "None", })
+    hi("Pmenu", { fg = "#a9dc76", bg = "#252226", })
+    hi("PmenuSel", { bg = "#403e41", })
+    hi("PmenuSbar", { bg = "Grey", })
+    hi("PmenuThumb", { bg = "White", })
+    hi("CursorLineNr", { style = "bold", fg = "Yellow", bg = "#423f42", })
+    hi("SignColumn", { bg = "#423f42", })
+    hi("FoldColumn", { fg = "Cyan", bg = "#423f42", })
+    hi("QuickFixLine", { bg = "#714754", fg = "NONE", })
+    hi("Search", { fg = "#ffd866", style = "bold,underline", })
     hi_link("vimVar")
     hi_link("vimFuncVar")
     hi_link("vimUserFunc")
     hi_link("jsonQuote")
+
   elseif colors_name == "gruvbox-material" then
-    hi("CursorLineNr", { style = "bold", fg = "#a9b665" })
+    hi("CursorLineNr", { style = "bold", fg = "#a9b665", })
+
   elseif colors_name == "predawn" then
-    hi("NonText", { fg = "#3c3c3c", bg = "None" })
-    hi("CursorLine", { bg = "#303030" })
-    hi("SignColumn", { fg = "#8c8c8c", bg = "#3c3c3c" })
+    hi("NonText", { fg = "#3c3c3c", bg = "None", })
+    hi("CursorLine", { bg = "#303030", })
+    hi("SignColumn", { fg = "#8c8c8c", bg = "#3c3c3c", })
     hi_link("vimVar")
     hi_link("vimFuncVar")
     hi_link("vimUserFunc")
     hi_link("jsonQuote")
+
   elseif colors_name == "nvcode" then
-    hi("CocExplorerGitIgnored", { fg = "#5C6370" })
+    hi("CocExplorerGitIgnored", { fg = "#5C6370", })
     hi_link("vimVar")
     hi_link("vimFuncVar")
     hi_link("vimUserFunc")
+
   elseif colors_name == "zephyr" then
-    hi("Visual", { fg = "NONE", bg = "#393e49" })
+    hi("Visual", { fg = "NONE", bg = "#393e49", })
+
   elseif colors_name == "tokyonight" then
     hi_link("ColorColumn", "CursorLine")
     if bg == "dark" then
-      hi("DiffAdd", { bg = "#283B4D", fg = "NONE" })
-      hi("DiffChange", { bg = "#28304d", fg = "NONE" })
-      hi("DiffText", { bg = "#36426b", fg = "NONE" })
+      hi("DiffAdd", { bg = "#283B4D", fg = "NONE", })
+      hi("DiffChange", { bg = "#28304d", fg = "NONE", })
+      hi("DiffText", { bg = "#36426b", fg = "NONE", })
     end
     hi_link("GitsignsAdd", "String")
     -- hi_link("DiffviewNormal", "NormalSB")
+
   elseif colors_name == "everforest" then
-    hi("SignColumn", { bg = "NONE" })
-    hi("FoldColumn", { bg = "NONE" })
-    hi("OrangeSign", { bg = "NONE" })
-    hi("GreenSign", { bg = "NONE" })
-    hi("PurpleSign", { bg = "NONE" })
-    hi("RedSign", { bg = "NONE" })
-    hi("YellowSign", { bg = "NONE" })
-    hi("AquaSign", { bg = "NONE" })
-    hi("BlueSign", { bg = "NONE" })
+    hi("SignColumn", { bg = "NONE", })
+    hi("FoldColumn", { bg = "NONE", })
+    hi("OrangeSign", { bg = "NONE", })
+    hi("GreenSign", { bg = "NONE", })
+    hi("PurpleSign", { bg = "NONE", })
+    hi("RedSign", { bg = "NONE", })
+    hi("YellowSign", { bg = "NONE", })
+    hi("AquaSign", { bg = "NONE", })
+    hi("BlueSign", { bg = "NONE", })
     if bg == "light" then
-      hi("Search", { bg = "#35a77c" })
-      hi("CursorLineNr", { style = "bold", bg = "NONE", fg = "#8da101" })
-      hi("DiffAdd", { bg = "#EBF4BF", fg = "NONE" })
-      hi("DiffDelete", { bg = "#FCDDCC", fg = "NONE" })
-      hi("DiffChange", { bg = "#E3ECE4", fg = "NONE" })
-      hi("DiffText", { bg = "#BEDFE6", fg = "NONE" })
+      hi("Search", { bg = "#35a77c", })
+      hi("CursorLineNr", { style = "bold", bg = "NONE", fg = "#8da101", })
+      hi("DiffAdd", { bg = "#EBF4BF", fg = "NONE", })
+      hi("DiffDelete", { bg = "#FCDDCC", fg = "NONE", })
+      hi("DiffChange", { bg = "#E3ECE4", fg = "NONE", })
+      hi("DiffText", { bg = "#BEDFE6", fg = "NONE", })
     else
-      hi("CursorLineNr", { style = "bold", bg = "NONE", fg = "#a7c080" })
+      hi("CursorLineNr", { style = "bold", bg = "NONE", fg = "#a7c080", })
       -- hi("DiffText", { bg = "#4a6778", fg = "NONE", })
     end
+
   elseif colors_name == "palenight" then
     hi("Visual", { bg = bg_normal:mod_value(0.18):mod_saturation(0.2):to_css() })
-    hi("CursorLine", { bg = "#212433" })
-    hi("StatusLine", { bg = "#212433" })
-    hi("StatusLineNC", { bg = "#212433" })
-    hi("Folded", { bg = "#1e212e" })
-    hi("ColorColumn", { bg = "#33384d" })
-    hi("NonText", { fg = "#3c445f" })
-    hi("TabLineSel", { fg = "#82b1ff" })
-    hi("IndentBlanklineContextChar", { fg = "#82b1ff" })
-    hi("EndOfBuffer", { fg = "#292D3E" })
+    hi("CursorLine", { bg = "#212433", })
+    hi("StatusLine", { bg = "#212433", })
+    hi("StatusLineNC", { bg = "#212433", })
+    hi("Folded", { bg = "#1e212e", })
+    hi("ColorColumn", { bg = "#33384d", })
+    hi("NonText", { fg = "#3c445f", })
+    hi("TabLineSel", { fg = "#82b1ff", })
+    hi("IndentBlanklineContextChar", { fg = "#82b1ff", })
+    hi("EndOfBuffer", { fg = "#292D3E", })
     hi("PmenuThumb", { bg = "#6A3EB5" })
     hi_link("QuickFixLine", "DiffText")
     hi_link("@comment", "Comment")
     hi_link("NvimTreeIndentMarker", "LineNr")
     hi_link("TelescopeBorder", "Directory")
-    hi("DiffAdd", { bg = "#344a4d", fg = "NONE" })
-    hi("DiffDelete", { bg = "#4b3346", fg = "NONE" })
-    hi("DiffChange", { bg = "#32395c", fg = "NONE" })
-    hi("DiffText", { bg = "#3f4a87", fg = "NONE" })
-    hi("diffChanged", { fg = "#82b1ff" })
-    hi("GitSignsChange", { fg = "#82b1ff" })
+    hi("DiffAdd", { bg = "#344a4d", fg = "NONE", })
+    hi("DiffDelete", { bg = "#4b3346", fg = "NONE", })
+    hi("DiffChange", { bg = "#32395c", fg = "NONE", })
+    hi("DiffText", { bg = "#3f4a87", fg = "NONE", })
+    hi("diffChanged", { fg = "#82b1ff", })
+    hi("GitSignsChange", { fg = "#82b1ff", })
     hi("LspReferenceText", { bg = bg_normal:mod_value(0.12):to_css() })
     hi("LspReferenceRead", { bg = bg_normal:mod_value(0.12):to_css() })
     hi("LspReferenceWrite", { bg = bg_normal:mod_value(0.12):to_css() })
-    hi("NvimTreeRootFolder", { fg = "#C3E88D", style = "bold" })
-    hi("NvimTreeFolderIcon", { fg = "#F78C6C" })
-    hi("NvimTreeNormal", { bg = "#222533" })
-    hi("NvimTreeCursorLine", { bg = "#33374c" })
-    hi("NvimTreeGitDirty", { fg = "#ffcb6b" })
+    hi("NvimTreeRootFolder", { fg = "#C3E88D", style = "bold", })
+    hi("NvimTreeFolderIcon", { fg = "#F78C6C", })
+    hi("NvimTreeNormal", { bg = "#222533", })
+    hi("NvimTreeCursorLine", { bg = "#33374c", })
+    hi("NvimTreeGitDirty", { fg = "#ffcb6b", })
     do_diff_gen = false
+
   elseif colors_name == "onedarkpro" then
-    hi({ "Cursor", "TermCursor" }, { style = "reverse", bg = "NONE" })
-    hi("NormalFloat", { bg = bg_normal:mod_value(-0.025):to_css() })
+    hi({ "Cursor", "TermCursor" }, { style = "reverse", bg = "NONE", })
+    hi("NormalFloat", { bg = bg_normal:mod_value(-0.025):to_css(), })
     hi_link("TelescopeSelection", "CursorLine")
     hi_link("TelescopeBorder", "Directory")
     hi_link("diffChanged", "Directory")
     if bg == "dark" then
-      hi("Identifier", { fg = "#c678dd" })
-      hi("TabLineSel", { fg = "#61afef", bg = "NONE" })
-      hi("Whitespace", { fg = bg_normal:mod_value(0.2):to_css() })
+      hi("Identifier", { fg = "#c678dd", })
+      hi("TabLineSel", { fg = "#61afef", bg = "NONE", })
+      hi("Whitespace", { fg = bg_normal:mod_value(0.2):to_css(), })
       hi("NonText", { fg = bg_normal:mod_value(0.2):to_css(), bg = "NONE" })
-      hi("IndentBlanklineContextChar", { fg = "#61afef" })
-      hi("CursorLine", { bg = bg_normal:mod_value(-0.05):to_css() })
-      hi("FoldColumn", { fg = "#61afef" })
-      hi("StatusLine", { bg = bg_normal:mod_value(-0.03):to_css() })
-      hi("LspReferenceText", { bg = bg_normal:mod_value(0.1):to_css() })
-      hi("NvimTreeOpenedFolderName", { fg = "#61afef", style = "italic,bold" })
-      hi("NvimTreeRootFolder", { fg = "#98c379" })
-      hi("NvimTreeGitDirty", { fg = "#e5c07b" })
-      hi("NvimTreeGitStaged", { fg = "#98c379" })
+      hi("IndentBlanklineContextChar", { fg = "#61afef", })
+      hi("CursorLine", { bg = bg_normal:mod_value(-0.05):to_css(), })
+      hi("FoldColumn", { fg = "#61afef", })
+      hi("StatusLine", { bg = bg_normal:mod_value(-0.03):to_css(), })
+      hi("LspReferenceText", { bg = bg_normal:mod_value(0.1):to_css(), })
+      hi("NvimTreeOpenedFolderName", { fg = "#61afef", style = "italic,bold", })
+      hi("NvimTreeRootFolder", { fg = "#98c379", })
+      hi("NvimTreeGitDirty", { fg = "#e5c07b", })
+      hi("NvimTreeGitStaged", { fg = "#98c379", })
     end
+
   elseif colors_name == "doom-one" then
     if bg == "dark" then
       hi("Primary", { fg = hl.get_fg("Keyword") })
-      hi("diffAdded", { bg = "NONE", fg = "#97BE65" })
-      hi("diffRemoved", { bg = "NONE", fg = "#FF6C69" })
-      hi("diffChanged", { fg = "#51afef" })
-      hi("SignColumn", { bg = "NONE" })
+      hi("diffAdded", { bg = "NONE", fg = "#97BE65", })
+      hi("diffRemoved", { bg = "NONE", fg = "#FF6C69", })
+      hi("diffChanged", { fg = "#51afef", })
+      hi("SignColumn", { bg = "NONE", })
       hi("CursorLine", { bg = bg_normal:highlight(0.05):to_css() })
       hi("CursorLineNr", { bg = bg_normal:highlight(0.05):to_css(), style = "bold" })
-      hi("DiagnosticError", { fg = "#ff6c6b" })
-      hi("DiagnosticWarn", { fg = "#ECBE7B" })
-      hi("DiagnosticInfo", { fg = "#51afef" })
-      hi("DiagnosticHint", { fg = "LightBlue" })
-      hi("GitSignsChange", { fg = "#51afef" })
-      hi("NvimTreeRootFolder", { style = "bold" })
-      hi("SpellCap", { sp = "#51afef" })
-      hi("SpellBad", { sp = "#FF6C69" })
-      hi("SpellRare", { sp = "#a9a1e1" })
-      hi("SpellLocal", { sp = "#da8548" })
+      hi("DiagnosticError", { fg = "#ff6c6b"} )
+      hi("DiagnosticWarn", { fg = "#ECBE7B"} )
+      hi("DiagnosticInfo", { fg = "#51afef"} )
+      hi("DiagnosticHint", { fg = "LightBlue"} )
+      hi("GitSignsChange", { fg = "#51afef", })
+      hi("NvimTreeRootFolder", { style = "bold", })
+      hi("SpellCap", { sp = "#51afef", })
+      hi("SpellBad", { sp = "#FF6C69", })
+      hi("SpellRare", { sp = "#a9a1e1", })
+      hi("SpellLocal", { sp = "#da8548", })
       hi("Visual", { bg = Color.from_hl("WildMenu", "bg"):blend(bg_normal, 0.7):to_css() })
-      hi("LspReferenceText", { bg = bg_normal:mod_value(0.1):to_css() })
+      hi("LspReferenceText", { bg = bg_normal:mod_value(0.1):to_css()})
       vim.opt.pumblend = 0
     end
+
   elseif colors_name:match("^catppuccin") then
     hi("Primary", { fg = hl.get_fg("Function") })
     hi("Accent", { fg = hl.get_fg("Constant") })
     hi_link("ColorColumn", "CursorLine")
     hi("CursorLine", { style = "NONE", bg = bg_normal:highlight(0.07):to_css() })
     hi("WinSeparator", { fg = "#11111b", explicit = true })
-    hi({ "TsNumber", "TsFloat" }, { style = "NONE" })
     hi("Visual", {
       style = "NONE",
-      bg = Color.from_hl("Directory", "fg"):mod_lightness(-0.1):blend(bg_normal, 0.85):to_css(),
+      bg = Color.from_hl("Directory", "fg")
+        :mod_lightness(-0.1)
+        :blend(bg_normal, 0.85)
+        :to_css()
     })
     hi("TablineSel", { bg = "NONE" })
     hi("BufferLineCloseButtonSelected", { fg = fg_normal:blend(bg_normal, 0.3):to_css() })
     hi("BufferLineIndicatorSelected", { fg = hl.get_fg("Accent") })
-    hi("TelescopeBorder", { fg = hl.get_fg("FloatBorder") })
 
     if bg == "dark" then
       hi({ "NormalFloat", "StatusLine" }, { bg = bg_normal:mod_value(-0.025):to_css() })
@@ -572,7 +584,6 @@ function M.apply_tweaks()
       hi({ "diffChanged", "@diff.delta" }, { fg = "#A4B9EF", explicit = true })
       hi("ModeMsg", { fg = "#98BBF5" })
       hi("@ibl.scope.char.1", { fg = "#B5E8E0" })
-      hi("IndentBlanklineContextChar", { fg = "#B5E8E0" })
       hi("BufferLineFill", { bg = bg_normal:highlight(-0.07):to_css() })
       hi("TelescopePromptPrefix", { fg = "#F08FA9" })
     else
@@ -586,10 +597,12 @@ function M.apply_tweaks()
     for _, name in ipairs(diagnostic_kinds) do
       hi("Diagnostic" .. name, { bg = "NONE" })
     end
+
   elseif colors_name == "dracula" then
     hi("Primary", { fg = "#50FA7B" })
     hi("Accent", { fg = "#FF79C6" })
     hi_link("QuickFixLine", "Visual")
+
   elseif colors_name == "paper" then
     hi("Normal", { fg = "#222222" })
     hi("StatusLine", { fg = "#222222" })
@@ -597,11 +610,12 @@ function M.apply_tweaks()
     hi({ "Whitespace", "NonText" }, { fg = bg_normal:highlight(0.2):to_css(), bg = "NONE" })
     hi_link("IndentBlanklineChar", "Whitespace")
     hi("Visual", { bg = Color.from_hl("Number", "fg"):blend(bg_normal, 0.8):to_css() })
-    hi("Directory", { fg = "#2c8dd0" })
+    hi("Directory", { fg= "#2c8dd0" })
     hi("LspReferenceText", { bg = Color.from_hex("#5c21a5"):blend(bg_normal, 0.85):to_css() })
     hi("DiagnosticHint", { fg = "#4d945f" })
     hi("MatchParen", { fg = "#ff3a36" })
     diff_gen_opt = { no_derive = true }
+
   elseif colors_name == "seoulbones" then
     if bg == "light" then
       hi("Primary", { fg = hl.get_fg("Statement") })
@@ -624,19 +638,20 @@ function M.apply_tweaks()
       vim.g.terminal_color_8 = "#BFBABB"
       vim.g.terminal_color_1 = "#DC5284"
       vim.g.terminal_color_9 = "#BE3C6D"
-      vim.g.terminal_color_2 = "#628562"
+      vim.g.terminal_color_2  = "#628562"
       vim.g.terminal_color_10 = "#487249"
-      vim.g.terminal_color_3 = "#C48562"
+      vim.g.terminal_color_3  = "#C48562"
       vim.g.terminal_color_11 = "#A76B48"
-      vim.g.terminal_color_4 = "#0084A3"
+      vim.g.terminal_color_4  = "#0084A3"
       vim.g.terminal_color_12 = "#006F89"
-      vim.g.terminal_color_5 = "#896788"
+      vim.g.terminal_color_5  = "#896788"
       vim.g.terminal_color_13 = "#7F4C7E"
-      vim.g.terminal_color_6 = "#008586"
+      vim.g.terminal_color_6  = "#008586"
       vim.g.terminal_color_14 = "#006F70"
-      vim.g.terminal_color_7 = "#555555"
+      vim.g.terminal_color_7  = "#555555"
       vim.g.terminal_color_15 = "#777777"
     end
+
   elseif colors_name:match("^github_") then
     hi("Primary", { fg = hl.get_fg("Title") })
     hi("Accent", { fg = hl.get_fg("Statement") })
@@ -664,6 +679,8 @@ function M.apply_tweaks()
     diff_gen_opt = { no_derive = { mod = true } }
     M.apply_terminal_defaults()
     M.unstyle_telescope()
+
+  elseif colors_name == "kanagawa" then
     hi(
       { "NormalFloat", "StatusLine", "StatusLineNC", "TablineSel", "MsgArea" },
       { fg = fg_normal:to_css() }
@@ -683,6 +700,7 @@ function M.apply_tweaks()
 
     vim.g.terminal_color_0 = bg_normal:mod_value(0.15):to_css()
     vim.g.terminal_color_8 = bg_normal:mod_value(0.15):to_css()
+
   elseif colors_name == "oxocarbon-lua" then
     if bg == "dark" then
       hi("Primary", { fg = hl.get_fg("Boolean") })
@@ -690,7 +708,7 @@ function M.apply_tweaks()
       hi_link("NormalNC", "Normal")
       hi("StatusLine", {
         bg = bg_normal:highlight(0.05):to_css(),
-        fg = fg_normal:mod_value(-0.2):to_css(),
+        fg = fg_normal:mod_value(-0.2):to_css()
       })
       hi({ "FloatBorder", "WinSeparator" }, { fg = bg_normal:highlight(0.3):to_css() })
       hi("Visual", { bg = Color.from_hl("Type", "fg"):blend(bg_normal, 0.8):mod_hue(25):to_css() })
@@ -712,6 +730,7 @@ function M.apply_tweaks()
     end
 
     M.unstyle_telescope()
+
   elseif colors_name == "nordic" then
     hi("NormalFloat", { bg = bg_normal:mod_value(-0.025):to_css() })
     hi("FloatBorder", {
@@ -747,6 +766,7 @@ function M.apply_tweaks()
     hi("DiffviewFolderName", { bg = "NONE" })
 
     M.unstyle_telescope()
+
   elseif colors_name == "vscode" then
     hi("Special", { fg = hl.get_fg("Function"), explicit = true })
     hi({ "Comment", "@comment" }, { fg = fg_normal:blend(bg_normal, 0.5):to_css() })
@@ -780,6 +800,7 @@ function M.apply_tweaks()
         { fg = hl.get_fg("@variable") }
       )
     end
+
   elseif colors_name == "rasmus" then
     local white = hl.get_fg("Normal")
     local yellow = hl.get_fg("Tag")
@@ -793,8 +814,9 @@ function M.apply_tweaks()
     hi("Identifier", { fg = white, explicit = true })
     hi("Special", { fg = orange, explicit = true })
     hi("Number", { fg = purple, explicit = true })
-    hi_link("Float", "Number", { clear = true })
+    hi_link("Float", "Number", { clear = true})
     hi_link("Boolean", "Special", { clear = true })
+    hi_link("Structure", "Type", { clear = true })
     hi("Operator", { fg = blue, explicit = true })
     hi("NormalFloat", { bg = bg_normal:highlight(0.03):to_css() })
     hi("NonText", { fg = bg_normal:mod_value(0.2):to_css(), explicit = true })
@@ -823,7 +845,11 @@ function M.apply_tweaks()
     hi_link("diffSubname", "Keyword", { clear = true })
 
     hi_link({ "fugitiveHash", "DiffviewSecondary", "DiffviewHash" }, "Number", { clear = true })
-    hi_link({ "DiffviewFilePanelSelected", "TelescopeMultiSelection" }, "Tag", { clear = true })
+    hi_link(
+      { "DiffviewFilePanelSelected", "TelescopeMultiSelection" },
+      "Tag",
+      { clear = true }
+    )
     hi_link("DiffviewReflogSelector", "Special", { clear = true })
 
     M.unstyle_telescope()
@@ -869,6 +895,32 @@ function M.apply_tweaks()
     hi_link("gitStat", "Directory", { clear = true })
 
     M.apply_terminal_defaults()
+
+  elseif colors_name == "jellybeans" then
+    hi({ "WinSeparator" }, { fg = bg_normal:highlight(0.2):to_css() })
+    hi("FloatBorder", {
+      fg = bg_normal:highlight(0.2):to_css(),
+      bg = hl.get_bg("NormalFloat"),
+      explicit = true,
+    })
+    hi("CursorLine", { bg = bg_normal:highlight(0.08):to_css(), explicit = true })
+    hi_link("ColorColumn", "CursorLine", { clear = true })
+    hi({ "diffChanged", "@diff.delta" }, { fg = hl.get_fg("Statement"), explicit = true })
+    hi("Search", {
+      bg = Color.from_hl("Type", "fg"):blend(bg_normal, 0.7):to_css(),
+      fg = fg_normal:to_css(),
+    })
+    hi_link("IncSearch", "Search")
+    hi("CurSearch", {
+      bg = Color.from_hl("Type", "fg"):to_css(),
+      fg = "#000000",
+    })
+    hi({ "StatusLine", "StatusLineNC" }, { bg = bg_normal:highlight(0.05):to_css() })
+
+    hi("@lsp.type.property", { fg = "#CEDAE3" , explicit = true})
+    hi_link("@variable", "Identifier", { clear = true })
+
+    M.unstyle_telescope()
   end
 
   M.generate_base_colors()
@@ -885,23 +937,23 @@ function M.apply_tweaks()
   hi_link("@lsp.mod.defaultLibrary", "Special", { clear = true })
   hi_link("@lsp.type.variable.lua", "@lsp", { clear = true })
   hi("TreesitterContext", { bg = bg_normal:highlight(0.08):to_css() })
+  hi("TreesitterContextBottom", { style = "underline", sp = bg_normal:highlight(0.37):to_css() })
   hi_link("@neorg.markup.verbatim", "@text.literal")
 
   hi({ "@neorg.tags.ranged_verbatim.code_block", "Folded" }, {
-    bg = bg_normal:mod_value(-0.03):to_css(),
+    bg = bg_normal
+      :mod_value(-0.03)
+      :to_css(),
   })
 
   -- Remove bg from various groups
-  hi({
-    "LineNr",
-    "CursorLineNr",
-    "CursorLineSign",
-    "CursorLineFold",
-    "FoldColumn",
-    "SignColumn",
-    "Directory",
-    "ModeMsg",
-  }, { bg = "NONE" })
+  hi(
+    {
+      "LineNr", "CursorLineNr", "CursorLineSign", "CursorLineFold", "FoldColumn", "SignColumn",
+      "Directory", "ModeMsg",
+    },
+    { bg = "NONE" }
+  )
   for _, kind in ipairs(diagnostic_kinds) do
     hi("DiagnosticSign" .. kind, { bg = "NONE" })
   end
@@ -953,15 +1005,15 @@ function M.apply_tweaks()
   hi_link("GitSignsChange", "DiffFgChange", { clear = true })
   hi("GitSignsAddInline", {
     fg = hl.get_bg("DiffInlineAdd"),
-    bg = hl.get_fg("DiffInlineAdd"),
+    bg = hl.get_fg("DiffInlineAdd")
   })
   hi("GitSignsDeleteInline", {
     fg = hl.get_bg("DiffInlineDelete"),
-    bg = hl.get_fg("DiffInlineDelete"),
+    bg = hl.get_fg("DiffInlineDelete")
   })
   hi("GitSignsChangeInline", {
     fg = hl.get_bg("DiffInlineChange"),
-    bg = hl.get_fg("DiffInlineChange"),
+    bg = hl.get_fg("DiffInlineChange")
   })
 
   hi_link("diffOldFile", "DiffFgDelete", { clear = true })
@@ -1004,9 +1056,6 @@ function M.apply_tweaks()
     { clear = true }
   )
 
-  hi_link("IndentBlanklineChar", "Whitespace", { clear = true })
-  hi_link("IndentBlanklineSpaceChar", "Whitespace", { clear = true })
-
   -- Make breaking changes stand out more
   hi("packerBreakingChange", {
     fg = hl.get_fg("DiagnosticError"),
@@ -1031,30 +1080,6 @@ function M.apply_tweaks()
     hi("TSRainbowCyan", { fg = "#88c0d0" })
     hi("TSRainbowBlue", { fg = "#5e81ac" })
     hi("TSRainbowViolet", { fg = "#b48ead" })
-  end
-
-  -- Customize SmoothCursor
-  if vim.o.background == "dark" then
-    hi("SmoothCursor", { fg = "#FFD400", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen0", { fg = "#3e7e50", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen1", { fg = "#366e47", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen2", { fg = "#2d5e3d", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen3", { fg = "#154e33", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursor", { fg = "#FFD400", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen4", { fg = "#0c3f28", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen5", { fg = "#142f1e", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen6", { fg = "#0b1f15", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen7", { fg = "#040f0a", bg = "NONE", gui = "NONE" })
-  else
-    hi("SmoothCursor", { fg = "#FFD400", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen0", { fg = "#66b71f", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen1", { fg = "#7fb74f", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen2", { fg = "#8db769", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen3", { fg = "#99b77f", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen4", { fg = "#a3b791", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen5", { fg = "#acb7a3", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen6", { fg = "#b3b7b1", bg = "NONE", gui = "NONE" })
-    hi("SmoothCursorGreen7", { fg = "#b7b7b7", bg = "NONE", gui = "NONE" })
   end
 
   hi("LirFloatCursorLine", {
@@ -1082,7 +1107,10 @@ function M.apply_tweaks()
     fg = "NONE",
   })
 
-  hi({ "CmpItemKindFile", "CmpItemKindFolder" }, { fg = hl.get_fg("@text.uri"), explicit = true })
+  hi(
+    { "CmpItemKindFile", "CmpItemKindFolder" },
+    { fg = hl.get_fg("@text.uri"), explicit = true }
+  )
 
   if Config.plugin.feline then
     Config.plugin.feline.reload()

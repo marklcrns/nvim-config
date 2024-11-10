@@ -129,6 +129,7 @@ require("lazy").setup({
   { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
   { "sindrets/oxocarbon-lua.nvim",   lazy = false },
   { "ferdinandrau/lavish.nvim", lazy = false },
+  { "wtfox/jellybeans.nvim", lazy = false },
 
   -- STARTUP
   {
