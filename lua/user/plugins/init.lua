@@ -856,12 +856,12 @@ require("lazy").setup({
   },
 
   -- MISC
-  -- {
-  --   "ThePrimeagen/harpoon",
-  --   event = "VimEnter",
-  --   init = utils.load_mappings("harpoon"),
-  --   config = true,
-  -- },
+  {
+    "ThePrimeagen/harpoon",
+    event = "VimEnter",
+    init = utils.load_mappings("harpoon"),
+    config = true,
+  },
   {
     "m4xshen/hardtime.nvim",
     cond = not vim.g.low_performance_mode,
