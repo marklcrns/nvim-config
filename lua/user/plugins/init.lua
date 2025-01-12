@@ -132,13 +132,6 @@ require("lazy").setup({
   { "wtfox/jellybeans.nvim", lazy = false },
 
   -- STARTUP
-  {
-    "levouh/tint.nvim",
-    lazy = false,
-    cond = not vim.g.low_performance_mode,
-    event = "VimEnter",
-    config = conf("tint", "tint"),
-  },
   { "goolord/alpha-nvim",          config = conf("alpha"),            event = "VimEnter" },
 
   -- BEHAVIOR
@@ -162,15 +155,15 @@ require("lazy").setup({
       })
     end,
   },
-  -- {
-  --   "kevinhwang91/nvim-ufo",
-  --   cond = not vim.g.low_performance_mode,
-  --   init = utils.lazy_load("nvim-ufo"),
-  --   config = conf("nvim-ufo"),
-  --   dependencies = {
-  --     "kevinhwang91/promise-async",
-  --   },
-  -- },
+  {
+    "kevinhwang91/nvim-ufo",
+    cond = not vim.g.low_performance_mode,
+    init = utils.lazy_load("nvim-ufo"),
+    config = conf("nvim-ufo"),
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+  },
   -- {
   --   "anuvyklack/pretty-fold.nvim",
   --   config = conf("pretty-fold"),
@@ -256,11 +249,11 @@ require("lazy").setup({
     dependencies = "nvim-tree/nvim-web-devicons",
     config = conf("bufferline"),
   },
-  {
-    "feline-nvim/feline.nvim",
-    event = "VimEnter",
-    config = conf("feline"),
-  },
+  -- {
+  --   "feline-nvim/feline.nvim",
+  --   event = "VimEnter",
+  --   config = conf("feline"),
+  -- },
 
   -- UI INTERFACE
   {
@@ -305,11 +298,6 @@ require("lazy").setup({
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-media-files.nvim" },
   { "nvim-telescope/telescope-ui-select.nvim" },
-  {
-    "nvim-telescope/telescope-frecency.nvim",
-    init = utils.load_mappings("frecency"),
-    dependencies = { "kkharji/sqlite.lua" },
-  },
   { "debugloop/telescope-undo.nvim" },
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -328,13 +316,6 @@ require("lazy").setup({
         config = conf("nvim-window-picker"),
       },
     },
-  },
-  {
-    "stevearc/oil.nvim",
-    init = utils.load_mappings("oil"),
-    cmd = "Oil",
-    config = conf("oil"),
-    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
     "kshenoy/vim-signature",
@@ -417,11 +398,11 @@ require("lazy").setup({
       vim.g.niceblock_use_default_mappings = 0
     end,
   },
-  {
-    "RRethy/vim-illuminate",
-    event = "BufRead",
-    config = conf("vim-illuminate"),
-  },
+  -- {
+  --   "RRethy/vim-illuminate",
+  --   event = "BufRead",
+  --   config = conf("vim-illuminate"),
+  -- },
   {
     "andymass/vim-matchup",
     cond = not vim.g.low_performance_mode,
@@ -437,7 +418,6 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
     },
   },
-  -- INFO: Disabled since its not working properly
   {
     "smjonas/inc-rename.nvim",
     init = utils.load_mappings("inc_rename"),
@@ -762,6 +742,7 @@ require("lazy").setup({
       },
       {
         "zbirenbaum/copilot-cmp",
+        cond = vim.g.ai_enabled,
         config = conf("copilot-cmp"),
         dependencies = {
           {
@@ -780,22 +761,6 @@ require("lazy").setup({
       -- },
     },
   },
-  {
-    "danymat/neogen",
-    init = utils.load_mappings("neogen"),
-    cmd = "Neogen",
-    config = function()
-      require("neogen").setup({
-        enabled = true,
-        snippet_engine = "luasnip",
-      })
-    end,
-  },
-  -- {
-  --   "smjonas/snippet-converter.nvim",
-  --   cmd = { "ConvertSnippets" },
-  --   config = conf("snippet-converter"),
-  -- },
 
   -- CODE RUNNER
   {
@@ -842,16 +807,6 @@ require("lazy").setup({
     init = function()
       utils.load_mappings("vimwiki")
       conf("vimwiki")()
-    end,
-  },
-  {
-    "epwalsh/obsidian.nvim",
-    -- cond = vim.fn.expand("%:p:h"):find("/obsidian/") ~= nil,
-    ft = { "markdown" },
-    cmd = { "ObsidianOpen", "ObsidianSearch", "ObsidianQuickSwitch" },
-    init = function()
-      utils.load_mappings("obsidian")
-      conf("obsidian")()
     end,
   },
 

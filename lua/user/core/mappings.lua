@@ -786,14 +786,6 @@ M.obsidian = {
   },
 }
 
-M.oil = {
-  plugin = true,
-
-  n = {
-    ["-"] = { "<cmd>Oil<CR>", "open oil", opts = default_opts },
-  },
-}
-
 M.outline = {
   plugin = true,
 
@@ -1162,14 +1154,6 @@ M.text_case = {
       "to/path/case",
       opts = default_opts,
     },
-  },
-}
-
-M.tint = {
-  plugin = true,
-
-  n = {
-    ["<localleader>sd"] = { "<cmd>lua require('tint').toggle()<CR>", "toggle diminactive", opts = default_opts },
   },
 }
 
