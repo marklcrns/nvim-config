@@ -70,11 +70,6 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   {
-    "vhyrro/luarocks.nvim",
-    priority = 1000,
-    config = true,
-  },
-  {
     "tpope/vim-eunuch",
     event = "VimEnter",
     config = conf("eunuch"),
@@ -100,17 +95,6 @@ require("lazy").setup({
       "rcarriga/nvim-notify",
     },
   },
-  -- {
-  --   "mrded/nvim-lsp-notify",
-  --   event = "VimEnter",
-  --   config = function()
-  --     -- require("lsp-notify").setup({ notify = require("notify") })
-  --     require("lsp-notify").setup()
-  --   end,
-  --   dependencies = {
-  --     "neovim/nvim-lspconfig",
-  --   },
-  -- },
   {
     "xiyaowong/transparent.nvim",
     init = utils.load_mappings("transparent"),
@@ -132,7 +116,7 @@ require("lazy").setup({
   { "wtfox/jellybeans.nvim", lazy = false },
 
   -- STARTUP
-  { "goolord/alpha-nvim",          config = conf("alpha"),            event = "VimEnter" },
+  { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
 
   -- BEHAVIOR
   {
@@ -296,7 +280,6 @@ require("lazy").setup({
     config = conf("telescope", "telescope"),
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  { "nvim-telescope/telescope-media-files.nvim" },
   { "nvim-telescope/telescope-ui-select.nvim" },
   { "debugloop/telescope-undo.nvim" },
   {
@@ -398,11 +381,11 @@ require("lazy").setup({
       vim.g.niceblock_use_default_mappings = 0
     end,
   },
-  -- {
-  --   "RRethy/vim-illuminate",
-  --   event = "BufRead",
-  --   config = conf("vim-illuminate"),
-  -- },
+  {
+    "RRethy/vim-illuminate",
+    event = "BufRead",
+    config = conf("vim-illuminate"),
+  },
   {
     "andymass/vim-matchup",
     cond = not vim.g.low_performance_mode,
@@ -762,14 +745,6 @@ require("lazy").setup({
     },
   },
 
-  -- CODE RUNNER
-  {
-    "Vigemus/iron.nvim",
-    version = "3.*",
-    cmd = { "IronRepl" },
-    config = conf("iron", "iron"),
-  },
-
   -- WEB DEVELOPMENT
   -- {
   --   "rest-nvim/rest.nvim",
@@ -782,23 +757,6 @@ require("lazy").setup({
 
   -- NOTETAKING
   {
-    "nvim-neorg/neorg-telescope",
-    init = utils.load_mappings("neorg_telescope"),
-    config = conf("neorg-telescope"),
-    dependencies = "nvim-telescope/telescope.nvim",
-  },
-  {
-    "nvim-neorg/neorg",
-    init = utils.load_mappings("neorg"),
-    ft = "norg",
-    cmd = { "Neorg", "NeorgOpen", "NeorgNew", "NeorgDoc", "NeorgHelp" },
-    config = conf("neorg"),
-    dependencies = {
-      "vhyrro/luarocks.nvim",
-      "nvim-neorg/neorg-telescope",
-    },
-  },
-  {
     "vimwiki/vimwiki",
     branch = "dev",
     cond = vim.fn.expand("%:p:h"):find("/Documents/my%-wiki/") ~= nil, -- NOTE: '-' is a special character and needs to be escaped
@@ -809,6 +767,28 @@ require("lazy").setup({
       conf("vimwiki")()
     end,
   },
+  -- {
+  --   "vhyrro/luarocks.nvim",
+  --   priority = 1000,
+  --   config = true,
+  -- },
+  -- {
+  --   "nvim-neorg/neorg-telescope",
+  --   init = utils.load_mappings("neorg_telescope"),
+  --   config = conf("neorg-telescope"),
+  --   dependencies = "nvim-telescope/telescope.nvim",
+  -- },
+  -- {
+  --   "nvim-neorg/neorg",
+  --   init = utils.load_mappings("neorg"),
+  --   ft = "norg",
+  --   cmd = { "Neorg", "NeorgOpen", "NeorgNew", "NeorgDoc", "NeorgHelp" },
+  --   config = conf("neorg"),
+  --   dependencies = {
+  --     "vhyrro/luarocks.nvim",
+  --     "nvim-neorg/neorg-telescope",
+  --   },
+  -- },
 
   -- MISC
   {
