@@ -10,7 +10,7 @@ let g:snippet_engine = 'luasnip'
 " Enable ai code autosuggestions
 let g:ai_enabled = v:true
 
-" Enable this to disable cpu intensive plugins/modules
+" Enable this to disable cpu intensive plugins/modules (default: false)
 let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false) == 0 ? v:false : v:true
 
 " Load core files. Will be deprecated soon!
