@@ -1,10 +1,13 @@
--- Load legacy vimrc config
-vim.cmd.source(vim.fn.stdpath("config") .. "/vimrc")
-
--- Only load the rest of the config if we're not in VSCode.
+-- VScode only config
 if vim.g.vscode then
+  -- VSCode Neovim
+  require "user.vscode_settings"
+  require "user.vscode_mappings"
   return
 end
+
+-- Load legacy vimrc config
+vim.cmd.source(vim.fn.stdpath("config") .. "/vimrc")
 
 _G.prequire = function(modname)
   local ok, mod = pcall(require, modname)
