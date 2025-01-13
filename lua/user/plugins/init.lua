@@ -725,6 +725,7 @@ require("lazy").setup({
       },
       {
         "zbirenbaum/copilot-cmp",
+        cond = vim.g.ai_enabled,
         config = conf("copilot-cmp"),
         dependencies = {
           {

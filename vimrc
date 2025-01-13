@@ -8,7 +8,7 @@ let g:enable_format_on_save= v:true
 let g:snippet_engine = 'luasnip'
 
 " Enable ai code autosuggestions
-let g:ai_enabled = v:true
+let g:ai_enabled = v:false
 
 " Enable this to disable cpu intensive plugins/modules (default: false)
 let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false) == 0 ? v:false : v:true
