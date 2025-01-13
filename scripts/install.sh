@@ -2,7 +2,7 @@
 
 # Install script to install all thinkvim dependencies
 
-SCRIPTPATH="$(realpath -s $0)"
+SCRIPTPATH="$(realpath $0)"
 SCRIPTDIR=$(dirname ${SCRIPTPATH})
 
 source $SCRIPTDIR/format.sh
