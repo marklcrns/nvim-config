@@ -811,6 +811,12 @@ require("lazy").setup({
     init = utils.load_mappings("cellular_automaton"),
   },
   {
+    "nvzone/typr",
+    cmd = { "Typr", "TyprStats" },
+    dependencies = { "nvzone/volt" },
+    opts = {},
+  },
+  {
     "kawre/leetcode.nvim",
     cmd = "Leet",
     lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
