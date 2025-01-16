@@ -470,11 +470,11 @@ nnoremap <leader>x <Cmd>tabc<CR>
   nnoremap <silent> [Window]k <C-w>k
   nnoremap <silent> [Window]l <C-w>l
   nnoremap <silent> [Window]\ <C-w>p
-  nnoremap <silent> <M-h> <C-w>h
-  nnoremap <silent> <M-j> <C-w>j
-  nnoremap <silent> <M-k> <C-w>k
-  nnoremap <silent> <M-l> <C-w>l
-  nnoremap <silent> <M-\> <C-w>p
+  nnoremap <silent> <C-h> <C-w>h
+  nnoremap <silent> <C-j> <C-w>j
+  nnoremap <silent> <C-k> <C-w>k
+  nnoremap <silent> <C-l> <C-w>l
+  nnoremap <silent> <C-\> <C-w>p
   " Replace arrow keys for window resizing
   nnoremap <silent> <Up>      :resize -1<CR>
   nnoremap <silent> <Down>    :resize +1<CR>
