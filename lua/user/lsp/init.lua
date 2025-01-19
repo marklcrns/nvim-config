@@ -280,6 +280,9 @@ lspconfig.taplo.setup(M.create_config())
 -- Rust
 lspconfig.rust_analyzer.setup(M.create_config())
 
+-- Java
+lspconfig.jdtls.setup(M.create_config())
+
 -- Weird languages for school
 lspconfig.svlangserver.setup(M.create_config({
   filetypes = { "systemverilog", "verilog" },
