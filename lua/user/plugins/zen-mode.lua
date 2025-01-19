@@ -2,7 +2,7 @@ return function()
   require("zen-mode").setup({
     window = {
       backdrop = 0.95,
-      width = vim.api.nvim_get_option_value("textwidth") + 40,
+      width = 120,
       -- width = 120,
       height = 1,
       options = {
