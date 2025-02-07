@@ -102,7 +102,6 @@ require("lazy").setup({
   },
 
   -- COLORSCHEMES
-  { "scottmckendry/cyberdream.nvim", config = conf("cyberdream"),       lazy = false },
   { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false },
   { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = false },
   { "mcchrish/zenbones.nvim",        dependencies = "rktjmp/lush.nvim", lazy = false },
@@ -506,7 +505,7 @@ require("lazy").setup({
     "alexghergh/nvim-tmux-navigation",
     event = "VimEnter",
     config = conf("nvim-tmux-navigation"),
-  },
+    },
   -- Disabled because I ran out of free OpenAI API credits
   -- {
   --   "jackMort/ChatGPT.nvim",
