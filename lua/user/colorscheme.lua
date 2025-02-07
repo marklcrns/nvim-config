@@ -1,13 +1,13 @@
----Define the default colorscheme.
+--- Define the default colorscheme.
 ---
----Format is `"{name} [bg]"`, where `{name}` is the name of the colorscheme,
----and `[bg]` is the optionally defined value for 'background'. `{name}` may
----also be replaced with one of the special values "default_dark" or
----"default_light" which will apply a predefined default dark or light color
----scheme.
+--- Format is `"{name} [bg]"`, where `{name}` is the name of the colorscheme,
+--- and `[bg]` is the optionally defined value for 'background'. `{name}` may
+--- also be replaced with one of the special values "default_dark" or
+--- "default_light" which will apply a predefined default dark or light color
+--- scheme.
 ---
----Override the default colorscheme by defining the environment variable
----`NVIM_COLORSCHEME` using the same format.
+--- Override the default colorscheme by defining the environment variable
+--- `NVIM_COLORSCHEME` using the same format.
 local DEFAULT_COLORSCHEME = "default_dark"
 
 local Color = Config.common.color.Color
@@ -18,7 +18,6 @@ local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
 local M = {}
 
 M.DEFAULT_DARK = "tokyonight"
--- M.DEFAULT_DARK = "jellybeans"
 M.DEFAULT_LIGHT = "seoulbones"
 
 do
@@ -30,11 +29,11 @@ do
     end
   end
 
-  ---Name of the currently configured colorscheme.
-  ---@type string
+  --- Name of the currently configured colorscheme.
+  --- @type string
   M.name = name
-  ---Configured value for 'background'.
-  ---@type string?
+  --- Configured value for 'background'.
+  --- @type string?
   M.bg = bg
 
   if name == "default_dark" then
@@ -64,6 +63,8 @@ function M.apply_sp_underline()
     end
   end
 
+  hi("Underlined", { style = "underline" })
+
   -- Normalize diagnostic underlines
   for _, name in ipairs(diagnostic_kinds) do
     hi_clear("DiagnosticUnderline" .. name)
@@ -81,38 +82,63 @@ function M.clear_terminal_colors()
   end
 end
 
-function M.apply_terminal_defaults()
-  -- black
-  -- vim.g.terminal_color_0  = "#15161E"
-  -- vim.g.terminal_color_8  = "#414868"
-  vim.g.terminal_color_0 = Color.from_hl("Normal", "bg"):highlight(0.1):to_css()
-  vim.g.terminal_color_8 = Color.from_hl("Normal", "bg"):highlight(0.2):to_css()
+--- @class Config.colorscheme.generate_terminal_colors.Opts
+--- @field gen_normals? boolean
+--- @field gen_alts? boolean
+--- @field static_ansi8? boolean
 
-  -- red
-  vim.g.terminal_color_1  = "#f7768e"
-  vim.g.terminal_color_9  = Color.from_hex(vim.g.terminal_color_1):mod_value(0.15):to_css()
-  -- green
-  vim.g.terminal_color_2  = "#9ece6a"
-  vim.g.terminal_color_10  = Color.from_hex(vim.g.terminal_color_2):mod_value(0.15):to_css()
-  -- yellow
-  vim.g.terminal_color_3  = "#e0af68"
-  vim.g.terminal_color_11  = Color.from_hex(vim.g.terminal_color_3):mod_value(0.15):to_css()
-  -- blue
-  vim.g.terminal_color_4  = "#7aa2f7"
-  vim.g.terminal_color_12  = Color.from_hex(vim.g.terminal_color_4):mod_value(0.15):to_css()
-  -- magenta
-  vim.g.terminal_color_5  = "#bb9af7"
-  vim.g.terminal_color_13  = Color.from_hex(vim.g.terminal_color_5):mod_value(0.15):to_css()
-  -- cyan
-  vim.g.terminal_color_6  = "#7dcfff"
-  vim.g.terminal_color_14  = Color.from_hex(vim.g.terminal_color_6):mod_value(0.15):to_css()
-  -- white
-  vim.g.terminal_color_7  = "#a9b1d6"
-  vim.g.terminal_color_15 = "#c0caf5"
+--- @param opts? Config.colorscheme.generate_terminal_colors.Opts
+function M.generate_terminal_colors(opts)
+  opts = vim.tbl_extend("keep", opts or {}, {
+    gen_normals = true,
+    gen_alts = true,
+    static_ansi8 = false,
+  } --[[@as Config.colorscheme.generate_terminal_colors.Opts ]])
+
+  if opts.gen_normals then
+    -- black
+    -- vim.g.terminal_color_0  = "#15161E"
+    -- vim.g.terminal_color_8  = "#414868"
+    vim.g.terminal_color_0 = Color.from_hl("Normal", "bg"):highlight(0.1):to_css()
+    vim.g.terminal_color_8 = Color.from_hl("Normal", "bg"):highlight(0.2):to_css()
+  end
+
+  if opts.static_ansi8 then
+    -- red
+    vim.g.terminal_color_1  = "#f7768e"
+    -- green
+    vim.g.terminal_color_2  = "#9ece6a"
+    -- yellow
+    vim.g.terminal_color_3  = "#e0af68"
+    -- blue
+    vim.g.terminal_color_4  = "#7aa2f7"
+    -- magenta
+    vim.g.terminal_color_5  = "#bb9af7"
+    -- cyan
+    vim.g.terminal_color_6  = "#7dcfff"
+    -- white
+    vim.g.terminal_color_7  = "#a9b1d6"
+    vim.g.terminal_color_15 = "#c0caf5"
+  end
+
+  if opts.gen_alts then
+    -- red
+    vim.g.terminal_color_9  = Color.from_hex(vim.g.terminal_color_1):mod_value(0.15):to_css()
+    -- green
+    vim.g.terminal_color_10  = Color.from_hex(vim.g.terminal_color_2):mod_value(0.15):to_css()
+    -- yellow
+    vim.g.terminal_color_11  = Color.from_hex(vim.g.terminal_color_3):mod_value(0.15):to_css()
+    -- blue
+    vim.g.terminal_color_12  = Color.from_hex(vim.g.terminal_color_4):mod_value(0.15):to_css()
+    -- magenta
+    vim.g.terminal_color_13  = Color.from_hex(vim.g.terminal_color_5):mod_value(0.15):to_css()
+    -- cyan
+    vim.g.terminal_color_14  = Color.from_hex(vim.g.terminal_color_6):mod_value(0.15):to_css()
+  end
 end
 
----[Graph](https://www.desmos.com/calculator/tmiqlckphe)
----@param k number # Slope
+--- [Graph](https://www.desmos.com/calculator/tmiqlckphe)
+--- @param k number # Slope
 function M.parametric_ease_out(k)
   ---@param x number # [0,1]
   ---@return number # Progression
@@ -159,11 +185,11 @@ function M.generate_base_colors()
   end
 end
 
----@class GenerateDiffColorsSpec
----@field no_override boolean
----@field no_derive boolean|{ add: boolean, del: boolean, mod: boolean, all: boolean }
+--- @class Config.colorscheme.generate_diff_colors.Opts
+--- @field no_override boolean
+--- @field no_derive boolean|{ add: boolean, del: boolean, mod: boolean, all: boolean }
 
----@param opt? GenerateDiffColorsSpec
+--- @param opt? Config.colorscheme.generate_diff_colors.Opts
 function M.generate_diff_colors(opt)
   opt = opt or {}
   local bg = vim.o.bg
@@ -212,6 +238,10 @@ function M.generate_diff_colors(opt)
 
   -- Builtin groups
 
+  hi("@diff.plus", { fg = base_add:to_css(), link = -1, explicit = true })
+  hi("@diff.minus", { fg = base_del:to_css(), link = -1, explicit = true })
+  hi("@diff.delta", { fg = base_mod:to_css(), link = -1, explicit = true })
+
   if not opt.no_override then
     hi("DiffAdd", { bg = bg_add:to_css(), explicit = true })
     hi("DiffDelete", { bg = bg_del:to_css(), explicit = true })
@@ -239,11 +269,11 @@ function M.generate_diff_colors(opt)
   hi_link("Added", "@diff.plus", { clear = true })
   hi_link("Removed", "@diff.minus", { clear = true })
   hi_link("Changed", "@diff.delta", { clear = true })
-  hi_link("@text.diff.add", "DiffInlineAdd")
-  hi_link("@text.diff.delete", "DiffInlineDelete")
+  hi_link({ "@text.diff.add", "@diff.plus.diff" }, "DiffInlineAdd")
+  hi_link({ "@text.diff.delete", "@diff.minus.diff" }, "DiffInlineDelete")
 end
 
----Give Telescope its default appearance.
+--- Give Telescope its default appearance.
 function M.unstyle_telescope()
   hi_link("TelescopeNormal", "NormalFloat", { clear = true })
   hi_link("TelescopeBorder", "FloatBorder", { clear = true })
@@ -290,8 +320,8 @@ function M.find_base_colors()
   }
 end
 
----Configure the colorscheme before it's loaded.
----@param colors_name string The name of the new colorscheme.
+--- Configure the colorscheme before it's loaded.
+--- @param colors_name string The name of the new colorscheme.
 function M.setup_colorscheme(colors_name)
   M.clear_terminal_colors()
 
@@ -347,7 +377,7 @@ function M.setup_colorscheme(colors_name)
   end
 end
 
----Tweaks applied after loading a colorscheme.
+--- Tweaks applied after loading a colorscheme.
 function M.apply_tweaks()
   if not vim.o.termguicolors then
     Config.common.utils.warn(
@@ -385,11 +415,15 @@ function M.apply_tweaks()
     hi_link({ "fugitiveHash", "DiffviewHash", "DiffviewSecondary" }, "Primary", { clear = true })
   end
 
-  ---Controls whether or not diff hl is generated.
+  --- Controls whether or not diff hl is generated.
   local do_diff_gen = true
-  ---@type GenerateDiffColorsSpec
-  local diff_gen_opt
-  ---@type FelineThemeName
+  local diff_gen_opt ---@type Config.colorscheme.generate_diff_colors.Opts?
+  local terminal_gen_opt = {
+    gen_normals = true,
+    gen_alts = true,
+    static_ansi8 = false,
+  } --[[@as Config.colorscheme.generate_terminal_colors.Opts ]]
+  --- @type FelineThemeName
   local feline_theme = "duo"
 
   if colors_name == "codedark" then
@@ -678,7 +712,6 @@ function M.apply_tweaks()
       fg = hl.get_fg("Directory"),
     })
     diff_gen_opt = { no_derive = { mod = true } }
-    M.apply_terminal_defaults()
     M.unstyle_telescope()
 
   elseif colors_name == "kanagawa" then
@@ -769,24 +802,68 @@ function M.apply_tweaks()
     M.unstyle_telescope()
 
   elseif colors_name == "vscode" then
+    local search = "#613315";
+
     hi("Special", { fg = hl.get_fg("Function"), explicit = true })
     hi({ "Comment", "@comment" }, { fg = fg_normal:blend(bg_normal, 0.5):to_css() })
+    hi("NormalFloat", { bg = bg_normal:highlight(-0.02):to_css() })
+    hi(
+      { "WinSeparator", "VertSplit" },
+      { fg = bg_normal:highlight(0.2):to_css(), explicit = true, link = -1 }
+    )
+    hi("FloatBorder", {
+      fg = bg_normal:highlight(0.2):to_css(),
+      bg = hl.get_bg("NormalFloat"),
+      explicit = true,
+    })
+    hi({ "CursorLine", "ColorColumn" }, { bg = bg_normal:highlight(0.08):to_css(), explicit = true })
+    hi("Search", {
+      bg = search,
+      fg = fg_normal:to_css(),
+    })
+    hi_link("IncSearch", "Search")
+    hi("CurSearch", {
+      bg = Color.from_hex(search):blend(bg_normal, 0.6):highlight(0.5):to_css(),
+      fg = "#000000",
+    })
+
+    hi("@diff.plus", {
+      fg = Color.from_hex("#2EA043")
+        :mod_saturation(-0.3)
+        :mod_value(0.15)
+        :to_css(),
+      explicit = true,
+    })
+    hi("@diff.minus", {
+      fg = Color.from_hex("#F85149")
+        :mod_saturation(-0.2)
+        :mod_value(0.15)
+        :to_css(),
+      explicit = true,
+    })
+    hi("@diff.delta", {
+      fg = Color.from_hex("#0078D4")
+        :mod_saturation(-0.3)
+        :mod_value(0.15)
+        :to_css(),
+      explicit = true,
+    })
+
+    hi("IblScope", { fg = bg_normal:highlight(0.3):to_css(), explicit = true })
+
     hi("WarningMsg", { fg = "#FFCC00" })
     hi("DiagnosticHint", { fg = hl.get_fg("Structure") })
-    hi({ "CursorLine", "ColorColumn" }, { bg = bg_normal:highlight(0.03):to_css() })
-    hi_link("CurSearch", "IncSearch")
     hi_link("@text.literal", "@constructor")
-    hi_link("@lsp.mod.defaultLibrary", "@variable")
-    hi("IndentBlanklineContextChar", { gui = "" })
+    -- hi_link("@lsp.mod.defaultLibrary", "@variable")
     hi("DiffviewFilePanelSelected", { fg = hl.get_fg("Function"), explicit = true })
     hi_link("DiffviewReference", "@keyword")
     hi_link("TelescopePromptPrefix", "Accent")
 
     if bg == "dark" then
-      hi("Primary", { fg = hl.get_fg("@boolean") })
+      hi("Primary", { fg = hl.get_fg("Type") })
       hi("Accent", { fg = hl.get_fg("Statement") })
-      hi("@text.uri", { fg = "#40A6FF" })
-      hi("diffChanged", { fg = hl.get_fg("@boolean"), explicit = true })
+      hi("@text.uri", { fg = "#40A6FF", link = -1 })
+      hi_link("@markup.link.url", "@text.uri")
       hi(
         { "BufferLineModified", "BufferLineModifiedVisible", "BufferLineModifiedSelected" },
         { fg = hl.get_fg("@boolean") }
@@ -795,7 +872,6 @@ function M.apply_tweaks()
       hi("Primary", { fg = hl.get_fg("@variable") })
       hi("Accent", { fg = hl.get_fg("Structure") })
       hi("@text.uri", { fg = hl.get_fg("@constant") })
-      hi("diffChanged", { fg = hl.get_fg("@label"), explicit = true })
       hi(
         { "BufferLineModified", "BufferLineModifiedVisible", "BufferLineModifiedSelected" },
         { fg = hl.get_fg("@variable") }
@@ -895,8 +971,6 @@ function M.apply_tweaks()
     hi_link({ "fugitiveHash", "DiffviewHash", "DiffviewSecondary" }, "Type", { clear = true })
     hi_link("gitStat", "Directory", { clear = true })
 
-    M.apply_terminal_defaults()
-
   elseif colors_name == "jellybeans" then
     hi({ "WinSeparator" }, { fg = bg_normal:highlight(0.2):to_css() })
     hi("FloatBorder", {
@@ -904,9 +978,7 @@ function M.apply_tweaks()
       bg = hl.get_bg("NormalFloat"),
       explicit = true,
     })
-    hi("CursorLine", { bg = bg_normal:highlight(0.08):to_css(), explicit = true })
-    hi_link("ColorColumn", "CursorLine", { clear = true })
-    hi({ "diffChanged", "@diff.delta" }, { fg = hl.get_fg("Statement"), explicit = true })
+    hi({ "CursorLine", "ColorColumn" }, { bg = bg_normal:highlight(0.08):to_css(), explicit = true })
     hi("Search", {
       bg = Color.from_hl("Type", "fg"):blend(bg_normal, 0.7):to_css(),
       fg = fg_normal:to_css(),
@@ -917,11 +989,87 @@ function M.apply_tweaks()
       fg = "#000000",
     })
     hi({ "StatusLine", "StatusLineNC" }, { bg = bg_normal:highlight(0.05):to_css() })
+    hi_link("Title", "Special")
 
     hi("@lsp.type.property", { fg = "#CEDAE3" , explicit = true})
     hi_link("@variable", "Identifier", { clear = true })
 
+    hi("NonText", { fg = bg_normal:highlight(0.15):to_css(), explicit = true })
+    hi("IblScope", { fg = bg_normal:highlight(0.3):to_css(), explicit = true })
+
+    hi("Pmenu", { bg = bg_normal:mod_value(-0.05):to_css() })
+    hi("PmenuSbar", { bg = Color.from_hl("Pmenu", "bg"):mod_value(0.05):to_css() })
+    hi("PmenuThumb", { bg = Color.from_hl("PmenuSbar", "bg"):mod_value(0.15):to_css(), fg = "NONE" })
+
+    hi("@diff.plus", { fg = "#91BC7F", explicit = true })
+    hi("@diff.minus", { fg = "#EC6969", explicit = true })
+    hi("@diff.delta", { fg = "#b0d0f0", explicit = true })
+
+    hi("DiagnosticInfo", { fg = hl.get_fg("Statement") })
+    hi("DiagnosticHint", { fg = hl.get_fg("Special") })
+    hi("DiagnosticWarn", { fg = hl.get_fg("Type") })
+    hi("DiagnosticError", { fg = hl.get_fg("@diff.minus") })
+
     M.unstyle_telescope()
+
+  elseif colors_name == "americano" then
+    hi("Search", {
+      bg = Color.from_hl("Type", "fg"):blend(bg_normal, 0.7):to_css(),
+      fg = fg_normal:to_css(),
+    })
+    hi_link("IncSearch", "Search")
+    hi("CurSearch", {
+      bg = Color.from_hl("Type", "fg"):to_css(),
+      fg = "#000000",
+    })
+
+    hi("NonText", { fg = bg_normal:highlight(0.15):to_css(), explicit = true })
+    hi("IblScope", { fg = bg_normal:highlight(0.3):to_css(), explicit = true })
+
+    hi("NormalFloat", { bg = bg_normal:highlight(-0.015):to_css() })
+    hi("FloatBorder", {
+      fg = bg_normal:mod_value(0.1):to_css(),
+      bg = hl.get_bg("NormalFloat"),
+    })
+
+    hi("Directory", { fg = hl.get_fg("Function") })
+
+    hi("@diff.minus", { fg = hl.get_fg("Number"), explicit = true, link = -1 })
+
+    hi("DiagnosticUnnecessary", { explicit = true, fg = bg_normal:highlight(0.3):to_css() })
+
+    M.unstyle_telescope()
+
+  elseif colors_name == "oldworld" then
+    hi("Primary", { fg = hl.get_fg("Keyword"), explicit = true })
+    hi("Accent", { fg = hl.get_fg("Character"), explicit = true })
+
+    hi_link("NormalNC", "Normal", { clear = true })
+
+    hi("@diff.delta", { fg = hl.get_fg("Conditional"), explicit = true })
+
+    hi("NonText", { fg = bg_normal:highlight(0.15):to_css(), explicit = true })
+    hi("IblScope", { fg = bg_normal:highlight(0.3):to_css(), explicit = true })
+
+    hi(
+      { "CursorLine", "ColorColumn" },
+      { bg = bg_normal:highlight(0.04):to_css(), explicit = true }
+    )
+
+    hi({ "StatusLine", "StatusLineNC" }, { bg = bg_normal:highlight(-0.03):to_css() })
+
+    hi("PmenuThumb", { bg = Color.from_hl("PmenuSbar", "bg"):highlight(0.1):to_css() })
+    hi({ "Pmenu" }, {
+      fg = fg_normal:to_css(),
+      bg = bg_normal:highlight(-0.03):to_css(),
+      explicit = true,
+    })
+    hi({ "PmenuSel" }, { bg = bg_normal:highlight(0.06):to_css() })
+    hi_link({ "BlinkCmpMenu" }, "Pmenu")
+    hi_link({ "BlinkCmpMenuSelection" }, "PmenuSel")
+
+    M.unstyle_telescope()
+
   end
 
   M.generate_base_colors()
@@ -966,6 +1114,9 @@ function M.apply_tweaks()
   if do_diff_gen then
     M.generate_diff_colors(diff_gen_opt)
   end
+
+  -- Generate terminal hls
+  M.generate_terminal_colors(terminal_gen_opt)
 
   -- Update feline theme
   if Config.plugin.feline then
@@ -1063,6 +1214,7 @@ function M.apply_tweaks()
     sp = hl.get_fg("DiagnosticWarn"),
     style = "underline,bold",
   })
+  hi_link("LazyCommitIssue", "NONE", { clear = true })
 
   -- Adjust ts-rainbow colors depending on brightness
   if bg_normal.lightness >= 0.5 then
@@ -1111,6 +1263,20 @@ function M.apply_tweaks()
   hi(
     { "CmpItemKindFile", "CmpItemKindFolder" },
     { fg = hl.get_fg("@text.uri"), explicit = true }
+  )
+  hi(
+    {
+      "BlinkCmpLabelDeprecated",
+      "BlinkCmpLabelDetail",
+      "BlinkCmpLabelDescription",
+      "BlinkCmpSource",
+    },
+    {
+      fg = Color.from_hl({ "BlinkCmpMenu", "Pmenu", "Normal" }, "bg")
+        :highlight(0.25)
+        :to_css(),
+      explicit = true,
+    }
   )
 
   if Config.plugin.feline then

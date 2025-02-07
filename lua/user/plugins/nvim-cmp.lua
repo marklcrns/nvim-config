@@ -22,33 +22,31 @@ return function()
   end
 
   local lsp_kinds = {
-    Class = "  ",
-    Codeium = "  ",
-    Color = "  ",
-    Constant = "  ",
-    Constructor = "  ",
-    Copilot = "  ",
-    Enum = "  ",
-    EnumMember = "  ",
-    Event = "  ",
+    Method = "  ",
+    Function = " ƒ ",
+    Variable = "  ",
     Field = "  ",
+    TypeParameter = "  ",
+    Constant = "  ",
+    Class = "  ",
+    Interface = "  ",
+    Struct = "  ",
+    Event = "  ",
+    Operator = " 󰆕 ",
+    Module = " 󰅩 ",
+    Property = "  ",
+    Enum = "  ",
+    Reference = "  ",
+    Keyword = "  ",
     File = "  ",
     Folder = " 󰝰 ",
-    Function = " ƒ ",
-    Interface = "  ",
-    Keyword = "  ",
-    Method = "  ",
-    Module = " 󰅩 ",
-    Operator = " 󰆕 ",
-    Property = "  ",
-    Reference = "  ",
-    Snippet = "  ",
-    Struct = "  ",
-    Text = "  ",
-    TypeParameter = "  ",
+    Color = "  ",
     Unit = " 󰑭 ",
+    Snippet = "  ",
+    Text = "  ",
+    Constructor = "  ",
     Value = " 󰎠 ",
-    Variable = "  ",
+    EnumMember = "  "
   }
 
   local has_words_before = function()
@@ -392,13 +390,16 @@ return function()
       { name = "spell", group_index = 2 },
       {
         name = "buffer",
-        group_index = 2,
-        max_item_count = 10,
+        max_item_count = 20,
         option = {
           get_bufnrs = function()
-            return vim.tbl_filter(function(bufnr)
-              return utils.buf_get_size(bufnr) < 1024
-            end, utils.vec_union(utils.list_bufs({ listed = true }), utils.list_bufs({ no_hidden = true })))
+            return vim.tbl_filter(
+              function(bufnr) return utils.buf_get_size(bufnr) < 1024 end,
+              utils.vec_union(
+                utils.list_bufs({ no_unlisted = true }),
+                utils.list_bufs({ no_hidden = true })
+              )
+            )
           end,
         },
       },
@@ -447,13 +448,16 @@ return function()
       { name = "spell" },
       {
         name = "buffer",
-        group_index = 2,
-        max_item_count = 10,
+        max_item_count = 20,
         option = {
           get_bufnrs = function()
-            return vim.tbl_filter(function(bufnr)
-              return utils.buf_get_size(bufnr) < 1024
-            end, utils.vec_union(utils.list_bufs({ listed = true }), utils.list_bufs({ no_hidden = true })))
+            return vim.tbl_filter(
+              function(bufnr) return utils.buf_get_size(bufnr) < 1024 end,
+              utils.vec_union(
+                utils.list_bufs({ no_unlisted = true }),
+                utils.list_bufs({ no_hidden = true })
+              )
+            )
           end,
         },
       },
@@ -473,13 +477,16 @@ return function()
       { name = "path", group_index = 2 },
       {
         name = "buffer",
-        group_index = 2,
-        max_item_count = 10,
+        max_item_count = 20,
         option = {
           get_bufnrs = function()
-            return vim.tbl_filter(function(bufnr)
-              return utils.buf_get_size(bufnr) < 1024
-            end, utils.vec_union(utils.list_bufs({ listed = true }), utils.list_bufs({ no_hidden = true })))
+            return vim.tbl_filter(
+              function(bufnr) return utils.buf_get_size(bufnr) < 1024 end,
+              utils.vec_union(
+                utils.list_bufs({ no_unlisted = true }),
+                utils.list_bufs({ no_hidden = true })
+              )
+            )
           end,
         },
       },
@@ -502,13 +509,16 @@ return function()
       { name = "path", group_index = 2 },
       {
         name = "buffer",
-        group_index = 2,
-        max_item_count = 10,
+        max_item_count = 20,
         option = {
           get_bufnrs = function()
-            return vim.tbl_filter(function(bufnr)
-              return utils.buf_get_size(bufnr) < 1024
-            end, utils.vec_union(utils.list_bufs({ listed = true }), utils.list_bufs({ no_hidden = true })))
+            return vim.tbl_filter(
+              function(bufnr) return utils.buf_get_size(bufnr) < 1024 end,
+              utils.vec_union(
+                utils.list_bufs({ no_unlisted = true }),
+                utils.list_bufs({ no_hidden = true })
+              )
+            )
           end,
         },
       },
@@ -524,7 +534,6 @@ return function()
     completion = { autocomplete = false },
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      -- { name = 'buffer' }
       { name = 'buffer', option = { keyword_pattern = [=[[^[:blank:]].*]=] } }
     }
   })

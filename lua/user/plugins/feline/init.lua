@@ -1,10 +1,10 @@
-local lazy = require("user.lazy")
+local lz = require("user.lazy")
 
-local StatusComponent = lazy.require("user.plugins.feline.status_component") ---@type StatusComponent|LazyModule
-local feline = lazy.require("feline") ---@module "feline"
-local lsp = lazy.require("feline.providers.lsp") ---@module "feline.providers.lsp"
-local styles = lazy.require("user.plugins.feline.styles") ---@module "user.plugins.feline.styles"
-local devicons = lazy.require("nvim-web-devicons") ---@module "nvim-web-devicons"
+local StatusComponent = lz.require("user.plugins.feline.status_component") ---@type StatusComponent|LazyModule
+local feline = lz.require("feline") ---@module "feline"
+local lsp = lz.require("feline.providers.lsp") ---@module "feline.providers.lsp"
+local styles = lz.require("user.plugins.feline.styles") ---@module "user.plugins.feline.styles"
+local devicons = lz.require("nvim-web-devicons") ---@module "nvim-web-devicons"
 
 local utils = Config.common.utils
 local pl = utils.pl
@@ -40,8 +40,8 @@ local icons = {
   diagnostic = {
     err = "",
     warn = "",
+    hint = "",
     info = "",
-    hint = "",
   },
 }
 
@@ -224,11 +224,7 @@ M.components = {
     provider = {
       update = { "LspAttach", "LspDetach", "BufEnter" },
       get = function()
-        local clients = {}
-
-        for k, v in pairs(vim.lsp.buf_get_clients(0)) do
-          if type(k) == "number" then table.insert(clients, v) end
-        end
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
 
         if next(clients) then
           return table.concat(vim.tbl_map(function(v)
@@ -242,7 +238,7 @@ M.components = {
       if exclude[vim.bo.filetype] then
         return false
       end
-      return next(vim.lsp.buf_get_clients(0))
+      return next(vim.lsp.get_clients({ bufnr = 0 }))
     end,
     icon = icons.lsp_server .. " ",
     truncate_hide = true,
@@ -446,7 +442,7 @@ M.components = {
             dir = pl:parent(path) or "."
           else
             rev = vim.g.gitsigns_head or ""
-            path = uv.cwd()
+            path = assert(uv.cwd())
             dir = path
           end
 
@@ -461,9 +457,9 @@ M.components = {
           local cache = Config.state.git.rev_name_cache
           local key = path .. "#" .. rev
 
-          if cache:get(key) then
+          if cache:has(key) then
             return cache:get(key) .. desc
-          elseif rev == "HEAD" or rev:match("^%x+$") then
+          elseif (rev == "HEAD" or rev:match("^%x+$")) then
             -- Problem: Gitsigns shows the current HEAD as a commit SHA if it's
             -- anything other than the HEAD of a branch.
             -- Solution: Use git-name-rev to get more meaningful names.
@@ -543,7 +539,7 @@ M.components = {
       provider = "diagnostic_warnings",
       icon = icons.diagnostic.warn .. " ",
       enabled = function()
-        return lsp.diagnostics_exist(vim.diagnostic.severity.WARNING)
+        return lsp.diagnostics_exist(vim.diagnostic.severity.WARN)
       end,
       truncate_hide = true,
     }),

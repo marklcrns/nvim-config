@@ -65,7 +65,9 @@ require("neodev").setup({
 
 local cmp = prequire("cmp")
 local cmp_lsp = prequire("cmp_nvim_lsp")
+local blink = prequire("blink.cmp")
 local lspconfig = prequire("lspconfig")
+local server_configs = prequire("lspconfig.configs") or {}
 
 if not lspconfig then
   return
@@ -85,12 +87,15 @@ require("lspconfig.ui.windows").default_options.border = "single"
 function M.common_on_attach(client, bufnr)
   if not vim.g.low_performance_mode then
     -- require("illuminate").on_attach(client)
-    require("lsp_signature").on_attach({
-      bind = true, -- This is mandatory, otherwise border config won't get registered.
-      handler_opts = {
-        border = "single",
-      },
-    }, bufnr)
+    local lsp_signature = prequire("lsp_signature")
+    if lsp_signature then
+      lsp_signature.on_attach({
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+          border = "single",
+        },
+      }, bufnr)
+    end
   end
 end
 
@@ -98,7 +103,8 @@ M.base_config = {
   on_attach = M.common_on_attach,
   capabilities = utils.tbl_union_extend(
     vim.lsp.protocol.make_client_capabilities(),
-    cmp_lsp and cmp_lsp.default_capabilities() or nil
+    blink and blink.get_lsp_capabilities({}) or {},
+    cmp_lsp and cmp_lsp.default_capabilities() or {}
   ),
 }
 
@@ -161,66 +167,7 @@ end
 -- START LSP CONFIG ------------------------------------------------------------
 
 -- Typescript, Javascript
-local TSOrganizeImports = function()
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = {
-      only = { "source.organizeImports.ts" },
-      diagnostics = {},
-    },
-  })
-end
-local TSRemoveUnused = function()
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = {
-      only = { "source.removeUnused.ts" },
-      diagnostics = {},
-    },
-  })
-end
-lspconfig.ts_ls.setup(M.create_config({
-  single_file_support = true,
-  commands = {
-    TSOrganizeImports = {
-      TSOrganizeImports,
-      description = "Organize Imports",
-    },
-    TSRemoveUnused = {
-      TSRemoveUnused,
-      description = "Remove unused",
-    },
-  },
-
-  completions = {
-    completeFunctionCalls = true,
-  },
-  settings = {
-    javascript = {
-      inlayHints = {
-        includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayParameterNameHints = "none", -- 'none' | 'literals' | 'all';
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayVariableTypeHints = false,
-      },
-    },
-
-    typescript = {
-      inlayHints = {
-        includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayParameterNameHints = "none", -- 'none' | 'literals' | 'all';
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayVariableTypeHints = false,
-      },
-    },
-  },
-}))
+require("user.lsp.typescript")
 
 -- HTML + CSS
 lspconfig.html.setup(M.create_config())
@@ -245,6 +192,16 @@ lspconfig.pyright.setup(M.create_config())
 -- lspconfig.jedi_language_server.setup(M.create_config())
 
 -- Lua
+server_configs.emmylua_ls = {
+  default_config = {
+    cmd = { 'emmylua_ls' },
+    filetypes = { 'lua' },
+    root_dir = require("lspconfig.configs.lua_ls").default_config.root_dir,
+    single_file_support = true,
+    log_level = vim.lsp.protocol.MessageType.Warning,
+  }
+}
+
 require("user.lsp.lua")
 
 -- Luau
@@ -281,7 +238,7 @@ lspconfig.taplo.setup(M.create_config())
 lspconfig.rust_analyzer.setup(M.create_config())
 
 -- Java
-lspconfig.jdtls.setup(M.create_config())
+require("user.lsp.java")
 
 -- Weird languages for school
 lspconfig.svlangserver.setup(M.create_config({
@@ -313,16 +270,18 @@ lspconfig.eslint.setup(M.create_config({
 
 -- END LSP CONFIG --------------------------------------------------------------
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = false,
-  underline = true,
-  signs = {
-    priority = 100,
-  },
-  -- INFO: My config
-  update_in_insert = false,
-  severity_sort = true,
-})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    underline = true,
+    signs = {
+      priority = 100,
+    },
+    update_in_insert = false,
+    -- INFO: My config
+    severity_sort = true,
+  }
+)
 
 -- DIAGNOSTICS: Only show the sign with the highest priority per line
 -- From: `:h diagnostic-handlers-example`
@@ -365,7 +324,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 --   end,
 -- }
 
-local pop_opts = { border = "single", max_width = 84 }
+local pop_opts = { border = "single", max_width = 100 }
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, pop_opts)
 -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, pop_opts)
 
@@ -468,21 +427,43 @@ M.define_diagnostic_signs({
   info = "",
 })
 
--- LSP auto commands
-Config.common.au.declare_group("lsp_init", {}, {
-  { "CursorHold", callback = M.show_position_diagnostics },
-  {
-    "LspAttach",
-    callback = function(state)
-      local client = vim.lsp.get_client_by_id(state.data.client_id)
+do
+  -- LSP auto commands
+  Config.common.au.declare_group("lsp_init", {}, {
+    { "CursorHold", callback = M.show_position_diagnostics },
+    {
+      "LspAttach",
+      callback = function(state)
+        local client = vim.lsp.get_client_by_id(state.data.client_id)
 
-      if client and client.server_capabilities.inlayHintProvider then
-        -- Enable inlay hints:
-        vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
-      end
-    end,
-  }
-})
+        if client and client.server_capabilities.inlayHintProvider then
+          -- Enable inlay hints:
+          vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+        end
+      end,
+    },
+    {
+      "ModeChanged",
+      pattern = "*:i*",
+      callback = function(state)
+        if vim.diagnostic.is_enabled({ bufnr = 0 }) then
+          vim.b.diagnotic_was_toggled = true
+          vim.diagnostic.enable(false, { bufnr = state.buf })
+        end
+      end,
+    },
+    {
+      "ModeChanged",
+      pattern = "i*:*",
+      callback = function(state)
+        if vim.b.diagnotic_was_toggled then
+          vim.b.diagnotic_was_toggled = false
+          vim.diagnostic.enable(true, { bufnr = state.buf })
+        end
+      end,
+    },
+  })
+end
 
 -- Turn off LSP logging
 vim.lsp.set_log_level("off")

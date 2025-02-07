@@ -3,9 +3,9 @@
 -- - Move all `utils.load_mappings()` out of `init` and into the
 --   plugin's `config` or conf()
 
----Use local development version if it exists.
+--- Use local development version if it exists.
 ---NOTE: Remember to run `:PackerClean :PackerInstall` to update symlinks.
----@param spec table|string
+--- @param spec table|string
 local function use_local(spec)
   local name
 
@@ -234,8 +234,8 @@ require("lazy").setup({
   },
   {
     "feline-nvim/feline.nvim",
-    event = "VimEnter",
     config = conf("feline"),
+    event = "VeryLazy",
   },
 
   -- UI INTERFACE
@@ -411,35 +411,6 @@ require("lazy").setup({
     event = "BufRead",
     init = utils.load_mappings("text_case"),
   },
-  -- {
-  --   "mfussenegger/nvim-dap",
-  --   event = "VimEnter",
-  --   init = utils.load_mappings("nvim_dap"),
-  --   config = conf("nvim-dap"),
-  --   dependencies = {
-  --     -- "mfussenegger/nvim-dap-python",
-  --     {
-  --       "theHamsta/nvim-dap-virtual-text",
-  --       config = conf("nvim-dap-virtual-text"),
-  --     },
-  --     {
-  --       "rcarriga/nvim-dap-ui",
-  --       init = utils.load_mappings("nvim_dap_ui"),
-  --       config = conf("nvim-dap-ui"),
-  --       dependencies = {
-  --         "folke/neodev.nvim",
-  --       },
-  --     },
-  --   },
-  -- },
-  -- {
-  --   "jay-babu/mason-nvim-dap.nvim",
-  --   event = "VimEnter",
-  --   config = conf("mason-nvim-dap"),
-  --   dependencies = {
-  --     "williamboman/mason.nvim",
-  --   },
-  -- },
 
   -- CODE NAVIGATION
   -- {
@@ -506,18 +477,6 @@ require("lazy").setup({
     event = "VimEnter",
     config = conf("nvim-tmux-navigation"),
     },
-  -- Disabled because I ran out of free OpenAI API credits
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   init = utils.load_mappings("chatgpt"),
-  --   config = conf("ChatGPT"),
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-telescope/telescope.nvim",
-  --   },
-  -- },
 
   -- SYNTAX & FILETYPE PLUGINS
   {
@@ -554,6 +513,12 @@ require("lazy").setup({
     config = conf("todo-comments", "todo_comments"),
   },
   {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
+  },
+  {
     "NvChad/nvim-colorizer.lua",
     cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-colorizer.lua"),
@@ -583,13 +548,9 @@ require("lazy").setup({
     build = ":MasonUpdate",
     init = utils.load_mappings("mason"),
     dependencies = { { "williamboman/mason-lspconfig.nvim", config = false } },
-    config = false,
-  },
-  {
-    "ray-x/lsp_signature.nvim",
-    cond = not vim.g.low_performance_mode,
-    event = "InsertEnter",
-    config = conf("lsp_signature"),
+    opts = {
+      ui = { border = "single" },
+    },
   },
   {
     "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
@@ -649,99 +610,135 @@ require("lazy").setup({
   },
   {
     "OXY2DEV/markview.nvim",
-    lazy = false, -- markview is already lazy loaded
+    branch = "main",
+    ft = "markdown",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons"
     },
     config = conf("markview"),
   },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  },
+  { "mfussenegger/nvim-jdtls" },
 
   -- COMPLETION
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   init = utils.lazy_load("nvim-cmp"),
+  --   event = "InsertEnter",
+  --   config = conf("nvim-cmp"),
+  --   dependencies = {
+  --     { "hrsh7th/cmp-nvim-lsp" },
+  --     { "hrsh7th/cmp-path" },
+  --     { "hrsh7th/cmp-buffer" },
+  --     { "hrsh7th/cmp-cmdline" },
+  --     -- { "f3fora/cmp-spell" },
+  --     { "max397574/cmp-greek" },        -- triggered by ':'
+  --     { "hrsh7th/cmp-emoji" },          -- triggered by ':'
+  --     { "chrisgrieser/cmp-nerdfont" },  -- triggered by ':'
+  --     { "kdheepak/cmp-latex-symbols" }, -- triggered by '\'
+  --     { "davidsierradz/cmp-conventionalcommits" },
+  --     {
+  --       "petertriho/cmp-git",
+  --       config = function()
+  --         require("cmp_git").setup({
+  --           filetypes = { "NeogitCommitMessage", "gitcommit", "octo" },
+  --         })
+  --       end,
+  --     },
+  --     {
+  --       "quangnguyen30192/cmp-nvim-ultisnips",
+  --       cond = function()
+  --         return vim.g.snippet_engine == "ultisnips"
+  --       end,
+  --       config = function()
+  --         require("cmp_nvim_ultisnips").setup({
+  --           filetype_source = "treesitter",
+  --           show_snippets = "all",
+  --           documentation = function(snippet)
+  --             return snippet.value
+  --           end,
+  --         })
+  --       end,
+  --       dependencies = {
+  --         {
+  --           "SirVer/ultisnips",
+  --           config = conf("ultisnips"),
+  --           dependencies = {
+  --             "honza/vim-snippets",
+  --           },
+  --         },
+  --       },
+  --     },
+  --     {
+  --       "saadparwaiz1/cmp_luasnip",
+  --       cond = function()
+  --         return vim.g.snippet_engine == "luasnip"
+  --       end,
+  --       dependencies = {
+  --         {
+  --           "L3MON4D3/LuaSnip",
+  --           event = "BufReadPre",
+  --           version = "v2.*",
+  --           build = "sudo make install_jsregexp",
+  --           config = conf("LuaSnip"),
+  --           dependencies = "rafamadriz/friendly-snippets",
+  --         },
+  --       },
+  --     },
+  --     {
+  --       "zbirenbaum/copilot-cmp",
+  --       cond = vim.g.ai_enabled,
+  --       config = conf("copilot-cmp"),
+  --       dependencies = {
+  --         {
+  --           -- Make sure to run `:Copilot auth` after install
+  --           "zbirenbaum/copilot.lua",
+  --           cmd = "Copilot",
+  --           config = conf("copilot"),
+  --         },
+  --       },
+  --     },
+  --     -- {
+  --     --   -- Make sure to run `:Codeium Auth` after install
+  --     --   -- Use `:Codeium Chat` to chat with the AI
+  --     --   "Exafunction/codeium.nvim",
+  --     --   config = conf("codeium"),
+  --     -- },
+  --   },
+  -- },
   {
-    "hrsh7th/nvim-cmp",
-    init = utils.lazy_load("nvim-cmp"),
-    event = "InsertEnter",
-    config = conf("nvim-cmp"),
+    "Saghen/blink.cmp",
     dependencies = {
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-path" },
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-cmdline" },
-      -- { "f3fora/cmp-spell" },
-      { "max397574/cmp-greek" },        -- triggered by ':'
-      { "hrsh7th/cmp-emoji" },          -- triggered by ':'
-      { "chrisgrieser/cmp-nerdfont" },  -- triggered by ':'
-      { "kdheepak/cmp-latex-symbols" }, -- triggered by '\'
-      { "davidsierradz/cmp-conventionalcommits" },
       {
-        "petertriho/cmp-git",
-        config = function()
-          require("cmp_git").setup({
-            filetypes = { "NeogitCommitMessage", "gitcommit", "octo" },
-          })
-        end,
-      },
-      {
-        "quangnguyen30192/cmp-nvim-ultisnips",
-        cond = function()
-          return vim.g.snippet_engine == "ultisnips"
-        end,
-        config = function()
-          require("cmp_nvim_ultisnips").setup({
-            filetype_source = "treesitter",
-            show_snippets = "all",
-            documentation = function(snippet)
-              return snippet.value
-            end,
-          })
-        end,
-        dependencies = {
-          {
-            "SirVer/ultisnips",
-            config = conf("ultisnips"),
-            dependencies = {
-              "honza/vim-snippets",
-            },
-          },
+        "saghen/blink.compat",
+        lazy = true,
+        opts = {
+          impersonate_nvim_cmp = false,
         },
+        version = "*",
       },
-      {
-        "saadparwaiz1/cmp_luasnip",
-        cond = function()
-          return vim.g.snippet_engine == "luasnip"
-        end,
-        dependencies = {
-          {
-            "L3MON4D3/LuaSnip",
-            event = "BufReadPre",
-            version = "v2.*",
-            build = "sudo make install_jsregexp",
-            config = conf("LuaSnip"),
-            dependencies = "rafamadriz/friendly-snippets",
-          },
-        },
-      },
-      {
-        "zbirenbaum/copilot-cmp",
-        cond = vim.g.ai_enabled,
-        config = conf("copilot-cmp"),
-        dependencies = {
-          {
-            -- Make sure to run `:Copilot auth` after install
-            "zbirenbaum/copilot.lua",
-            cmd = "Copilot",
-            config = conf("copilot"),
-          },
-        },
-      },
-      -- {
-      --   -- Make sure to run `:Codeium Auth` after install
-      --   -- Use `:Codeium Chat` to chat with the AI
-      --   "Exafunction/codeium.nvim",
-      --   config = conf("codeium"),
-      -- },
+      "rafamadriz/friendly-snippets",
+      "ribru17/blink-cmp-spell",
     },
+    -- use a release tag to download pre-built binaries
+    -- version = "v0.*",
+    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    build = "cargo build --release",
+    config = conf("blink-cmp"),
+    -- allows extending the providers array elsewhere in your config
+    -- without having to redefine it
+    opts_extend = { "sources.default", "sources.providers" },
+  },
+  {
+    -- Make sure to run `:Copilot auth` after install
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "VimEnter",
+    config = conf("copilot"),
   },
 
   -- WEB DEVELOPMENT

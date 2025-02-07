@@ -1,7 +1,7 @@
-local lazy = require("user.lazy")
+local lz = require("user.lazy")
 
 ---@type FelineConfig|LazyModule
-local c = lazy.access(_G, "Config.plugin.feline")
+local c = lz.get(_G, "Config.plugin.feline")
 
 local hl = Config.common.hl
 
@@ -200,8 +200,7 @@ M.themes = {
         },
         ["git.branch"] = {
           fg = "dim200",
-          -- INFO: My changes
-          -- bg = "dim700",
+          bg = "dim700",
           -- style = "bold",
         },
       }
@@ -211,7 +210,9 @@ M.themes = {
   -- Doom emacs colors
   doom = {
     get = function()
-      local base_palette = vim.o.background == "light" and M.color_palettes.doom_light or M.color_palettes.doom_dark
+      local base_palette = vim.o.background == "light"
+          and M.color_palettes.doom_light
+          or M.color_palettes.doom_dark
 
       c.current_palette = vim.tbl_deep_extend("force", base_palette, {
         dim100 = hl.get_fg("StatusLineDim100"),
