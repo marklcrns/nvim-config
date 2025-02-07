@@ -380,11 +380,11 @@ require("lazy").setup({
       vim.g.niceblock_use_default_mappings = 0
     end,
   },
-  {
-    "RRethy/vim-illuminate",
-    event = "BufRead",
-    config = conf("vim-illuminate"),
-  },
+  -- {
+  --   "RRethy/vim-illuminate",
+  --   event = "BufRead",
+  --   config = conf("vim-illuminate"),
+  -- },
   {
     "andymass/vim-matchup",
     cond = not vim.g.low_performance_mode,
