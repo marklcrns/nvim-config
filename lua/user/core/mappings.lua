@@ -564,14 +564,6 @@ M.lsp = {
   },
 }
 
-M.markdown_preview = {
-  plugin = true,
-
-  n = {
-    ["<leader>cmp"] = { "<cmd>MarkdownPreviewToggle<CR>", "toggle markdown preview", opts = default_opts },
-  },
-}
-
 M.markdown_toc = {
   plugin = true,
 

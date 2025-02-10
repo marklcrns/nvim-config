@@ -1,66 +1,18 @@
 local mason = prequire("mason")
 local mason_lspconfig = prequire("mason-lspconfig")
 
-if mason then
-  vim.env.PATH = vim.env.PATH
-    .. (Config.common.sys.is_windows() and ";" or ":")
-    .. vim.fn.stdpath("data")
-    .. "/mason/bin"
-  mason.setup({
-    PATH = "skip",
-    ui = {
-      icons = {
-        package_pending = " ",
-        package_installed = " ",
-        package_uninstalled = " ﮊ",
-      },
-
-      keymaps = {
-        toggle_server_expand = "<CR>",
-        install_server = "i",
-        update_server = "u",
-        check_server_version = "c",
-        update_all_servers = "U",
-        check_outdated_servers = "C",
-        uninstall_server = "X",
-        cancel_installation = "<C-c>",
-      },
-    },
-
-    max_concurrent_installers = 10,
-    -- Installation directory. Usually in ~/.local/share/nvim
-    -- See :lua print(vim.fn.stdpath("data"))
-    -- install_root_dir = vim.fn.stdpath("data") .. "/mason",
-  })
-end
-if mason_lspconfig then
-  mason_lspconfig.setup({
-    automatic_installation = true,
-  })
-end
+if mason then mason.setup() end
+if mason_lspconfig then mason_lspconfig.setup() end
 
 require("neodev").setup({
   library = {
-    enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
-    -- these settings will be used for your Neovim config directory
-    runtime = true, -- runtime path
+    vimruntime = false, -- runtime path
     types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
     -- plugins = false, -- installed opt or start plugins in packpath
     -- you can also specify the list of plugins to make available as a workspace library
-    plugins = {
-      "nvim-treesitter",
-      "plenary",
-      "telescope.nvim",
-      "nvim-dap-ui",
-    },
+    plugins = false,
   },
-  -- With lspconfig, Neodev will automatically setup your lua-language-server
-  -- If you disable this, then you have to set {before_init=require("neodev.lsp").before_init}
-  -- in your lsp start options
-  lspconfig = true,
-  -- much faster, but needs a recent built of lua-language-server
-  -- needs lua-language-server >= 3.6.0
-  pathStrict = true,
+  runtime_path = false, -- enable this to get completion in require strings. Slow!
 })
 
 local cmp = prequire("cmp")
@@ -69,9 +21,7 @@ local blink = prequire("blink.cmp")
 local lspconfig = prequire("lspconfig")
 local server_configs = prequire("lspconfig.configs") or {}
 
-if not lspconfig then
-  return
-end
+if not lspconfig then return end
 
 local utils = Config.common.utils
 local notify = Config.common.notify
@@ -85,17 +35,16 @@ require("lspconfig.ui.windows").default_options.border = "single"
 
 ---@diagnostic disable-next-line: unused-local
 function M.common_on_attach(client, bufnr)
-  if not vim.g.low_performance_mode then
-    -- require("illuminate").on_attach(client)
-    local lsp_signature = prequire("lsp_signature")
-    if lsp_signature then
-      lsp_signature.on_attach({
-        bind = true, -- This is mandatory, otherwise border config won't get registered.
-        handler_opts = {
-          border = "single",
-        },
-      }, bufnr)
-    end
+  -- require("illuminate").on_attach(client)
+
+  local lsp_signature = prequire("lsp_signature")
+  if lsp_signature then
+    lsp_signature.on_attach({
+      bind = true, -- This is mandatory, otherwise border config won't get registered.
+      handler_opts = {
+        border = "single",
+      },
+    }, bufnr)
   end
 end
 
@@ -116,7 +65,7 @@ M.local_config_paths = {
 }
 
 function M.create_local_config(config)
-  local cwd = uv.cwd()
+  local cwd = assert(uv.cwd())
   local local_config = config_store[cwd]
   local project_config = Config.state.project_config
   config = config or {}
@@ -128,10 +77,11 @@ function M.create_local_config(config)
     else
       for _, path in ipairs(M.local_config_paths) do
         if pl:readable(path) then
-          notify.config("Using project-local LSP config: " .. utils.str_quote(path))
-          local code_chunk = loadfile(path)
-          if code_chunk then
-            local_config = code_chunk()
+          local data = vim.secure.read(path)
+
+          if data then
+            notify.config("Using project-local LSP config: " .. utils.str_quote(path))
+            utils.exec_lua(data)
             break
           end
         end
@@ -164,32 +114,14 @@ function M.create_config(...)
   return M.create_local_config(config)
 end
 
--- START LSP CONFIG ------------------------------------------------------------
+-- Java
+require("user.lsp.java")
 
--- Typescript, Javascript
+-- Typescript
 require("user.lsp.typescript")
-
--- HTML + CSS
-lspconfig.html.setup(M.create_config())
-lspconfig.cssls.setup(M.create_config())
-lspconfig.tailwindcss.setup(M.create_config({
-  completions = {
-    completeFunctionCalls = true,
-  },
-  root_dir = lspconfig.util.root_pattern(
-    "tailwind.config.js",
-    "tailwind.config.cjs",
-    "tailwind.config.ts",
-    "postcss.config.js",
-    "postcss.config.cjs",
-    "postcss.config.ts"
-  ),
-}))
 
 -- Python
 lspconfig.pyright.setup(M.create_config())
--- lspconfig.pylsp.setup(M.create_config())
--- lspconfig.jedi_language_server.setup(M.create_config())
 
 -- Lua
 server_configs.emmylua_ls = {
@@ -203,15 +135,13 @@ server_configs.emmylua_ls = {
 }
 
 require("user.lsp.lua")
+-- lspconfig.emmylua_ls.setup(M.create_config())
 
 -- Luau
 lspconfig.luau_lsp.setup(M.create_config())
 
 -- Bash
 lspconfig.bashls.setup(M.create_config())
-
--- C#
-lspconfig.omnisharp.setup(M.create_config())
 
 -- C, C++
 lspconfig.clangd.setup(M.create_config())
@@ -220,13 +150,30 @@ lspconfig.clangd.setup(M.create_config())
 lspconfig.vimls.setup(M.create_config())
 
 -- Go
--- lspconfig.gopls.setup(M.create_config())
+lspconfig.gopls.setup(M.create_config())
 
--- Clojure
-lspconfig.clojure_lsp.setup(M.create_config())
+-- Scheme, Racket
+lspconfig.racket_langserver.setup(M.create_config())
 
--- Docker
-lspconfig.dockerls.setup(M.create_config())
+-- Haxe
+lspconfig.haxe_language_server.setup(M.create_config({
+  -- NOTE: Doesn't work with xargs here. Something about the tty?
+  cmd = {
+    "sh",
+    "-c",
+    [=[haxe-language-server $(find . -maxdepth 6 -type f -name 'build.hxml')]=],
+  },
+  root_dir = lspconfig.util.root_pattern('build.hxml', 'Makefile', '.git'),
+  init_options = {
+    displayArguments = { 'build.hxml' },
+  },
+}))
+
+-- Rust
+lspconfig.rust_analyzer.setup(M.create_config())
+
+-- CSS
+lspconfig.cssls.setup(M.create_config())
 
 -- Json
 lspconfig.jsonls.setup(M.create_config())
@@ -234,41 +181,6 @@ lspconfig.jsonls.setup(M.create_config())
 -- Toml
 lspconfig.taplo.setup(M.create_config())
 
--- Rust
-lspconfig.rust_analyzer.setup(M.create_config())
-
--- Java
-require("user.lsp.java")
-
--- Weird languages for school
-lspconfig.svlangserver.setup(M.create_config({
-  filetypes = { "systemverilog", "verilog" },
-}))
-
--- Web development
-lspconfig.emmet_ls.setup(M.create_config({
-  filetypes = {
-    "html",
-    "typescriptreact",
-    "javascriptreact",
-    "css",
-    "sass",
-    "scss",
-    "less",
-  },
-}))
-
-lspconfig.eslint.setup(M.create_config({
-  on_attach = function(bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = tonumber(bufnr),
-      command = "EslintFixAll",
-    })
-  end,
-  completions = { completeFunctionCalls = true, },
-}))
-
--- END LSP CONFIG --------------------------------------------------------------
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -278,91 +190,81 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
       priority = 100,
     },
     update_in_insert = false,
-    -- INFO: My config
-    severity_sort = true,
   }
 )
 
 -- DIAGNOSTICS: Only show the sign with the highest priority per line
 -- From: `:h diagnostic-handlers-example`
 
--- -- Override the built-in signs handler
--- local ns = vim.api.nvim_create_namespace("user_lsp")
--- local orig_signs_handler = vim.diagnostic.handlers.signs
---
--- -- Create a custom namespace. This will aggregate signs from all other
--- -- namespaces and only show the one with the highest severity on a
--- -- given line
--- local ns = vim.api.nvim_create_namespace("my_namespace")
---
--- -- Get a reference to the original signs handler
--- local orig_signs_handler = vim.diagnostic.handlers.signs
---
--- -- Override the built-in signs handler
--- vim.diagnostic.handlers.signs = {
---   show = function(_, bufnr, _, opts)
---     -- Get all diagnostics from the whole buffer rather than just the
---     -- diagnostics passed to the handler
---     local diagnostics = vim.diagnostic.get(bufnr)
---
---     -- Find the "worst" diagnostic per line
---     local max_severity_per_line = {}
---     for _, d in pairs(diagnostics) do
---       local m = max_severity_per_line[d.lnum]
---       if not m or d.severity < m.severity then
---         max_severity_per_line[d.lnum] = d
---       end
---     end
---
---     -- Pass the filtered diagnostics (with our custom namespace) to
---     -- the original handler
---     local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
---     orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
---   end,
---   hide = function(_, bufnr)
---     orig_signs_handler.hide(ns, bufnr)
---   end,
--- }
+local ns = vim.api.nvim_create_namespace("user_lsp")
+local orig_signs_handler = vim.diagnostic.handlers.signs
+
+-- Override the built-in signs handler
+vim.diagnostic.handlers.signs = {
+  show = function(_, bufnr, _, opts)
+    -- Get all diagnostics from the whole buffer rather than just the
+    -- diagnostics passed to the handler
+    local diagnostics = vim.diagnostic.get(bufnr)
+
+    -- Find the "worst" diagnostic per line
+    local max_severity_per_line = {}
+    for _, d in pairs(diagnostics) do
+      local m = max_severity_per_line[d.lnum]
+      if not m or d.severity < m.severity then
+        max_severity_per_line[d.lnum] = d
+      end
+    end
+
+    -- Pass the filtered diagnostics (with our custom namespace) to
+    -- the original handler
+    orig_signs_handler.show(ns, bufnr, vim.tbl_values(max_severity_per_line), opts)
+  end,
+  hide = function(_, bufnr)
+    orig_signs_handler.hide(ns, bufnr)
+  end,
+}
 
 local pop_opts = { border = "single", max_width = 100 }
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, pop_opts)
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, pop_opts)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, pop_opts
+)
 
 function M.define_diagnostic_signs(opts)
   local group = {
     -- version 0.5
     {
-      highlight = "LspDiagnosticsSignError",
-      sign = opts.error,
+      highlight = 'LspDiagnosticsSignError',
+      sign = opts.error
     },
     {
-      highlight = "LspDiagnosticsSignWarning",
-      sign = opts.warn,
+      highlight = 'LspDiagnosticsSignWarning',
+      sign = opts.warn
     },
     {
-      highlight = "LspDiagnosticsSignHint",
-      sign = opts.hint,
+      highlight = 'LspDiagnosticsSignHint',
+      sign = opts.hint
     },
     {
-      highlight = "LspDiagnosticsSignInformation",
-      sign = opts.info,
+      highlight = 'LspDiagnosticsSignInformation',
+      sign = opts.info
     },
     -- version >=0.6
     {
-      highlight = "DiagnosticSignError",
-      sign = opts.error,
+      highlight = 'DiagnosticSignError',
+      sign = opts.error
     },
     {
-      highlight = "DiagnosticSignWarn",
-      sign = opts.warn,
+      highlight = 'DiagnosticSignWarn',
+      sign = opts.warn
     },
     {
-      highlight = "DiagnosticSignHint",
-      sign = opts.hint,
+      highlight = 'DiagnosticSignHint',
+      sign = opts.hint
     },
     {
-      highlight = "DiagnosticSignInfo",
-      sign = opts.info,
+      highlight = 'DiagnosticSignInfo',
+      sign = opts.info
     },
   }
 
@@ -370,8 +272,8 @@ function M.define_diagnostic_signs(opts)
     vim.fn.sign_define(g.highlight, {
       text = g.sign,
       texthl = g.highlight,
-      linehl = "",
-      numhl = "",
+      linehl = '',
+      numhl = '',
     })
   end
 end
@@ -380,7 +282,7 @@ end
 
 function M.highlight_cursor_symbol()
   if vim.lsp.buf.server_ready() then
-    if vim.fn.mode() ~= "i" then
+    if vim.api.nvim_get_mode().mode ~= "i" then
       vim.lsp.buf.document_highlight()
     end
   end
@@ -391,6 +293,7 @@ function M.highlight_cursor_clear()
     vim.lsp.buf.clear_references()
   end
 end
+
 ---------------------------------
 
 -- Only show diagnostics if current word + line is not the same as last call.
@@ -407,12 +310,10 @@ function M.show_position_diagnostics()
   local cline = vim.api.nvim_win_get_cursor(0)[1]
   local bufnr = vim.api.nvim_get_current_buf()
 
-  if
-    last_diagnostics_word
+  if last_diagnostics_word
     and last_diagnostics_word[1] == cline
     and last_diagnostics_word[2] == cword
-    and last_diagnostics_word[3] == bufnr
-  then
+    and last_diagnostics_word[3] == bufnr then
     return
   end
   last_diagnostics_word = { cline, cword, bufnr }
@@ -423,8 +324,8 @@ end
 M.define_diagnostic_signs({
   error = "",
   warn = "",
-  hint = "",
-  info = "",
+  hint = "",
+  info = ""
 })
 
 do
@@ -464,8 +365,5 @@ do
     },
   })
 end
-
--- Turn off LSP logging
-vim.lsp.set_log_level("off")
 
 return M

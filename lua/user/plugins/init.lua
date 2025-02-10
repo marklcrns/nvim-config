@@ -585,10 +585,31 @@ require("lazy").setup({
   },
   {
     "iamcco/markdown-preview.nvim",
-    init = utils.load_mappings("markdown_preview"),
     build = "cd app && yarn install",
-    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
-    config = conf("markdown-preview"),
+    ft = { "markdown" },
+    init = function ()
+      vim.api.nvim_exec2([[
+        function! MkdpOpenInNewWindow(url)
+          if executable("firefox")
+            call jobstart([ "firefox", "--new-window", a:url ])
+          elseif executable("firefox-beta")
+            call jobstart([ "firefox-beta", "--new-window", a:url ])
+          elseif executable("qutebrowser")
+            call jobstart([ "qutebrowser", "--target", "window", a:url ])
+          elseif executable("chromium")
+            call jobstart([ "chromium", "--app=" . a:url ])
+          else
+            echoerr '[MKDP] No suitable browser!'
+          endif
+        endfunction
+      ]], {})
+      vim.g.mkdp_browserfunc = "MkdpOpenInNewWindow"
+    end,
+  },
+  {
+    "glacambre/firenvim",
+    build = function() vim.fn["firenvim#install"](0) end,
+    init = conf("firenvim"),
   },
   {
     "mzlogin/vim-markdown-toc",
