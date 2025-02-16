@@ -304,11 +304,6 @@ require("lazy").setup({
     init = utils.lazy_load("vim-signature"),
     config = conf("vim-signature"),
   },
-  -- WARN: Disabled because it slows down splits navigation significantly
-  -- {
-  --   "ahmedkhalf/project.nvim",
-  --   config = conf("project"),
-  -- },
 
   -- CODING HELPER
   {
@@ -461,14 +456,6 @@ require("lazy").setup({
       utils.load_mappings("gitsigns")
     end,
     config = conf("gitsigns"),
-  },
-  {
-    "wintermute-cell/gitignore.nvim",
-    init = utils.load_mappings("gitignore"),
-    cmd = "Gitignore",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
   },
 
   -- INTEGRATIONS
@@ -715,12 +702,7 @@ require("lazy").setup({
   --       cond = vim.g.ai_enabled,
   --       config = conf("copilot-cmp"),
   --       dependencies = {
-  --         {
-  --           -- Make sure to run `:Copilot auth` after install
-  --           "zbirenbaum/copilot.lua",
-  --           cmd = "Copilot",
-  --           config = conf("copilot"),
-  --         },
+  --         "zbirenbaum/copilot.lua",
   --       },
   --     },
   --     -- {
@@ -826,12 +808,6 @@ require("lazy").setup({
     "Eandrju/cellular-automaton.nvim",
     cmd = { "CellularAutomaton" },
     init = utils.load_mappings("cellular_automaton"),
-  },
-  {
-    "nvzone/typr",
-    cmd = { "Typr", "TyprStats" },
-    dependencies = { "nvzone/volt" },
-    opts = {},
   },
   {
     "kawre/leetcode.nvim",

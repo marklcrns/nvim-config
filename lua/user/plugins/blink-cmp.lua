@@ -123,8 +123,8 @@ return function()
         "spell",
         "buffer",
       },
-      -- Disable cmdline completions
-      cmdline = {},
+      -- -- Disable cmdline completions
+      -- cmdline = {},
 
       providers = {
         lsp = {
