@@ -430,7 +430,6 @@ require("lazy").setup({
   {
     "TimUntersberger/neogit",
     cmd = "Neogit",
-    branch = "nightly",
     init = utils.load_mappings("neogit"),
     config = conf("neogit"),
   },
