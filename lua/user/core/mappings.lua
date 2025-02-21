@@ -1285,6 +1285,14 @@ M.vimwiki = {
   },
 }
 
+M.vim_maximizer = {
+  plugin = true,
+
+  n = {
+    ["<C-w>z"] = { "<cmd>MaximizerToggle<CR>", "toggle maximizer", opts = default_opts },
+  },
+}
+
 M.winshift = {
   plugin = true,
 

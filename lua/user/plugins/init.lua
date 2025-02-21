@@ -261,6 +261,14 @@ require("lazy").setup({
     init = utils.load_mappings("zen_mode"),
     config = conf("zen-mode"),
   },
+  {
+    "szw/vim-maximizer",
+    init = utils.load_mappings("vim_maximizer"),
+    cmd = { "MaximizerToggle" },
+    config = function()
+      vim.g.maximizer_set_default_mapping = 0
+    end,
+  },
   -- WARN: Disabled because it affects startup time by good amount
   -- {
   --   "Bekaboo/dropbar.nvim",
