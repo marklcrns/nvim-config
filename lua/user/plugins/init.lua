@@ -111,7 +111,6 @@ require("lazy").setup({
   { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = false },
   { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
   { "sindrets/oxocarbon-lua.nvim",   lazy = false },
-  { "ferdinandrau/lavish.nvim", lazy = false },
   { "wtfox/jellybeans.nvim", lazy = false },
 
   -- STARTUP
@@ -147,20 +146,11 @@ require("lazy").setup({
       "kevinhwang91/promise-async",
     },
   },
-  -- {
-  --   "anuvyklack/pretty-fold.nvim",
-  --   config = conf("pretty-fold"),
-  --   event = "BufRead",
-  --   cond = function()
-  --     -- NOTE: seems like some FFI stuff has broken here
-  --     return vim.fn.has("nvim-0.10") ~= 1
-  --   end,
-  -- },
-  -- {
-  --   "kevinhwang91/nvim-hlslens",
-  --   init = utils.lazy_load("nvim-hlslens"),
-  --   config = conf("nvim-hlslens", "hlslens"),
-  -- },
+  {
+    "kevinhwang91/nvim-hlslens",
+    init = utils.lazy_load("nvim-hlslens"),
+    config = conf("nvim-hlslens", "hlslens"),
+  },
   {
     "yorickpeterse/nvim-pqf",
     ft = { "qf" },

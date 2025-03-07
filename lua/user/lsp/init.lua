@@ -181,6 +181,8 @@ lspconfig.jsonls.setup(M.create_config())
 -- Toml
 lspconfig.taplo.setup(M.create_config())
 
+-- Ruby
+lspconfig.solargraph.setup(M.create_config())
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
