@@ -537,12 +537,6 @@ require("lazy").setup({
     },
   },
   {
-    "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-    cmd = { "ToggleDiagOn", "ToggleDiagOff" },
-    init = utils.load_mappings("toggle_lsp_diagnostics"),
-    config = conf("toggle-lsp-diagnostics"),
-  },
-  {
     "folke/trouble.nvim",
     cmd = { "Trouble" },
     init = utils.load_mappings("trouble"),

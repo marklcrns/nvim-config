@@ -13,12 +13,12 @@ local default_opts = {
 M.general = {
   i = {
     -- Misc
-    -- ["<Tab>"] = { "<cmd>lua Config.lib.full_indent()<CR>", "indent", opts = default_opts },
+    ["<Tab>"] = { "<cmd>lua Config.lib.full_indent()<CR>", "indent", opts = default_opts },
   },
 
   n = {
     -- UI
-    ["<A-S-D>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", opts = default_opts },
+    ["<C-M-q>"] = { "<cmd>lua Config.fn.toggle_diagnostics()<CR>", "toggle diagnostics", opts = default_opts },
     ["<C-M-o>"] = { "<cmd>lua Config.fn.toggle_outline()<CR>", "toggle outline", opts = default_opts },
     ["<M-CR>"] = { "<cmd>lua Config.fn.update_messages_win()<CR>", "open messages win", opts = default_opts },
     ["<M-q>"] = { "<cmd>lua Config.fn.toggle_quickfix()<CR>", "toggle quickfix", opts = default_opts },
@@ -1155,30 +1155,6 @@ M.todo_comments = {
   n = {
     ["<leader>fdt"] = { "<cmd>TodoTelescope<CR>", "find todo comments", opts = default_opts },
     ["<leader>ctT"] = { "<cmd>TodoTrouble<CR>", "toggle todo quickfix", opts = default_opts },
-  },
-}
-
-M.toggle_lsp_diagnostics = {
-  plugin = true,
-
-  n = {
-    ["<localleader>sldd"] = { "<Plug>(toggle-lsp-diag)", "toggle LSP diagnostics", opts = default_opts },
-    ["<localleader>sldp"] = {
-      "<Plug>(toggle-lsp-diag-update_in_insert)",
-      "toggle LSP diagnostics update on insert",
-      opts = default_opts,
-    },
-    ["<localleader>slds"] = { "<Plug>(toggle-lsp-diag-signs)", "toggle LSP diagnostics signs", opts = default_opts },
-    ["<localleader>sldu"] = {
-      "<Plug>(toggle-lsp-diag-underline)",
-      "toggle LSP diagnostics underline",
-      opts = default_opts,
-    },
-    ["<localleader>sldv"] = {
-      "<Plug>(toggle-lsp-diag-vtext)",
-      "toggle LSP diagnostics virtualtext",
-      opts = default_opts,
-    },
   },
 }
 

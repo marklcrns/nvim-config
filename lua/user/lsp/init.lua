@@ -184,7 +184,8 @@ lspconfig.taplo.setup(M.create_config())
 -- Ruby
 lspconfig.solargraph.setup(M.create_config())
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+-- DEPRECATED
+--[[ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
     underline = true,
@@ -193,7 +194,14 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     },
     update_in_insert = false,
   }
-)
+) ]]
+
+vim.diagnostic.config({
+  virtual_text = false,
+  underline = true,
+  signs = true,
+  update_in_insert = false,
+})
 
 -- DIAGNOSTICS: Only show the sign with the highest priority per line
 -- From: `:h diagnostic-handlers-example`
@@ -226,11 +234,15 @@ vim.diagnostic.handlers.signs = {
   end,
 }
 
-local pop_opts = { border = "single", max_width = 100 }
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, pop_opts)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, pop_opts
-)
+-- DEPRECATED
+-- local pop_opts = { border = "single", max_width = 100 }
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, pop_opts)
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+--   vim.lsp.handlers.signature_help, pop_opts
+-- )
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf_hover
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf_signature_help
 
 function M.define_diagnostic_signs(opts)
   local group = {
