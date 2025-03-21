@@ -110,21 +110,28 @@ function bufIsBig(bufnr)
 end
 
 -- Ref: https://github.com/neovim/nvim-lspconfig/issues/2626#issuecomment-2117022664
+-- Prevent LSP to attach to big files
 aucmd("LspAttach", {
+    group = "NvimConfig",
     callback = function(ctx)
+        -- if bufIsBig(ctx.buf) then
+        --     for _,client in pairs(vim.lsp.get_active_clients({bufnr = ctx.buf})) do
+        --         -- Using vim.defer_fn because when this event is fired, we are
+        --         -- not really attached. See:
+        --         -- https://www.reddit.com/r/neovim/comments/168u3e4/comment/jyyluyo/
+        --         vim.defer_fn(function()
+        --             vim.lsp.buf_detach_client(ctx.buf, client.id)
+        --             print(
+        --                 "Detaching client " .. client.name .. " because buffer " ..
+        --                 vim.fn.bufname(ctx.buf) .. " is too big"
+        --             )
+        --         end, 10)
+        --     end
+        -- end
+
         if bufIsBig(ctx.buf) then
-            for _,client in pairs(vim.lsp.get_active_clients({bufnr = ctx.buf})) do
-                -- Using vim.defer_fn because when this event is fired, we are
-                -- not really attached. See:
-                -- https://www.reddit.com/r/neovim/comments/168u3e4/comment/jyyluyo/
-                vim.defer_fn(function()
-                    vim.lsp.buf_detach_client(ctx.buf, client.id)
-                    print(
-                        "Detaching client " .. client.name .. " because buffer " ..
-                        vim.fn.bufname(ctx.buf) .. " is too big"
-                    )
-                end, 10)
-            end
+            vim.o.eventignore = "FileType"
+            vim.schedule(function() vim.o.eventignore = "" end)
         end
     end
 })
