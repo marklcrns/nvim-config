@@ -17,6 +17,10 @@ function M.is_linux()
   return not M.is_windows() and not M.is_wsl() and not M.is_mac()
 end
 
+function M.whoami()
+  return vim.fn.systemlist("whoami")[1]
+end
+
 function M.is_gui()
   local has = vim.fn.has
   local exists = vim.fn.exists

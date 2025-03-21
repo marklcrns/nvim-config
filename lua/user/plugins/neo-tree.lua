@@ -173,6 +173,30 @@ return function()
           local sys = require("user.common.sys")
 
           if sys.is_mac() then
+
+            -- Amazon specific code to open the file in code.amazon.com
+            if sys.whoami() == "mrklcrns" then
+              -- Open the file in:
+              --  if original branch: https://code.amazon.com/packages/<package-name>/blobs/mainline/--/<file-path>
+              --  if other branch: https://code.amazon.com/packages/<package-name>/blobs/<commit-hash>/--/<file-path>
+              -- Note: if the file is a directory, "blobs" will be replaced with "tree" via redirect in the website.
+              local top_level = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+              local package_name = vim.fn.systemlist("basename " .. top_level)[1]
+              local current_branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
+
+              -- If the current branch is not mainline, then get the commit hash
+              if current_branch ~= "mainline" then
+                current_branch = vim.fn.systemlist("git rev-parse HEAD")[1]
+              end
+
+              -- Example path: /Volumes/workplace/AURAIssuerProxyServiceTests-APIIntegTests/src/AURAIssuerProxyServiceTests/README.md
+              -- Here, the we need to extract the relative path from the system path, in this case, it would be after the package name that is src/AURAIssuerProxyServiceTests.
+              -- So, the url would be: https://code.amazon.com/packages/AURAIssuerProxyServiceTests/blobs/<commit-hash>/--/README.md
+              local relpath = path:sub(top_level:len() + 2)
+              local url = string.format("https://code.amazon.com/packages/%s/blobs/%s/--/%s", package_name, current_branch, relpath)
+              vim.api.nvim_command("silent !open -g " .. url)
+            end
+
             vim.api.nvim_command("silent !open -g " .. path)
           elseif sys.is_wsl() then
             vim.api.nvim_command(string.format("silent !wsl-open '%s'", path))
