@@ -103,19 +103,25 @@ augroup END
 lua <<EOF
 local aucmd = vim.api.nvim_create_autocmd
 
+function bufIsBig(bufnr)
+    -- Check if the buffer is too big (in KB)
+    local kb = Config.common.utils.buf_get_size(bufnr)
+    return kb > 320
+end
+
 -- Ref: https://github.com/neovim/nvim-lspconfig/issues/2626#issuecomment-2117022664
 aucmd("LspAttach", {
-    callback = function(t)
-        if bufIsBig(t.buf) then
-            for _,client in pairs(vim.lsp.get_active_clients({bufnr = t.buf})) do
+    callback = function(ctx)
+        if bufIsBig(ctx.buf) then
+            for _,client in pairs(vim.lsp.get_active_clients({bufnr = ctx.buf})) do
                 -- Using vim.defer_fn because when this event is fired, we are
                 -- not really attached. See:
                 -- https://www.reddit.com/r/neovim/comments/168u3e4/comment/jyyluyo/
                 vim.defer_fn(function()
-                    vim.lsp.buf_detach_client(t.buf, client.id)
+                    vim.lsp.buf_detach_client(ctx.buf, client.id)
                     print(
                         "Detaching client " .. client.name .. " because buffer " ..
-                        vim.fn.bufname(t.buf) .. " is too big"
+                        vim.fn.bufname(ctx.buf) .. " is too big"
                     )
                 end, 10)
             end
@@ -127,11 +133,9 @@ aucmd("BufRead", {
     group = "NvimConfig",
     callback = function(ctx)
         -- Disable stuff in big files
-
-        local kb = Config.common.utils.buf_get_size(ctx.buf)
         local notify = Config.common.notify
 
-        if kb > 320 then
+        if bufIsBig(ctx.buf) then
             local ts_context = prequire("treesitter-context")
             local todo_comments = prequire("todo-comments")
             local rainbow_delimiters = prequire("rainbow_delimiters")
