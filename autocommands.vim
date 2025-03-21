@@ -103,6 +103,26 @@ augroup END
 lua <<EOF
 local aucmd = vim.api.nvim_create_autocmd
 
+-- Ref: https://github.com/neovim/nvim-lspconfig/issues/2626#issuecomment-2117022664
+aucmd("LspAttach", {
+    callback = function(t)
+        if bufIsBig(t.buf) then
+            for _,client in pairs(vim.lsp.get_active_clients({bufnr = t.buf})) do
+                -- Using vim.defer_fn because when this event is fired, we are
+                -- not really attached. See:
+                -- https://www.reddit.com/r/neovim/comments/168u3e4/comment/jyyluyo/
+                vim.defer_fn(function()
+                    vim.lsp.buf_detach_client(t.buf, client.id)
+                    print(
+                        "Detaching client " .. client.name .. " because buffer " ..
+                        vim.fn.bufname(t.buf) .. " is too big"
+                    )
+                end, 10)
+            end
+        end
+    end
+})
+
 aucmd("BufRead", {
     group = "NvimConfig",
     callback = function(ctx)
