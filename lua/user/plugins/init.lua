@@ -209,7 +209,7 @@ require("lazy").setup({
     main = "ibl",
     config = conf("indent-blankline"),
     -- WARN: Integration with rainbow-delimiters degrades performance
-    -- dependencies = { "HiPhish/rainbow-delimiters.nvim" },
+    dependencies = { "HiPhish/rainbow-delimiters.nvim" },
   },
   {
     "Darazaki/indent-o-matic",
