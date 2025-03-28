@@ -223,7 +223,7 @@ function! ImprovedDefaultMappings()
   " Use 'lazyredraw' when replaying macro
   nnoremap @ <Cmd>call <SID>LazyNorm(v:count1 . "@" . getcharstr())<CR>
   nnoremap @@ <Cmd>call <SID>LazyNorm(v:count1 . "@@")<CR>
-  nnoremap Q <Cmd>call <SID>LazyNorm(v:count1 . "@@")<CR>
+  " nnoremap Q <Cmd>call <SID>LazyNorm(v:count1 . "@@")<CR>
 
   " Start search with very-magic mode
   " nnoremap / /\v
