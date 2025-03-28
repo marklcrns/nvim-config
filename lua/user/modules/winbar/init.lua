@@ -26,9 +26,7 @@ M.config = {
   ---@param ctx WindowContext
   ignore = function(ctx)
     if ctx.bufname == "" then
-      if vim.wo[ctx.winid].diff then
-        return false
-      end
+      if vim.wo[ctx.winid].diff then return false end
       return true
     end
 
@@ -39,19 +37,13 @@ M.config = {
     end
 
     if ctx.float then
-      if ctx.filetype == "lir" then
-        return false
-      end
+      if ctx.filetype == "lir" then return false end
       return true
     end
 
-    if
-      vim.tbl_contains({
-        "quickfix",
-        -- INFO: My changes
-        "nofile",
-      }, ctx.buftype)
-    then
+    if vim.tbl_contains({
+      "quickfix",
+    }, ctx.buftype) then
       return true
     end
 
@@ -76,9 +68,7 @@ M.ELLIPSIS_ITEM = StatusItem(symbols.ellipsis, "Comment")
 
 ---@return string?
 local function no_empty(s)
-  if s == "" then
-    return nil
-  end
+  if s == "" then return nil end
   return s
 end
 
@@ -122,6 +112,7 @@ local ELLIPSIS_ITEM_WIDTH = strwidth(M.ELLIPSIS_ITEM:get_content())
 ---@param show_repo boolean
 local function truncate_path(segments, max_width, show_repo)
   local total_width = 0
+  max_width = max_width - SEP_ITEM_WIDTH
 
   local widths = vim.tbl_map(function(v)
     local w = strwidth(v:get_content()) + SEP_ITEM_WIDTH
@@ -158,9 +149,7 @@ local function truncate_path(segments, max_width, show_repo)
 end
 
 local function truncate_path_segment(name)
-  if strwidth(name) <= 47 then
-    return name
-  end
+  if strwidth(name) <= 47 then return name end
   -- Get the correct byte indices such that we don't accidentally end up
   -- dismembering a multi-byte glyph.
   local end_head = vim.str_byteindex(name, 23)
@@ -184,9 +173,7 @@ end
 ---@param winid integer
 ---@return WindowContext
 function M.win_context(winid)
-  if winid == 0 then
-    winid = api.nvim_get_current_win()
-  end
+  if winid == 0 then winid = api.nvim_get_current_win() end
   local bufnr = api.nvim_win_get_buf(winid)
   local tabid = api.nvim_win_get_tabpage(winid)
   local tabnr = api.nvim_tabpage_get_number(tabid)
@@ -253,7 +240,7 @@ function M.generate()
 
   -- Repo / cwd
 
-  if not path or vim.startswith(abs_path, win_ctx.cwd) then
+  if (not path or vim.startswith(abs_path, win_ctx.cwd)) then
     show_repo = true
     local condense_cwd = condense_path(win_ctx.cwd, true)
 
@@ -299,7 +286,11 @@ function M.generate()
     table.insert(path_segments, comp)
   end
 
-  path_segments = truncate_path(path_segments, win_ctx.width - strwidth(winbar:get_content()), show_repo)
+  path_segments = truncate_path(
+    path_segments,
+    win_ctx.width - strwidth(winbar:get_content()),
+    show_repo
+  )
   append(unpack(path_segments))
 
   local ret = winbar:render()
@@ -331,17 +322,13 @@ function M.request_update(winid)
     queued[winid] = true
   end
 
-  if update_queued then
-    return
-  end
+  if update_queued then return end
   update_queued = true
 
   vim.schedule(function()
     if next(queued) then
       for id, do_update in pairs(queued) do
-        if do_update then
-          M.update(id)
-        end
+        if do_update then M.update(id) end
       end
 
       queued = {}
@@ -372,9 +359,7 @@ end
 
 function M.detach(winid)
   local state = M.state.attached[winid]
-  if not state then
-    return
-  end
+  if not state then return end
 
   if vim.wo[winid].winbar == WINBAR_STRING then
     api.nvim_set_option_value("winbar", state.prev_bar or nil, { scope = "local", win = winid })

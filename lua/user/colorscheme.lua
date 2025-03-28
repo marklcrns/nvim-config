@@ -17,7 +17,7 @@ local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
 
 local M = {}
 
-M.DEFAULT_DARK = "tokyonight"
+M.DEFAULT_DARK = "oldworld"
 M.DEFAULT_LIGHT = "seoulbones"
 
 do
@@ -1066,6 +1066,16 @@ function M.apply_tweaks()
 
     hi_link("NormalNC", "Normal", { clear = true })
 
+    hi("Search", {
+      bg = bg_normal:highlight(0.15):to_css(),
+      fg = hl.get_fg("Type"),
+    })
+    hi_link("IncSearch", "Search")
+    hi("CurSearch", {
+      bg = Color.from_hl("Type", "fg"):to_css(),
+      fg = "#000000",
+    })
+
     hi("@diff.delta", { fg = hl.get_fg("Conditional"), explicit = true })
 
     hi("NonText", { fg = bg_normal:highlight(0.15):to_css(), explicit = true })
@@ -1101,7 +1111,7 @@ function M.apply_tweaks()
   hi_link({ "@conditional", "@repeat" }, "Keyword", { clear = true })
   hi_link("@method", "Function", { default = true, clear = true })
   hi("@text.emphasis", { style = "italic" })
-  hi("@text.uri", { style = "underline" })
+  hi({ "@text.uri", "@markup.link" }, { style = "underline" })
   hi_link("@variable.builtin", "Special", { clear = true })
   hi_link("@lsp.mod.defaultLibrary", "Special", { clear = true })
   hi_link("@lsp.type.variable.lua", "@lsp", { clear = true })

@@ -111,7 +111,7 @@ require("lazy").setup({
   { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = false },
   { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
   { "sindrets/oxocarbon-lua.nvim",   lazy = false },
-  { "wtfox/jellybeans.nvim", lazy = false },
+  { "dgox16/oldworld.nvim",          lazy = false },
 
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },

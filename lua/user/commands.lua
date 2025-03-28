@@ -305,12 +305,14 @@ command("ReadMode", function ()
     vim.opt_local.nu = false
     vim.opt_local.rnu = false
     vim.opt_local.colorcolumn = ""
+    vim.opt_local.conceallevel = 3
   else
     vim.b.read_mode = nil
     vim.opt_local.list = nil
     vim.opt_local.nu = nil
     vim.opt_local.rnu = nil
     vim.opt_local.colorcolumn = nil
+    vim.opt_local.conceallevel = nil
   end
 end, { bang = true })
 
@@ -367,3 +369,7 @@ end, {})
 command("FilterQf", function(c)
   Config.lib.filter_qf(c.bang, c.fargs[1])
 end, { nargs = "?", bang = true })
+
+command("ThemeToggle", function()
+  Config.colorscheme.toggle_theme()
+end, { bar = true })
