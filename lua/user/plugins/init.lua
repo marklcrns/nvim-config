@@ -185,7 +185,7 @@ require("lazy").setup({
   },
   {
     "karb94/neoscroll.nvim",
-    cond = not sys.is_gui(),
+    cond = not sys.is_gui() and not vim.g.low_performance_mode,
     init = utils.lazy_load("neoscroll.nvim"),
     config = conf("neoscroll"),
   },

@@ -312,42 +312,68 @@ endif
 " clipboard utility, such as xclip, for it to work. /usr/local/bin works.
 " Ref: https://neovide.dev/configuration.html
 if exists('g:neovide')
+  " General
+  let g:neovide_remember_window_size = v:true
+  let g:neovide_profiler = v:false
+  let g:neovide_theme = 'auto'
+
   " Animation
   let g:neovide_cursor_vfx_mode = "ripple"
   let g:neovide_scroll_animation_length = 0.25
   let g:neovide_hide_mouse_when_typing = v:true
   let g:neovide_cursor_trail_size = 0.8
   let g:neovide_refresh_rate = 60
+  let g:neovide_cursor_smooth_blink = v:false
 
   " Floating window
   let g:neovide_float_blur = v:true
-  let g:neovide_floating_opacity = 0.5
+  let g:neovide_floating_opacity = 0.7
   let g:neovide_floating_shadow = v:true
   let g:neovide_floating_z_height = 10
+  let g:neovide_floating_blur_amount_x = 5.0
+  let g:neovide_floating_blur_amount_y = 5.0
   let g:neovide_light_angle_degrees = 45
   let g:neovide_light_radius = 5
 
-  " Transparency
-  " g:neovide_transparency should be 0 if you want to unify transparency of
-  " content and title bar.
-  " Set transparency and background color (title bar color)
-  let g:neovide_transparency=0.0
-  let g:neovide_transparency_point=0.8
-  let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:neovide_transparency_point))
+  " Background Transparency (MacOS only)
+  " g:neovide_opacity should be 0 if you want to unify transparency of content and title bar.
+  let g:neovide_opacity=0.2
+  let g:neovide_opacity_point=0.3
+  let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:neovide_opacity_point))
+  let g:neovide_window_blurred = v:true
 
-  " Scale factor
-  " let g:neovide_scale_factor=1.0
+  " Dynamically change scale factor with Ctrl+Plus/Minus
+  let g:neovide_scale_factor=1.0
   function! ChangeScaleFactor(delta)
     let g:neovide_scale_factor = g:neovide_scale_factor * a:delta
   endfunction
-  nnoremap <expr><C-=> ChangeScaleFactor(1.05)
-  nnoremap <expr><C--> ChangeScaleFactor(1/1.05)
+  nnoremap <expr><C-=> ChangeScaleFactor(1.25)
+  nnoremap <expr><C--> ChangeScaleFactor(1/1.25)
+
+  " Dynamically change transparency with Cmd+Plus/Minus (MacOS only)
+  function! ChangeTransparency(delta)
+    let g:neovide_opacity_point = g:neovide_opacity_point + a:delta
+    let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:neovide_opacity_point))
+  endfunction
+  noremap <expr><D-]> ChangeTransparency(0.01)
+  noremap <expr><D-[> ChangeTransparency(-0.01)
+
+  let g:neovide_input_use_logo = 1
 
   " Allow copy paste in neovide
-  let g:neovide_input_use_logo = 1
+  " Ctrl+Shift+V to paste
   map <C-S-v> "+p<CR>
   map! <C-S-v> <C-R>+
   tmap <C-S-v> <C-R>+
   vmap <C-S-c> "+y<CR>
+  nnoremap <D-s> :w<CR>
+  " Cmd+Shift+C to copy and Cmd+Shift+V to paste
+  " Copy
+  vnoremap <D-c> "+y<CR>
+  " Paste
+  nnoremap <D-v> "+P<CR>
+  vnoremap <D-v> "+P<CR>
+  cnoremap <D-v> <C-R>+<CR>
+  inoremap <D-v> <ESC>l"+Pli
 endif
 " }}}
