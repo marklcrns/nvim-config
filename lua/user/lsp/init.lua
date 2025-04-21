@@ -115,7 +115,7 @@ function M.create_config(...)
 end
 
 -- Java
-require("user.lsp.java")
+-- require("user.lsp.java")
 
 -- Typescript
 require("user.lsp.typescript")
@@ -183,6 +183,26 @@ lspconfig.taplo.setup(M.create_config())
 
 -- Ruby
 lspconfig.solargraph.setup(M.create_config())
+
+-- Grammar
+lspconfig.harper_ls.setup(M.create_config({
+  settings = {
+    ["harper-ls"] = {
+      linters = {
+        SpellCheck = true,
+        SpelledNumbers = false,
+        AnA = true,
+        SentenceCapitalization = true,
+        UnclosedQuotes = true,
+        WrongQuotes = false,
+        LongSentences = true,
+        RepeatedWords = true,
+        CorrectNumberSuffix = true
+      },
+      diagnosticSeverity = "hint",
+    }
+  }
+}))
 
 -- DEPRECATED
 --[[ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(

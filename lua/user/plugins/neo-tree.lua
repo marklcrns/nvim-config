@@ -194,10 +194,10 @@ return function()
               -- So, the url would be: https://code.amazon.com/packages/AURAIssuerProxyServiceTests/blobs/<commit-hash>/--/README.md
               local relpath = path:sub(top_level:len() + 2)
               local url = string.format("https://code.amazon.com/packages/%s/blobs/%s/--/%s", package_name, current_branch, relpath)
-              vim.api.nvim_command("silent !open -g " .. url)
+              vim.api.nvim_command("silent !open -a /Applications/Firefox.app " .. url)
+            else
+              vim.api.nvim_command("silent !open -g " .. path)
             end
-
-            vim.api.nvim_command("silent !open -g " .. path)
           elseif sys.is_wsl() then
             vim.api.nvim_command(string.format("silent !wsl-open '%s'", path))
           elseif sys.is_linux() then
