@@ -116,6 +116,14 @@ require("lazy").setup({
   -- STARTUP
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
 
+  -- QoL
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    config = conf("snacks"),
+    lazy = false,
+  },
+
   -- BEHAVIOR
   {
     "marklcrns/vim-smartq",

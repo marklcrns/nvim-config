@@ -18,6 +18,7 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.wildignorecase = true
 opt.showcmd = true
+opt.showmode = false
 opt.mouse = "a"
 opt.mousemoveevent = true
 opt.hidden = true
@@ -43,6 +44,14 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- opt.foldlevelstart = 99
 opt.foldlevel = 99 -- 'foldlevelstart' isn't working correctly?
 opt.scrolloff = 3
+
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = true
+end
+if vim.fn.has("nvim-0.11") == 1 then
+  opt.winborder = "single"
+end
+
 opt.completeopt = list({ "menuone", "noselect" })
 opt.virtualedit = list({ "block" })
 opt.signcolumn = "yes:2"

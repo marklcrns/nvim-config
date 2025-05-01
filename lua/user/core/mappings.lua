@@ -80,6 +80,18 @@ M.general = {
       opts = { expr = true, noremap = true, silent = true },
     },
 
+    -- Picker
+    ["<C-p>"] = { "<cmd>lua require('user.lib').workspace_files()<CR>", "show workspace files", opts = default_opts },
+    ["<C-P>"] = { "<cmd>lua require('user.lib').workspace_files({ all = true })<CR>", "show all workspace files", opts = default_opts },
+    ["<M-b>"] = { "<cmd>lua Snacks.picker.buffers({ sort_lastused = true })<CR>", "show last used buffers picker", opts = default_opts },
+    ["<M-f>"] = { "<cmd>lua Snacks.picker.grep()<CR>", "show grep picker", opts = default_opts },
+    ["<M-O>"] = { "<cmd>lua Snacks.picker.lsp_workspace_symbols()<CR>", "show lsp workspace symbols picker", opts = default_opts },
+    ["<M-o>"] = { "<cmd>lua Snacks.picker.lsp_symbols()<CR>", "show lsp symbols picker", opts = default_opts },
+    ["<M-d>"] = { "<cmd>lua Snacks.picker.diagnostics_buffer()<CR>", "show diagnostics buffer picker", opts = default_opts },
+    ["z="] = { '<cmd>lua Snacks.picker.spelling({ layout = { preset = "select", layout = { relative = "cursor", row = 1, max_width = 45, max_height = 10 } } })<CR>', "show spelling picker", opts = default_opts },
+    ["<leader>fl"] = { '<cmd>lua Snacks.picker.lines({ layout = { preset = "ivy", preview = "" } })<CR>', "show lines picker", opts = default_opts },
+    [";;"] = { "<cmd>lua Snacks.picker.resume()<CR>", "resume last picker", opts = default_opts },
+
     -- Misc
     ["<F10>"] = { "<cmd>lua require'user.lib'.print_syn_group()<CR>", "show cursor hi group", opts = default_opts },
 

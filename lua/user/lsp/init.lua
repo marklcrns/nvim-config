@@ -31,8 +31,6 @@ local config_store = {}
 local M = {}
 _G.Config.lsp = M
 
-require("lspconfig.ui.windows").default_options.border = "single"
-
 ---@diagnostic disable-next-line: unused-local
 function M.common_on_attach(client, bufnr)
   -- require("illuminate").on_attach(client)
@@ -195,7 +193,7 @@ lspconfig.harper_ls.setup(M.create_config({
         SentenceCapitalization = true,
         UnclosedQuotes = true,
         WrongQuotes = false,
-        LongSentences = true,
+        LongSentences = false,
         RepeatedWords = true,
         CorrectNumberSuffix = true
       },
@@ -204,22 +202,18 @@ lspconfig.harper_ls.setup(M.create_config({
   }
 }))
 
--- DEPRECATED
---[[ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    underline = true,
-    signs = {
-      priority = 100,
-    },
-    update_in_insert = false,
-  }
-) ]]
-
 vim.diagnostic.config({
   virtual_text = false,
   underline = true,
-  signs = true,
+  signs = {
+    priority = 100,
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.HINT] = "",
+      [vim.diagnostic.severity.INFO] = ""
+    }
+  },
   update_in_insert = false,
 })
 

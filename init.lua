@@ -34,9 +34,6 @@ _G.pl = Config.common.utils.pl
 Config.lib = require("user.lib")
 Config.term = require("user.modules.term")
 
-Config.buf_cleaner = require("user.modules.buf_cleaner")
-Config.buf_cleaner.enable(true)
-
 local Cache = require("user.modules.cache")
 
 Config.state.git = {
@@ -54,6 +51,8 @@ if vim.fn.exists("g:neovide") == 0 then
   api.nvim_create_autocmd("VimEnter", {
     callback = function()
       require("user.modules.winbar").init()
+      Config.buf_cleaner = require("user.modules.buf_cleaner")
+      Config.buf_cleaner.enable(true)
     end,
   })
 end
@@ -73,8 +72,8 @@ api.nvim_create_autocmd("CmdlineEnter", {
     alias("mh", "ManHere")
     alias("gh", "Git ++curwin")
     alias("T", "Telescope")
-    alias("gs", "Telescope git_status")
-    alias("gb", "Telescope git_branches")
+    alias("gs", "lua Snacks.picker.git_status()")
+    alias("gb", "lua Snacks.picker.git_branches()")
     alias({ "gd", "DO" }, "DiffviewOpen")
     alias("gl", "DiffviewFileHistory")
     alias("ds", "DiffSaved")

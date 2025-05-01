@@ -24,10 +24,12 @@ return function()
         return vim.tbl_contains({
           -- "vim",
           -- "help",
-          "c", -- NOTE: Performance is abysmal in files of any notable length.
-          "cpp",
+          -- "markdown", -- NOTE: Parser seems immature. Revisit later.
+          -- "c", -- NOTE: Performance is abysmal in files of any notable length.
+          -- "cpp",
           "latex",
           "comment",
+          "haxe",
         }, lang)
       end,
     },
