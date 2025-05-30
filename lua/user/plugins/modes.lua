@@ -26,7 +26,7 @@ return function()
 
     -- Disable modes highlights in specified filetypes
     -- Please PR commonly ignored filetypes
-    ignore_filetypes = {
+    ignore = {
       "Codewindow",
       "NeogitCommitMessage",
       "NeogitStatus",
