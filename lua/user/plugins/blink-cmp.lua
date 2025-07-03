@@ -152,7 +152,6 @@ return function()
           module = "blink.cmp.sources.buffer",
           score_offset = 100,
           opts = {
-            max_items = 20,
             get_bufnrs = function()
               return vim.tbl_filter(
                 function(bufnr) return utils.buf_get_size(bufnr) < 1024 end,
