@@ -616,6 +616,8 @@ require("lazy").setup({
   { "mfussenegger/nvim-jdtls" },
 
   -- COMPLETION
+
+  -- DEPRECATED: nvim-cmp
   -- {
   --   "hrsh7th/nvim-cmp",
   --   init = utils.lazy_load("nvim-cmp"),
@@ -722,6 +724,8 @@ require("lazy").setup({
   {
     -- Make sure to run `:Copilot auth` after install
     "zbirenbaum/copilot.lua",
+    -- Don't install in Amazon work laptop
+    cond = not sys.is_amazon() and vim.g.ai_enabled,
     cmd = "Copilot",
     event = "VimEnter",
     config = conf("copilot"),
@@ -807,5 +811,28 @@ require("lazy").setup({
       "nvim-tree/nvim-web-devicons",
     },
     config = conf("leetcode"),
-  }
+  },
+
+  --- Amazon internal plugins
+  -- condition: sys.whoami() == "mrklcrns"
+
+  -- Source: https://code.amazon.com/packages/Vim-code-browse/trees/mainline
+  -- Lets you browse code with :GBrowse
+  {
+    name = "vim-code-browse",
+    url = "ssh://git.amazon.com:2222/pkg/Vim-code-browse",
+    cond = sys.is_amazon(), -- mrklcrns is my work Amazon username
+    event = "VeryLazy",
+    dependencies = {
+      "sindrets/vim-fugitive",
+    }
+  },
+  {
+    name = 'amazonq',
+    url = 'ssh://git.amazon.com/pkg/AmazonQNVim',
+    cond = sys.is_amazon() and vim.g.ai_enabled, -- mrklcrns is my work Amazon username
+    event = "VeryLazy",
+    config = conf("amazonq"),
+  },
+
 }, require("user.plugins.lazy_nvim"))

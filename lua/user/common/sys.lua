@@ -32,4 +32,9 @@ function M.is_gui()
     or has("gui") == 1
 end
 
+-- Amazon work laptop username
+function M.is_amazon()
+  return M.whoami() == "mrklcrns"
+end
+
 return M

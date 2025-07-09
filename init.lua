@@ -63,7 +63,8 @@ api.nvim_create_autocmd("CmdlineEnter", {
     -- COMMAND ALIASES
 
     local cmd_alias = require("user.modules.cmd_alias")
-    local alias, ialias = cmd_alias.alias, cmd_alias.ialias
+    -- local alias, ialias = cmd_alias.alias, cmd_alias.ialias
+    local alias = cmd_alias.alias
 
     alias("brm", "BufRemove")
     alias("sch", "Scratch")
@@ -78,9 +79,9 @@ api.nvim_create_autocmd("CmdlineEnter", {
     alias("gl", "DiffviewFileHistory")
     alias("ds", "DiffSaved")
     alias("Q", "q")
-    ialias("qa", "qa")
-    ialias("wq", "wq")
-    ialias("wqa", "wqa")
+    -- ialias("qa", "qa")
+    -- ialias("wq", "wq")
+    -- ialias("wqa", "wqa")
     alias("we", "w | e")
     alias("ws", "w | so %")
     alias("ftd", "filetype detect")
