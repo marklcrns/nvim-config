@@ -68,7 +68,6 @@ require("lazy").setup({
   -- UTILS
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
-  "MunifTanjim/nui.nvim",
   {
     "tpope/vim-eunuch",
     event = "VimEnter",
@@ -81,6 +80,7 @@ require("lazy").setup({
     init = utils.load_mappings("nvim_notify"),
     config = conf("nvim-notify"),
   },
+  { "MunifTanjim/nui.nvim" },
   {
     -- INFO: Need to enable Cursor highlight in colorscheme.lua.
     -- i.e. comment out `hi_clear({ "Cursor", "TermCursor" })`
@@ -537,6 +537,7 @@ require("lazy").setup({
   },
   {
     "mfussenegger/nvim-lint",
+    config = conf("nvim-lint"),
   },
   {
     "williamboman/mason.nvim",
@@ -559,6 +560,13 @@ require("lazy").setup({
     "Chaitanyabsprip/fastaction.nvim",
     init = utils.load_mappings("fastaction"),
     config = conf("fastaction"),
+  },
+  {
+    "rmagatti/goto-preview",
+    dependencies = { "rmagatti/logger.nvim" },
+    init = utils.load_mappings("goto_preview"),
+    event = "BufEnter",
+    config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
   },
 
   -- LANGUAGES + TOOLS
@@ -621,7 +629,7 @@ require("lazy").setup({
 
   -- COMPLETION
 
-  -- DEPRECATED: nvim-cmp
+  -- DEPRECATED: in favor of blink.cmp
   -- {
   --   "hrsh7th/nvim-cmp",
   --   init = utils.lazy_load("nvim-cmp"),

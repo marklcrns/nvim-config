@@ -477,6 +477,20 @@ M.gitsigns = {
   },
 }
 
+M.goto_preview = {
+  plugin = true,
+
+  n = {
+    -- remove "p" in the mappings
+    ["gpd"] = { function() require("goto-preview").goto_preview_definition() end, "goto definition", opts = default_opts, },
+    ["gpD"] = { function() require("goto-preview").goto_preview_declaration() end, "goto declaration", opts = default_opts, },
+    ["gpy"] = { function() require("goto-preview").goto_preview_type_definition() end, "goto type definition", opts = default_opts, },
+    ["gpi"] = { function() require("goto-preview").goto_preview_implementation() end, "goto implementation", opts = default_opts, },
+    ["gpr"] = { function() require("goto-preview").goto_preview_references() end, "goto references", opts = default_opts, },
+    ["gP"] = { function() require("goto-preview").close_all_win() end, "close all goto preview windows", opts = default_opts, },
+  },
+}
+
 M.hardtime = {
   plugin = true,
 
