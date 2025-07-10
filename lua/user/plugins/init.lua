@@ -117,7 +117,7 @@ require("lazy").setup({
   { "goolord/alpha-nvim", config = conf("alpha"), event = "VimEnter" },
 
   -- QoL
-  {
+  { -- Needed for some local functions
     "folke/snacks.nvim",
     priority = 1000,
     config = conf("snacks"),
@@ -536,9 +536,13 @@ require("lazy").setup({
     config = conf("conform"),
   },
   {
+    "mfussenegger/nvim-lint",
+  },
+  {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
     init = utils.load_mappings("mason"),
+    -- NOTE: Mason config is defined in lsp/init.lua
     dependencies = { { "williamboman/mason-lspconfig.nvim", config = false } },
     opts = {
       ui = { border = "single" },
@@ -831,6 +835,7 @@ require("lazy").setup({
     name = 'amazonq',
     url = 'ssh://git.amazon.com/pkg/AmazonQNVim',
     cond = sys.is_amazon() and vim.g.ai_enabled, -- mrklcrns is my work Amazon username
+    init = utils.load_mappings("amazonq"),
     event = "VeryLazy",
     config = conf("amazonq"),
   },

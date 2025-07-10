@@ -40,7 +40,7 @@ return function()
       results_title = false,
       selection_strategy = "reset",
       sorting_strategy = "ascending",
-      layout_strategy = "horizontal",
+      layout_strategy = "vertical",
       -- borderchars = {
       --   prompt = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
       --   results = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
@@ -51,10 +51,12 @@ return function()
         preview_cutoff = 120,
         width = 0.75,
         horizontal = {
-          mirror = false,
+          mirror = true,
+          preview_cutoff = 25,
         },
         vertical = {
-          mirror = false,
+          mirror = true,
+          preview_cutoff = 25,
         },
       },
       path_display = {

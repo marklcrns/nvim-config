@@ -12,7 +12,7 @@ return function()
 
   -- Grey out the search area
   -- Or just set to grey directly, e.g. { fg = '#777777' },
-  -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
+  vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
 
   -- Disable auto-jumping to the first match
   leap.opts.safe_labels = {}

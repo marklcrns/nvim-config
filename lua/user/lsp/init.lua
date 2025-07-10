@@ -1,6 +1,13 @@
 local mason = prequire("mason")
 if mason then mason.setup() end
 
+-- local mason_lspconfig = prequire("mason-lspconfig")
+-- if mason_lspconfig then
+--   mason_lspconfig.setup({
+--     automatic_installation = true,
+--   })
+-- end
+
 require("neodev").setup({
   library = {
     vimruntime = false, -- runtime path

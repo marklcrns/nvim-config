@@ -161,6 +161,21 @@ M.abolish = {
   },
 }
 
+M.amazonq = {
+  plugin = true,
+
+  n = {
+    ["<leader>taq"] = { "<cmd>AmazonQ<CR>", "open AmazonQ", opts = default_opts },
+    ["<leader>taa"] = { "<cmd>AmazonQ toggle<CR>", "toggle AmazonQ", opts = default_opts },
+    ["<leader>tae"] = { "<cmd>AmazonQ explain<CR>", "explain AmazonQ", opts = default_opts },
+  },
+  v = {
+    ["<leader>taq"] = { ":AmazonQ<CR>", "open AmazonQ", opts = default_opts },
+    ["<leader>taa"] = { ":AmazonQ toggle<CR>", "toggle AmazonQ", opts = default_opts },
+    ["<leader>tae"] = { ":AmazonQ explain<CR>", "explain AmazonQ", opts = default_opts },
+  },
+}
+
 M.cellular_automaton = {
   plugin = true,
 
