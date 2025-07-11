@@ -159,6 +159,10 @@ aucmd("BufRead", {
 
             notify.config.info("Big file detected: Disabled treesitter-context, todo-comments, illuminate, and rainbow-delimiters.")
         end
+
+        -- folke/twilight.nvim
+        local twilight = prequire("twilight")
+        if twilight then twilight.enable() end
     end,
 })
 

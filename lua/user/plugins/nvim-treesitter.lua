@@ -10,9 +10,6 @@ return function()
     -- Only install what has been seen at least once
     -- ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     auto_install = true,
-    ignore_install = {
-      "luap",
-    },
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = true,
