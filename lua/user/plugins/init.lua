@@ -314,6 +314,11 @@ require("lazy").setup({
     },
   },
   {
+    'echasnovski/mini.files',
+    init = utils.load_mappings("mini_files"),
+    config = conf("mini-files"),
+  },
+  {
     "kshenoy/vim-signature",
     init = utils.lazy_load("vim-signature"),
     config = conf("vim-signature"),

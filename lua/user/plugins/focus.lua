@@ -63,6 +63,7 @@ return function()
     "toggleterm",
     "dropbar_menu",
     "DiffviewFiles",
+    "minifiles",
   }
   local ignore_buftypes = {
     "help",

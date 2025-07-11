@@ -36,6 +36,7 @@
   "markview.nvim": { "branch": "main", "commit": "d5d37102d24c3d5d032b01263855081b6850509b" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "7815740f4d0afb74ada00956c36e18ad695ed9e3" },
   "mason.nvim": { "branch": "main", "commit": "8024d64e1330b86044fed4c8494ef3dcd483a67c" },
+  "mini.files": { "branch": "main", "commit": "a92ba6f1bf9e1e0b9c6de50db1f5df7ca89cb9e4" },
   "mkdnflow.nvim": { "branch": "main", "commit": "d459bd7ce68910272038ed037c028180161fd14d" },
   "modes.nvim": { "branch": "main", "commit": "90d7abfc8ba3f4ecc1f1add9f74d50a64aa39b63" },
   "neo-tree.nvim": { "branch": "v3.x", "commit": "cea666ef965884414b1b71f6b39a537f9238bdb2" },

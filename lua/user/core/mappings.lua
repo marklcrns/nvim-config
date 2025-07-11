@@ -629,6 +629,19 @@ M.mason = {
   },
 }
 
+M.mini_files = {
+  plugin = true,
+
+  n = {
+    ["<leader>ee"] = {
+      function()
+        require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+      end,
+      "open files", opts = default_opts
+    },
+  },
+}
+
 M.muren = {
   plugin = true,
 
@@ -677,7 +690,8 @@ M.neogit = {
 
 M.neo_tree = {
   n = {
-    ["<leader>ee"] = { "<cmd>Neotree filesystem toggle<CR>", "toggle file explorer", opts = default_opts },
+    -- Using mini.files instead here
+    -- ["<leader>ee"] = { "<cmd>Neotree filesystem toggle<CR>", "toggle file explorer", opts = default_opts },
     ["<leader>ef"] = { "<cmd>Neotree filesystem reveal<CR>", "toggle file exprorer focus buffer", opts = default_opts },
     ["<leader>eb"] = { "<cmd>Neotree buffers<CR>", "toggle buffer explorer", opts = default_opts },
     ["<leader>eg"] = { "<cmd>Neotree git_status<CR>", "toggle git status explorer", opts = default_opts },

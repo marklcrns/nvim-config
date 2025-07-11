@@ -24,6 +24,7 @@ return function()
       "floggraph",
       "lspinfo",
       "checkhealth",
+      "minifiles",
     },
   })
 

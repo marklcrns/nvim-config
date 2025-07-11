@@ -204,4 +204,36 @@ augroup("ibhagwan/ToggleSearchHL", function(g)
         end
     })
 end)
+
+-- Fix closing folds when opening file for the first time
+-- https://github.com/kevinhwang91/nvim-ufo/issues/146#issuecomment-1685763570
+augroup("kevinhwang91/nvim-ufo", function(g)
+    aucmd("BufRead", {
+        group = g,
+        callback = function()
+            local ufo = prequire("ufo")
+
+            vim.cmd("silent! foldclose!")
+            local bufnr = vim.api.nvim_get_current_buf()
+            -- make sure buffer is attached
+            vim.wait(100, function() ufo.attach(bufnr) end)
+            if ufo.hasAttached(bufnr) then
+                local winid = vim.api.nvim_get_current_win()
+                local method = vim.wo[winid].foldmethod
+                if method == "diff" or method == "marker" then
+                    ufo.closeAllFolds()
+                    return
+                end
+                -- getFolds returns a Promise if providerName == 'lsp', use vim.wait in this case
+                local ok, ranges = pcall(ufo.getFolds, bufnr, "treesitter")
+                if ok and ranges then
+                    if ufo.applyFolds(bufnr, ranges) then
+                        ufo.closeAllFolds()
+                    end
+                end
+            end
+        end,
+    })
+end)
+
 EOF

@@ -9,6 +9,35 @@ return function()
     context = 10, -- number of lines to show in context
     treesitter = true, -- enable treesitter for context detection
     expand = { "function", "method", "class" }, -- expand context for these nodes
-    exclude = {}, -- list of filetypes to exclude from twilight
+    exclude = {
+      "Codewindow",
+      "NeogitCommitMessage",
+      "NeogitStatus",
+      "NvimTree",
+      "Outline",
+      "TelescopePrompt",
+      "Trouble",
+      "dap-repl",
+      "dapui_breakpoints",
+      "dapui_console",
+      "dapui_scopes",
+      "dapui_stacks",
+      "dapui_watches",
+      "dashboard",
+      "floggraph",
+      "gina-commit",
+      "gina-status",
+      "git",
+      "help",
+      "lspsagafinder",
+      "lspsagaoutline",
+      "minimap",
+      "neo-tree",
+      "qf",
+      "toggleterm",
+      "dropbar_menu",
+      "DiffviewFiles",
+      "minifiles",
+    }, -- list of filetypes to exclude from twilight
   })
 end
