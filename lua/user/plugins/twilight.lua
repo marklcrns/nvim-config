@@ -1,7 +1,7 @@
 return function()
   require("twilight").setup({
     dimming = {
-      alpha = 0.60, -- amount of dimming
+      alpha = 0.40, -- amount of dimming
       color = { "Normal", "#ffffff" }, -- color of the dimmed text
       term_bg = "#000000", -- background color for terminal
       inactive = false, -- whether to dim inactive windows

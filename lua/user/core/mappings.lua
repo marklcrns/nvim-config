@@ -641,7 +641,7 @@ M.mini_files = {
   plugin = true,
 
   n = {
-    ["<leader>ee"] = {
+    ["<leader>ef"] = {
       function()
         require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
       end,
@@ -700,7 +700,7 @@ M.neo_tree = {
   n = {
     -- Using mini.files instead here
     -- ["<leader>ee"] = { "<cmd>Neotree filesystem toggle<CR>", "toggle file explorer", opts = default_opts },
-    ["<leader>ef"] = { "<cmd>Neotree filesystem reveal<CR>", "toggle file exprorer focus buffer", opts = default_opts },
+    ["<leader>ee"] = { "<cmd>Neotree filesystem reveal<CR>", "toggle file explorer focus buffer", opts = default_opts },
     ["<leader>eb"] = { "<cmd>Neotree buffers<CR>", "toggle buffer explorer", opts = default_opts },
     ["<leader>eg"] = { "<cmd>Neotree git_status<CR>", "toggle git status explorer", opts = default_opts },
   },

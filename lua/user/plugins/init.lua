@@ -146,6 +146,11 @@ require("lazy").setup({
     end,
   },
   {
+    "echasnovski/mini.ai",
+    event = "VeryLazy",
+    config = conf("mini-ai"),
+  },
+  {
     "kevinhwang91/nvim-ufo",
     cond = not vim.g.low_performance_mode,
     init = utils.lazy_load("nvim-ufo"),

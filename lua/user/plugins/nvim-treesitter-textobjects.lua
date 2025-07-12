@@ -66,7 +66,8 @@ return function()
         },
       },
       select = {
-        enable = true,
+        -- INFO: Disabled in favor of mini.ai
+        enable = false,
 
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
