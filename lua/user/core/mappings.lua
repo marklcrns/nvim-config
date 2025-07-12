@@ -353,7 +353,7 @@ M.fugitive = {
   plugin = true,
 
   n = {
-    -- ["<leader>gg"] = {
+    -- ["<leader>gs"] = {
     --   "<cmd>lua Config.plugin.fugitive.status_open('tab', { use_last = true })<CR>",
     --   "git status last tab",
     --   opts = default_opts,
@@ -413,6 +413,14 @@ M.fugitive = {
     ["<leader>gd"] = {
       "<cmd>DiffviewOpen<CR>",
       "git diff",
+      opts = default_opts,
+    },
+  },
+
+  v = {
+    ["<leader>go"] = {
+      ":GBrowse<CR>",
+      "open git repo in browser",
       opts = default_opts,
     },
   },
