@@ -69,6 +69,7 @@ return function()
     { "<leader>ry", group = "yank" },
     { "<leader>s", group = "session" },
     { "<leader>t", group = "tools" },
+    { "<leader>ta", group = "ai" },
     { "<leader>td", group = "diff" },
     { "<leader>tl", group = "leetcode" },
     { "<leader>tr", group = "repl" },
