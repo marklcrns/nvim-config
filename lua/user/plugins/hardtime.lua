@@ -25,6 +25,7 @@ return function()
       "lspinfo",
       "checkhealth",
       "minifiles",
+      "minifiles-help",
     },
   })
 

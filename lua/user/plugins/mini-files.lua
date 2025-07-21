@@ -4,8 +4,10 @@
       options = {
         show_hidden = true,  -- Show hidden files
         follow_symlinks = true,  -- Follow symbolic links
-        sort_by = "name",  -- Sort files by name
-        width = 30,  -- Width of the file explorer window
+        -- This is a module-specific variant of "remove to trash". Target directory is 'mini.files/trash' inside standard path of Neovim
+        -- data directory (execute `:echo stdpath('data')` to see its path in your case).
+        -- e.g., ~/.local/share/nvim/mini.files/trash
+        permanent_delete = false,
         -- Disabled by default in LazyVim because neo-tree is used for that
         use_as_default_explorer = false,
       },

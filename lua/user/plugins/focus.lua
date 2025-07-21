@@ -64,6 +64,7 @@ return function()
     "dropbar_menu",
     "DiffviewFiles",
     "minifiles",
+    "minifiles-help"
   }
   local ignore_buftypes = {
     "help",

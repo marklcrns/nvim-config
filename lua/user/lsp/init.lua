@@ -184,7 +184,7 @@ lspconfig.jsonls.setup(M.create_config())
 lspconfig.taplo.setup(M.create_config())
 
 -- Ruby
-lspconfig.solargraph.setup(M.create_config())
+-- lspconfig.solargraph.setup(M.create_config())
 
 -- Grammar
 lspconfig.harper_ls.setup(M.create_config({
