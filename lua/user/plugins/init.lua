@@ -75,7 +75,7 @@ require("lazy").setup({
   },
   {
     "rcarriga/nvim-notify",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "VimEnter",
     init = utils.load_mappings("nvim_notify"),
     config = conf("nvim-notify"),
@@ -87,7 +87,7 @@ require("lazy").setup({
     -- Must comment out vim.lsp.handlers["textDocument/signatureHelp"] override. See usr/lsp/init.lua.
     -- Additionally, must disable `lsp.signature` in noice.lua.
     "folke/noice.nvim",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "VeryLazy",
     config = conf("noice"),
     dependencies = {
@@ -97,6 +97,7 @@ require("lazy").setup({
   },
   {
     "xiyaowong/transparent.nvim",
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     init = utils.load_mappings("transparent"),
     lazy = false,
   },
@@ -135,7 +136,7 @@ require("lazy").setup({
   },
   {
     "chrisgrieser/nvim-spider",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "VimEnter",
     -- NOTE: using conf("spider", "spider") does not work as the plugin is loaded to boot
     config = function()
@@ -152,7 +153,7 @@ require("lazy").setup({
   },
   {
     "kevinhwang91/nvim-ufo",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     init = utils.lazy_load("nvim-ufo"),
     config = conf("nvim-ufo"),
     dependencies = {
@@ -192,13 +193,13 @@ require("lazy").setup({
   },
   {
     "nvim-focus/focus.nvim",
-    cond = not sys.is_gui() and not vim.g.low_performance_mode,
+    cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "VimEnter",
     config = conf("focus", "focus"),
   },
   {
     "karb94/neoscroll.nvim",
-    cond = not sys.is_gui() and not vim.g.low_performance_mode,
+    cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
     init = utils.lazy_load("neoscroll.nvim"),
     config = conf("neoscroll"),
   },
@@ -268,7 +269,7 @@ require("lazy").setup({
     -- NOTE: when zen-mode activates, this will automatically enable
     "folke/twilight.nvim",
     init = utils.load_mappings("twilight"),
-    cond = not sys.is_gui() and not vim.g.low_performance_mode,
+    cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "VimEnter",
     config = conf("twilight"),
   },
@@ -283,7 +284,7 @@ require("lazy").setup({
   -- WARN: Disabled because it affects startup time by good amount
   -- {
   --   "Bekaboo/dropbar.nvim",
-  --   cond = not sys.is_gui() and not vim.g.low_performance_mode,
+  --   cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
   --   event = "VimEnter",
   --   config = conf("dropbar", "dropbar"),
   --   dependencies = {
@@ -406,7 +407,7 @@ require("lazy").setup({
   -- },
   {
     "andymass/vim-matchup",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "BufRead",
     config = conf("vim-matchup"),
   },
@@ -434,7 +435,7 @@ require("lazy").setup({
   -- CODE NAVIGATION
   -- {
   --   "gorbit99/codewindow.nvim",
-  --   cond = not vim.g.low_performance_mode,
+  --   cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
   --   event = "VimEnter",
   --   config = conf("codewindow", "codewindow"),
   -- },
@@ -519,7 +520,7 @@ require("lazy").setup({
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     cmd = { "TSContextEnable", "TSContextToggle" },
     event = "VeryLazy",
     config = conf("nvim-treesitter-context", "treesitter_context"),
@@ -541,7 +542,7 @@ require("lazy").setup({
   },
   {
     "NvChad/nvim-colorizer.lua",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     init = utils.lazy_load("nvim-colorizer.lua"),
     config = function(_, opts)
       utils.load_mappings("colorizer")
@@ -619,7 +620,8 @@ require("lazy").setup({
   },
   {
     "glacambre/firenvim",
-    build = function() vim.fn["firenvim#install"](0) end,
+    lazy = false,
+    build = ":call firenvim#install(0)",
     init = conf("firenvim"),
   },
   {
@@ -827,7 +829,7 @@ require("lazy").setup({
   },
   {
     "m4xshen/hardtime.nvim",
-    cond = not vim.g.low_performance_mode,
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "VimEnter",
     init = utils.load_mappings("hardtime"),
     config = conf("hardtime"),

@@ -32,6 +32,10 @@ function M.is_gui()
     or has("gui") == 1
 end
 
+function M.is_firenvim()
+  return vim.g.started_by_firenvim
+end
+
 -- Amazon work laptop username
 function M.is_amazon()
   return M.whoami() == "mrklcrns"

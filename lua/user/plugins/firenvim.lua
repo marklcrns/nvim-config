@@ -31,7 +31,8 @@ return function()
   end
 
   if vim.g.started_by_firenvim then
-    vim.opt.guifont = "monospace:h9"
+    vim.opt.guifont = "SauceCodePro Nerd Font Mono"
+    vim.g.transparent_enabled = false
 
     Config.common.au.declare_group("firenvim_config", {}, {
       {
