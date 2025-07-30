@@ -213,4 +213,6 @@ function Config.fn.update_messages_win()
   end
 end
 
+pp("UPDATE TMUX CONFIG OF THE NEW MAPPING CHANGES FROM DEV LAPTOP. REMOVE THIS MESSAGE AFTER FROM init.lua")
+
 return Config

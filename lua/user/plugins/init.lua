@@ -238,7 +238,9 @@ require("lazy").setup({
   },
   {
     "feline-nvim/feline.nvim",
-    config = conf("feline"),
+    -- TODO: Fix user.async before enabling this. Also see user/init.lua
+    -- config = conf("feline"),
+    config = function() require("feline").setup() end,
     event = "VeryLazy",
   },
 
