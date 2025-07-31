@@ -353,13 +353,13 @@ M.fugitive = {
   plugin = true,
 
   n = {
-    -- ["<leader>gs"] = {
+    -- ["<leader>gg"] = {
     --   "<cmd>lua Config.plugin.fugitive.status_open('tab', { use_last = true })<CR>",
     --   "git status last tab",
     --   opts = default_opts,
     -- },
-    ["<leader>gg"] = {
-      "<cmd>lua Config.plugin.fugitive.status_open('split')<CR>",
+    ["<leader>gs"] = {
+      "<cmd>lua Config.plugin.fugitive.status_open('split', { use_last = true })<CR>",
       "git status",
       opts = default_opts,
     },
@@ -692,7 +692,7 @@ M.neogit = {
   plugin = true,
 
   n = {
-    ["<leader>gs"] = { "<cmd>Neogit<CR>", "open neogit", opts = default_opts },
+    ["<leader>gg"] = { "<cmd>Neogit<CR>", "open neogit", opts = default_opts },
   },
 }
 
