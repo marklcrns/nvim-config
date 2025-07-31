@@ -23,13 +23,13 @@ require("user.core.utils").load_mappings()
 require("user.core")
 
 require("user.plugins")
--- NOTE: Temporarily disasbled because it loads user.async which is buggy:
+-- NOTE: Temporarily disabled user.commands because it loads user.async which is buggy:
 -- whenever I `git checkout` to a different branch, it throws error constantly.
 -- Feline also uses async. So it bugs out as well, but not too intrusively.
 -- TODO: Fix this. Either remove user.async altogether or fix the errors. Try
 -- uncommenting the below and `git checkout` to a different branch and see the error.
 -- Also see Feline plugin configs.
--- require("user.commands")
+require("user.commands")
 require("user.colorscheme").apply()
 
 vim.schedule(function()

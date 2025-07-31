@@ -239,8 +239,8 @@ require("lazy").setup({
   {
     "feline-nvim/feline.nvim",
     -- TODO: Fix user.async before enabling this. Also see user/init.lua
-    -- config = conf("feline"),
-    config = function() require("feline").setup() end,
+    config = conf("feline"),
+    -- config = function() require("feline").setup() end,
     event = "VeryLazy",
   },
 
@@ -435,23 +435,18 @@ require("lazy").setup({
   },
 
   -- CODE NAVIGATION
-  -- {
-  --   "gorbit99/codewindow.nvim",
-  --   cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-  --   event = "VimEnter",
-  --   config = conf("codewindow", "codewindow"),
-  -- },
+  {
+    "gorbit99/codewindow.nvim",
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
+    event = "VimEnter",
+    config = conf("codewindow", "codewindow"),
+  },
   {
     "hedyhli/outline.nvim",
     init = utils.load_mappings("outline"),
     config = conf("outline"),
     cmd = { "Outline", "OutlineClose", "OutlineOpen" },
   },
-  -- {
-  --   "ggandor/leap.nvim",
-  --   keys = { "s", "S", "gs", "gS", "ga", "gA" },
-  --   config = conf("leap"),
-  -- },
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -829,14 +824,14 @@ require("lazy").setup({
     init = utils.load_mappings("harpoon"),
     config = true,
   },
-  {
-    "m4xshen/hardtime.nvim",
-    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
-    init = utils.load_mappings("hardtime"),
-    config = conf("hardtime"),
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-  },
+  -- {
+  --   "m4xshen/hardtime.nvim",
+  --   cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
+  --   event = "VimEnter",
+  --   init = utils.load_mappings("hardtime"),
+  --   config = conf("hardtime"),
+  --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+  -- },
   {
     "Eandrju/cellular-automaton.nvim",
     cmd = { "CellularAutomaton" },
