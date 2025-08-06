@@ -26,6 +26,17 @@ return function()
     popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
+    event_handlers = {
+      {
+        event = "file_open_requested",
+        handler = function()
+          -- auto close
+          -- vim.cmd("Neotree close")
+          -- OR
+          require("neo-tree.command").execute({ action = "close" })
+        end
+      },
+    },
     window = {
       position = "left",
       width = 35,
