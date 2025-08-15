@@ -641,7 +641,6 @@ require("lazy").setup({
   },
   {
     "OXY2DEV/markview.nvim",
-    branch = "main",
     ft = "markdown",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
