@@ -765,7 +765,7 @@ require("lazy").setup({
     "zbirenbaum/copilot.lua",
     -- Don't install in Amazon work laptop
     -- cond = not sys.is_amazon() and vim.g.ai_enabled,
-    cond = vim.g.ai_enabled,
+    cond = vim.g.ai_enabled and not sys.is_amazon(), -- disable for work
     cmd = "Copilot",
     event = "VimEnter",
     config = conf("copilot"),

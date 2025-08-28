@@ -19,6 +19,7 @@ return function()
     },
     -- IAM Identity Center portal for organisation.
     ssoStartUrl = 'https://view.awsapps.com/start',
+    -- For completion setup, :h amazonq-config-completion
     inline_suggest = true,
     -- List of filetypes where the Q will be activated.
     -- Docs: https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/q-language-ide-support.html
@@ -26,7 +27,9 @@ return function()
     -- but in the filetype name is "sh" (also "bash").
     filetypes = {
         'amazonq', 'bash', 'java', 'python', 'typescript', 'javascript', 'csharp', 'ruby', 'kotlin', 'sh', 'sql', 'c',
-        'cpp', 'go', 'rust', 'lua',
+        'cpp', 'go', 'rust', 'lua', 'php', 'yaml', 'json', 'toml', 'html', 'css', 'markdown', 'md', 'dockerfile', 'docker',
+        'gitignore', 'gitcommit', 'git_rebase', 'gitconfig', 'conf', 'vim', 'viml', 'zsh', 'text', 'xml', 'yaml', 'yml',
+        'toml', 'ini', 'cfg', 'conf', 'log', 'properties', 'prop', 'prop'
     },
     on_chat_open = function()
       vim.cmd[[
@@ -36,5 +39,16 @@ return function()
     end,
     -- Enable debug mode (for development).
     debug = false,
+  })
+
+
+  -- Force insert when entering AmazonQ
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'FileType' }, {
+    group = vim.api.nvim_create_augroup('my.amazonq', { clear = true }),
+    callback = function(ev)
+      if vim.b.amazonq then
+        vim.cmd.startinsert()
+      end
+    end,
   })
 end

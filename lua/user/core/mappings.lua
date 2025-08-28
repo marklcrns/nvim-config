@@ -164,10 +164,31 @@ M.abolish = {
 M.amazonq = {
   plugin = true,
 
+  -- TODO: Fix this. The invoke completion works but there is no way to select any suggestions
+  -- i = {
+  --   ["<c-q>"] = {
+  --     function()
+  --       local client = vim.lsp.get_clients({ bufnr = 0, name = 'amazonq-completion' })[1]
+  --       if not client then
+  --         vim.notify('Amazon Q not enabled for this buffer')
+  --         return
+  --       end
+  --       vim.lsp.completion.enable(true, client.id, 0)
+  --       vim.notify('Amazon Q: working...')
+  --       vim.lsp.completion.get()
+  --       -- vim.cmd[[redraw | echo '']]
+  --     end,
+  --     "invoke AmazonQ completion",
+  --     opts = default_opts,
+  --   },
+  -- },
+
+  -- NOTE: You can highlight a text then hit `zq` to bring the selected text to AmazonQ
   n = {
     ["<leader>taq"] = { "<cmd>AmazonQ<CR>", "open AmazonQ", opts = default_opts },
     ["<leader>taa"] = { "<cmd>AmazonQ toggle<CR>", "toggle AmazonQ", opts = default_opts },
     ["<leader>tae"] = { "<cmd>AmazonQ explain<CR>", "explain AmazonQ", opts = default_opts },
+    ["<leader>tal"] = { "<cmd>AmazonQ login<CR>", "login AmazonQ", opts = default_opts },
   },
   v = {
     ["<leader>taq"] = { ":AmazonQ<CR>", "open AmazonQ", opts = default_opts },

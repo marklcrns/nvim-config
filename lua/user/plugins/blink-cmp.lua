@@ -132,6 +132,9 @@ return function()
           score_offset = 500,
           module = "blink.cmp.sources.lsp",
           fallbacks = {},
+          -- Amazon Q config
+          async = true,
+          timeout_ms = 200, -- Allow Q suggestions more time to arrive
         },
         snippets = {
           score_offset = 400,
