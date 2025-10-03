@@ -84,7 +84,7 @@ M.general = {
     ["<M-f>"] = { "<cmd>lua require('user.lib').workspace_files()<CR>", "show workspace files", opts = default_opts },
     ["<M-F>"] = { "<cmd>lua require('user.lib').workspace_files({ all = true })<CR>", "show all workspace files", opts = default_opts },
     ["<M-b>"] = { "<cmd>lua Snacks.picker.buffers({ sort_lastused = true })<CR>", "show last used buffers picker", opts = default_opts },
-    ["<M-r>"] = { "<cmd>lua Snacks.picker.grep()<CR>", "show grep picker", opts = default_opts },
+    ["<M-r>"] = { "<cmd>lua Snacks.picker.grep({ hidden = true })<CR>", "show grep picker", opts = default_opts },
     ["<M-O>"] = { "<cmd>lua Snacks.picker.lsp_workspace_symbols()<CR>", "show lsp workspace symbols picker", opts = default_opts },
     ["<M-o>"] = { "<cmd>lua Snacks.picker.lsp_symbols()<CR>", "show lsp symbols picker", opts = default_opts },
     ["<M-d>"] = { "<cmd>lua Snacks.picker.diagnostics_buffer()<CR>", "show diagnostics buffer picker", opts = default_opts },
