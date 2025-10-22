@@ -45,5 +45,6 @@ return function()
     -- },
   });
 
+  require("markview.highlights").setup()
   vim.cmd("Markview Enable");
 end
