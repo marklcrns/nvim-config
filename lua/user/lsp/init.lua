@@ -1,7 +1,8 @@
 local mason = prequire("mason")
 if mason then mason.setup() end
 
--- local mason_lspconfig = prequire("mason-lspconfig")
+local mason_lspconfig = prequire("mason-lspconfig")
+if mason_lspconfig then mason_lspconfig.setup() end
 -- if mason_lspconfig then
 --   mason_lspconfig.setup({
 --     automatic_installation = true,
@@ -122,9 +123,6 @@ require("user.lsp.java")
 -- Typescript
 require("user.lsp.typescript")
 
--- Python
-lspconfig.pyright.setup(M.create_config())
-
 -- Lua
 server_configs.emmylua_ls = {
   default_config = {
@@ -139,26 +137,8 @@ server_configs.emmylua_ls = {
 require("user.lsp.lua")
 -- lspconfig.emmylua_ls.setup(M.create_config())
 
--- Luau
-lspconfig.luau_lsp.setup(M.create_config())
-
--- Bash
-lspconfig.bashls.setup(M.create_config())
-
--- C, C++
-lspconfig.clangd.setup(M.create_config())
-
--- Vim
-lspconfig.vimls.setup(M.create_config())
-
--- Go
-lspconfig.gopls.setup(M.create_config())
-
--- Scheme, Racket
-lspconfig.racket_langserver.setup(M.create_config())
-
 -- Haxe
-lspconfig.haxe_language_server.setup(M.create_config({
+vim.lsp.config("haxe_language_server", M.create_config({
   -- NOTE: Doesn't work with xargs here. Something about the tty?
   cmd = {
     "sh",
@@ -169,41 +149,6 @@ lspconfig.haxe_language_server.setup(M.create_config({
   init_options = {
     displayArguments = { 'build.hxml' },
   },
-}))
-
--- Rust
-lspconfig.rust_analyzer.setup(M.create_config())
-
--- CSS
-lspconfig.cssls.setup(M.create_config())
-
--- Json
-lspconfig.jsonls.setup(M.create_config())
-
--- Toml
-lspconfig.taplo.setup(M.create_config())
-
--- Ruby
-lspconfig.solargraph.setup(M.create_config())
-
--- Grammar
-lspconfig.harper_ls.setup(M.create_config({
-  settings = {
-    ["harper-ls"] = {
-      linters = {
-        SpellCheck = true,
-        SpelledNumbers = false,
-        AnA = true,
-        SentenceCapitalization = true,
-        UnclosedQuotes = true,
-        WrongQuotes = false,
-        LongSentences = false,
-        RepeatedWords = true,
-        CorrectNumberSuffix = true
-      },
-      diagnosticSeverity = "hint",
-    }
-  }
 }))
 
 vim.diagnostic.config({

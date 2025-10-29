@@ -18,7 +18,7 @@ end
 _G.pp = function(a, opt) print(vim.inspect(a, opt)) end
 
 ---LibUV
-_G.uv = vim.loop
+_G.uv = vim.uv or vim.loop
 
 _G.Config = {
   fn = {},

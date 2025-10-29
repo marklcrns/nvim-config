@@ -553,10 +553,6 @@ require("lazy").setup({
 
   -- LANGUAGE SERVER PROTOCOL + TOOLS
   {
-    "neovim/nvim-lspconfig",
-    init = utils.load_mappings("lsp"),
-  },
-  {
     "stevearc/conform.nvim",
     event = "VeryLazy",
     init = utils.load_mappings("conform"),
@@ -566,15 +562,41 @@ require("lazy").setup({
     "mfussenegger/nvim-lint",
     config = conf("nvim-lint"),
   },
+  -- {
+  --   "williamboman/mason.nvim",
+  --   build = ":MasonUpdate",
+  --   init = utils.load_mappings("mason"),
+  --   -- NOTE: Mason config is defined in lsp/init.lua
+  --   dependencies = { { "williamboman/mason-lspconfig.nvim", config = false } },
+  --   opts = {
+  --     ui = { border = "single" },
+  --   },
+  -- },
   {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate",
-    init = utils.load_mappings("mason"),
-    -- NOTE: Mason config is defined in lsp/init.lua
-    dependencies = { { "williamboman/mason-lspconfig.nvim", config = false } },
-    opts = {
-      ui = { border = "single" },
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      {
+        "mason-org/mason.nvim",
+        opts = {
+          ui = { border = "single" },
+        }
+      },
+      "neovim/nvim-lspconfig",
     },
+    opts = {
+      automatic_enable = {
+        exclude = {
+          "ts_ls",
+          "stylua",
+          "lua_ls",
+          "haxe_language_server",
+        },
+      },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    init = utils.load_mappings("lsp"),
   },
   {
     "folke/trouble.nvim",
