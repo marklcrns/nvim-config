@@ -3,11 +3,6 @@ if mason then mason.setup() end
 
 local mason_lspconfig = prequire("mason-lspconfig")
 if mason_lspconfig then mason_lspconfig.setup() end
--- if mason_lspconfig then
---   mason_lspconfig.setup({
---     automatic_installation = true,
---   })
--- end
 
 require("neodev").setup({
   library = {

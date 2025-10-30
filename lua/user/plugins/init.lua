@@ -562,21 +562,12 @@ require("lazy").setup({
     "mfussenegger/nvim-lint",
     config = conf("nvim-lint"),
   },
-  -- {
-  --   "williamboman/mason.nvim",
-  --   build = ":MasonUpdate",
-  --   init = utils.load_mappings("mason"),
-  --   -- NOTE: Mason config is defined in lsp/init.lua
-  --   dependencies = { { "williamboman/mason-lspconfig.nvim", config = false } },
-  --   opts = {
-  --     ui = { border = "single" },
-  --   },
-  -- },
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
       {
         "mason-org/mason.nvim",
+        build = ":MasonUpdate",
         opts = {
           ui = { border = "single" },
         }
@@ -604,11 +595,6 @@ require("lazy").setup({
     init = utils.load_mappings("trouble"),
     config = conf("trouble"),
     dependencies = "nvim-tree/nvim-web-devicons",
-  },
-  {
-    "Chaitanyabsprip/fastaction.nvim",
-    init = utils.load_mappings("fastaction"),
-    config = conf("fastaction"),
   },
   {
     "rmagatti/goto-preview",
