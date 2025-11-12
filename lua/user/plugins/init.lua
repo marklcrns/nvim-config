@@ -491,11 +491,17 @@ require("lazy").setup({
   },
 
   -- INTEGRATIONS
+  -- {
+  --   "alexghergh/nvim-tmux-navigation",
+  --   event = "VimEnter",
+  --   config = conf("nvim-tmux-navigation"),
+  -- },
+  -- TODO: Deprecate old mappings about split navigation, resize, swap, as well as in tmux configs
   {
-    "alexghergh/nvim-tmux-navigation",
+    "mrjones2014/smart-splits.nvim",
     event = "VimEnter",
-    config = conf("nvim-tmux-navigation"),
-    },
+    init = utils.load_mappings("smart_splits"),
+  },
 
   -- SYNTAX & FILETYPE PLUGINS
   {

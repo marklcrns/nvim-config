@@ -904,6 +904,81 @@ M.rest = {
   },
 }
 
+M.smart_splits = {
+  plugin = true,
+
+  n = {
+    -- Resizing splits
+    ["<M-h>"] = {
+      "<cmd>lua require('smart-splits').resize_left()<CR>",
+      "resize split left",
+      opts = default_opts
+    },
+    ["<M-j>"] = {
+      "<cmd>lua require('smart-splits').resize_down()<CR>",
+      "resize split down",
+      opts = default_opts
+    },
+    ["<M-k>"] = { 
+      "<cmd>lua require('smart-splits').resize_up()<CR>",
+      "resize split up",
+      opts = default_opts 
+    },
+    ["<M-l>"] = {
+      "<cmd>lua require('smart-splits').resize_right()<CR>",
+      "resize split right",
+      opts = default_opts
+    },
+
+    -- Moving between splits
+    ["<C-h>"] = {
+      "<cmd>lua require('smart-splits').move_cursor_left()<CR>",
+      "move to left split",
+      opts = default_opts
+    },
+    ["<C-j>"] = {
+      "<cmd>lua require('smart-splits').move_cursor_down()<CR>",
+      "move to below split",
+      opts = default_opts
+    },
+    ["<C-k>"] = {
+      "<cmd>lua require('smart-splits').move_cursor_up()<CR>",
+      "move to above split",
+      opts = default_opts
+    },
+    ["<C-l>"] = {
+      "<cmd>lua require('smart-splits').move_cursor_right()<CR>",
+      "move to right split",
+      opts = default_opts
+    },
+    ["<C-\\>"] = {
+      "<cmd>lua require('smart-splits').move_cursor_previous()<CR>",
+      "move to previous split",
+      opts = default_opts
+    },
+    ["<leader><leader>h"] = {
+      "<cmd>lua require('smart-splits').swap_buf_left()<CR>",
+      "swap with split left",
+      opts = default_opts
+    },
+    ["<leader><leader>j"] = {
+      "<cmd>lua require('smart-splits').swap_buf_down()<CR>",
+      "swap with split below",
+      opts = default_opts
+    },
+    ["<leader><leader>k"] = {
+      "<cmd>lua require('smart-splits').swap_buf_up()<CR>",
+      "swap with split above",
+      opts = default_opts
+    },
+    ["<leader><leader>l"] = {
+      "<cmd>lua require('smart-splits').swap_buf_right()<CR>",
+      "swap with split right",
+      opts = default_opts
+    },
+  }
+}
+
 M.smartq = {
   plugin = true,
 
