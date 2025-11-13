@@ -909,49 +909,49 @@ M.smart_splits = {
 
   n = {
     -- Resizing splits
-    ["<M-h>"] = {
+    ["<C-M-h>"] = {
       "<cmd>lua require('smart-splits').resize_left()<CR>",
       "resize split left",
       opts = default_opts
     },
-    ["<M-j>"] = {
+    ["<C-M-j>"] = {
       "<cmd>lua require('smart-splits').resize_down()<CR>",
       "resize split down",
       opts = default_opts
     },
-    ["<M-k>"] = { 
+    ["<C-M-k>"] = { 
       "<cmd>lua require('smart-splits').resize_up()<CR>",
       "resize split up",
       opts = default_opts 
     },
-    ["<M-l>"] = {
+    ["<C-M-l>"] = {
       "<cmd>lua require('smart-splits').resize_right()<CR>",
       "resize split right",
       opts = default_opts
     },
 
     -- Moving between splits
-    ["<C-h>"] = {
+    ["<M-h>"] = {
       "<cmd>lua require('smart-splits').move_cursor_left()<CR>",
       "move to left split",
       opts = default_opts
     },
-    ["<C-j>"] = {
+    ["<M-j>"] = {
       "<cmd>lua require('smart-splits').move_cursor_down()<CR>",
       "move to below split",
       opts = default_opts
     },
-    ["<C-k>"] = {
+    ["<M-k>"] = {
       "<cmd>lua require('smart-splits').move_cursor_up()<CR>",
       "move to above split",
       opts = default_opts
     },
-    ["<C-l>"] = {
+    ["<M-l>"] = {
       "<cmd>lua require('smart-splits').move_cursor_right()<CR>",
       "move to right split",
       opts = default_opts
     },
-    ["<C-\\>"] = {
+    ["<M-\\>"] = {
       "<cmd>lua require('smart-splits').move_cursor_previous()<CR>",
       "move to previous split",
       opts = default_opts
