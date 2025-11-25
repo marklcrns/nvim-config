@@ -1,4 +1,6 @@
 return function()
+  -- :h amazonq-config-completion
+
   -- Name assigned to the plugin directory.
   local amazonq_name = "amazonq"
   local amazonq_dir = vim.fn.stdpath('data') .. '/lazy/' .. amazonq_name

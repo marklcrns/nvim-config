@@ -132,9 +132,26 @@ return function()
           score_offset = 500,
           module = "blink.cmp.sources.lsp",
           fallbacks = {},
-          -- Amazon Q config
-          async = true,
-          timeout_ms = 200, -- Allow Q suggestions more time to arrive
+
+          ---- Amazon Q config
+          -- Filter out 'text' items from the LSP provider (use 'buffer' provider for that).
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              if item.labelDetails and item.labelDetails.description and item.labelDetails.description == 'Amazon Q' then
+                item.score_offset = 1000
+              end
+              if item.kind == require('blink.cmp.types').CompletionItemKind.Snippet then
+                item.score_offset = item.score_offset - 3
+              end
+            end
+            return vim.tbl_filter(function(item)
+              return item.kind ~= require("blink.cmp.types").CompletionItemKind.Text
+            end, items)
+          end,
+
+          async = true, -- Show partial results while waiting for all providers.
+          timeout_ms = 200, -- Maximum time to wait before showing partial results.
+          min_keyword_length = 0, -- Minimum characters that trigger the provider.
         },
         snippets = {
           score_offset = 400,

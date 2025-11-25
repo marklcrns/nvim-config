@@ -25,15 +25,17 @@ return function()
       max_name_length = 18,
       max_prefix_length = 15, -- prefix used when a buffer is deduplicated
       tab_size = 18,
-      diagnostics = "nvim_lsp",
-      ---@diagnostic disable-next-line: unused-local
-      diagnostics_indicator = function(total_count, level, diagnostics_dict)
-        local s = ""
-        for kind, count in pairs(diagnostics_dict) do
-          s = string.format("%s %s%d", s, symbol_map[kind], count)
-        end
-        return s
-      end,
+      -- Disable diagnostics as takes up too much space
+      diagnostics = nil,
+      -- diagnostics = "nvim_lsp",
+      -- ---@diagnostic disable-next-line: unused-local
+      -- diagnostics_indicator = function(total_count, level, diagnostics_dict)
+      --   local s = ""
+      --   for kind, count in pairs(diagnostics_dict) do
+      --     s = string.format("%s %s%d", s, symbol_map[kind], count)
+      --   end
+      --   return s
+      -- end,
       show_buffer_close_icons = true,
       show_close_icon = false,
       show_tab_indicators = false,
