@@ -213,6 +213,7 @@ require("lazy").setup({
   { "nvim-tree/nvim-web-devicons", config = conf("nvim-web-devicons") },
   {
     "HiPhish/rainbow-delimiters.nvim",
+    submodules = false,
     event = "BufRead",
     config = conf("rainbow-delimiters"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -697,8 +698,8 @@ require("lazy").setup({
     "zbirenbaum/copilot.lua",
     -- Don't install in Amazon work laptop
     -- cond = not sys.is_amazon() and vim.g.ai_enabled,
-    -- cond = vim.g.ai_enabled and not sys.is_amazon(), -- disable for work
-    cond = vim.g.ai_enabled, -- disable for work
+    cond = vim.g.ai_enabled and not sys.is_amazon(), -- disable for work
+    -- cond = vim.g.ai_enabled,
     cmd = "Copilot",
     event = "VimEnter",
     config = conf("copilot"),

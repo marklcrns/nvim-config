@@ -34,5 +34,5 @@ require("user.colorscheme").apply()
 
 vim.schedule(function()
   require("user.lsp")
-  vim.cmd("LspStart")
+  -- vim.cmd("LspStart")
 end)
