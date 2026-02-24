@@ -55,12 +55,12 @@ end
 
 require("lazy").setup({
   -- SYNTAX & FILETYPE PLUGINS
-  {
-    "lervag/vimtex",
-    cond = not sys.is_amazon() and not sys.is_firenvim(),
-    ft = { "plaintex", "tex", "latex" },
-    config = conf("vimtex"),
-  },
+  -- {
+  --   "lervag/vimtex",
+  --   cond = not sys.is_amazon() and not sys.is_firenvim(),
+  --   ft = { "plaintex", "tex", "latex" },
+  --   config = conf("vimtex"),
+  -- },
   {
     "chrisbra/csv.vim",
     cond = not sys.is_firenvim(),
@@ -170,6 +170,7 @@ require("lazy").setup({
       "kevinhwang91/promise-async",
     },
   },
+  -- Helps better glance at matched information when searching with nvim's built-in search (e.g. with / or ?)
   {
     "kevinhwang91/nvim-hlslens",
     cond = not sys.is_firenvim(),
@@ -259,10 +260,8 @@ require("lazy").setup({
   },
   {
     "feline-nvim/feline.nvim",
-    -- TODO: Fix user.async before enabling this. Also see user/init.lua
     cond = not sys.is_firenvim(),
     config = conf("feline"),
-    -- config = function() require("feline").setup() end,
     event = "VeryLazy",
   },
 
@@ -540,11 +539,11 @@ require("lazy").setup({
   },
 
   -- INTEGRATIONS
-  -- {
-  --   "alexghergh/nvim-tmux-navigation",
-  --   event = "VimEnter",
-  --   config = conf("nvim-tmux-navigation"),
-  -- },
+  {
+    "alexghergh/nvim-tmux-navigation",
+    event = "VimEnter",
+    config = conf("nvim-tmux-navigation"),
+  },
   -- TODO: Deprecate old mappings about split navigation, resize, swap, as well as in tmux configs
   {
     "mrjones2014/smart-splits.nvim",
@@ -733,30 +732,30 @@ require("lazy").setup({
   },
 
   -- COMPLETION
-  -- {
-  --   "Saghen/blink.cmp",
-  --   cond = not sys.is_firenvim(),
-  --   dependencies = {
-  --     {
-  --       "saghen/blink.compat",
-  --       lazy = true,
-  --       opts = {
-  --         impersonate_nvim_cmp = false,
-  --       },
-  --       version = "*",
-  --     },
-  --     "rafamadriz/friendly-snippets",
-  --     "ribru17/blink-cmp-spell",
-  --   },
-  --   -- use a release tag to download pre-built binaries
-  --   -- version = "v0.*",
-  --   -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-  --   build = "cargo build --release",
-  --   config = conf("blink-cmp"),
-  --   -- allows extending the providers array elsewhere in your config
-  --   -- without having to redefine it
-  --   opts_extend = { "sources.default", "sources.providers" },
-  -- },
+  {
+    "Saghen/blink.cmp",
+    cond = not sys.is_firenvim(),
+    dependencies = {
+      {
+        "saghen/blink.compat",
+        lazy = true,
+        opts = {
+          impersonate_nvim_cmp = false,
+        },
+        version = "*",
+      },
+      "rafamadriz/friendly-snippets",
+      "ribru17/blink-cmp-spell",
+    },
+    -- use a release tag to download pre-built binaries
+    -- version = "v0.*",
+    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    build = "cargo build --release",
+    config = conf("blink-cmp"),
+    -- allows extending the providers array elsewhere in your config
+    -- without having to redefine it
+    opts_extend = { "sources.default", "sources.providers" },
+  },
   {
     -- Make sure to run `:Copilot auth` after install
     "zbirenbaum/copilot.lua",
@@ -780,17 +779,17 @@ require("lazy").setup({
   -- },
 
   -- NOTETAKING
-  {
-    "vimwiki/vimwiki",
-    branch = "dev",
-    cond = vim.fn.expand("%:p:h"):find("/Documents/my%-wiki/") ~= nil and not sys.is_firenvim(), -- NOTE: '-' is a special character and needs to be escaped
-    cmd = { "VimwikIndex", "VimwikiDiaryIndex", "VimwikiUISelect" },
-    lazy = false,
-    init = function()
-      utils.load_mappings("vimwiki")
-      conf("vimwiki")()
-    end,
-  },
+  -- {
+  --   "vimwiki/vimwiki",
+  --   branch = "dev",
+  --   cond = vim.fn.expand("%:p:h"):find("/Documents/my%-wiki/") ~= nil and not sys.is_firenvim(), -- NOTE: '-' is a special character and needs to be escaped
+  --   cmd = { "VimwikIndex", "VimwikiDiaryIndex", "VimwikiUISelect" },
+  --   lazy = false,
+  --   init = function()
+  --     utils.load_mappings("vimwiki")
+  --     conf("vimwiki")()
+  --   end,
+  -- },
   -- {
   --   "vhyrro/luarocks.nvim",
   --   priority = 1000,
@@ -815,13 +814,13 @@ require("lazy").setup({
   -- },
 
   -- MISC
-  {
-    "ThePrimeagen/harpoon",
-    cond = not sys.is_firenvim(),
-    event = "VimEnter",
-    init = utils.load_mappings("harpoon"),
-    config = true,
-  },
+  -- {
+  --   "ThePrimeagen/harpoon",
+  --   cond = not sys.is_firenvim(),
+  --   event = "VimEnter",
+  --   init = utils.load_mappings("harpoon"),
+  --   config = true,
+  -- },
   -- {
   --   "m4xshen/hardtime.nvim",
   --   cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
