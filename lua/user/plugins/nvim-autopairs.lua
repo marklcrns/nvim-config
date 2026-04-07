@@ -99,7 +99,6 @@ return function()
     -- Add $$ in new line after $$<CR>
     Rule("$$", "", { "tex", "latex", "plaintex", "markdown", "vimwiki" })
       :with_pair(function(opts)
-        print(vim.inspect(opts))
         if opts.line == "aa $$" then
           -- don't add pair on that line
           return false
