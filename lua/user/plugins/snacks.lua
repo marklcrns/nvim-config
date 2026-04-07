@@ -10,11 +10,6 @@ return function()
     picker = {
       enabled = true,
       ui_select = true,
-      formatters = {
-        file = {
-          truncate = center,
-        },
-      },
       jump = {
         jumplist = true, -- save the current position in the jumplist
         tagstack = false, -- save the current position in the tagstack
