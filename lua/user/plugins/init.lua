@@ -621,11 +621,6 @@ require("lazy").setup({
     config = conf("conform"),
   },
   {
-    "mfussenegger/nvim-lint",
-    cond = not sys.is_firenvim(),
-    config = conf("nvim-lint"),
-  },
-  {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
       {
