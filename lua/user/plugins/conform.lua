@@ -25,13 +25,4 @@ return function()
   })
 
   vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
-
-  Config.common.au.declare_group("user.conform.nvim", {}, {
-    {
-      "LspAttach",
-      callback = function()
-        vim.opt_local.formatexpr = "v:lua.require'conform'.formatexpr()"
-      end,
-    }
-  })
 end
