@@ -5,6 +5,7 @@ set mouse=nv                 " Only allow mouse in normal and visual mode
 set report=0                 " Don't report on line changes
 set errorbells               " Trigger bell on error
 set visualbell               " Use visual bell instead of beeping
+set confirm                  " Prompt user before quit without save
 set hidden                   " hide buffers when abandoned instead of unload
 set fileformats=unix,dos,mac " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
