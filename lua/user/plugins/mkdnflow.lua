@@ -13,9 +13,9 @@ return function ()
           paths = true,
           tables = true,
           yaml = false,
-          cmp = false
+          completion = false
       },
-      filetypes = {md = true, rmd = true, markdown = true},
+      filetypes = {markdown = true, rmd = true},
       create_dirs = true,
       path_resolution = {
           primary = 'current',
