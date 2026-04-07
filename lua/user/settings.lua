@@ -41,8 +41,8 @@ opt.backspace = list({ "indent", "eol", "start" })
 opt.inccommand = "split"
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- opt.foldlevelstart = 99
-opt.foldlevel = 99 -- 'foldlevelstart' isn't working correctly?
+opt.foldlevelstart = 99
+opt.foldlevel = 99
 opt.scrolloff = 3
 
 if vim.fn.has("nvim-0.10") == 1 then
@@ -75,7 +75,6 @@ opt.diffopt = list({
   "vertical",
   "linematch:100",
 })
-opt.pyxversion = 3
 opt.shada = list({
   "!",
   "'10",
@@ -112,10 +111,6 @@ opt.writebackup = true
 opt.undofile = true
 opt.isfname:append(":")
 opt.laststatus = 3
--- TODO: Lazyredraw is causing cursor flickering at the moment. Hopefully
--- re-enable soon when this is fixed.
--- @see [Neovim issue](https://github.com/neovim/neovim/issues/17765)
-opt.lazyredraw = false
 
 local data_backup = vim.fn.stdpath("data") .. "/backup"
 local data_undo = vim.fn.stdpath("data") .. "/undo"
