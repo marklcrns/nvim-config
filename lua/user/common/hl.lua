@@ -108,8 +108,9 @@ if HAS_NVIM_0_8 then
   }
 end
 
-vim.tbl_add_reverse_lookup(M.HlAttribute)
-vim.tbl_add_reverse_lookup(style_attrs)
+-- Add reverse lookup (value -> key) without deprecated vim.tbl_add_reverse_lookup
+for k, v in pairs(M.HlAttribute) do M.HlAttribute[v] = k end
+for k, v in pairs(style_attrs) do style_attrs[v] = k end
 local hlattr = M.HlAttribute
 
 ---@param name string Syntax group name.
@@ -266,7 +267,9 @@ function M.hi_spec_to_def_map(spec)
   end
 
   if spec.style then
-    local spec_attrs = vim.tbl_add_reverse_lookup(vim.split(spec.style, ","))
+    local parts = vim.split(spec.style, ",")
+    local spec_attrs = {}
+    for i, v in ipairs(parts) do spec_attrs[v] = i end
 
     for _, attr in ipairs(style_attrs) do
       res[attr] = spec_attrs[attr] ~= nil

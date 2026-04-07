@@ -1,10 +1,12 @@
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/utils.vim'
 
+" Disable unused providers to suppress checkhealth warnings
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
+
 let g:enable_format_on_save= v:true
 
-" Must set proper snippet engine in /lua/user/plugins/nvim-cmp.lua
-" and modify snippet engine in neogen
-" options: ultisnips, luasnip
+" Snippet engine used by blink.cmp (luasnip or ultisnips)
 let g:snippet_engine = 'luasnip'
 
 " Enable ai code autosuggestions
