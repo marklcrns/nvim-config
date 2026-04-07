@@ -30,8 +30,7 @@ return function()
     filetypes = {
         'amazonq', 'bash', 'java', 'python', 'typescript', 'javascript', 'csharp', 'ruby', 'kotlin', 'sh', 'sql', 'c',
         'cpp', 'go', 'rust', 'lua', 'php', 'yaml', 'json', 'toml', 'html', 'css', 'markdown', 'md', 'dockerfile', 'docker',
-        'gitignore', 'gitcommit', 'git_rebase', 'gitconfig', 'conf', 'vim', 'viml', 'zsh', 'text', 'xml', 'yaml', 'yml',
-        'toml', 'ini', 'cfg', 'conf', 'log', 'properties', 'prop', 'prop'
+        'gitignore', 'gitcommit', 'git_rebase', 'gitconfig', 'conf', 'vim', 'viml', 'zsh', 'text', 'xml', 'ini', 'cfg', 'log', 'properties', 'prop'
     },
     on_chat_open = function()
       vim.cmd[[

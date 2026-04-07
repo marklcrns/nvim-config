@@ -69,7 +69,6 @@ return function()
   local ignore_buftypes = {
     "help",
     "nofile",
-    "nofile",
     "packer",
     "popup",
     "prompt",
