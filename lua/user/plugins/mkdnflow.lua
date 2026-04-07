@@ -15,14 +15,14 @@ return function ()
           yaml = false,
           cmp = false
       },
-      filetypes = {md = true, rmd = true, markdown = true, vimwiki = false},
+      filetypes = {md = true, rmd = true, markdown = true},
       create_dirs = true,
-      perspective = {
-          priority = 'current',
+      path_resolution = {
+          primary = 'current',
           fallback = 'current',
-          root_tell = false,
-          nvim_wd_heel = false,
-          update = false
+          root_marker = false,
+          sync_cwd = false,
+          update_on_navigate = false,
       },
       wrap = true,
       bib = {
@@ -35,40 +35,42 @@ return function ()
       },
       links = {
           style = 'markdown',
-          name_is_source = false,
+          compact = false,
           conceal = false,
-          context = 0,
+          search_range = 0,
           implicit_extension = nil,
-          transform_implicit = false,
-          transform_explicit = function(text)
+          transform_on_follow = false,
+          transform_on_create = function(text)
               text = text:gsub(" ", "-")
               text = text:lower()
               text = os.date('%Y-%m-%d_')..text
               return(text)
           end,
-          create_on_follow_failure = true
+          auto_create = true,
       },
       new_file_template = {
-          use_template = false,
+          enabled = false,
           placeholders = {
-              before = {
-                  title = "link_title",
-                  date = "os_date"
-              },
-              after = {}
+              title = "link_title",
+              date = "os_date",
           },
           template = "# {{ title }}"
       },
       to_do = {
-          symbols = {' ', '-', 'X'},
-          update_parents = true,
-          not_started = ' ',
-          in_progress = '-',
-          complete = 'X'
+          statuses = {
+              not_started = { marker = ' ' },
+              in_progress = { marker = '-' },
+              complete     = { marker = 'X' },
+          },
+          status_order = { 'not_started', 'in_progress', 'complete' },
+          status_propagation = {
+              up = true,
+              down = true,
+          },
       },
       foldtext = {
           object_count = true,
-          object_count_icons = 'emoji',
+          object_count_icon_set = 'emoji',
           object_count_opts = function()
               return require('mkdnflow').foldtext.default_count_opts()
           end,
@@ -76,13 +78,13 @@ return function ()
           line_percentage = true,
           word_count = false,
           title_transformer = nil,
-          separator = ' · ',
           fill_chars = {
               left_edge = '⢾',
               right_edge = '⡷',
               left_inside = ' ⣹',
               right_inside = '⣏ ',
               middle = '⣿',
+              item_separator = ' · ',
           },
       },
       tables = {
@@ -94,7 +96,7 @@ return function ()
               cell_padding = 1,
               separator_padding = 1,
               outer_pipes = true,
-              mimic_alignment = true
+              apply_alignment = true,
           }
       },
       yaml = {
@@ -110,32 +112,16 @@ return function ()
           MkdnPrevHeading = {'n', '[['},
           MkdnGoBack = {'n', '<BS>'},
           MkdnGoForward = {'n', '<Del>'},
-          -- MkdnCreateLink = false, -- see MkdnEnter
-          -- MkdnCreateLinkFromClipboard = {{'n', 'v'}, '<leader>p'}, -- see MkdnEnter
-          -- MkdnFollowLink = false, -- see MkdnEnter
-          -- MkdnDestroyLink = {'n', '<M-CR>'},
           MkdnDestroyLink = false,
-          -- MkdnTagSpan = {'v', '<M-CR>'},
           MkdnTagSpan = false,
-          -- MkdnMoveSource = {'n', '<F2>'},
-          -- MkdnYankAnchorLink = {'n', 'yaa'},
-          -- MkdnYankFileAnchorLink = {'n', 'yfa'},
-          -- MkdnIncreaseHeading = {'n', '+'},
-          -- MkdnDecreaseHeading = {'n', '-'},
           MkdnToggleToDo = {{'n', 'v'}, '<C-Space>'},
           MkdnNewListItem = false,
           MkdnNewListItemBelowInsert = {'n', 'o'},
           MkdnNewListItemAboveInsert = {'n', 'O'},
-          -- MkdnExtendList = false,
           MkdnUpdateNumbering = {'n', '<leader>cmn'},
           MkdnTableNextCell = {'i', '<Tab>'},
           MkdnTablePrevCell = {'i', '<S-Tab>'},
           MkdnTableNextRow = false,
-          -- MkdnTablePrevRow = {'i', '<M-CR>'},
-          -- MkdnTableNewRowBelow = {'n', '<leader>ir'},
-          -- MkdnTableNewRowAbove = {'n', '<leader>iR'},
-          -- MkdnTableNewColAfter = {'n', '<leader>ic'},
-          -- MkdnTableNewColBefore = {'n', '<leader>iC'},
           MkdnFoldSection = {'n', '<leader>z'},
           MkdnUnfoldSection = {'n', '<leader>Z'}
       }
