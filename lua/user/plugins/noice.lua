@@ -39,12 +39,5 @@ return function()
       enabled = true,
       view = "notify",
     },
-    -- Prevents: `vim.lsp.handlers["textDocument/signatureHelp"]` has been
-    -- overwritten by another plugin?
-    lsp = {
-      signature = {
-        enabled = false,
-      },
-    },
   })
 end
