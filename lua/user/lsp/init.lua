@@ -4,19 +4,6 @@ if mason then mason.setup() end
 local mason_lspconfig = prequire("mason-lspconfig")
 if mason_lspconfig then mason_lspconfig.setup() end
 
-require("neodev").setup({
-  library = {
-    vimruntime = false, -- runtime path
-    types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
-    -- plugins = false, -- installed opt or start plugins in packpath
-    -- you can also specify the list of plugins to make available as a workspace library
-    plugins = false,
-  },
-  runtime_path = false, -- enable this to get completion in require strings. Slow!
-})
-
-local cmp = prequire("cmp")
-local cmp_lsp = prequire("cmp_nvim_lsp")
 local blink = prequire("blink.cmp")
 local lspconfig = prequire("lspconfig")
 local server_configs = prequire("lspconfig.configs") or {}
@@ -50,8 +37,7 @@ M.base_config = {
   on_attach = M.common_on_attach,
   capabilities = utils.tbl_union_extend(
     vim.lsp.protocol.make_client_capabilities(),
-    blink and blink.get_lsp_capabilities({}) or {},
-    cmp_lsp and cmp_lsp.default_capabilities() or {}
+    blink and blink.get_lsp_capabilities({}) or {}
   ),
 }
 
@@ -272,8 +258,7 @@ end
 local last_diagnostics_word = nil
 function M.show_position_diagnostics()
   if not vim.diagnostic.is_enabled({ bufnr = 0 })
-    -- NOTE: `cmp.visible()` is very slow (at least 10ms) ! Avoid.
-    or (cmp and cmp.core.view:visible() or vim.fn.pumvisible() == 1)
+    or vim.fn.pumvisible() == 1
   then
     return
   end

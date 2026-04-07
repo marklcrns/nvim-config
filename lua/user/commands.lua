@@ -2,13 +2,6 @@
 -- All commands documented in `:h sindrets-commands`.
 --]]
 
-local async = require("user.async")
-local lazy = require("diffview.lazy")
-
-local Job = lazy.access("diffview.job", "Job") ---@type diffview.Job|LazyModule
-local arg_parser = lazy.require("diffview.arg_parser") ---@module "diffview.arg_parser"
-
-local await = async.await
 local fmt = string.format
 local utils = Config.common.utils
 local notify = Config.common.notify
@@ -128,6 +121,7 @@ command("Rnew", function(c)
 end, {
   nargs = "+",
   complete = function(arg_lead, cmd_line, cur_pos)
+    local arg_parser = require("diffview.arg_parser")
     local ctx = arg_parser.scan(cmd_line, { allow_quoted = false, cur_pos = cur_pos })
 
     if #ctx.args > 1 then
@@ -199,46 +193,52 @@ command("Windows", function(c)
   Config.lib.cmd.windows(c.bang)
 end, { bar = true, bang = true })
 
-command("NeorgExport", async.new(function(c)
-  for _, dep in ipairs({ "neorg-pandoc-linux86", "pandoc", "neorg-export" }) do
-    if vim.fn.executable(dep) ~= 1 then
-      notify.error(("'%s' is not executable!"):format(dep))
-      return
+command("NeorgExport", function(c)
+  local async = require("user.async")
+  local Job = require("diffview.lazy").access("diffview.job", "Job")
+  async.new(function()
+    local await = async.await
+    for _, dep in ipairs({ "neorg-pandoc-linux86", "pandoc", "neorg-export" }) do
+      if vim.fn.executable(dep) ~= 1 then
+        notify.error(("'%s' is not executable!"):format(dep))
+        return
+      end
     end
-  end
 
-  local in_name, out_name
+    local in_name, out_name
 
-  if #c.fargs > 1 then
-    in_name = vim.fn.expand(c.fargs[1])
-    out_name = vim.fn.expand(c.fargs[2])
-  elseif #c.fargs == 1 then
-    in_name = vim.fn.expand("%:p")
-    out_name = vim.fn.expand(c.fargs[1])
-  else
-    in_name = vim.fn.expand("%:p")
-    out_name = in_name:sub(1, -math.max(#pl:extension(in_name), 1) - 2) .. ".pdf"
-  end
+    if #c.fargs > 1 then
+      in_name = vim.fn.expand(c.fargs[1])
+      out_name = vim.fn.expand(c.fargs[2])
+    elseif #c.fargs == 1 then
+      in_name = vim.fn.expand("%:p")
+      out_name = vim.fn.expand(c.fargs[1])
+    else
+      in_name = vim.fn.expand("%:p")
+      out_name = in_name:sub(1, -math.max(#pl:extension(in_name), 1) - 2) .. ".pdf"
+    end
 
-  local job = Job({
-    command = "neorg-export",
-    args = { in_name, out_name },
-  })
-
-  local ok = await(job)
-
-  if not ok then
-    notify.error(job.stderr, {
-      title = "Document export failed with exit code " .. job.code
+    local job = Job({
+      command = "neorg-export",
+      args = { in_name, out_name },
     })
-  else
-    notify.info(
-      fmt("Document exported to %s", utils.str_quote(pl:relative(out_name, ".")))
-    )
-  end
-end), { nargs = "*", complete = "file" })
+
+    local ok = await(job)
+
+    if not ok then
+      notify.error(job.stderr, {
+        title = "Document export failed with exit code " .. job.code
+      })
+    else
+      notify.info(
+        fmt("Document exported to %s", utils.str_quote(pl:relative(out_name, ".")))
+      )
+    end
+  end)()
+end, { nargs = "*", complete = "file" })
 
 command("Profile", function(c)
+  local arg_parser = require("diffview.arg_parser")
   local profile = require("plenary.profile")
   local ctx = arg_parser.scan(c.args, { allow_quoted = false })
   local subcmd = ctx.args[1]
@@ -258,6 +258,7 @@ command("Profile", function(c)
 end, {
   nargs = "+",
   complete = function(arg_lead, cmd_line, cur_pos)
+    local arg_parser = require("diffview.arg_parser")
     local ctx = arg_parser.scan(cmd_line, { allow_quoted = false, cur_pos = cur_pos })
 
     local candidates = {}

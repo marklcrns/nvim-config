@@ -670,15 +670,13 @@ require("lazy").setup({
 
   -- LANGUAGES + TOOLS
   {
-    "folke/neodev.nvim",
+    "folke/lazydev.nvim",
     cond = not sys.is_firenvim(),
-    -- NOTE: Defined in lua/init.lua
-    -- config = true,
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
     },
   },
   {
