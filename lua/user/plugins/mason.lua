@@ -6,6 +6,7 @@ return function()
   require("mason").setup({
     PATH = "skip",
     ui = {
+      border = "single",
       icons = {
         package_pending = " ",
         package_installed = " ",

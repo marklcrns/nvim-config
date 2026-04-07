@@ -631,9 +631,7 @@ require("lazy").setup({
       {
         "mason-org/mason.nvim",
         build = ":MasonUpdate",
-        opts = {
-          ui = { border = "single" },
-        }
+        config = conf("mason"),
       },
       "neovim/nvim-lspconfig",
     },
