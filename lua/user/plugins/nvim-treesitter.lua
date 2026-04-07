@@ -63,8 +63,7 @@ return function()
     },
     -- Plugin: vim-matchup
     matchup = {
-      enable = true, -- mandatory, false will disable the whole extension
-      -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+      enable = false, -- Disabled: nvim-treesitter archived, query_predicates incompatible with Nvim 0.13-dev
     },
     -- Plugin: nvim-treesitter-endwise
     endwise = {
