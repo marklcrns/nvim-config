@@ -178,81 +178,6 @@ vim.diagnostic.handlers.signs = {
   end,
 }
 
--- DEPRECATED
--- local pop_opts = { border = "single", max_width = 100 }
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, pop_opts)
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
---   vim.lsp.handlers.signature_help, pop_opts
--- )
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf_hover
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf_signature_help
-
-function M.define_diagnostic_signs(opts)
-  local group = {
-    -- version 0.5
-    {
-      highlight = 'LspDiagnosticsSignError',
-      sign = opts.error
-    },
-    {
-      highlight = 'LspDiagnosticsSignWarning',
-      sign = opts.warn
-    },
-    {
-      highlight = 'LspDiagnosticsSignHint',
-      sign = opts.hint
-    },
-    {
-      highlight = 'LspDiagnosticsSignInformation',
-      sign = opts.info
-    },
-    -- version >=0.6
-    {
-      highlight = 'DiagnosticSignError',
-      sign = opts.error
-    },
-    {
-      highlight = 'DiagnosticSignWarn',
-      sign = opts.warn
-    },
-    {
-      highlight = 'DiagnosticSignHint',
-      sign = opts.hint
-    },
-    {
-      highlight = 'DiagnosticSignInfo',
-      sign = opts.info
-    },
-  }
-
-  for _, g in ipairs(group) do
-    vim.fn.sign_define(g.highlight, {
-      text = g.sign,
-      texthl = g.highlight,
-      linehl = '',
-      numhl = '',
-    })
-  end
-end
-
--- Highlight references on cursor hold
-
-function M.highlight_cursor_symbol()
-  if vim.lsp.buf.server_ready() then
-    if vim.api.nvim_get_mode().mode ~= "i" then
-      vim.lsp.buf.document_highlight()
-    end
-  end
-end
-
-function M.highlight_cursor_clear()
-  if vim.lsp.buf.server_ready() then
-    vim.lsp.buf.clear_references()
-  end
-end
-
----------------------------------
 
 -- Only show diagnostics if current word + line is not the same as last call.
 local last_diagnostics_word = nil
@@ -277,13 +202,6 @@ function M.show_position_diagnostics()
 
   vim.diagnostic.open_float({ scope = "cursor", border = "single" })
 end
-
-M.define_diagnostic_signs({
-  error = "",
-  warn = "",
-  hint = "",
-  info = ""
-})
 
 do
   -- LSP auto commands
