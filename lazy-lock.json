@@ -434,5 +434,9 @@
   "zenbones.nvim": {
     "branch": "main",
     "commit": "22b7fb75593412e0dc81b4bdefae718e9e84aa82"
+  },
+  "blink.lib": {
+    "branch": "main",
+    "commit": "f29d8bac6549bc1e7d699c83f680823d7def98bd"
   }
 }

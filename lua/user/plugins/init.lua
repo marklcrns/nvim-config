@@ -731,6 +731,9 @@ require("lazy").setup({
     cond = not sys.is_firenvim(),
     dependencies = {
       {
+        "saghen/blink.lib",
+      },
+      {
         "saghen/blink.compat",
         lazy = true,
         opts = {
@@ -741,13 +744,8 @@ require("lazy").setup({
       "rafamadriz/friendly-snippets",
       "ribru17/blink-cmp-spell",
     },
-    -- use a release tag to download pre-built binaries
-    -- version = "v0.*",
-    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     build = "cargo build --release",
     config = conf("blink-cmp"),
-    -- allows extending the providers array elsewhere in your config
-    -- without having to redefine it
     opts_extend = { "sources.default", "sources.providers" },
   },
   {
