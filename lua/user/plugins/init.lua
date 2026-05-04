@@ -557,7 +557,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     -- Pinned to archived master branch. The new 'main' branch removed configs.setup() API.
     branch = "master",
-    commit = "cf12346a3414fa1b06af75c79faebe7f76df080a",
+    -- commit = "cf12346a3414fa1b06af75c79faebe7f76df080a",
     cond = not sys.is_firenvim(),
     init = utils.lazy_load("nvim-treesitter"),
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
