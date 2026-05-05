@@ -4,7 +4,6 @@
 --   plugin's `config` or conf()
 
 --- Use local development version if it exists.
----NOTE: Remember to run `:PackerClean :PackerInstall` to update symlinks.
 --- @param spec table|string
 local function use_local(spec)
   local name
@@ -41,15 +40,12 @@ local function conf(config_name, mappings_name)
 
   local config_path = string.format("user.plugins.%s", config_name)
 
-  -- If config is not in path
   if not pcall(require, config_path) then
-    -- Generic fallback config setup if config file not found
     return function()
       require(config_name).setup({})
     end
   end
 
-  -- Else, return the config in path
   return require(config_path)
 end
 
@@ -60,20 +56,8 @@ local git_enabled        = vim.g.git_enabled ~= false
 local notetaking_enabled = vim.g.notetaking_enabled ~= false
 
 require("lazy").setup({
-  -- SYNTAX & FILETYPE PLUGINS
-  -- {
-  --   "lervag/vimtex",
-  --   cond = not sys.is_amazon() and not sys.is_firenvim(),
-  --   ft = { "plaintex", "tex", "latex" },
-  --   config = conf("vimtex"),
-  -- },
-  {
-    "chrisbra/csv.vim",
-    cond = not sys.is_firenvim(),
-    ft = "csv",
-  },
 
-  -- UTILS
+  -- ─── UTILS ────────────────────────────────────────────────────────────────
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   {
@@ -93,10 +77,59 @@ require("lazy").setup({
     cond = not sys.is_firenvim(),
   },
   {
-    -- INFO: Need to enable Cursor highlight in colorscheme.lua.
-    -- i.e. comment out `hi_clear({ "Cursor", "TermCursor" })`
-    -- Must comment out vim.lsp.handlers["textDocument/signatureHelp"] override. See usr/lsp/init.lua.
-    -- Additionally, must disable `lsp.signature` in noice.lua.
+    "folke/snacks.nvim",
+    priority = 1000,
+    config = conf("snacks"),
+    lazy = false,
+  },
+
+  -- ─── COLORSCHEMES ─────────────────────────────────────────────────────────
+  { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false },
+  { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = false },
+  { "mcchrish/zenbones.nvim",        dependencies = "rktjmp/lush.nvim", lazy = false },
+  { "EdenEast/nightfox.nvim",        config = conf("nightfox"),         lazy = false },
+  { "Mofiqul/vscode.nvim",           config = conf("vscode"),           lazy = false },
+  { "catppuccin/nvim",               config = conf("catppuccin"),       name = "catppuccin", lazy = false },
+  { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = false },
+  { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
+  { "sindrets/oxocarbon-lua.nvim",   lazy = false },
+  { "dgox16/oldworld.nvim",          lazy = false },
+
+  -- ─── UI STYLE ─────────────────────────────────────────────────────────────
+  {
+    "nvim-tree/nvim-web-devicons",
+    config = conf("nvim-web-devicons"),
+  },
+  {
+    "akinsho/bufferline.nvim",
+    cond = not sys.is_firenvim(),
+    event = "VimEnter",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = conf("bufferline"),
+  },
+  {
+    "feline-nvim/feline.nvim",
+    cond = not sys.is_firenvim(),
+    config = conf("feline"),
+    event = "VeryLazy",
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    init = utils.lazy_load("indent-blankline.nvim"),
+    main = "ibl",
+    config = conf("indent-blankline"),
+  },
+  {
+    "Darazaki/indent-o-matic",
+    event = "VimEnter",
+    config = conf("indent-o-matic"),
+  },
+  {
+    "mvllow/modes.nvim",
+    init = utils.lazy_load("modes.nvim"),
+    config = conf("modes"),
+  },
+  {
     "folke/noice.nvim",
     cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
     event = "VeryLazy",
@@ -113,176 +146,12 @@ require("lazy").setup({
     lazy = false,
   },
 
-  -- COLORSCHEMES
-  { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false },
-  { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = false },
-  { "mcchrish/zenbones.nvim",        dependencies = "rktjmp/lush.nvim", lazy = false },
-  { "EdenEast/nightfox.nvim",        config = conf("nightfox"),         lazy = false },
-  { "Mofiqul/vscode.nvim",           config = conf("vscode"),           lazy = false },
-  { "catppuccin/nvim",               config = conf("catppuccin"),       name = "catppuccin", lazy = false },
-  { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = false },
-  { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
-  { "sindrets/oxocarbon-lua.nvim",   lazy = false },
-  { "dgox16/oldworld.nvim",          lazy = false },
-
-  -- STARTUP
+  -- ─── UI INTERFACE ─────────────────────────────────────────────────────────
   {
     "goolord/alpha-nvim",
     cond = not sys.is_firenvim(),
     config = conf("alpha"),
     event = "VimEnter",
-  },
-
-  -- QoL
-  { -- Needed for some local functions
-    "folke/snacks.nvim",
-    priority = 1000,
-    config = conf("snacks"),
-    lazy = false,
-  },
-
-  -- BEHAVIOR
-  {
-    "marklcrns/vim-smartq",
-    init = function()
-      utils.load_mappings("smartq")
-      conf("vim-smartq")()
-    end,
-    event = "VimEnter",
-  },
-  {
-    "chrisgrieser/nvim-spider",
-    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
-    -- NOTE: using conf("spider", "spider") does not work as the plugin is loaded to boot
-    config = function()
-      utils.load_mappings("spider")
-      require("spider").setup({
-        skipInsignificantPunctuation = false,
-      })
-    end,
-  },
-  {
-    "echasnovski/mini.ai",
-    event = "VeryLazy",
-    config = conf("mini-ai"),
-  },
-  {
-    "kevinhwang91/nvim-ufo",
-    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    init = utils.lazy_load("nvim-ufo"),
-    config = conf("nvim-ufo"),
-    dependencies = {
-      "kevinhwang91/promise-async",
-    },
-  },
-  -- Helps better glance at matched information when searching with nvim's built-in search (e.g. with / or ?)
-  {
-    "kevinhwang91/nvim-hlslens",
-    cond = not sys.is_firenvim(),
-    init = utils.lazy_load("nvim-hlslens"),
-    config = conf("nvim-hlslens", "hlslens"),
-  },
-  {
-    "yorickpeterse/nvim-pqf",
-    cond = not sys.is_firenvim(),
-    ft = { "qf" },
-    config = function()
-      require("pqf").setup({
-        signs = {
-          error = "",
-          warning = "",
-          info = "",
-          hint = "",
-        },
-      })
-    end,
-  },
-  -- TODO: map
-  {
-    "kevinhwang91/nvim-bqf",
-    cond = not sys.is_firenvim(),
-    ft = { "qf" },
-    config = conf("nvim-bqf"),
-  },
-  {
-    "sindrets/winshift.nvim",
-    cond = not sys.is_firenvim(),
-    init = utils.load_mappings("winshift"),
-    cmd = "WinShift",
-    config = conf("winshift"),
-  },
-  {
-    "nvim-focus/focus.nvim",
-    cond = not sys.is_firenvim(),
-    cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
-    config = conf("focus", "focus"),
-  },
-  {
-    "karb94/neoscroll.nvim",
-    cond = not sys.is_firenvim(),
-    cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
-    init = utils.lazy_load("neoscroll.nvim"),
-    config = conf("neoscroll"),
-  },
-  {
-    "mvllow/modes.nvim",
-    init = utils.lazy_load("modes.nvim"),
-    config = conf("modes"),
-  },
-
-  -- UI STYLE
-  {
-    "nvim-tree/nvim-web-devicons",
-    config = conf("nvim-web-devicons"),
-  },
-  {
-    "HiPhish/rainbow-delimiters.nvim",
-    submodules = false,
-    event = "BufRead",
-    config = conf("rainbow-delimiters"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    init = utils.lazy_load("indent-blankline.nvim"),
-    main = "ibl",
-    config = conf("indent-blankline"),
-    -- WARN: Integration with rainbow-delimiters degrades performance
-    -- dependencies = { "HiPhish/rainbow-delimiters.nvim" },
-  },
-  {
-    "Darazaki/indent-o-matic",
-    event = "VimEnter",
-    config = conf("indent-o-matic"),
-  },
-  {
-    "akinsho/bufferline.nvim",
-    cond = not sys.is_firenvim(),
-    event = "VimEnter",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    config = conf("bufferline"),
-  },
-  {
-    "feline-nvim/feline.nvim",
-    cond = not sys.is_firenvim(),
-    config = conf("feline"),
-    event = "VeryLazy",
-  },
-
-  -- UI INTERFACE
-  {
-    -- Needed by common.utils
-    "sindrets/diffview.nvim",
-    cond = git_enabled and not sys.is_firenvim(),
-    init = utils.load_mappings("diffview"),
-    config = conf("diffview"),
-  },
-  {
-    "AndrewRadev/linediff.vim",
-    init = utils.load_mappings("linediff"),
-    cmd = { "Linediff" },
   },
   {
     "folke/which-key.nvim",
@@ -313,18 +182,80 @@ require("lazy").setup({
       vim.g.maximizer_set_default_mapping = 0
     end,
   },
-  -- WARN: Disabled because it affects startup time by good amount
-  -- {
-  --   "Bekaboo/dropbar.nvim",
-  --   cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
-  --   event = "VimEnter",
-  --   config = conf("dropbar", "dropbar"),
-  --   dependencies = {
-  --     "nvim-telescope/telescope-fzf-native.nvim",
-  --   },
-  -- },
+  {
+    "sindrets/winshift.nvim",
+    cond = not sys.is_firenvim(),
+    init = utils.load_mappings("winshift"),
+    cmd = "WinShift",
+    config = conf("winshift"),
+  },
+  {
+    "AndrewRadev/linediff.vim",
+    init = utils.load_mappings("linediff"),
+    cmd = { "Linediff" },
+  },
 
-  -- FILE NAVIGATION
+  -- ─── BEHAVIOR ─────────────────────────────────────────────────────────────
+  {
+    "marklcrns/vim-smartq",
+    init = function()
+      utils.load_mappings("smartq")
+      conf("vim-smartq")()
+    end,
+    event = "VimEnter",
+  },
+  {
+    "chrisgrieser/nvim-spider",
+    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
+    event = "VimEnter",
+    config = function()
+      utils.load_mappings("spider")
+      require("spider").setup({
+        skipInsignificantPunctuation = false,
+      })
+    end,
+  },
+  {
+    "echasnovski/mini.ai",
+    event = "VeryLazy",
+    config = conf("mini-ai"),
+  },
+  {
+    "kevinhwang91/nvim-hlslens",
+    cond = not sys.is_firenvim(),
+    init = utils.lazy_load("nvim-hlslens"),
+    config = conf("nvim-hlslens", "hlslens"),
+  },
+  {
+    "yorickpeterse/nvim-pqf",
+    cond = not sys.is_firenvim(),
+    ft = { "qf" },
+    config = function()
+      require("pqf").setup({
+        signs = { error = "", warning = "", info = "", hint = "" },
+      })
+    end,
+  },
+  {
+    "kevinhwang91/nvim-bqf",
+    cond = not sys.is_firenvim(),
+    ft = { "qf" },
+    config = conf("nvim-bqf"),
+  },
+  {
+    "nvim-focus/focus.nvim",
+    cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
+    event = "VimEnter",
+    config = conf("focus", "focus"),
+  },
+  {
+    "karb94/neoscroll.nvim",
+    cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
+    init = utils.lazy_load("neoscroll.nvim"),
+    config = conf("neoscroll"),
+  },
+
+  -- ─── FILE NAVIGATION ──────────────────────────────────────────────────────
   {
     "nvim-telescope/telescope.nvim",
     cond = not sys.is_firenvim(),
@@ -364,7 +295,7 @@ require("lazy").setup({
     },
   },
   {
-    'echasnovski/mini.files',
+    "echasnovski/mini.files",
     cond = not sys.is_firenvim(),
     init = utils.load_mappings("mini_files"),
     config = conf("mini-files"),
@@ -376,7 +307,7 @@ require("lazy").setup({
     config = conf("vim-signature"),
   },
 
-  -- CODING HELPER
+  -- ─── CODING HELPER ────────────────────────────────────────────────────────
   {
     "numToStr/Comment.nvim",
     init = utils.lazy_load("Comment.nvim"),
@@ -391,28 +322,6 @@ require("lazy").setup({
     "windwp/nvim-autopairs",
     init = utils.lazy_load("nvim-autopairs"),
     config = conf("nvim-autopairs"),
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    init = utils.lazy_load("nvim-ts-autotag"),
-    ft = {
-      "html",
-      "javascript",
-      "typescript",
-      "javascriptreact",
-      "typescriptreact",
-      "svelte",
-      "vue",
-      "tsx",
-      "jsx",
-      "rescript",
-      "xml",
-      "php",
-      "glimmer",
-      "handlebars",
-      "hbs",
-    },
-    config = conf("nvim-ts-autotag"),
   },
   {
     "Wansmer/treesj",
@@ -434,9 +343,7 @@ require("lazy").setup({
   {
     "godlygeek/tabular",
     cond = not sys.is_firenvim(),
-    init = function()
-      utils.load_mappings("tabular")
-    end,
+    init = function() utils.load_mappings("tabular") end,
     cmd = "Tabularize",
   },
   {
@@ -448,33 +355,13 @@ require("lazy").setup({
       vim.g.niceblock_use_default_mappings = 0
     end,
   },
-  -- {
-  --   "RRethy/vim-illuminate",
-  --   event = "BufRead",
-  --   config = conf("vim-illuminate"),
-  -- },
-  {
-    "andymass/vim-matchup",
-    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "BufRead",
-    config = conf("vim-matchup"),
-  },
   {
     "nvim-pack/nvim-spectre",
     cond = not sys.is_firenvim(),
     event = "VeryLazy",
     init = utils.load_mappings("spectre"),
     config = conf("nvim-spectre"),
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-  {
-    "smjonas/inc-rename.nvim",
-    cond = lsp_enabled and not sys.is_firenvim(),
-    init = utils.load_mappings("inc_rename"),
-    cmd = "IncRename",
-    config = true,
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
   {
     "johmsalas/text-case.nvim",
@@ -482,35 +369,156 @@ require("lazy").setup({
     event = "BufRead",
     init = utils.load_mappings("text_case"),
   },
-
-  -- CODE NAVIGATION
   {
-    "gorbit99/codewindow.nvim",
+    "NvChad/nvim-colorizer.lua",
     cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
-    config = conf("codewindow", "codewindow"),
+    init = utils.lazy_load("nvim-colorizer.lua"),
+    config = function(_, opts)
+      utils.load_mappings("colorizer")
+      require("colorizer").setup(opts)
+      vim.defer_fn(function()
+        require("colorizer").attach_to_buffer(0)
+      end, 0)
+    end,
   },
-  {
-    "hedyhli/outline.nvim",
-    cond = not sys.is_firenvim(),
-    init = utils.load_mappings("outline"),
-    config = conf("outline"),
-    cmd = { "Outline", "OutlineClose", "OutlineOpen" },
-  },
+
+  -- ─── CODE NAVIGATION ──────────────────────────────────────────────────────
   {
     "folke/flash.nvim",
     cond = not sys.is_firenvim(),
     event = "VeryLazy",
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+      { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,         desc = "Flash Treesitter" },
+      { "r",     mode = "o",               function() require("flash").remote() end,             desc = "Remote Flash" },
+      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end,  desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,             desc = "Toggle Flash Search" },
     },
   },
+  {
+    "hedyhli/outline.nvim",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    init = utils.load_mappings("outline"),
+    config = conf("outline"),
+    cmd = { "Outline", "OutlineClose", "OutlineOpen" },
+  },
 
-  -- VCS
+  -- ─── INTEGRATIONS ─────────────────────────────────────────────────────────
+  {
+    "alexghergh/nvim-tmux-navigation",
+    event = "VimEnter",
+    config = conf("nvim-tmux-navigation"),
+  },
+  {
+    "mrjones2014/smart-splits.nvim",
+    cond = not sys.is_firenvim(),
+    event = "VimEnter",
+    init = utils.load_mappings("smart_splits"),
+  },
+  {
+    "glacambre/firenvim",
+    lazy = false,
+    build = ":call firenvim#install(0)",
+    init = conf("firenvim"),
+  },
+
+  -- ─── TREESITTER ───────────────────────────────────────────────────────────
+  -- Disable entire section: let g:treesitter_enabled = v:false
+  {
+    "nvim-treesitter/nvim-treesitter",
+    -- Pinned to archived master branch. The new 'main' branch removed configs.setup() API.
+    branch = "master",
+    cond = treesitter_enabled and not sys.is_firenvim(),
+    init = utils.lazy_load("nvim-treesitter"),
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
+    config = conf("nvim-treesitter"),
+    dependencies = {},
+  },
+  {
+    "RRethy/nvim-treesitter-textsubjects",
+    cond = treesitter_enabled and not sys.is_firenvim(),
+    init = utils.lazy_load("nvim-treesitter-textsubjects"),
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    cond = treesitter_enabled and not sys.is_firenvim(),
+    init = utils.lazy_load("nvim-treesitter-textobjects"),
+    config = conf("nvim-treesitter-textobjects"),
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
+    cmd = { "TSContextEnable", "TSContextToggle" },
+    event = "VeryLazy",
+    config = conf("nvim-treesitter-context", "treesitter_context"),
+  },
+  {
+    "RRethy/nvim-treesitter-endwise",
+    cond = treesitter_enabled and not sys.is_firenvim(),
+    init = utils.lazy_load("nvim-treesitter-endwise"),
+  },
+  -- Depends on treesitter
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    cond = treesitter_enabled and not sys.is_firenvim(),
+    submodules = false,
+    event = "BufRead",
+    config = conf("rainbow-delimiters"),
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    cond = treesitter_enabled,
+    init = utils.lazy_load("nvim-ts-autotag"),
+    ft = {
+      "html", "javascript", "typescript", "javascriptreact", "typescriptreact",
+      "svelte", "vue", "tsx", "jsx", "rescript", "xml", "php",
+      "glimmer", "handlebars", "hbs",
+    },
+    config = conf("nvim-ts-autotag"),
+  },
+  {
+    "andymass/vim-matchup",
+    cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
+    event = "BufRead",
+    config = conf("vim-matchup"),
+  },
+  {
+    "gorbit99/codewindow.nvim",
+    cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
+    event = "VimEnter",
+    config = conf("codewindow", "codewindow"),
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
+    init = utils.lazy_load("nvim-ufo"),
+    config = conf("nvim-ufo"),
+    dependencies = { "kevinhwang91/promise-async" },
+  },
+  {
+    "folke/todo-comments.nvim",
+    cond = treesitter_enabled and not sys.is_firenvim(),
+    init = utils.lazy_load("todo-comments.nvim"),
+    config = conf("todo-comments", "todo_comments"),
+  },
+  {
+    "folke/ts-comments.nvim",
+    cond = treesitter_enabled and not sys.is_firenvim(),
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
+  },
+
+  -- ─── VCS ──────────────────────────────────────────────────────────────────
+  -- Disable entire section: let g:git_enabled = v:false
+  {
+    "sindrets/diffview.nvim",
+    cond = git_enabled and not sys.is_firenvim(),
+    init = utils.load_mappings("diffview"),
+    config = conf("diffview"),
+  },
   {
     "TimUntersberger/neogit",
     cond = git_enabled and not sys.is_firenvim(),
@@ -544,91 +552,8 @@ require("lazy").setup({
     config = conf("gitsigns"),
   },
 
-  -- INTEGRATIONS
-  {
-    "alexghergh/nvim-tmux-navigation",
-    event = "VimEnter",
-    config = conf("nvim-tmux-navigation"),
-  },
-  -- TODO: Deprecate old mappings about split navigation, resize, swap, as well as in tmux configs
-  {
-    "mrjones2014/smart-splits.nvim",
-    cond = not sys.is_firenvim(),
-    event = "VimEnter",
-    init = utils.load_mappings("smart_splits"),
-  },
-
-  -- SYNTAX & FILETYPE PLUGINS
-  {
-    "nvim-treesitter/nvim-treesitter",
-    -- Pinned to archived master branch. The new 'main' branch removed configs.setup() API.
-    branch = "master",
-    -- commit = "cf12346a3414fa1b06af75c79faebe7f76df080a",
-    cond = treesitter_enabled and not sys.is_firenvim(),
-    init = utils.lazy_load("nvim-treesitter"),
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ":TSUpdate",
-    config = conf("nvim-treesitter"),
-    dependencies = {},
-  },
-  {
-    "RRethy/nvim-treesitter-textsubjects",
-    cond = treesitter_enabled and not sys.is_firenvim(),
-    init = utils.lazy_load("nvim-treesitter-textsubjects"),
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    cond = treesitter_enabled and not sys.is_firenvim(),
-    init = utils.lazy_load("nvim-treesitter-textobjects"),
-    config = conf("nvim-treesitter-textobjects"),
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
-    cmd = { "TSContextEnable", "TSContextToggle" },
-    event = "VeryLazy",
-    config = conf("nvim-treesitter-context", "treesitter_context"),
-  },
-  {
-    "RRethy/nvim-treesitter-endwise",
-    cond = treesitter_enabled and not sys.is_firenvim(),
-    init = utils.lazy_load("nvim-treesitter-endwise"),
-  },
-  {
-    "folke/todo-comments.nvim",
-    cond = not sys.is_firenvim(),
-    init = utils.lazy_load("todo-comments.nvim"),
-    config = conf("todo-comments", "todo_comments"),
-  },
-  {
-    "folke/ts-comments.nvim",
-    cond = not sys.is_firenvim(),
-    opts = {},
-    event = "VeryLazy",
-    enabled = vim.fn.has("nvim-0.10.0") == 1,
-  },
-  {
-    "NvChad/nvim-colorizer.lua",
-    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    init = utils.lazy_load("nvim-colorizer.lua"),
-    config = function(_, opts)
-      utils.load_mappings("colorizer")
-      require("colorizer").setup(opts)
-      -- execute colorizer as soon as possible
-      vim.defer_fn(function()
-        require("colorizer").attach_to_buffer(0)
-      end, 0)
-    end,
-  },
-
-  -- LANGUAGE SERVER PROTOCOL + TOOLS
-  {
-    "stevearc/conform.nvim",
-    cond = lsp_enabled and not sys.is_firenvim(),
-    event = "VeryLazy",
-    init = utils.load_mappings("conform"),
-    config = conf("conform"),
-  },
+  -- ─── LSP ──────────────────────────────────────────────────────────────────
+  -- Disable entire section: let g:lsp_enabled = v:false
   {
     "williamboman/mason-lspconfig.nvim",
     cond = lsp_enabled,
@@ -642,12 +567,7 @@ require("lazy").setup({
     },
     opts = {
       automatic_enable = {
-        exclude = {
-          "ts_ls",
-          "stylua",
-          "lua_ls",
-          "haxe_language_server",
-        },
+        exclude = { "ts_ls", "stylua", "lua_ls", "haxe_language_server" },
       },
     },
   },
@@ -655,6 +575,23 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
     cond = lsp_enabled,
     init = utils.load_mappings("lsp"),
+  },
+  {
+    "folke/lazydev.nvim",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    event = "VeryLazy",
+    init = utils.load_mappings("conform"),
+    config = conf("conform"),
   },
   {
     "folke/trouble.nvim",
@@ -670,20 +607,54 @@ require("lazy").setup({
     dependencies = { "rmagatti/logger.nvim" },
     init = utils.load_mappings("goto_preview"),
     event = "BufEnter",
-    config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+    config = true,
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    init = utils.load_mappings("inc_rename"),
+    cmd = "IncRename",
+    config = true,
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  },
+  {
+    "mfussenegger/nvim-jdtls",
+    cond = lsp_enabled and not sys.is_firenvim(),
   },
 
-  -- LANGUAGES + TOOLS
+  -- ─── COMPLETION ───────────────────────────────────────────────────────────
   {
-    "folke/lazydev.nvim",
-    cond = not sys.is_firenvim(),
-    ft = "lua",
-    opts = {
-      library = {
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    "Saghen/blink.cmp",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    dependencies = {
+      { "saghen/blink.lib" },
+      {
+        "saghen/blink.compat",
+        lazy = true,
+        opts = { impersonate_nvim_cmp = false },
+        version = "*",
       },
+      "rafamadriz/friendly-snippets",
+      "ribru17/blink-cmp-spell",
     },
+    build = "cargo build --release",
+    config = conf("blink-cmp"),
+    opts_extend = { "sources.default", "sources.providers" },
   },
+  {
+    "zbirenbaum/copilot.lua",
+    cond = vim.g.ai_enabled and not sys.is_amazon(),
+    cmd = "Copilot",
+    event = "VimEnter",
+    config = conf("copilot"),
+  },
+
+  -- ─── NOTETAKING ───────────────────────────────────────────────────────────
+  -- Disable entire section: let g:notetaking_enabled = v:false
   {
     "iamcco/markdown-preview.nvim",
     cond = notetaking_enabled,
@@ -691,12 +662,6 @@ require("lazy").setup({
     build = "cd app && yarn install",
     ft = { "markdown" },
     init = utils.load_mappings("markdown_preview"),
-  },
-  {
-    "glacambre/firenvim",
-    lazy = false,
-    build = ":call firenvim#install(0)",
-    init = conf("firenvim"),
   },
   {
     "mzlogin/vim-markdown-toc",
@@ -715,125 +680,28 @@ require("lazy").setup({
   {
     "jakewvincent/mkdnflow.nvim",
     cond = notetaking_enabled,
-    ft = { "markdown", "rmd", },
+    ft = { "markdown", "rmd" },
     config = conf("mkdnflow"),
   },
   {
     "OXY2DEV/markview.nvim",
-    cond = notetaking_enabled,
+    cond = notetaking_enabled and treesitter_enabled,
     ft = "markdown",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons"
+      "nvim-tree/nvim-web-devicons",
     },
     config = conf("markview"),
   },
-  {
-    "pmizio/typescript-tools.nvim",
-    cond = lsp_enabled and not sys.is_firenvim(),
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  },
-  {
-    "mfussenegger/nvim-jdtls",
-    cond = lsp_enabled and not sys.is_firenvim(),
-  },
 
-  -- COMPLETION
+  -- ─── FILETYPE / SYNTAX ────────────────────────────────────────────────────
   {
-    "Saghen/blink.cmp",
+    "chrisbra/csv.vim",
     cond = not sys.is_firenvim(),
-    dependencies = {
-      {
-        "saghen/blink.lib",
-      },
-      {
-        "saghen/blink.compat",
-        lazy = true,
-        opts = {
-          impersonate_nvim_cmp = false,
-        },
-        version = "*",
-      },
-      "rafamadriz/friendly-snippets",
-      "ribru17/blink-cmp-spell",
-    },
-    build = "cargo build --release",
-    config = conf("blink-cmp"),
-    opts_extend = { "sources.default", "sources.providers" },
-  },
-  {
-    -- Make sure to run `:Copilot auth` after install
-    "zbirenbaum/copilot.lua",
-    -- Don't install in Amazon work laptop
-    -- cond = not sys.is_amazon() and vim.g.ai_enabled,
-    cond = vim.g.ai_enabled and not sys.is_amazon(), -- disable for work
-    -- cond = vim.g.ai_enabled,
-    cmd = "Copilot",
-    event = "VimEnter",
-    config = conf("copilot"),
+    ft = "csv",
   },
 
-  -- WEB DEVELOPMENT
-  -- {
-  --   "rest-nvim/rest.nvim",
-  --   ft = { "http" },
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --   },
-  --   config = conf("rest", "rest"),
-  -- },
-
-  -- NOTETAKING
-  -- {
-  --   "vimwiki/vimwiki",
-  --   branch = "dev",
-  --   cond = vim.fn.expand("%:p:h"):find("/Documents/my%-wiki/") ~= nil and not sys.is_firenvim(), -- NOTE: '-' is a special character and needs to be escaped
-  --   cmd = { "VimwikIndex", "VimwikiDiaryIndex", "VimwikiUISelect" },
-  --   lazy = false,
-  --   init = function()
-  --     utils.load_mappings("vimwiki")
-  --     conf("vimwiki")()
-  --   end,
-  -- },
-  -- {
-  --   "vhyrro/luarocks.nvim",
-  --   priority = 1000,
-  --   config = true,
-  -- },
-  -- {
-  --   "nvim-neorg/neorg-telescope",
-  --   init = utils.load_mappings("neorg_telescope"),
-  --   config = conf("neorg-telescope"),
-  --   dependencies = "nvim-telescope/telescope.nvim",
-  -- },
-  -- {
-  --   "nvim-neorg/neorg",
-  --   init = utils.load_mappings("neorg"),
-  --   ft = "norg",
-  --   cmd = { "Neorg", "NeorgOpen", "NeorgNew", "NeorgDoc", "NeorgHelp" },
-  --   config = conf("neorg"),
-  --   dependencies = {
-  --     "vhyrro/luarocks.nvim",
-  --     "nvim-neorg/neorg-telescope",
-  --   },
-  -- },
-
-  -- MISC
-  -- {
-  --   "ThePrimeagen/harpoon",
-  --   cond = not sys.is_firenvim(),
-  --   event = "VimEnter",
-  --   init = utils.load_mappings("harpoon"),
-  --   config = true,
-  -- },
-  -- {
-  --   "m4xshen/hardtime.nvim",
-  --   cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-  --   event = "VimEnter",
-  --   init = utils.load_mappings("hardtime"),
-  --   config = conf("hardtime"),
-  --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-  -- },
+  -- ─── MISC ─────────────────────────────────────────────────────────────────
   {
     "Eandrju/cellular-automaton.nvim",
     cond = not sys.is_firenvim(),
@@ -842,15 +710,14 @@ require("lazy").setup({
   },
   {
     "kawre/leetcode.nvim",
-    cond = not sys.is_firenvim(),
+    cond = treesitter_enabled and not sys.is_firenvim(),
     cmd = "Leet",
     lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
     build = ":TSUpdate html",
     dependencies = {
       "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim", -- required by telescope
+      "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      -- optional
       "nvim-treesitter/nvim-treesitter",
       "rcarriga/nvim-notify",
       "nvim-tree/nvim-web-devicons",
@@ -858,24 +725,18 @@ require("lazy").setup({
     config = conf("leetcode"),
   },
 
-  --- Amazon internal plugins
-  -- condition: sys.whoami() == "mrklcrns"
-
-  -- Source: https://code.amazon.com/packages/Vim-code-browse/trees/mainline
-  -- Lets you browse code with :GBrowse
+  -- ─── AMAZON INTERNAL ──────────────────────────────────────────────────────
   {
     name = "vim-code-browse",
     url = "ssh://git.amazon.com:2222/pkg/Vim-code-browse",
-    cond = sys.is_amazon() and not sys.is_firenvim(), -- mrklcrns is my work Amazon username
+    cond = sys.is_amazon() and not sys.is_firenvim(),
     event = "VeryLazy",
-    dependencies = {
-      "sindrets/vim-fugitive",
-    }
+    dependencies = { "sindrets/vim-fugitive" },
   },
   {
-    name = 'amazonq',
-    url = 'ssh://git.amazon.com/pkg/AmazonQNVim',
-    cond = sys.is_amazon() and vim.g.ai_enabled and not sys.is_firenvim(), -- mrklcrns is my work Amazon username
+    name = "amazonq",
+    url = "ssh://git.amazon.com/pkg/AmazonQNVim",
+    cond = sys.is_amazon() and vim.g.ai_enabled and not sys.is_firenvim(),
     init = utils.load_mappings("amazonq"),
     event = "VeryLazy",
     config = conf("amazonq"),
