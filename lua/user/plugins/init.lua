@@ -331,11 +331,6 @@ require("lazy").setup({
   },
   -- ─── CODING HELPER ────────────────────────────────────────────────────────
   {
-    "numToStr/Comment.nvim",
-    init = utils.lazy_load("Comment.nvim"),
-    config = true,
-  },
-  {
     "kylechui/nvim-surround",
     init = utils.lazy_load("nvim-surround"),
     config = conf("nvim-surround"),
