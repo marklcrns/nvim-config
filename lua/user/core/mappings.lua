@@ -778,16 +778,6 @@ M.neorg_telescope = {
   },
 }
 
-M.niceblock = {
-  plugin = true,
-
-  v = {
-    ["I"] = { [[<Plug>(niceblock-I)]], "niceblock I", opts = default_opts },
-    ["gI"] = { [[<Plug>(niceblock-gI)]], "niceblock gI", opts = default_opts },
-    ["A"] = { [[<Plug>(niceblock-A)]], "niceblock A", opts = default_opts },
-  },
-}
-
 M.nvim_notify = {
   plugin = true,
 
@@ -1419,26 +1409,6 @@ M.vimwiki = {
     ["<localleader>nwh"] = { "<cmd>Vimwiki2HTML<CR>", "convert vimwiki to html", opts = default_opts },
     ["<localleader>nwH"] = { "<cmd>Vimwiki2HTMLBrowse<CR>", "convert vimwiki to html and browse", opts = default_opts },
     ["<localleader>nwl"] = { "<cmd>VimwikiGenerateLinks<CR>", "generate vimwiki links", opts = default_opts },
-  },
-}
-
-M.vim_maximizer = {
-  plugin = true,
-
-  n = {
-    ["<C-w>z"] = { "<cmd>MaximizerToggle<CR>", "toggle maximizer", opts = default_opts },
-  },
-}
-
-M.winshift = {
-  plugin = true,
-
-  n = {
-    ["<C-w>H"] = { "<cmd>WinShift left<CR>", "", opts = default_opts },
-    ["<C-w>J"] = { "<cmd>WinShift down<CR>", "", opts = default_opts },
-    ["<C-w>K"] = { "<cmd>WinShift up<CR>", "", opts = default_opts },
-    ["<C-w>L"] = { "<cmd>WinShift right<CR>", "", opts = default_opts },
-    ["<C-w>m"] = { "<cmd>WinShift<CR>", "", opts = default_opts },
   },
 }
 

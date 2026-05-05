@@ -175,22 +175,6 @@ require("lazy").setup({
     config = conf("twilight"),
   },
   {
-    "szw/vim-maximizer",
-    cond = not sys.is_firenvim(),
-    init = utils.load_mappings("vim_maximizer"),
-    cmd = { "MaximizerToggle" },
-    config = function()
-      vim.g.maximizer_set_default_mapping = 0
-    end,
-  },
-  {
-    "sindrets/winshift.nvim",
-    cond = not sys.is_firenvim(),
-    init = utils.load_mappings("winshift"),
-    cmd = "WinShift",
-    config = conf("winshift"),
-  },
-  {
     "AndrewRadev/linediff.vim",
     init = utils.load_mappings("linediff"),
     cmd = { "Linediff" },
@@ -297,13 +281,6 @@ require("lazy").setup({
     init = utils.load_mappings("mini_files"),
     config = conf("mini-files"),
   },
-  {
-    "kshenoy/vim-signature",
-    cond = not sys.is_firenvim(),
-    init = utils.lazy_load("vim-signature"),
-    config = conf("vim-signature"),
-  },
-
   -- ─── CODING HELPER ────────────────────────────────────────────────────────
   {
     "numToStr/Comment.nvim",
@@ -342,15 +319,6 @@ require("lazy").setup({
     cond = not sys.is_firenvim(),
     init = function() utils.load_mappings("tabular") end,
     cmd = "Tabularize",
-  },
-  {
-    "kana/vim-niceblock",
-    cond = not sys.is_firenvim(),
-    init = function()
-      utils.lazy_load("vim-niceblock")
-      utils.load_mappings("niceblock")
-      vim.g.niceblock_use_default_mappings = 0
-    end,
   },
   {
     "nvim-pack/nvim-spectre",
