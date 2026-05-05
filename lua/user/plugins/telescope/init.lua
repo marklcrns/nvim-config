@@ -215,11 +215,6 @@ return function()
         find_cmd = "fd",
         -- find_cmd = "rg" -- find command (defaults to `fd`)
       },
-      ["ui-select"] = {
-        require("telescope.themes").get_dropdown({
-          layout_strategy = "cursor",
-        }),
-      },
       undo = {
         mappings = {
           i = {
@@ -243,7 +238,6 @@ return function()
 
   -- Load extensions
   require("telescope").load_extension("fzf")
-  require("telescope").load_extension("ui-select")
   require("telescope").load_extension("undo")
   if not vim.g.low_performance_mode then
     require("telescope").load_extension("notify")

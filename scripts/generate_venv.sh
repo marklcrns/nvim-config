@@ -1,80 +1,36 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# generate_venv.sh — Set up Python 3 virtual environment for Neovim provider
 
-# Install script to install virtual environment for vim python prog hosts
+set -euo pipefail
 
-SCRIPTPATH="$(realpath $0)"
-SCRIPTDIR=$(dirname ${SCRIPTPATH})
+SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPTDIR/format.sh"
+
 DATA_PATH="${HOME}/.cache/vim"
 
-source $SCRIPTDIR/format.sh
+action "Setting up Python 3 provider venv"
 
-action "Setting up python provider"
-
-# python2 host prog
-if command -v python2 &>/dev/null; then
-	mkdir -p ${DATA_PATH}/venv/python
-	if command -v virtualenv &>/dev/null; then
-		virtualenv --python=python2 ${DATA_PATH}/venv/python/env
-	else
-		python -m venv ${DATA_PATH}/venv/python/env
-	fi
-
-	# Install pip2 packages
-	if source ${DATA_PATH}/venv/python/env/bin/activate; then
-		pip install wheel neovim PyYAML Send2Trash
-		# Optionals
-		pip install pynvim
-		pip install keyrings.alt
-		pip install keyring browser_cookie3 # for leetcode.vim
-		pip install pylatexenc # for MeanderingProgrammer/markdown.nvim
-		deactivate
-	fi
-else
-	warn "python2 not found... some plugins may not work properly"
+if ! command -v python3 &>/dev/null; then
+  error "python3 not found. Please install Python 3."
+  exit 1
 fi
 
-# python3 host prog
-if command -v python3 &>/dev/null; then
-	mkdir -p ${DATA_PATH}/venv/python3
-	if command -v virtualenv &>/dev/null; then
-		virtualenv --python=python3 ${DATA_PATH}/venv/python3/env
-	else
-		python3 -m venv ${DATA_PATH}/venv/python3/env
-	fi
+VENV_DIR="${DATA_PATH}/venv/python3/env"
+mkdir -p "${DATA_PATH}/venv/python3"
 
-	# Install pip3 packages
-	if source ${DATA_PATH}/venv/python3/env/bin/activate; then
-		pip install wheel neovim PyYAML Send2Trash
-		# Optionals
-		pip install pynvim
-		pip install keyrings.alt
-		pip install neovim-remote
-		pip install keyring browser_cookie3 # for leetcode.vim
-		pip install pylatexenc # for MeanderingProgrammer/markdown.nvim
-		deactivate
-	fi
-else
-	error "python3 not found... Please install python3"
-	exit 1
+if [[ ! -d "$VENV_DIR" ]]; then
+  running "Creating venv at $VENV_DIR"
+  python3 -m venv "$VENV_DIR"
 fi
 
-ok "===> python provider pass"
+running "Installing/upgrading Python packages"
+"$VENV_DIR/bin/pip" install --upgrade pip --quiet
+"$VENV_DIR/bin/pip" install --upgrade \
+  pynvim \
+  neovim-remote \
+  PyYAML \
+  Send2Trash \
+  --quiet
 
-if ! command -v tree-sitter &>/dev/null; then
-	if grep -qEi "(microsoft|WSL)" /proc/version &>/dev/null; then
-		npm -g install tree-sitter-cli
-	else
-		npm -g install tree-sitter
-	fi
-fi
-
-ok "===> Global npm packages installed"
-
-if command -v luarocks &>/dev/null; then
-	luarocks --local install jsregexp
-else
-	error "luarocks not found... Please install luarocks"
-	exit 1
-fi
-
-ok "===> lua provider pass"
+ok "Python 3 provider ready: $("$VENV_DIR/bin/python3" --version)"
+ok "pynvim: $("$VENV_DIR/bin/pip" show pynvim 2>/dev/null | grep Version | awk '{print $2}')"

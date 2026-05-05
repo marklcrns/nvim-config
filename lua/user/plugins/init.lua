@@ -268,10 +268,6 @@ require("lazy").setup({
     build = "make",
   },
   {
-    "nvim-telescope/telescope-ui-select.nvim",
-    cond = not sys.is_firenvim(),
-  },
-  {
     "debugloop/telescope-undo.nvim",
     cond = not sys.is_firenvim(),
   },
