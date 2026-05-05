@@ -392,13 +392,18 @@ function M.is_attached(winid)
 end
 
 function M.init()
-  local events = { "WinEnter", "WinLeave", "BufWinEnter", "BufModifiedSet", "BufWritePost" }
+  local events = { "WinEnter", "WinLeave", "BufWinEnter", "BufWritePost" }
+
+  if vim.fn.has("nvim-0.13") == 0 then
+    -- BufModifiedSet removed in Nvim 0.13; replaced by OptionSet pattern="modified"
+    table.insert(events, "BufModifiedSet")
+  end
 
   if vim.fn.has("nvim-0.9") == 1 then
     table.insert(events, "WinResized")
   end
 
-  au.declare_group("user.winbar", {}, {
+  local aucmds = {
     {
       events,
       callback = function(ctx)
@@ -426,7 +431,25 @@ function M.init()
         end
       end,
     },
-  })
+  }
+
+  -- Nvim 0.13+: BufModifiedSet removed, use OptionSet with pattern "modified"
+  if vim.fn.has("nvim-0.13") == 1 then
+    table.insert(aucmds, {
+      "OptionSet",
+      pattern = "modified",
+      callback = function()
+        local buf = vim.api.nvim_get_current_buf()
+        for _, winid in ipairs(api.nvim_list_wins()) do
+          if api.nvim_win_get_buf(winid) == buf then
+            M.request_update(winid)
+          end
+        end
+      end,
+    })
+  end
+
+  au.declare_group("user.winbar", {}, aucmds)
 
   M.check_all()
 end
