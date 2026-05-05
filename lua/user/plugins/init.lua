@@ -641,7 +641,7 @@ require("lazy").setup({
       "rafamadriz/friendly-snippets",
       "ribru17/blink-cmp-spell",
     },
-    build = "cargo build --release",
+    build = function() require('blink.cmp').build():wait(60000) end,
     config = conf("blink-cmp"),
     opts_extend = { "sources.default", "sources.providers" },
   },
