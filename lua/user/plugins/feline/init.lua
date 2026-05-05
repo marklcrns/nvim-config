@@ -246,7 +246,9 @@ M.components = {
   file = {
     info = StatusComponent({
       provider = {
-        update = { "BufEnter", "BufFilePost", "BufModifiedSet", "BufWritePost" },
+        update = vim.fn.has("nvim-0.13") == 1
+          and { "BufEnter", "BufFilePost", "BufWritePost", "OptionSet" }
+          or  { "BufEnter", "BufFilePost", "BufModifiedSet", "BufWritePost" },
         get = function()
           local uname = utils.get_unique_file_bufname(api.nvim_buf_get_name(0))
           local status = vim.bo.modified and (" " .. icons.modified .. " ") or ""
