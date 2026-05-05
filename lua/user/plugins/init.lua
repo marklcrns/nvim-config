@@ -84,16 +84,18 @@ require("lazy").setup({
   },
 
   -- ─── COLORSCHEMES ─────────────────────────────────────────────────────────
-  { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false },
-  { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = false },
+  -- Only tokyonight (default dark) and zenbones (default light via seoulbones)
+  -- load eagerly. Others lazy-load when :colorscheme <name> is run.
+  { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false, priority = 1000 },
   { "mcchrish/zenbones.nvim",        dependencies = "rktjmp/lush.nvim", lazy = false },
-  { "EdenEast/nightfox.nvim",        config = conf("nightfox"),         lazy = false },
-  { "Mofiqul/vscode.nvim",           config = conf("vscode"),           lazy = false },
-  { "catppuccin/nvim",               config = conf("catppuccin"),       name = "catppuccin", lazy = false },
-  { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = false },
-  { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = false },
-  { "sindrets/oxocarbon-lua.nvim",   lazy = false },
-  { "dgox16/oldworld.nvim",          lazy = false },
+  { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = true },
+  { "EdenEast/nightfox.nvim",        config = conf("nightfox"),         lazy = true },
+  { "Mofiqul/vscode.nvim",           config = conf("vscode"),           lazy = true },
+  { "catppuccin/nvim",               config = conf("catppuccin"),       name = "catppuccin", lazy = true },
+  { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = true },
+  { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = true },
+  { "sindrets/oxocarbon-lua.nvim",   lazy = true },
+  { "dgox16/oldworld.nvim",          lazy = true },
 
   -- ─── UI STYLE ─────────────────────────────────────────────────────────────
   {
