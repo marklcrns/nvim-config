@@ -58,7 +58,6 @@ local notetaking_enabled = vim.g.notetaking_enabled ~= false
 require("lazy").setup({
 
   -- ─── UTILS ────────────────────────────────────────────────────────────────
-  "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   {
     "tpope/vim-eunuch",
