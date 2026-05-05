@@ -778,6 +778,28 @@ M.neorg_telescope = {
   },
 }
 
+M.niceblock = {
+  plugin = true,
+
+  x = {
+    ["I"]  = { [[<Plug>(niceblock-I)]],  "niceblock I",  opts = default_opts },
+    ["gI"] = { [[<Plug>(niceblock-gI)]], "niceblock gI", opts = default_opts },
+    ["A"]  = { [[<Plug>(niceblock-A)]],  "niceblock A",  opts = default_opts },
+  },
+}
+
+M.winshift = {
+  plugin = true,
+
+  n = {
+    ["<C-w>H"] = { "<cmd>WinShift left<CR>",  "winshift: far left",  opts = default_opts },
+    ["<C-w>J"] = { "<cmd>WinShift down<CR>",  "winshift: far down",  opts = default_opts },
+    ["<C-w>K"] = { "<cmd>WinShift up<CR>",    "winshift: far up",    opts = default_opts },
+    ["<C-w>L"] = { "<cmd>WinShift right<CR>", "winshift: far right", opts = default_opts },
+    ["<C-w>m"] = { "<cmd>WinShift<CR>",       "winshift: mode",      opts = default_opts },
+  },
+}
+
 M.nvim_notify = {
   plugin = true,
 

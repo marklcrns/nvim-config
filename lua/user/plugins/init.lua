@@ -369,6 +369,19 @@ require("lazy").setup({
     cmd = "Tabularize",
   },
   {
+    "kana/vim-niceblock",
+    cond = not sys.is_firenvim(),
+    keys = {
+      { "I",  mode = "x", desc = "niceblock I" },
+      { "gI", mode = "x", desc = "niceblock gI" },
+      { "A",  mode = "x", desc = "niceblock A" },
+    },
+    init = function()
+      vim.g.niceblock_use_default_mappings = 0
+      utils.load_mappings("niceblock")
+    end,
+  },
+  {
     "nvim-pack/nvim-spectre",
     cond = not sys.is_firenvim(),
     event = "VeryLazy",
@@ -415,6 +428,17 @@ require("lazy").setup({
     config = conf("outline"),
     cmd = { "Outline", "OutlineClose", "OutlineOpen" },
   },
+  {
+    "chentoast/marks.nvim",
+    cond = not sys.is_firenvim(),
+    keys = {
+      { "m", mode = { "n", "v" }, desc = "marks.nvim prefix" },
+      { "dm", desc = "marks.nvim delete prefix" },
+      { "]'", desc = "next mark (line)" }, { "]`", desc = "next mark (pos)" },
+      { "['", desc = "prev mark (line)" }, { "[`", desc = "prev mark (pos)" },
+    },
+    config = conf("marks"),
+  },
 
   -- ─── INTEGRATIONS ─────────────────────────────────────────────────────────
   {
@@ -427,6 +451,13 @@ require("lazy").setup({
     cond = not sys.is_firenvim(),
     event = "VimEnter",
     init = utils.load_mappings("smart_splits"),
+  },
+  {
+    "sindrets/winshift.nvim",
+    cond = not sys.is_firenvim(),
+    init = utils.load_mappings("winshift"),
+    cmd = "WinShift",
+    config = conf("winshift"),
   },
   {
     "glacambre/firenvim",
