@@ -6,8 +6,10 @@
 --- "default_light" which will apply a predefined default dark or light color
 --- scheme.
 ---
---- Override the default colorscheme by defining the environment variable
---- `NVIM_COLORSCHEME` using the same format.
+--- Resolution order (first non-empty wins):
+---   1. $NVIM_COLORSCHEME        — env var override (highest priority)
+---   2. g:colorscheme            — set in vimrc (user-facing knob)
+---   3. "default_dark"           — hardcoded fallback
 local DEFAULT_COLORSCHEME = "default_dark"
 
 local Color = Config.common.color.Color
@@ -17,12 +19,16 @@ local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
 
 local M = {}
 
-M.DEFAULT_DARK = "tokyonight"
-M.DEFAULT_LIGHT = "seoulbones"
+M.DEFAULT_DARK  = vim.g.default_dark_colorscheme or "tokyonight"
+M.DEFAULT_LIGHT = vim.g.default_light_colorscheme or "seoulbones"
 
 do
   local name, bg
-  for _, source in ipairs(utils.vec_join(vim.env.NVIM_COLORSCHEME, DEFAULT_COLORSCHEME)) do
+  for _, source in ipairs(utils.vec_join(
+    vim.env.NVIM_COLORSCHEME,
+    vim.g.colorscheme,
+    DEFAULT_COLORSCHEME
+  )) do
     name, bg = unpack(vim.split(source or "", "%s+", {}))
     if name ~= "" then
       break

@@ -55,6 +55,47 @@ local treesitter_enabled = vim.g.treesitter_enabled ~= false
 local git_enabled        = vim.g.git_enabled ~= false
 local notetaking_enabled = vim.g.notetaking_enabled ~= false
 
+-- ─── Colorscheme auto-lazy helper ──────────────────────────────────────────
+-- Resolves the active colorscheme name from vim.g.colorscheme (or env var)
+-- using the same rules as lua/user/colorscheme.lua. The cs() helper then
+-- auto-sets lazy/priority so the active one loads eagerly and everything
+-- else lazy-loads on :colorscheme <name>.
+local function resolve_active_colorscheme()
+  -- Pick the first non-empty source; don't rely on ipairs (stops at nils).
+  local raw = (vim.env.NVIM_COLORSCHEME ~= nil and vim.env.NVIM_COLORSCHEME ~= "")
+      and vim.env.NVIM_COLORSCHEME
+    or (vim.g.colorscheme ~= nil and vim.g.colorscheme ~= "")
+      and vim.g.colorscheme
+    or "default_dark"
+  local name = vim.split(raw, "%s+", {})[1]
+  if name == "default_dark"  then return vim.g.default_dark_colorscheme  or "tokyonight"  end
+  if name == "default_light" then return vim.g.default_light_colorscheme or "seoulbones"  end
+  return name
+end
+
+local active_cs = resolve_active_colorscheme()
+
+--- Colorscheme plugin spec helper. Auto-sets lazy/priority based on whether
+--- the plugin provides the active colorscheme.
+--- @param repo string  Plugin repo like "folke/tokyonight.nvim"
+--- @param opts? table  Standard lazy.nvim spec fields. Extra field:
+---   - provides: string[] list of colorscheme names this plugin registers
+---     (defaults to the plugin name, stripped of ".nvim" suffix). Used by
+---     multi-scheme plugins like zenbones.
+local function cs(repo, opts)
+  opts = opts or {}
+  -- Derive the colorscheme name for active-matching only (NOT for opts.name,
+  -- which affects lazy's plugin directory). Use explicit opts.name when set.
+  local derived_name = (opts.name or repo:match("[^/]+$")):gsub("%.nvim$", "")
+  local provides = opts.provides or { derived_name }
+  opts.provides = nil
+  local active = vim.tbl_contains(provides, active_cs)
+  opts[1] = repo
+  opts.lazy = not active
+  if active then opts.priority = 1000 end
+  return opts
+end
+
 require("lazy").setup({
 
   -- ─── UTILS ────────────────────────────────────────────────────────────────
@@ -83,18 +124,25 @@ require("lazy").setup({
   },
 
   -- ─── COLORSCHEMES ─────────────────────────────────────────────────────────
-  -- Only tokyonight (default dark) and zenbones (default light via seoulbones)
-  -- load eagerly. Others lazy-load when :colorscheme <name> is run.
-  { "folke/tokyonight.nvim",         config = conf("tokyonight"),       lazy = false, priority = 1000 },
-  { "mcchrish/zenbones.nvim",        dependencies = "rktjmp/lush.nvim", lazy = false },
-  { "rebelot/kanagawa.nvim",         config = conf("kanagawa"),         lazy = true },
-  { "EdenEast/nightfox.nvim",        config = conf("nightfox"),         lazy = true },
-  { "Mofiqul/vscode.nvim",           config = conf("vscode"),           lazy = true },
-  { "catppuccin/nvim",               config = conf("catppuccin"),       name = "catppuccin", lazy = true },
-  { "rose-pine/neovim",              config = conf("rose-pine"),        name = "rose-pine",  lazy = true },
-  { "sainnhe/gruvbox-material",      config = conf("gruvbox-material"), lazy = true },
-  { "sindrets/oxocarbon-lua.nvim",   lazy = true },
-  { "dgox16/oldworld.nvim",          lazy = true },
+  -- Active colorscheme (set via g:colorscheme in vimrc) loads eagerly with
+  -- priority 1000; all others lazy-load when `:colorscheme <name>` is run.
+  cs("folke/tokyonight.nvim",     { config = conf("tokyonight") }),
+  cs("mcchrish/zenbones.nvim",    {
+    dependencies = "rktjmp/lush.nvim",
+    provides = {
+      "zenbones", "seoulbones", "neobones", "zenwritten", "duckbones",
+      "forestbones", "tokyobones", "rosebones", "kanagawabones", "nordbones",
+      "vimbones", "randombones",
+    },
+  }),
+  cs("rebelot/kanagawa.nvim",     { config = conf("kanagawa") }),
+  cs("EdenEast/nightfox.nvim",    { config = conf("nightfox") }),
+  cs("Mofiqul/vscode.nvim",       { config = conf("vscode") }),
+  cs("catppuccin/nvim",           { name = "catppuccin", config = conf("catppuccin") }),
+  cs("rose-pine/neovim",          { name = "rose-pine",  config = conf("rose-pine") }),
+  cs("sainnhe/gruvbox-material",  { config = conf("gruvbox-material") }),
+  cs("sindrets/oxocarbon-lua.nvim", {}),
+  cs("dgox16/oldworld.nvim",      {}),
 
   -- ─── UI STYLE ─────────────────────────────────────────────────────────────
   {
