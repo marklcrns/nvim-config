@@ -53,6 +53,12 @@ local function conf(config_name, mappings_name)
   return require(config_path)
 end
 
+-- Category switches (set in vimrc)
+local lsp_enabled        = vim.g.lsp_enabled ~= false
+local treesitter_enabled = vim.g.treesitter_enabled ~= false
+local git_enabled        = vim.g.git_enabled ~= false
+local notetaking_enabled = vim.g.notetaking_enabled ~= false
+
 require("lazy").setup({
   -- SYNTAX & FILETYPE PLUGINS
   -- {
@@ -269,7 +275,7 @@ require("lazy").setup({
   {
     -- Needed by common.utils
     "sindrets/diffview.nvim",
-    cond = not sys.is_firenvim(),
+    cond = git_enabled and not sys.is_firenvim(),
     init = utils.load_mappings("diffview"),
     config = conf("diffview"),
   },
@@ -465,7 +471,7 @@ require("lazy").setup({
   },
   {
     "smjonas/inc-rename.nvim",
-    cond = not sys.is_firenvim(),
+    cond = lsp_enabled and not sys.is_firenvim(),
     init = utils.load_mappings("inc_rename"),
     cmd = "IncRename",
     config = true,
@@ -507,14 +513,14 @@ require("lazy").setup({
   -- VCS
   {
     "TimUntersberger/neogit",
-    cond = not sys.is_firenvim(),
+    cond = git_enabled and not sys.is_firenvim(),
     cmd = "Neogit",
     init = utils.load_mappings("neogit"),
     config = conf("neogit"),
   },
   {
     "sindrets/vim-fugitive",
-    cond = not sys.is_firenvim(),
+    cond = git_enabled and not sys.is_firenvim(),
     init = function()
       utils.lazy_load("vim-fugitive")
       utils.load_mappings("fugitive")
@@ -530,7 +536,7 @@ require("lazy").setup({
   },
   {
     "lewis6991/gitsigns.nvim",
-    cond = not sys.is_firenvim(),
+    cond = git_enabled and not sys.is_firenvim(),
     init = function()
       utils.lazy_load("gitsigns.nvim")
       utils.load_mappings("gitsigns")
@@ -558,7 +564,7 @@ require("lazy").setup({
     -- Pinned to archived master branch. The new 'main' branch removed configs.setup() API.
     branch = "master",
     -- commit = "cf12346a3414fa1b06af75c79faebe7f76df080a",
-    cond = not sys.is_firenvim(),
+    cond = treesitter_enabled and not sys.is_firenvim(),
     init = utils.lazy_load("nvim-treesitter"),
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
@@ -567,25 +573,25 @@ require("lazy").setup({
   },
   {
     "RRethy/nvim-treesitter-textsubjects",
-    cond = not sys.is_firenvim(),
+    cond = treesitter_enabled and not sys.is_firenvim(),
     init = utils.lazy_load("nvim-treesitter-textsubjects"),
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    cond = not sys.is_firenvim(),
+    cond = treesitter_enabled and not sys.is_firenvim(),
     init = utils.lazy_load("nvim-treesitter-textobjects"),
     config = conf("nvim-treesitter-textobjects"),
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
+    cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
     cmd = { "TSContextEnable", "TSContextToggle" },
     event = "VeryLazy",
     config = conf("nvim-treesitter-context", "treesitter_context"),
   },
   {
     "RRethy/nvim-treesitter-endwise",
-    cond = not sys.is_firenvim(),
+    cond = treesitter_enabled and not sys.is_firenvim(),
     init = utils.lazy_load("nvim-treesitter-endwise"),
   },
   {
@@ -618,13 +624,14 @@ require("lazy").setup({
   -- LANGUAGE SERVER PROTOCOL + TOOLS
   {
     "stevearc/conform.nvim",
-    cond = not sys.is_firenvim(),
+    cond = lsp_enabled and not sys.is_firenvim(),
     event = "VeryLazy",
     init = utils.load_mappings("conform"),
     config = conf("conform"),
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    cond = lsp_enabled,
     dependencies = {
       {
         "mason-org/mason.nvim",
@@ -646,11 +653,12 @@ require("lazy").setup({
   },
   {
     "neovim/nvim-lspconfig",
+    cond = lsp_enabled,
     init = utils.load_mappings("lsp"),
   },
   {
     "folke/trouble.nvim",
-    cond = not sys.is_firenvim(),
+    cond = lsp_enabled and not sys.is_firenvim(),
     cmd = { "Trouble" },
     init = utils.load_mappings("trouble"),
     config = conf("trouble"),
@@ -658,6 +666,7 @@ require("lazy").setup({
   },
   {
     "rmagatti/goto-preview",
+    cond = lsp_enabled,
     dependencies = { "rmagatti/logger.nvim" },
     init = utils.load_mappings("goto_preview"),
     event = "BufEnter",
@@ -677,6 +686,7 @@ require("lazy").setup({
   },
   {
     "iamcco/markdown-preview.nvim",
+    cond = notetaking_enabled,
     cmd = { "MarkdownPreviewToggle" },
     build = "cd app && yarn install",
     ft = { "markdown" },
@@ -690,6 +700,7 @@ require("lazy").setup({
   },
   {
     "mzlogin/vim-markdown-toc",
+    cond = notetaking_enabled,
     init = utils.load_mappings("markdown_toc"),
     ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
     config = function()
@@ -703,11 +714,13 @@ require("lazy").setup({
   },
   {
     "jakewvincent/mkdnflow.nvim",
+    cond = notetaking_enabled,
     ft = { "markdown", "rmd", },
     config = conf("mkdnflow"),
   },
   {
     "OXY2DEV/markview.nvim",
+    cond = notetaking_enabled,
     ft = "markdown",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -717,12 +730,12 @@ require("lazy").setup({
   },
   {
     "pmizio/typescript-tools.nvim",
-    cond = not sys.is_firenvim(),
+    cond = lsp_enabled and not sys.is_firenvim(),
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   },
   {
     "mfussenegger/nvim-jdtls",
-    cond = not sys.is_firenvim(),
+    cond = lsp_enabled and not sys.is_firenvim(),
   },
 
   -- COMPLETION

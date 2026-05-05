@@ -15,6 +15,23 @@ let g:ai_enabled = v:true
 " Enable this to disable cpu intensive plugins/modules (default: false)
 let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false) == 0 ? v:false : v:true
 
+" ─── Plugin category switches ────────────────────────────────────────────────
+" Set to v:false to disable an entire category and all plugins that depend on it.
+
+" LSP stack: mason, nvim-lspconfig, mason-lspconfig, conform, trouble,
+"            goto-preview, typescript-tools, nvim-jdtls, inc-rename
+let g:lsp_enabled = v:true
+
+" Treesitter stack: nvim-treesitter + textobjects/textsubjects/context/endwise
+let g:treesitter_enabled = v:true
+
+" Git stack: fugitive, neogit, gitsigns, diffview, vim-flog
+let g:git_enabled = v:true
+
+" Notetaking stack: mkdnflow, markview, markdown-preview, obsidian
+let g:notetaking_enabled = v:true
+" ─────────────────────────────────────────────────────────────────────────────
+
 " Load core files. Will be deprecated soon!
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/rtp.vim'
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/core.vim'
