@@ -464,7 +464,10 @@ require("lazy").setup({
   },
   {
     "glacambre/firenvim",
-    cond = vim.g.started_by_firenvim == 1,
+    -- firenvim's binary passes `--cmd 'let g:started_by_firenvim = v:true'`
+    -- to nvim BEFORE init.lua runs. `v:true` becomes Lua `true`, not `1`,
+    -- so we do a truthy check (not equality with 1) to detect browser mode.
+    cond = function() return vim.g.started_by_firenvim end,
     lazy = false,
     build = ":call firenvim#install(0)",
     init = conf("firenvim"),

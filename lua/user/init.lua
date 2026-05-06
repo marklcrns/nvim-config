@@ -23,16 +23,16 @@ require("user.core.utils").load_mappings()
 require("user.core")
 
 require("user.plugins")
--- NOTE: Temporarily disabled user.commands because it loads user.async which is buggy:
--- whenever I `git checkout` to a different branch, it throws error constantly.
--- Feline also uses async. So it bugs out as well, but not too intrusively.
--- TODO: Fix this. Either remove user.async altogether or fix the errors. Try
--- uncommenting the below and `git checkout` to a different branch and see the error.
--- Also see Feline plugin configs.
 require("user.commands")
 require("user.colorscheme").apply()
 
-vim.schedule(function()
-  require("user.lsp")
-  -- vim.cmd("LspStart")
-end)
+-- LSP init is deferred to the next event loop tick so Neovim can finish
+-- drawing the UI before expensive mason/lspconfig loads. Guarded by
+-- g:lsp_enabled (vimrc switch) and firenvim mode — LSP plugins are
+-- excluded in firenvim sessions via `cond` in plugins/init.lua, so
+-- requiring user.lsp there would crash on missing jdtls/typescript-tools.
+if vim.g.lsp_enabled ~= false and not vim.g.started_by_firenvim then
+  vim.schedule(function()
+    require("user.lsp")
+  end)
+end
