@@ -610,6 +610,32 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
     },
     opts = {
+      -- LSP servers mason-lspconfig should keep installed. Missing ones are
+      -- auto-installed async at Neovim startup. Present ones are skipped.
+      -- Add more here as needs grow (use lspconfig names, not mason pkg names).
+      ensure_installed = {
+        "bashls",          -- bash-language-server
+        "clangd",          -- C/C++
+        "cssls",           -- css-lsp
+        "dockerls",        -- dockerfile-language-server
+        "emmet_ls",        -- emmet-ls
+        "eslint",          -- eslint-lsp
+        "html",            -- html-lsp
+        "jsonls",          -- json-lsp
+        "lua_ls",          -- lua-language-server
+        "pyright",         -- python
+        "rust_analyzer",   -- rust
+        "tailwindcss",     -- tailwindcss-language-server
+        "taplo",           -- toml
+        "vimls",           -- vim-language-server
+        "yamlls",          -- yaml-language-server
+        -- Handled separately (not in ensure_installed):
+        --   jdtls (Java)      → installed by mason, started via FileType autocmd
+        --   omnisharp (C#)    → already installed; keep as optional opt-in
+        --   svlangserver      → already installed; keep as optional opt-in
+        --   luau_lsp          → already installed; keep as optional opt-in
+        --   clojure_lsp       → already installed; keep as optional opt-in
+      },
       automatic_enable = {
         -- Servers we configure manually — don't let mason-lspconfig auto-enable
         -- them with its defaults (would create duplicate/wrong clients):
