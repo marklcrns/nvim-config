@@ -8,11 +8,12 @@ local function apply_patch()
   local query = vim.treesitter.query
   if not query or not query.add_directive then return end
 
-  -- We need get_parser_from_markdown_info_string from the original module.
-  -- Replicate its logic: just lowercase and strip whitespace.
-  local ok, ts_query = pcall(require, "nvim-treesitter.query")
-  local get_lang = ok and ts_query.get_parser_from_markdown_info_string
-    or function(alias) return alias end
+  -- Inline the markdown info-string → language mapping (lowercase + strip
+  -- leading whitespace). Avoids require("nvim-treesitter.query") which
+  -- eagerly loads the whole nvim-treesitter plugin and adds ~30ms to startup.
+  local function get_lang(alias)
+    return alias:lower():match("^%s*(%S+)") or alias
+  end
 
   query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
     local capture_id = pred[2]
@@ -25,7 +26,7 @@ local function apply_patch()
     if not node or not vim.is_callable(node.range) then return end
     local text = vim.treesitter.get_node_text(node, bufnr)
     if not text then return end
-    metadata["injection.language"] = get_lang(text:lower())
+    metadata["injection.language"] = get_lang(text)
   end, { force = true, all = false })
 end
 

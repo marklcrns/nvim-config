@@ -147,12 +147,13 @@ require("lazy").setup({
   -- ─── UI STYLE ─────────────────────────────────────────────────────────────
   {
     "nvim-tree/nvim-web-devicons",
+    lazy = true,
     config = conf("nvim-web-devicons"),
   },
   {
     "akinsho/bufferline.nvim",
     cond = not sys.is_firenvim(),
-    event = "VimEnter",
+    event = "UIEnter",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = conf("bufferline"),
   },
@@ -164,18 +165,18 @@ require("lazy").setup({
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    init = utils.lazy_load("indent-blankline.nvim"),
+    event = "BufReadPre",
     main = "ibl",
     config = conf("indent-blankline"),
   },
   {
     "Darazaki/indent-o-matic",
-    event = "VimEnter",
+    event = "BufReadPost",
     config = conf("indent-o-matic"),
   },
   {
     "mvllow/modes.nvim",
-    init = utils.lazy_load("modes.nvim"),
+    event = "ModeChanged",
     config = conf("modes"),
   },
   {
@@ -240,9 +241,13 @@ require("lazy").setup({
   {
     "chrisgrieser/nvim-spider",
     cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
+    keys = {
+      { "w",  mode = { "n", "o", "x" }, function() require("spider").motion("w")  end, desc = "spider-w" },
+      { "e",  mode = { "n", "o", "x" }, function() require("spider").motion("e")  end, desc = "spider-e" },
+      { "b",  mode = { "n", "o", "x" }, function() require("spider").motion("b")  end, desc = "spider-b" },
+      { "ge", mode = { "n", "o", "x" }, function() require("spider").motion("ge") end, desc = "spider-ge" },
+    },
     config = function()
-      utils.load_mappings("spider")
       require("spider").setup({
         skipInsignificantPunctuation = false,
       })
@@ -539,8 +544,9 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     cond = treesitter_enabled and not sys.is_firenvim(),
-    init = utils.lazy_load("todo-comments.nvim"),
-    config = conf("todo-comments", "todo_comments"),
+    event = "BufReadPre",
+    init = utils.load_mappings("todo_comments"),
+    config = conf("todo-comments"),
   },
   {
     "folke/ts-comments.nvim",

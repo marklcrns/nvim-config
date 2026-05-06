@@ -13,7 +13,7 @@ let g:snippet_engine = 'luasnip'
 " Colorscheme to activate. Special values 'default_dark' / 'default_light'
 " resolve to the names below. Can include background: 'kanagawa dark'.
 " NVIM_COLORSCHEME env var overrides this.
-let g:colorscheme               = 'default_dark'
+let g:colorscheme               = 'tokyonight'
 let g:default_dark_colorscheme  = 'tokyonight'
 let g:default_light_colorscheme = 'seoulbones'
 " ─────────────────────────────────────────────────────────────────────────────
