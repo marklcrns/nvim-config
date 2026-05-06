@@ -567,7 +567,13 @@ require("lazy").setup({
   -- Disable entire section: let g:git_enabled = v:false
   {
     "sindrets/diffview.nvim",
-    cond = git_enabled and not sys.is_firenvim(),
+    -- Note: don't exclude via sys.is_firenvim() here. diffview.path is used
+    -- by lua/user/common/utils.lua as the path library (M.pl). Excluding
+    -- diffview in firenvim mode makes utils fail to load. Diffview itself
+    -- is lazy (no event/cmd/keys/ft triggers below means lazy.nvim treats
+    -- it as needs-explicit-require; the plugin only activates on :Diffview*
+    -- commands), so no startup cost in firenvim mode either way.
+    cond = git_enabled,
     init = utils.load_mappings("diffview"),
     config = conf("diffview"),
   },
