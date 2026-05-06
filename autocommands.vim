@@ -36,9 +36,9 @@ augroup NvimConfig
                 \ |     exe "normal! g`\"zz"
                 \ | endif
 
-    " Highlight yanks
+    " Highlight yanks (vim.highlight.on_yank is deprecated — use vim.hl.on_yank in Nvim 0.11+)
     au TextYankPost * silent!
-                \ lua vim.highlight.on_yank({ higroup="Visual", timeout=300, on_visual=true })
+                \ lua (vim.hl or vim.highlight).on_yank({ higroup="Visual", timeout=300, on_visual=true })
 
     au BufWinEnter quickfix set nobuflisted | setl nowrap cc=
 
@@ -96,12 +96,21 @@ augroup NvimConfig
             \ lua Config.common.notify.config.info("File changed. Autoreloaded " .. vim.fn.expand("%"))
 
     " OpenGL Shading Language: GLSL support
-    " Make sure to install glsl via Tree-sitter `TSInstall glsl`
-    autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
+    " (handled in Lua block below via vim.filetype.add — more efficient than
+    "  autocmd, and no duplicate match logic)
 augroup END
 
 lua <<EOF
 local aucmd = vim.api.nvim_create_autocmd
+
+-- OpenGL Shading Language: `.vs` (vertex) and `.fs` (fragment) shaders
+-- (Install parser with `:TSInstall glsl` if you want treesitter highlighting.)
+vim.filetype.add({
+    extension = {
+        vs = "glsl",
+        fs = "glsl",
+    },
+})
 
 function bufIsBig(bufnr)
     -- Check if the buffer is too big (in KB)
@@ -110,25 +119,12 @@ function bufIsBig(bufnr)
 end
 
 -- Ref: https://github.com/neovim/nvim-lspconfig/issues/2626#issuecomment-2117022664
--- Prevent LSP to attach to big files
+-- Prevent LSP from thrashing in big files: on LspAttach to a big buffer,
+-- temporarily suppress FileType events (scheduled back on the next tick)
+-- so subsequent autocmds don't cascade syntax/ftplugin reloads on large files.
 aucmd("LspAttach", {
     group = "NvimConfig",
     callback = function(ctx)
-        -- if bufIsBig(ctx.buf) then
-        --     for _,client in pairs(vim.lsp.get_active_clients({bufnr = ctx.buf})) do
-        --         -- Using vim.defer_fn because when this event is fired, we are
-        --         -- not really attached. See:
-        --         -- https://www.reddit.com/r/neovim/comments/168u3e4/comment/jyyluyo/
-        --         vim.defer_fn(function()
-        --             vim.lsp.buf_detach_client(ctx.buf, client.id)
-        --             print(
-        --                 "Detaching client " .. client.name .. " because buffer " ..
-        --                 vim.fn.bufname(ctx.buf) .. " is too big"
-        --             )
-        --         end, 10)
-        --     end
-        -- end
-
         if bufIsBig(ctx.buf) then
             vim.o.eventignore = "FileType"
             vim.schedule(function() vim.o.eventignore = "" end)
@@ -147,23 +143,14 @@ aucmd("BufRead", {
             local todo_comments = prequire("todo-comments")
             local rainbow_delimiters = prequire("rainbow_delimiters")
             local smooth_cursor_utils = prequire("smoothcursor.utils")
-            -- local illuminate = vim.g.loaded_illuminate == 1
-            -- local matchup = vim.g.loaded_matchit == 1 or vim.g.loaded_matchparen == 1
 
             if ts_context then ts_context.disable() end
             if todo_comments then todo_comments.disable() end
             if rainbow_delimiters then rainbow_delimiters.disable() end
             if smooth_cursor_utils then smooth_cursor_utils.smoothcursor_stop() end
-            -- if illuminate then require("illuminate").freeze_buf() end
-            -- if matchup then vim.cmd("NoMatchParen") end
 
             notify.config.info("Big file detected: Disabled treesitter-context, todo-comments, illuminate, and rainbow-delimiters.")
         end
-
-        -- INFO: Turned off because I find it more distracting than useful
-        -- -- folke/twilight.nvim
-        -- local twilight = prequire("twilight")
-        -- if twilight then twilight.enable() end
     end,
 })
 
