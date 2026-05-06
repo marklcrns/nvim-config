@@ -351,13 +351,18 @@ require("lazy").setup({
   {
     "Wansmer/treesj",
     init = utils.load_mappings("treesj"),
-    event = "BufRead",
+    keys = { "<leader>cs" },
     config = conf("treesj"),
   },
   {
     "monaqa/dial.nvim",
     init = utils.load_mappings("dial"),
-    event = "BufRead",
+    keys = {
+      { "<C-a>",  mode = { "n", "v" }, desc = "dial increment" },
+      { "<C-x>",  mode = { "n", "v" }, desc = "dial decrement" },
+      { "g<C-a>", mode = "v",          desc = "dial increment (additive)" },
+      { "g<C-x>", mode = "v",          desc = "dial decrement (additive)" },
+    },
     config = conf("dial"),
   },
   {
