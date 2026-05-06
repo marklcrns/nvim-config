@@ -1,8 +1,10 @@
 local mason = prequire("mason")
 if mason then mason.setup() end
 
+-- mason-lspconfig is set up via its plugin spec (opts.automatic_enable.exclude)
+-- in lua/user/plugins/init.lua. Don't call setup() again here — a second call
+-- would re-trigger automatic_enable and bypass the exclude list.
 local mason_lspconfig = prequire("mason-lspconfig")
-if mason_lspconfig then mason_lspconfig.setup() end
 
 local blink = prequire("blink.cmp")
 local lspconfig = prequire("lspconfig")

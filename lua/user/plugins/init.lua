@@ -611,7 +611,14 @@ require("lazy").setup({
     },
     opts = {
       automatic_enable = {
-        exclude = { "ts_ls", "stylua", "lua_ls", "haxe_language_server" },
+        -- Servers we configure manually — don't let mason-lspconfig auto-enable
+        -- them with its defaults (would create duplicate/wrong clients):
+        --   jdtls               → lua/user/lsp/java.lua (Bemol workspace, custom cmd)
+        --   ts_ls               → replaced by typescript-tools.nvim
+        --   lua_ls              → lua/user/lsp/lua.lua (explicit vim.lsp.config + enable)
+        --   haxe_language_server → lua/user/lsp/init.lua (custom cmd for build.hxml)
+        --   stylua (formatter, not an LSP — defensive entry)
+        exclude = { "jdtls", "ts_ls", "lua_ls", "haxe_language_server", "stylua" },
       },
     },
   },
@@ -738,7 +745,7 @@ require("lazy").setup({
     cmd = { "CellularAutomaton" },
     init = utils.load_mappings("cellular_automaton"),
   },
-  -- ─── AMAZON INTERNAL ──────────────────────────────────────────────────────
+  -- ─── AZ INTERNAL ──────────────────────────────────────────────────────────
   {
     name = "vim-code-browse",
     url = "ssh://git.amazon.com:2222/pkg/Vim-code-browse",
