@@ -108,7 +108,7 @@ require("lazy").setup({
   {
     "rcarriga/nvim-notify",
     cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
+    event = "VeryLazy",
     init = utils.load_mappings("nvim_notify"),
     config = conf("nvim-notify"),
   },
