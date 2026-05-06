@@ -102,7 +102,9 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   {
     "tpope/vim-eunuch",
-    event = "VimEnter",
+    cmd = { "Rename", "Move", "Duplicate", "Delete", "Unlink", "Remove", "Copy",
+            "Mkdir", "Chmod", "SudoWrite", "SudoEdit", "Wall",
+            "Cfind", "Clocate", "Lfind", "Llocate" },
     config = conf("eunuch"),
   },
   {
@@ -193,8 +195,8 @@ require("lazy").setup({
   {
     "xiyaowong/transparent.nvim",
     cond = not vim.g.low_performance_mode and not sys.is_firenvim(),
+    cmd = { "TransparentToggle", "TransparentEnable", "TransparentDisable" },
     init = utils.load_mappings("transparent"),
-    lazy = false,
   },
 
   -- ─── UI INTERFACE ─────────────────────────────────────────────────────────
@@ -221,7 +223,7 @@ require("lazy").setup({
     "folke/twilight.nvim",
     init = utils.load_mappings("twilight"),
     cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
+    cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
     config = conf("twilight"),
   },
   {
@@ -284,7 +286,7 @@ require("lazy").setup({
   {
     "nvim-focus/focus.nvim",
     cond = not sys.is_gui() and not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
+    event = "VeryLazy",
     config = conf("focus", "focus"),
   },
   {
@@ -445,7 +447,7 @@ require("lazy").setup({
   {
     "mrjones2014/smart-splits.nvim",
     cond = not sys.is_firenvim(),
-    event = "VimEnter",
+    event = "VeryLazy",
     init = utils.load_mappings("smart_splits"),
   },
   {
@@ -457,6 +459,7 @@ require("lazy").setup({
   },
   {
     "glacambre/firenvim",
+    cond = vim.g.started_by_firenvim == 1,
     lazy = false,
     build = ":call firenvim#install(0)",
     init = conf("firenvim"),
