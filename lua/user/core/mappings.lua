@@ -622,14 +622,6 @@ M.lsp = {
   },
 }
 
-M.markdown_preview = {
-  plugin = true,
-
-  n = {
-    ["<leader>cmp"] = { "<cmd>MarkdownPreviewToggle<CR>", "open markdown preview", opts = default_opts },
-  },
-}
-
 M.markview = {
   plugin = true,
 
@@ -1405,19 +1397,6 @@ M.vimade = {
     ["<localleader>sdb"] = { "<cmd>VimadeBufEnable<CR>", "enable dim on buffer", opts = default_opts },
     ["<localleader>sdd"] = { "<cmd>VimadeToggle<CR>", "toggle diminactive", opts = default_opts },
     ["<localleader>sds"] = { "<cmd>VimadeWinEnable<CR>", "enable dim on split", opts = default_opts },
-  },
-}
-
-M.vimwiki = {
-  plugin = true,
-
-  n = {
-    ["<localleader>nww"] = { "<cmd>VimwikiUISelect<CR>", "open vimwiki index", opts = default_opts },
-    ["<localleader>nwd"] = { "<cmd>VimwikiDiaryIndex<CR>", "open vimwiki diary", opts = default_opts },
-    ["<localleader>nwD"] = { "<cmd>VimwikiDeleteFile<CR>", "delete vimwiki file", opts = default_opts },
-    ["<localleader>nwh"] = { "<cmd>Vimwiki2HTML<CR>", "convert vimwiki to html", opts = default_opts },
-    ["<localleader>nwH"] = { "<cmd>Vimwiki2HTMLBrowse<CR>", "convert vimwiki to html and browse", opts = default_opts },
-    ["<localleader>nwl"] = { "<cmd>VimwikiGenerateLinks<CR>", "generate vimwiki links", opts = default_opts },
   },
 }
 

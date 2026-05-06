@@ -37,7 +37,7 @@ let g:treesitter_enabled = v:true
 " Git stack: fugitive, neogit, gitsigns, diffview, vim-flog
 let g:git_enabled = v:true
 
-" Notetaking stack: mkdnflow, markview, markdown-preview, obsidian
+" Notetaking stack: markview
 let g:notetaking_enabled = v:true
 " ─────────────────────────────────────────────────────────────────────────────
 

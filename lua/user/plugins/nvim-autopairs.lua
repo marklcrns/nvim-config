@@ -97,7 +97,7 @@ return function()
     --   end),
 
     -- Add $$ in new line after $$<CR>
-    Rule("$$", "", { "tex", "latex", "plaintex", "markdown", "vimwiki" })
+    Rule("$$", "", { "tex", "latex", "plaintex", "markdown" })
       :with_pair(function(opts)
         if opts.line == "aa $$" then
           -- don't add pair on that line

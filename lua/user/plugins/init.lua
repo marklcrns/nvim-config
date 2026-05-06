@@ -747,20 +747,6 @@ require("lazy").setup({
   -- ─── NOTETAKING ───────────────────────────────────────────────────────────
   -- Disable entire section: let g:notetaking_enabled = v:false
   {
-    "iamcco/markdown-preview.nvim",
-    cond = notetaking_enabled,
-    cmd = { "MarkdownPreviewToggle" },
-    build = "cd app && yarn install",
-    ft = { "markdown" },
-    init = utils.load_mappings("markdown_preview"),
-  },
-  {
-    "jakewvincent/mkdnflow.nvim",
-    cond = notetaking_enabled,
-    ft = { "markdown", "rmd" },
-    config = conf("mkdnflow"),
-  },
-  {
     "OXY2DEV/markview.nvim",
     cond = notetaking_enabled and treesitter_enabled,
     -- Load only on explicit :Markview command to avoid ~60ms render-cascade

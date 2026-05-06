@@ -91,7 +91,7 @@ endfunction
 " Auto indent while pasting
 function! AutoIndentPaste()
   " Don't apply on these filetypes
-  if &filetype =~ 'markdown\|vimwiki\|text|\snippets\|tex'
+  if &filetype =~ 'markdown\|text|\snippets\|tex'
     return
   endif
   " Format and indent pasted text automatically. Also select pasted texts after

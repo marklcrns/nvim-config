@@ -62,7 +62,6 @@ return function()
     { "<localleader>nnj", group = "journal" },
     { "<localleader>nnm", group = "navigation-modes" },
     { "<localleader>no", group = "obsidian" },
-    { "<localleader>nw", group = "vimwiki" },
     { "<localleader>o", group = "open-ui" },
     { "<localleader>ol", group = "locationlist" },
     { "<localleader>oq", group = "quickfix" },
