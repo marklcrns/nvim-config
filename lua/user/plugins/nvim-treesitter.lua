@@ -63,7 +63,7 @@ return function()
     },
     -- Plugin: vim-matchup
     matchup = {
-      enable = false, -- Disabled: nvim-treesitter archived, query_predicates incompatible with Nvim 0.13-dev
+      enable = true,
     },
     -- Plugin: nvim-treesitter-endwise
     endwise = {
