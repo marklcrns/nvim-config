@@ -754,7 +754,13 @@ require("lazy").setup({
   {
     "OXY2DEV/markview.nvim",
     cond = notetaking_enabled and treesitter_enabled,
-    ft = "markdown",
+    -- Load only on explicit :Markview command to avoid ~60ms render-cascade
+    -- on every markdown file open. Activate per-buffer with `:Markview toggle`
+    -- or globally for the session with `:Markview Enable`.
+    cmd = "Markview",
+    keys = {
+      { "<leader>cmv", "<cmd>Markview toggle<CR>", desc = "toggle markview" },
+    },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",

@@ -12,7 +12,7 @@ return function()
     auto_install = true,
     highlight = {
       enable = true,
-      additional_vim_regex_highlighting = true,
+      additional_vim_regex_highlighting = false,  -- nvim-treesitter's highlight is enough; also stops repeated syntax/markdown.vim sourcing (~60ms on md open)
       disable = function(lang, bufnr)
         local kb = Config.common.utils.buf_get_size(bufnr)
 
