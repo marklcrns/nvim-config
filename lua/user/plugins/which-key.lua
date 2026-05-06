@@ -51,6 +51,8 @@ return function()
     { "<leader>wr", group = "rest" },
     { "<leader>z", desc = "toggle fold" },
     { "<leader>Z", desc = "fold all except current" },
+    -- Double leader
+    { "<leader><leader>", group = "swap-splits" },
     -- LocalLeader
     { "<localleader>b", group = "buffer-manager" },
     { "<localleader>bo", group = "open" },
