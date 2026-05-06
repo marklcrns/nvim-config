@@ -590,19 +590,6 @@ M.iron = {
   },
 }
 
-M.leetbuddy = {
-  plugin = true,
-
-  n = {
-    ["<leader>tlq"] = { "<cmd>LBQuestion<CR>", "close leetbuddy", opts = default_opts },
-    ["<leader>tlv"] = { "<cmd>LBQuestion<CR>", "view question", opts = default_opts },
-    ["<leader>tll"] = { "<cmd>LBQuestions<CR>", "list all questions", opts = default_opts },
-    ["<leader>tlr"] = { "<cmd>LBReset<CR>", "reset code", opts = default_opts },
-    ["<leader>tls"] = { "<cmd>LBSubmit<CR>", "submit code", opts = default_opts },
-    ["<leader>tlt"] = { "<cmd>LBTest<CR>", "test code", opts = default_opts },
-  },
-}
-
 M.lens = {
   plugin = true,
 
@@ -640,14 +627,6 @@ M.markdown_preview = {
 
   n = {
     ["<leader>cmp"] = { "<cmd>MarkdownPreviewToggle<CR>", "open markdown preview", opts = default_opts },
-  },
-}
-
-M.markdown_toc = {
-  plugin = true,
-
-  n = {
-    ["<leader>cmt"] = { "<cmd>GenTocGFM<CR>", "generate markdown TOC GFM style", opts = default_opts },
   },
 }
 

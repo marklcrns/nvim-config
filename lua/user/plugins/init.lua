@@ -442,11 +442,6 @@ require("lazy").setup({
 
   -- ─── INTEGRATIONS ─────────────────────────────────────────────────────────
   {
-    "alexghergh/nvim-tmux-navigation",
-    event = "VimEnter",
-    config = conf("nvim-tmux-navigation"),
-  },
-  {
     "mrjones2014/smart-splits.nvim",
     cond = not sys.is_firenvim(),
     event = "VimEnter",
@@ -709,20 +704,6 @@ require("lazy").setup({
     init = utils.load_mappings("markdown_preview"),
   },
   {
-    "mzlogin/vim-markdown-toc",
-    cond = notetaking_enabled,
-    init = utils.load_mappings("markdown_toc"),
-    ft = { "markdown", "pandoc.markdown", "rmd", "vimwiki" },
-    config = function()
-      vim.cmd([[
-        let g:vmt_fence_text = 'TOC'
-        let g:vmt_fence_closing_text = '/TOC'
-        let g:vmt_auto_update_on_save = 1
-        let g:vmt_list_item_char = '-'
-      ]])
-    end,
-  },
-  {
     "jakewvincent/mkdnflow.nvim",
     cond = notetaking_enabled,
     ft = { "markdown", "rmd" },
@@ -753,23 +734,6 @@ require("lazy").setup({
     cmd = { "CellularAutomaton" },
     init = utils.load_mappings("cellular_automaton"),
   },
-  {
-    "kawre/leetcode.nvim",
-    cond = treesitter_enabled and not sys.is_firenvim(),
-    cmd = "Leet",
-    lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
-    build = ":TSUpdate html",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "rcarriga/nvim-notify",
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = conf("leetcode"),
-  },
-
   -- ─── AMAZON INTERNAL ──────────────────────────────────────────────────────
   {
     name = "vim-code-browse",

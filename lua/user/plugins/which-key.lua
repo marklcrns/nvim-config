@@ -45,7 +45,6 @@ return function()
     { "<leader>t", group = "tools" },
     { "<leader>ta", group = "ai" },
     { "<leader>td", group = "diff" },
-    { "<leader>tl", group = "leetcode" },
     { "<leader>tr", group = "repl" },
     { "<leader>ts", group = "code-runner" },
     { "<leader>w", group = "web-dev" },
