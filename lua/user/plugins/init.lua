@@ -158,10 +158,11 @@ require("lazy").setup({
     config = conf("bufferline"),
   },
   {
-    "feline-nvim/feline.nvim",
+    "nvim-lualine/lualine.nvim",
     cond = not sys.is_firenvim(),
-    config = conf("feline"),
     event = "VeryLazy",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = conf("lualine"),
   },
   {
     "lukas-reineke/indent-blankline.nvim",

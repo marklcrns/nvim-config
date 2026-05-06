@@ -449,8 +449,6 @@ function M.apply_tweaks()
     gen_alts = true,
     static_ansi8 = false,
   } --[[@as Config.colorscheme.generate_terminal_colors.Opts ]]
-  --- @type FelineThemeName
-  local feline_theme = "duo"
 
   if colors_name == "codedark" then
     hi("NonText", { bg = "NONE", })
@@ -1154,11 +1152,6 @@ function M.apply_tweaks()
   -- Generate terminal hls
   M.generate_terminal_colors(terminal_gen_opt)
 
-  -- Update feline theme
-  if Config.plugin.feline then
-    Config.plugin.feline.current_theme = feline_theme
-  end
-
   -- FloatBorder
   hi("FloatBorder", {
     bg = hl.get_bg("NormalFloat") or "NONE",
@@ -1314,10 +1307,6 @@ function M.apply_tweaks()
       explicit = true,
     }
   )
-
-  if Config.plugin.feline then
-    Config.plugin.feline.reload()
-  end
 end
 
 function M.reload()
