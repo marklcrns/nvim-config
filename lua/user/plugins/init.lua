@@ -758,9 +758,7 @@ require("lazy").setup({
     -- on every markdown file open. Activate per-buffer with `:Markview toggle`
     -- or globally for the session with `:Markview Enable`.
     cmd = "Markview",
-    keys = {
-      { "<leader>cmv", "<cmd>Markview toggle<CR>", desc = "toggle markview" },
-    },
+    init = utils.load_mappings("markview"),
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",

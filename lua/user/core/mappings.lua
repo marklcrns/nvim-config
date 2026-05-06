@@ -630,6 +630,14 @@ M.markdown_preview = {
   },
 }
 
+M.markview = {
+  plugin = true,
+
+  n = {
+    ["<localleader>sm"] = { "<cmd>Markview toggle<CR>", "toggle markview", opts = default_opts },
+  },
+}
+
 M.mason = {
   plugin = true,
 
