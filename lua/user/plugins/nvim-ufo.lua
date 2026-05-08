@@ -18,18 +18,6 @@ return function()
     end
   end
 
-  -- DEPRECATED: Defined in nvim-treesitter-textobjects
-  -- local function goPreviousClosedAndPeek()
-  --     require('ufo').goPreviousClosedFold()
-  --     require('ufo').peekFoldedLinesUnderCursor()
-  -- end
-  --
-  -- local function goNextClosedAndPeek()
-  --     require('ufo').goNextClosedFold()
-  --     require('ufo').peekFoldedLinesUnderCursor()
-  -- end
-
-
   ---------------------------------------setFoldVirtTextHandler---------------------------------------
   local handler = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
@@ -118,10 +106,6 @@ return function()
   vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
   vim.keymap.set("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
   vim.keymap.set("n", "K", peekOrHover)
-
-  -- DEPRECATED: Defined in nvim-treesitter-textobjects
-  -- vim.keymap.set("n", "]z", goNextClosedAndPeek)
-  -- vim.keymap.set("n", "[z", goPreviousClosedAndPeek)
 
   local hl = Config.common.hl
   local hi, hi_link, hi_clear = hl.hi, hl.hi_link, hl.hi_clear
