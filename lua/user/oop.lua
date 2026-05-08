@@ -10,7 +10,11 @@ end
 ---@param t T
 ---@return T
 function M.enum(t)
-  vim.tbl_add_reverse_lookup(t)
+  -- Replacement for vim.tbl_add_reverse_lookup (removed in Nvim 0.12):
+  -- mutate in-place to add value→key mappings alongside the original key→value.
+  local keys = {}
+  for k in pairs(t) do table.insert(keys, k) end
+  for _, k in ipairs(keys) do t[t[k]] = k end
   return t
 end
 

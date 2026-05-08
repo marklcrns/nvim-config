@@ -239,7 +239,8 @@ require("lazy").setup({
       utils.load_mappings("smartq")
       conf("vim-smartq")()
     end,
-    event = "VimEnter",
+    keys = { "q" },
+    cmd = { "SmartQSave", "SmartQCloseSplits" },
   },
   {
     "chrisgrieser/nvim-spider",
@@ -538,7 +539,7 @@ require("lazy").setup({
   {
     "gorbit99/codewindow.nvim",
     cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
-    event = "VimEnter",
+    keys = { "<leader>imm", "<leader>imf" },
     config = conf("codewindow", "codewindow"),
   },
   {
@@ -698,7 +699,7 @@ require("lazy").setup({
     dependencies = { "rmagatti/logger.nvim" },
     init = utils.load_mappings("goto_preview"),
     event = "BufEnter",
-    config = true,
+    config = conf("goto-preview"),
   },
   {
     "smjonas/inc-rename.nvim",
@@ -740,7 +741,7 @@ require("lazy").setup({
     "zbirenbaum/copilot.lua",
     cond = vim.g.ai_enabled and not sys.is_amazon(),
     cmd = "Copilot",
-    event = "VimEnter",
+    event = "InsertEnter",
     config = conf("copilot"),
   },
 
