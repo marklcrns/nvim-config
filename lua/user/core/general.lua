@@ -39,15 +39,22 @@ if fn.has("mac") == 1 then
   }
 -- OSC 52 clipboard for SSH / headless sessions (no X/Wayland display).
 -- Terminal (kitty/iTerm2/WezTerm/Alacritty/tmux) passes the copy sequence
--- through to the local system clipboard. Paste via OSC 52 is rarely
--- implemented; fall back to internal registers or tmux buffer.
+-- through to the local system clipboard.
+--
+-- Paste via OSC 52 is intentionally disabled — most terminals refuse to
+-- respond to OSC 52 read queries (security: terminals won't leak local
+-- clipboard to remote processes). Leaving read enabled causes a
+-- "Waiting for OSC 52 response" hang on every paste. Use terminal's
+-- built-in paste shortcut for external content, or internal Nvim
+-- registers (`"ap`, etc.) for same-session paste.
 elseif (vim.env.SSH_TTY and vim.env.SSH_TTY ~= "")
     or (vim.env.DISPLAY or "") == "" and (vim.env.WAYLAND_DISPLAY or "") == "" then
   local osc52 = require("vim.ui.clipboard.osc52")
+  local noop_paste = function() return { vim.fn.split(vim.fn.getreg('"'), "\n"), vim.fn.getregtype('"') } end
   g.clipboard = {
     name = "OSC 52",
     copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
-    paste = { ["+"] = osc52.paste("+"), ["*"] = osc52.paste("*") },
+    paste = { ["+"] = noop_paste, ["*"] = noop_paste },
   }
 end
 
