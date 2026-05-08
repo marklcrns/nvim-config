@@ -22,6 +22,10 @@ require("user.autocommands")
 require("user.core.utils").load_mappings()
 require("user.core")
 
+-- Ported plugin/*.vim scripts (filesystem, whitespace, grep-operator,
+-- jumpfile, quickfixopenall, sessions)
+require("user.plugin_scripts")
+
 require("user.plugins")
 require("user.commands")
 require("user.colorscheme").apply()
