@@ -95,7 +95,7 @@ fi
 
 # ─── Node.js ──────────────────────────────────────────────────────────────────
 
-action "Checking Node.js (required for LSP servers, markdown-preview)"
+action "Checking Node.js (required for LSP servers)"
 if ! command -v node &>/dev/null; then
   error "Node.js not found."
   warn "Install via: https://nodejs.org or 'brew install node' or 'nvm install --lts'"
@@ -109,13 +109,6 @@ if ! node -e "require('neovim')" 2>/dev/null; then
   npm install -g neovim
 fi
 ok "neovim npm package installed"
-
-# yarn (markdown-preview build)
-if ! command -v yarn &>/dev/null; then
-  running "Installing yarn"
-  npm install -g yarn
-fi
-ok "yarn: $(yarn --version)"
 
 # ─── Python ───────────────────────────────────────────────────────────────────
 

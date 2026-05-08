@@ -31,7 +31,7 @@ return function()
     { "<leader>mc", group = "cellular-automaton" },
     { "<leader>o", group = "open" },
     { "<leader>p", group = "plugin-manager" },
-    { "<leader>r", group = "text-editting" },
+    { "<leader>r", group = "text-editting", mode = { "n", "v" } },
     { "<leader>ra", group = "align" },
     { "<leader>raa", group = "after" },
     { "<leader>rc", group = "text-case" },
@@ -42,11 +42,11 @@ return function()
     { "<leader>rt", group = "search-and-replace" },
     { "<leader>ry", group = "yank" },
     { "<leader>s", group = "session" },
-    { "<leader>t", group = "tools" },
+    { "<leader>t", group = "tools", mode = { "n", "v" } },
     { "<leader>ta", group = "ai" },
-    { "<leader>td", group = "diff" },
+    { "<leader>td", group = "diff", mode = { "n", "v" } },
     { "<leader>tr", group = "repl" },
-    { "<leader>ts", group = "code-runner" },
+    { "<leader>ts", group = "code-runner", mode = { "n", "v" } },
     { "<leader>w", group = "web-dev" },
     { "<leader>wr", group = "rest" },
     { "<leader>z", desc = "toggle fold" },
@@ -71,14 +71,6 @@ return function()
     { "<localleader>sld", group = "diagnostics" },
     { "<localleader>t", group = "tab-manager" },
     { "<localleader>w", group = "window-split-manager" },
-    -- Visual mode
-    {
-      mode = { "v" },
-      { "<leader>r", group = "text-editting" },
-      { "<leader>t", group = "tools" },
-      { "<leader>td", group = "diff" },
-      { "<leader>ts", group = "code-runner" },
-    },
   })
 
   

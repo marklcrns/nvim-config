@@ -12,19 +12,16 @@ with pure obsession and ❤
 ## Features
 
 - [x] Lazy loading (lazy.nvim)
-- [x] LSP (servers are auto-installed as needed)
-  - Mason, null-ls, and nvim-lspconfig are used to configure LSP
+- [x] LSP (servers auto-installed via Mason)
+  - mason, mason-lspconfig, and nvim-lspconfig
 - [x] Treesitter
 - [x] Telescope
-- [x] Vimwiki
-- [x] Markdown preview
+- [x] Markdown rendering (markview.nvim, on-demand)
 - [x] Git integration
-- [x] Autocomplete
-  - [x] nvim-cmp
-  - [x] UltiSnips
+- [x] Autocomplete (blink.cmp)
 - [x] Split auto-resize (focus.nvim)
 - [x] Dashboard (alpha-nvim)
-- [x] Statusline (feline.nvim)
+- [x] Statusline (lualine.nvim)
 - [x] Tabline (bufferline.nvim)
 - [x] File explorer (neo-tree.nvim)
 - [x] Diff (diffview.nvim)
@@ -33,11 +30,10 @@ and many more...
 
 ## Requirements
 
-- Neovim 0.9+
+- Neovim 0.10+
 - Nodejs and npm
 - Python 3+
-- pandoc (Required for vimwiki)
-- yarn (Required for markdown-preview.vim)
+- Rust/Cargo (required for blink.cmp native build)
 
 ## Installation
 
@@ -98,17 +94,6 @@ according to terminal screen size.
 </div>
 
 ## Notable Plugins
-
-### Vimwiki
-
-A powerful personal wiki creator for all sorts of needs.
-
-- [vimwiki/vimwiki](https://github.com/vimwiki/vimwiki)
-
-![Vimwiki](./demo/vimwiki.gif)
-
-[Demo](https://marklcrns.github.io/wiki/docs/html/index.html) Wiki with custom
-css and [wiki2html script](https://github.com/marklcrns/nvim-config/blob/master/config/plugins/wiki2html.sh)
 
 ### UltiSnips
 
