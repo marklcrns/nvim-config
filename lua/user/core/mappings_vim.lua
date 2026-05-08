@@ -596,9 +596,9 @@ end
 
 do
   -- Rotate forward: x=k, k=j, j=b, b=a, a=+, +=x
-  local cycle_fwd = [[:let @x=@k \| let @k=@j \| let @j=@b \| let @b=@a \| let @a=@+ \| let @+=@x \| reg +abjk<CR>]]
+  local cycle_fwd = [[:let @x=@k | let @k=@j | let @j=@b | let @b=@a | let @a=@+ | let @+=@x | reg +abjk<CR>]]
   -- Rotate backward: x=+, +=a, a=b, b=j, j=k, k=x
-  local cycle_bwd = [[:let @x=@+ \| let @+=@a \| let @a=@b \| let @b=@j \| let @j=@k \| let @k=@x \| reg +abjk<CR>]]
+  local cycle_bwd = [[:let @x=@+ | let @+=@a | let @a=@b | let @b=@j | let @j=@k | let @k=@x | reg +abjk<CR>]]
 
   keymap("n", "<Leader>rej", cycle_fwd)
   keymap("n", "<Leader>rek", cycle_bwd)
