@@ -585,7 +585,7 @@ require("lazy").setup({
     config = conf("neogit"),
   },
   {
-    "sindrets/vim-fugitive",
+    "tpope/vim-fugitive",
     cond = git_enabled and not sys.is_firenvim(),
     init = function()
       utils.lazy_load("vim-fugitive")
@@ -781,7 +781,7 @@ require("lazy").setup({
     url = "ssh://git.amazon.com:2222/pkg/Vim-code-browse",
     cond = sys.is_amazon() and not sys.is_firenvim(),
     event = "VeryLazy",
-    dependencies = { "sindrets/vim-fugitive" },
+    dependencies = { "tpope/vim-fugitive" },
   },
   {
     name = "amazonq",
