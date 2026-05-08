@@ -39,6 +39,17 @@ end
 -- Load general settings
 require("user.core.general")
 
+-- CustomBufferWrite — save buffer(s) respecting enable_format_on_save
+vim.api.nvim_create_user_command("CustomBufferWrite", function(opts)
+  local cmds = opts.args or ""
+  local bang = opts.bang and "!" or ""
+  local command = "w" .. cmds .. bang
+  if not vim.g.enable_format_on_save then
+    command = "noautocmd " .. command
+  end
+  pcall(vim.cmd, command)
+end, { bang = true, nargs = "?" })
+
 -- Phase 1 mappings (ported from core/mappings.vim)
 require("user.core.mappings_vim")
 
