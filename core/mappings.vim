@@ -1,16 +1,8 @@
 " ==================== Mappings ==================== "
 
-" Set leader and localleader keys
-let g:mapleader=' '
-let g:maplocalleader='\'
-
-" Release keymappings prefixes, evict entirely for use of plug-ins.
-nnoremap <Space>  <Nop>
-xnoremap <Space>  <Nop>
-nnoremap ,        <Nop>
-xnoremap ,        <Nop>
-nnoremap ;        <Nop>
-xnoremap ;        <Nop>
+" Leaders + Nop prefixes + ExitMappings + ImprovedDefaultMappings +
+" ExtendedBasicMappings + OperatorMappings are now defined in
+" lua/user/core/mappings_vim.lua
 
 " HELPER FUNCTIONS -------------------- {{{
 
@@ -197,178 +189,6 @@ endfunction
 
 " }}} HELPER FUNCTIONS
 
-" BASIC MAPPINGS -------------------- {{{
-function! ExitMappings()
-" Remaps normal mode macro record q to Q and map q to :q
-  nnoremap Q q
-  nnoremap q :q<CR>
-  " Quit without saving
-  nnoremap <silent> <Leader>q :q!<CR>
-  xnoremap <silent> <Leader>q <Esc>:q!<CR>
-  " Quit all without saving
-  nnoremap <silent> <Leader>Q :qa!<CR>
-  xnoremap <silent> <Leader>Q <Esc>:qa!<CR>
-  " Write/Save buffer
-  nnoremap <silent> <leader>fs :CustomBufferWrite<CR>
-  xnoremap <silent> <leader>fs <Esc>:CustomBufferWrite<CR>
-  " Write/Save all buffer
-  nnoremap <silent> <leader>fa :CustomBufferWrite a<CR>
-  xnoremap <silent> <leader>fa <Esc>:CustomBufferWrite a<CR>
-  " Save and quit
-  nnoremap <silent> <leader>fq :CustomBufferWrite q<CR>
-  xnoremap <silent> <leader>fq <Esc>:CustomBufferWrite q<CR>
-  " Wipe buffer
-  nnoremap <silent> <leader>fw :bw<CR>
-  xnoremap <silent> <leader>fw :<Esc>bw<CR>
-  " Save all and quit
-  nnoremap <leader>fQ :confirm wqa!<CR>
-  xnoremap <leader>fQ :<Esc>confirm wqa!<CR>
-endfunction
-
-function! ImprovedDefaultMappings()
-  " Use 'lazyredraw' when replaying macro
-  nnoremap @ <Cmd>call <SID>LazyNorm(v:count1 . "@" . getcharstr())<CR>
-  nnoremap @@ <Cmd>call <SID>LazyNorm(v:count1 . "@@")<CR>
-  " nnoremap Q <Cmd>call <SID>LazyNorm(v:count1 . "@@")<CR>
-
-  " Start search with very-magic mode
-  " nnoremap / /\v
-  " nnoremap ? ?\v
-
-  " WARN: This is problematic since it mess up the default behavior of p and P
-  " where sometimes p behaves like P and vice versa
-  " !!! Disabling for now.
-  " " Yank, delete, paste using PlusYank
-  " " NOTE: Only normal y will be coppied to system clipboard
-  " nnoremap <expr> y <SID>PlusYank()
-  " nnoremap <expr> yy v:register == '"' ? '"+yy' : 'yy'
-  " nnoremap <expr> Y v:register == '"' ? '"+y$' : 'y$'
-  " nnoremap <M-p> "+p
-  " nnoremap <M-P> "+P
-  " xnoremap <expr> y v:register == '"' ? '"+ygv<Esc>' : 'ygv<Esc>'
-  " xnoremap <expr> <S-Y> v:register == '"' ? '"+Ygv<Esc>' : 'Ygv<Esc>'
-  " xnoremap <expr> p v:register == '"' ? '"_dP' : '"_d"' . v:register . 'P'
-  " xnoremap <M-p> "_d"+P
-  " inoremap <M-p> <Cmd>set paste <bar> exe 'norm! "+p' <bar> set nopaste<CR><RIGHT>
-  " inoremap <M-P> <Cmd>set paste <bar> exe 'norm! "+P' <bar> set nopaste<CR><RIGHT>
-
-  " Keep cursor at the bottom of the visual selection after you yank it.
-  vnoremap y ygv<Esc>
-  " Yank to end
-  nnoremap Y y$
-  " Prevent selecting and pasting from overwriting what you originally copied.
-  xnoremap p pgvy
-
-  " Prevent from overriding what's in the clipboard.
-  noremap x "_x
-  noremap X "_X
-  noremap c "_c
-  noremap C "_C
-  noremap s "_s
-  noremap S "_S
-
-  " Re-select blocks after indenting in visual/select mode
-  xnoremap < <gv
-  xnoremap > >gv|
-  " Keep centered when jumping and unfold
-  nnoremap n nzzzv
-  nnoremap N Nzzzv
-  " Keep cursor position when joining lines
-  nnoremap <silent> J :let p=getpos('.')<bar>join<bar>call setpos('.', p)<cr>
-  " Fixes `[c` and `]c` not working
-  nnoremap [c [c
-  nnoremap ]c ]c
-  " Scroll step sideways
-  nnoremap zl z4l
-  nnoremap zh z4h
-  " Open file under the cursor in a vsplit
-  nnoremap go :vertical wincmd f<CR>
-
-  " Makes Relative Number jumps work with text wrap
-  noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-  noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-  vnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-  vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-
-  " Move to the start/end of the line without poluting jump list
-  nnoremap <silent> } :<C-u>execute 'keepjumps norm! ' . v:count1 . '}'<CR>
-  nnoremap <silent> { :<C-u>execute 'keepjumps norm! ' . v:count1 . '{'<CR>
-
-  " Increment/Decrement next searcheable number by one. Wraps at end of file.
-  nnoremap <silent> <C-a> :<C-u>call AddSubtract("\<C-a>", '')<CR>
-  nnoremap <silent> <C-x> :<C-u>call AddSubtract("\<C-x>", '')<CR>
-  " Increment/Decrement previous searcheable number by one. Wraps at start of file.
-  nnoremap <silent> <C-S-a> :<C-u>call AddSubtract("\<C-a>", 'b')<CR>
-  nnoremap <silent> <C-S-x> :<C-u>call AddSubtract("\<C-x>", 'b')<CR>
-
-  " Improve scroll, credits: https://github.com/Shougo
-  " noremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
-  "       \ 'zt' : (winline() == 1) ? 'zb' : 'zz'
-  noremap <expr> <C-f> max([winheight(0) - 2, 1])
-        \ ."\<C-d>".(line('w$') >= line('$') ? "L" : "M")
-  noremap <expr> <C-b> max([winheight(0) - 2, 1])
-        \ ."\<C-u>".(line('w0') <= 1 ? "H" : "M")
-  noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
-  noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
-  " Closing pop-up auto-completion before inserting new line in insert mode
-  inoremap <expr> <M-o> (pumvisible() <bar><bar> &insertmode) ? '<C-e><C-o>o' : '<C-o>o'
-  inoremap <expr> <M-O> (pumvisible() <bar><bar> &insertmode) ? '<C-e><C-O>O' : '<C-O>O'
-endfunction
-
-function! ExtendedBasicMappings()
-  " Disables esc key on some modes to force new habit
-  " Allow <Esc> to exit terminal-mode back to normal:
-  tnoremap <Esc> <C-\><C-n>
-  " Esc from insert, visual and command mode shortcuts (also moves cursor to the right)
-  imap fd <Esc>`^
-  imap kj <Esc>`^
-  vnoremap fd <Esc>`<
-  vnoremap df <Esc>`>
-  cnoremap <C-[> <C-c>
-  cnoremap <C-g> <C-c>
-  " Exit from terminal-mode to normal
-  tnoremap <Esc> <C-\><C-n>
-  " Insert actual tab instead of spaces. Useful when `expandtab` is in use
-  inoremap <S-Tab> <C-v><Tab>
-  " Easier line-wise movement
-  nnoremap gh g^
-  nnoremap gl g$
-  " Jump entire buffers in jumplist
-  nnoremap g<C-i> :<C-u>call JumpBuffer(-1)<CR>
-  nnoremap g<C-o> :<C-u>call JumpBuffer(1)<CR>
-  " Insert newline below
-  inoremap <S-CR> <C-o>o
-  " Resize tab windows after top/bottom window movement
-  nnoremap <C-w>K <C-w>K<C-w>=
-  nnoremap <C-w>J <C-w>J<C-w>=
-  " Select last paste
-  nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
-  " Center search results and jumps
-  " nnoremap n nzz
-  " nnoremap N Nzz
-  nnoremap n <Cmd>set hlsearch <bar> call <SID>LazyNorm(v:searchforward ? "nzz" : "Nzz")<CR>
-  nnoremap N <Cmd>set hlsearch <bar> call <SID>LazyNorm(v:searchforward ? "Nzz" : "nzz")<CR>
-
-  nnoremap <C-o> <C-o>zz
-  nnoremap <C-i> <C-i>zz
-  " Shift char ascii
-  vnoremap <silent> <M-c> :<C-u>call VShiftCharAscii(1)<CR>
-  vnoremap <silent> <M-S-c> :<C-u>call VShiftCharAscii(-1)<CR>
-  nnoremap <silent> <M-c> :<C-u>call ShiftCharAscii(matchstr(getline('.'), '\%' . col('.') . 'c.'), 1)<CR>
-  nnoremap <silent> <M-S-c> :<C-u>call ShiftCharAscii(matchstr(getline('.'), '\%' . col('.') . 'c.'), -1)<CR>
-endfunction
-" }}} BASIC MAPPINGS
-
-" OPERATOR MAPPINGS -------------------- {{{
-function! OperatorMappings()
-  " Inside next and last parenthesis
-  onoremap in( :<C-u>normal! f(vi(<CR>
-  onoremap il( :<C-u>normal! F)vi(<CR>
-  " Around next and last parenthesis
-  onoremap an( :<C-u>normal! f(va(<CR>
-  onoremap al( :<C-u>normal! F)va(<CR>
-endfunction
-" }}} OPERATOR MAPPINGS
 
 " FILE AND WINDOWS MAPPINGS -------------------- {{{
 function! FilePathMappings()
@@ -1037,12 +857,8 @@ endfunction
 
 " ==================== Mappings Function Calls ==================== "
 
-" Basic Mappings
-call ExitMappings()
-call ImprovedDefaultMappings()
-call ExtendedBasicMappings()
-" Operator Mappings
-call OperatorMappings()
+" Phase 1 calls (ExitMappings, ImprovedDefaultMappings, ExtendedBasicMappings,
+" OperatorMappings) are now in lua/user/core/mappings_vim.lua
 " File and Windows Mappings
 call FilePathMappings()
 call FileManagementMappings()

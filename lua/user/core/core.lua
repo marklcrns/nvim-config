@@ -39,7 +39,10 @@ end
 -- Load general settings
 require("user.core.general")
 
--- Source mappings.vim (kept in vimscript)
+-- Phase 1 mappings (ported from core/mappings.vim)
+require("user.core.mappings_vim")
+
+-- Source mappings.vim (kept in vimscript — remaining phases)
 vim.cmd.source(vim.env.VIM_PATH .. "/core/mappings.vim")
 
 vim.o.secure = true
