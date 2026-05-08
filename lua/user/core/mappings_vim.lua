@@ -292,8 +292,8 @@ do
   local function yank_and_echo(modifier, msg)
     return function()
       local val = fn.expand(modifier)
+      vim.cmd.echo(vim.fn.string(msg))
       fn.setreg("+", val)
-      print(msg)
     end
   end
 
@@ -310,7 +310,7 @@ do
   -- :edit file path from clipboard register
   keymap("n", "<Leader>fyo", function()
     vim.cmd("e " .. fn.getreg("+"))
-    print("Opened " .. fn.expand("%:p"))
+    vim.cmd.echo(vim.fn.string("Opened " .. fn.expand("%:p")))
   end)
 
   -- gyp/gyP/gyl/gyL: yank to both + and 0

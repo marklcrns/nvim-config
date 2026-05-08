@@ -41,20 +41,28 @@ if fn.has("mac") == 1 then
 -- Terminal (kitty/iTerm2/WezTerm/Alacritty/tmux) passes the copy sequence
 -- through to the local system clipboard.
 --
--- Paste via OSC 52 is intentionally disabled — most terminals refuse to
--- respond to OSC 52 read queries (security: terminals won't leak local
--- clipboard to remote processes). Leaving read enabled causes a
--- "Waiting for OSC 52 response" hang on every paste. Use terminal's
--- built-in paste shortcut for external content, or internal Nvim
--- registers (`"ap`, etc.) for same-session paste.
+-- Paste via OSC 52 query is intentionally disabled — most terminals refuse
+-- to respond (security: they won't leak local clipboard to remote procs),
+-- causing a "Waiting for OSC 52 response" hang. Instead, we cache the
+-- last-copied value and return it on paste. This also means setreg("+", ...)
+-- persists across reads (rather than being clobbered by a broken paste
+-- handler).
 elseif (vim.env.SSH_TTY and vim.env.SSH_TTY ~= "")
     or (vim.env.DISPLAY or "") == "" and (vim.env.WAYLAND_DISPLAY or "") == "" then
   local osc52 = require("vim.ui.clipboard.osc52")
-  local noop_paste = function() return { vim.fn.split(vim.fn.getreg('"'), "\n"), vim.fn.getregtype('"') } end
+  local cache = { lines = { "" }, regtype = "v" }
+
+  local base_copy = osc52.copy("+")
+  local function copy(lines, regtype)
+    cache = { lines = lines, regtype = regtype or "v" }
+    base_copy(lines, regtype)
+  end
+  local function paste() return { cache.lines, cache.regtype } end
+
   g.clipboard = {
-    name = "OSC 52",
-    copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
-    paste = { ["+"] = noop_paste, ["*"] = noop_paste },
+    name = "OSC 52 (cached)",
+    copy = { ["+"] = copy, ["*"] = copy },
+    paste = { ["+"] = paste, ["*"] = paste },
   }
 end
 
