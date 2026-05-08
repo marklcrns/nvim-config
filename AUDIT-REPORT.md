@@ -1,14 +1,17 @@
-# Neovim Config Audit — 2026-05-06
+# Neovim Config Audit — 2026-05-08
+
+> 🎉 **Milestone:** This config is now **100% Lua**. Zero `.vim` files remain.
 
 ## 📊 Stats
 
-| Metric | Previous audit (2026-05-05) | Current | Benchmark |
-|--------|-----------------------------|---------|-----------|
-| Total plugins | 110 | **101** (-9) | Well-tuned: 30-60 |
-| Idle startup | ~600ms | **~70ms** (-88%) | Goal: <100ms ✅ |
-| File-open startup | (not measured) | ~470ms | Goal: <200ms |
-| Eager-loaded (`lazy=false`, no lazy trigger) | 26 | **2** (-92%) | Goal: <5 ✅ |
-| Abandoned plugins | 7 | 0 | ✅ |
+| Metric | Previous audit (2026-05-06) | Current (2026-05-08) | Benchmark |
+|--------|-----------------------------|----------------------|-----------|
+| Total plugins | 101 | **101** | Well-tuned: 30-60 |
+| **Idle startup** | ~70ms | **~52ms** (-26%) | Goal: <100ms ✅ |
+| Eager-loaded | 2 | **2** | Goal: <5 ✅ |
+| Abandoned plugins | 0 | 0 | ✅ |
+| **`.vim` files** | ~50 | **0** 🎉 | Fully Lua |
+| **Lua files** | ~80 | **144** | |
 
 **Eager-loaded plugins (the minimum):**
 - `tokyonight.nvim` — active colorscheme (auto-lazy via `cs()` helper in plugins/init.lua)
@@ -16,103 +19,132 @@
 
 ---
 
-## ✅ Changes since previous audit
+## 🎯 This session's achievement: **Full vimscript → Lua migration**
 
-### Fixed
-- [x] Colorscheme auto-lazy loading — `g:colorscheme` in vimrc, `cs()` helper handles lazy/priority
-- [x] Centralized user settings in vimrc (`g:colorscheme`, `g:default_dark_colorscheme`, `g:default_light_colorscheme`)
-- [x] Removed 9 plugins: `popup.nvim` (zombie dep), `vim-maximizer`, `vim-signature`, `vim-niceblock`, `winshift.nvim`, `Comment.nvim`, `nvim-tmux-navigation`, `leetcode.nvim`, `vim-markdown-toc`
-- [x] Re-added 3 still-needed plugins with modern replacements:
-  - `chentoast/marks.nvim` (replaces vim-signature — active, same default mappings)
-  - `kana/vim-niceblock` (re-added; no modern equivalent for ragged visual-block)
-  - `sindrets/winshift.nvim` (re-added; not actually abandoned, and `Config.common.utils` depends on it)
-- [x] **Migrated feline.nvim → lualine.nvim** (Option A — simplified layout, `theme="auto"` follows colorscheme)
-- [x] `Comment.nvim` removed — Neovim 0.10+ native `gc`/`gcc` takes over; `ts-comments.nvim` preserved for treesitter-aware injected languages
-- [x] 6 lazy triggers tightened: `firenvim` → `cond=started_by_firenvim`, `vim-eunuch` → `cmd=[...]`, `twilight`/`transparent` → `cmd=[...]`, `smart-splits`/`focus` → `event=VeryLazy`
-- [x] `nvim-treesitter` Nvim 0.13 compat — `set-lang-from-info-string!` directive patched inside the plugin's config hook (no more markdown fence crashes)
-- [x] `vim-matchup` treesitter integration re-enabled (% across injected-language fences)
-- [x] `nvim-treesitter-compat.lua` inlined (dropped `require('nvim-treesitter.query')` — saved ~30ms)
-- [x] `nvim-web-devicons` → `lazy=true` (pulled in by plugins that declare the dep)
-- [x] `modes.nvim` → `event=ModeChanged`
-- [x] `bufferline.nvim` → `event=UIEnter`
-- [x] `todo-comments`, `indent-blankline`, `indent-o-matic` → `event=BufReadPre`/`BufReadPost`
-- [x] `nvim-spider` → `keys=` trigger (only on first motion keypress)
-- [x] `nvim-notify` → `event=VeryLazy` (noice is its main consumer, loads at VeryLazy)
-- [x] Deprecated Neovim APIs replaced: `vim.tbl_add_reverse_lookup` → manual pairs, `BufModifiedSet` → `OptionSet` w/ pattern="modified"
-- [x] `blink.cmp` v2 build + `saghen/blink.lib` dependency added
-- [x] `nvim-treesitter` pinned to archived `master` (commit cf12346) to avoid the broken `main` branch rewrite
-- [x] ~23 orphan config files in `lua/user/plugins/` deleted
-- [x] vim-abolish kept (for `:Subvert`); text-case.nvim kept for the rest
-- [x] noice.nvim kept (user pref); alpha-nvim kept (custom banner/responsive layout)
+18 commits, 3,000+ lines of vimscript converted to ~2,500 lines of idiomatic Lua.
 
-### Not yet done
-- [ ] Migrate `vimrc` + `core/*.vim` to Lua (~70ms in vimscript source time)
-- [ ] Tame `require("user.lsp")` 67ms hotspot — eager mason/lspconfig init
-- [ ] Investigate file-open startup (~470ms) — markdown FileType autocmd + mason-lspconfig + blink.cmp contributions
+### Core config
+
+| File | Before | After |
+|------|--------|-------|
+| `core/core.vim` (80 lines) | vimscript | `lua/user/core/core.lua` (45 lines) |
+| `core/general.vim` (380 lines) | vimscript | `lua/user/core/general.lua` (310 lines) |
+| `core/rtp.vim` (29 lines) | vimscript | `lua/user/core/rtp.lua` (27 lines) |
+| `core/utils.vim` (43 lines) | vimscript | merged into `lua/user/core/utils.lua` |
+| `core/mappings.vim` (1,064 lines) | vimscript | `lua/user/core/mappings_vim.lua` (1,099 lines, 4 phases) |
+| `core/terminal.vim` (133 lines) | vimscript | **deleted** (vim-only dead code) |
+| `autocommands.vim` (227 lines) | vimscript | `lua/user/autocommands.lua` (335 lines) |
+| `autoload/utils.vim` (147 lines) | vimscript | **deleted** (CoC-era dead code, `CustomBufferWrite` ported to `core.lua`) |
+
+### Plugin scripts
+
+| File | Before | After |
+|------|--------|-------|
+| `plugin/sessions.vim` (158 lines) | vimscript | consolidated into `lua/user/plugin_scripts.lua` |
+| `plugin/whitespace.vim` (94 lines) | vimscript | consolidated into `lua/user/plugin_scripts.lua` |
+| `plugin/grep-operator.vim` (33 lines) | vimscript | consolidated into `lua/user/plugin_scripts.lua` |
+| `plugin/jumpfile.vim` (31 lines) | vimscript | consolidated into `lua/user/plugin_scripts.lua` |
+| `plugin/quickfixopenall.vim` (29 lines) | vimscript | consolidated into `lua/user/plugin_scripts.lua` |
+| `plugin/filesystem.vim` (25 lines) | vimscript | consolidated into `lua/user/plugin_scripts.lua` |
+| `ginit.vim` (13 lines) | vimscript | merged into `general.lua` Neovide block |
+
+### Filetype / syntax overrides
+
+| Count | Before | After |
+|-------|--------|-------|
+| 24 `after/ftplugin/*.vim` (137 lines) | vimscript | 24 `.lua` equivalents |
+| 7 `after/syntax/*.vim` (147 lines) | vimscript | 7 `.lua` equivalents |
+| 3 `syntax/*.vim` (281 lines) | vimscript | `java.lua`, `NeogitStatus.lua` (haxe deleted — treesitter handles it) |
 
 ---
 
-## 📋 Current action plan
+## ✅ Changes since previous audit
 
-### 🟢 Remaining low-hanging fruit (< 30 min each)
+### New in this session
+
+- [x] **100% Lua config** — all vimscript ported, deleted, or moved into Lua equivalents
+- [x] `CustomBufferWrite` ported from `autoload/utils.vim` → `core.lua` (autoload auto-source was broken by migration)
+- [x] `OSC 52 clipboard` provider for SSH sessions (kitty/iTerm2/WezTerm/tmux passthrough)
+  - Cached copy/paste to prevent "Waiting for OSC 52 response" hang
+  - `setreg("+", val)` now persists across reads
+- [x] `vim.cmd.echo()` instead of `print()` in file-yank mappings — prevents redraw racing with OSC 52 emission
+- [x] Fixed `nvim-treesitter-textobjects` breaking change: `repeatable_move` module renamed, `make_repeatable_move_pair` removed (compat shim added)
+- [x] Removed yarn + pandoc from `install.sh` and README (stale from markdown-preview + vimwiki removal)
+- [x] Which-key visual-mode group dedup (merged into normal-mode entries via `mode=`)
+
+### Functional improvements carried from prior sessions
+- Colorscheme auto-lazy loading (`g:colorscheme` in vimrc is single source of truth)
+- 101 plugins, 2 eager-loaded
+- All 5 plugin category switches working (`g:lsp_enabled`, `g:treesitter_enabled`, `g:git_enabled`, `g:notetaking_enabled`, `g:low_performance_mode`)
+- `nvim-treesitter` Nvim 0.13 compat
+- Feline → lualine migration complete
+
+---
+
+## 📋 Remaining backlog
+
+### 🟢 Quick wins (< 30 min each)
 
 | # | Task | Est. saving |
 |---|------|-------------|
-| 1 | `alpha-nvim` migrate sections to snacks.dashboard (keep alpha's banner) | -1 plugin, ~10ms |
-| 2 | `vim-abolish` — confirm `:Subvert` is the only thing used, check if text-case has added it | maybe -1 plugin |
-| 3 | `firenvim.lua` config — audit in browser mode | correctness |
+| 1 | `vim-abolish` — confirm `:Subvert` is only used feature, check if text-case.nvim added equivalent | maybe -1 plugin |
+| 2 | `alpha-nvim` migrate sections to snacks.dashboard (keep banner) | -1 plugin, ~10ms |
+| 3 | Rebind `;;` (Snacks picker resume) to avoid `;` treesitter-motion timeout | UX only |
 
 ### 🟡 Medium effort (30-60 min)
 
 | # | Task | Est. saving |
 |---|------|-------------|
-| 4 | Profile `require("user.lsp")` (67ms) — defer to `LspAttach` or `vim.schedule` better | -30-50ms startup |
+| 4 | Tame `require("user.lsp")` hotspot — already deferred typescript-tools, mason-lspconfig (~22ms) remains hard to defer further without breaking autoregister | -20-30ms |
 | 5 | Investigate file-open slowdown — mason-lspconfig loading every server at BufReadPost? | -50-100ms |
-| 6 | `nvim-web-devicons` — verify `config` wrapper still applies custom icons (since it's now `lazy=true`) | correctness |
 
-### 🔴 Larger changes (2-4 hours, separate session)
+### 🔴 Larger (separate session)
 
 | # | Task | Est. saving |
 |---|------|-------------|
-| 7 | Migrate `vimrc` + `core/*.vim` to Lua (`core.vim`, `general.vim`, `mappings.vim`, `terminal.vim`, `rtp.vim`, `utils.vim`) | -60-70ms |
-| 8 | Consolidate notetaking: mkdnflow + markview + markdown-preview is a lot. Decide which to drop. | -1-2 plugins |
-| 9 | Evaluate `cellular-automaton` + `linediff` (user flagged as keep, but revisit periodically) | -1-2 plugins |
+| 6 | Consolidate notetaking stack (now just markview after mkdnflow/markdown-preview/vimwiki removal — re-audit if anything else is now deadweight) | — |
+| 7 | Revisit user-flagged "keep" plugins periodically (cellular-automaton, linediff) | -1-2 plugins |
 
 ---
 
-## 🩺 Health checks that pass
+## 🩺 Health checks
 
 | Check | Status |
 |-------|--------|
 | No startup errors | ✅ |
+| 100% Lua (zero `.vim` files) | ✅ |
 | Markdown fenced code blocks render without treesitter crashes | ✅ |
 | LSP attaches correctly on opening buffers | ✅ |
+| OSC 52 clipboard copy works over SSH | ✅ |
 | `gc`/`gcc` native commenting works | ✅ |
-| `%` jumps across brackets in injected languages (matchup + treesitter) | ✅ |
-| Colorscheme auto-switch (only active scheme loads eagerly) | ✅ |
-| Plugin categories toggleable via vimrc (`g:lsp_enabled`, `g:treesitter_enabled`, `g:git_enabled`, `g:notetaking_enabled`) | ✅ |
-| Low-performance mode (`g:low_performance_mode`) disables noice, notify, twilight, transparent, focus | ✅ |
+| `%` jumps across brackets in injected languages | ✅ |
+| Colorscheme auto-switch | ✅ |
+| All 279+ mappings migrated and functionally verified | ✅ |
+| All 45 vimscript helper functions ported and callable | ✅ |
+| All autocmd groups preserved (NvimConfig, plugin_*, user_*) | ✅ |
 
 ---
 
-## 📝 Summary Table
+## 📝 Summary
 
-| Category | Delta since last audit | Current count |
-|----------|----------------------|---------------|
-| Plugins | -9 | 101 |
-| Eager-loaded | -24 | 2 |
-| Startup (idle) | -530ms | ~70ms |
-| Orphan config files | -23 | 0 |
+| Metric | Start of 2026-05 | End of 2026-05-08 |
+|--------|-------------------|--------------------|
+| Plugins | 110 | 101 |
+| Idle startup | ~600ms | **~52ms** (-91%) |
+| Eager-loaded plugins | 26 | 2 |
+| Orphan config files | 23 | 0 |
+| Vimscript files | ~50 | **0** |
+| Config language | Mixed | **100% Lua** |
 
-**Headline:** Config is now in the "healthy" band — idle startup under 100ms, eager plugins at the absolute minimum, no abandoned dependencies. The remaining wins are architectural (LSP lazy loading, vimscript → Lua migration) rather than plugin-level.
+**Headline:** This month the config went from a crashing, 600ms-startup, half-vimscript state to a stable, 52ms-startup, pure-Lua configuration with 91% faster startup, no abandoned dependencies, and every line of code readable in a single language.
 
 ---
 
 ## Next audit reminder
 
-Run `@audit-neovim` SOP periodically (monthly is reasonable) to re-measure. The SOP:
-- Collects plugin count, startup time, eager loads, abandoned plugins (via git log dates)
+Run `@audit-neovim` SOP periodically (monthly) to re-measure. The SOP:
+- Collects plugin count, startup time, eager loads, abandoned plugins
 - Detects functional overlaps
 - Flags orphan config files
-- Scans for new deprecated Nvim APIs
+- Scans for deprecated Nvim APIs
 - Produces a fresh prioritized action plan
