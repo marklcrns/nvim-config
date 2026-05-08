@@ -283,3 +283,227 @@ do
   keymap("o", "an(", ":<C-u>normal! f(va(<CR>")
   keymap("o", "al(", ":<C-u>normal! F)va(<CR>")
 end
+
+-- ─── FilePathMappings ────────────────────────────────────────────────────────
+-- Yank file path/name info to `+` register in various forms.
+-- Ref: https://vim.fandom.com/wiki/Get_the_name_of_the_current_file
+
+do
+  local function yank_and_echo(modifier, msg)
+    return function()
+      local val = fn.expand(modifier)
+      fn.setreg("+", val)
+      print(msg)
+    end
+  end
+
+  keymap("n", "<Leader>fye", yank_and_echo("%:p:r",  "Yanked absolute file path without extension"))
+  keymap("n", "<Leader>fyE", yank_and_echo("%:r",    "Yanked relative file path without extension"))
+  keymap("n", "<Leader>fyp", yank_and_echo("%:p",    "Yanked absolute file path"))
+  keymap("n", "<Leader>fyP", yank_and_echo("%:~:.",  "Yanked relative file path"))
+  keymap("n", "<Leader>fyf", yank_and_echo("%:t:r",  "Yanked file name without extension"))
+  keymap("n", "<Leader>fyF", yank_and_echo("%:t",    "Yanked file name"))
+  keymap("n", "<Leader>fyd", yank_and_echo("%:p:h",  "Yanked absolute directory path"))
+  keymap("n", "<Leader>fyD", yank_and_echo("%:p:h:t", "Yanked relative directory path"))
+  keymap("n", "<Leader>fyx", yank_and_echo("%:e",    "Yanked file extension"))
+
+  -- :edit file path from clipboard register
+  keymap("n", "<Leader>fyo", function()
+    vim.cmd("e " .. fn.getreg("+"))
+    print("Opened " .. fn.expand("%:p"))
+  end)
+
+  -- gyp/gyP/gyl/gyL: yank to both + and 0
+  local function set_plus_and_zero(val)
+    fn.setreg("+", val)
+    fn.setreg("0", val)
+  end
+  keymap("n", "gyp", function() set_plus_and_zero(fn.expand("%")) end)
+  keymap("n", "gyP", function() set_plus_and_zero(fn.expand("%:p")) end)
+  keymap("n", "gyl", function()
+    set_plus_and_zero(string.format("%s:%d", fn.expand("%"), fn.getcurpos()[2]))
+  end)
+  keymap("n", "gyL", function()
+    set_plus_and_zero(string.format("%s:%d", fn.expand("%:p"), fn.getcurpos()[2]))
+  end)
+end
+
+-- ─── FileManagementMappings ──────────────────────────────────────────────────
+
+do
+  keymap("n", "<Leader>fD", function()
+    local path = fn.expand("%:p")
+    vim.api.nvim_echo({ { "File " .. path .. " deleting...", "WarningMsg" } }, true, {})
+    fn.delete(fn.expand("%"))
+    vim.cmd("bdelete!")
+  end)
+
+  -- Set working directory to current file location
+  keymap("n", "<Leader>frd", ":cd %:p:h<CR>:pwd<CR>")
+  keymap("n", "<Leader>frl", ":lcd %:p:h<CR>:pwd<CR>")
+
+  -- Open current file externally (Linux)
+  local function open_with(cmd)
+    return function() vim.cmd("silent !" .. cmd .. " \"" .. fn.expand("%:p") .. "\" & disown") end
+  end
+  keymap("n", "<Leader>oo", open_with("xdg-open"),     { silent = true })
+  keymap("n", "<Leader>of", open_with("firefox"),      { silent = true })
+  keymap("n", "<Leader>og", open_with("google-chrome"), { silent = true })
+end
+
+-- ─── WindowsManagementMappings ───────────────────────────────────────────────
+
+do
+  local sopts = { silent = true }
+
+  -- Tab operations
+  keymap("n", "<LocalLeader>tn", ":tabnew<CR>", sopts)
+  keymap("n", "<LocalLeader>tN", ":-tabnew<CR>", sopts)
+  keymap("n", "<LocalLeader>ts", ":tab split<CR>", sopts)
+  keymap("n", "<LocalLeader>tq", ":tabclose<CR>", sopts)
+  keymap("n", "<LocalLeader>te", ":tabedit<CR>", sopts)
+  keymap("n", "<LocalLeader>tm", ":tabmove<CR>", sopts)
+  keymap("n", "<LocalLeader>t>", ":tabmove+<CR>", sopts)
+  keymap("n", "<LocalLeader>t<", ":tabmove-<CR>", sopts)
+  keymap("n", "[t", ":tabprevious<CR>", sopts)
+  keymap("n", "]t", ":tabnext<CR>", sopts)
+  keymap("n", "]T", ":tablast<CR>", sopts)
+  keymap("n", "[T", ":tabfirst<CR>", sopts)
+  keymap("n", "<M-[>", "<Cmd>tabp<CR>")
+  keymap("n", "<M-]>", "<Cmd>tabn<CR>")
+  keymap("n", "<leader>x", "<Cmd>tabc<CR>")
+
+  -- Last active tab tracking
+  vim.api.nvim_create_autocmd("TabLeave", {
+    group = vim.api.nvim_create_augroup("user_lasttab", { clear = true }),
+    callback = function() vim.g.lasttab = fn.tabpagenr() end,
+  })
+  keymap({ "n", "v" }, "<LocalLeader>tl", function()
+    if vim.g.lasttab then vim.cmd("tabn " .. vim.g.lasttab) end
+  end, { silent = true })
+
+  -- Buffer navigation
+  keymap("n", "]b", ":bnext<CR>", sopts)
+  keymap("n", "[b", ":bprevious<CR>", sopts)
+  keymap("n", "]B", ":blast<CR>", sopts)
+  keymap("n", "[B", ":bfirst<CR>", sopts)
+
+  -- Open all buffers in splits
+  keymap("n", "<LocalLeader>boh", ":sba<CR>", sopts)
+  keymap("n", "<LocalLeader>bov", ":vert sba<CR>", sopts)
+
+  -- Window-control prefix: <C-w> → [Window]
+  keymap("n", "[Window]", "<Nop>")
+  keymap("n", "<C-w>", "[Window]", { remap = true })
+
+  -- Cycle through windows
+  keymap("n", "[Window]w",     "<C-w><C-w>")
+  keymap("n", "[Window]<C-w>", "<C-w><C-w>")
+  keymap("n", "[Window]<C-p>", "<C-w><C-p>")
+
+  -- Splits
+  keymap("n", "<C-q>", ":<C-u>close<CR>", sopts)
+  keymap("n", "[Window]g",  ":<C-u>split<CR>", sopts)
+  keymap("n", "[Window]v",  ":<C-u>vsplit<CR>", sopts)
+  keymap("n", "[Window]c",  ":<C-u>close<CR>", sopts)
+  keymap("n", "<LocalLeader>wg", ":<C-u>split<CR>", sopts)
+  keymap("n", "<LocalLeader>wv", ":<C-u>vsplit<CR>", sopts)
+  keymap("n", "<LocalLeader>wc", ":<C-u>close<CR>", sopts)
+  -- Split + return to previous window
+  keymap("n", "[Window]<C-v>", ":vsplit<CR>:wincmd p<CR>", sopts)
+  keymap("n", "[Window]<C-g>", ":split<CR>:wincmd p<CR>", sopts)
+  keymap("n", "<LocalLeader>wV", ":vsplit<CR>:wincmd p<CR>", sopts)
+  keymap("n", "<LocalLeader>wG", ":split<CR>:wincmd p<CR>", sopts)
+
+  -- Switch between splits
+  keymap("n", "[Window]h", "<C-w>h", sopts)
+  keymap("n", "[Window]j", "<C-w>j", sopts)
+  keymap("n", "[Window]k", "<C-w>k", sopts)
+  keymap("n", "[Window]l", "<C-w>l", sopts)
+  keymap("n", "[Window]\\", "<C-w>p", sopts)
+  keymap("n", "<C-h>", "<C-w>h", sopts)
+  keymap("n", "<C-j>", "<C-w>j", sopts)
+  keymap("n", "<C-k>", "<C-w>k", sopts)
+  keymap("n", "<C-l>", "<C-w>l", sopts)
+
+  -- Arrow keys → window resizing
+  keymap("n", "<Up>",    ":resize -1<CR>", sopts)
+  keymap("n", "<Down>",  ":resize +1<CR>", sopts)
+  keymap("n", "<Left>",  ":vertical resize -2<CR>", sopts)
+  keymap("n", "<Right>", ":vertical resize +2<CR>", sopts)
+
+  -- Equalize splits
+  keymap("n", "[Window]=", ":tabdo wincmd =<CR>", sopts)
+end
+
+-- ─── UtilityMappings ─────────────────────────────────────────────────────────
+
+do
+  keymap("n", "<Leader>ps", "<cmd>source $MYVIMRC<CR>")
+
+  -- Undo break points on common punctuation
+  keymap("i", ",", ",<C-g>u")
+  keymap("i", ".", ".<C-g>u")
+  keymap("i", "!", "!<C-g>u")
+  keymap("i", "?", "?<C-g>u")
+
+  -- Select last inserted characters
+  keymap("i", "<M-v>", "<ESC>v`[")
+
+  -- Backspace as % (matching pairs)
+  keymap({ "n", "x" }, "<BS>", "%")
+
+  -- Insert blank line without entering insert mode
+  keymap("n", "[<space>", "O<esc>j")
+  keymap("n", "]<space>", "o<esc>k")
+
+  -- Drag current line(s) vertically and auto-indent
+  keymap("n", "<Leader>J", ":m.+1<CR>")
+  keymap("n", "<Leader>K", ":m.-2<CR>")
+  keymap("v", "J", ":m'>+1<CR>gv=gv")
+  keymap("v", "K", ":m'<-2<CR>gv=gv")
+
+  -- Popup menu navigation in insert mode
+  keymap("i", "<C-j>", function() return fn.pumvisible() == 1 and "<Down>" or "<C-j>" end, { expr = true })
+  keymap("i", "<C-k>", function() return fn.pumvisible() == 1 and "<Up>" or "<C-k>" end, { expr = true })
+
+  -- Vimgrep wrapper (function still in mappings.vim as vimscript)
+  keymap("n", "<Leader>fg", [[:call VimgrepWrapper("")<Left><Left>]])
+  keymap("n", "<Leader>gD", ":GitOpenDirty<CR>")
+end
+
+-- ─── CommandMappings ─────────────────────────────────────────────────────────
+
+do
+  -- Commandline basic movements (emacs-style)
+  keymap("c", "<C-a>", "<Home>")
+  keymap("c", "<C-e>", "<End>")
+  keymap("c", "<C-d>", "<Del>")
+  keymap("c", "<C-h>", "<BS>")
+
+  -- Insert current buffer's directory path
+  keymap("c", "<C-t>", function() return fn.expand("%:p:h") .. "/" end, { expr = true })
+
+  -- Wildmenu navigation
+  keymap("c", "<C-j>", function()
+    return fn.pumvisible() == 1 and "<C-n>" or fn.nr2char(vim.o.wildcharm)
+  end, { expr = true })
+  keymap("c", "<C-k>", function()
+    return fn.pumvisible() == 1 and "<C-p>" or fn.nr2char(vim.o.wildcharm)
+  end, { expr = true })
+  keymap("c", "<Tab>", function()
+    if fn.pumvisible() == 1 then
+      return "<C-y>" .. fn.nr2char(vim.o.wildcharm)
+    end
+    return fn.nr2char(vim.o.wildcharm)
+  end, { expr = true })
+
+  -- %% expands to current file's directory
+  keymap("c", "%%", function() return fn.fnameescape(fn.expand("%:h")) .. "/" end, { expr = true })
+
+  -- Quick edit in current file's directory
+  keymap({ "n", "x", "o" }, "<leader>ew", ":e %%", { remap = true })
+  keymap({ "n", "x", "o" }, "<leader>ev", ":vsplit %%", { remap = true })
+  keymap({ "n", "x", "o" }, "<leader>eg", ":split %%", { remap = true })
+  keymap({ "n", "x", "o" }, "<leader>et", ":tabe %%", { remap = true })
+end
