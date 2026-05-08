@@ -1,4 +1,5 @@
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/utils.vim'
+lua require("user.core.rtp")
+lua require("user.core.utils")
 
 " Disable unused providers to suppress checkhealth warnings
 let g:loaded_perl_provider = 0
@@ -22,7 +23,7 @@ let g:default_light_colorscheme = 'seoulbones'
 let g:ai_enabled = v:true
 
 " Enable this to disable cpu intensive plugins/modules (default: false)
-let g:low_performance_mode = g:ReadCacheFromDataDir('low_performance_mode', v:false) == 0 ? v:false : v:true
+let g:low_performance_mode = luaeval("ReadCacheFromDataDir('low_performance_mode', false)")
 
 " ─── Plugin category switches ────────────────────────────────────────────────
 " Set to v:false to disable an entire category and all plugins that depend on it.
@@ -41,6 +42,5 @@ let g:git_enabled = v:true
 let g:notetaking_enabled = v:true
 " ─────────────────────────────────────────────────────────────────────────────
 
-" Load core files. Will be deprecated soon!
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/rtp.vim'
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/core.vim'
+" Load core (Lua)
+lua require("user.core.core")
