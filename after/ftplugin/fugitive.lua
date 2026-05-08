@@ -1,0 +1,9 @@
+vim.opt_local.list = false
+vim.opt_local.colorcolumn = ""
+vim.opt_local.number = false
+vim.opt_local.relativenumber = false
+vim.opt_local.signcolumn = "no"
+vim.opt_local.foldcolumn = "3"
+vim.opt_local.foldmethod = "syntax"
+vim.opt_local.fillchars:append({ foldsep = " " })
+vim.opt_local.buflisted = false

@@ -251,6 +251,18 @@ end
 -- ─── Neovide / GUI ──────────────────────────────────────────────────────────
 
 if g.neovide or vim.fn.exists("g:Gui") == 1 or vim.fn.exists("g:GuiLoaded") == 1 then
+  -- Font (was in ginit.vim)
+  g.guifontsize = g.guifontsize or 14
+  if not g.guifont then
+    if fn.has("win32") == 1 or fn.has("win64") == 1 then
+      g.guifont = "Maple\\ Mono\\ NF"
+    elseif fn.has("mac") == 1 then
+      g.guifont = "Maple\\ Mono\\ NF"
+    else
+      g.guifont = "Maple\\ Mono\\ NF"
+    end
+  end
+
   -- Font size adjustment
   vim.api.nvim_create_user_command("FontSizeUp", function()
     g.guifontsize = (g.guifontsize or 14) + 1

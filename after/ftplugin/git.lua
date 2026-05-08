@@ -1,0 +1,9 @@
+vim.opt_local.list = false
+vim.opt_local.colorcolumn = ""
+vim.opt_local.number = false
+vim.opt_local.relativenumber = false
+vim.opt_local.foldmethod = "syntax"
+vim.opt_local.foldtext = "fugitive#Foldtext()"
+vim.opt_local.fillchars:append({ foldsep = " " })
+vim.opt_local.foldcolumn = "1"
+vim.opt_local.signcolumn = "yes:1"
