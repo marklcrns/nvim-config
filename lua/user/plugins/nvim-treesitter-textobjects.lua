@@ -109,7 +109,15 @@ return function()
     },
   })
 
-  local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+  local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
+
+  -- Compat shim: make_repeatable_move_pair was removed in newer versions
+  local function make_repeatable_move_pair(forward_fn, backward_fn)
+    local move = ts_repeat_move.make_repeatable_move(function(opts)
+      if opts.forward then forward_fn() else backward_fn() end
+    end)
+    return function() move({ forward = true }) end, function() move({ forward = false }) end
+  end
 
   -- Repeat movement with ; and ,
   -- ensure ; goes forward and , goes backward regardless of the last direction
@@ -134,7 +142,7 @@ return function()
   local gs = require("gitsigns")
 
   -- make sure forward function comes first
-  local next_hunk_repeat, prev_hunk_repeat = ts_repeat_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
+  local next_hunk_repeat, prev_hunk_repeat = make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
   -- Or, use `make_repeatable_move` or `set_last_move` functions for more control. See the code for instructions.
 
   vim.keymap.set({ "n", "x", "o" }, "]g", next_hunk_repeat)
@@ -155,7 +163,7 @@ return function()
   end
 
   local next_fold_repeat, prev_fold_repeat =
-    ts_repeat_move.make_repeatable_move_pair(goNextClosedAndPeek, goPreviousClosedAndPeek)
+    make_repeatable_move_pair(goNextClosedAndPeek, goPreviousClosedAndPeek)
 
   vim.keymap.set({ "n", "x", "o" }, "]z", next_fold_repeat)
   vim.keymap.set({ "n", "x", "o" }, "[z", prev_fold_repeat)
@@ -173,7 +181,7 @@ return function()
   end
 
   local next_diagnostic_repeat, prev_diagnostic_repeat =
-    ts_repeat_move.make_repeatable_move_pair(goNextDiagnostic, goPreviousDiagnostic)
+    make_repeatable_move_pair(goNextDiagnostic, goPreviousDiagnostic)
 
   vim.keymap.set({ "n", "x", "o" }, "]d", next_diagnostic_repeat)
   vim.keymap.set({ "n", "x", "o" }, "[d", prev_diagnostic_repeat)
@@ -191,7 +199,7 @@ return function()
     vim.cmd("normal! [c")
   end
 
-  local next_diff_repeat, prev_diff_repeat = ts_repeat_move.make_repeatable_move_pair(goNextDiff, goPreviousDiff)
+  local next_diff_repeat, prev_diff_repeat = make_repeatable_move_pair(goNextDiff, goPreviousDiff)
 
   vim.keymap.set({ "n", "x", "o" }, "]c", next_diff_repeat)
   vim.keymap.set({ "n", "x", "o" }, "[c", prev_diff_repeat)
@@ -205,7 +213,7 @@ return function()
     vim.cmd("tabprevious")
   end
 
-  local next_tab_repeat, prev_tab_repeat = ts_repeat_move.make_repeatable_move_pair(goNextTab, goPreviousTab)
+  local next_tab_repeat, prev_tab_repeat = make_repeatable_move_pair(goNextTab, goPreviousTab)
 
   vim.keymap.set({ "n", "x", "o" }, "]t", next_tab_repeat)
   vim.keymap.set({ "n", "x", "o" }, "[t", prev_tab_repeat)
@@ -220,7 +228,7 @@ return function()
   end
 
   local next_buffer_repeat, prev_buffer_repeat =
-    ts_repeat_move.make_repeatable_move_pair(goNextBuffer, goPreviousBuffer)
+    make_repeatable_move_pair(goNextBuffer, goPreviousBuffer)
 
   vim.keymap.set({ "n", "x", "o" }, "]b", next_buffer_repeat)
   vim.keymap.set({ "n", "x", "o" }, "[b", prev_buffer_repeat)
@@ -250,7 +258,7 @@ return function()
   end
 
   local next_locationlist_repeat, prev_locationlist_repeat =
-    ts_repeat_move.make_repeatable_move_pair(goNextLocationlist, goPreviousLocationlist)
+    make_repeatable_move_pair(goNextLocationlist, goPreviousLocationlist)
 
   vim.keymap.set({ "n", "x", "o" }, "]l", next_locationlist_repeat)
   vim.keymap.set({ "n", "x", "o" }, "[l", prev_locationlist_repeat)
