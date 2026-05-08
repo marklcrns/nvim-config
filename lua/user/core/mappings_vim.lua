@@ -748,3 +748,352 @@ do
   keymap("n", "<F11>", ":set spell!<CR>")
   keymap("i", "<F11>", "<C-o>:set spell!<CR>")
 end
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- PHASE 4 — Remaining helpers + SettingsToggleMappings + EliteModeToggle
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- ─── Remaining helpers ───────────────────────────────────────────────────────
+
+-- Preserve: save search + cursor, run cmd, restore
+local function preserve(cmd)
+  local save_search = fn.getreg("/")
+  local l, c = fn.line("."), fn.col(".")
+  pcall(vim.cmd, cmd)
+  fn.setreg("/", save_search)
+  fn.cursor(l, c)
+end
+_G.Preserve = preserve
+vim.cmd([[
+  function! Preserve(command) abort
+    call v:lua.Preserve(a:command)
+  endfunction
+]])
+
+-- GetSelection: capture visual selection into @/ for search
+local function get_selection(cmdtype)
+  local temp = fn.getreg("s")
+  vim.cmd('normal! gv"sy')
+  local sel = fn.getreg("s")
+  local pattern = fn.substitute(fn.escape(sel, "\\" .. cmdtype), "\n", "\\\\n", "g")
+  fn.setreg("/", pattern)
+  fn.setreg("s", temp)
+end
+_G.GetSelection = get_selection
+vim.cmd([[
+  function! GetSelection(cmdtype) abort
+    call v:lua.GetSelection(a:cmdtype)
+  endfunction
+]])
+
+-- VimgrepWrapper: grep across project files of same extension
+local function vimgrep_wrapper(input, casing)
+  casing = casing or ""
+  local ext = fn.expand("%:e")
+  local pattern = "/\\" .. casing .. input .. "/j"
+  if ext ~= "" then
+    vim.cmd("noautocmd vimgrep " .. pattern .. " **/*." .. ext)
+  else
+    vim.cmd("noautocmd vimgrep " .. pattern .. " **/*")
+  end
+  vim.cmd("cw")
+end
+_G.VimgrepWrapper = vimgrep_wrapper
+vim.cmd([[
+  function! VimgrepWrapper(input, ...) abort
+    call v:lua.VimgrepWrapper(a:input, get(a:000, 0, ''))
+  endfunction
+]])
+
+-- AutoIndentPaste: set buffer-local p/P to paste+indent for non-text filetypes
+local function auto_indent_paste()
+  local ft = vim.bo.filetype
+  if ft == "markdown" or ft == "text" or ft == "snippets" or ft == "tex" then
+    return
+  end
+  vim.keymap.set("n", "p", "p=`]", { buffer = 0 })
+  vim.keymap.set("n", "P", "P=`]", { buffer = 0 })
+end
+_G.AutoIndentPaste = auto_indent_paste
+vim.cmd([[
+  function! AutoIndentPaste() abort
+    call v:lua.AutoIndentPaste()
+  endfunction
+]])
+
+-- LocationlistToggle / QuickfixToggle
+local function locationlist_toggle()
+  for i = 1, fn.winnr("$") do
+    if fn.getbufvar(fn.winbufnr(i), "&buftype") == "locationlist" then
+      vim.cmd("lclose")
+      return
+    end
+  end
+  vim.cmd("lopen")
+end
+_G.LocationlistToggle = locationlist_toggle
+vim.cmd([[
+  function! LocationlistToggle() abort
+    call v:lua.LocationlistToggle()
+  endfunction
+]])
+
+local function quickfix_toggle()
+  for i = 1, fn.winnr("$") do
+    if fn.getbufvar(fn.winbufnr(i), "&buftype") == "quickfix" then
+      vim.cmd("cclose")
+      return
+    end
+  end
+  vim.cmd("copen")
+end
+_G.QuickfixToggle = quickfix_toggle
+vim.cmd([[
+  function! QuickfixToggle() abort
+    call v:lua.QuickfixToggle()
+  endfunction
+]])
+
+-- RemoveQFItem: dd in quickfix list removes current item
+local function remove_qf_item()
+  local idx = fn.line(".") - 1
+  local qflist = fn.getqflist()
+  table.remove(qflist, idx + 1)  -- Lua 1-indexed
+  fn.setqflist(qflist, "r")
+  vim.cmd((idx + 1) .. "cfirst")
+  vim.cmd("copen")
+end
+_G.RemoveQFItem = remove_qf_item
+vim.api.nvim_create_user_command("RemoveQFItem", remove_qf_item, {})
+
+-- NextClosedFold / NextOpenFold
+local function next_closed_fold(direction)
+  local cmd = "norm!z" .. direction
+  local view = fn.winsaveview()
+  local l0, l, open = 0, view.lnum, true
+  while l ~= l0 and open do
+    vim.cmd(cmd)
+    l0, l = l, fn.line(".")
+    open = fn.foldclosed(l) < 0
+  end
+  if open then
+    fn.winrestview(view)
+  end
+end
+_G.NextClosedFold = next_closed_fold
+vim.cmd([[
+  function! NextClosedFold(direction) abort
+    call v:lua.NextClosedFold(a:direction)
+  endfunction
+]])
+
+local function next_open_fold(direction)
+  if direction == "j" then
+    vim.cmd("normal zj")
+    local start = fn.line(".")
+    while fn.foldclosed(start) ~= -1 do
+      start = start + 1
+    end
+    fn.cursor(start, 0)
+  else
+    vim.cmd("normal zk")
+    local start = fn.line(".")
+    while fn.foldclosed(start) ~= -1 do
+      start = start - 1
+    end
+    fn.cursor(start, 0)
+  end
+end
+_G.NextOpenFold = next_open_fold
+vim.cmd([[
+  function! NextOpenFold(direction) abort
+    call v:lua.NextOpenFold(a:direction)
+  endfunction
+]])
+
+-- SubstituteOddCharacters: replace smart quotes, em-dashes, etc. in last visual
+local function substitute_odd_characters()
+  local subs = {
+    [[gv:s/“/"/ge]],
+    [[gv:s/”/"/ge]],
+    [[gv:s/’/'/ge]],
+    [[gv:s/—/--/ge]],
+    [[gv:s/…/.../ge]],
+    [[gv:s/•/-/ge]],
+    [[gv:s/ ,/,/ge]],
+    [[gv:s/  /\r\r/ge]],
+    [[gv:s/   / /ge]],
+    [[gv:s/ \././ge]],
+    [[gv:s/​//ge]],
+    -- Escape unprefixed currency: $10,000 -> \$10,000
+    [[gv:s/\(\\\)\@<!\((\)\?\$\([0-9,.]\+\)\(\s\|\n\|)\)/\2\\$\3\4/ge]],
+  }
+  for _, s in ipairs(subs) do
+    pcall(vim.cmd, "silent norm! " .. s)
+  end
+  vim.cmd("redraw")
+end
+_G.SubstituteOddCharacters = substitute_odd_characters
+vim.cmd([[
+  function! SubstituteOddCharacters() abort
+    call v:lua.SubstituteOddCharacters()
+  endfunction
+]])
+
+-- SmartPaste: paste + reindent + whitespace clean + odd-char substitute
+local function smart_paste()
+  vim.cmd([[norm! ]] .. vim.api.nvim_replace_termcodes("<M-p>", true, false, true) .. [[`[v`]=]])
+  pcall(vim.cmd, "norm! gv:WhitespaceErase\r")
+  substitute_odd_characters()
+  vim.cmd("norm! gv=gvgw")
+  vim.cmd("norm! 0`>")
+end
+_G.SmartPaste = smart_paste
+vim.cmd([[
+  function! SmartPaste() abort
+    call v:lua.SmartPaste()
+  endfunction
+]])
+
+-- EliteModeToggle: disable LSP + Copilot for distraction-free mode
+local function elite_mode_toggle()
+  if vim.g.elite_mode then
+    pcall(vim.cmd, "LspStart")
+    pcall(vim.cmd, "Copilot enable")
+    vim.api.nvim_echo({ { "Elite mode off" } }, true, {})
+    vim.g.elite_mode = false
+  else
+    pcall(vim.cmd, "LspStop")
+    pcall(vim.cmd, "Copilot disable")
+    vim.api.nvim_echo({ { "Elite mode on" } }, true, {})
+    vim.g.elite_mode = true
+  end
+end
+_G.EliteModeToggle = elite_mode_toggle
+vim.cmd([[
+  function! EliteModeToggle() abort
+    call v:lua.EliteModeToggle()
+  endfunction
+]])
+
+-- ─── Toggle helpers (for SettingsToggleMappings) ─────────────────────────────
+
+local toggles = {}
+
+function toggles.conceal()
+  if vim.o.conceallevel ~= 0 then
+    vim.o.conceallevel = 0
+    vim.api.nvim_echo({ { "Conceallevel 0" } }, true, {})
+  else
+    vim.o.conceallevel = 3
+    vim.api.nvim_echo({ { "Conceallevel 3" } }, true, {})
+  end
+end
+
+function toggles.foldcolumn1()
+  if vim.o.foldcolumn == "0" then
+    vim.o.foldcolumn = "1"
+    vim.api.nvim_echo({ { "Foldcolumn 1" } }, true, {})
+  else
+    vim.o.foldcolumn = "0"
+    vim.api.nvim_echo({ { "Foldcolumn 0" } }, true, {})
+  end
+end
+
+function toggles.gutter()
+  if vim.o.signcolumn == "yes" then
+    vim.o.signcolumn = "no"
+    vim.api.nvim_echo({ { "Sign gutter deactivated" } }, true, {})
+  else
+    vim.o.signcolumn = "yes"
+    vim.api.nvim_echo({ { "Sign gutter activated" } }, true, {})
+  end
+end
+
+function toggles.virtualedit()
+  if vim.o.virtualedit == "" then
+    vim.o.virtualedit = "all"
+    vim.api.nvim_echo({ { "Virtualedit activated" } }, true, {})
+  else
+    vim.o.virtualedit = ""
+    vim.api.nvim_echo({ { "Virtualedit deactivated" } }, true, {})
+  end
+end
+
+function toggles.text_wrapping()
+  if not vim.o.formatoptions:find("t", 1, true) then
+    vim.opt.formatoptions:append("t")
+    vim.api.nvim_echo({ { "Text wrapping activated" } }, true, {})
+  else
+    vim.opt.formatoptions:remove("t")
+    vim.api.nvim_echo({ { "Text wrapping deactivated" } }, true, {})
+  end
+end
+
+function toggles.background()
+  local scheme = vim.g.colors_name
+  if not scheme then
+    vim.api.nvim_echo({ { "No colorscheme set" } }, true, {})
+    return
+  end
+  if scheme:match("dark") or scheme:match("light") then
+    local new = scheme:match("dark") and scheme:gsub("dark", "light") or scheme:gsub("light", "dark")
+    vim.cmd("colorscheme " .. new)
+  else
+    vim.o.background = vim.o.background == "dark" and "light" or "dark"
+    if not vim.g.colors_name then
+      vim.cmd("colorscheme " .. scheme)
+      vim.api.nvim_echo(
+        { { "The colorscheme `" .. scheme .. "` doesn't have background variants!" } },
+        true, {})
+    else
+      vim.api.nvim_echo({ { "Set colorscheme to " .. vim.o.background .. " mode" } }, true, {})
+    end
+  end
+end
+
+function toggles.format_on_save()
+  if vim.g.enable_format_on_save then
+    vim.g.enable_format_on_save = false
+    vim.api.nvim_echo({ { "Format on save deactivated" } }, true, {})
+  else
+    vim.g.enable_format_on_save = true
+    vim.api.nvim_echo({ { "Format on save activated" } }, true, {})
+  end
+end
+
+function toggles.low_performance_mode()
+  if vim.g.low_performance_mode then
+    vim.api.nvim_echo({ { "Low performance mode OFF. Restart nvim to take effect" } }, true, {})
+    vim.g.low_performance_mode = false
+    if _G.CacheToDataDir then _G.CacheToDataDir("low_performance_mode", false) end
+  else
+    vim.api.nvim_echo({ { "Low performance mode ON. Restart nvim to take effect" } }, true, {})
+    vim.g.low_performance_mode = true
+    if _G.CacheToDataDir then _G.CacheToDataDir("low_performance_mode", true) end
+  end
+end
+
+-- ─── SettingsToggleMappings ──────────────────────────────────────────────────
+
+do
+  local sopts = { silent = true }
+  keymap("n", "<LocalLeader>se", toggles.conceal, sopts)
+  keymap("n", "<LocalLeader>ss", toggles.format_on_save, sopts)
+  keymap("n", "<LocalLeader>sF", toggles.foldcolumn1, sopts)
+  keymap("n", "<LocalLeader>sg", toggles.gutter, sopts)
+  keymap("n", "<LocalLeader>sv", toggles.virtualedit, sopts)
+  keymap("n", "<LocalLeader>sW", toggles.text_wrapping, sopts)
+  keymap("n", "<LocalLeader>sb", toggles.background, sopts)
+  keymap("n", "<LocalLeader>sL", toggles.low_performance_mode)
+
+  -- Smart wrap toggle (breakindent + colorcolumn toggle together)
+  keymap("n", "<LocalLeader>sw", function()
+    local cc = vim.wo.colorcolumn == "" and tostring(vim.bo.textwidth) or ""
+    vim.cmd("setlocal wrap! breakindent! colorcolumn=" .. cc)
+  end)
+end
+
+-- ─── EliteModeToggle ─────────────────────────────────────────────────────────
+
+keymap("n", "<LocalLeader>sE", elite_mode_toggle)
