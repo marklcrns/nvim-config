@@ -37,6 +37,18 @@ if fn.has("mac") == 1 then
     paste = { ["+"] = "pbpaste", ["*"] = "pbpaste" },
     cache_enabled = 0,
   }
+-- OSC 52 clipboard for SSH / headless sessions (no X/Wayland display).
+-- Terminal (kitty/iTerm2/WezTerm/Alacritty/tmux) passes the copy sequence
+-- through to the local system clipboard. Paste via OSC 52 is rarely
+-- implemented; fall back to internal registers or tmux buffer.
+elseif (vim.env.SSH_TTY and vim.env.SSH_TTY ~= "")
+    or (vim.env.DISPLAY or "") == "" and (vim.env.WAYLAND_DISPLAY or "") == "" then
+  local osc52 = require("vim.ui.clipboard.osc52")
+  g.clipboard = {
+    name = "OSC 52",
+    copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+    paste = { ["+"] = osc52.paste("+"), ["*"] = osc52.paste("*") },
+  }
 end
 
 if fn.has("clipboard") == 1 then
