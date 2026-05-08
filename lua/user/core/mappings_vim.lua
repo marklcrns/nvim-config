@@ -507,3 +507,244 @@ do
   keymap({ "n", "x", "o" }, "<leader>eg", ":split %%", { remap = true })
   keymap({ "n", "x", "o" }, "<leader>et", ":tabe %%", { remap = true })
 end
+
+-- ─── YankPasteMappings ───────────────────────────────────────────────────────
+
+do
+  -- Duplicate line(s) and substitute (uses register "x)
+  -- Ref: https://stackoverflow.com/a/3806683/11850077
+  keymap("n", "<leader>rp", [["xyap}"xpV`[v`]:s//gcI<Left><Left><Left><Left>]])
+  keymap("v", "<Leader>rp", [["xy`]"xp`[v`]:s//gcI<Left><Left><Left><Left>]])
+
+  -- Yank + paste line under cursor
+  keymap("n", "<M-y>", [["xyy"xp$]])
+  keymap("i", "<M-y>", [[<Esc>"xyy"xpgi]])
+  keymap("i", "<C-y>", [[<Esc>"xyy"xpV:s//gI<bar>norm`.A<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]])
+  keymap("v", "<M-y>", [=["xy`]"xp`[V`]]=])
+
+  -- Auto-indent on paste via vim-dispatch-style autocmd → sets p/P buffer-local
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("user_auto_indent_paste", { clear = true }),
+    callback = function() vim.fn.AutoIndentPaste() end,
+  })
+end
+
+-- ─── EmacsLikeMappings ───────────────────────────────────────────────────────
+
+do
+  -- Insert-mode cursor navigation (emacs bindings)
+  keymap("i", "<C-a>", "<Home>")
+  keymap("i", "<C-e>", function() return fn.pumvisible() == 1 and "<C-e>" or "<End>" end, { expr = true })
+  keymap("i", "<C-p>", "<Up>")
+  keymap("i", "<C-n>", "<Down>")
+  keymap("i", "<C-b>", "<Left>")
+  keymap("i", "<C-f>", "<Right>")
+
+  -- Move between words
+  keymap("i", "<M-f>", "<Esc>lwi")
+  keymap("i", "<M-b>", "<Esc>bi")
+  keymap("i", "<M-S-f>", "<Esc>lWi")
+  keymap("i", "<M-S-b>", "<Esc>Bi")
+
+  -- Move between sentences
+  keymap("i", "<M-a>", "<Esc>`^(i")
+  keymap("i", "<M-e>", "<Esc>`^)i")
+
+  -- Commandline emacs bindings
+  keymap("c", "<C-p>", "<Up>")
+  keymap("c", "<C-n>", "<Down>")
+  keymap("c", "<C-b>", "<Left>")
+  keymap("c", "<C-f>", "<Right>")
+  -- NOTE: <C-a> <C-e> <C-d> <C-h> <Tab> <C-j> <C-k> in cmdline already set in Phase 2 CommandMappings
+  keymap("c", "<C-k>", "<C-f>D<C-c><C-c>:<Up>")
+end
+
+-- ─── QuickFixLocationListMappings ────────────────────────────────────────────
+
+do
+  local sopts = { silent = true }
+
+  -- Loclist nav
+  keymap("n", "[l", ":lprevious<CR>", sopts)
+  keymap("n", "]l", ":lnext<CR>", sopts)
+  keymap("n", "[L", ":lfirst<CR>", sopts)
+  keymap("n", "]L", ":llast<CR>", sopts)
+
+  -- Quickfix nav
+  keymap("n", "[q", ":cprevious<CR>", sopts)
+  keymap("n", "]q", ":cnext<CR>", sopts)
+  keymap("n", "[Q", ":cfirst<CR>", sopts)
+  keymap("n", "]Q", ":clast<CR>", sopts)
+
+  -- Toggle loclist/quickfix windows
+  keymap("n", "<LocalLeader>oll", ":call LocationlistToggle()<CR>", sopts)
+  keymap("n", "<LocalLeader>oqq", ":call QuickfixToggle()<CR>", sopts)
+
+  -- dd in quickfix window → :RemoveQFItem (defined as vimscript command)
+  vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("user_qf_dd", { clear = true }),
+    pattern = "qf",
+    callback = function()
+      vim.keymap.set("n", "dd", ":RemoveQFItem<CR>", { buffer = true })
+    end,
+  })
+end
+
+-- ─── RegisterMappings ────────────────────────────────────────────────────────
+-- Cycle through vim registers +abjkx.
+-- `+` = system clipboard, `x` = temp holder. `j` cycles forward, `k` cycles backward.
+
+do
+  -- Rotate forward: x=k, k=j, j=b, b=a, a=+, +=x
+  local cycle_fwd = [[:let @x=@k \| let @k=@j \| let @j=@b \| let @b=@a \| let @a=@+ \| let @+=@x \| reg +abjk<CR>]]
+  -- Rotate backward: x=+, +=a, a=b, b=j, j=k, k=x
+  local cycle_bwd = [[:let @x=@+ \| let @+=@a \| let @a=@b \| let @b=@j \| let @j=@k \| let @k=@x \| reg +abjk<CR>]]
+
+  keymap("n", "<Leader>rej", cycle_fwd)
+  keymap("n", "<Leader>rek", cycle_bwd)
+
+  -- Cycle then paste
+  keymap("n", "<Leader>reJ", cycle_fwd .. "p")
+  keymap("n", "<Leader>reK", cycle_bwd .. "p")
+  keymap("v", "<Leader>reJ", cycle_fwd .. "p")
+  keymap("v", "<Leader>reK", cycle_bwd .. "p")
+
+  -- Copy visual selection then cycle
+  keymap("v", "<Leader>rej", "y<ESC>" .. cycle_fwd)
+  keymap("v", "<Leader>rek", "y<ESC>" .. cycle_bwd)
+
+  -- Display registers
+  keymap("n", "<Leader>reg", ":reg +abjk<CR>")
+end
+
+-- ─── DiffMappings ────────────────────────────────────────────────────────────
+
+do
+  if vim.o.wildcharm == 0 then vim.o.wildcharm = vim.fn.char2nr("\t") end
+
+  keymap("n", "<Leader>tdv", [[:call feedkeys(':vert diffsplit<Space><Tab>','t')<CR>]])
+  keymap("n", "<Leader>tdh", [[:call feedkeys(':diffsplit<Space><Tab>','t')<CR>]])
+  keymap("n", "<Leader>tdV", [[:call feedkeys(':vert diffsplit $HOME/<Tab>','t')<CR>]])
+  keymap("n", "<Leader>tdH", [[:call feedkeys(':diffsplit $HOME/<Tab>','t')<CR>]])
+  keymap("n", "<Leader>tdo", ":DiffOrig<CR>", { silent = true, remap = true })
+
+  -- Diff mode help messages (shown once per diff mode activation)
+  local function print_merge_diff_mappings()
+    if vim.g.custom_diff_enable == 1 then return end
+
+    -- Diff-mode-only git mergetool shortcuts
+    local function diff_expr(cmd) return function() return vim.wo.diff and cmd or "" end end
+    keymap("n", "db", diff_expr(":diffget BASE<CR>"), { expr = true })
+    keymap("n", "dl", diff_expr(":diffget LOCAL<CR>"), { expr = true })
+    keymap("n", "dr", diff_expr(":diffget REMOTE<CR>"), { expr = true })
+    keymap("n", "cq", diff_expr(":cquit<CR>"), { expr = true })
+
+    local msgs = {
+      " ",
+      "dp :diffput",
+      "do :diffget",
+      "db :diffget BASE (git mergetool only)",
+      "dl :diffget LOCAL (git mergetool only)",
+      "dr :diffget REMOTE (git mergetool only)",
+      "cq :cquit",
+      "]c or ]x Next conflict",
+      "[c or [x Previous conflict",
+    }
+    for _, m in ipairs(msgs) do vim.api.nvim_echo({ { m } }, true, {}) end
+
+    if vim.g.custom_diff_enable == nil then
+      vim.api.nvim_echo(
+        { { "To view these again, type :messages or :lua _G.PrintMergeDiffMappings()", "WildMenu" } },
+        true, {})
+    end
+
+    vim.g.custom_diff_enable = 1
+  end
+  _G.PrintMergeDiffMappings = print_merge_diff_mappings
+
+  vim.api.nvim_create_autocmd("OptionSet", {
+    group = vim.api.nvim_create_augroup("user_diffmode", { clear = true }),
+    pattern = "diff",
+    callback = function()
+      if vim.v.option_old == 0 and vim.v.option_new ~= 0 then
+        print_merge_diff_mappings()
+      else
+        vim.g.custom_diff_enable = 0
+      end
+    end,
+  })
+end
+
+-- ─── FoldsMappings ───────────────────────────────────────────────────────────
+
+do
+  keymap("n", "<Leader>z", "za")
+  keymap("n", "<Leader>Z", "zMzvzt")
+  keymap("n", "zm", function() return vim.wo.foldlevel ~= 0 and "zM" or "zR" end, { expr = true })
+
+  -- NextClosedFold / NextOpenFold are vimscript globals in mappings.vim
+  keymap("n", "zj", function() vim.fn.NextClosedFold("j") end, { silent = true })
+  keymap("n", "zk", function() vim.fn.NextClosedFold("k") end, { silent = true })
+  keymap("n", "zn", function() vim.fn.NextOpenFold("j") end, { silent = true })
+  keymap("n", "zp", function() vim.fn.NextOpenFold("k") end, { silent = true })
+end
+
+-- ─── SessionMappings ─────────────────────────────────────────────────────────
+
+do
+  keymap("n", "<Leader>ss", ":<C-u>SeshSave<Space>")
+  keymap("n", "<Leader>sl", [[:<C-u>call feedkeys(':SeshLoad<Space><Tab>','t')<CR>]])
+  keymap("n", "<Leader>sD", [[:<C-u>call feedkeys(':SeshDelete<Space><Tab>','t')<CR>]])
+  keymap("n", "<Leader>sL", ":<C-u>SeshList<CR>")
+  keymap("n", "<Leader>sq", ":<C-u>SeshClose<CR>")
+  keymap("n", "<Leader>sd", ":<C-u>SeshDetach<CR>")
+end
+
+-- ─── TextManipulationMappings ────────────────────────────────────────────────
+
+do
+  -- whitespace.vim
+  keymap("n", "<Leader>r<Space>", ":<C-u>WhitespaceErase<CR>", { silent = true })
+  keymap("v", "<Leader>r<Space>", ":WhitespaceErase<CR>", { silent = true })
+
+  -- Change current word (repeatable with .)
+  keymap("n", "<leader>rw", "*``cgn")
+  keymap("n", "<leader>rW", "*``cgN")
+
+  -- Change selected word (repeatable with .)
+  keymap("v", "<leader>rn", [[y/\V<C-r>=escape(@", '/')<CR><CR>``cgn]], { expr = false })
+  keymap("v", "<leader>rN", [[y/\V<C-r>=escape(@", '/')<CR><CR>``cgN]], { expr = false })
+  keymap("n", "<leader>rn", [[yiw/\V<C-r>=escape(@", '/')<CR><CR>``cgn]], { expr = false })
+  keymap("n", "<leader>rN", [[yiw/\V<C-r>=escape(@", '/')<CR><CR>``cgN]], { expr = false })
+
+  -- Search and replace
+  keymap("n", "<Leader>rr", ":%s//gc<Left><Left><Left>")
+  keymap("n", "<Leader>rR", ":s//gc<Left><Left><Left>")
+  keymap("x", "<Leader>rr", ":s//gc<Left><Left><Left>")
+
+  -- Search and replace last visual selection
+  keymap("n", "<Leader>rF", [[:<C-u>call GetSelection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>]])
+  keymap("x", "<Leader>rF", [[:<C-u>call GetSelection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>]])
+
+  -- Enumerate lines
+  keymap("n", "<Leader>rL", [[:%s/^/\=line('.').". "<CR>]])
+  keymap("v", "<Leader>rl", [[:<C-U>let i=1 | '<,'>g/^/s//\=i.'. '/ | let i=i+1 | nohl<CR>]], { silent = true })
+
+  -- Indent whole buffer (preserving cursor + search)
+  keymap("n", "<Leader>ri", [[:call Preserve("normal gg=G")<CR>]], { silent = true })
+
+  -- Yank entire file without moving cursor
+  keymap("n", "<Leader>rya", ":%y<CR>")
+  -- Replace all with yanked text
+  keymap("n", "<Leader>ryp", [[ggVGP:echom "Replaced all with yanked texts!"<CR>]])
+
+  -- SmartPaste
+  keymap("n", "<Leader>rP", "<cmd>call SmartPaste()<CR>", { silent = true })
+
+  -- Spell: jump to previous misspelled word, auto-fix with first suggestion
+  keymap("i", "<C-s>", [[<Esc>:set spell<bar>norm i<C-g>u<Esc>[s"syiW1z="tyiW:let @l=line('.')<bar>let @c=virtcol('.')<CR>``a<C-g>u<Esc>:echo getreg('l') . ":" . getreg('c') . " spell fixed (" . getreg('s') . " -> " . getreg('t') . ")"<CR>la]])
+
+  -- Toggle spell
+  keymap("n", "<F11>", ":set spell!<CR>")
+  keymap("i", "<F11>", "<C-o>:set spell!<CR>")
+end

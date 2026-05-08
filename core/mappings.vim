@@ -15,7 +15,7 @@ function! AddSubtract(char, back)
 endfunction
 
 " Returns visually selected text
-function! s:get_selection(cmdtype)
+function! GetSelection(cmdtype)
   let temp = @s
   normal! gv"sy
   let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
@@ -191,223 +191,6 @@ endfunction
 
 
 
-" UTILITIES MAPPINGS -------------------- {{{
-function! YankPasteMappings()
-  " Duplicate line(s) and substitute. Use register "x to store the yanked line
-  " Ref: https://stackoverflow.com/a/3806683/11850077
-  nnoremap <leader>rp "xyap}"xpV`[v`]:s//gcI<Left><Left><Left><Left>
-  vnoremap <Leader>rp "xy`]"xp`[v`]:s//gcI<Left><Left><Left><Left>
-  " Yank and paste line under cursor to and from "x register
-  nnoremap <M-y> "xyy"xp$
-  inoremap <M-y> <Esc>"xyy"xpgi
-  inoremap <C-y> <Esc>"xyy"xpV:s//gI<bar>norm`.A
-        \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-  vnoremap <M-y> "xy`]"xp`[V`]
-  autocmd BufWritePre * call AutoIndentPaste()
-endfunction
-
-function! EmacsLikeMappings()
-  " Disabled because <C-d> replaces dedentation. Note <C-t> indents.
-  " imap <C-d> <Del>
-  " imap <C-h> <BS>
-  inoremap <C-a> <Home>
-  inoremap <expr><C-e> pumvisible() ? "\<C-e>" : "\<End>"
-  " Cursor navigation
-  inoremap <C-p> <Up>
-  inoremap <C-n> <Down>
-  inoremap <C-b> <Left>
-  inoremap <C-f> <Right>
-  " Move between words
-  inoremap <M-f> <Esc>lwi
-  inoremap <M-b> <Esc>bi
-  inoremap <M-S-f> <Esc>lWi
-  inoremap <M-S-b> <Esc>Bi
-  " Move between sentences
-  inoremap <M-a> <Esc>`^(i
-  inoremap <M-e> <Esc>`^)i
-  " command line mode
-  cnoremap <C-p> <Up>
-  cnoremap <C-n> <Down>
-  cnoremap <C-b> <Left>
-  cnoremap <C-f> <Right>
-  cnoremap <C-a> <Home>
-  cnoremap <C-e> <End>
-  cnoremap <C-d> <Del>
-  cnoremap <C-h> <BS>
-  cnoremap <C-k> <C-f>D<C-c><C-c>:<Up>
-endfunction
-
-function! QuickFixLocationListMappings()
-  " Move through the loclist
-  nnoremap <silent> [l :lprevious<CR>
-  nnoremap <silent> ]l :lnext<CR>
-  nnoremap <silent> [L :lfirst<CR>
-  nnoremap <silent> ]L :llast<CR>
-  " Move through the quickfix list
-  nnoremap <silent> [q :cprevious<CR>
-  nnoremap <silent> ]q :cnext<CR>
-  nnoremap <silent> [Q :cfirst<CR>
-  nnoremap <silent> ]Q :clast<CR>
-  nnoremap <silent> <LocalLeader>oll :call LocationlistToggle()<CR>
-  nnoremap <silent> <LocalLeader>oqq :call QuickfixToggle()<CR>
-  " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
-  autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
-endfunction
-
-function! RegisterMappings()
-  " Cycle through vim register +abjkx.
-  " Register `+` as the system clipboard and `x` as temp holder
-  " `j` cycles forward, `k` cycles backward
-  nnoremap <Leader>rej :let @x=@k \| let @k=@j \| let @j=@b \| let @b=@a \| let @a=@+ \| let @+=@x \| reg +abjk<CR>
-  nnoremap <Leader>rek :let @x=@+ \| let @+=@a \| let @a=@b \| let @b=@j \| let @j=@k \| let @k=@x \| reg +abjk<CR>
-  " Cycle through registers then paste register `+`
-  nnoremap <Leader>reJ :let @x=@k \| let @k=@j \| let @j=@b \| let @b=@a \| let @a=@+ \| let @+=@x \| reg +abjk<CR>p
-  nnoremap <Leader>reK :let @x=@+ \| let @+=@a \| let @a=@b \| let @b=@j \| let @j=@k \| let @k=@x \| reg +abjk<CR>p
-  vnoremap <Leader>reJ :let @x=@k \| let @k=@j \| let @j=@b \| let @b=@a \| let @a=@+ \| let @+=@x \| reg +abjk<CR>p
-  vnoremap <Leader>reK :let @x=@+ \| let @+=@a \| let @a=@b \| let @b=@j \| let @j=@k \| let @k=@x \| reg +abjk<CR>p
-  " Copy selected then cycle through registers
-  vnoremap <Leader>rej y<ESC>:let @x=@k \| let @k=@j \| let @j=@b \| let @b=@a \| let @a=@+ \| let @+=@x \| reg +abjk<CR>
-  vnoremap <Leader>rek y<ESC>:let @x=@+ \| let @+=@a \| let @a=@b \| let @b=@j \| let @j=@k \| let @k=@x \| reg +abjk<CR>
-  " Display register +abjk
-  nnoremap <Leader>reg :reg +abjk<CR>
-endfunction
-
-function! DiffMappings()
-  " Diff split with a file (auto wildcharm trigger)
-  if !&wildcharm | set wildcharm=<C-z> | endif
-  " exe 'nnoremap <Leader>tdv :vert diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
-  " exe 'nnoremap <Leader>tdh :diffsplit '.expand("%:p:h").'/'.nr2char(&wildcharm)
-  " exe 'nnoremap <Leader>tdV :vert diffsplit $HOME/'.nr2char(&wildcharm)
-  " exe 'nnoremap <Leader>tdH :diffsplit $HOME/'.nr2char(&wildcharm)
-  nnoremap <Leader>tdv :call feedkeys(':vert diffsplit<Space><Tab>','t')<CR>
-  nnoremap <Leader>tdh :call feedkeys(':diffsplit<Space><Tab>','t')<CR>
-  nnoremap <Leader>tdV :call feedkeys(':vert diffsplit $HOME/<Tab>','t')<CR>
-  nnoremap <Leader>tdH :call feedkeys(':diffsplit $HOME/<Tab>','t')<CR>
-  nmap <silent> <Leader>tdo :DiffOrig<CR>
-
-  function! PrintMergeDiffMappings()
-    " Only display once if g:custom_diff_enable = 0
-    if get(g:, 'custom_diff_enable', 0) ==# 1
-      return
-    endif
-
-    " Git mappings for mergetools (also works for vimdiff, i.e. LOCAL for
-    " original code, and REMOTE for new changes)
-    "
-    " Add the following to .gitconfig, then run `git mergetool nvimdiff <MERGE_CONFLICT_FILE>`
-    " [merge]
-    "   tool = nvimdiff
-    " [mergetool "nvimdiff"]
-    "   cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-    " [mergetool]
-    "   prompt = true
-
-    " Diff mappings only when in diff buffer
-    nnoremap <expr> db &diff ? ':diffget BASE<CR>'   : ''
-    nnoremap <expr> dl &diff ? ':diffget LOCAL<CR>'  : ''
-    nnoremap <expr> dr &diff ? ':diffget REMOTE<CR>' : ''
-    " Quit nvim with an error code. Useful when aborting git mergetool or git commit
-    nnoremap <expr> cq &diff ? ':cquit<CR>'          : ''
-
-    echom ' '
-    echom 'dp :diffput'
-    echom 'do :diffget'
-    echom 'db :diffget BASE (git mergetool only)'
-    echom 'dl :diffget LOCAL (git mergetool only)'
-    echom 'dr :diffget REMOTE (git mergetool only)'
-    echom 'cq :cquit'
-    echom ']c or ]x Next conflict'
-    echom '[c or [x Previous conflict'
-
-    " Only shows the first time this function is called
-    if !exists("g:custom_diff_enable")
-      echohl WildMenu | echom "To view these again, type :messages or :call PrintMergeDiffMappings()" | echohl NONE
-    endif
-
-    let g:custom_diff_enable = 1
-  endfunction
-
-  " Display diff mappings on diff mode
-  augroup user_diffmode
-    autocmd!
-    autocmd OptionSet diff if v:option_old == 0 && v:option_new != 0 | call PrintMergeDiffMappings() | else | let g:custom_diff_enable = 0 | endif
-  augroup END
-endfunction
-
-function! FoldsMappings()
-  " Toggle fold
-  nnoremap <Leader>z za
-  " Focus the current fold by closing all others
-  nnoremap <Leader>Z zMzvzt
-  " Toggle fold all
-  nnoremap <expr> zm &foldlevel ? 'zM' :'zR'
-  " Jumping to next closed fold
-  nnoremap <silent> zj :<C-u>call <SID>next_closed_fold('j')<cr>
-  nnoremap <silent> zk :<C-u>call <SID>next_closed_fold('k')<cr>
-  nnoremap <silent> zn :<C-u>call <SID>next_open_fold('j')<cr>
-  nnoremap <silent> zp :<C-u>call <SID>next_open_fold('k')<cr>
-endfunction
-
-function! SessionMappings()
-  nnoremap <Leader>ss :<C-u>SeshSave<Space>
-  nnoremap <Leader>sl :<C-u>call feedkeys(':SeshLoad<Space><Tab>','t')<CR>
-  nnoremap <Leader>sD :<C-u>call feedkeys(':SeshDelete<Space><Tab>','t')<CR>
-  nnoremap <Leader>sL :<C-u>SeshList<CR>
-  nnoremap <Leader>sq :<C-u>SeshClose<CR>
-  nnoremap <Leader>sd :<C-u>SeshDetach<CR>
-endfunction
-" }}} UTILITIES MAPPINGS
-
-" TEXT MANIPULATION MAPPINGS -------------------- {{{
-function! TextManipulationMappings()
-  " whitespace.vim
-  nnoremap <silent><Leader>r<Space> :<C-u>WhitespaceErase<CR>
-  vnoremap <silent><Leader>r<Space> :WhitespaceErase<CR>
-  " Change current word in a repeatable manner (repeatable with ".")
-  nnoremap <leader>rw *``cgn
-  nnoremap <leader>rW *``cgN
-
-  " Change selected word in a repeatable manner
-  vnoremap <expr> <leader>rn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
-  vnoremap <expr> <leader>rN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
-  nnoremap <expr> <leader>rn "yiw/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
-  nnoremap <expr> <leader>rN "yiw/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
-
-  " Search and replace whole buffer
-  nnoremap <Leader>rr :%s//gc<Left><Left><Left>
-  " Search and replace current line only
-  nnoremap <Leader>rR :s//gc<Left><Left><Left>
-  " Search and replace within visually selected only
-  xnoremap <Leader>rr :s//gc<Left><Left><Left>
-  " Search and replace last selected with confirmation
-  nnoremap <Leader>rF :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
-  xnoremap <Leader>rF :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
-  " To enumerate lines with macro: https://stackoverflow.com/a/32053439/11850077
-  " To enumerate lines with few commands: https://stackoverflow.com/a/48408001/11850077
-  " Ref: https://vi.stackexchange.com/a/690
-  nnoremap <Leader>rL :%s/^/\=line('.').". "<CR>
-  " Ref: https://stackoverflow.com/a/51291652
-  vnoremap <silent> <Leader>rl :<C-U>let i=1 \| '<,'>g/^/s//\=i.'. '/ \| let i=i+1 \| nohl<CR>
-  " Fix indentation of whole buffer
-  nnoremap <silent> <Leader>ri :call Preserve("normal gg=G")<CR>
-  " Yank everything from current file without moving cursor
-  nnoremap <Leader>rya :%y<CR>
-  " Replace all with yanked texts
-  nnoremap <Leader>ryp ggVGP:echom "Replaced all with yanked texts!"<CR>
-
-  " SmartPaste by replacing odd characters and autoformatting
-  nnoremap <silent> <Leader>rP <cmd>call SmartPaste()<CR>
-  " imap <expr><silent> <M-p> pumvisible() ? "\<C-e>\<Esc>:call SmartPaste()\<CR>" : "\<Esc>:call SmartPaste()\<CR>"
-
-  " Jumps to previously misspelled word and fixes it with the first in the suggestion
-  " Update: also echo changes and line and col number
-  " Ref: https://castle.Dev/post/lecture-notes-1/
-  inoremap <C-s> <Esc>:set spell<bar>norm i<C-g>u<Esc>[s"syiW1z="tyiW:let @l=line('.')<bar>let @c=virtcol('.')<CR>``a<C-g>u<Esc>:echo getreg('l') . ":" . getreg('c') . " spell fixed (" . getreg('s') . " -> " . getreg('t') . ")"<CR>la
-  " https://jdhao.github.io/2019/04/29/nvim_spell_check/#:~:text=Correct%20spell%20errors,-In%20insert%20mode&text=To%20correct%20this%20error%2C%20press,then%20choose%20the%20correct%20one.
-  nnoremap <F11> :set spell!<CR>
-  inoremap <F11> <C-o>:set spell!<CR>
-endfunction
-" }}} TEXT MANIPULATION MAPPINGS
 
 " SETTINGS TOGGLE MAPPINGS -------------------- {{{
 function! SettingsToggleMappings()
@@ -438,7 +221,7 @@ nnoremap <LocalLeader>sE <cmd>call EliteModeToggle()<CR>
 " nnoremap <Leader>;m :cd %:h<bar>execute "e " . expand("%:p:h") . '/' . getreg('+') . '.md'<bar>echo 'Opened ' . expand("%:p")<CR>
 
 " Ref: https://stackoverflow.com/a/9407015/11850077
-function! s:next_closed_fold(direction)
+function! NextClosedFold(direction)
   let cmd = 'norm!z' . a:direction
   let view = winsaveview()
   let [l0, l, open] = [0, view.lnum, 1]
@@ -453,7 +236,7 @@ function! s:next_closed_fold(direction)
 endfunction
 
 " Ref: https://vim.fandom.com/wiki/Navigate_to_the_next_open_fold
-function! s:next_open_fold(direction)
+function! NextOpenFold(direction)
   if (a:direction == "j")
     normal zj
     let start = line('.')
@@ -573,7 +356,7 @@ function! s:toggle_format_on_save()
   endif
 endfunction
 
-function! s:substitute_odd_characters()
+function! SubstituteOddCharacters()
   " `e` flag silence errors, see `s_flags'
   " TODO: turn into independent function with visual and normal mode support,
   " and accepts arbitrary args for odd chars
@@ -615,7 +398,7 @@ function! SmartPaste()
   " Remove whitespace
   exe "norm! gv:WhitespaceErase\<CR>"
   " Substitute odd chars
-  call s:substitute_odd_characters()
+  call SubstituteOddCharacters()
   " Reindent and format lines
   exe "norm! gv=gvgw"
   " Go to the end of the last selected texts
@@ -669,15 +452,8 @@ endfunction
 " Phase 1 + Phase 2 calls are now in lua/user/core/mappings_vim.lua
 " (Phase 2: FilePathMappings, FileManagementMappings, WindowsManagementMappings,
 "           UtilityMappings, CommandMappings)
-call YankPasteMappings()
-call EmacsLikeMappings()
-call QuickFixLocationListMappings()
-call RegisterMappings()
-call DiffMappings()
-call FoldsMappings()
-call SessionMappings()
-" Text Manipulation Mappings
-call TextManipulationMappings()
-" Settings Toggle Mappings
+" Phase 3 calls (YankPaste, EmacsLike, QuickFixLocationList, Register, Diff,
+" Folds, Session, TextManipulation) are now in lua/user/core/mappings_vim.lua
+
 call SettingsToggleMappings()
 
