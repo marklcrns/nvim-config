@@ -380,11 +380,7 @@ require("lazy").setup({
   {
     "kana/vim-niceblock",
     cond = not sys.is_firenvim(),
-    keys = {
-      { "I",  mode = "x", desc = "niceblock I" },
-      { "gI", mode = "x", desc = "niceblock gI" },
-      { "A",  mode = "x", desc = "niceblock A" },
-    },
+    event = "VimEnter",
     init = function()
       vim.g.niceblock_use_default_mappings = 0
       utils.load_mappings("niceblock")
