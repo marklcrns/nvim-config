@@ -74,10 +74,10 @@ vim.lsp.config("lua_ls", Config.lsp.create_config({
         enable = true,
         await = true,
         arrayIndex = "Disable",
-        paramName = "Disable",
-        paramType = false,
+        paramName = "All",
+        paramType = true,
         semiColon = "Disable",
-        setType = false,
+        setType = true,
       },
       telemetry = {
         enable = false,
