@@ -239,7 +239,7 @@ require("lazy").setup({
       utils.load_mappings("smartq")
       conf("vim-smartq")()
     end,
-    keys = { "q" },
+    event = "VimEnter",
     cmd = { "SmartQSave", "SmartQCloseSplits" },
   },
   {
