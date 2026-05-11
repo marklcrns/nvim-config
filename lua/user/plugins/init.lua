@@ -352,7 +352,7 @@ require("lazy").setup({
   {
     "Wansmer/treesj",
     init = utils.load_mappings("treesj"),
-    keys = { "<leader>cs" },
+    keys = { { "<leader>cs", desc = "split/join code" } },
     config = conf("treesj"),
   },
   {
@@ -539,7 +539,10 @@ require("lazy").setup({
   {
     "gorbit99/codewindow.nvim",
     cond = treesitter_enabled and not vim.g.low_performance_mode and not sys.is_firenvim(),
-    keys = { "<leader>imm", "<leader>imf" },
+    keys = {
+      { "<leader>imm", desc = "toggle minimap" },
+      { "<leader>imf", desc = "toggle minimap focus" },
+    },
     config = conf("codewindow", "codewindow"),
   },
   {

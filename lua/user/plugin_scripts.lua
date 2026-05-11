@@ -139,8 +139,8 @@ _G.GrepOperator = grep_operator
 vim.keymap.set("n", "<leader>G", function()
   vim.o.operatorfunc = "v:lua.GrepOperator"
   return "g@"
-end, { expr = true })
-vim.keymap.set("v", "<leader>G", function() grep_operator(fn.visualmode()) end)
+end, { expr = true, desc = "grep operator" })
+vim.keymap.set("v", "<leader>G", function() grep_operator(fn.visualmode()) end, { desc = "grep operator" })
 
 -- ═══════════════════════════════════════════════════════════════════════════
 -- 4. jumpfile — JumpBuffer() for jumplist buffer-level navigation
