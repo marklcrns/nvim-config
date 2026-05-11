@@ -15,7 +15,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
--- require("user.settings")
 require("user.autocommands")
 
 -- General mappings
