@@ -109,10 +109,17 @@ return function()
     },
   })
 
-  local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
+  -- Module renamed in newer versions: try new name first, fall back to old
+  local ok, ts_repeat_move = pcall(require, "nvim-treesitter-textobjects.repeatable_move")
+  if not ok then
+    ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+  end
 
   -- Compat shim: make_repeatable_move_pair was removed in newer versions
   local function make_repeatable_move_pair(forward_fn, backward_fn)
+    if ts_repeat_move.make_repeatable_move_pair then
+      return ts_repeat_move.make_repeatable_move_pair(forward_fn, backward_fn)
+    end
     local move = ts_repeat_move.make_repeatable_move(function(opts)
       if opts.forward then forward_fn() else backward_fn() end
     end)
