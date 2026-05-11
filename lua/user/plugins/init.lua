@@ -338,6 +338,21 @@ require("lazy").setup({
     init = utils.load_mappings("mini_files"),
     config = conf("mini-files"),
   },
+  {
+    "stevearc/oil.nvim",
+    cmd = "Oil",
+    keys = { { "-", "<cmd>Oil<CR>", desc = "open parent dir (oil)" } },
+    opts = {
+      default_file_explorer = false, -- keep neo-tree as default
+      view_options = { show_hidden = true },
+      keymaps = {
+        ["q"] = "actions.close",
+        ["<C-h>"] = false, -- don't override window nav
+        ["<C-l>"] = false,
+      },
+    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
   -- ─── CODING HELPER ────────────────────────────────────────────────────────
   {
     "kylechui/nvim-surround",
@@ -706,6 +721,20 @@ require("lazy").setup({
     init = utils.load_mappings("inc_rename"),
     cmd = "IncRename",
     config = true,
+  },
+  {
+    "chrisgrieser/nvim-lsp-endhints",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    event = "LspAttach",
+    opts = {},  -- uses defaults: show inlay hints at end of line
+  },
+  {
+    "Wansmer/symbol-usage.nvim",
+    cond = lsp_enabled and not sys.is_firenvim(),
+    event = "LspAttach",
+    opts = {
+      vt_position = "above",
+    },
   },
   {
     "pmizio/typescript-tools.nvim",
