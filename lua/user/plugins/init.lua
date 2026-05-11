@@ -772,6 +772,42 @@ require("lazy").setup({
     event = "InsertEnter",
     config = conf("copilot"),
   },
+  {
+    "olimorris/codecompanion.nvim",
+    cond = vim.g.ai_enabled,
+    cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
+    keys = {
+      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", mode = { "n", "v" }, desc = "toggle AI chat" },
+      { "<leader>aa", "<cmd>CodeCompanionActions<CR>", mode = { "n", "v" }, desc = "AI actions" },
+      { "<leader>ai", "<cmd>CodeCompanion<CR>", mode = "n", desc = "AI inline prompt" },
+      { "<leader>ai", "<cmd>CodeCompanion<CR>", mode = "v", desc = "AI inline (selection)" },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      adapters = {
+        -- Uses Anthropic by default. Set ANTHROPIC_API_KEY env var.
+        -- For Amazon Bedrock, swap to a custom adapter.
+        anthropic = function()
+          return require("codecompanion.adapters").extend("anthropic", {
+            schema = {
+              model = { default = "claude-sonnet-4-20250514" },
+            },
+          })
+        end,
+      },
+      strategies = {
+        chat = { adapter = "anthropic" },
+        inline = { adapter = "anthropic" },
+        cmd = { adapter = "anthropic" },
+      },
+      display = {
+        chat = { window = { layout = "vertical", width = 0.4 } },
+      },
+    },
+  },
 
   -- ─── NOTETAKING ───────────────────────────────────────────────────────────
   -- Disable entire section: let g:notetaking_enabled = v:false
