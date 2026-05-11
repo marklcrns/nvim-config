@@ -1416,4 +1416,806 @@ M.zen_mode = {
   },
 }
 
+--------------------------------------------------------------------------------
+-- BASIC / CORE MAPPINGS (merged from core/mappings_vim.lua)
+-- Helpers, leaders, and autocmds live in lua/user/core/mappings_helpers.lua
+--------------------------------------------------------------------------------
+
+M.exit = {
+  n = {
+    ["Q"] = { "q", "start macro record", opts = default_opts },
+    ["<Leader>q"] = { ":q!<CR>", "force quit", opts = { silent = true } },
+    ["<Leader>Q"] = { ":qa!<CR>", "force quit all", opts = { silent = true } },
+    ["<leader>fs"] = { ":CustomBufferWrite<CR>", "save buffer", opts = { silent = true } },
+    ["<leader>fa"] = { ":CustomBufferWrite a<CR>", "save all buffers", opts = { silent = true } },
+    ["<leader>fw"] = { ":bw<CR>", "wipe buffer", opts = { silent = true } },
+    ["<leader>fQ"] = { ":confirm wqa!<CR>", "save all + quit" },
+  },
+  x = {
+    ["<Leader>q"] = { "<Esc>:q!<CR>", "force quit", opts = { silent = true } },
+    ["<Leader>Q"] = { "<Esc>:qa!<CR>", "force quit all", opts = { silent = true } },
+    ["<leader>fs"] = { "<Esc>:CustomBufferWrite<CR>", "save buffer", opts = { silent = true } },
+    ["<leader>fa"] = { "<Esc>:CustomBufferWrite a<CR>", "save all buffers", opts = { silent = true } },
+    ["<leader>fw"] = { ":<Esc>bw<CR>", "wipe buffer", opts = { silent = true } },
+    ["<leader>fQ"] = { ":<Esc>confirm wqa!<CR>", "save all + quit" },
+  },
+}
+
+M.operator = {
+  o = {
+    ["in("] = { ":<C-u>normal! f(vi(<CR>", "inside next ()", opts = default_opts },
+    ["il("] = { ":<C-u>normal! F)vi(<CR>", "inside last ()", opts = default_opts },
+    ["an("] = { ":<C-u>normal! f(va(<CR>", "around next ()", opts = default_opts },
+    ["al("] = { ":<C-u>normal! F)va(<CR>", "around last ()", opts = default_opts },
+  },
+}
+
+M.emacs_like = {
+  i = {
+    ["<C-a>"] = { "<Home>", "cursor home", opts = { silent = true } },
+    ["<C-e>"] = {
+      function() return vim.fn.pumvisible() == 1 and "<C-e>" or "<End>" end,
+      "cursor end / dismiss popup",
+      opts = { expr = true, silent = true },
+    },
+    ["<C-p>"] = { "<Up>", "cursor up", opts = { silent = true } },
+    ["<C-n>"] = { "<Down>", "cursor down", opts = { silent = true } },
+    ["<C-b>"] = { "<Left>", "cursor left", opts = { silent = true } },
+    ["<C-f>"] = { "<Right>", "cursor right", opts = { silent = true } },
+    ["<M-f>"] = { "<Esc>lwi", "next word", opts = { silent = true } },
+    ["<M-b>"] = { "<Esc>bi", "prev word", opts = { silent = true } },
+    ["<M-S-f>"] = { "<Esc>lWi", "next WORD", opts = { silent = true } },
+    ["<M-S-b>"] = { "<Esc>Bi", "prev WORD", opts = { silent = true } },
+    ["<M-a>"] = { "<Esc>`^(i", "prev sentence", opts = { silent = true } },
+    ["<M-e>"] = { "<Esc>`^)i", "next sentence", opts = { silent = true } },
+  },
+  c = {
+    ["<C-p>"] = { "<Up>", "history back", opts = default_opts },
+    ["<C-n>"] = { "<Down>", "history forward", opts = default_opts },
+    ["<C-b>"] = { "<Left>", "cursor left", opts = default_opts },
+    ["<C-f>"] = { "<Right>", "cursor right", opts = default_opts },
+    ["<C-k>"] = { "<C-f>D<C-c><C-c>:<Up>", "cut to eol (history back)", opts = default_opts },
+  },
+}
+
+M.session = {
+  n = {
+    ["<Leader>ss"] = { ":<C-u>SeshSave<Space>", "session save" },
+    ["<Leader>sl"] = { [[:<C-u>call feedkeys(':SeshLoad<Space><Tab>','t')<CR>]], "session load" },
+    ["<Leader>sD"] = { [[:<C-u>call feedkeys(':SeshDelete<Space><Tab>','t')<CR>]], "session delete" },
+    ["<Leader>sL"] = { ":<C-u>SeshList<CR>", "session list" },
+    ["<Leader>sq"] = { ":<C-u>SeshClose<CR>", "session close" },
+    ["<Leader>sd"] = { ":<C-u>SeshDetach<CR>", "session detach" },
+  },
+}
+
+M.folds = {
+  n = {
+    ["<Leader>z"] = { "za", "toggle fold", opts = default_opts },
+    ["<Leader>Z"] = { "zMzvzt", "focus current fold", opts = default_opts },
+    ["zm"] = {
+      function() return vim.wo.foldlevel ~= 0 and "zM" or "zR" end,
+      "toggle fold all",
+      opts = { expr = true },
+    },
+    ["zj"] = { function() vim.fn.NextClosedFold("j") end, "next closed fold", opts = { silent = true } },
+    ["zk"] = { function() vim.fn.NextClosedFold("k") end, "prev closed fold", opts = { silent = true } },
+    ["zn"] = { function() vim.fn.NextOpenFold("j") end, "next open fold", opts = { silent = true } },
+    ["zp"] = { function() vim.fn.NextOpenFold("k") end, "prev open fold", opts = { silent = true } },
+  },
+}
+
+M.improved_default = {
+  n = {
+    ["@"] = {
+      function() _G.LazyNorm(vim.v.count1 .. "@" .. vim.fn.getcharstr()) end,
+      "replay macro (lazyredraw)",
+    },
+    ["@@"] = {
+      function() _G.LazyNorm(vim.v.count1 .. "@@") end,
+      "replay last macro (lazyredraw)",
+    },
+    ["Y"] = { "y$", "yank to end of line" },
+    ["J"] = {
+      function()
+        local p = vim.fn.getpos(".")
+        vim.cmd("join")
+        vim.fn.setpos(".", p)
+      end,
+      "join lines (keep cursor)",
+      opts = { silent = true },
+    },
+    ["zl"] = { "z4l", "scroll right 4", opts = default_opts },
+    ["zh"] = { "z4h", "scroll left 4", opts = default_opts },
+    ["go"] = { ":vertical wincmd f<CR>", "open file under cursor (vsplit)", opts = default_opts },
+    ["}"] = {
+      function() vim.cmd("keepjumps norm! " .. vim.v.count1 .. "}") end,
+      "paragraph down (keep jumps)",
+      opts = { silent = true },
+    },
+    ["{"] = {
+      function() vim.cmd("keepjumps norm! " .. vim.v.count1 .. "{") end,
+      "paragraph up (keep jumps)",
+      opts = { silent = true },
+    },
+    ["<C-S-a>"] = {
+      function()
+        _G.AddSubtract(vim.api.nvim_replace_termcodes("<C-a>", true, false, true), "b")
+      end,
+      "increment previous number",
+      opts = { silent = true },
+    },
+    ["<C-S-x>"] = {
+      function()
+        _G.AddSubtract(vim.api.nvim_replace_termcodes("<C-x>", true, false, true), "b")
+      end,
+      "decrement previous number",
+      opts = { silent = true },
+    },
+  },
+  v = {
+    ["y"] = { "ygv<Esc>", "yank (keep selection)" },
+    ["j"] = {
+      function() return vim.v.count == 0 and "gj" or "j" end,
+      "down (respect wrap)",
+      opts = { silent = true, expr = true },
+    },
+    ["k"] = {
+      function() return vim.v.count == 0 and "gk" or "k" end,
+      "up (respect wrap)",
+      opts = { silent = true, expr = true },
+    },
+    ["<C-f>"] = {
+      function()
+        local n = math.max(vim.fn.winheight(0) - 2, 1)
+        local tail = (vim.fn.line("w$") >= vim.fn.line("$")) and "L" or "M"
+        return n .. "<C-d>" .. tail
+      end,
+      "smart page down",
+      opts = { expr = true },
+    },
+    ["<C-b>"] = {
+      function()
+        local n = math.max(vim.fn.winheight(0) - 2, 1)
+        local tail = (vim.fn.line("w0") <= 1) and "H" or "M"
+        return n .. "<C-u>" .. tail
+      end,
+      "smart page up",
+      opts = { expr = true },
+    },
+    ["<C-e>"] = {
+      function() return (vim.fn.line("w$") >= vim.fn.line("$")) and "j" or "3<C-e>" end,
+      "scroll down 3",
+      opts = { expr = true },
+    },
+    ["<C-y>"] = {
+      function() return (vim.fn.line("w0") <= 1) and "k" or "3<C-y>" end,
+      "scroll up 3",
+      opts = { expr = true },
+    },
+  },
+  x = {
+    ["p"] = { "pgvy", "paste (keep register)" },
+    ["x"] = { [["_x]], "delete (blackhole)" },
+    ["X"] = { [["_X]], "delete (blackhole)" },
+    ["c"] = { [["_c]], "change (blackhole)" },
+    ["C"] = { [["_C]], "change (blackhole)" },
+    ["s"] = { [["_s]], "substitute (blackhole)" },
+    ["S"] = { [["_S]], "substitute (blackhole)" },
+    ["<"] = { "<gv", "indent left (keep selection)" },
+    [">"] = { ">gv|", "indent right (keep selection)" },
+    ["j"] = {
+      function() return vim.v.count == 0 and "gj" or "j" end,
+      "down (respect wrap)",
+      opts = { silent = true, expr = true },
+    },
+    ["k"] = {
+      function() return vim.v.count == 0 and "gk" or "k" end,
+      "up (respect wrap)",
+      opts = { silent = true, expr = true },
+    },
+  },
+  -- n-mode blackhole variants for x/X/c/C/s/S
+  -- put in a nested table so load_mappings iterates both modes
+  i = {
+    ["<M-o>"] = {
+      function() return (vim.fn.pumvisible() == 1) and "<C-e><C-o>o" or "<C-o>o" end,
+      "close popup + new line below",
+      opts = { expr = true },
+    },
+    ["<M-O>"] = {
+      function() return (vim.fn.pumvisible() == 1) and "<C-e><C-O>O" or "<C-O>O" end,
+      "close popup + new line above",
+      opts = { expr = true },
+    },
+  },
+}
+
+-- Separate section so n-mode blackhole x/X/c/C/s/S + j/k don't conflict with
+-- hlslens/dial mappings already defined in M.general / M.hlslens
+M.improved_default_n = {
+  n = {
+    ["x"] = { [["_x]], "delete char (blackhole)" },
+    ["X"] = { [["_X]], "delete char back (blackhole)" },
+    ["c"] = { [["_c]], "change (blackhole)", opts = { nowait = false } },
+    ["C"] = { [["_C]], "change to eol (blackhole)" },
+    ["s"] = { [["_s]], "substitute (blackhole)" },
+    ["S"] = { [["_S]], "substitute line (blackhole)" },
+    ["j"] = {
+      function() return vim.v.count == 0 and "gj" or "j" end,
+      "down (respect wrap)",
+      opts = { silent = true, expr = true },
+    },
+    ["k"] = {
+      function() return vim.v.count == 0 and "gk" or "k" end,
+      "up (respect wrap)",
+      opts = { silent = true, expr = true },
+    },
+    ["<C-f>"] = {
+      function()
+        local n = math.max(vim.fn.winheight(0) - 2, 1)
+        local tail = (vim.fn.line("w$") >= vim.fn.line("$")) and "L" or "M"
+        return n .. "<C-d>" .. tail
+      end,
+      "smart page down",
+      opts = { expr = true },
+    },
+    ["<C-b>"] = {
+      function()
+        local n = math.max(vim.fn.winheight(0) - 2, 1)
+        local tail = (vim.fn.line("w0") <= 1) and "H" or "M"
+        return n .. "<C-u>" .. tail
+      end,
+      "smart page up",
+      opts = { expr = true },
+    },
+    ["<C-e>"] = {
+      function() return (vim.fn.line("w$") >= vim.fn.line("$")) and "j" or "3<C-e>" end,
+      "scroll down 3",
+      opts = { expr = true },
+    },
+    ["<C-y>"] = {
+      function() return (vim.fn.line("w0") <= 1) and "k" or "3<C-y>" end,
+      "scroll up 3",
+      opts = { expr = true },
+    },
+  },
+}
+
+M.extended_basic = {
+  t = {
+    ["<Esc>"] = { [[<C-\><C-n>]], "exit terminal mode" },
+  },
+  i = {
+    ["fd"] = { "<Esc>`^", "escape", opts = { remap = true } },
+    ["kj"] = { "<Esc>`^", "escape", opts = { remap = true } },
+    ["<S-Tab>"] = { "<C-v><Tab>", "insert literal tab" },
+    ["<S-CR>"] = { "<C-o>o", "new line below" },
+    ["<C-j>"] = {
+      function() return vim.fn.pumvisible() == 1 and "<Down>" or "<C-j>" end,
+      "popup next / literal <C-j>",
+      opts = { expr = true },
+    },
+    ["<C-k>"] = {
+      function() return vim.fn.pumvisible() == 1 and "<Up>" or "<C-k>" end,
+      "popup prev / literal <C-k>",
+      opts = { expr = true },
+    },
+  },
+  v = {
+    ["fd"] = { "<Esc>`<", "escape to selection start" },
+    ["df"] = { "<Esc>`>", "escape to selection end" },
+    ["<M-c>"] = { function() _G.VShiftCharAscii(1) end, "shift selection ASCII +1", opts = { silent = true } },
+    ["<M-S-c>"] = { function() _G.VShiftCharAscii(-1) end, "shift selection ASCII -1", opts = { silent = true } },
+  },
+  c = {
+    ["<C-[>"] = { "<C-c>", "cancel cmdline" },
+    ["<C-g>"] = { "<C-c>", "cancel cmdline" },
+  },
+  n = {
+    ["gh"] = { "g^", "go to visual line start" },
+    ["gl"] = { "g$", "go to visual line end" },
+    ["g<C-i>"] = { ":<C-u>call JumpBuffer(-1)<CR>", "jump buffer back" },
+    ["g<C-o>"] = { ":<C-u>call JumpBuffer(1)<CR>", "jump buffer forward" },
+    ["gp"] = {
+      function() return "`[" .. vim.fn.getregtype():sub(1, 1) .. "`]" end,
+      "select last paste",
+      opts = { expr = true },
+    },
+    ["<C-o>"] = { "<C-o>zz", "jump back (centered)" },
+    ["<C-i>"] = { "<C-i>zz", "jump forward (centered)" },
+    ["<M-c>"] = {
+      function()
+        local line = vim.fn.getline(".")
+        local col = vim.fn.col(".")
+        local char = line:sub(col, col)
+        if char ~= "" then _G.ShiftCharAscii(char, 1) end
+      end,
+      "shift char ASCII +1",
+      opts = { silent = true },
+    },
+    ["<M-S-c>"] = {
+      function()
+        local line = vim.fn.getline(".")
+        local col = vim.fn.col(".")
+        local char = line:sub(col, col)
+        if char ~= "" then _G.ShiftCharAscii(char, -1) end
+      end,
+      "shift char ASCII -1",
+      opts = { silent = true },
+    },
+  },
+}
+
+M.file_path = {
+  n = {
+    ["<Leader>fye"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked absolute file path without extension"))
+        vim.fn.setreg("+", vim.fn.expand("%:p:r"))
+      end,
+      "yank absolute path (no ext)",
+    },
+    ["<Leader>fyE"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked relative file path without extension"))
+        vim.fn.setreg("+", vim.fn.expand("%:r"))
+      end,
+      "yank relative path (no ext)",
+    },
+    ["<Leader>fyp"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked absolute file path"))
+        vim.fn.setreg("+", vim.fn.expand("%:p"))
+      end,
+      "yank absolute path",
+    },
+    ["<Leader>fyP"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked relative file path"))
+        vim.fn.setreg("+", vim.fn.expand("%:~:."))
+      end,
+      "yank relative path",
+    },
+    ["<Leader>fyf"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked file name without extension"))
+        vim.fn.setreg("+", vim.fn.expand("%:t:r"))
+      end,
+      "yank filename (no ext)",
+    },
+    ["<Leader>fyF"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked file name"))
+        vim.fn.setreg("+", vim.fn.expand("%:t"))
+      end,
+      "yank filename",
+    },
+    ["<Leader>fyd"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked absolute directory path"))
+        vim.fn.setreg("+", vim.fn.expand("%:p:h"))
+      end,
+      "yank absolute dir",
+    },
+    ["<Leader>fyD"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked relative directory path"))
+        vim.fn.setreg("+", vim.fn.expand("%:p:h:t"))
+      end,
+      "yank relative dir",
+    },
+    ["<Leader>fyx"] = {
+      function()
+        vim.cmd.echo(vim.fn.string("Yanked file extension"))
+        vim.fn.setreg("+", vim.fn.expand("%:e"))
+      end,
+      "yank file extension",
+    },
+    ["<Leader>fyo"] = {
+      function()
+        vim.cmd("e " .. vim.fn.getreg("+"))
+        vim.cmd.echo(vim.fn.string("Opened " .. vim.fn.expand("%:p")))
+      end,
+      "open path from clipboard",
+    },
+    ["gyp"] = {
+      function()
+        local v = vim.fn.expand("%")
+        vim.fn.setreg("+", v); vim.fn.setreg("0", v)
+      end,
+      "yank relative path (to + and 0)",
+    },
+    ["gyP"] = {
+      function()
+        local v = vim.fn.expand("%:p")
+        vim.fn.setreg("+", v); vim.fn.setreg("0", v)
+      end,
+      "yank absolute path (to + and 0)",
+    },
+    ["gyl"] = {
+      function()
+        local v = string.format("%s:%d", vim.fn.expand("%"), vim.fn.getcurpos()[2])
+        vim.fn.setreg("+", v); vim.fn.setreg("0", v)
+      end,
+      "yank relative path + line",
+    },
+    ["gyL"] = {
+      function()
+        local v = string.format("%s:%d", vim.fn.expand("%:p"), vim.fn.getcurpos()[2])
+        vim.fn.setreg("+", v); vim.fn.setreg("0", v)
+      end,
+      "yank absolute path + line",
+    },
+  },
+}
+
+M.file_management = {
+  n = {
+    ["<Leader>fD"] = {
+      function()
+        local path = vim.fn.expand("%:p")
+        vim.api.nvim_echo({ { "File " .. path .. " deleting...", "WarningMsg" } }, true, {})
+        vim.fn.delete(vim.fn.expand("%"))
+        vim.cmd("bdelete!")
+      end,
+      "delete file + buffer",
+    },
+    ["<Leader>frd"] = { ":cd %:p:h<CR>:pwd<CR>", "cd to file dir (all windows)" },
+    ["<Leader>frl"] = { ":lcd %:p:h<CR>:pwd<CR>", "lcd to file dir (current window)" },
+    ["<Leader>oo"] = {
+      function() vim.cmd('silent !xdg-open "' .. vim.fn.expand("%:p") .. '" & disown') end,
+      "open in xdg-open",
+      opts = { silent = true },
+    },
+    ["<Leader>of"] = {
+      function() vim.cmd('silent !firefox "' .. vim.fn.expand("%:p") .. '" & disown') end,
+      "open in firefox",
+      opts = { silent = true },
+    },
+    ["<Leader>og"] = {
+      function() vim.cmd('silent !google-chrome "' .. vim.fn.expand("%:p") .. '" & disown') end,
+      "open in chrome",
+      opts = { silent = true },
+    },
+  },
+}
+
+M.windows_management = {
+  n = {
+    -- Tabs
+    ["<LocalLeader>tn"] = { ":tabnew<CR>", "new tab", opts = { silent = true } },
+    ["<LocalLeader>tN"] = { ":-tabnew<CR>", "new tab (before)", opts = { silent = true } },
+    ["<LocalLeader>ts"] = { ":tab split<CR>", "tab split current", opts = { silent = true } },
+    ["<LocalLeader>tq"] = { ":tabclose<CR>", "tab close", opts = { silent = true } },
+    ["<LocalLeader>te"] = { ":tabedit<CR>", "tab edit", opts = { silent = true } },
+    ["<LocalLeader>tm"] = { ":tabmove<CR>", "tab move", opts = { silent = true } },
+    ["<LocalLeader>t>"] = { ":tabmove+<CR>", "tab move right", opts = { silent = true } },
+    ["<LocalLeader>t<"] = { ":tabmove-<CR>", "tab move left", opts = { silent = true } },
+    ["<LocalLeader>tl"] = {
+      function() if vim.g.lasttab then vim.cmd("tabn " .. vim.g.lasttab) end end,
+      "last active tab",
+      opts = { silent = true },
+    },
+    ["[t"] = { ":tabprevious<CR>", "prev tab", opts = { silent = true } },
+    ["]t"] = { ":tabnext<CR>", "next tab", opts = { silent = true } },
+    ["[T"] = { ":tabfirst<CR>", "first tab", opts = { silent = true } },
+    ["]T"] = { ":tablast<CR>", "last tab", opts = { silent = true } },
+    ["<M-[>"] = { "<Cmd>tabp<CR>", "prev tab" },
+    ["<M-]>"] = { "<Cmd>tabn<CR>", "next tab" },
+    ["<leader>x"] = { "<Cmd>tabc<CR>", "close tab" },
+    -- Buffers
+    ["]b"] = { ":bnext<CR>", "next buffer", opts = { silent = true } },
+    ["[b"] = { ":bprevious<CR>", "prev buffer", opts = { silent = true } },
+    ["]B"] = { ":blast<CR>", "last buffer", opts = { silent = true } },
+    ["[B"] = { ":bfirst<CR>", "first buffer", opts = { silent = true } },
+    ["<LocalLeader>boh"] = { ":sba<CR>", "open all buffers (hsplit)", opts = { silent = true } },
+    ["<LocalLeader>bov"] = { ":vert sba<CR>", "open all buffers (vsplit)", opts = { silent = true } },
+    -- Window-control prefix
+    ["[Window]"] = { "<Nop>", "window prefix" },
+    ["<C-w>"] = { "[Window]", "window prefix", opts = { remap = true } },
+    ["[Window]w"] = { "<C-w><C-w>", "next window" },
+    ["[Window]<C-w>"] = { "<C-w><C-w>", "next window" },
+    ["[Window]<C-p>"] = { "<C-w><C-p>", "previous window" },
+    ["<C-q>"] = { ":<C-u>close<CR>", "close window", opts = { silent = true } },
+    ["[Window]g"] = { ":<C-u>split<CR>", "split horizontal", opts = { silent = true } },
+    ["[Window]v"] = { ":<C-u>vsplit<CR>", "split vertical", opts = { silent = true } },
+    ["[Window]c"] = { ":<C-u>close<CR>", "close window", opts = { silent = true } },
+    ["[Window]<C-v>"] = { ":vsplit<CR>:wincmd p<CR>", "vsplit stay", opts = { silent = true } },
+    ["[Window]<C-g>"] = { ":split<CR>:wincmd p<CR>", "hsplit stay", opts = { silent = true } },
+    ["<LocalLeader>wg"] = { ":<C-u>split<CR>", "split horizontal", opts = { silent = true } },
+    ["<LocalLeader>wv"] = { ":<C-u>vsplit<CR>", "split vertical", opts = { silent = true } },
+    ["<LocalLeader>wc"] = { ":<C-u>close<CR>", "close window", opts = { silent = true } },
+    ["<LocalLeader>wV"] = { ":vsplit<CR>:wincmd p<CR>", "vsplit stay", opts = { silent = true } },
+    ["<LocalLeader>wG"] = { ":split<CR>:wincmd p<CR>", "hsplit stay", opts = { silent = true } },
+    -- Split nav
+    ["[Window]h"] = { "<C-w>h", "window left", opts = { silent = true } },
+    ["[Window]j"] = { "<C-w>j", "window down", opts = { silent = true } },
+    ["[Window]k"] = { "<C-w>k", "window up", opts = { silent = true } },
+    ["[Window]l"] = { "<C-w>l", "window right", opts = { silent = true } },
+    ["[Window]\\"] = { "<C-w>p", "previous window", opts = { silent = true } },
+    ["<C-h>"] = { "<C-w>h", "window left", opts = { silent = true } },
+    ["<C-j>"] = { "<C-w>j", "window down", opts = { silent = true } },
+    ["<C-k>"] = { "<C-w>k", "window up", opts = { silent = true } },
+    ["<C-l>"] = { "<C-w>l", "window right", opts = { silent = true } },
+    -- Arrow keys → resize
+    ["<Up>"] = { ":resize -1<CR>", "resize up", opts = { silent = true } },
+    ["<Down>"] = { ":resize +1<CR>", "resize down", opts = { silent = true } },
+    ["<Left>"] = { ":vertical resize -2<CR>", "resize left", opts = { silent = true } },
+    ["<Right>"] = { ":vertical resize +2<CR>", "resize right", opts = { silent = true } },
+    -- Equalize
+    ["[Window]="] = { ":tabdo wincmd =<CR>", "equalize splits (all tabs)", opts = { silent = true } },
+  },
+  v = {
+    ["<LocalLeader>tl"] = {
+      function() if vim.g.lasttab then vim.cmd("tabn " .. vim.g.lasttab) end end,
+      "last active tab",
+      opts = { silent = true },
+    },
+  },
+}
+
+M.utility = {
+  n = {
+    ["<Leader>ps"] = { "<cmd>source $MYVIMRC<CR>", "source vimrc" },
+    ["[<space>"] = { "O<esc>j", "blank line above" },
+    ["]<space>"] = { "o<esc>k", "blank line below" },
+    ["<Leader>J"] = { ":m.+1<CR>", "move line down" },
+    ["<Leader>K"] = { ":m.-2<CR>", "move line up" },
+    ["<Leader>fg"] = { [[:call VimgrepWrapper("")<Left><Left>]], "vimgrep project" },
+    ["<Leader>gD"] = { ":GitOpenDirty<CR>", "open git-dirty files" },
+  },
+  x = {
+    ["<BS>"] = { "%", "jump to matching pair" },
+  },
+  i = {
+    [","] = { ",<C-g>u", "undo breakpoint at ," },
+    ["."] = { ".<C-g>u", "undo breakpoint at ." },
+    ["!"] = { "!<C-g>u", "undo breakpoint at !" },
+    ["?"] = { "?<C-g>u", "undo breakpoint at ?" },
+    ["<M-v>"] = { "<ESC>v`[", "select last insert" },
+  },
+  v = {
+    ["J"] = { ":m'>+1<CR>gv=gv", "move selection down" },
+    ["K"] = { ":m'<-2<CR>gv=gv", "move selection up" },
+  },
+}
+
+-- n-mode <BS>=% needs its own section (conflicts avoided via separate key)
+M.utility_n = {
+  n = {
+    ["<BS>"] = { "%", "jump to matching pair" },
+  },
+}
+
+M.commandline = {
+  c = {
+    ["<C-a>"] = { "<Home>", "cursor home" },
+    ["<C-e>"] = { "<End>", "cursor end" },
+    ["<C-d>"] = { "<Del>", "delete char" },
+    ["<C-h>"] = { "<BS>", "backspace" },
+    ["<C-t>"] = {
+      function() return vim.fn.expand("%:p:h") .. "/" end,
+      "insert current dir",
+      opts = { expr = true },
+    },
+    ["<C-j>"] = {
+      function()
+        return vim.fn.pumvisible() == 1 and "<C-n>" or vim.fn.nr2char(vim.o.wildcharm)
+      end,
+      "wildmenu next",
+      opts = { expr = true },
+    },
+    ["<C-k>"] = {
+      function()
+        return vim.fn.pumvisible() == 1 and "<C-p>" or vim.fn.nr2char(vim.o.wildcharm)
+      end,
+      "wildmenu prev",
+      opts = { expr = true },
+    },
+    ["<Tab>"] = {
+      function()
+        if vim.fn.pumvisible() == 1 then
+          return "<C-y>" .. vim.fn.nr2char(vim.o.wildcharm)
+        end
+        return vim.fn.nr2char(vim.o.wildcharm)
+      end,
+      "wildmenu accept / next",
+      opts = { expr = true },
+    },
+    ["%%"] = {
+      function() return vim.fn.fnameescape(vim.fn.expand("%:h")) .. "/" end,
+      "expand to current file dir",
+      opts = { expr = true },
+    },
+  },
+  n = {
+    ["<leader>ew"] = { ":e %%", "edit in current dir", opts = { remap = true } },
+    ["<leader>ev"] = { ":vsplit %%", "vsplit in current dir", opts = { remap = true } },
+    ["<leader>et"] = { ":tabe %%", "tabedit in current dir", opts = { remap = true } },
+  },
+  x = {
+    ["<leader>ew"] = { ":e %%", "edit in current dir", opts = { remap = true } },
+    ["<leader>ev"] = { ":vsplit %%", "vsplit in current dir", opts = { remap = true } },
+    ["<leader>et"] = { ":tabe %%", "tabedit in current dir", opts = { remap = true } },
+  },
+  o = {
+    ["<leader>ew"] = { ":e %%", "edit in current dir", opts = { remap = true } },
+    ["<leader>ev"] = { ":vsplit %%", "vsplit in current dir", opts = { remap = true } },
+    ["<leader>et"] = { ":tabe %%", "tabedit in current dir", opts = { remap = true } },
+  },
+}
+
+M.yank_paste = {
+  n = {
+    ["<M-y>"] = { [["xyy"xp$]], "duplicate line at eol" },
+  },
+  i = {
+    ["<M-y>"] = { [[<Esc>"xyy"xpgi]], "duplicate line inline" },
+    ["<C-y>"] = {
+      [[<Esc>"xyy"xpV:s//gI<bar>norm`.A<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+      "duplicate + prompt substitute",
+    },
+  },
+  v = {
+    ["<M-y>"] = { [=["xy`]"xp`[V`]]=], "duplicate selection" },
+  },
+}
+
+M.register = {
+  n = {
+    ["<Leader>rej"] = {
+      [[:let @x=@k | let @k=@j | let @j=@b | let @b=@a | let @a=@+ | let @+=@x | reg +abjk<CR>]],
+      "register cycle forward",
+    },
+    ["<Leader>rek"] = {
+      [[:let @x=@+ | let @+=@a | let @a=@b | let @b=@j | let @j=@k | let @k=@x | reg +abjk<CR>]],
+      "register cycle backward",
+    },
+    ["<Leader>reJ"] = {
+      [[:let @x=@k | let @k=@j | let @j=@b | let @b=@a | let @a=@+ | let @+=@x | reg +abjk<CR>p]],
+      "register cycle forward + paste",
+    },
+    ["<Leader>reK"] = {
+      [[:let @x=@+ | let @+=@a | let @a=@b | let @b=@j | let @j=@k | let @k=@x | reg +abjk<CR>p]],
+      "register cycle backward + paste",
+    },
+    ["<Leader>reg"] = { ":reg +abjk<CR>", "show registers +abjk" },
+  },
+  v = {
+    ["<Leader>reJ"] = {
+      [[:let @x=@k | let @k=@j | let @j=@b | let @b=@a | let @a=@+ | let @+=@x | reg +abjk<CR>p]],
+      "register cycle forward + paste",
+    },
+    ["<Leader>reK"] = {
+      [[:let @x=@+ | let @+=@a | let @a=@b | let @b=@j | let @j=@k | let @k=@x | reg +abjk<CR>p]],
+      "register cycle backward + paste",
+    },
+    ["<Leader>rej"] = {
+      [[y<ESC>:let @x=@k | let @k=@j | let @j=@b | let @b=@a | let @a=@+ | let @+=@x | reg +abjk<CR>]],
+      "yank + register cycle forward",
+    },
+    ["<Leader>rek"] = {
+      [[y<ESC>:let @x=@+ | let @+=@a | let @a=@b | let @b=@j | let @j=@k | let @k=@x | reg +abjk<CR>]],
+      "yank + register cycle backward",
+    },
+  },
+}
+
+M.quickfix_loclist = {
+  n = {
+    ["[L"] = { ":lfirst<CR>", "first loclist", opts = { silent = true } },
+    ["]L"] = { ":llast<CR>", "last loclist", opts = { silent = true } },
+    ["[Q"] = { ":cfirst<CR>", "first quickfix", opts = { silent = true } },
+    ["]Q"] = { ":clast<CR>", "last quickfix", opts = { silent = true } },
+    ["<LocalLeader>oll"] = { ":call LocationlistToggle()<CR>", "toggle loclist", opts = { silent = true } },
+    ["<LocalLeader>oqq"] = { ":call QuickfixToggle()<CR>", "toggle quickfix", opts = { silent = true } },
+  },
+}
+
+M.diff = {
+  n = {
+    ["<Leader>tdv"] = {
+      [[:call feedkeys(':vert diffsplit<Space><Tab>','t')<CR>]],
+      "diff vert split prompt",
+    },
+    ["<Leader>tdh"] = {
+      [[:call feedkeys(':diffsplit<Space><Tab>','t')<CR>]],
+      "diff horizontal split prompt",
+    },
+    ["<Leader>tdV"] = {
+      [[:call feedkeys(':vert diffsplit $HOME/<Tab>','t')<CR>]],
+      "diff vert split $HOME prompt",
+    },
+    ["<Leader>tdH"] = {
+      [[:call feedkeys(':diffsplit $HOME/<Tab>','t')<CR>]],
+      "diff horizontal split $HOME prompt",
+    },
+    ["<Leader>tdo"] = {
+      ":DiffOrig<CR>",
+      "diff with original file",
+      opts = { silent = true, remap = true },
+    },
+  },
+}
+
+M.text_manipulation = {
+  n = {
+    ["<Leader>r<Space>"] = { ":<C-u>WhitespaceErase<CR>", "erase trailing whitespace", opts = { silent = true } },
+    ["<leader>rw"] = { "*``cgn", "change word forward (dot-repeat)" },
+    ["<leader>rW"] = { "*``cgN", "change word backward (dot-repeat)" },
+    ["<Leader>rR"] = { ":s//gc<Left><Left><Left>", "search/replace current line" },
+    ["<Leader>rF"] = {
+      [[:<C-u>call GetSelection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>]],
+      "search/replace last selection",
+    },
+    ["<Leader>rL"] = { [[:%s/^/\=line('.').". "<CR>]], "enumerate all lines" },
+    ["<Leader>ri"] = {
+      [[:call Preserve("normal gg=G")<CR>]],
+      "re-indent whole buffer",
+      opts = { silent = true },
+    },
+    ["<Leader>rya"] = { ":%y<CR>", "yank entire file" },
+    ["<Leader>ryp"] = {
+      [[ggVGP:echom "Replaced all with yanked texts!"<CR>]],
+      "replace all with yanked",
+    },
+    ["<Leader>rP"] = { "<cmd>call SmartPaste()<CR>", "smart paste + clean + reindent", opts = { silent = true } },
+    ["<F11>"] = { ":set spell!<CR>", "toggle spell" },
+  },
+  v = {
+    ["<Leader>r<Space>"] = { ":WhitespaceErase<CR>", "erase trailing whitespace", opts = { silent = true } },
+    ["<leader>rn"] = {
+      [[y/\V<C-r>=escape(@", '/')<CR><CR>``cgn]],
+      "change selection forward (dot-repeat)",
+    },
+    ["<leader>rN"] = {
+      [[y/\V<C-r>=escape(@", '/')<CR><CR>``cgN]],
+      "change selection backward (dot-repeat)",
+    },
+    ["<Leader>rl"] = {
+      [[:<C-U>let i=1 | '<,'>g/^/s//\=i.'. '/ | let i=i+1 | nohl<CR>]],
+      "enumerate selected lines",
+      opts = { silent = true },
+    },
+  },
+  x = {
+    ["<Leader>rr"] = { ":s//gc<Left><Left><Left>", "search/replace in selection" },
+    ["<Leader>rF"] = {
+      [[:<C-u>call GetSelection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>]],
+      "search/replace last selection",
+    },
+  },
+  i = {
+    ["<C-s>"] = {
+      [[<Esc>:set spell<bar>norm i<C-g>u<Esc>[s"syiW1z="tyiW:let @l=line('.')<bar>let @c=virtcol('.')<CR>``a<C-g>u<Esc>:echo getreg('l') . ":" . getreg('c') . " spell fixed (" . getreg('s') . " -> " . getreg('t') . ")"<CR>la]],
+      "auto-fix previous misspelling",
+    },
+    ["<F11>"] = { "<C-o>:set spell!<CR>", "toggle spell" },
+  },
+}
+
+-- n-mode <Leader>rn / rN and <Leader>rr are skipped due to conflicts with
+-- M.inc_rename (<leader>rn) and M.abolish (<leader>rp → :Subvert pattern)
+
+M.settings_toggle = {
+  n = {
+    ["<LocalLeader>se"] = { function() _G.ConfigToggles.conceal() end, "toggle conceal", opts = { silent = true } },
+    ["<LocalLeader>ss"] = { function() _G.ConfigToggles.format_on_save() end, "toggle format on save", opts = { silent = true } },
+    ["<LocalLeader>sF"] = { function() _G.ConfigToggles.foldcolumn1() end, "toggle foldcolumn", opts = { silent = true } },
+    ["<LocalLeader>sg"] = { function() _G.ConfigToggles.gutter() end, "toggle sign gutter", opts = { silent = true } },
+    ["<LocalLeader>sv"] = { function() _G.ConfigToggles.virtualedit() end, "toggle virtualedit", opts = { silent = true } },
+    ["<LocalLeader>sW"] = { function() _G.ConfigToggles.text_wrapping() end, "toggle text wrapping (fo+t)", opts = { silent = true } },
+    ["<LocalLeader>sb"] = { function() _G.ConfigToggles.background() end, "toggle dark/light bg", opts = { silent = true } },
+    ["<LocalLeader>sL"] = { function() _G.ConfigToggles.low_performance_mode() end, "toggle low performance mode" },
+    ["<LocalLeader>sw"] = { function() _G.ConfigToggles.smart_wrap() end, "smart wrap toggle" },
+  },
+}
+
+M.elite_mode = {
+  n = {
+    ["<LocalLeader>sE"] = { function() _G.EliteModeToggle() end, "toggle elite mode (LSP+Copilot off)" },
+  },
+}
+
 return M

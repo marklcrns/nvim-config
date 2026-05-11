@@ -50,7 +50,7 @@ vim.api.nvim_create_user_command("CustomBufferWrite", function(opts)
   pcall(vim.cmd, command)
 end, { bang = true, nargs = "?" })
 
--- Phase 1 mappings (ported from core/mappings.vim)
-require("user.core.mappings_vim")
+-- Mapping helpers, leaders, autocmds (must run before load_mappings())
+require("user.core.mappings_helpers")
 
 vim.o.secure = true
