@@ -74,13 +74,20 @@ aucmd("VimEnter", {
 -- Restore cursor position on file open (except commit/git buffers)
 aucmd("BufReadPost", {
   group = group,
-  callback = function()
-    local ft = vim.bo.filetype
-    if ft:match("commit") or ft:match("git") then return end
-    local last_line = vim.fn.line([['"]])
-    if last_line >= 1 and last_line <= vim.fn.line("$") then
-      vim.cmd([[normal! g`"zz]])
-    end
+  callback = function(ctx)
+    local ft = vim.bo[ctx.buf].filetype
+    if ft:match("commit") or ft:match("git") or ft:match("fugitive") then return end
+    -- Skip fugitive:// and other special buffers
+    local name = vim.api.nvim_buf_get_name(ctx.buf)
+    if name:match("^fugitive://") or vim.bo[ctx.buf].buftype ~= "" then return end
+    -- Defer to avoid E1312 inside reentrant autocmd contexts (e.g. fugitive reload)
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(ctx.buf) then return end
+      local last_line = vim.fn.line([['"]])
+      if last_line >= 1 and last_line <= vim.fn.line("$") then
+        pcall(vim.cmd, [[normal! g`"zz]])
+      end
+    end)
   end,
 })
 
@@ -308,27 +315,34 @@ local ufo_group = api.nvim_create_augroup("kevinhwang91/nvim-ufo", { clear = tru
 
 aucmd("BufRead", {
   group = ufo_group,
-  callback = function()
-    local ufo = prequire("ufo")
-    if not ufo then return end
+  callback = function(ctx)
+    -- Skip fugitive and other special buffers — they manage their own layout
+    local name = vim.api.nvim_buf_get_name(ctx.buf)
+    if name:match("^fugitive://") or vim.bo[ctx.buf].buftype ~= "" then return end
+    -- Defer to avoid E1312 inside reentrant autocmd contexts
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(ctx.buf) then return end
+      local ufo = prequire("ufo")
+      if not ufo then return end
 
-    vim.cmd("silent! foldclose!")
-    local bufnr = api.nvim_get_current_buf()
-    vim.wait(100, function() ufo.attach(bufnr) end)
-    if not ufo.hasAttached(bufnr) then return end
+      pcall(vim.cmd, "silent! foldclose!")
+      local bufnr = ctx.buf
+      vim.wait(100, function() ufo.attach(bufnr) end)
+      if not ufo.hasAttached(bufnr) then return end
 
-    local winid = api.nvim_get_current_win()
-    local method = vim.wo[winid].foldmethod
-    if method == "diff" or method == "marker" then
-      ufo.closeAllFolds()
-      return
-    end
-
-    local ok, ranges = pcall(ufo.getFolds, bufnr, "treesitter")
-    if ok and ranges then
-      if ufo.applyFolds(bufnr, ranges) then
-        ufo.closeAllFolds()
+      local winid = api.nvim_get_current_win()
+      local method = vim.wo[winid].foldmethod
+      if method == "diff" or method == "marker" then
+        pcall(ufo.closeAllFolds)
+        return
       end
-    end
+
+      local ok, ranges = pcall(ufo.getFolds, bufnr, "treesitter")
+      if ok and ranges then
+        if ufo.applyFolds(bufnr, ranges) then
+          pcall(ufo.closeAllFolds)
+        end
+      end
+    end)
   end,
 })
