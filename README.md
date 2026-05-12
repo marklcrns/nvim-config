@@ -125,7 +125,4 @@ Most of my configuration piggy backed from other people's configurations.
 
 - [sindrets' nvim config](https://github.com/sindrets/dotfiles/tree/master/.config/nvim)
 - [NvChad/NvChad](https://github.com/NvChad/NvChad)
-
-### Inspiration
-
 - [rafi/vim-config](https://github.com/rafi/vim-config)
