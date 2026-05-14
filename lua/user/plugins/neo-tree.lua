@@ -1,4 +1,29 @@
 return function()
+  -- Nvim 0.13 removed BufModifiedSet (replaced by OptionSet pattern=modified).
+  -- neo-tree still hard-codes BufModifiedSet → "Invalid 'event'" on setup.
+  -- Wrap nvim_create_autocmd during setup to translate the event.
+  if vim.fn.has("nvim-0.13") == 1 then
+    local original = vim.api.nvim_create_autocmd
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.api.nvim_create_autocmd = function(event, opts)
+      local events = type(event) == "table" and event or { event }
+      local has_bms = false
+      for i, ev in ipairs(events) do
+        if ev == "BufModifiedSet" then
+          events[i] = "OptionSet"
+          has_bms = true
+        end
+      end
+      if has_bms then
+        opts = vim.deepcopy(opts)
+        opts.pattern = "modified"
+      end
+      return original(events, opts)
+    end
+    -- Restore on next tick so only neo-tree's setup is affected
+    vim.schedule(function() vim.api.nvim_create_autocmd = original end)
+  end
+
   local function getTelescopeOpts(state, path)
     return {
       cwd = path,
