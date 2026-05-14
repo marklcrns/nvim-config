@@ -1,27 +1,59 @@
 return function()
-  -- Nvim 0.13 removed BufModifiedSet (replaced by OptionSet pattern=modified).
-  -- neo-tree still hard-codes BufModifiedSet → "Invalid 'event'" on setup.
-  -- Wrap nvim_create_autocmd during setup to translate the event.
-  if vim.fn.has("nvim-0.13") == 1 then
-    local original = vim.api.nvim_create_autocmd
-    ---@diagnostic disable-next-line: duplicate-set-field
-    vim.api.nvim_create_autocmd = function(event, opts)
-      local events = type(event) == "table" and event or { event }
-      local has_bms = false
-      for i, ev in ipairs(events) do
-        if ev == "BufModifiedSet" then
-          events[i] = "OptionSet"
-          has_bms = true
-        end
-      end
-      if has_bms then
-        opts = vim.deepcopy(opts)
-        opts.pattern = "modified"
-      end
-      return original(events, opts)
+  -- ─── Upstream-aware shim for neo-tree's BufModifiedSet usage ────────────
+  -- Nvim 0.13 removed BufModifiedSet (replaced by OptionSet pattern=modified),
+  -- but neo-tree still hard-codes it in events/init.lua → "Invalid event" on
+  -- setup. The shim translates the event during neo-tree's setup only.
+  --
+  -- Self-detecting: probes neo-tree's source for "BufModifiedSet". When
+  -- upstream ships a fix and the string is gone, this block prints a
+  -- one-time notification telling you the shim can be deleted.
+  --
+  -- ☢️  TODO: DELETE this entire `do ... end` block when notification fires.
+  --     Tracked by upstream nvim-neo-tree/neo-tree.nvim
+  do
+    local function neotree_still_uses_bms()
+      local ok, lazy_config = pcall(require, "lazy.core.config")
+      if not ok then return true end -- assume broken if we can't probe
+      local plugin = lazy_config.plugins["neo-tree.nvim"]
+      if not plugin or not plugin.dir then return true end
+      local f = io.open(plugin.dir .. "/lua/neo-tree/setup/init.lua", "r")
+      if not f then return true end
+      local src = f:read("*a") or ""
+      f:close()
+      return src:find("BufModifiedSet", 1, true) ~= nil
     end
-    -- Restore on next tick so only neo-tree's setup is affected
-    vim.schedule(function() vim.api.nvim_create_autocmd = original end)
+
+    if vim.fn.has("nvim-0.13") == 1 and neotree_still_uses_bms() then
+      -- Apply shim: wrap nvim_create_autocmd during setup
+      local original = vim.api.nvim_create_autocmd
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.api.nvim_create_autocmd = function(event, opts)
+        local events = type(event) == "table" and event or { event }
+        local has_bms = false
+        for i, ev in ipairs(events) do
+          if ev == "BufModifiedSet" then
+            events[i] = "OptionSet"
+            has_bms = true
+          end
+        end
+        if has_bms then
+          opts = vim.deepcopy(opts)
+          opts.pattern = "modified"
+        end
+        return original(events, opts)
+      end
+      vim.schedule(function() vim.api.nvim_create_autocmd = original end)
+    elseif vim.fn.has("nvim-0.13") == 1 then
+      -- Upstream fix detected — shim no longer needed
+      vim.schedule(function()
+        vim.notify(
+          "neo-tree.nvim no longer uses BufModifiedSet — the shim in "
+          .. "lua/user/plugins/neo-tree.lua is now safe to delete.",
+          vim.log.levels.INFO,
+          { title = "neo-tree shim cleanup" }
+        )
+      end)
+    end
   end
 
   local function getTelescopeOpts(state, path)
