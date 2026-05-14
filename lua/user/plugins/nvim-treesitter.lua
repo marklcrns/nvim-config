@@ -71,27 +71,62 @@ return function()
     },
   })
 
-  -- Patch nvim-treesitter's set-lang-from-info-string! directive.
+  -- Patch nvim-treesitter's directives for Nvim 0.12+ TSNode[] arrays.
   -- Neovim 0.12+ changed match values to TSNode[] arrays, but the archived
   -- nvim-treesitter still treats them as single nodes — causing
   -- "attempt to call method 'range' (a nil value)" on markdown with fenced
-  -- code blocks. Applied here (after setup) so it overrides the broken
-  -- handler nvim-treesitter registered during require('nvim-treesitter').
+  -- code blocks (set-lang-from-info-string!, downcase!) and HTML scripts
+  -- (set-lang-from-mimetype!). Patches each directive with a handler that
+  -- normalizes match values before extracting node text.
   do
     local query = vim.treesitter.query
     if query and query.add_directive then
-      query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
-        local capture_id = pred[2]
-        local node = match[capture_id]
-        if not node then return end
-        -- Nvim 0.12+: match values may be TSNode[] arrays instead of single nodes
+      -- Helper: extract a single TSNode from a match value (may be array in 0.12+)
+      local function extract_node(node)
         if type(node) == "table" and not vim.is_callable(node) then
           node = node[1]
         end
-        if not node or not vim.is_callable(node.range) then return end
+        if not node or not vim.is_callable(node.range) then return nil end
+        return node
+      end
+
+      query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+        local node = extract_node(match[pred[2]])
+        if not node then return end
         local text = vim.treesitter.get_node_text(node, bufnr)
         if not text then return end
         metadata["injection.language"] = (text:lower():match("^%s*(%S+)") or text)
+      end, { force = true, all = false })
+
+      query.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
+        local id = pred[2]
+        local node = extract_node(match[id])
+        if not node then return end
+        local text = vim.treesitter.get_node_text(node, bufnr, { metadata = metadata[id] }) or ""
+        if not metadata[id] then metadata[id] = {} end
+        metadata[id].text = string.lower(text)
+      end, { force = true, all = false })
+
+      -- HTML mimetype → language (for <script type="..."> injections)
+      local html_mime = {
+        ["application/json"] = "json",
+        ["application/ld+json"] = "json",
+        ["text/javascript"] = "javascript",
+        ["application/javascript"] = "javascript",
+        ["text/x-typescript"] = "typescript",
+      }
+      query.add_directive("set-lang-from-mimetype!", function(match, _, bufnr, pred, metadata)
+        local node = extract_node(match[pred[2]])
+        if not node then return end
+        local val = vim.treesitter.get_node_text(node, bufnr)
+        if not val then return end
+        local configured = html_mime[val]
+        if configured then
+          metadata["injection.language"] = configured
+        else
+          local parts = vim.split(val, "/", {})
+          metadata["injection.language"] = parts[#parts]
+        end
       end, { force = true, all = false })
     end
   end
