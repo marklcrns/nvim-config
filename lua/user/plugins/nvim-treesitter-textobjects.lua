@@ -109,13 +109,31 @@ return function()
     },
   })
 
-  -- Module renamed in newer versions: try new name first, fall back to old
-  local ok, ts_repeat_move = pcall(require, "nvim-treesitter-textobjects.repeatable_move")
-  if not ok then
-    ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+  -- ─── Upstream-aware compat shims for nvim-treesitter-textobjects ────────
+  -- Two breaking changes between versions:
+  --   1. Module renamed: nvim-treesitter.textobjects.repeatable_move →
+  --      nvim-treesitter-textobjects.repeatable_move (hyphenated)
+  --   2. make_repeatable_move_pair removed in favor of make_repeatable_move
+  --
+  -- Mark runs both machines on different versions, so we keep both fallbacks
+  -- live. Self-detecting: when this machine no longer needs the old paths,
+  -- a one-time notification fires reminding to simplify the block.
+  --
+  -- ☢️  TODO: When notification fires on ALL machines, simplify to:
+  --     local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
+  --     local function make_repeatable_move_pair(forward_fn, backward_fn) ... end
+  --     (using only the newer make_repeatable_move API)
+  local ts_repeat_move
+  local using_legacy_module = false
+  do
+    local ok
+    ok, ts_repeat_move = pcall(require, "nvim-treesitter-textobjects.repeatable_move")
+    if not ok then
+      ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+      using_legacy_module = true
+    end
   end
 
-  -- Compat shim: make_repeatable_move_pair was removed in newer versions
   local function make_repeatable_move_pair(forward_fn, backward_fn)
     if ts_repeat_move.make_repeatable_move_pair then
       return ts_repeat_move.make_repeatable_move_pair(forward_fn, backward_fn)
@@ -124,6 +142,20 @@ return function()
       if opts.forward then forward_fn() else backward_fn() end
     end)
     return function() move({ forward = true }) end, function() move({ forward = false }) end
+  end
+
+  -- Notify once per startup when both legacy paths are no longer reachable
+  if not using_legacy_module and not ts_repeat_move.make_repeatable_move_pair then
+    vim.schedule(function()
+      vim.notify(
+        "nvim-treesitter-textobjects: this machine no longer needs the legacy "
+        .. "module fallback or make_repeatable_move_pair shim. Once all your "
+        .. "machines hit this state, simplify the block in "
+        .. "lua/user/plugins/nvim-treesitter-textobjects.lua.",
+        vim.log.levels.INFO,
+        { title = "textobjects shim cleanup" }
+      )
+    end)
   end
 
   -- Repeat movement with ; and ,
