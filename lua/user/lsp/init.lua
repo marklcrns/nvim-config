@@ -136,7 +136,7 @@ vim.lsp.config("haxe_language_server", M.create_config({
 
 vim.diagnostic.config({
   virtual_text = false,
-  underline = true,
+  underline = false,
   signs = {
     priority = 100,
     text = {
