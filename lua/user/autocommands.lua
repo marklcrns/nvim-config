@@ -308,41 +308,58 @@ aucmd("CursorMoved", {
   end,
 })
 
--- ─── nvim-ufo: close folds on first open ─────────────────────────────────────
--- Ref: https://github.com/kevinhwang91/nvim-ufo/issues/146#issuecomment-1685763570
+-- ─── nvim-ufo: attach + persist fold state across sessions ──────────────────
+-- Strategy:
+--   1. BufWinLeave/BufWritePost: :mkview saves fold state (viewoptions
+--      already includes 'folds' in core/general.lua)
+--   2. BufWinEnter: :silent! loadview restores fold state if available
+--   3. Fallback (no view file): all folds open via foldlevelstart=99
+--
+-- We DO NOT call foldclose! or ufo.closeAllFolds anywhere — that was the
+-- old behavior from issue #146 which forced everything closed on open.
+-- We only need to ensure ufo is attached so its fold provider works for
+-- the manual zM/zR keymaps.
 
 local ufo_group = api.nvim_create_augroup("kevinhwang91/nvim-ufo", { clear = true })
 
+-- Skip view persistence + ufo attach for special buffers
+local function should_skip(buf)
+  local name = vim.api.nvim_buf_get_name(buf)
+  if name == "" then return true end
+  if name:match("^fugitive://") or name:match("^oil://") then return true end
+  if vim.bo[buf].buftype ~= "" then return true end
+  if vim.bo[buf].filetype == "" then return true end
+  return false
+end
+
+-- Attach ufo on BufRead so fold provider is available for zM/zR
 aucmd("BufRead", {
   group = ufo_group,
   callback = function(ctx)
-    -- Skip fugitive and other special buffers — they manage their own layout
-    local name = vim.api.nvim_buf_get_name(ctx.buf)
-    if name:match("^fugitive://") or vim.bo[ctx.buf].buftype ~= "" then return end
-    -- Defer to avoid E1312 inside reentrant autocmd contexts
+    if should_skip(ctx.buf) then return end
     vim.schedule(function()
       if not vim.api.nvim_buf_is_valid(ctx.buf) then return end
       local ufo = prequire("ufo")
       if not ufo then return end
-
-      pcall(vim.cmd, "silent! foldclose!")
-      local bufnr = ctx.buf
-      vim.wait(100, function() ufo.attach(bufnr) end)
-      if not ufo.hasAttached(bufnr) then return end
-
-      local winid = api.nvim_get_current_win()
-      local method = vim.wo[winid].foldmethod
-      if method == "diff" or method == "marker" then
-        pcall(ufo.closeAllFolds)
-        return
-      end
-
-      local ok, ranges = pcall(ufo.getFolds, bufnr, "treesitter")
-      if ok and ranges then
-        if ufo.applyFolds(bufnr, ranges) then
-          pcall(ufo.closeAllFolds)
-        end
-      end
+      vim.wait(100, function() ufo.attach(ctx.buf) end)
     end)
+  end,
+})
+
+-- Persist fold state on save / window leave
+aucmd({ "BufWinLeave", "BufWritePost" }, {
+  group = ufo_group,
+  callback = function(ctx)
+    if should_skip(ctx.buf) then return end
+    pcall(vim.cmd, "silent! mkview")
+  end,
+})
+
+-- Restore fold state when entering a window
+aucmd("BufWinEnter", {
+  group = ufo_group,
+  callback = function(ctx)
+    if should_skip(ctx.buf) then return end
+    pcall(vim.cmd, "silent! loadview")
   end,
 })

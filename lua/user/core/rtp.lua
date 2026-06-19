@@ -16,6 +16,7 @@ local dirs = {
   vim.env.DATA_PATH .. "/undo",
   vim.env.DATA_PATH .. "/backup",
   vim.env.DATA_PATH .. "/session",
+  vim.env.DATA_PATH .. "/view",
   vim.env.SYNC_PATH .. "/session",
   vim.env.VIM_PATH .. "/spell",
 }
