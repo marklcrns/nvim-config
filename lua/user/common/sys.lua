@@ -4,9 +4,14 @@ function M.is_windows()
   return vim.loop.os_uname().sysname == "Windows_NT"
 end
 
+-- Memoized: spawns `uname -r` once, result is constant for the session.
+local _is_wsl
 function M.is_wsl()
-  local output = vim.fn.systemlist("uname -r")
-  return not not string.find(output[1] or "", "WSL")
+  if _is_wsl == nil then
+    local output = vim.fn.systemlist("uname -r")
+    _is_wsl = not not string.find(output[1] or "", "WSL")
+  end
+  return _is_wsl
 end
 
 function M.is_mac()
@@ -17,8 +22,14 @@ function M.is_linux()
   return not M.is_windows() and not M.is_wsl() and not M.is_mac()
 end
 
+-- Memoized: spawns `whoami` once, username is constant for the session.
+local _whoami
 function M.whoami()
-  return vim.fn.systemlist("whoami")[1]
+  if _whoami == nil then
+    -- Prefer env vars (no subprocess) and fall back to whoami only if unset.
+    _whoami = vim.env.USER or vim.env.USERNAME or vim.fn.systemlist("whoami")[1] or ""
+  end
+  return _whoami
 end
 
 function M.is_gui()
